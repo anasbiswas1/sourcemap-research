@@ -1,5 +1,5 @@
 
-"""The gate G1 decision rule."""
+"""The gate G1 decision rule and the anchor verification."""
 import sys
 from pathlib import Path
 
@@ -30,12 +30,44 @@ def test_narrow_when_a_confirmed_form_answers_yes():
     assert "b_three_jobs_together" in reasons[0]
 
 
-def test_supported_when_all_confirmed_and_no_yes():
-    outcome, _ = overlap.decide([confirmed("x", a="partial"), confirmed("y", c="partial")])
+def test_supported_lists_partial_overlaps():
+    outcome, reasons = overlap.decide([confirmed("x", a="partial"), confirmed("y", c="partial")])
     assert outcome == "SUPPORTED"
+    assert any("x (a_source_axis)" in r and "y (c_equal_layout_rule)" in r for r in reasons)
 
 
 def test_confirmed_form_needs_pages_for_partial_answers():
     form = confirmed("x", a="partial")
     form["pages"]["a"] = ""
     assert any("pages.a" in p for p in overlap.validate(form))
+
+
+def test_norm_text_ignores_spacing_hyphenation_and_ligatures():
+    assert overlap.norm_text("Defense-to-threat   cover-\nage map") == "defensetothreatcoverage map".replace(" ", "")
+    assert overlap.norm_text("\ufb01delity") == "fidelity"
+    assert overlap.norm_text("t h er e s e a r c h") == overlap.norm_text("the research")
+
+
+def test_verify_form_corrects_page_and_confirms(tmp_path):
+    pdf = tmp_path / "x.pdf"
+    pdf.write_bytes(b"%PDF-1.4 fake")
+    pages = [overlap.norm_text(t) for t in ["intro", "we define fidelity as 1 - ignored rate", "structural separation"]]
+    form = confirmed("x", a="partial", b="partial")
+    form["anchors"] = {"a": "structural separation", "b": "Fidelity as 1 - Ignored Rate", "c": ""}
+    form["pages"] = {"a": "2", "b": "2", "c": ""}
+    out = overlap.verify_form(form, pdf, page_texts=pages)
+    assert out["confirmed_from_pdf"] is True
+    assert out["pages"] == {"a": "3", "b": "2", "c": ""}
+    assert out["pdf_sha256"] and out["pdf_pages"] == 3
+    assert "a: p.2 -> p.3" in out["verification"] and "b: p.2 ok" in out["verification"]
+
+
+def test_verify_form_leaves_unconfirmed_when_anchor_missing_or_pdf_missing(tmp_path):
+    pdf = tmp_path / "x.pdf"
+    pdf.write_bytes(b"%PDF-1.4 fake")
+    form = confirmed("x")
+    form["anchors"] = {"a": "phrase that is not there", "b": "", "c": ""}
+    out = overlap.verify_form(form, pdf, page_texts=["nothing"])
+    assert out["confirmed_from_pdf"] is False and "a: anchor not found" in out["verification"]
+    gone = overlap.verify_form(confirmed("y"), tmp_path / "missing.pdf")
+    assert gone["confirmed_from_pdf"] is False and gone["verification"] == "PDF missing"

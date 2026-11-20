@@ -2,27 +2,40 @@ id: correia_2601.22240
 title: 'A Systematic Literature Review on LLM Defenses Against Prompt Injection and Jailbreaking: Expanding NIST
   Taxonomy'
 kind: survey
-scope: Systematic literature review of LLM defences against prompt injection and jailbreaking; 88 studies to August
-  2025.
-corpus_cutoff: August 2025
-organising_dimensions: 'NIST-based tree: training-time interventions; deployment-time interventions (prompt instruction
-  and formatting, input modification, aggregation, model-level mitigations such as decoding steering and defensive
-  pruning, detection, monitoring); indirect mitigations.'
-treatment_user_task: ASR is the main metric; some studies also report performance; trade-offs often not reported
-  (p. 15).
-treatment_document_handling: Not treated.
-treatment_comparability: RQ3 asks whether results are comparable; Section 6.2 names dataset splits, model variants
-  and temperature; prompt layout is not among the factors.
-evidence_granularity: Catalogue with model, attack dataset, code and model-agnosticism per study (Table 3).
-what_this_review_adds: The inference-time signal axis separated from the training axis; R2 and R3; layout as a condition;
-  grades.
+scope: Systematic literature review of LLM defences against prompt injection and jailbreaking, extending the NIST
+  taxonomy; 88 primary studies from Scopus; states it was submitted to Computer Science Review (p. 1, p. 6).
+corpus_cutoff: August 2025 (p. 6)
+organising_dimensions: Training-time interventions (post-training, pre-training); deployment-time interventions
+  (prompt instruction and formatting, input modification, aggregation, prompt-stealing prevention, model-level mitigations,
+  detection and termination, monitoring, usage restrictions); indirect mitigations; mitigations against indirect
+  prompt injection; evaluation-time interventions (Figure 1, p. 2; Sections 5.1-5.5). Delimiters sit under prompt
+  instruction and formatting (p. 9); instruction hierarchy in embeddings and spotlighting under indirect-injection
+  mitigations (p. 14).
+treatment_user_task: Not extracted. The catalogue columns are method, description, model-agnostic, attack mitigation
+  (mostly ASR, occasionally a false-positive value), attack, source code (Tables A.5-A.11). States that many works
+  do not report trade-offs such as overall performance degradation (p. 15).
+treatment_document_handling: Not treated beyond row descriptions.
+treatment_comparability: RQ3 asks whether results are comparable (p. 2). The answer names dataset splits, model
+  variants and parameters such as temperature as what prevents comparison (pp. 15-16). Layout or template is not
+  named.
+evidence_granularity: Per study catalogue rows (Tables A.5-A.11) with ASR where reported; no cross-study numbers.
+what_this_review_adds: The signal axis separated from the training axis (this paper's top split is training-time
+  versus deployment-time, a coarse form of the second axis only); the three requirements per defence; layout added
+  to the comparability factors; graded comparisons.
 a_source_axis: partial
 b_three_jobs_together: 'no'
-c_equal_layout_rule: 'no'
+c_equal_layout_rule: partial
 pages:
-  a: ''
-  b: ''
-  c: ''
-read_basis: full PDF (research pass, 19 Nov 2026)
-confirmed_from_pdf: false
-pdf_sha256: ''
+  a: '9'
+  b: '15'
+  c: '16'
+anchors:
+  a: Enclosing queries within random characters or XML
+  b: Many works do not report trade-offs such as overall performance degradation
+  c: dataset splits, model variants, and parameters like temperature
+page_basis: PDF page index, 1-based, of the file in data/surveys/
+read_basis: full PDF text, arXiv 2601.22240 (latest version on 20 Nov 2026), 27 pages, read 20 Nov 2026
+confirmed_from_pdf: true
+pdf_sha256: 6cca48951f7d0f273ff5e93dfe39e0237c78b8849d6b4ddeed869715da6d495b
+verification: 'a: p.9 ok; b: p.15 ok; c: p.16 ok'
+pdf_pages: 27

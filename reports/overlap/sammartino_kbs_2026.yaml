@@ -2,24 +2,48 @@ id: sammartino_kbs_2026
 title: 'Vulnerabilities in autonomous execution: A survey of security threats and defenses in LLM-driven agentic
   and multi-agent systems'
 kind: survey
-scope: PRISMA-informed review of threats and defences in LLM-driven agentic and multi-agent systems, 2023 to early
-  2026.
-corpus_cutoff: early 2026
-organising_dimensions: Threats by entry point, propagation path and target asset; four threat families; five defence
-  categories mapped to threats.
-treatment_user_task: unknown (full text paywalled)
-treatment_document_handling: unknown (full text paywalled)
-treatment_comparability: Defences assessed for adaptive-attack resistance, cost and residual risk (abstract); layout
-  not mentioned in the abstract.
-evidence_granularity: unknown (full text paywalled)
-what_this_review_adds: to fill after reading
-a_source_axis: unknown
-b_three_jobs_together: unknown
-c_equal_layout_rule: unknown
+scope: PRISMA-informed review of attacks and defences in LLM-driven agentic and multi-agent systems; 102-paper corpus
+  (44 attack papers, 31 defence papers); window 1 January 2023 to 31 January 2026 (p. 4, p. 7).
+corpus_cutoff: 31 January 2026 (search closed; p. 7, p. 21)
+organising_dimensions: 'Threats by entry point, propagation path and target asset (Section 4, pp. 7-9). Defences
+  in five families ordered by the taxonomy dimension they act on: detection and filtering; structural separation
+  of instructions and data (StruQ, SecAlign, Jatmo, spotlighting in one family); execution isolation and least privilege;
+  information-flow control; alignment-side and multi-agent hardening (Section 8, pp. 13-17). A defence-to-threat
+  coverage map graded by evidence type: containment argument, empirical reduction, principled extension, not addressed
+  (Section 8.1 and Table 4, pp. 13 and 18).'
+treatment_user_task: 'Security and the user''s task together is the paper''s main methodological point: ASR reported
+  alone is called uninterpretable and the joint (ASR, utility) point is called the only result (Section 9.2, p.
+  17). Pairing is measured as coverage: 25 of 44 attack papers and 12 of 31 defence papers report no benign-utility
+  measurement (quality item Q3, p. 5; Table 3, pp. 15-16); Table 5 carries a utility-cost column per family (p.
+  19). The user''s task under attack is not separated from clean utility.'
+treatment_document_handling: Not measured. Whether a defended model still reads the untrusted content is not among
+  the quality items, the tables or the reporting standard.
+treatment_comparability: Section 9.3 names threat-model incommensurability (attacker capability, defender scope).
+  The reporting standard of Section 11.7 (p. 21) asks for attacker capability, defender scope, paired (ASR, utility),
+  adaptivity, judge, cost, taxonomic coordinates, a reproducibility block (checkpoint, decoding, seeds, runs) and
+  residual risk. The prompt layout or template is not an item.
+evidence_granularity: 'Per attack paper: ASR as reported, paired utility (value, per-configuration or not reported),
+  models, environment (Table 3). Per defence family, not per defence: adaptive resistance, utility cost, deployment
+  cost, residual risk, evidence grade (Table 5). No per-defence numbers are extracted.'
+what_this_review_adds: Model-side defences at the level of individual defences rather than families; the signal
+  axis with its no-signal value; the user's task measured under attack and the document-handling requirement, which
+  this paper does not have; the prompt layout as a comparison condition added to a reporting list that already has
+  checkpoint, decoding, judge and attacker; and an evidence grade for each pairwise comparison rather than for each
+  family-threat cell. This paper's utility-trap argument and Q3 coverage count are the closest prior statement of
+  the pairing requirement and must be cited as such.
+a_source_axis: partial
+b_three_jobs_together: partial
+c_equal_layout_rule: partial
 pages:
-  a: ''
-  b: ''
-  c: ''
-read_basis: journal abstract page (19 Nov 2026)
+  a: '14'
+  b: '17'
+  c: '21'
+anchors:
+  a: structural separation of instructions and data
+  b: Reported alone, ASR is uninterpretable
+  c: Defender scope. What the defense may modify
+page_basis: PDF page index, 1-based, of the file in data/surveys/
+read_basis: full PDF, Knowledge-Based Systems 352 (2026) 117001, 25 pages, read 20 Nov 2026
 confirmed_from_pdf: false
 pdf_sha256: ''
+verification: PDF missing

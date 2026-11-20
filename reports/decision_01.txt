@@ -1,4 +1,4 @@
 decision_01: UNRESOLVED
 date: 2026-11-20
 forms: 9
-- not yet confirmed from the PDF: correia_2601.22240, geng_cmc_2026, hashemi_2606.31639, hong_2510.15476, ji_2511.15203, mourad_electronics_2026, sammartino_kbs_2026, secfid_2606.30783, wang_2602.10453
+- not yet confirmed from the PDF: geng_cmc_2026, hong_2510.15476, mourad_electronics_2026, sammartino_kbs_2026

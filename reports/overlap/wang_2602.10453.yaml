@@ -1,28 +1,40 @@
 id: wang_2602.10453
 title: 'The Landscape of Prompt Injection Threats in LLM Agents: From Taxonomy to Analysis'
 kind: sok
-scope: Prompt-injection threats and defences in LLM agents; 78 papers; defences by the stage at which they act.
-corpus_cutoff: early 2026 (to confirm from the PDF)
-organising_dimensions: 'Attacks by payload generation. Defences by stage: text level (detection filters, prompt
-  enhancement), model level (model alignment by task, preference or format; internal-representation detectors),
-  execution level (task alignment, access control, isolation).'
-treatment_user_task: Utility without attack as a general score on AgentPI; not the user's instruction under attack
-  as its own quantity.
-treatment_document_handling: Not measured. The paper finds that defences look good by suppressing contextual inputs,
-  which is the symptom.
-treatment_comparability: Prompt-structure changes counted as a compatibility cost; layout not treated as a condition
-  for comparing numbers.
-evidence_granularity: Benchmark results (ASR, utility, time, tokens) for eight text- and execution-level defences;
-  no model-level defence run.
-what_this_review_adds: Finer first axis with no-signal as a value; signal dependence; R2 and R3 coverage; evidence
-  grades for comparisons.
+scope: SoK of prompt injection threats in LLM agents; 78 papers (37 attack, 41 defence); search ended 20 October
+  2025 (p. 1; pp. 4 and 6).
+corpus_cutoff: 20 October 2025 (p. 1)
+organising_dimensions: 'Defences by level: text-level (detection filters; prompt enhancement by separation, negative
+  prompts, rewriting), model-level (alignment by fine-tuning; internal-representation probes), execution-level (task
+  alignment, access control, isolation) (Figure 2, p. 5; Table 2, p. 6; Sections 4.1-4.3, pp. 7-9). The ''separate''
+  family uses delimiters and structure, and alignment trains on specific interaction formats, but there is no axis
+  over signal forms.'
+treatment_user_task: 'Eight defences run on AgentPI with GPT-4o-mini: ASR and utility under no attack (Figure 6,
+  p. 12), time and tokens (Table 5, p. 13). Utility under attack is not reported.'
+treatment_document_handling: Not measured. The paper states that many defences appear effective by suppressing contextual
+  inputs (abstract, p. 1) and by coarse-grained refusal (p. 11), which is the symptom this review's third requirement
+  measures.
+treatment_comparability: All defences run on one model and one benchmark, an applied condition; a change of prompt
+  structure is counted as an intrusiveness cost (p. 10), not as a condition for comparing numbers.
+evidence_granularity: 'Per defence on one model: ASR, no-attack utility, time, tokens (Figure 6, Table 5); the model-level
+  defences are not run.'
+what_this_review_adds: The signal axis with the no-signal value; the user's task under attack and the document-handling
+  requirement measured, which turns this paper's suppression remark into a number; layout as a comparison condition;
+  graded comparisons across published numbers including model-side defences.
 a_source_axis: partial
 b_three_jobs_together: 'no'
-c_equal_layout_rule: 'no'
+c_equal_layout_rule: partial
 pages:
-  a: ''
-  b: ''
-  c: ''
-read_basis: full PDF (research pass, 19 Nov 2026)
-confirmed_from_pdf: false
-pdf_sha256: ''
+  a: '7'
+  b: '12'
+  c: '10'
+anchors:
+  a: uses structural transformations and delimiters
+  b: utility under no attack cases
+  c: require a change of the prompt structure
+page_basis: PDF page index, 1-based, of the file in data/surveys/
+read_basis: full PDF text, arXiv 2602.10453 (latest version on 20 Nov 2026), 20 pages, read 20 Nov 2026
+confirmed_from_pdf: true
+pdf_sha256: 01b7926b7818cdaaacce3a2a1b7d6e54027abc239d866953c911e81bf58e7635
+verification: 'a: p.7 ok; b: p.12 ok; c: p.10 ok'
+pdf_pages: 22

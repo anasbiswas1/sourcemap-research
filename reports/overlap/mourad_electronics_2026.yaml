@@ -2,22 +2,38 @@ id: mourad_electronics_2026
 title: 'Securing the Prompt Pipeline: A Systematic Review of Defense Mechanisms Against Prompt-Based Attacks in
   LLM Agents'
 kind: survey
-scope: Systematic review of defence mechanisms against prompt-based attacks in LLM agents; 19 studies.
-corpus_cutoff: to confirm from the PDF
-organising_dimensions: Pipeline stage (prompt, model, pipeline; Section 1.1); system architecture (single-LLM, multi-agent);
-  technical approach (ML-based, rule-based, hybrid).
-treatment_user_task: unknown (PDF not yet read)
-treatment_document_handling: unknown (PDF not yet read)
-treatment_comparability: unknown (PDF not yet read)
-evidence_granularity: unknown (PDF not yet read)
-what_this_review_adds: to fill after reading
+scope: Systematic review of defence mechanisms against prompt-based attacks (jailbreak, direct and indirect injection)
+  in LLMs and LLM agents; 19 studies from ACM and IEEE, 2023-2025 (Figure 2, p. 6; Table 2, p. 8).
+corpus_cutoff: 2025 (inclusion criterion I3, p. 8)
+organising_dimensions: System architecture (single-LLM, multi-agent); defence methodology (ML-based, rule-based,
+  hybrid); pipeline stage at which the defence applies (prompt-, model-, pipeline-level) (Section 1.1, p. 3; Section
+  6, p. 12; RQ6, p. 11). Entry sources of malicious text are an attack question (RQ2, p. 11). Fixed delimiters and
+  guardrail text appear as one rule-based technique (RQ7, p. 11).
+treatment_user_task: 'Listed among reported metrics in prose: latency, throughput and task accuracy degradation
+  (RQ9, p. 12); a trade-off paragraph (Section 8.2, p. 23); a recommendation to report ASR alongside a utility metric
+  (Section 8.3, p. 24). Not extracted per study.'
+treatment_document_handling: Not treated.
+treatment_comparability: States that reported attack success rates are not directly comparable across studies because
+  of differing datasets, threat models and reporting conventions, and declines to build a unified comparison table
+  (p. 14). Layout or template is not named.
+evidence_granularity: 'Per study: attack type, defence, dataset, metrics, architecture (Tables 6 and 7); quality
+  scores (Table 5). No numbers compared across studies.'
+what_this_review_adds: A corpus of model-side defences against indirect injection (this paper's 19 studies are mostly
+  jailbreak detectors); the two axes; per-defence measurement coverage of the three requirements; the layout condition
+  and graded comparisons in place of a refusal to compare.
 a_source_axis: partial
-b_three_jobs_together: unknown
-c_equal_layout_rule: unknown
+b_three_jobs_together: 'no'
+c_equal_layout_rule: partial
 pages:
-  a: ''
-  b: ''
-  c: ''
-read_basis: MDPI landing page (19 Nov 2026)
+  a: '11'
+  b: '12'
+  c: '14'
+anchors:
+  a: fixed delimiters or guardrail text that separate system instructions from user input
+  b: Utility-related metrics such as latency, throughput, and task accuracy degradation
+  c: not directly comparable across studies because of differing datasets, threat models
+page_basis: PDF page index, 1-based, of the file in data/surveys/
+read_basis: full PDF, Electronics 15(16):3700, 27 pages, read 20 Nov 2026
 confirmed_from_pdf: false
 pdf_sha256: ''
+verification: PDF missing

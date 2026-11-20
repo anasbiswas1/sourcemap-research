@@ -1,25 +1,40 @@
 id: secfid_2606.30783
 title: 'Security-Fidelity Tradeoffs: The Hidden Cost of Prompt Injection Defense'
 kind: benchmark
-scope: 'Benchmark, not a survey: security and fidelity measured together for four defences on three bases; 1,168
-  instances.'
+scope: 'Benchmark and evaluation paper, not a survey: 1,168 instances (plus a 252-scenario agentic extension), four
+  defences in eight variants over 15 base-model settings, 48 configurations (Sections 1, 4); ICML 2026, PMLR 306.'
 corpus_cutoff: not applicable
-organising_dimensions: Outcomes executed, processed, ignored, other; fidelity as one minus the ignored rate (non-suppression);
-  safe processing as processed and not executed.
-treatment_user_task: Not measured separately.
-treatment_document_handling: 'Measured: non-suppression and safe processing on translation, editing, extraction
-  and counting.'
-treatment_comparability: Each defence run with its own specified inference procedure (Appendix B.1).
-evidence_granularity: 'Per defence and base model: security and fidelity percentages.'
-what_this_review_adds: SecFid is the source of the R3 definitions and of published pairs; the review places its
-  numbers on the map with their layouts.
+organising_dimensions: 'Related work groups defences by intervention point: input-centric filtering, prompting-level
+  delimiters, model-centric fine-tuning or architecture (Section 6). The paper''s own structure is the outcome coding:
+  executed, processed, ignored, other (Section 3.4).'
+treatment_user_task: Not measured as a separate quantity; the task in each instance is the document task itself.
+treatment_document_handling: 'Measured and defined: security is one minus the executed rate; fidelity is one minus
+  the ignored rate; safe processing is processed and not executed (Section 3.5). On Llama 3.1 8B (Table 1): executed
+  and ignored rates of 49.1/7.7 undefended, 5.7/24.7 ASIDE, 14.0/20.3 ISE, 0.7/26.1 SecAlign, 1.9/53.7 DefensiveTokens.
+  Section 4.2 text gives 1.2 and 3.0 for the last two where Table 1 gives 0.7 and 1.9; cite Table 1 and Table 22
+  (confidence intervals), not the prose.'
+treatment_comparability: Each defence is run with the inference procedure its authors specify (Appendix B.1); ASIDE
+  and ISE from the official ASIDE repository. No comparability rule; layouts therefore differ across the compared
+  defences.
+evidence_granularity: 'Per defence and base model: executed, ignored, processed rates with confidence intervals.'
+what_this_review_adds: SecFid is the source of the document-handling definitions and of published security-fidelity
+  pairs; this review places those pairs on the two-axis map with their layouts recorded, adds the user's task, and
+  grades every comparison for layout equality, which SecFid's own protocol does not hold.
 a_source_axis: 'no'
 b_three_jobs_together: partial
 c_equal_layout_rule: 'no'
 pages:
-  a: ''
-  b: ''
-  c: ''
-read_basis: full PDF (research pass, 19 Nov 2026)
-confirmed_from_pdf: false
-pdf_sha256: ''
+  a: '9'
+  b: '4'
+  c: '24'
+anchors:
+  a: Input-centric methods attempt to filter malicious content before it reaches the model
+  b: We define Fidelity as 1 - Ignored Rate
+  c: we use the inference procedure specified by each defense
+page_basis: PDF page index, 1-based, of the file in data/surveys/
+read_basis: full PDF text, arXiv 2606.30783 (latest version on 20 Nov 2026); page numbers located by anchor search,
+  read 20 Nov 2026
+confirmed_from_pdf: true
+pdf_sha256: 3c27d8cb98ee112884f5b6b42aa395080d9fa0342ea947fb818818120e5eda55
+verification: 'a: p.? -> p.9; b: p.? -> p.4; c: p.? -> p.24'
+pdf_pages: 34

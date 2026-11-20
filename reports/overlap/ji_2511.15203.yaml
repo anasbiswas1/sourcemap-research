@@ -1,24 +1,40 @@
 id: ji_2511.15203
 title: Taxonomy, Evaluation and Exploitation of IPI-Centric LLM Agent Defense Frameworks
 kind: sok
-scope: Defence frameworks for indirect prompt injection in LLM agents.
-corpus_cutoff: late 2025 (to confirm)
-organising_dimensions: 'Five dimensions: technical paradigm, intervention stage, model access, explainability, automation
-  level.'
-treatment_user_task: Utility on AgentDojo (task success) for nine frameworks; not the user's instruction as its
-  own quantity.
+scope: Taxonomy, evaluation and exploitation of defence frameworks for indirect prompt injection in LLM agents;
+  26 frameworks in the taxonomy (Table 1), nine evaluated (Section 4).
+corpus_cutoff: arXiv v1 19 November 2025; no search window stated
+organising_dimensions: 'Five dimensions: technical paradigm (detection, prompt engineering, fine-tuning, system
+  design, runtime checking, policy enforcing), intervention stage, model access, explainability, automation level
+  (Section 3, Table 1). Delimiters, hash tags and defensive tokens are described inside the prompt-engineering paradigm,
+  not as a dimension.'
+treatment_user_task: Utility measured as the proportion of user-specified tasks completed in AgentDojo without attack
+  (Section 4.1, Table 3); false positives (Appendix B); time and tokens (Table 3). Utility under attack is not measured.
 treatment_document_handling: Not measured.
-treatment_comparability: Prompt templates and delimiters appear as implementation details; no comparability condition.
-evidence_granularity: ASR and utility for nine frameworks under three adaptive attacks; Meta-SecAlign the only training
-  defence.
-what_this_review_adds: Model-side defences as the subject; the two axes; R2 and R3; grades.
+treatment_comparability: 'Configurations standardised across benchmarks and frameworks: GPT-4o backend, temperature
+  0, OpenAI function-calling template (Section 4); fine-tuned frameworks run on Llama-3.1-8B instead, and frameworks
+  needing manual configuration are run on their automated parts only. An applied equal-conditions rule for the backbone
+  and tool template; each framework''s own prompt layout is not held equal and is not described.'
+evidence_granularity: 'Per framework: ASR on AgentDojo, ASB and InjecAgent under benchmark and adaptive attacks
+  (Table 2); utility, false positives, cost (Table 3, Table 8).'
+what_this_review_adds: Model-side defences as the subject (this paper runs one trained defence, on a different model
+  from the rest); the two axes; the user's task under attack and document handling; the layout condition made explicit;
+  graded comparisons rather than one platform's run.
 a_source_axis: partial
 b_three_jobs_together: 'no'
-c_equal_layout_rule: 'no'
+c_equal_layout_rule: partial
 pages:
-  a: ''
-  b: ''
-  c: ''
-read_basis: full PDF (research pass, 19 Nov 2026)
-confirmed_from_pdf: false
-pdf_sha256: ''
+  a: '4'
+  b: '9'
+  c: '8'
+anchors:
+  a: unpredictable data delimiters
+  b: the proportion of user-specified tasks completed in the AgentDojo benchmark
+  c: we standardize the configurations across all benchmarks and defense frameworks
+page_basis: PDF page index, 1-based, of the file in data/surveys/
+read_basis: full PDF text, arXiv 2511.15203 (latest version on 20 Nov 2026); page numbers located by anchor search,
+  read 20 Nov 2026
+confirmed_from_pdf: true
+pdf_sha256: ada6210f63d42ce6c29a8e8a2bda57c804883b266d8be79de80d9f8e947d00b3
+verification: 'a: p.? -> p.4; b: p.? -> p.9; c: p.? -> p.8'
+pdf_pages: 18

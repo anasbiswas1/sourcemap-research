@@ -2,23 +2,38 @@ id: hashemi_2606.31639
 title: 'A Lifecycle and Application-Stack Survey of Large Language Model Vulnerabilities: Attacks, Risks, Defenses,
   and Open Problems'
 kind: survey
-scope: Lifecycle and application-stack survey of LLM vulnerabilities; systematisation rather than exhaustive bibliometrics.
-corpus_cutoff: mid 2026 (to confirm)
-organising_dimensions: 'Defence-in-depth: deterministic controls; model-level and prompt-level controls; retrieval
-  and memory controls; tool and agent controls; monitoring, red teaming, governance.'
-treatment_user_task: No numbers reported.
-treatment_document_handling: Not treated.
-treatment_comparability: A reporting checklist (Table 5) lists context construction including delimiters and templates
-  as items to report; not a comparability condition.
-evidence_granularity: Narrative; no extracted evidence tables.
-what_this_review_adds: Measured coverage of the three jobs; graded comparisons; the card as a filled artefact.
-a_source_axis: 'no'
+scope: Lifecycle and application-stack survey of LLM vulnerabilities; systematisation from seed papers and citation
+  chasing, cross-checked against OWASP, MITRE ATLAS and NIST; no paper count or search dates (Section 2.2, p. 2).
+corpus_cutoff: not stated; arXiv v1 30 June 2026
+organising_dimensions: 'Attacks by lifecycle stage and application stack (Section 3). Defences in a defence-in-depth
+  architecture: deterministic controls; model-level and prompt-level controls; retrieval and memory controls; tool
+  and agent controls; monitoring, red teaming and governance (Section 6, pp. 9-10). Delimiters, role labels and
+  instruction hierarchy are listed as examples of prompt-level controls, not as an axis.'
+treatment_user_task: Named as metrics to report (clean-task accuracy, user-task utility; Section 7, p. 10); no numbers
+  for any defence.
+treatment_document_handling: 'Named as a design goal: a model should read untrusted content for information without
+  letting it change goals (Section 9, p. 13); not measured.'
+treatment_comparability: 'A reporting checklist (Table 5, p. 11) includes context construction: system prompt, retrieved
+  documents, memory policy, delimiters, tool schemas, with the rationale that it is critical for prompt-injection
+  and RAG studies. It is a reporting item; no rule says numbers are comparable only under the same layout.'
+evidence_granularity: Narrative with reference tables; no extracted per-defence evidence.
+what_this_review_adds: 'Filled records rather than a checklist: the signal axis, per-defence coverage of the three
+  requirements, layout as a comparison condition with graded comparisons, and the defence card. This paper''s Table
+  5 is the nearest prior naming of delimiters and templates as something to report.'
+a_source_axis: partial
 b_three_jobs_together: 'no'
 c_equal_layout_rule: partial
 pages:
-  a: ''
-  b: ''
-  c: ''
-read_basis: full PDF (research pass, 19 Nov 2026)
-confirmed_from_pdf: false
-pdf_sha256: ''
+  a: '9'
+  b: '10'
+  c: '12'
+anchors:
+  a: system prompts, instruction hierarchy, delimiters, reminders about untrusted content
+  b: clean-task accuracy
+  c: critical for prompt-injection and RAG studies
+page_basis: PDF page index, 1-based, of the file in data/surveys/
+read_basis: full PDF text, arXiv 2606.31639 (latest version on 20 Nov 2026), 19 pages, read 20 Nov 2026
+confirmed_from_pdf: true
+pdf_sha256: 87b8c6c9be8142d2edee7ad0771c8f5438bd5b41dcd1f840e3fe033790aae0b0
+verification: 'a: p.10 -> p.9; b: p.10 ok; c: p.11 -> p.12'
+pdf_pages: 19

@@ -2,22 +2,37 @@ id: geng_cmc_2026
 title: 'Prompt Injection Attacks on Large Language Models: A Survey of Attack Methods, Root Causes, and Defense
   Strategies'
 kind: survey
-scope: Survey of prompt injection attack methods, root causes and defences; 128 studies 2022 to 2025.
-corpus_cutoff: '2025'
-organising_dimensions: Attacks by vector, objective and implementation; defences in three groups (input filtering,
-  system architecture, model level); root causes at philosophical, architectural and training levels.
-treatment_user_task: unknown (PDF not yet read)
-treatment_document_handling: unknown (PDF not yet read)
-treatment_comparability: unknown (PDF not yet read)
-evidence_granularity: unknown (PDF not yet read)
-what_this_review_adds: to fill after reading
+scope: Kitchenham-style systematic review of prompt injection attacks, root causes and defences; 128 studies 2022-2025;
+  37 defence studies tabulated (abstract, p. 1; Table 6, pp. 28-30).
+corpus_cutoff: 2025 (p. 1, p. 28)
+organising_dimensions: 'Attacks by vector, objective and implementation (Section 3). Root causes at philosophical,
+  technical and training levels (Section 4). Defences in three categories: input preprocessing and filtering, system
+  architecture, model-level (Section 5, p. 28). Spotlighting, DefensiveToken, StruQ, SecAlign are placed in these
+  categories by where they act, not by how the source is shown.'
+treatment_user_task: 'Not extracted. Table 7 (p. 33) lists baseline ASR and ASR with defence only, for seven defences
+  on different benchmarks and models. A unified evaluation framework is recommended with three dimensions: security
+  (ASR), efficiency, usability (false positive rate, task completion accuracy) (Section 6.3, pp. 41-42).'
+treatment_document_handling: Not treated.
+treatment_comparability: States that studies use varying datasets, metrics and settings, giving incomparable results
+  (p. 41), yet Table 7 (p. 33) places ASR figures from different benchmarks and models side by side. Layout is not
+  named.
+evidence_granularity: 'Per defence: year, category, authors, one-line strategy (Table 6); ASR before and after for
+  seven defences (Table 7); datasets and metrics (Table 9).'
+what_this_review_adds: The signal axis; measurement coverage of the three requirements per defence; comparisons
+  admitted only with a grade, which would mark Table 7's juxtaposition as not comparable; the layout condition.
 a_source_axis: partial
-b_three_jobs_together: unknown
-c_equal_layout_rule: unknown
+b_three_jobs_together: 'no'
+c_equal_layout_rule: partial
 pages:
-  a: ''
-  b: ''
-  c: ''
-read_basis: journal page (19 Nov 2026)
+  a: '28'
+  b: '33'
+  c: '41'
+anchors:
+  a: Input Preprocessing and Filtering, System Architecture Defenses, and Model-Level Defenses
+  b: Quantitative comparison of defense mechanism effectiveness
+  c: leading to inconsistent and sometimes incomparable results
+page_basis: PDF page index, 1-based, of the file in data/surveys/
+read_basis: full PDF, Computers, Materials & Continua 87(1), 52 pages, read 20 Nov 2026
 confirmed_from_pdf: false
 pdf_sha256: ''
+verification: PDF missing
