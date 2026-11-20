@@ -148,7 +148,34 @@ def test_search_functions_parse_fixture_responses():
         return json.dumps(DBLP_PAGE).encode()
     recs, status = search.arxiv_search('abs:"prompt injection"', fetch=fake)
     assert status == "ok" and len(recs) == 2
-    recs, status, url = search.openalex_search('"prompt injection"', "2023-01-01", fetch=fake)
-    assert status == "ok" and len(recs) == 2 and "title_and_abstract.search" in url
+    recs, status, url = search.openalex_search('"prompt injection"', "2023-01-01", api_key="k", fetch=fake)
+    assert status == "ok" and len(recs) == 2 and "title_and_abstract.search" in url and "api_key" not in url
     recs, status, url = search.dblp_search("prompt injection", fetch=fake)
     assert status == "ok" and len(recs) == 1 and "format=json" in url
+
+
+def test_openalex_without_key_stops_after_the_first_page_and_says_so():
+    big = {"meta": {"count": 350}, "results": OPENALEX_PAGE["results"]}
+    recs, status, _ = search.openalex_search("x", "2023-01-01", fetch=lambda url, timeout=90: json.dumps(big).encode())
+    assert len(recs) == 2 and status.startswith("first page only") and "API key" in status
+
+
+def test_openalex_401_on_a_later_page_is_reported_not_raised():
+    import urllib.error
+    big = {"meta": {"count": 350}, "results": OPENALEX_PAGE["results"]}
+    def fake(url, timeout=90):
+        if "page=1&" in url or url.endswith("page=1"):
+            return json.dumps(big).encode()
+        raise urllib.error.HTTPError(url, 401, "Unauthorized", None, None)
+    recs, status, _ = search.openalex_search("x", "2023-01-01", api_key="bad", fetch=fake)
+    assert len(recs) == 2 and "401" in status
+
+
+def test_dblp_reports_non_json_body():
+    search_gap = search.time.sleep
+    search.time.sleep = lambda s: None
+    try:
+        recs, status, _ = search.dblp_search("x", fetch=lambda url, timeout=90: b"<html>Too Many Requests</html>")
+    finally:
+        search.time.sleep = search_gap
+    assert recs == [] and "not JSON" in status and "Too Many Requests" in status

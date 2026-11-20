@@ -17,14 +17,15 @@ ARXIV_API = os.environ.get("SOURCEMAP_ARXIV_API", "https://export.arxiv.org/api/
 OPENALEX_API = os.environ.get("SOURCEMAP_OPENALEX_API", "https://api.openalex.org/works")
 DBLP_API = os.environ.get("SOURCEMAP_DBLP_API", "https://dblp.org/search/publ/api")
 ATOM = {"a": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom", "os": "http://a9.com/-/spec/opensearch/1.1/"}
-USER_AGENT = "sourcemap-research literature search"
+USER_AGENT = "Mozilla/5.0 (compatible; sourcemap-research literature search; +https://github.com/anasbiswas1/sourcemap-research)"
 OFFLINE = os.environ.get("SOURCEMAP_OFFLINE") == "1"
 GAP = 3.0                      # seconds between requests to one service
 ARXIV_CATS = ["cs.CR", "cs.CL", "cs.LG", "cs.AI"]
 ARXIV_ID_RE = re.compile(r"(?<![\d.])((?:2[3-6])(?:0[1-9]|1[0-2])\.\d{4,5})(?:v\d+)?(?!\d)")   # 2301.xxxxx to 2612.xxxxx
 
-EXCLUSION_REASONS = ["detector only", "system level", "attack only", "benchmark only", "duplicate version", "out of period",
-                     "no full text obtainable", "not about prompt injection", "not a defence paper"]
+EXCLUSION_REASONS = ["detector only", "system level", "attack only", "benchmark only", "jailbreak or direct injection only",
+                     "survey, position or other", "duplicate version", "out of period", "no full text obtainable",
+                     "not about prompt injection"]
 DECISIONS = {"include", "exclude", "unsure"}
 
 RECORD_FIELDS = ["key", "title", "first_author", "year", "date", "venue", "arxiv", "arxiv_version", "doi", "abstract",
@@ -168,25 +169,38 @@ def parse_openalex_page(payload: dict) -> list[dict]:
     return out
 
 
-def openalex_search(text: str, date_from: str, max_total: int = 3000, fetch=None) -> tuple[list[dict], str, str]:
-    """Title-and-abstract search; returns (records, status, first url)."""
+def openalex_search(text: str, date_from: str, api_key: str = "", max_total: int = 5000, fetch=None) -> tuple[list[dict], str, str]:
+    """Title-and-abstract search, page by page (OpenAlex allows up to 10,000 results this way).
+
+    Since February 2026 OpenAlex requires an API key for more than a first page; without one the first page is
+    returned and the status says so. The key is never written to the log: the URL is logged without it."""
     first_url = ""
     if OFFLINE and fetch is None:
         return [], "offline", first_url
     fetch = fetch or _get
-    records, cursor = [], "*"
-    while cursor:
-        flt = f'title_and_abstract.search:{text},from_publication_date:{date_from}'
-        url = f"{OPENALEX_API}?filter={urllib.parse.quote(flt, safe=':,')}&per-page=200&cursor={urllib.parse.quote(cursor)}&select=id,doi,title,display_name,publication_year,publication_date,type,primary_location,locations,authorships,abstract_inverted_index"
-        first_url = first_url or url
+    records, page, total = [], 1, None
+    flt = f"title_and_abstract.search:{text},from_publication_date:{date_from}"
+    while True:
+        base = (f"{OPENALEX_API}?filter={urllib.parse.quote(flt, safe=':,')}&per-page=100&page={page}"
+                f"&select=id,doi,title,display_name,publication_year,publication_date,type,primary_location,locations,authorships,abstract_inverted_index")
+        first_url = first_url or base
+        url = base + (f"&api_key={api_key}" if api_key else "")
         try:
             payload = json.loads(fetch(url))
+        except urllib.error.HTTPError as exc:
+            if exc.code == 401 and page > 1:
+                return records, f"first page only: a page {page} request was refused (401); an API key is needed for more", first_url
+            return records, f"failed after {len(records)}: HTTP Error {exc.code}", first_url
         except (urllib.error.URLError, json.JSONDecodeError, OSError) as exc:
             return records, f"failed after {len(records)}: {exc}", first_url
+        results = payload.get("results") or []
         records.extend(parse_openalex_page(payload))
-        cursor = (payload.get("meta") or {}).get("next_cursor")
-        if not payload.get("results") or len(records) >= max_total:
+        total = int((payload.get("meta") or {}).get("count") or 0)
+        if not results or len(records) >= min(total, max_total):
             break
+        if not api_key:
+            return records, f"first page only ({len(records)} of {total}): no OpenAlex API key in .secrets/openalex_key.txt", first_url
+        page += 1
         time.sleep(1.0)
     return records, "ok", first_url
 
@@ -221,10 +235,23 @@ def dblp_search(text: str, max_total: int = 3000, fetch=None) -> tuple[list[dict
     while True:
         url = f"{DBLP_API}?q={urllib.parse.quote(text)}&h=1000&f={offset}&format=json"
         first_url = first_url or url
-        try:
-            payload = json.loads(fetch(url))
-        except (urllib.error.URLError, json.JSONDecodeError, OSError) as exc:
-            return records, f"failed after {len(records)}: {exc}", first_url
+        body = b""
+        for attempt in range(2):
+            try:
+                body = fetch(url)
+                payload = json.loads(body)
+                break
+            except json.JSONDecodeError:
+                snippet = body[:160].decode("utf-8", "ignore").replace("\n", " ")
+                if attempt == 0:
+                    time.sleep(10.0)
+                    continue
+                return records, f"failed after {len(records)}: response is not JSON: {snippet}", first_url
+            except (urllib.error.URLError, OSError) as exc:
+                if attempt == 0:
+                    time.sleep(10.0)
+                    continue
+                return records, f"failed after {len(records)}: {exc}", first_url
         batch = parse_dblp_page(payload)
         records.extend(batch)
         total = int(((payload.get("result") or {}).get("hits") or {}).get("@total", 0) or 0)
