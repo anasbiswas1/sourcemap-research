@@ -9,9 +9,22 @@
  "records_identified_total": 4914,
  "unique_records_after_dedup": 2276,
  "studies_after_version_linking": 2206,
- "screened": 0,
- "pending": 2206,
- "included": 0,
- "unsure_to_full_text": 0,
- "excluded_by_reason": {}
+ "screened": 2206,
+ "pending": 0,
+ "included": 114,
+ "unsure_to_full_text": 129,
+ "excluded_by_reason": {
+  "system level": 364,
+  "detector only": 271,
+  "attack only": 318,
+  "not about prompt injection": 549,
+  "survey, position or other": 338,
+  "jailbreak or direct injection only": 58,
+  "benchmark only": 54,
+  "duplicate version": 11
+ },
+ "search_date": "2026-11-20",
+ "reports_sought_for_full_text": 243,
+ "pdfs_obtained": 171,
+ "pdfs_missing": 72
 }

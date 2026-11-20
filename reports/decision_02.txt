@@ -1,6 +1,9 @@
-decision_02: SEARCH DONE; SCREENING PENDING
-date: 2026-11-20
+decision_02: CORPUS FROZEN
+search date: 2026-11-20; freeze date: 2026-11-20
 records identified: 4914 across 5 sources
 unique records: 2276; studies after version linking: 2206
-screened: 0; pending: 2206; included: 0; unsure: 0
-excluded by reason: {}
+screened by title and abstract: 2206; pending: 0
+included: 114; unsure, to full-text assessment: 129; reports sought: 243
+excluded by reason: {"system level": 364, "detector only": 271, "attack only": 318, "not about prompt injection": 549, "survey, position or other": 338, "jailbreak or direct injection only": 58, "benchmark only": 54, "duplicate version": 11}
+full texts obtained: 171; to place by hand or mark as not obtainable: 72
+next: full-text assessment of the unsure studies and the pilot extraction (notebook 03)

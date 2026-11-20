@@ -179,3 +179,67 @@ def test_dblp_reports_non_json_body():
     finally:
         search.time.sleep = search_gap
     assert recs == [] and "not JSON" in status and "Too Many Requests" in status
+
+
+# ---- full-text retrieval -----------------------------------------------------------------------------------------
+
+def test_pdf_slug_prefers_arxiv_then_doi_then_title():
+    assert search.pdf_slug({"arxiv": "2402.06363", "doi": "10.1/x"}) == "2402.06363"
+    assert search.pdf_slug({"doi": "10.1109/ICASSP55912.2026.11463282"}) == "doi_10_1109_icassp55912_2026_11463282"
+    assert search.pdf_slug({"title": "Prompt Injection Defenses"}) == "title_promptinjectiondefenses"
+
+
+def test_zenodo_payload_first_pdf_in_both_api_shapes():
+    legacy = {"id": "20307701", "files": [{"key": "code.zip", "links": {}}, {"key": "paper v1.pdf", "links": {"self": "meta"}}, {"key": "b.pdf"}]}
+    url, note = search.zenodo_pdf_from_payload(legacy)
+    assert url == search.ZENODO_API + "/20307701/files/paper%20v1.pdf/content" and "first of 2 PDFs" in note
+    rdm = {"id": "1", "files": {"entries": {"a.pdf": {"key": "a.pdf", "links": {"content": "https://zenodo.org/api/records/1/files/a.pdf/content"}}}}}
+    assert search.zenodo_pdf_from_payload(rdm)[0].endswith("/files/a.pdf/content")
+    url, note = search.zenodo_pdf_from_payload({"id": "2", "files": [{"key": "code.zip"}]})
+    assert url == "" and "no PDF file" in note and "code.zip" in note
+
+
+def test_figshare_and_openalex_payloads():
+    assert search.figshare_pdf_from_payload({"files": [{"name": "r.pdf", "download_url": "https://nd/1"}]})[0] == "https://nd/1"
+    assert search.figshare_pdf_from_payload({"files": [{"name": "r.csv"}]})[0] == ""
+    work = {"best_oa_location": {"pdf_url": None}, "primary_location": {"pdf_url": "https://x/p.pdf"}}
+    assert search.openalex_pdf_from_payload(work) == ("https://x/p.pdf", "openalex primary_location pdf_url")
+    assert search.openalex_pdf_from_payload({"open_access": {"oa_url": "https://land"}})[0] == "https://land"
+    assert search.openalex_pdf_from_payload({})[0] == ""
+
+
+def test_resolve_pdf_url_dispatches_and_keeps_the_key_out_of_notes():
+    calls = []
+
+    def fetch(url):
+        calls.append(url)
+        if url.startswith(search.ZENODO_API):
+            return json.dumps({"id": "5", "files": [{"key": "p.pdf"}]}).encode()
+        if url.startswith(search.FIGSHARE_API):
+            return json.dumps({"files": [{"name": "r.pdf", "download_url": "https://nd/1"}]}).encode()
+        if "?search=" in url:
+            return json.dumps({"results": [{"title": "Other paper", "best_oa_location": {"pdf_url": "https://oa/other.pdf"}},
+                                           {"title": "Prompt Injection Defenses", "best_oa_location": {"pdf_url": "https://oa/x.pdf"}}]}).encode()
+        return json.dumps({"best_oa_location": None, "primary_location": {"pdf_url": None}, "open_access": {"oa_url": "https://land"}}).encode()
+
+    assert search.resolve_pdf_url({"arxiv": "2402.06363", "arxiv_version": "2"}, "SECRET", fetch) == (search.ARXIV_PDF + "/2402.06363v2", "arxiv")
+    if search.OFFLINE:
+        assert search.resolve_pdf_url({"doi": "10.5281/zenodo.5"}, "SECRET", fetch) == ("", "offline")
+        return
+    assert search.resolve_pdf_url({"doi": "10.5281/zenodo.5"}, "SECRET", fetch)[0] == search.ZENODO_API + "/5/files/p.pdf/content"
+    assert search.resolve_pdf_url({"doi": "10.6084/m9.figshare.35040148"}, "SECRET", fetch)[0] == "https://nd/1"
+    assert search.resolve_pdf_url({"doi": "10.3390/computers15090570"}, "SECRET", fetch)[0] == "https://land"
+    url, note = search.resolve_pdf_url({"title": "Prompt Injection Defenses"}, "SECRET", fetch)
+    assert url == "https://oa/x.pdf" and "matched by title" in note
+    assert search.resolve_pdf_url({"title": "Nothing like this"}, "SECRET", fetch)[0] == ""
+    assert all("SECRET" not in note for _, note in [search.resolve_pdf_url({"doi": "10.1/x"}, "SECRET", fetch)])
+    assert sum("api_key=SECRET" in c for c in calls) >= 2        # the key goes to OpenAlex only, and only in the request
+
+
+def test_resolve_pdf_url_reports_lookup_failures_without_raising():
+    def fetch(url):
+        raise RuntimeError("boom SECRET")
+    if search.OFFLINE:
+        return
+    url, note = search.resolve_pdf_url({"doi": "10.5281/zenodo.9"}, "SECRET", fetch)
+    assert url == "" and note.startswith("lookup failed") and "SECRET" not in note

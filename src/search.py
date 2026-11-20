@@ -16,6 +16,9 @@ from pathlib import Path
 ARXIV_API = os.environ.get("SOURCEMAP_ARXIV_API", "https://export.arxiv.org/api/query")      # overridable for dry runs
 OPENALEX_API = os.environ.get("SOURCEMAP_OPENALEX_API", "https://api.openalex.org/works")
 DBLP_API = os.environ.get("SOURCEMAP_DBLP_API", "https://dblp.org/search/publ/api")
+ZENODO_API = os.environ.get("SOURCEMAP_ZENODO_API", "https://zenodo.org/api/records")
+FIGSHARE_API = os.environ.get("SOURCEMAP_FIGSHARE_API", "https://api.figshare.com/v2/articles")
+ARXIV_PDF = os.environ.get("SOURCEMAP_ARXIV_PDF", "https://arxiv.org/pdf")
 ATOM = {"a": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom", "os": "http://a9.com/-/spec/opensearch/1.1/"}
 USER_AGENT = "Mozilla/5.0 (compatible; sourcemap-research literature search; +https://github.com/anasbiswas1/sourcemap-research)"
 OFFLINE = os.environ.get("SOURCEMAP_OFFLINE") == "1"
@@ -461,3 +464,84 @@ def prisma_counts(log_rows: list[dict], rows: list[dict]) -> dict:
         if r.get("decision") == "exclude":
             out["excluded_by_reason"][r.get("reason", "")] = out["excluded_by_reason"].get(r.get("reason", ""), 0) + 1
     return out
+
+
+# ---- full-text retrieval for the screened records ---------------------------------------------------------------
+
+def pdf_slug(row: dict) -> str:
+    """File stem for a record's PDF: the arXiv id, else the DOI, else the normalised title; unique because keys are."""
+    if row.get("arxiv"):
+        return row["arxiv"]
+    if row.get("doi"):
+        return "doi_" + re.sub(r"[^a-z0-9]+", "_", row["doi"].lower()).strip("_")
+    return "title_" + norm_key(row.get("title", ""))[:60]
+
+
+def zenodo_pdf_from_payload(payload: dict) -> tuple[str, str]:
+    """(url, note) for the first PDF file of a Zenodo record payload; the url is '' when the record holds no PDF."""
+    files = payload.get("files", []) or []
+    if isinstance(files, dict):                                 # InvenioRDM shape: {"entries": {name: {...}}}
+        files = list((files.get("entries") or {}).values())
+    names = [str(f.get("key") or f.get("filename") or "") for f in files]
+    pdfs = [f for f in files if str(f.get("key") or f.get("filename") or "").lower().endswith(".pdf")]
+    if not pdfs:
+        return "", "zenodo record has no PDF file (files: " + (", ".join(names[:6]) or "none") + ")"
+    f = pdfs[0]
+    key = str(f.get("key") or f.get("filename"))
+    url = (f.get("links") or {}).get("content") or f"{ZENODO_API}/{payload.get('id', '')}/files/{urllib.parse.quote(key)}/content"
+    return url, f"zenodo file {key}" + (f" (first of {len(pdfs)} PDFs)" if len(pdfs) > 1 else "")
+
+
+def figshare_pdf_from_payload(payload: dict) -> tuple[str, str]:
+    files = payload.get("files", []) or []
+    pdfs = [f for f in files if str(f.get("name", "")).lower().endswith(".pdf")]
+    if not pdfs:
+        return "", "figshare item has no PDF file (files: " + (", ".join(str(f.get("name", "")) for f in files[:6]) or "none") + ")"
+    return pdfs[0].get("download_url", ""), f"figshare file {pdfs[0].get('name')}" + (f" (first of {len(pdfs)} PDFs)" if len(pdfs) > 1 else "")
+
+
+def openalex_pdf_from_payload(work: dict) -> tuple[str, str]:
+    for name in ("best_oa_location", "primary_location"):
+        loc = work.get(name) or {}
+        if loc.get("pdf_url"):
+            return loc["pdf_url"], f"openalex {name} pdf_url"
+    oa_url = (work.get("open_access") or {}).get("oa_url")
+    if oa_url:
+        return oa_url, "openalex open_access oa_url (may be a landing page rather than the PDF)"
+    return "", "openalex lists no open-access copy"
+
+
+def resolve_pdf_url(row: dict, api_key: str = "", fetch=None) -> tuple[str, str]:
+    """(url, note) for a screened record: arXiv directly; Zenodo and figshare through their record APIs; any other DOI,
+    and title-only records, through OpenAlex's open-access location. The note never contains the API key."""
+    fetch = fetch or _get
+    if row.get("arxiv"):
+        v = row.get("arxiv_version") or ""
+        return f"{ARXIV_PDF}/{row['arxiv']}" + (f"v{v}" if v else ""), "arxiv"
+    if OFFLINE:
+        return "", "offline"
+    doi = (row.get("doi") or "").strip().lower()
+    key = f"&api_key={api_key}" if api_key else ""
+    try:
+        m = re.match(r"10\.5281/zenodo\.(\d+)$", doi)
+        if m:
+            return zenodo_pdf_from_payload(json.loads(fetch(f"{ZENODO_API}/{m.group(1)}")))
+        m = re.match(r"10\.6084/m9\.figshare\.(\d+)", doi)
+        if m:
+            return figshare_pdf_from_payload(json.loads(fetch(f"{FIGSHARE_API}/{m.group(1)}")))
+        if doi:
+            work = json.loads(fetch(f"{OPENALEX_API}/https://doi.org/{urllib.parse.quote(doi, safe='/')}?select=id,open_access,best_oa_location,primary_location{key}"))
+            return openalex_pdf_from_payload(work)
+        title = row.get("title", "")
+        if title:
+            page = json.loads(fetch(f"{OPENALEX_API}?search={urllib.parse.quote(title[:300])}&per-page=5&select=id,title,open_access,best_oa_location,primary_location{key}"))
+            for work in page.get("results", []):
+                if norm_title(work.get("title") or "") == norm_title(title):
+                    url, note = openalex_pdf_from_payload(work)
+                    return url, note + " (matched by title)"
+            return "", "openalex: no work with this exact title"
+        return "", "no identifier to resolve"
+    except urllib.error.HTTPError as exc:
+        return "", f"lookup failed: HTTP {exc.code}"
+    except Exception as exc:                                     # network and parsing errors are reported, not raised
+        return "", "lookup failed: " + type(exc).__name__ + ": " + str(exc).replace(api_key, "<key>")[:160]
