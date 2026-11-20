@@ -1,0 +1,17 @@
+{
+ "records_identified_per_source": {
+  "arxiv": 1651,
+  "openalex": 950,
+  "dblp": 0,
+  "seed list": 170,
+  "citations": 334
+ },
+ "records_identified_total": 3105,
+ "unique_records_after_dedup": 1366,
+ "studies_after_version_linking": 1337,
+ "screened": 0,
+ "pending": 1337,
+ "included": 0,
+ "unsure_to_full_text": 0,
+ "excluded_by_reason": {}
+}

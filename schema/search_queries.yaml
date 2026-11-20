@@ -1,0 +1,52 @@
+# Search strings committed before the search (plan v2, A5). Each arXiv query requires every term in the abstract,
+# within cs.CR, cs.CL, cs.LG or cs.AI, submitted from 2023-01-01 to the run date. OpenAlex is given the same terms
+# as a title-and-abstract search; DBLP, which indexes titles only, gets the three broad strings.
+window_start: "2023-01-01"
+arxiv_categories: [cs.CR, cs.CL, cs.LG, cs.AI]
+arxiv_queries:
+  - {id: q01, must: ["prompt injection", "defense"]}
+  - {id: q02, must: ["prompt injection", "defence"]}
+  - {id: q03, must: ["prompt injection", "defenses"]}
+  - {id: q04, must: ["prompt injection", "defending"]}
+  - {id: q05, must: ["prompt injection", "fine-tuning"]}
+  - {id: q06, must: ["prompt injection", "preference optimization"]}
+  - {id: q07, must: ["prompt injection", "distillation"]}
+  - {id: q08, must: ["prompt injection", "instruction hierarchy"]}
+  - {id: q09, must: ["prompt injection", "segment embedding"]}
+  - {id: q10, must: ["prompt injection", "delimiter"]}
+  - {id: q11, must: ["prompt injection", "spotlighting"]}
+  - {id: q12, must: ["prompt injection", "steering"]}
+  - {id: q13, must: ["prompt injection", "attention"]}
+  - {id: q14, must: ["prompt injection", "representation"]}
+  - {id: q15, must: ["prompt injection", "position"]}
+  - {id: q16, must: ["prompt injection", "soft token"]}
+  - {id: q17, must: ["instruction-data separation"]}
+  - {id: q18, must: ["instruction data separation"]}
+  - {id: q19, must: ["indirect prompt injection", "defense"]}
+  - {id: q20, must: ["tool output", "injection", "defense"]}
+openalex_queries:
+  - {id: o01, text: '"prompt injection" AND (defense OR defence OR defending OR defenses)'}
+  - {id: o02, text: '"prompt injection" AND (fine-tuning OR "preference optimization" OR distillation)'}
+  - {id: o03, text: '"prompt injection" AND ("instruction hierarchy" OR "segment embedding" OR delimiter OR spotlighting)'}
+  - {id: o04, text: '"prompt injection" AND (steering OR attention OR representation OR position OR "soft token")'}
+  - {id: o05, text: '"instruction-data separation" OR "instruction data separation"'}
+  - {id: o06, text: '"indirect prompt injection" AND defense'}
+  - {id: o07, text: '"tool output" AND injection AND defense'}
+dblp_queries:
+  - {id: d01, text: "prompt injection"}
+  - {id: d02, text: "instruction data separation"}
+  - {id: d03, text: "indirect prompt injection"}
+# Seed defences from the plan's provisional list (A5). Each name is searched on arXiv in the title or abstract
+# together with "prompt injection" in the abstract; known arXiv ids are fetched directly. Hits are logged under
+# the source "seed list".
+seed_names: ["Spotlighting", "Signed-Prompt", "FATH", "Mixture of Encodings", "Polymorphic Prompt", "Prompt Fencing",
+             "BIPIA", "StruQ", "SecAlign", "Meta SecAlign", "Instruction Hierarchy", "Jatmo",
+             "Instructional Segment Embedding", "DefensiveTokens", "ASIDE", "DRIP", "CachePrune", "CounterSteer",
+             "Heads of Security", "ICON", "AGRI", "V-Steer", "SecOPD", "RAISED", "twin distillation", "RETA", "COPA",
+             "LocalAlign", "Instruction Ladder", "Control Illusion", "Position, Role or Label"]
+seed_arxiv_ids: ["2505.00626", "2505.18333", "2510.09023", "2601.07185", "2606.30783", "2610.33201"]
+# Backward citation searching: every arXiv identifier printed in these PDFs (data/surveys/<id>.pdf) is collected,
+# its metadata fetched, and the record logged under the source "citations" with the citing paper as the query id.
+citation_sources: ["hong_2510.15476", "ji_2511.15203", "geng_cmc_2026", "wang_2602.10453", "sammartino_kbs_2026",
+                   "correia_2601.22240", "hashemi_2606.31639", "mourad_electronics_2026", "secfid_2606.30783",
+                   "jia_2505.18333", "nasr_2510.09023", "li_s_2601.07185", "deep_2604.23887"]
