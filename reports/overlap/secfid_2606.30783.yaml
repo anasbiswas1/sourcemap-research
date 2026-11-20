@@ -1,0 +1,25 @@
+id: secfid_2606.30783
+title: 'Security-Fidelity Tradeoffs: The Hidden Cost of Prompt Injection Defense'
+kind: benchmark
+scope: 'Benchmark, not a survey: security and fidelity measured together for four defences on three bases; 1,168
+  instances.'
+corpus_cutoff: not applicable
+organising_dimensions: Outcomes executed, processed, ignored, other; fidelity as one minus the ignored rate (non-suppression);
+  safe processing as processed and not executed.
+treatment_user_task: Not measured separately.
+treatment_document_handling: 'Measured: non-suppression and safe processing on translation, editing, extraction
+  and counting.'
+treatment_comparability: Each defence run with its own specified inference procedure (Appendix B.1).
+evidence_granularity: 'Per defence and base model: security and fidelity percentages.'
+what_this_review_adds: SecFid is the source of the R3 definitions and of published pairs; the review places its
+  numbers on the map with their layouts.
+a_source_axis: 'no'
+b_three_jobs_together: partial
+c_equal_layout_rule: 'no'
+pages:
+  a: ''
+  b: ''
+  c: ''
+read_basis: full PDF (research pass, 19 Nov 2026)
+confirmed_from_pdf: false
+pdf_sha256: ''

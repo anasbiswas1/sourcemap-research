@@ -1,0 +1,23 @@
+id: hong_2510.15476
+title: 'SoK: Systematizing LLM Prompt Security: Taxonomies, Datasets, and Unified Evaluation of Attacks and Defenses'
+kind: sok
+scope: SoK of LLM prompt security, jailbreak-centred; 272 studies; three taxonomies; unified evaluation.
+corpus_cutoff: 2025 (v4 October 2026; to confirm)
+organising_dimensions: Taxonomies of attacks, defences (by goal and methodology; a defence decision layer of input,
+  output, internal state or prompt policy) and vulnerabilities; an evaluation protocol over model, access setting,
+  attack, defence, sample and judge.
+treatment_user_task: Not as its own quantity (to confirm).
+treatment_document_handling: Not treated (jailbreak setting).
+treatment_comparability: Configuration-aware reporting over the tuple; prompt layout is not in the tuple.
+evidence_granularity: 11 models, 20 attacks, 9 defences, 3 judges under one protocol.
+what_this_review_adds: Indirect injection as the subject; the signal axis; R2 and R3; layout as a condition.
+a_source_axis: partial
+b_three_jobs_together: 'no'
+c_equal_layout_rule: partial
+pages:
+  a: ''
+  b: ''
+  c: ''
+read_basis: arXiv abstract page and v3 HTML snippets (19 Nov 2026)
+confirmed_from_pdf: false
+pdf_sha256: ''

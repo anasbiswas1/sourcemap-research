@@ -1,0 +1,23 @@
+id: geng_cmc_2026
+title: 'Prompt Injection Attacks on Large Language Models: A Survey of Attack Methods, Root Causes, and Defense
+  Strategies'
+kind: survey
+scope: Survey of prompt injection attack methods, root causes and defences; 128 studies 2022 to 2025.
+corpus_cutoff: '2025'
+organising_dimensions: Attacks by vector, objective and implementation; defences in three groups (input filtering,
+  system architecture, model level); root causes at philosophical, architectural and training levels.
+treatment_user_task: unknown (PDF not yet read)
+treatment_document_handling: unknown (PDF not yet read)
+treatment_comparability: unknown (PDF not yet read)
+evidence_granularity: unknown (PDF not yet read)
+what_this_review_adds: to fill after reading
+a_source_axis: partial
+b_three_jobs_together: unknown
+c_equal_layout_rule: unknown
+pages:
+  a: ''
+  b: ''
+  c: ''
+read_basis: journal page (19 Nov 2026)
+confirmed_from_pdf: false
+pdf_sha256: ''

@@ -1,0 +1,21 @@
+id: <record id>
+title: <title>
+kind: <kind>
+scope: ''
+corpus_cutoff: ''
+organising_dimensions: ''
+treatment_user_task: ''
+treatment_document_handling: ''
+treatment_comparability: ''
+evidence_granularity: ''
+what_this_review_adds: ''
+a_source_axis: unknown
+b_three_jobs_together: unknown
+c_equal_layout_rule: unknown
+pages:
+  a: ''
+  b: ''
+  c: ''
+read_basis: ''
+confirmed_from_pdf: false
+pdf_sha256: ''

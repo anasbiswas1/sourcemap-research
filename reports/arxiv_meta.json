@@ -1,0 +1,1070 @@
+{
+ "2604.15367": {
+  "title": "SoK: Security of Autonomous LLM Agents in Agentic Commerce",
+  "published": "2026-04-15",
+  "updated": "2026-05-01",
+  "latest_version": 2,
+  "authors": [
+   "Qian'ang Mao",
+   "Jiaxin Wang",
+   "Ya Liu",
+   "Li Zhu",
+   "Cong Ma",
+   "Jiaqi Yan"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2603.11088": {
+  "title": "The Attack and Defense Landscape of Agentic AI: A Comprehensive Survey",
+  "published": "2026-03-11",
+  "updated": "2026-03-11",
+  "latest_version": 1,
+  "authors": [
+   "Juhee Kim",
+   "Xiaoyuan Liu",
+   "Zhun Wang",
+   "Shi Qiu",
+   "Bo Li",
+   "Wenbo Guo",
+   "Dawn Song"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "Accepted to USENIX Security 2026. This manuscript is an extended version of the conference paper, including additional discussion and updated content"
+ },
+ "2503.09648": {
+  "title": "A Survey on Trustworthy LLM Agents: Threats and Countermeasures",
+  "published": "2025-03-12",
+  "updated": "2025-03-12",
+  "latest_version": 1,
+  "authors": [
+   "Miao Yu",
+   "Fanci Meng",
+   "Xinyun Zhou",
+   "Shilong Wang",
+   "Junyuan Mao",
+   "Linsey Pang",
+   "Tianlong Chen",
+   "Kun Wang",
+   "Xinfeng Li",
+   "Yongfeng Zhang",
+   "Bo An",
+   "Qingsong Wen"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2511.15203": {
+  "title": "Taxonomy, Evaluation and Exploitation of IPI-Centric LLM Agent Defense Frameworks",
+  "published": "2025-11-19",
+  "updated": "2025-11-19",
+  "latest_version": 1,
+  "authors": [
+   "Zimo Ji",
+   "Xunguang Wang",
+   "Zongjie Li",
+   "Pingchuan Ma",
+   "Yudong Gao",
+   "Daoyuan Wu",
+   "Xincheng Yan",
+   "Tian Tian",
+   "Shuai Wang"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2601.07185": {
+  "title": "Defenses Against Prompt Attacks Learn Surface Heuristics",
+  "published": "2026-01-12",
+  "updated": "2026-01-12",
+  "latest_version": 1,
+  "authors": [
+   "Shawn Li",
+   "Chenxiao Yu",
+   "Zhiyu Ni",
+   "Hao Li",
+   "Charith Peris",
+   "Chaowei Xiao",
+   "Yue Zhao"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2512.06914": {
+  "title": "SoK: Trust-Authorization Mismatch in LLM Agent Interactions",
+  "published": "2025-12-07",
+  "updated": "2026-02-09",
+  "latest_version": 2,
+  "authors": [
+   "Guanquan Shi",
+   "Haohua Du",
+   "Zhiqiang Wang",
+   "Xiaoyu Liang",
+   "Weiwenpei Liu",
+   "Song Bian",
+   "Zhenyu Guan"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2603.22928": {
+  "title": "SoK: The Attack Surface of Agentic AI - Tools and Autonomy",
+  "published": "2026-03-24",
+  "updated": "2026-08-11",
+  "latest_version": 2,
+  "authors": [
+   "Ali Dehghantanha",
+   "Sajad Homayoun"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2611.10843": {
+  "title": "Agents of Chaos: A Systematization of Knowledge (SoK) on Malicious Attacks on Agentic AI Systems",
+  "published": "2026-11-07",
+  "updated": "2026-11-07",
+  "latest_version": 1,
+  "authors": [
+   "Thanh M. Truong-Le",
+   "Amber Bennoui",
+   "Hoang-Ly Nguyen",
+   "Gia-Thang Ho",
+   "Thai-Minh Truong",
+   "Duc-Ly Vu"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "Accepted at the Workshop on Agentic AI in Offensive and Defensive Cyber Operations (AIDC 2026), co-located with ACSAC 2026"
+ },
+ "2403.04786": {
+  "title": "Breaking Down the Defenses: A Comparative Survey of Attacks on Large Language Models",
+  "published": "2024-03-03",
+  "updated": "2024-03-23",
+  "latest_version": 2,
+  "authors": [
+   "Arijit Ghosh Chowdhury",
+   "Md Mofijul Islam",
+   "Vaibhav Kumar",
+   "Faysal Hossain Shezan",
+   "Vaibhav Kumar",
+   "Vinija Jain",
+   "Aman Chadha"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2312.02003": {
+  "title": "A Survey on Large Language Model (LLM) Security and Privacy: The Good, the Bad, and the Ugly",
+  "published": "2023-12-04",
+  "updated": "2024-03-20",
+  "latest_version": 3,
+  "authors": [
+   "Yifan Yao",
+   "Jinhao Duan",
+   "Kaidi Xu",
+   "Yuanfang Cai",
+   "Zhibo Sun",
+   "Yue Zhang"
+  ],
+  "journal_ref": "",
+  "doi": "10.1016/j.hcc.2024.100211",
+  "comment": ""
+ },
+ "2506.08837": {
+  "title": "Design Patterns for Securing LLM Agents against Prompt Injections",
+  "published": "2025-06-10",
+  "updated": "2025-06-27",
+  "latest_version": 3,
+  "authors": [
+   "Luca Beurer-Kellner",
+   "Beat Buesser",
+   "Ana-Maria Creţu",
+   "Edoardo Debenedetti",
+   "Daniel Dobos",
+   "Daniel Fabian",
+   "Marc Fischer",
+   "David Froelicher",
+   "Kathrin Grosse",
+   "Daniel Naeff",
+   "Ezinwanne Ozoani",
+   "Andrew Paverd",
+   "Florian Tramèr",
+   "Václav Volhejn"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2507.13169": {
+  "title": "Prompt Injection 2.0: Hybrid AI Threats",
+  "published": "2025-07-17",
+  "updated": "2025-07-17",
+  "latest_version": 1,
+  "authors": [
+   "Jeremy McHugh",
+   "Kristina Šekrst",
+   "Jon Cefalu"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2505.18889": {
+  "title": "Security Concerns for Large Language Models: A Survey",
+  "published": "2025-05-24",
+  "updated": "2025-08-24",
+  "latest_version": 5,
+  "authors": [
+   "Miles Q. Li",
+   "Benjamin C. M. Fung"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2406.08689": {
+  "title": "Security of AI Agents",
+  "published": "2024-06-12",
+  "updated": "2024-12-17",
+  "latest_version": 3,
+  "authors": [
+   "Yifeng He",
+   "Ethan Wang",
+   "Yuyang Rong",
+   "Zifei Cheng",
+   "Hao Chen"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "updated version with figures"
+ },
+ "2604.23338": {
+  "title": "A Systematic Survey of Security Threats and Defenses in LLM-Based AI Agents: A Layered Attack Surface Framework",
+  "published": "2026-04-25",
+  "updated": "2026-05-06",
+  "latest_version": 2,
+  "authors": [
+   "Kexin Chu"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "58 pages, 8 figures, 15 tables"
+ },
+ "2604.23887": {
+  "title": "Evaluation of Prompt Injection Defenses in Large Language Models",
+  "published": "2026-04-26",
+  "updated": "2026-05-12",
+  "latest_version": 2,
+  "authors": [
+   "Priyal Deep",
+   "Shane Emmons",
+   "Amy Fox",
+   "Kyle Bacon",
+   "Kelley McAllister",
+   "Peter Ortiz",
+   "Krisztian Flautner"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "14 pages, 9 figures"
+ },
+ "2506.04133": {
+  "title": "TRiSM for Agentic AI: A Review of Trust, Risk, and Security Management in LLM-based Agentic Multi-Agent Systems",
+  "published": "2025-06-04",
+  "updated": "2025-12-18",
+  "latest_version": 5,
+  "authors": [
+   "Shaina Raza",
+   "Ranjan Sapkota",
+   "Manoj Karkee",
+   "Christos Emmanouilidis"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2510.09023": {
+  "title": "The Attacker Moves Second: Stronger Adaptive Attacks Bypass Defenses Against Llm Jailbreaks and Prompt Injections",
+  "published": "2025-10-10",
+  "updated": "2025-10-10",
+  "latest_version": 1,
+  "authors": [
+   "Milad Nasr",
+   "Nicholas Carlini",
+   "Chawin Sitawarin",
+   "Sander V. Schulhoff",
+   "Jamie Hayes",
+   "Michael Ilie",
+   "Juliette Pluto",
+   "Shuang Song",
+   "Harsh Chaudhari",
+   "Ilia Shumailov",
+   "Abhradeep Thakurta",
+   "Kai Yuanqing Xiao",
+   "Andreas Terzis",
+   "Florian Tramèr"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2602.10453": {
+  "title": "The Landscape of Prompt Injection Threats in LLM Agents: From Taxonomy to Analysis",
+  "published": "2026-02-11",
+  "updated": "2026-02-11",
+  "latest_version": 1,
+  "authors": [
+   "Peiran Wang",
+   "Xinfeng Li",
+   "Chong Xiang",
+   "Jinghuai Zhang",
+   "Ying Li",
+   "Lixia Zhang",
+   "Xiaofeng Wang",
+   "Yuan Tian"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2606.28450": {
+  "title": "LLM agents security duality: a comprehensive survey of self-security and empowered cybersecurity",
+  "published": "2026-06-26",
+  "updated": "2026-06-26",
+  "latest_version": 1,
+  "authors": [
+   "Yiwei Xu",
+   "Yong Zhuang",
+   "Xuanming Liu",
+   "Tian Zhang",
+   "Bowen Xiao",
+   "Xiaoyang Xu",
+   "Delong Jiang",
+   "Juan Wang",
+   "Hongxin Hu"
+  ],
+  "journal_ref": "Artif Intell Rev (2026)",
+  "doi": "10.1007/s10462-026-11563-0",
+  "comment": "73 pages,12 figures, 9 tables, Artificial Intelligence Review"
+ },
+ "2406.00240": {
+  "title": "Exploring Vulnerabilities and Protections in Large Language Models: A Survey",
+  "published": "2024-06-01",
+  "updated": "2024-06-01",
+  "latest_version": 1,
+  "authors": [
+   "Frank Weizhen Liu",
+   "Chenhui Hu"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2410.13901": {
+  "title": "SoK: Prompt Hacking of Large Language Models",
+  "published": "2024-10-16",
+  "updated": "2024-10-16",
+  "latest_version": 1,
+  "authors": [
+   "Baha Rababah",
+   " Shang",
+   " Wu",
+   "Matthew Kwiatkowski",
+   "Carson Leung",
+   "Cuneyt Gurcan Akcora"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2411.09523": {
+  "title": "Navigating the Risks: A Survey of Security, Privacy, and Ethics Threats in LLM-Based Agents",
+  "published": "2024-11-14",
+  "updated": "2024-11-14",
+  "latest_version": 1,
+  "authors": [
+   "Yuyou Gan",
+   "Yong Yang",
+   "Zhe Ma",
+   "Ping He",
+   "Rui Zeng",
+   "Yiming Wang",
+   "Qingming Li",
+   "Chunyi Zhou",
+   "Songze Li",
+   "Ting Wang",
+   "Yunjun Gao",
+   "Yingcai Wu",
+   "Shouling Ji"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2406.02630": {
+  "title": "AI Agents Under Threat: A Survey of Key Security Challenges and Future Pathways",
+  "published": "2024-06-04",
+  "updated": "2024-09-06",
+  "latest_version": 2,
+  "authors": [
+   "Zehang Deng",
+   "Yongjian Guo",
+   "Changzhou Han",
+   "Wanlun Ma",
+   "Junwu Xiong",
+   "Sheng Wen",
+   "Yang Xiang"
+  ],
+  "journal_ref": "ACM Computing Surveys, Vol. 57, No. 7, Article 182 (July 2025)",
+  "doi": "10.1145/3716628",
+  "comment": "Submitted to ACM Computing Survey"
+ },
+ "2504.15585": {
+  "title": "A Comprehensive Survey in LLM(-Agent) Full Stack Safety: Data, Training and Deployment",
+  "published": "2025-04-22",
+  "updated": "2025-06-09",
+  "latest_version": 4,
+  "authors": [
+   "Kun Wang",
+   "Guibin Zhang",
+   "Zhenhong Zhou",
+   "Jiahao Wu",
+   "Miao Yu",
+   "Shiqian Zhao",
+   "Chenlong Yin",
+   "Jinhu Fu",
+   "Yibo Yan",
+   "Hanjun Luo",
+   "Liang Lin",
+   "Zhihao Xu",
+   "Haolang Lu",
+   "Xinye Cao",
+   "Xinyun Zhou",
+   "Weifei Jin",
+   "Fanci Meng",
+   "Shicheng Xu",
+   "Junyuan Mao",
+   "Yu Wang",
+   "Hao Wu",
+   "Minghe Wang",
+   "Fan Zhang",
+   "Junfeng Fang",
+   "Wenjie Qu",
+   "Yue Liu",
+   "Chengwei Liu",
+   "Yifan Zhang",
+   "Qiankun Li",
+   "Chongye Guo",
+   "Yalan Qin",
+   "Zhaoxin Fan",
+   "Kai Wang",
+   "Yi Ding",
+   "Donghai Hong",
+   "Jiaming Ji",
+   "Yingxin Lai",
+   "Zitong Yu",
+   "Xinfeng Li",
+   "Yifan Jiang",
+   "Yanhui Li",
+   "Xinyu Deng",
+   "Junlin Wu",
+   "Dongxia Wang",
+   "Yihao Huang",
+   "Yufei Guo",
+   "Jen-tse Huang",
+   "Qiufeng Wang",
+   "Xiaolong Jin",
+   "Wenxuan Wang",
+   "Dongrui Liu",
+   "Yanwei Yue",
+   "Wenke Huang",
+   "Guancheng Wan",
+   "Heng Chang",
+   "Tianlin Li",
+   "Yi Yu",
+   "Chenghao Li",
+   "Jiawei Li",
+   "Lei Bai",
+   "Jie Zhang",
+   "Qing Guo",
+   "Jingyi Wang",
+   "Tianlong Chen",
+   "Joey Tianyi Zhou",
+   "Xiaojun Jia",
+   "Weisong Sun",
+   "Cong Wu",
+   "Jing Chen",
+   "Xuming Hu",
+   "Yiming Li",
+   "Xiao Wang",
+   "Ningyu Zhang",
+   "Luu Anh Tuan",
+   "Guowen Xu",
+   "Jiaheng Zhang",
+   "Tianwei Zhang",
+   "Xingjun Ma",
+   "Jindong Gu",
+   "Liang Pang",
+   "Xiang Wang",
+   "Bo An",
+   "Jun Sun",
+   "Mohit Bansal",
+   "Shirui Pan",
+   "Lingjuan Lyu",
+   "Yuval Elovici",
+   "Bhavya Kailkhura",
+   "Yaodong Yang",
+   "Hongwei Li",
+   "Wenyuan Xu",
+   "Yizhou Sun",
+   "Wei Wang",
+   "Qing Li",
+   "Ke Tang",
+   "Yu-Gang Jiang",
+   "Felix Juefei-Xu",
+   "Hui Xiong",
+   "Xiaofeng Wang",
+   "Dacheng Tao",
+   "Philip S. Yu",
+   "Qingsong Wen",
+   "Yang Liu"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2510.23883": {
+  "title": "Agentic AI Security: Threats, Defenses, Evaluation, and Open Challenges",
+  "published": "2025-10-27",
+  "updated": "2026-04-03",
+  "latest_version": 3,
+  "authors": [
+   "Anshuman Chhabra",
+   "Shrestha Datta",
+   "Shahriar Kabir Nahin",
+   "Prasant Mohapatra"
+  ],
+  "journal_ref": "",
+  "doi": "10.1109/ACCESS.2026.3675554",
+  "comment": "Published in IEEE Access. DOI: https://doi.org/10.1109/access.2026.3675554"
+ },
+ "2510.15476": {
+  "title": "SoK: Systematizing LLM Prompt Security: Taxonomies, Datasets, and Unified Evaluation of Attacks and Defenses",
+  "published": "2025-10-17",
+  "updated": "2026-10-27",
+  "latest_version": 6,
+  "authors": [
+   "Hanbin Hong",
+   "Shuang Wu",
+   "Shuya Feng",
+   "Nima Naderloui",
+   "Shenao Yan",
+   "Jingyu Zhang",
+   "Ali Arastehfard",
+   "Heqing Huang",
+   "Yuan Hong"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "To appear in the 2027 IEEE Symposium on Security and Privacy (S&P 2027 / Oakland)"
+ },
+ "2610.24999": {
+  "title": "SoK: PIAtlas: Decomposing the Unbounded Prompt Injection Attack Space",
+  "published": "2026-10-18",
+  "updated": "2026-10-18",
+  "latest_version": 1,
+  "authors": [
+   "Stavros Damianakis",
+   "Konstantinos Psounis"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "61 pages, 1 figure, 23 tables. Code and data: https://github.com/stevendamianakis/piatlas | Interactive taxonomy: https://stevendamianakis.github.io/piatlas-site/"
+ },
+ "2505.00976": {
+  "title": "Attack and defense techniques in large language models: A survey and new perspectives",
+  "published": "2025-05-02",
+  "updated": "2025-05-02",
+  "latest_version": 1,
+  "authors": [
+   "Zhiyu Liao",
+   "Kang Chen",
+   "Yuanguo Lin",
+   "Kangkang Li",
+   "Yunxuan Liu",
+   "Hefeng Chen",
+   "Xingwang Huang",
+   "Yuanhui Yu"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2402.00888": {
+  "title": "Security and Privacy Challenges of Large Language Models: A Survey",
+  "published": "2024-01-30",
+  "updated": "2024-11-14",
+  "latest_version": 2,
+  "authors": [
+   "Badhan Chandra Das",
+   "M. Hadi Amini",
+   "Yanzhao Wu"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2601.17548": {
+  "title": "Prompt Injection Attacks on Agentic Coding Assistants: A Systematic Analysis of Vulnerabilities in Skills, Tools, and Protocol Ecosystems",
+  "published": "2026-01-24",
+  "updated": "2026-01-24",
+  "latest_version": 1,
+  "authors": [
+   "Narek Maloyan",
+   "Dmitry Namiot"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2512.08290": {
+  "title": "Systematization of Knowledge: Security and Safety in the Model Context Protocol Ecosystem",
+  "published": "2025-12-09",
+  "updated": "2025-12-13",
+  "latest_version": 2,
+  "authors": [
+   "Shiva Gaire",
+   "Srijan Gyawali",
+   "Saroj Mishra",
+   "Suman Niroula",
+   "Dilip Thakur",
+   "Umesh Yadav"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "All authors contributed equally to this work"
+ },
+ "2609.00595": {
+  "title": "SoK: When Safe Agents Fail Together: The Security of Multi Agent LLM Systems",
+  "published": "2026-09-01",
+  "updated": "2026-09-01",
+  "latest_version": 1,
+  "authors": [
+   "Rui Yang",
+   "Junjie Xu",
+   "Zhengyu Liu",
+   "Neil Fendley",
+   "Yang Hong",
+   "Ziyang Li",
+   "Yinzhi Cao"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "21 pages"
+ },
+ "2510.06445": {
+  "title": "A Survey on Agentic Security: Applications, Threats and Defenses",
+  "published": "2025-10-07",
+  "updated": "2026-10-31",
+  "latest_version": 4,
+  "authors": [
+   "Asif Shahriar",
+   "Md Nafiu Rahman",
+   "Sadif Ahmed",
+   "Farig Sadeque",
+   "Md Rizwan Parvez"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "Transactions on Machine Learning Research (TMLR) 2026"
+ },
+ "2402.00898": {
+  "title": "An Early Categorization of Prompt Injection Attacks on Large Language Models",
+  "published": "2024-01-31",
+  "updated": "2024-01-31",
+  "latest_version": 1,
+  "authors": [
+   "Sippo Rossi",
+   "Alisia Marianne Michel",
+   "Raghava Rao Mukkamala",
+   "Jason Bennett Thatcher"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "21 pages double spacing"
+ },
+ "2407.19354": {
+  "title": "The Emerged Security and Privacy of LLM Agent: A Survey with Case Studies",
+  "published": "2024-07-28",
+  "updated": "2025-11-02",
+  "latest_version": 2,
+  "authors": [
+   "Feng He",
+   "Tianqing Zhu",
+   "Dayong Ye",
+   "Bo Liu",
+   "Wanlei Zhou",
+   "Philip S. Yu"
+  ],
+  "journal_ref": "",
+  "doi": "10.1145/3773080",
+  "comment": "35 pages, 19 figures. Accepted to ACM Computing Surveys (CSUR), 2025"
+ },
+ "2506.23260": {
+  "title": "From Prompt Injections to Protocol Exploits: Threats in LLM-Powered AI Agents Workflows",
+  "published": "2025-06-29",
+  "updated": "2025-12-14",
+  "latest_version": 2,
+  "authors": [
+   "Mohamed Amine Ferrag",
+   "Norbert Tihanyi",
+   "Djallel Hamouda",
+   "Leandros Maglaras",
+   "Abderrahmane Lakas",
+   "Merouane Debbah"
+  ],
+  "journal_ref": "",
+  "doi": "10.1016/j.icte.2025.12.001",
+  "comment": "The paper is published in ICT Express (Elsevier)"
+ },
+ "2505.01177": {
+  "title": "LLM Security: Vulnerabilities, Attacks, Defenses, and Countermeasures",
+  "published": "2025-05-02",
+  "updated": "2025-05-02",
+  "latest_version": 1,
+  "authors": [
+   "Francisco Aguilera-Martínez",
+   "Fernando Berzal"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2409.03274": {
+  "title": "Recent Advances in Attack and Defense Approaches of Large Language Models",
+  "published": "2024-09-05",
+  "updated": "2024-12-02",
+  "latest_version": 3,
+  "authors": [
+   "Jing Cui",
+   "Yishi Xu",
+   "Zhewei Huang",
+   "Shuchang Zhou",
+   "Jianbin Jiao",
+   "Junge Zhang"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2608.10530": {
+  "title": "On Understanding, Identifying, and Mitigating Vulnerabilities in Agentic Large Language Models",
+  "published": "2026-08-11",
+  "updated": "2026-08-11",
+  "latest_version": 1,
+  "authors": [
+   "Md Jafrin Hossain",
+   "Mohammad Arif Hossain",
+   "Nirwan Ansari"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2502.05206": {
+  "title": "Safety at Scale: A Comprehensive Survey of Large Model and Agent Safety",
+  "published": "2025-02-02",
+  "updated": "2026-04-14",
+  "latest_version": 6,
+  "authors": [
+   "Xingjun Ma",
+   "Yifeng Gao",
+   "Yixu Wang",
+   "Ruofan Wang",
+   "Xin Wang",
+   "Ye Sun",
+   "Yifan Ding",
+   "Hengyuan Xu",
+   "Yunhao Chen",
+   "Yunhan Zhao",
+   "Hanxun Huang",
+   "Yige Li",
+   "Yutao Wu",
+   "Jiaming Zhang",
+   "Xiang Zheng",
+   "Yang Bai",
+   "Zuxuan Wu",
+   "Xipeng Qiu",
+   "Jingfeng Zhang",
+   "Yiming Li",
+   "Xudong Han",
+   "Haonan Li",
+   "Jun Sun",
+   "Cong Wang",
+   "Jindong Gu",
+   "Baoyuan Wu",
+   "Siheng Chen",
+   "Tianwei Zhang",
+   "Yang Liu",
+   "Mingming Gong",
+   "Tongliang Liu",
+   "Shirui Pan",
+   "Cihang Xie",
+   "Tianyu Pang",
+   "Yinpeng Dong",
+   "Ruoxi Jia",
+   "Yang Zhang",
+   "Shiqing Ma",
+   "Xiangyu Zhang",
+   "Neil Gong",
+   "Chaowei Xiao",
+   "Sarah Erfani",
+   "Tim Baldwin",
+   "Bo Li",
+   "Masashi Sugiyama",
+   "Dacheng Tao",
+   "James Bailey",
+   "Yu-Gang Jiang"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "706 papers, 60 pages, 3 figures, 14 tables; GitHub: https://github.com/xingjunm/Awesome-Large-Model-Safety"
+ },
+ "2604.08499": {
+  "title": "PIArena: A Platform for Prompt Injection Evaluation",
+  "published": "2026-04-09",
+  "updated": "2026-04-09",
+  "latest_version": 1,
+  "authors": [
+   "Runpeng Geng",
+   "Chenlong Yin",
+   "Yanting Wang",
+   "Ying Chen",
+   "Jinyuan Jia"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "To appear in ACL 2026. The code is available at https://github.com/sleeepeer/PIArena"
+ },
+ "2606.10749": {
+  "title": "Toward Secure LLM Agents: Threat Surfaces, Attacks, Defenses, and Evaluation",
+  "published": "2026-06-09",
+  "updated": "2026-08-23",
+  "latest_version": 2,
+  "authors": [
+   "Yuchen Ling",
+   "Shengcheng Yu",
+   "Zhenyu Chen",
+   "Chunrong Fang"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2609.23894": {
+  "title": "Connecting the Dots in Agentic AI Security: A Cross-Dimensional Threat Taxonomy, Evaluation Maturity, and Open Challenges",
+  "published": "2026-09-20",
+  "updated": "2026-09-20",
+  "latest_version": 1,
+  "authors": [
+   "Heewon Baek",
+   "Alsharif Abuadbba",
+   "Kristen Moore",
+   "Hyoungshick Kim",
+   "Surya Nepal"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "22 pages"
+ },
+ "2604.03598": {
+  "title": "AttackEval: A Systematic Empirical Study of Prompt Injection Attack Effectiveness Against Large Language Models",
+  "published": "2026-04-04",
+  "updated": "2026-04-04",
+  "latest_version": 1,
+  "authors": [
+   "Jackson Wang"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2606.30783": {
+  "title": "Security--Fidelity Tradeoffs: The Hidden Cost of Prompt Injection Defense",
+  "published": "2026-06-29",
+  "updated": "2026-06-29",
+  "latest_version": 1,
+  "authors": [
+   "Mitchell Hermon",
+   "Rahul Gupta",
+   "Weitong Ruan",
+   "Ekraam Sabir",
+   "Haohan Wang"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "Accepted at the 43rd International Conference on Machine Learning (ICML 2026). 34 pages, 4 figures"
+ },
+ "2606.31639": {
+  "title": "A Lifecycle and Application-Stack Survey of Large Language Model Vulnerabilities: Attacks, Risks, Defenses, and Open Problems",
+  "published": "2026-06-30",
+  "updated": "2026-06-30",
+  "latest_version": 1,
+  "authors": [
+   "Seyed Bagher Hashemi Natanzi",
+   "Bo Tang"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2505.15738": {
+  "title": "Auditing Prompt Injection Defenses Before They Reach Users: What Strong Adversaries Reveal",
+  "published": "2025-05-21",
+  "updated": "2026-10-08",
+  "latest_version": 3,
+  "authors": [
+   "Xiaoxue Yang",
+   "Bozhidar Stevanoski",
+   "Matthieu Meeus",
+   "Yves-Alexandre de Montjoye"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "Published as a workshop paper (oral) at HAIPS@COLM 2026"
+ },
+ "2601.22240": {
+  "title": "A Systematic Literature Review on LLM Defenses Against Prompt Injection and Jailbreaking: Expanding NIST Taxonomy",
+  "published": "2026-01-29",
+  "updated": "2026-01-29",
+  "latest_version": 1,
+  "authors": [
+   "Pedro H. Barcha Correia",
+   "Ryan W. Achjian",
+   "Diego E. G. Caetano de Oliveira",
+   "Ygor Acacio Maria",
+   "Victor Takashi Hayashi",
+   "Marcos Lopes",
+   "Charles Christian Miers",
+   "Marcos A. Simplicio"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "27 pages, 14 figures, 11 tables, submitted to Elsevier Computer Science Review"
+ },
+ "2606.26479": {
+  "title": "Adaptive Evaluation of Out-of-Band Defenses Against Prompt Injection in LLM Agents",
+  "published": "2026-06-25",
+  "updated": "2026-06-25",
+  "latest_version": 1,
+  "authors": [
+   "Praneeth Narisetty",
+   "Shiva Nagendra Babu Kore",
+   "Uday Kumar Reddy Kattamanchi",
+   "Jayaram Kumarapu"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "12 pages, 5 figures, 4 tables"
+ },
+ "2603.13026": {
+  "title": "PISmith: Reinforcement Learning-based Red Teaming for Prompt Injection Defenses",
+  "published": "2026-03-13",
+  "updated": "2026-07-23",
+  "latest_version": 2,
+  "authors": [
+   "Chenlong Yin",
+   "Runpeng Geng",
+   "Yanting Wang",
+   "Jinyuan Jia"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "To appear in COLM 2026"
+ },
+ "2609.13731": {
+  "title": "Trustworthy Agentic AI: A Comprehensive Cybersecurity and Systems Survey on Threat Landscapes, Defense Architectures, and Open Challenges",
+  "published": "2026-09-12",
+  "updated": "2026-09-12",
+  "latest_version": 1,
+  "authors": [
+   "Seyedakbar Mostafavi"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2606.15057": {
+  "title": "AutoDojo: A Generative Benchmark for Evaluating Prompt Injection Defenses in LLM Agents",
+  "published": "2026-06-13",
+  "updated": "2026-09-28",
+  "latest_version": 3,
+  "authors": [
+   "Xinhang Ma",
+   "Taoran Li",
+   "Chaowei Xiao",
+   "Zhiyuan Yu",
+   "Ning Zhang",
+   "Yevgeniy Vorobeychik"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2505.18333": {
+  "title": "A Critical Evaluation of Defenses against Prompt Injection Attacks",
+  "published": "2025-05-23",
+  "updated": "2025-05-23",
+  "latest_version": 1,
+  "authors": [
+   "Yuqi Jia",
+   "Zedian Shao",
+   "Yupei Liu",
+   "Jinyuan Jia",
+   "Dawn Song",
+   "Neil Zhenqiang Gong"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ },
+ "2602.19555": {
+  "title": "SOK: A Taxonomy of Attack Vectors and Defense Strategies for Agentic Supply Chain Runtime",
+  "published": "2026-02-23",
+  "updated": "2026-04-19",
+  "latest_version": 2,
+  "authors": [
+   "Xiaochong Jiang",
+   "Shiqi Yang",
+   "Wenting Yang",
+   "Yichen Liu",
+   "Cheng Ji"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": "Published at ICLR 2026 Workshop on AI for Mechanism Design and Strategic Decision Making"
+ },
+ "2507.07417": {
+  "title": "May I have your Attention? Breaking Fine-Tuning based Prompt Injection Defenses using Architecture-Aware Attacks",
+  "published": "2025-07-10",
+  "updated": "2025-12-17",
+  "latest_version": 2,
+  "authors": [
+   "Nishit V. Pandya",
+   "Andrey Labunets",
+   "Sicun Gao",
+   "Earlence Fernandes"
+  ],
+  "journal_ref": "",
+  "doi": "",
+  "comment": ""
+ }
+}

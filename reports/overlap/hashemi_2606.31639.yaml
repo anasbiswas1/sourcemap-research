@@ -1,0 +1,24 @@
+id: hashemi_2606.31639
+title: 'A Lifecycle and Application-Stack Survey of Large Language Model Vulnerabilities: Attacks, Risks, Defenses,
+  and Open Problems'
+kind: survey
+scope: Lifecycle and application-stack survey of LLM vulnerabilities; systematisation rather than exhaustive bibliometrics.
+corpus_cutoff: mid 2026 (to confirm)
+organising_dimensions: 'Defence-in-depth: deterministic controls; model-level and prompt-level controls; retrieval
+  and memory controls; tool and agent controls; monitoring, red teaming, governance.'
+treatment_user_task: No numbers reported.
+treatment_document_handling: Not treated.
+treatment_comparability: A reporting checklist (Table 5) lists context construction including delimiters and templates
+  as items to report; not a comparability condition.
+evidence_granularity: Narrative; no extracted evidence tables.
+what_this_review_adds: Measured coverage of the three jobs; graded comparisons; the card as a filled artefact.
+a_source_axis: 'no'
+b_three_jobs_together: 'no'
+c_equal_layout_rule: partial
+pages:
+  a: ''
+  b: ''
+  c: ''
+read_basis: full PDF (research pass, 19 Nov 2026)
+confirmed_from_pdf: false
+pdf_sha256: ''

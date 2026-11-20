@@ -1,0 +1,28 @@
+id: wang_2602.10453
+title: 'The Landscape of Prompt Injection Threats in LLM Agents: From Taxonomy to Analysis'
+kind: sok
+scope: Prompt-injection threats and defences in LLM agents; 78 papers; defences by the stage at which they act.
+corpus_cutoff: early 2026 (to confirm from the PDF)
+organising_dimensions: 'Attacks by payload generation. Defences by stage: text level (detection filters, prompt
+  enhancement), model level (model alignment by task, preference or format; internal-representation detectors),
+  execution level (task alignment, access control, isolation).'
+treatment_user_task: Utility without attack as a general score on AgentPI; not the user's instruction under attack
+  as its own quantity.
+treatment_document_handling: Not measured. The paper finds that defences look good by suppressing contextual inputs,
+  which is the symptom.
+treatment_comparability: Prompt-structure changes counted as a compatibility cost; layout not treated as a condition
+  for comparing numbers.
+evidence_granularity: Benchmark results (ASR, utility, time, tokens) for eight text- and execution-level defences;
+  no model-level defence run.
+what_this_review_adds: Finer first axis with no-signal as a value; signal dependence; R2 and R3 coverage; evidence
+  grades for comparisons.
+a_source_axis: partial
+b_three_jobs_together: 'no'
+c_equal_layout_rule: 'no'
+pages:
+  a: ''
+  b: ''
+  c: ''
+read_basis: full PDF (research pass, 19 Nov 2026)
+confirmed_from_pdf: false
+pdf_sha256: ''

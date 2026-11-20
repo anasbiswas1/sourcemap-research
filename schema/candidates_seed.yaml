@@ -1,0 +1,755 @@
+- id: rossi_2402.00898
+  kind: survey
+  title: An Early Categorization of Prompt Injection Attacks on Large Language Models
+  first_author: Rossi
+  arxiv: '2402.00898'
+  doi: ''
+  venue: arXiv
+  first_date: '2024-01-31'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: liu_hu_2406.00240
+  kind: survey
+  title: 'Exploring Vulnerabilities and Protections in Large Language Models: A Survey'
+  first_author: Liu
+  arxiv: '2406.00240'
+  doi: ''
+  venue: arXiv
+  first_date: '2024-06-01'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: rababah_2410.13901
+  kind: sok
+  title: 'SoK: Prompt Hacking of Large Language Models'
+  first_author: Rababah
+  arxiv: '2410.13901'
+  doi: ''
+  venue: arXiv
+  first_date: '2024-10-16'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: beurer_kellner_2506.08837
+  kind: pattern
+  title: Design Patterns for Securing LLM Agents against Prompt Injections
+  first_author: Beurer-Kellner
+  arxiv: '2506.08837'
+  doi: ''
+  venue: arXiv
+  first_date: '2025-06-10'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: mchugh_2507.13169
+  kind: survey
+  title: 'Prompt Injection 2.0: Hybrid AI Threats'
+  first_author: McHugh
+  arxiv: '2507.13169'
+  doi: ''
+  venue: arXiv
+  first_date: '2025-07-17'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: hong_2510.15476
+  kind: sok
+  title: 'SoK: Systematizing LLM Prompt Security: Taxonomies, Datasets, and Unified Evaluation of Attacks and Defenses'
+  first_author: Hong
+  arxiv: '2510.15476'
+  doi: ''
+  venue: arXiv
+  first_date: '2025-10-17'
+  access: arxiv
+  origin: scoping
+  closest: 1
+- id: ji_2511.15203
+  kind: sok
+  title: Taxonomy, Evaluation and Exploitation of IPI-Centric LLM Agent Defense Frameworks
+  first_author: Ji
+  arxiv: '2511.15203'
+  doi: ''
+  venue: arXiv
+  first_date: '2025-11-19'
+  access: arxiv
+  origin: scoping
+  closest: 1
+- id: geng_cmc_2026
+  kind: survey
+  title: 'Prompt Injection Attacks on Large Language Models: A Survey of Attack Methods, Root Causes, and Defense Strategies'
+  first_author: Geng
+  arxiv: ''
+  doi: 10.32604/cmc.2025.074081
+  venue: Computers, Materials & Continua 87(1)
+  first_date: '2026-02-10'
+  access: open
+  pdf_url: https://www.techscience.com/cmc/v87n1/66084/pdf
+  origin: scoping
+  closest: 1
+- id: maloyan_2601.17548
+  kind: sok
+  title: 'Prompt Injection Attacks on Agentic Coding Assistants: A Systematic Analysis of Vulnerabilities in Skills, Tools,
+    and Protocol Ecosystems'
+  first_author: Maloyan
+  arxiv: '2601.17548'
+  doi: ''
+  venue: arXiv
+  first_date: '2026-01-24'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: wang_2602.10453
+  kind: sok
+  title: 'The Landscape of Prompt Injection Threats in LLM Agents: From Taxonomy to Analysis'
+  first_author: Wang
+  arxiv: '2602.10453'
+  doi: ''
+  venue: arXiv
+  first_date: '2026-02-11'
+  access: arxiv
+  origin: scoping
+  closest: 1
+- id: deep_2604.23887
+  kind: evaluation
+  title: Evaluation of Prompt Injection Defenses in LLMs
+  first_author: Deep
+  arxiv: '2604.23887'
+  doi: ''
+  venue: arXiv
+  first_date: '2026-04-26'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: damianakis_2610.24999
+  kind: sok
+  title: 'SoK: PIAtlas: Decomposing the Unbounded Prompt Injection Attack Space'
+  first_author: Damianakis
+  arxiv: '2610.24999'
+  doi: ''
+  venue: arXiv
+  first_date: '2026-10-18'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: deng_2406.02630
+  kind: survey
+  title: 'AI Agents Under Threat: A Survey of Key Security Challenges and Future Pathways'
+  first_author: Deng
+  arxiv: '2406.02630'
+  doi: 10.1145/3716628
+  venue: ACM Computing Surveys
+  first_date: '2024-06-04'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: he_y_2406.08689
+  kind: survey
+  title: Security of AI Agents
+  first_author: He
+  arxiv: '2406.08689'
+  doi: ''
+  venue: arXiv
+  first_date: '2024-06-12'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: he_f_2407.19354
+  kind: survey
+  title: 'The Emerged Security and Privacy of LLM Agent: A Survey with Case Studies'
+  first_author: He
+  arxiv: '2407.19354'
+  doi: 10.1145/3773080
+  venue: ACM (journal not verified)
+  first_date: '2024-07-28'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: gan_2411.09523
+  kind: survey
+  title: 'Navigating the Risks: A Survey of Security, Privacy, and Ethics Threats in LLM-Based Agents'
+  first_author: Gan
+  arxiv: '2411.09523'
+  doi: ''
+  venue: arXiv
+  first_date: '2024-11-14'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: yu_2503.09648
+  kind: survey
+  title: 'A Survey on Trustworthy LLM Agents: Threats and Countermeasures'
+  first_author: Yu
+  arxiv: '2503.09648'
+  doi: ''
+  venue: KDD 2025 (per citing papers; not on the arXiv page)
+  first_date: '2025-03-12'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: wang_k_2504.15585
+  kind: survey
+  title: 'A Comprehensive Survey in LLM(-Agent) Full Stack Safety: Data, Training and Deployment'
+  first_author: Wang
+  arxiv: '2504.15585'
+  doi: ''
+  venue: arXiv
+  first_date: '2025-04-22'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: raza_2506.04133
+  kind: survey
+  title: 'TRiSM for Agentic AI: A Review of Trust, Risk, and Security Management in LLM-based Agentic Multi-Agent Systems'
+  first_author: Raza
+  arxiv: '2506.04133'
+  doi: ''
+  venue: arXiv (a 2026 journal version exists; journal not verified)
+  first_date: '2025-06-04'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: ferrag_2506.23260
+  kind: survey
+  title: 'From Prompt Injections to Protocol Exploits: Threats in LLM-Powered AI Agents Workflows'
+  first_author: Ferrag
+  arxiv: '2506.23260'
+  doi: 10.1016/j.icte.2025.12.001
+  venue: ICT Express
+  first_date: '2025-06-29'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: shahriar_2510.06445
+  kind: survey
+  title: 'A Survey on Agentic Security: Applications, Threats and Defenses'
+  first_author: Shahriar
+  arxiv: '2510.06445'
+  doi: ''
+  venue: TMLR 2026
+  first_date: '2025-10-07'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: chhabra_2510.23883
+  kind: survey
+  title: 'Agentic AI Security: Threats, Defenses, Evaluation, and Open Challenges'
+  first_author: Chhabra
+  arxiv: '2510.23883'
+  doi: 10.1109/ACCESS.2026.3675554
+  venue: IEEE Access 2026
+  first_date: '2025-10-27'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: kim_2603.11088
+  kind: survey
+  title: 'The Attack and Defense Landscape of Agentic AI: A Comprehensive Survey'
+  first_author: Kim
+  arxiv: '2603.11088'
+  doi: ''
+  venue: arXiv (cited elsewhere as USENIX Security 2026; not verified)
+  first_date: '2026-03-11'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: dehghantanha_2603.22928
+  kind: sok
+  title: 'SoK: The Attack Surface of Agentic AI: Tools and Autonomy'
+  first_author: Dehghantanha
+  arxiv: '2603.22928'
+  doi: ''
+  venue: arXiv
+  first_date: '2026-03-24'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: sun_preprints_202602.1655
+  kind: survey
+  title: A Survey on the Unique Security of Autonomous and Collaborative LLM Agents
+  first_author: Sun
+  arxiv: ''
+  doi: 10.20944/preprints202602.1655.v2
+  venue: Preprints.org (not peer reviewed)
+  first_date: '2026-03-10'
+  access: open
+  pdf_url: ''
+  origin: scoping
+  closest: 0
+- id: chu_2604.23338
+  kind: survey
+  title: 'A Systematic Survey of Security Threats and Defenses in LLM-Based AI Agents: A Layered Attack Surface Framework'
+  first_author: Chu
+  arxiv: '2604.23338'
+  doi: ''
+  venue: arXiv
+  first_date: '2026-04-25'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: xu_2606.28450
+  kind: survey
+  title: LLM agents security duality
+  first_author: Xu
+  arxiv: '2606.28450'
+  doi: 10.1007/s10462-026-11563-0
+  venue: Artificial Intelligence Review
+  first_date: '2026-06-26'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: hossain_2608.10530
+  kind: survey
+  title: On Understanding, Identifying, and Mitigating Vulnerabilities in Agentic Large Language Models
+  first_author: Hossain
+  arxiv: '2608.10530'
+  doi: ''
+  venue: arXiv (states under review at ACM Computing Surveys)
+  first_date: '2026-08-11'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: sammartino_kbs_2026
+  kind: survey
+  title: 'Vulnerabilities in autonomous execution: A survey of security threats and defenses in LLM-driven agentic and multi-agent
+    systems'
+  first_author: Sammartino
+  arxiv: ''
+  doi: 10.1016/j.knosys.2026.117001
+  venue: Knowledge-Based Systems 352:117001
+  first_date: '2026-09-25'
+  access: paywalled
+  pdf_url: ''
+  origin: scoping
+  closest: 1
+- id: truong_le_2611.10843
+  kind: sok
+  title: 'Agents of Chaos: A SoK on Malicious Attacks on Agentic AI Systems'
+  first_author: Truong-Le
+  arxiv: '2611.10843'
+  doi: ''
+  venue: AIDC 2026 workshop at ACSAC 2026
+  first_date: '2026-11-07'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: yumusak_applsci_2026
+  kind: survey
+  title: 'Below the Waterline: A Survey of Agentic AI Security, Shadow AI Governance, and LLM Supply-Chain Risk in the Enterprise'
+  first_author: Yumusak
+  arxiv: ''
+  doi: ''
+  venue: Applied Sciences 16(20):10412 (seen in a citation list only)
+  first_date: '2026-10-21'
+  access: unknown
+  pdf_url: ''
+  origin: scoping
+  closest: 0
+- id: trust_auth_2512.06914
+  kind: sok
+  title: 'SoK: Trust-Authorization Mismatch in LLM Agent Interactions'
+  first_author: ''
+  arxiv: '2512.06914'
+  doi: ''
+  venue: arXiv
+  first_date: 2025-12
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: mcp_2512.08290
+  kind: sok
+  title: SoK on the Model Context Protocol
+  first_author: ''
+  arxiv: '2512.08290'
+  doi: ''
+  venue: arXiv
+  first_date: 2025-12
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: commerce_2604.15367
+  kind: sok
+  title: 'SoK: Security of Autonomous LLM Agents in Agentic Commerce'
+  first_author: ''
+  arxiv: '2604.15367'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-04
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: multiagent_2609.00595
+  kind: sok
+  title: 'SoK: When Safe Agents Fail Together'
+  first_author: ''
+  arxiv: '2609.00595'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-09
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: yao_2312.02003
+  kind: survey
+  title: 'A Survey on Large Language Model (LLM) Security and Privacy: The Good, the Bad, and the Ugly'
+  first_author: Yao
+  arxiv: '2312.02003'
+  doi: 10.1016/j.hcc.2024.100211
+  venue: High-Confidence Computing 2024
+  first_date: '2023-12-04'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: das_2402.00888
+  kind: survey
+  title: 'Security and Privacy Challenges of Large Language Models: A Survey'
+  first_author: Das
+  arxiv: '2402.00888'
+  doi: ''
+  venue: arXiv (journal version reported as ACM Computing Surveys 2025; not verified)
+  first_date: '2024-01-30'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: chowdhury_2403.04786
+  kind: survey
+  title: 'Breaking Down the Defenses: A Comparative Survey of Attacks on Large Language Models'
+  first_author: Chowdhury
+  arxiv: '2403.04786'
+  doi: ''
+  venue: arXiv
+  first_date: '2024-03-03'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: cui_2409.03274
+  kind: survey
+  title: Recent Advances in Attack and Defense Approaches of Large Language Models
+  first_author: Cui
+  arxiv: '2409.03274'
+  doi: 10.1007/s11704-025-50297-0
+  venue: Frontiers of Computer Science 21(4)
+  first_date: '2024-09-05'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: liao_2505.00976
+  kind: survey
+  title: 'Attack and defense techniques in large language models: A survey and new perspectives'
+  first_author: Liao
+  arxiv: '2505.00976'
+  doi: 10.1016/j.neunet.2025.108388
+  venue: Neural Networks
+  first_date: '2025-05-02'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: aguilera_2505.01177
+  kind: survey
+  title: 'LLM Security: Vulnerabilities, Attacks, Defenses, and Countermeasures'
+  first_author: Aguilera-Martínez
+  arxiv: '2505.01177'
+  doi: ''
+  venue: arXiv
+  first_date: '2025-05-02'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: li_fung_2505.18889
+  kind: survey
+  title: 'Security Concerns for Large Language Models: A Survey'
+  first_author: Li
+  arxiv: '2505.18889'
+  doi: ''
+  venue: arXiv
+  first_date: 2025-05
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: nasr_2510.09023
+  kind: evaluation
+  title: 'The Attacker Moves Second: Stronger Adaptive Attacks Bypass Defenses Against LLM Jailbreaks and Prompt Injections'
+  first_author: Nasr
+  arxiv: '2510.09023'
+  doi: ''
+  venue: arXiv (cited as USENIX Security 2026; not verified)
+  first_date: '2025-10-10'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: li_s_2601.07185
+  kind: evaluation
+  title: Defenses Against Prompt Attacks Learn Surface Heuristics
+  first_author: Li
+  arxiv: '2601.07185'
+  doi: ''
+  venue: arXiv
+  first_date: '2026-01-12'
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: attackeval_2604.03598
+  kind: evaluation
+  title: 'AttackEval: A Systematic Empirical Study of Prompt Injection Attack Effectiveness'
+  first_author: ''
+  arxiv: '2604.03598'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-04
+  access: arxiv
+  origin: scoping
+  closest: 0
+- id: correia_2601.22240
+  kind: survey
+  title: 'A Systematic Literature Review on LLM Defenses Against Prompt Injection and Jailbreaking: Expanding NIST Taxonomy'
+  first_author: Correia
+  arxiv: '2601.22240'
+  doi: ''
+  venue: arXiv (states submitted to Computer Science Review)
+  first_date: '2026-01-29'
+  access: arxiv
+  origin: second
+  closest: 1
+- id: hashemi_2606.31639
+  kind: survey
+  title: 'A Lifecycle and Application-Stack Survey of Large Language Model Vulnerabilities: Attacks, Risks, Defenses, and
+    Open Problems'
+  first_author: Hashemi Natanzi
+  arxiv: '2606.31639'
+  doi: ''
+  venue: arXiv
+  first_date: '2026-06-30'
+  access: arxiv
+  origin: second
+  closest: 1
+- id: gulyamov_information_2026
+  kind: survey
+  title: 'Prompt Injection Attacks in Large Language Models and AI Agent Systems: A Comprehensive Review of Vulnerabilities,
+    Attack Vectors, and Defense Mechanisms'
+  first_author: Gulyamov
+  arxiv: ''
+  doi: 10.3390/info17010054
+  venue: Information 17(1):54
+  first_date: '2026-01-07'
+  access: open
+  pdf_url: https://www.mdpi.com/2078-2489/17/1/54/pdf
+  origin: second
+  closest: 0
+- id: woesle_ieeeaccess_2026
+  kind: survey
+  title: A Systematic Literature Review of Prompt Injection Attacks in LLM-Integrated Systems
+  first_author: Woesle
+  arxiv: ''
+  doi: 10.1109/ACCESS.2026.3700492
+  venue: IEEE Access 14:86797-86818
+  first_date: '2026-06-04'
+  access: open
+  pdf_url: ''
+  origin: second
+  closest: 0
+- id: duarte_ieeeaccess_2026
+  kind: survey
+  title: 'A Systematic Review of Prompt Injection Attacks on Large Language Models: Trends, Taxonomy, Evaluation, Defenses
+    and Opportunities'
+  first_author: Duarte
+  arxiv: ''
+  doi: 10.1109/ACCESS.2026.3656849
+  venue: IEEE Access 14:12875-12899
+  first_date: '2026'
+  access: open
+  pdf_url: ''
+  origin: second
+  closest: 0
+- id: mourad_electronics_2026
+  kind: survey
+  title: 'Securing the Prompt Pipeline: A Systematic Review of Defense Mechanisms Against Prompt-Based Attacks in LLM Agents'
+  first_author: Mourad
+  arxiv: ''
+  doi: 10.3390/electronics15163700
+  venue: Electronics 15(16):3700
+  first_date: '2026-08-19'
+  access: open
+  pdf_url: https://www.mdpi.com/2079-9292/15/16/3700/pdf
+  origin: second
+  closest: 1
+- id: zenodo_19856514
+  kind: survey
+  title: 'Prompt injection attacks and defenses in large language models: A systematic literature review'
+  first_author: ''
+  arxiv: ''
+  doi: 10.5281/zenodo.19856514
+  venue: Zenodo record 19856514
+  first_date: ''
+  access: unknown
+  pdf_url: ''
+  origin: second
+  closest: 0
+- id: supplychain_2602.19555
+  kind: sok
+  title: 'SoK: A Taxonomy of Attack Vectors and Defense Strategies for Agentic Supply Chain Runtime'
+  first_author: ''
+  arxiv: '2602.19555'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-02
+  access: arxiv
+  origin: second
+  closest: 0
+- id: trustworthy_2609.13731
+  kind: survey
+  title: 'Trustworthy Agentic AI: A Comprehensive Cybersecurity and Systems Survey on Threat Landscapes, Defense Architectures,
+    and Open Challenges'
+  first_author: ''
+  arxiv: '2609.13731'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-09
+  access: arxiv
+  origin: second
+  closest: 0
+- id: dots_2609.23894
+  kind: survey
+  title: 'Connecting the Dots in Agentic AI Security: A Cross-Dimensional Threat Taxonomy, Evaluation Maturity, and Open Challenges'
+  first_author: ''
+  arxiv: '2609.23894'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-09
+  access: arxiv
+  origin: second
+  closest: 0
+- id: safety_at_scale_2502.05206
+  kind: survey
+  title: 'Safety at Scale: A Comprehensive Survey of Large Model and Agent Safety'
+  first_author: ''
+  arxiv: '2502.05206'
+  doi: ''
+  venue: arXiv
+  first_date: 2025-02
+  access: arxiv
+  origin: second
+  closest: 0
+- id: ai_browsers_researchgate_2026
+  kind: survey
+  title: 'Securing LLM Powered AI Browsers Against Prompt Injection: A Comprehensive Survey, Threat Taxonomy, and Defense
+    Framework'
+  first_author: ''
+  arxiv: ''
+  doi: ''
+  venue: ResearchGate only; no publisher page found
+  first_date: 2026-01
+  access: unknown
+  pdf_url: ''
+  origin: second
+  closest: 0
+- id: ling_2606.10749
+  kind: survey
+  title: 'Toward secure LLM agents: Threat surfaces, attacks, defenses, and evaluation'
+  first_author: Ling
+  arxiv: '2606.10749'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-06
+  access: arxiv
+  origin: second
+  closest: 0
+- id: milani_ncaa_2026
+  kind: not_survey
+  title: Indirect prompt injection in large language models
+  first_author: Milani
+  arxiv: ''
+  doi: 10.1007/s00521-026-12266-x
+  venue: Neural Computing and Applications 38:530
+  first_date: '2026'
+  access: unknown
+  pdf_url: ''
+  origin: second
+  closest: 0
+- id: jia_2505.18333
+  kind: evaluation
+  title: A Critical Evaluation of Defenses against Prompt Injection Attacks
+  first_author: Jia
+  arxiv: '2505.18333'
+  doi: ''
+  venue: arXiv
+  first_date: '2025-05-23'
+  access: arxiv
+  origin: second
+  closest: 0
+- id: yang_2505.15738
+  kind: evaluation
+  title: 'Auditing Prompt Injection Defenses Before They Reach Users: What Strong Adversaries Reveal'
+  first_author: Yang
+  arxiv: '2505.15738'
+  doi: ''
+  venue: arXiv
+  first_date: '2025-05-21'
+  access: arxiv
+  origin: second
+  closest: 0
+- id: piarena_2604.08499
+  kind: evaluation
+  title: 'PIArena: A Platform for Prompt Injection Evaluation'
+  first_author: ''
+  arxiv: '2604.08499'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-04
+  access: arxiv
+  origin: second
+  closest: 0
+- id: oob_2606.26479
+  kind: evaluation
+  title: Adaptive Evaluation of Out-of-Band Defenses Against Prompt Injection in LLM Agents
+  first_author: ''
+  arxiv: '2606.26479'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-06
+  access: arxiv
+  origin: second
+  closest: 0
+- id: autodojo_2606.15057
+  kind: evaluation
+  title: AutoDojo
+  first_author: Ma
+  arxiv: '2606.15057'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-06
+  access: arxiv
+  origin: second
+  closest: 0
+- id: pismith_2603.13026
+  kind: evaluation
+  title: 'PISmith: Reinforcement Learning-based Red Teaming for Prompt Injection Defenses'
+  first_author: ''
+  arxiv: '2603.13026'
+  doi: ''
+  venue: arXiv
+  first_date: 2026-03
+  access: arxiv
+  origin: second
+  closest: 0
+- id: attention_attack_2507.07417
+  kind: evaluation
+  title: May I have your Attention? Breaking Fine-Tuning based Prompt Injection Defenses using Architecture-Aware Attacks
+  first_author: ''
+  arxiv: '2507.07417'
+  doi: ''
+  venue: arXiv
+  first_date: 2025-07
+  access: arxiv
+  origin: second
+  closest: 0
+- id: secfid_2606.30783
+  kind: benchmark
+  title: 'Security-Fidelity Tradeoffs: The Hidden Cost of Prompt Injection Defense'
+  first_author: Hermon
+  arxiv: '2606.30783'
+  doi: ''
+  venue: ICML 2026 (PMLR 306)
+  first_date: 2026-06
+  access: arxiv
+  origin: second
+  closest: 1

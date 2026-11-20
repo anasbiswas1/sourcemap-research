@@ -1,0 +1,23 @@
+id: mourad_electronics_2026
+title: 'Securing the Prompt Pipeline: A Systematic Review of Defense Mechanisms Against Prompt-Based Attacks in
+  LLM Agents'
+kind: survey
+scope: Systematic review of defence mechanisms against prompt-based attacks in LLM agents; 19 studies.
+corpus_cutoff: to confirm from the PDF
+organising_dimensions: Pipeline stage (prompt, model, pipeline; Section 1.1); system architecture (single-LLM, multi-agent);
+  technical approach (ML-based, rule-based, hybrid).
+treatment_user_task: unknown (PDF not yet read)
+treatment_document_handling: unknown (PDF not yet read)
+treatment_comparability: unknown (PDF not yet read)
+evidence_granularity: unknown (PDF not yet read)
+what_this_review_adds: to fill after reading
+a_source_axis: partial
+b_three_jobs_together: unknown
+c_equal_layout_rule: unknown
+pages:
+  a: ''
+  b: ''
+  c: ''
+read_basis: MDPI landing page (19 Nov 2026)
+confirmed_from_pdf: false
+pdf_sha256: ''

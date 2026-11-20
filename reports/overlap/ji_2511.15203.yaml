@@ -1,0 +1,24 @@
+id: ji_2511.15203
+title: Taxonomy, Evaluation and Exploitation of IPI-Centric LLM Agent Defense Frameworks
+kind: sok
+scope: Defence frameworks for indirect prompt injection in LLM agents.
+corpus_cutoff: late 2025 (to confirm)
+organising_dimensions: 'Five dimensions: technical paradigm, intervention stage, model access, explainability, automation
+  level.'
+treatment_user_task: Utility on AgentDojo (task success) for nine frameworks; not the user's instruction as its
+  own quantity.
+treatment_document_handling: Not measured.
+treatment_comparability: Prompt templates and delimiters appear as implementation details; no comparability condition.
+evidence_granularity: ASR and utility for nine frameworks under three adaptive attacks; Meta-SecAlign the only training
+  defence.
+what_this_review_adds: Model-side defences as the subject; the two axes; R2 and R3; grades.
+a_source_axis: partial
+b_three_jobs_together: 'no'
+c_equal_layout_rule: 'no'
+pages:
+  a: ''
+  b: ''
+  c: ''
+read_basis: full PDF (research pass, 19 Nov 2026)
+confirmed_from_pdf: false
+pdf_sha256: ''

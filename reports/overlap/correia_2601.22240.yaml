@@ -1,0 +1,28 @@
+id: correia_2601.22240
+title: 'A Systematic Literature Review on LLM Defenses Against Prompt Injection and Jailbreaking: Expanding NIST
+  Taxonomy'
+kind: survey
+scope: Systematic literature review of LLM defences against prompt injection and jailbreaking; 88 studies to August
+  2025.
+corpus_cutoff: August 2025
+organising_dimensions: 'NIST-based tree: training-time interventions; deployment-time interventions (prompt instruction
+  and formatting, input modification, aggregation, model-level mitigations such as decoding steering and defensive
+  pruning, detection, monitoring); indirect mitigations.'
+treatment_user_task: ASR is the main metric; some studies also report performance; trade-offs often not reported
+  (p. 15).
+treatment_document_handling: Not treated.
+treatment_comparability: RQ3 asks whether results are comparable; Section 6.2 names dataset splits, model variants
+  and temperature; prompt layout is not among the factors.
+evidence_granularity: Catalogue with model, attack dataset, code and model-agnosticism per study (Table 3).
+what_this_review_adds: The inference-time signal axis separated from the training axis; R2 and R3; layout as a condition;
+  grades.
+a_source_axis: partial
+b_three_jobs_together: 'no'
+c_equal_layout_rule: 'no'
+pages:
+  a: ''
+  b: ''
+  c: ''
+read_basis: full PDF (research pass, 19 Nov 2026)
+confirmed_from_pdf: false
+pdf_sha256: ''

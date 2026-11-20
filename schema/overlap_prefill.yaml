@@ -1,0 +1,146 @@
+wang_2602.10453:
+  scope: Prompt-injection threats and defences in LLM agents; 78 papers; defences by the stage at which they act.
+  corpus_cutoff: early 2026 (to confirm from the PDF)
+  organising_dimensions: 'Attacks by payload generation. Defences by stage: text level (detection filters, prompt
+    enhancement), model level (model alignment by task, preference or format; internal-representation detectors),
+    execution level (task alignment, access control, isolation).'
+  treatment_user_task: Utility without attack as a general score on AgentPI; not the user's instruction under attack
+    as its own quantity.
+  treatment_document_handling: Not measured. The paper finds that defences look good by suppressing contextual inputs,
+    which is the symptom.
+  treatment_comparability: Prompt-structure changes counted as a compatibility cost; layout not treated as a condition
+    for comparing numbers.
+  evidence_granularity: Benchmark results (ASR, utility, time, tokens) for eight text- and execution-level defences;
+    no model-level defence run.
+  what_this_review_adds: Finer first axis with no-signal as a value; signal dependence; R2 and R3 coverage; evidence
+    grades for comparisons.
+  a_source_axis: partial
+  b_three_jobs_together: 'no'
+  c_equal_layout_rule: 'no'
+  read_basis: full PDF (research pass, 19 Nov 2026)
+ji_2511.15203:
+  scope: Defence frameworks for indirect prompt injection in LLM agents.
+  corpus_cutoff: late 2025 (to confirm)
+  organising_dimensions: 'Five dimensions: technical paradigm, intervention stage, model access, explainability,
+    automation level.'
+  treatment_user_task: Utility on AgentDojo (task success) for nine frameworks; not the user's instruction as its
+    own quantity.
+  treatment_document_handling: Not measured.
+  treatment_comparability: Prompt templates and delimiters appear as implementation details; no comparability condition.
+  evidence_granularity: ASR and utility for nine frameworks under three adaptive attacks; Meta-SecAlign the only
+    training defence.
+  what_this_review_adds: Model-side defences as the subject; the two axes; R2 and R3; grades.
+  a_source_axis: partial
+  b_three_jobs_together: 'no'
+  c_equal_layout_rule: 'no'
+  read_basis: full PDF (research pass, 19 Nov 2026)
+correia_2601.22240:
+  scope: Systematic literature review of LLM defences against prompt injection and jailbreaking; 88 studies to August
+    2025.
+  corpus_cutoff: August 2025
+  organising_dimensions: 'NIST-based tree: training-time interventions; deployment-time interventions (prompt instruction
+    and formatting, input modification, aggregation, model-level mitigations such as decoding steering and defensive
+    pruning, detection, monitoring); indirect mitigations.'
+  treatment_user_task: ASR is the main metric; some studies also report performance; trade-offs often not reported
+    (p. 15).
+  treatment_document_handling: Not treated.
+  treatment_comparability: RQ3 asks whether results are comparable; Section 6.2 names dataset splits, model variants
+    and temperature; prompt layout is not among the factors.
+  evidence_granularity: Catalogue with model, attack dataset, code and model-agnosticism per study (Table 3).
+  what_this_review_adds: The inference-time signal axis separated from the training axis; R2 and R3; layout as a
+    condition; grades.
+  a_source_axis: partial
+  b_three_jobs_together: 'no'
+  c_equal_layout_rule: 'no'
+  read_basis: full PDF (research pass, 19 Nov 2026)
+hashemi_2606.31639:
+  scope: Lifecycle and application-stack survey of LLM vulnerabilities; systematisation rather than exhaustive bibliometrics.
+  corpus_cutoff: mid 2026 (to confirm)
+  organising_dimensions: 'Defence-in-depth: deterministic controls; model-level and prompt-level controls; retrieval
+    and memory controls; tool and agent controls; monitoring, red teaming, governance.'
+  treatment_user_task: No numbers reported.
+  treatment_document_handling: Not treated.
+  treatment_comparability: A reporting checklist (Table 5) lists context construction including delimiters and templates
+    as items to report; not a comparability condition.
+  evidence_granularity: Narrative; no extracted evidence tables.
+  what_this_review_adds: Measured coverage of the three jobs; graded comparisons; the card as a filled artefact.
+  a_source_axis: 'no'
+  b_three_jobs_together: 'no'
+  c_equal_layout_rule: partial
+  read_basis: full PDF (research pass, 19 Nov 2026)
+mourad_electronics_2026:
+  scope: Systematic review of defence mechanisms against prompt-based attacks in LLM agents; 19 studies.
+  corpus_cutoff: to confirm from the PDF
+  organising_dimensions: Pipeline stage (prompt, model, pipeline; Section 1.1); system architecture (single-LLM,
+    multi-agent); technical approach (ML-based, rule-based, hybrid).
+  treatment_user_task: unknown (PDF not yet read)
+  treatment_document_handling: unknown (PDF not yet read)
+  treatment_comparability: unknown (PDF not yet read)
+  evidence_granularity: unknown (PDF not yet read)
+  what_this_review_adds: to fill after reading
+  a_source_axis: partial
+  b_three_jobs_together: unknown
+  c_equal_layout_rule: unknown
+  read_basis: MDPI landing page (19 Nov 2026)
+geng_cmc_2026:
+  scope: Survey of prompt injection attack methods, root causes and defences; 128 studies 2022 to 2025.
+  corpus_cutoff: '2025'
+  organising_dimensions: Attacks by vector, objective and implementation; defences in three groups (input filtering,
+    system architecture, model level); root causes at philosophical, architectural and training levels.
+  treatment_user_task: unknown (PDF not yet read)
+  treatment_document_handling: unknown (PDF not yet read)
+  treatment_comparability: unknown (PDF not yet read)
+  evidence_granularity: unknown (PDF not yet read)
+  what_this_review_adds: to fill after reading
+  a_source_axis: partial
+  b_three_jobs_together: unknown
+  c_equal_layout_rule: unknown
+  read_basis: journal page (19 Nov 2026)
+sammartino_kbs_2026:
+  scope: PRISMA-informed review of threats and defences in LLM-driven agentic and multi-agent systems, 2023 to early
+    2026.
+  corpus_cutoff: early 2026
+  organising_dimensions: Threats by entry point, propagation path and target asset; four threat families; five defence
+    categories mapped to threats.
+  treatment_user_task: unknown (full text paywalled)
+  treatment_document_handling: unknown (full text paywalled)
+  treatment_comparability: Defences assessed for adaptive-attack resistance, cost and residual risk (abstract);
+    layout not mentioned in the abstract.
+  evidence_granularity: unknown (full text paywalled)
+  what_this_review_adds: to fill after reading
+  a_source_axis: unknown
+  b_three_jobs_together: unknown
+  c_equal_layout_rule: unknown
+  read_basis: journal abstract page (19 Nov 2026)
+hong_2510.15476:
+  scope: SoK of LLM prompt security, jailbreak-centred; 272 studies; three taxonomies; unified evaluation.
+  corpus_cutoff: 2025 (v4 October 2026; to confirm)
+  organising_dimensions: Taxonomies of attacks, defences (by goal and methodology; a defence decision layer of input,
+    output, internal state or prompt policy) and vulnerabilities; an evaluation protocol over model, access setting,
+    attack, defence, sample and judge.
+  treatment_user_task: Not as its own quantity (to confirm).
+  treatment_document_handling: Not treated (jailbreak setting).
+  treatment_comparability: Configuration-aware reporting over the tuple; prompt layout is not in the tuple.
+  evidence_granularity: 11 models, 20 attacks, 9 defences, 3 judges under one protocol.
+  what_this_review_adds: Indirect injection as the subject; the signal axis; R2 and R3; layout as a condition.
+  a_source_axis: partial
+  b_three_jobs_together: 'no'
+  c_equal_layout_rule: partial
+  read_basis: arXiv abstract page and v3 HTML snippets (19 Nov 2026)
+secfid_2606.30783:
+  scope: 'Benchmark, not a survey: security and fidelity measured together for four defences on three bases; 1,168
+    instances.'
+  corpus_cutoff: not applicable
+  organising_dimensions: Outcomes executed, processed, ignored, other; fidelity as one minus the ignored rate (non-suppression);
+    safe processing as processed and not executed.
+  treatment_user_task: Not measured separately.
+  treatment_document_handling: 'Measured: non-suppression and safe processing on translation, editing, extraction
+    and counting.'
+  treatment_comparability: Each defence run with its own specified inference procedure (Appendix B.1).
+  evidence_granularity: 'Per defence and base model: security and fidelity percentages.'
+  what_this_review_adds: SecFid is the source of the R3 definitions and of published pairs; the review places its
+    numbers on the map with their layouts.
+  a_source_axis: 'no'
+  b_three_jobs_together: partial
+  c_equal_layout_rule: 'no'
+  read_basis: full PDF (research pass, 19 Nov 2026)
