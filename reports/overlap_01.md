@@ -1,8 +1,9 @@
 # Overlap assessment (gate G1), 2026-11-20
 
-Outcome: **UNRESOLVED**
+Outcome: **SUPPORTED**
 
-- not yet confirmed from the PDF: hong_2510.15476
+- no confirmed form answers yes to any of the three questions
+- partial overlaps to be named in the related-work table: correia_2601.22240 (a_source_axis, c_equal_layout_rule); geng_cmc_2026 (a_source_axis, c_equal_layout_rule); hashemi_2606.31639 (a_source_axis, c_equal_layout_rule); hong_2510.15476 (a_source_axis, b_three_jobs_together, c_equal_layout_rule); ji_2511.15203 (a_source_axis, c_equal_layout_rule); mourad_electronics_2026 (a_source_axis, c_equal_layout_rule); sammartino_kbs_2026 (a_source_axis, b_three_jobs_together, c_equal_layout_rule); secfid_2606.30783 (b_three_jobs_together); wang_2602.10453 (a_source_axis, c_equal_layout_rule)
 
 ## How the three questions were graded
 
@@ -28,7 +29,7 @@ Pages are 1-based page indices of the PDF in `data/surveys/`; each page was loca
 | correia_2601.22240 | survey | partial | no | partial | 9 / 15 / 16 | yes | full PDF text, arXiv 2601.22240 (latest version on 20 Nov 2026), 27 pages, read 20 Nov 2026 |
 | geng_cmc_2026 | survey | partial | no | partial | 28 / 33 / 41 | yes | full PDF, Computers, Materials & Continua 87(1), 52 pages, read 20 Nov 2026 |
 | hashemi_2606.31639 | survey | partial | no | partial | 9 / 10 / 12 | yes | full PDF text, arXiv 2606.31639 (latest version on 20 Nov 2026), 19 pages, read 20 Nov 2026 |
-| hong_2510.15476 | sok | partial | partial | partial |  / 12 / 7 | no | full PDF text, arXiv 2510.15476 (latest version on 20 Nov 2026); page numbers located by anchor search, read 20 Nov 2026 |
+| hong_2510.15476 | sok | partial | partial | partial | 4 / 12 / 7 | yes | full PDF text, arXiv 2510.15476 (latest version on 20 Nov 2026); page numbers located by anchor search, read 20 Nov 2026 |
 | ji_2511.15203 | sok | partial | no | partial | 4 / 9 / 8 | yes | full PDF text, arXiv 2511.15203 (latest version on 20 Nov 2026); page numbers located by anchor search, read 20 Nov 2026 |
 | mourad_electronics_2026 | survey | partial | no | partial | 11 / 12 / 14 | yes | full PDF, Electronics 15(16):3700, 27 pages, read 20 Nov 2026 |
 | sammartino_kbs_2026 | survey | partial | partial | partial | 14 / 17 / 21 | yes | full PDF, Knowledge-Based Systems 352 (2026) 117001, 25 pages, read 20 Nov 2026 |
@@ -72,28 +73,28 @@ Pages are 1-based page indices of the PDF in `data/surveys/`; each page was loca
 - **organising dimensions**: Attacks by lifecycle stage and application stack (Section 3). Defences in a defence-in-depth architecture: deterministic controls; model-level and prompt-level controls; retrieval and memory controls; tool and agent controls; monitoring, red teaming and governance (Section 6, pp. 9-10). Delimiters, role labels and instruction hierarchy are listed as examples of prompt-level controls, not as an axis.
 - **treatment user task**: Named as metrics to report (clean-task accuracy, user-task utility; Section 7, p. 10); no numbers for any defence.
 - **treatment document handling**: Named as a design goal: a model should read untrusted content for information without letting it change goals (Section 9, p. 13); not measured.
-- **treatment comparability**: A reporting checklist (Table 5, p. 11) includes context construction: system prompt, retrieved documents, memory policy, delimiters, tool schemas, with the rationale that it is critical for prompt-injection and RAG studies. It is a reporting item; no rule says numbers are comparable only under the same layout.
+- **treatment comparability**: A reporting checklist (Table 5, p. 12) includes context construction: system prompt, retrieved documents, memory policy, delimiters, tool schemas, with the rationale that it is critical for prompt-injection and RAG studies. It is a reporting item; no rule says numbers are comparable only under the same layout.
 - **evidence granularity**: Narrative with reference tables; no extracted per-defence evidence.
 - **what this review adds**: Filled records rather than a checklist: the signal axis, per-defence coverage of the three requirements, layout as a comparison condition with graded comparisons, and the defence card. This paper's Table 5 is the nearest prior naming of delimiters and templates as something to report.
 - **a_source_axis** = partial; p.9: "system prompts, instruction hierarchy, delimiters, reminders about untrusted content"
 - **b_three_jobs_together** = no; p.10: "clean-task accuracy"
 - **c_equal_layout_rule** = partial; p.12: "critical for prompt-injection and RAG studies"
-- **verification**: a: p.10 -> p.9; b: p.10 ok; c: p.11 -> p.12; sha256 87b8c6c9be81
+- **verification**: a: p.9 ok; b: p.10 ok; c: p.12 ok; sha256 87b8c6c9be81
 
 ## hong_2510.15476: SoK: Systematizing LLM Prompt Security: Taxonomies, Datasets, and Unified Evaluation of Attacks and Defenses
 
 - **scope**: SoK of LLM prompt security centred on jailbreaks: 272 papers, collection last updated May 2026; three taxonomies and a unified evaluation platform (Sections 1, 2.1, 3). States that it focuses on textual jailbreak attacks and defences (Section 1); the platform supports single-turn interactions only (Section 3.2).
-- **corpus cutoff**: May 2026 (Section 2.1)
-- **organising dimensions**: Defence taxonomy by goal (detection, mitigation), then intervention point (input, output, inner state; input processing, model training, model-side intervention, output processing), then operation (Section 2.5, Figure 2). Provenance marking and delimiting are techniques under prompt modification; safety prompts with optimised embeddings sit beside them. No axis over signal forms.
+- **corpus cutoff**: May 2026 (Section 2.1); arXiv v6 read
+- **organising dimensions**: Defence taxonomy by goal (detection, mitigation), then intervention point (input, output, inner state; input processing, model training, model-side intervention, output processing), then operation (Section 2.5, Figure 2). Prompt modification (provenance marking, delimiting, paraphrasing) is one technique group under input processing (p. 4); safety prompts with optimised embeddings sit beside it. No axis over signal forms.
 - **treatment user task**: Per defence under one protocol: ASR, defence gain, sample-wise transitions (Table 2, Section 4.1); benign utility on MMLU, TruthfulQA, FollowBench, IFEval and refusal rate, with over-refusal relative to no defence (Section 4.4). This is general capability without attack, not the user's task under attack.
 - **treatment document handling**: Not measured; the evaluated attacks are direct harmful queries, not instructions carried in documents or tool outputs.
 - **treatment comparability**: States that two results are directly comparable only when component identities and relevant settings match, over the tuple model, attack, defence, dataset, judge plus decoding, assistant models, budgets, thresholds, judge rubrics and parsing rules (Section 3.1). The strongest comparability rule among the surveys; the prompt layout is not a listed element.
 - **evidence granularity**: 11 models, 20 attacks, 9 defences, 3 judges run under one protocol with audit logs.
 - **what this review adds**: Indirect injection as the subject; the signal axis; the user's task under attack and document handling; the layout condition added to a comparability rule that this paper already states for model, attack, dataset, judge and decoding; grades for published comparisons instead of a re-run.
-- **a_source_axis** = partial; p.: "provenance marking, delimiting"
+- **a_source_axis** = partial; p.4: "Prompt Modification rewrites or constrains prompts"
 - **b_three_jobs_together** = partial; p.12: "defense-induced over-refusal relative to no_defense"
 - **c_equal_layout_rule** = partial; p.7: "Two results are directly comparable only when both component identities and relevant settings match"
-- **verification**: a: anchor not found; b: p.? -> p.12; c: p.? -> p.7; sha256 639d8ba358c9
+- **verification**: a: p.4 ok; b: p.12 ok; c: p.7 ok; sha256 639d8ba358c9
 
 ## ji_2511.15203: Taxonomy, Evaluation and Exploitation of IPI-Centric LLM Agent Defense Frameworks
 
@@ -108,7 +109,7 @@ Pages are 1-based page indices of the PDF in `data/surveys/`; each page was loca
 - **a_source_axis** = partial; p.4: "unpredictable data delimiters"
 - **b_three_jobs_together** = no; p.9: "the proportion of user-specified tasks completed in the AgentDojo benchmark"
 - **c_equal_layout_rule** = partial; p.8: "we standardize the configurations across all benchmarks and defense frameworks"
-- **verification**: a: p.? -> p.4; b: p.? -> p.9; c: p.? -> p.8; sha256 ada6210f63d4
+- **verification**: a: p.4 ok; b: p.9 ok; c: p.8 ok; sha256 ada6210f63d4
 
 ## mourad_electronics_2026: Securing the Prompt Pipeline: A Systematic Review of Defense Mechanisms Against Prompt-Based Attacks in LLM Agents
 
@@ -153,7 +154,7 @@ Pages are 1-based page indices of the PDF in `data/surveys/`; each page was loca
 - **a_source_axis** = no; p.9: "Input-centric methods attempt to filter malicious content before it reaches the model"
 - **b_three_jobs_together** = partial; p.4: "We define Fidelity as 1 - Ignored Rate"
 - **c_equal_layout_rule** = no; p.24: "we use the inference procedure specified by each defense"
-- **verification**: a: p.? -> p.9; b: p.? -> p.4; c: p.? -> p.24; sha256 3c27d8cb98ee
+- **verification**: a: p.9 ok; b: p.4 ok; c: p.24 ok; sha256 3c27d8cb98ee
 
 ## wang_2602.10453: The Landscape of Prompt Injection Threats in LLM Agents: From Taxonomy to Analysis
 

@@ -36,5 +36,5 @@ read_basis: full PDF text, arXiv 2511.15203 (latest version on 20 Nov 2026); pag
   read 20 Nov 2026
 confirmed_from_pdf: true
 pdf_sha256: ada6210f63d42ce6c29a8e8a2bda57c804883b266d8be79de80d9f8e947d00b3
-verification: 'a: p.? -> p.4; b: p.? -> p.9; c: p.? -> p.8'
+verification: 'a: p.4 ok; b: p.9 ok; c: p.8 ok'
 pdf_pages: 18

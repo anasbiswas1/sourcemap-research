@@ -62,6 +62,18 @@ def test_verify_form_corrects_page_and_confirms(tmp_path):
     assert "a: p.2 -> p.3" in out["verification"] and "b: p.2 ok" in out["verification"]
 
 
+def test_verify_form_accepts_a_phrase_that_runs_over_a_page_break(tmp_path):
+    pdf = tmp_path / "x.pdf"
+    pdf.write_bytes(b"%PDF-1.4 fake")
+    pages = [overlap.norm_text(t) for t in ["intro", "constrains prompts via provenance", "marking, delimiting, paraphrasing"]]
+    form = confirmed("x", a="partial")
+    form["anchors"] = {"a": "provenance marking, delimiting", "b": "", "c": ""}
+    form["pages"] = {"a": "", "b": "", "c": ""}
+    out = overlap.verify_form(form, pdf, page_texts=pages)
+    assert out["confirmed_from_pdf"] is True and out["pages"]["a"] == "2"
+    assert "runs over the page break" in out["verification"]
+
+
 def test_verify_form_leaves_unconfirmed_when_anchor_missing_or_pdf_missing(tmp_path):
     pdf = tmp_path / "x.pdf"
     pdf.write_bytes(b"%PDF-1.4 fake")

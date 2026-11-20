@@ -142,15 +142,19 @@ def verify_form(form: dict, pdf_path: Path, page_texts: list[str] | None = None)
         if not anchor:
             continue
         hits = [i + 1 for i, t in enumerate(texts) if norm_text(anchor) in t]
+        straddle = ""
+        if not hits:                                   # a phrase can run over a page break; try adjacent pages
+            hits = [i + 1 for i in range(len(texts) - 1) if norm_text(anchor) in texts[i] + texts[i + 1]]
+            straddle = " (runs over the page break)" if hits else ""
         stated = str(form["pages"].get(key, "")).strip()
         if not hits:
             all_found = False
             notes.append(f"{key}: anchor not found")
             continue
         if stated and stated.isdigit() and int(stated) in hits:
-            notes.append(f"{key}: p.{stated} ok")
+            notes.append(f"{key}: p.{stated} ok{straddle}")
         else:
-            notes.append(f"{key}: p.{stated or '?'} -> p.{hits[0]}" + (f" (also {hits[1:]})" if len(hits) > 1 else ""))
+            notes.append(f"{key}: p.{stated or '?'} -> p.{hits[0]}" + (f" (also {hits[1:]})" if len(hits) > 1 else "") + straddle)
             form["pages"][key] = str(hits[0])
     form["pdf_sha256"] = sha256_of(pdf_path)
     form["pdf_pages"] = len(texts)

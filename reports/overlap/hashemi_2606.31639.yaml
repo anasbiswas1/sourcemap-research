@@ -13,7 +13,7 @@ treatment_user_task: Named as metrics to report (clean-task accuracy, user-task 
   for any defence.
 treatment_document_handling: 'Named as a design goal: a model should read untrusted content for information without
   letting it change goals (Section 9, p. 13); not measured.'
-treatment_comparability: 'A reporting checklist (Table 5, p. 11) includes context construction: system prompt, retrieved
+treatment_comparability: 'A reporting checklist (Table 5, p. 12) includes context construction: system prompt, retrieved
   documents, memory policy, delimiters, tool schemas, with the rationale that it is critical for prompt-injection
   and RAG studies. It is a reporting item; no rule says numbers are comparable only under the same layout.'
 evidence_granularity: Narrative with reference tables; no extracted per-defence evidence.
@@ -35,5 +35,5 @@ page_basis: PDF page index, 1-based, of the file in data/surveys/
 read_basis: full PDF text, arXiv 2606.31639 (latest version on 20 Nov 2026), 19 pages, read 20 Nov 2026
 confirmed_from_pdf: true
 pdf_sha256: 87b8c6c9be8142d2edee7ad0771c8f5438bd5b41dcd1f840e3fe033790aae0b0
-verification: 'a: p.10 -> p.9; b: p.10 ok; c: p.11 -> p.12'
+verification: 'a: p.9 ok; b: p.10 ok; c: p.12 ok'
 pdf_pages: 19

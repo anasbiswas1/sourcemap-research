@@ -1,4 +1,5 @@
-decision_01: UNRESOLVED
+decision_01: SUPPORTED
 date: 2026-11-20
 forms: 9
-- not yet confirmed from the PDF: hong_2510.15476
+- no confirmed form answers yes to any of the three questions
+- partial overlaps to be named in the related-work table: correia_2601.22240 (a_source_axis, c_equal_layout_rule); geng_cmc_2026 (a_source_axis, c_equal_layout_rule); hashemi_2606.31639 (a_source_axis, c_equal_layout_rule); hong_2510.15476 (a_source_axis, b_three_jobs_together, c_equal_layout_rule); ji_2511.15203 (a_source_axis, c_equal_layout_rule); mourad_electronics_2026 (a_source_axis, c_equal_layout_rule); sammartino_kbs_2026 (a_source_axis, b_three_jobs_together, c_equal_layout_rule); secfid_2606.30783 (b_three_jobs_together); wang_2602.10453 (a_source_axis, c_equal_layout_rule)

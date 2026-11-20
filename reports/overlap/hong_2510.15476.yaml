@@ -4,11 +4,11 @@ kind: sok
 scope: 'SoK of LLM prompt security centred on jailbreaks: 272 papers, collection last updated May 2026; three taxonomies
   and a unified evaluation platform (Sections 1, 2.1, 3). States that it focuses on textual jailbreak attacks and
   defences (Section 1); the platform supports single-turn interactions only (Section 3.2).'
-corpus_cutoff: May 2026 (Section 2.1)
+corpus_cutoff: May 2026 (Section 2.1); arXiv v6 read
 organising_dimensions: Defence taxonomy by goal (detection, mitigation), then intervention point (input, output,
   inner state; input processing, model training, model-side intervention, output processing), then operation (Section
-  2.5, Figure 2). Provenance marking and delimiting are techniques under prompt modification; safety prompts with
-  optimised embeddings sit beside them. No axis over signal forms.
+  2.5, Figure 2). Prompt modification (provenance marking, delimiting, paraphrasing) is one technique group under
+  input processing (p. 4); safety prompts with optimised embeddings sit beside it. No axis over signal forms.
 treatment_user_task: 'Per defence under one protocol: ASR, defence gain, sample-wise transitions (Table 2, Section
   4.1); benign utility on MMLU, TruthfulQA, FollowBench, IFEval and refusal rate, with over-refusal relative to
   no defence (Section 4.4). This is general capability without attack, not the user''s task under attack.'
@@ -26,17 +26,17 @@ a_source_axis: partial
 b_three_jobs_together: partial
 c_equal_layout_rule: partial
 pages:
-  a: ''
+  a: '4'
   b: '12'
   c: '7'
 anchors:
-  a: provenance marking, delimiting
+  a: Prompt Modification rewrites or constrains prompts
   b: defense-induced over-refusal relative to no_defense
   c: Two results are directly comparable only when both component identities and relevant settings match
 page_basis: PDF page index, 1-based, of the file in data/surveys/
 read_basis: full PDF text, arXiv 2510.15476 (latest version on 20 Nov 2026); page numbers located by anchor search,
   read 20 Nov 2026
-confirmed_from_pdf: false
+confirmed_from_pdf: true
 pdf_sha256: 639d8ba358c9cd0ec7ffa1c5ee2f5b40c09e59d8a4942d68134d4eecc6ec73af
-verification: 'a: anchor not found; b: p.? -> p.12; c: p.? -> p.7'
+verification: 'a: p.4 ok; b: p.12 ok; c: p.7 ok'
 pdf_pages: 25
