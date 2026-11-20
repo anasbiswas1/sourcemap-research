@@ -34,6 +34,7 @@ anchors:
   c: not directly comparable across studies because of differing datasets, threat models
 page_basis: PDF page index, 1-based, of the file in data/surveys/
 read_basis: full PDF, Electronics 15(16):3700, 27 pages, read 20 Nov 2026
-confirmed_from_pdf: false
-pdf_sha256: ''
-verification: PDF missing
+confirmed_from_pdf: true
+pdf_sha256: 7eb9d98248fa2d54896ddbd2f19fdd1094e830ffb519137babf86ee09c8d45dc
+verification: 'a: p.11 ok; b: p.12 ok; c: p.14 ok'
+pdf_pages: 27

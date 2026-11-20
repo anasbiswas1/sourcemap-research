@@ -44,6 +44,7 @@ anchors:
   c: Defender scope. What the defense may modify
 page_basis: PDF page index, 1-based, of the file in data/surveys/
 read_basis: full PDF, Knowledge-Based Systems 352 (2026) 117001, 25 pages, read 20 Nov 2026
-confirmed_from_pdf: false
-pdf_sha256: ''
-verification: PDF missing
+confirmed_from_pdf: true
+pdf_sha256: 1ccb890643fa82a815796f97a7be6f0895e91e682cd92a5dfef46545eb8096ff
+verification: 'a: p.14 ok; b: p.17 ok; c: p.21 ok'
+pdf_pages: 25

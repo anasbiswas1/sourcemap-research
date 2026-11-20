@@ -1,4 +1,4 @@
 decision_01: UNRESOLVED
 date: 2026-11-20
 forms: 9
-- not yet confirmed from the PDF: geng_cmc_2026, hong_2510.15476, mourad_electronics_2026, sammartino_kbs_2026
+- not yet confirmed from the PDF: hong_2510.15476

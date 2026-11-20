@@ -2,7 +2,7 @@
 
 Outcome: **UNRESOLVED**
 
-- not yet confirmed from the PDF: geng_cmc_2026, hong_2510.15476, mourad_electronics_2026, sammartino_kbs_2026
+- not yet confirmed from the PDF: hong_2510.15476
 
 ## How the three questions were graded
 
@@ -26,12 +26,12 @@ Pages are 1-based page indices of the PDF in `data/surveys/`; each page was loca
 | id | kind | a: source axis | b: three jobs | c: layout rule | pages a / b / c | confirmed | read basis |
 |---|---|---|---|---|---|---|---|
 | correia_2601.22240 | survey | partial | no | partial | 9 / 15 / 16 | yes | full PDF text, arXiv 2601.22240 (latest version on 20 Nov 2026), 27 pages, read 20 Nov 2026 |
-| geng_cmc_2026 | survey | partial | no | partial | 28 / 33 / 41 | no | full PDF, Computers, Materials & Continua 87(1), 52 pages, read 20 Nov 2026 |
+| geng_cmc_2026 | survey | partial | no | partial | 28 / 33 / 41 | yes | full PDF, Computers, Materials & Continua 87(1), 52 pages, read 20 Nov 2026 |
 | hashemi_2606.31639 | survey | partial | no | partial | 9 / 10 / 12 | yes | full PDF text, arXiv 2606.31639 (latest version on 20 Nov 2026), 19 pages, read 20 Nov 2026 |
 | hong_2510.15476 | sok | partial | partial | partial |  / 12 / 7 | no | full PDF text, arXiv 2510.15476 (latest version on 20 Nov 2026); page numbers located by anchor search, read 20 Nov 2026 |
 | ji_2511.15203 | sok | partial | no | partial | 4 / 9 / 8 | yes | full PDF text, arXiv 2511.15203 (latest version on 20 Nov 2026); page numbers located by anchor search, read 20 Nov 2026 |
-| mourad_electronics_2026 | survey | partial | no | partial | 11 / 12 / 14 | no | full PDF, Electronics 15(16):3700, 27 pages, read 20 Nov 2026 |
-| sammartino_kbs_2026 | survey | partial | partial | partial | 14 / 17 / 21 | no | full PDF, Knowledge-Based Systems 352 (2026) 117001, 25 pages, read 20 Nov 2026 |
+| mourad_electronics_2026 | survey | partial | no | partial | 11 / 12 / 14 | yes | full PDF, Electronics 15(16):3700, 27 pages, read 20 Nov 2026 |
+| sammartino_kbs_2026 | survey | partial | partial | partial | 14 / 17 / 21 | yes | full PDF, Knowledge-Based Systems 352 (2026) 117001, 25 pages, read 20 Nov 2026 |
 | secfid_2606.30783 | benchmark | no | partial | no | 9 / 4 / 24 | yes | full PDF text, arXiv 2606.30783 (latest version on 20 Nov 2026); page numbers located by anchor search, read 20 Nov 2026 |
 | wang_2602.10453 | sok | partial | no | partial | 7 / 12 / 10 | yes | full PDF text, arXiv 2602.10453 (latest version on 20 Nov 2026), 20 pages, read 20 Nov 2026 |
 
@@ -63,7 +63,7 @@ Pages are 1-based page indices of the PDF in `data/surveys/`; each page was loca
 - **a_source_axis** = partial; p.28: "Input Preprocessing and Filtering, System Architecture Defenses, and Model-Level Defenses"
 - **b_three_jobs_together** = no; p.33: "Quantitative comparison of defense mechanism effectiveness"
 - **c_equal_layout_rule** = partial; p.41: "leading to inconsistent and sometimes incomparable results"
-- **verification**: PDF missing; sha256 
+- **verification**: a: p.28 ok; b: p.33 ok; c: p.41 ok; sha256 2ebcaf320118
 
 ## hashemi_2606.31639: A Lifecycle and Application-Stack Survey of Large Language Model Vulnerabilities: Attacks, Risks, Defenses, and Open Problems
 
@@ -123,7 +123,7 @@ Pages are 1-based page indices of the PDF in `data/surveys/`; each page was loca
 - **a_source_axis** = partial; p.11: "fixed delimiters or guardrail text that separate system instructions from user input"
 - **b_three_jobs_together** = no; p.12: "Utility-related metrics such as latency, throughput, and task accuracy degradation"
 - **c_equal_layout_rule** = partial; p.14: "not directly comparable across studies because of differing datasets, threat models"
-- **verification**: PDF missing; sha256 
+- **verification**: a: p.11 ok; b: p.12 ok; c: p.14 ok; sha256 7eb9d98248fa
 
 ## sammartino_kbs_2026: Vulnerabilities in autonomous execution: A survey of security threats and defenses in LLM-driven agentic and multi-agent systems
 
@@ -138,7 +138,7 @@ Pages are 1-based page indices of the PDF in `data/surveys/`; each page was loca
 - **a_source_axis** = partial; p.14: "structural separation of instructions and data"
 - **b_three_jobs_together** = partial; p.17: "Reported alone, ASR is uninterpretable"
 - **c_equal_layout_rule** = partial; p.21: "Defender scope. What the defense may modify"
-- **verification**: PDF missing; sha256 
+- **verification**: a: p.14 ok; b: p.17 ok; c: p.21 ok; sha256 1ccb890643fa
 
 ## secfid_2606.30783: Security-Fidelity Tradeoffs: The Hidden Cost of Prompt Injection Defense
 

@@ -33,6 +33,7 @@ anchors:
   c: leading to inconsistent and sometimes incomparable results
 page_basis: PDF page index, 1-based, of the file in data/surveys/
 read_basis: full PDF, Computers, Materials & Continua 87(1), 52 pages, read 20 Nov 2026
-confirmed_from_pdf: false
-pdf_sha256: ''
-verification: PDF missing
+confirmed_from_pdf: true
+pdf_sha256: 2ebcaf320118c762936173e5dacefae97db64bd0bb2e8a2626c8f2a4e44f5477
+verification: 'a: p.28 ok; b: p.33 ok; c: p.41 ok'
+pdf_pages: 52
