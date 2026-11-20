@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use these coded records or tables, please cite this repository."
+title: "sourcemap-research: coded evidence on model-side defences against indirect prompt injection"
+authors:
+  - family-names: Biswas
+    given-names: Md Anas
+    orcid: "https://orcid.org/0009-0009-0113-5816"
+    affiliation: "School of Computing, University of Portsmouth"
+repository-code: "https://github.com/anasbiswas1/sourcemap-research"
+license: MIT
+version: 0.1.0
+date-released: 2026-11-19
