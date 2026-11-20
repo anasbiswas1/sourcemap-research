@@ -1,9 +1,10 @@
-decision_02: CORPUS FROZEN
-search date: 2026-11-20; freeze date: 2026-11-20
-records identified: 4914 across 5 sources
-unique records: 2276; studies after version linking: 2206
-screened by title and abstract: 2206; pending: 0
-included: 114; unsure, to full-text assessment: 129; reports sought: 243
-excluded by reason: {"system level": 364, "detector only": 271, "attack only": 318, "not about prompt injection": 549, "survey, position or other": 338, "jailbreak or direct injection only": 58, "benchmark only": 54, "duplicate version": 11}
-full texts obtained: 171; to place by hand or mark as not obtainable: 72
-next: full-text assessment of the unsure studies and the pilot extraction (notebook 03)
+decision_02: CORPUS FROZEN; FULL-TEXT ASSESSMENT PENDING FOR 56 UNSURE STUDIES
+search date: 2026-11-20; this step: 2026-11-20
+studies after version linking: 2206; screened: 2206
+excluded at title and abstract: {"system level": 364, "detector only": 271, "attack only": 318, "not about prompt injection": 549, "survey, position or other": 338, "jailbreak or direct injection only": 58, "benchmark only": 54, "duplicate version": 11}
+reports sought for full text: 243
+full text assessed (unsure studies): 73; included 29; excluded {"detector only": 14, "image or audio channel only": 7, "system level": 11, "jailbreak or direct injection only": 4, "survey, position or other": 4, "not about prompt injection": 3, "attack only": 1}
+full-text decisions with the anchor found in the PDF: 73 of 73
+included now: 143; unsure, still to decide from the full text: 56
+PDFs in data/defences: 173; to fetch by hand: 70 (reports/fetch_by_hand.csv)
+next: PDFs placed by hand, then rerun Stages 2 to 6 of this notebook; the included studies get their full-text check at extraction (notebooks 03 and 04)

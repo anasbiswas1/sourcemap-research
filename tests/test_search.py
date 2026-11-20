@@ -243,3 +243,86 @@ def test_resolve_pdf_url_reports_lookup_failures_without_raising():
         return
     url, note = search.resolve_pdf_url({"doi": "10.5281/zenodo.9"}, "SECRET", fetch)
     assert url == "" and note.startswith("lookup failed") and "SECRET" not in note
+
+
+# ---- second-pass full-text location, full-text stage --------------------------------------------------------
+
+def test_new_exclusion_reason_and_stage_are_validated():
+    rows = [{"key": "a"}, {"key": "b"}, {"key": "c"}]
+    decisions = [{"key": "a", "decision": "exclude", "reason": "image or audio channel only", "stage": "full_text"},
+                 {"key": "b", "decision": "include", "reason": "", "stage": "abstract"},
+                 {"key": "c", "decision": "unsure", "reason": ""}]
+    rows, problems = search.apply_decisions(rows, decisions)
+    assert rows[0]["stage"] == "full_text" and rows[2]["stage"] == "title_abstract"
+    assert problems == ["b: stage must be one of ['full_text', 'title_abstract']"]
+
+
+def test_prisma_counts_split_title_abstract_and_full_text():
+    rows = [{"key": "a", "decision": "exclude", "reason": "system level", "stage": "title_abstract", "linked_to": ""},
+            {"key": "b", "decision": "exclude", "reason": "detector only", "stage": "full_text", "linked_to": ""},
+            {"key": "c", "decision": "include", "reason": "", "stage": "full_text", "linked_to": ""},
+            {"key": "d", "decision": "include", "reason": "", "stage": "title_abstract", "linked_to": ""},
+            {"key": "e", "decision": "unsure", "reason": "", "stage": "title_abstract", "linked_to": ""}]
+    c = search.prisma_counts([], rows)
+    assert c["excluded_title_abstract_by_reason"] == {"system level": 1}
+    assert c["excluded_full_text_by_reason"] == {"detector only": 1}
+    assert c["full_text_assessed"] == 2 and c["included_after_full_text"] == 1
+    assert c["reports_sought_for_full_text"] == 4 and c["included"] == 2 and c["unsure_to_full_text"] == 1
+
+
+def test_zenodo_related_follows_only_paper_relations():
+    payload = {"metadata": {"related_identifiers": [
+        {"identifier": "https://doi.org/10.1234/ABC", "relation": "isSupplementTo", "scheme": "doi"},
+        {"identifier": "arXiv:2601.07185", "relation": "isDocumentedBy", "scheme": "arxiv"},
+        {"identifier": "https://x.org/p.pdf", "relation": "isPartOf", "scheme": "url"},
+        {"identifier": "10.9/cited", "relation": "cites", "scheme": "doi"}]}}
+    assert search.zenodo_related(payload) == [("doi", "10.1234/abc"), ("arxiv", "2601.07185"), ("url", "https://x.org/p.pdf")]
+    assert search.zenodo_related({}) == []
+
+
+def test_fulltext_candidates_routes_in_order_without_leaking_the_key():
+    def fetch(url):
+        if url.startswith(search.ZENODO_API + "/24246538"):
+            return json.dumps({"id": "24246538", "files": [{"key": "deposit-v1.zip"}], "metadata": {"related_identifiers": [
+                {"identifier": "10.5281/zenodo.999", "relation": "isSupplementTo", "scheme": "doi"}]}}).encode()
+        if url.startswith(search.ZENODO_API + "/999"):
+            return json.dumps({"id": "999", "files": [{"key": "paper.pdf"}]}).encode()
+        if url.startswith(search.OPENALEX_API):
+            assert "api_key=SECRET" in url
+            return json.dumps({"best_oa_location": None, "locations": [{"pdf_url": None}, {"pdf_url": "https://repo/x.pdf"}]}).encode()
+        if url.startswith(search.ARXIV_API):
+            return (b'<feed xmlns="http://www.w3.org/2005/Atom"><entry><id>http://arxiv.org/abs/2601.00001v1</id>'
+                    b'<title>Some Other Title</title></entry></feed>')
+        raise RuntimeError("SECRET unexpected " + url)
+    cands, notes = search.fulltext_candidates({"arxiv": "2508.02961", "arxiv_version": "2"}, "SECRET", fetch)
+    assert [u for u, _ in cands] == [search.ARXIV_PDF + "/2508.02961v2", search.ARXIV_PDF + "/2508.02961"]
+    if search.OFFLINE:
+        assert search.fulltext_candidates({"doi": "10.5281/zenodo.24246538"}, "SECRET", fetch) == ([], ["offline"])
+        return
+    cands, notes = search.fulltext_candidates({"doi": "10.5281/zenodo.24246538", "title": "Experimental Measurement"}, "SECRET", fetch)
+    urls = [u for u, _ in cands]
+    assert urls[0] == search.ZENODO_API + "/999/files/paper.pdf/content" and "https://repo/x.pdf" in urls
+    assert any("no PDF file" in n for n in notes) and any("no arxiv version" in n for n in notes)
+    cands, notes = search.fulltext_candidates({"doi": "10.1038/s41598-025-31086-y", "title": "PromptGuard"}, "SECRET", fetch)
+    assert cands[0] == (search.NATURE_PDF + "/s41598-025-31086-y.pdf", "nature.com article pdf")
+    assert all("SECRET" not in n for _, n in cands) and all("SECRET" not in n for n in notes)
+
+
+def test_fulltext_candidates_report_removed_records_and_bad_lookups():
+    import urllib.error
+    def fetch(url):
+        if url.startswith(search.ZENODO_API):
+            raise urllib.error.HTTPError(url, 410, "Gone", {}, None)
+        raise RuntimeError("down")
+    if search.OFFLINE:
+        return
+    cands, notes = search.fulltext_candidates({"doi": "10.5281/zenodo.20582430", "title": "Attention Is Not Enough"}, "", fetch)
+    assert cands == [] and any("removed by its owner" in n for n in notes)
+
+
+def test_clean_url_and_hand_fetch_hints():
+    assert search.clean_url(" https://a.org/x y.pdf ") == "https://a.org/x%20y.pdf"
+    assert "browser" in search.hand_fetch_hint({"doi": "10.3390/app162111039"}, ["failed: HTTP Error 403: Forbidden"], [])
+    assert "library" in search.hand_fetch_hint({"doi": "10.1109/x.1"}, [], ["openalex lists no pdf_url"])
+    assert "deposit" in search.hand_fetch_hint({"doi": "10.5281/zenodo.1"}, [], ["zenodo record has no PDF file"])
+    assert "removed" in search.hand_fetch_hint({"doi": "10.5281/zenodo.2"}, [], ["zenodo lookup: HTTP 410 (record removed by its owner)"])

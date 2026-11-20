@@ -19,6 +19,8 @@ DBLP_API = os.environ.get("SOURCEMAP_DBLP_API", "https://dblp.org/search/publ/ap
 ZENODO_API = os.environ.get("SOURCEMAP_ZENODO_API", "https://zenodo.org/api/records")
 FIGSHARE_API = os.environ.get("SOURCEMAP_FIGSHARE_API", "https://api.figshare.com/v2/articles")
 ARXIV_PDF = os.environ.get("SOURCEMAP_ARXIV_PDF", "https://arxiv.org/pdf")
+OSF_API = os.environ.get("SOURCEMAP_OSF_API", "https://api.osf.io/v2")
+NATURE_PDF = os.environ.get("SOURCEMAP_NATURE_PDF", "https://www.nature.com/articles")
 ATOM = {"a": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom", "os": "http://a9.com/-/spec/opensearch/1.1/"}
 USER_AGENT = "Mozilla/5.0 (compatible; sourcemap-research literature search; +https://github.com/anasbiswas1/sourcemap-research)"
 OFFLINE = os.environ.get("SOURCEMAP_OFFLINE") == "1"
@@ -28,12 +30,13 @@ ARXIV_ID_RE = re.compile(r"(?<![\d.])((?:2[3-6])(?:0[1-9]|1[0-2])\.\d{4,5})(?:v\
 
 EXCLUSION_REASONS = ["detector only", "system level", "attack only", "benchmark only", "jailbreak or direct injection only",
                      "survey, position or other", "duplicate version", "out of period", "no full text obtainable",
-                     "not about prompt injection"]
+                     "not about prompt injection", "image or audio channel only"]
+SCREEN_STAGES = {"title_abstract", "full_text"}
 DECISIONS = {"include", "exclude", "unsure"}
 
 RECORD_FIELDS = ["key", "title", "first_author", "year", "date", "venue", "arxiv", "arxiv_version", "doi", "abstract",
                  "sources", "queries", "n_hits", "linked_to"]
-SCREEN_FIELDS = RECORD_FIELDS + ["decision", "reason", "access_status", "note"]
+SCREEN_FIELDS = RECORD_FIELDS + ["decision", "reason", "stage", "access_status", "note"]
 LOG_FIELDS = ["date", "source", "query_id", "query_as_sent", "fields", "filters", "count", "status", "file"]
 
 
@@ -434,12 +437,15 @@ def apply_decisions(rows: list[dict], decisions: list[dict]) -> tuple[list[dict]
         d = by_key.get(row["key"], {})
         row["decision"] = d.get("decision", "pending")
         row["reason"] = d.get("reason", "")
+        row["stage"] = d.get("stage", "title_abstract" if d else "")
         row["access_status"] = d.get("access_status", "")
         row["note"] = d.get("note", "")
         if d and d.get("decision") not in DECISIONS:
             problems.append(f"{row['key']}: decision must be one of {sorted(DECISIONS)}")
         if d.get("decision") == "exclude" and d.get("reason") not in EXCLUSION_REASONS:
             problems.append(f"{row['key']}: exclusion needs one reason from the fixed list")
+        if d and row["stage"] not in SCREEN_STAGES:
+            problems.append(f"{row['key']}: stage must be one of {sorted(SCREEN_STAGES)}")
     unknown = [k for k in by_key if k not in {r["key"] for r in rows}]
     problems += [f"decision for a key not in the screening table: {k}" for k in unknown]
     return rows, problems
@@ -459,10 +465,18 @@ def prisma_counts(log_rows: list[dict], rows: list[dict]) -> dict:
            "pending": sum(1 for r in roots if r.get("decision") in ("", "pending", None)),
            "included": sum(1 for r in roots if r.get("decision") == "include"),
            "unsure_to_full_text": sum(1 for r in roots if r.get("decision") == "unsure"),
-           "excluded_by_reason": {}}
+           "excluded_by_reason": {},
+           "excluded_title_abstract_by_reason": {},
+           "full_text_assessed": sum(1 for r in roots if r.get("stage") == "full_text"),
+           "included_after_full_text": sum(1 for r in roots if r.get("stage") == "full_text" and r.get("decision") == "include"),
+           "excluded_full_text_by_reason": {}}
     for r in roots:
         if r.get("decision") == "exclude":
-            out["excluded_by_reason"][r.get("reason", "")] = out["excluded_by_reason"].get(r.get("reason", ""), 0) + 1
+            reason = r.get("reason", "")
+            out["excluded_by_reason"][reason] = out["excluded_by_reason"].get(reason, 0) + 1
+            key = "excluded_full_text_by_reason" if r.get("stage") == "full_text" else "excluded_title_abstract_by_reason"
+            out[key][reason] = out[key].get(reason, 0) + 1
+    out["reports_sought_for_full_text"] = out["included"] + out["unsure_to_full_text"] + sum(out["excluded_full_text_by_reason"].values())
     return out
 
 
@@ -545,3 +559,196 @@ def resolve_pdf_url(row: dict, api_key: str = "", fetch=None) -> tuple[str, str]
         return "", f"lookup failed: HTTP {exc.code}"
     except Exception as exc:                                     # network and parsing errors are reported, not raised
         return "", "lookup failed: " + type(exc).__name__ + ": " + str(exc).replace(api_key, "<key>")[:160]
+
+
+
+# ---- full-text location, second pass: every open route, tried in order --------------------------------------
+
+FOLLOW_RELATIONS = {"issupplementto", "isdocumentedby", "isdescribedby", "ispartof", "isidenticalto", "isversionof",
+                    "ispublishedin", "ispreviousversionof", "isnewversionof"}
+
+
+def zenodo_related(payload: dict) -> list[tuple[str, str]]:
+    """(scheme, identifier) pairs a Zenodo record points to as its paper or another version of it."""
+    out = []
+    for r in (payload.get("metadata") or {}).get("related_identifiers") or []:
+        relation = str(r.get("relation") or (r.get("relation_type") or {}).get("id") or "").lower()
+        ident = str(r.get("identifier") or "").strip()
+        scheme = str(r.get("scheme") or "").lower()
+        if relation in FOLLOW_RELATIONS and ident:
+            if scheme == "doi" or ident.lower().startswith("10."):
+                out.append(("doi", re.sub(r"^https?://(dx\.)?doi\.org/", "", ident, flags=re.I).lower()))
+            elif scheme == "arxiv" or arxiv_id_from_text(ident):
+                out.append(("arxiv", arxiv_id_from_text(ident) or ident))
+            elif ident.lower().startswith("http"):
+                out.append(("url", ident))
+    return out
+
+
+def osf_pdf_candidates(osf_id: str, fetch) -> list[tuple[str, str]]:
+    """OSF preprints expose a primary file; OSF projects expose osfstorage files. PDFs only."""
+    out = []
+    try:
+        pre = json.loads(fetch(f"{OSF_API}/preprints/{osf_id}/"))
+        rel = (((pre.get("data") or {}).get("relationships") or {}).get("primary_file") or {}).get("links", {}).get("related", {})
+        href = rel.get("href") if isinstance(rel, dict) else rel
+        if href:
+            f = json.loads(fetch(href))
+            dl = ((f.get("data") or {}).get("links") or {}).get("download")
+            if dl:
+                out.append((dl, "osf preprint primary file"))
+    except Exception:
+        pass
+    if not out:
+        try:
+            listing = json.loads(fetch(f"{OSF_API}/nodes/{osf_id}/files/osfstorage/"))
+            for item in listing.get("data") or []:
+                attrs = item.get("attributes") or {}
+                if str(attrs.get("name", "")).lower().endswith(".pdf"):
+                    dl = (item.get("links") or {}).get("download")
+                    if dl:
+                        out.append((dl, f"osf project file {attrs.get('name')}"))
+        except Exception:
+            pass
+    return out
+
+
+def openalex_pdf_candidates(work: dict) -> list[tuple[str, str]]:
+    out, seen = [], set()
+    locs = [("best_oa_location", work.get("best_oa_location"))] + [("location", l) for l in (work.get("locations") or [])]
+    for name, loc in locs:
+        url = (loc or {}).get("pdf_url")
+        if url and url not in seen:
+            seen.add(url)
+            out.append((url, f"openalex {name} pdf_url"))
+    return out
+
+
+def arxiv_by_title(title: str, fetch) -> tuple[str, str]:
+    """arXiv id whose title matches exactly (after normalisation), searched by title phrase; '' when none."""
+    words = [w for w in norm_title(title).split() if len(w) > 2][:12]
+    if not words:
+        return "", ""
+    q = " AND ".join(f"ti:{w}" for w in words)
+    try:
+        recs, _ = parse_arxiv_feed(fetch(f"{ARXIV_API}?search_query={urllib.parse.quote(q)}&max_results=10"))
+    except Exception as exc:
+        return "", f"arxiv title search failed: {type(exc).__name__}"
+    for r in recs:
+        if norm_title(r["title"]) == norm_title(title):
+            return r["arxiv"], "arxiv version found by exact title"
+    return "", "no arxiv version with this exact title"
+
+
+def fulltext_candidates(row: dict, api_key: str = "", fetch=None, depth: int = 0) -> tuple[list[tuple[str, str]], list[str]]:
+    """Every open URL that might serve this record's PDF, in the order to try, plus notes on routes that gave nothing.
+    Routes: arXiv (as recorded, then unversioned); Zenodo files and the records a Zenodo deposit points to; figshare;
+    OSF preprints and projects; Scientific Reports / Nature article PDFs; every OpenAlex location with a pdf_url; an
+    arXiv version with the same title. The API key goes into OpenAlex requests only and never into a note."""
+    fetch = fetch or _get
+    cands, notes = [], []
+    key = f"&api_key={api_key}" if api_key else ""
+    if row.get("arxiv"):
+        v = row.get("arxiv_version") or ""
+        if v:
+            cands.append((f"{ARXIV_PDF}/{row['arxiv']}v{v}", "arxiv"))
+        cands.append((f"{ARXIV_PDF}/{row['arxiv']}", "arxiv, latest version"))
+        return cands, notes
+    if OFFLINE:
+        return cands, ["offline"]
+    doi = (row.get("doi") or "").strip().lower()
+    try:
+        m = re.match(r"10\.5281/zenodo\.(\d+)$", doi)
+        if m:
+            payload = json.loads(fetch(f"{ZENODO_API}/{m.group(1)}"))
+            url, note = zenodo_pdf_from_payload(payload)
+            if url:
+                cands.append((url, note))
+            else:
+                notes.append(note)
+            if depth == 0:
+                for scheme, ident in zenodo_related(payload):
+                    sub = {"arxiv": ident} if scheme == "arxiv" else {"doi": ident} if scheme == "doi" else {}
+                    if scheme == "url" and ident.lower().endswith(".pdf"):
+                        cands.append((ident, "zenodo related link"))
+                    elif sub:
+                        c2, n2 = fulltext_candidates(sub, api_key, fetch, depth + 1)
+                        cands += [(u, f"zenodo related {scheme} {ident}: {n}") for u, n in c2]
+                        notes += n2
+                if not zenodo_related(payload):
+                    notes.append("zenodo record names no related paper")
+    except urllib.error.HTTPError as exc:
+        notes.append(f"zenodo lookup: HTTP {exc.code}" + (" (record removed by its owner)" if exc.code == 410 else ""))
+    except Exception as exc:
+        notes.append(f"zenodo lookup failed: {type(exc).__name__}")
+    try:
+        m = re.match(r"10\.6084/m9\.figshare\.(\d+)", doi)
+        if m:
+            url, note = figshare_pdf_from_payload(json.loads(fetch(f"{FIGSHARE_API}/{m.group(1)}")))
+            (cands.append((url, note)) if url else notes.append(note))
+    except urllib.error.HTTPError as exc:
+        notes.append(f"figshare lookup: HTTP {exc.code}")
+    except Exception as exc:
+        notes.append(f"figshare lookup failed: {type(exc).__name__}")
+    m = re.match(r"10\.(17605|31219|31234|31235|31222)/osf\.io/([a-z0-9_]+)", doi)
+    if m:
+        c = osf_pdf_candidates(m.group(2), fetch)
+        cands += c
+        if not c:
+            notes.append("osf: no PDF file exposed")
+    m = re.match(r"10\.1038/(s\d{5}-\d{3}-\d{5}-\w)$", doi)
+    if m:
+        cands.append((f"{NATURE_PDF}/{m.group(1)}.pdf", "nature.com article pdf"))
+    try:
+        if doi:
+            work = json.loads(fetch(f"{OPENALEX_API}/https://doi.org/{urllib.parse.quote(doi, safe='/')}?select=id,open_access,best_oa_location,primary_location,locations{key}"))
+            c = openalex_pdf_candidates(work)
+            cands += c
+            if not c:
+                notes.append("openalex lists no pdf_url")
+        elif row.get("title"):
+            page = json.loads(fetch(f"{OPENALEX_API}?search={urllib.parse.quote(row['title'][:300])}&per-page=5&select=id,title,best_oa_location,locations{key}"))
+            hits = [w for w in page.get("results", []) if norm_title(w.get("title") or "") == norm_title(row["title"])]
+            for w in hits:
+                cands += [(u, n + " (matched by title)") for u, n in openalex_pdf_candidates(w)]
+            if not hits:
+                notes.append("openalex: no work with this exact title")
+    except urllib.error.HTTPError as exc:
+        notes.append(f"openalex lookup: HTTP {exc.code}")
+    except Exception as exc:
+        notes.append("openalex lookup failed: " + type(exc).__name__ + ": " + str(exc).replace(api_key or "\x00", "<key>")[:120])
+    if row.get("title") and depth == 0:
+        aid, note = arxiv_by_title(row["title"], fetch)
+        if aid:
+            cands.append((f"{ARXIV_PDF}/{aid}", note + f" ({aid})"))
+        elif note:
+            notes.append(note)
+    seen, uniq = set(), []
+    for u, n in cands:
+        u = clean_url(u)
+        if u and u not in seen:
+            seen.add(u)
+            uniq.append((u, n))
+    return uniq, notes
+
+
+def clean_url(url: str) -> str:
+    """Strip whitespace and percent-encode characters that urllib refuses (spaces, control characters)."""
+    url = (url or "").strip()
+    return urllib.parse.quote(url, safe=":/?&=%#~+@!$,;'()*[]")
+
+
+def hand_fetch_hint(row: dict, attempts: list[str], notes: list[str]) -> str:
+    """Plain instruction for a record still without a PDF: where a person in a browser can get it."""
+    doi = (row.get("doi") or "").lower()
+    text = " ".join(attempts + notes).lower()
+    if "removed by its owner" in text:
+        return "record removed from Zenodo; search for the paper by title, otherwise it stays not retrieved"
+    if doi.startswith("10.5281/zenodo") or doi.startswith("10.6084/"):
+        return "data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF"
+    if "403" in text or "not a pdf" in text:
+        return f"open copy exists but the site refuses scripts; open https://doi.org/{doi} in a browser and save the PDF" if doi else "open copy exists but refuses scripts; download it in a browser"
+    if doi:
+        return (f"no open copy found by script; open https://doi.org/{doi} in a browser and save the PDF, "
+                "or go through the university library if the page asks for payment")
+    return "no identifier; search the title in a browser or the library catalogue"
