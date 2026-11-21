@@ -254,7 +254,7 @@ arxiv:2504.20472,include,,title_abstract,,Robustness via referencing,Robustness 
 arxiv:2504.20493,exclude,attack only,title_abstract,,,Token-Efficient Prompt Injection Attack: Provoking Cessation in LLM Reasoning via Adaptive Token Com
 arxiv:2504.20769,include,,full_text,,full text: chain-of-defensive-thought: few-shot structured defensive reasoning as a prompting defence against injected references,Chain-of-Defensive-Thought: Structured Reasoning Elicits Robustness in Large Language Models against
 arxiv:2504.20984,exclude,system level,title_abstract,,ACE,ACE: A Security Architecture for LLM-Integrated App Systems
-arxiv:2504.21029,include,,title_abstract,,PICO architectural isolation; check evaluation at full text,PICO: Secure Transformers via Robust Prompt Isolation and Cybersecurity Oversight
+arxiv:2504.21029,exclude,jailbreak or direct injection only,full_text,,"full text: included at title and abstract; the full text shows the threat is the user's own input, and the only case study is hypothetical, with no measured results",PICO: Secure Transformers via Robust Prompt Isolation and Cybersecurity Oversight
 arxiv:2504.21228,include,,title_abstract,,CachePrune,CachePrune: Teaching LLMs What Not to Follow via KV-Cache Editing
 arxiv:2505.00626,include,,title_abstract,,"PFT, position-enhanced fine-tuning",The Illusion of Role Separation: Hidden Shortcuts in LLM Role Learning (and How to Fix Them)
 arxiv:2505.00843,exclude,benchmark only,title_abstract,,,OET: Optimization-based prompt injection Evaluation Toolkit
@@ -325,7 +325,7 @@ arxiv:2508.00602,exclude,detector only,title_abstract,,,LeakSealer: A Semisuperv
 arxiv:2508.01249,exclude,system level,title_abstract,,,AgentArmor: Enforcing Program Analysis on Agent Runtime Trace to Defend Against Prompt Injection
 arxiv:2508.02110,exclude,attack only,title_abstract,,,Attractive Metadata Attack: Inducing LLM Agents to Invoke Malicious Tools
 arxiv:2508.02312,exclude,"survey, position or other",title_abstract,,,"Data Security in Large Language Models: Risks, Defense, and Directions"
-arxiv:2508.02961,unsure,,title_abstract,,"self-check prompting; detector or generation change, decide at full text",Defend LLMs Through Self-Consciousness
+arxiv:2508.02961,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,Defend LLMs Through Self-Consciousness
 arxiv:2508.03793,exclude,detector only,title_abstract,,,AttnTrace: Contextual Attribution of Prompt Injection and Knowledge Corruption
 arxiv:2508.04281,exclude,attack only,title_abstract,,,Safeguarding Deliberation in Digital Democracy
 arxiv:2508.05748,exclude,not about prompt injection,title_abstract,,,WebWatcher: Breaking New Frontier of Vision-Language Deep Research Agent
@@ -430,7 +430,7 @@ arxiv:2512.06556,exclude,attack only,title_abstract,,,Semantic Attacks on Tool-A
 arxiv:2512.06716,exclude,system level,title_abstract,,SIEVE,SIEVE: Selective Integrity Verification and Escalation for Defending LLM Agents against Indirect Pro
 arxiv:2512.06914,exclude,"survey, position or other",title_abstract,,,SoK: Trust-Authorization Mismatch in LLM Agent Interactions
 arxiv:2512.08290,exclude,"survey, position or other",title_abstract,,,Systematization of Knowledge: Security and Safety in the Model Context Protocol Ecosystem
-arxiv:2512.08417,include,,title_abstract,,attention-based defence against IPI,Attention is All You Need to Defend Against Indirect Prompt Injection Attacks in LLMs
+arxiv:2512.08417,exclude,detector only,title_abstract,,corrected on rereading the abstract: Rennervate: a token-level detector over attention features that removes the detected text from the input,Attention is All You Need to Defend Against Indirect Prompt Injection Attacks in LLMs
 arxiv:2512.12921,exclude,"survey, position or other",title_abstract,,,Cisco Integrated AI Security and Safety Framework Report
 arxiv:2512.14860,exclude,attack only,title_abstract,,,Penetration Testing of Agentic AI: A Comparative Security Analysis Across Models and Frameworks
 arxiv:2512.15081,exclude,not about prompt injection,title_abstract,,,Quantifying Return on Security Controls in LLM Systems
@@ -766,7 +766,7 @@ arxiv:2608.21230,exclude,not about prompt injection,title_abstract,,"false asser
 arxiv:2608.21500,include,,title_abstract,,SecOPD on-policy distillation,SecOPD: Mitigating Adaptive Prompt Injections by On-Policy Distillation
 arxiv:2608.21656,exclude,system level,title_abstract,,,Mitigating Database Leakage in RAG Systems with Keyword-Grounded Fact Substitution
 arxiv:2608.22061,exclude,attack only,title_abstract,,,MEMORY Wins All: Indirect Bias Injection Attacks via Social Media Content
-arxiv:2608.22248,include,,title_abstract,,latent instruction manifolds; internal intervention,Beyond Over-Refusal: Defending Indirect Prompt Injection via Latent Instruction Manifolds
+arxiv:2608.22248,exclude,detector only,title_abstract,,corrected on rereading the abstract: AEGIS: projectors over hidden states identify injected instructions; evaluated as detection,Beyond Over-Refusal: Defending Indirect Prompt Injection via Latent Instruction Manifolds
 arxiv:2608.23763,exclude,system level,title_abstract,,,"TrustShiftProbe: Characterizing, Benchmarking, and Defending Staged Trust Attacks on MCP Servers"
 arxiv:2608.23782,exclude,not about prompt injection,title_abstract,,,GAP-Prompt: Gated Adaptive Prompting for Efficient Continual Learning
 arxiv:2608.23873,include,,title_abstract,,semantic overlays: provenance annotations and steering vectors as the signal,Semantic Overlays: Mitigating Prompt Injection with Annotations Beyond Tokens and Steering Vectors
@@ -968,9 +968,9 @@ doi:10.1109/bigdata62323.2024.10825267,exclude,attack only,title_abstract,,,Auto
 doi:10.69987/jacs.2024.40107,exclude,jailbreak or direct injection only,title_abstract,,,Behavior-Level Jailbreak Resistance via Multi-Stage Refusal + Utility Preservation
 doi:10.1016/j.compag.2024.109493,exclude,not about prompt injection,title_abstract,,different sense of prompt injection,Chinese named entity recognition for agricultural diseases based on entity-related visual prompts in
 doi:10.1109/icicn62625.2024.10761619,exclude,system level,title_abstract,,,Data Breach Prevention in AI Systems: Employing Event-Driven Architecture to Combat Prompt Injection
-doi:10.1109/spw63631.2024.00017,unsure,,title_abstract,,image-based prompt attack defence via user specifications; mechanism unclear,Defending Language Models Against Image-Based Prompt Attacks via User-Provided Specifications
+doi:10.1109/spw63631.2024.00017,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/spw63631.2024.00017 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Defending Language Models Against Image-Based Prompt Attacks via User-Provided Specifications
 doi:10.64388/irev8i2-1722808,exclude,detector only,title_abstract,,,Detecting Prompt Injection in Retrieval-Augmented Generation Pipelines Using Lightweight Classifiers
-doi:10.36227/techrxiv.171822345.56781952/v1,unsure,,title_abstract,,dynamic moving-target defence altering model parameters; check the evaluation,Dynamic Moving Target Defense for Mitigating Targeted LLM Prompt Injection
+doi:10.36227/techrxiv.171822345.56781952/v1,exclude,jailbreak or direct injection only,full_text,,"full text: moving-target defence (random parameter perturbation, re-initialisation, context changes); the attacks are typed straight into the model's input, with no third-party data channel",Dynamic Moving Target Defense for Mitigating Targeted LLM Prompt Injection
 doi:10.30574/ijsra.2024.13.2.2415,exclude,not about prompt injection,title_abstract,,,EDGE-BASED LLM INFERENCE FOR SMART CITIES
 doi:10.1109/tcset64720.2024.10755823,exclude,system level,title_abstract,,,Enhancing System Security: LLM-Driven Defense Against Prompt Injection Vulnerabilities
 doi:10.2196/58275,exclude,not about prompt injection,title_abstract,,,Ensuring Appropriate Representation in Artificial Intelligence–Generated Medical Imagery: Protocol f
@@ -1025,7 +1025,7 @@ title:analyzingandmitigatingpromptinjectionattacksinaidrivencloudapplications,ex
 doi:10.5281/zenodo.17815969,exclude,"survey, position or other",title_abstract,,,Architecting Adversarial Resilience: A Systematic Red Teaming Framework for Anticipating Emergent AI
 doi:10.36948/ijfmr.2025.v07i04.62200,exclude,"survey, position or other",title_abstract,,,"Artificial Intelligence and Cybersecurity: Documented Risks, Enterprise Guardrails, and Emerging Thr"
 doi:10.52783/cana.v32.5267,exclude,"survey, position or other",title_abstract,,,Athreat Modeling Framework for LLM System Integration Leveraging NLP and Machine Learning
-doi:10.1109/icca66035.2025.11431088,unsure,,title_abstract,,"defence combinations against injection; no abstract, check the full text",Beyond Individual Defenses: Evaluating Defense Combinations Against Prompt Injection Attacks
+doi:10.1109/icca66035.2025.11431088,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/icca66035.2025.11431088 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Beyond Individual Defenses: Evaluating Defense Combinations Against Prompt Injection Attacks
 doi:10.36227/techrxiv.175571972.28517288/v1,exclude,"survey, position or other",title_abstract,,,Beyond V2X: A Review of Large Language Models in In-Vehicle Autonomous Driving Systems
 doi:10.6084/m9.figshare.30796943,exclude,not about prompt injection,title_abstract,,,Bezpieczne wykorzystanie AI w analizie danych organizacyjnych
 doi:10.1109/wconf64849.2025.11233266,exclude,"survey, position or other",title_abstract,,,Breaking the Brain: Adversarial Attacks and the Fragility of Modern AI Models
@@ -1041,7 +1041,7 @@ doi:10.1109/southeastcon56624.2025.10971722,exclude,detector only,title_abstract
 doi:10.2139/ssrn.5536400,exclude,"survey, position or other",title_abstract,,,"Cybersecurity and Adversarial Machine Learning: A Review of Threats, Defenses, and Architectural Con"
 doi:10.20535/tacs.2664-29132025.2.343769,exclude,not about prompt injection,title_abstract,,,Cybersecurity of Intellectual Information Aggregation Processes into Digital Archives
 doi:10.1007/978-3-032-07267-2_7,exclude,"survey, position or other",title_abstract,,,Data Privacy and Security in Large Language Models for Medical Fields
-doi:10.31234/osf.io/zxuwf_v2,unsure,,title_abstract,,defences for peer review; mechanism unclear,Defenses against LLM prompt injections in academic peer review
+doi:10.31234/osf.io/zxuwf_v2,include,,full_text,,full text: prompting defence: the reviewing model is told to check the manuscript for hidden instructions; measured on three LLMs with 26 preprints,Defenses against LLM prompt injections in academic peer review
 title:defensesagainstllmpromptinjectionsinacademicpeerreviewversionpostedonlinejuly172025,exclude,duplicate version,title_abstract,,same study as the OSF record of the same title,"Defenses against LLM prompt injections in academic peer review (Version posted online July 17, 2025)"
 title:defensiveaiforcustomerservicechatbotsdetectingandmitigatingadversarialpromptinjections,exclude,detector only,title_abstract,,,Defensive AI for Customer Service Chatbots: Detecting and Mitigating Adversarial Prompt Injections
 doi:10.3390/info16080652,exclude,not about prompt injection,title_abstract,,,Diagnosing Bias and Instability in LLM Evaluation: A Scalable Pairwise Meta-Evaluator
@@ -1084,10 +1084,10 @@ doi:10.5281/zenodo.17960576,exclude,not about prompt injection,title_abstract,,,
 doi:10.1016/j.eswa.2025.130621,exclude,not about prompt injection,title_abstract,,,MET-LLM: Enhancing large language models for malicious encrypted traffic detection
 doi:10.52058/2786-6025-2025-12(53)-109-118,exclude,"survey, position or other",title_abstract,,,METHODS OF PREVENTING INFORMATION LEAKS CAUSED BY THE USAGE OF ARTIFICIAL INTELLIGENCE AGENT SYSTEMS
 doi:10.1145/3746027.3755211,exclude,attack only,title_abstract,,,Manipulating Multimodal Agents via Cross-Modal Prompt Injection
-doi:10.20535/tacs.2664-29132025.3.345389,unsure,,title_abstract,,method of counteracting manipulative queries; mechanism unclear,Method of Counteracting Manipulative Queries to Large Language Models
+doi:10.20535/tacs.2664-29132025.3.345389,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.20535/tacs.2664-29132025.3.345389 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Method of Counteracting Manipulative Queries to Large Language Models
 doi:10.1109/access.2025.3583759,exclude,detector only,title_abstract,,,Meticulous Thought Defender: Fine-Grained Chain-of-Thought (CoT) for Detecting Prompt Injection Atta
 doi:10.2139/ssrn.5476487,exclude,not about prompt injection,title_abstract,,,"Mitigating LLM Prompt Injection, Hallucination, and Security Risks using Semantically Encoded Compil"
-doi:10.1109/iot-siu65919.2025.11402845,unsure,,title_abstract,,mitigation in model-agnostic networks; little information in the abstract,Mitigating Prompt Injection Attacks in ModelAgnostic Networks (MAN)
+doi:10.1109/iot-siu65919.2025.11402845,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/iot-siu65919.2025.11402845 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Mitigating Prompt Injection Attacks in ModelAgnostic Networks (MAN)
 doi:10.1109/inspire67328.2025.11300550,exclude,"survey, position or other",title_abstract,,,Modern Day LLMs : A GOLDMINE or a LANDMINE ?
 doi:10.3390/computers14080332,exclude,not about prompt injection,title_abstract,,,Multi-Layered Framework for LLM Hallucination Mitigation in High-Stakes Applications: A Tutorial
 doi:10.2139/ssrn.5244151,exclude,detector only,title_abstract,,,Multilingual Prompt Injection Attacks Detection: Evaluating Adversarial Robustness in Large Language
@@ -1114,7 +1114,7 @@ doi:10.1007/978-3-031-80853-1_31,exclude,attack only,title_abstract,,,Retrieval 
 doi:10.70777/si.v2i2.14741,exclude,"survey, position or other",title_abstract,,,Review: Safety at Scale: Comprehensive Survey of Large Model Safety
 doi:10.5120/ijca2025925957,exclude,attack only,title_abstract,,,Robustness of Automated AI Agents Against Adversarial Context Injection in MCP
 doi:10.28925/2663-4023.2025.29.918,exclude,"survey, position or other",title_abstract,,,"SECURITY OF LARGE LANGUAGE MODELS: RISKS, THREATS, AND SECURITY APPROACHES"
-doi:10.1109/cain66642.2025.00047,unsure,,title_abstract,,specify or train: check whether trained models are measured against injection,Safeguarding LLM-Applications: Specify or Train?
+doi:10.1109/cain66642.2025.00047,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/cain66642.2025.00047 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Safeguarding LLM-Applications: Specify or Train?
 doi:10.70777/si.v2i2.14609,exclude,"survey, position or other",title_abstract,,,Safety at Scale: A Comprehensive Survey of Large Model Safety
 doi:10.12720/jait.16.2.243-250,exclude,system level,title_abstract,,,SafetyRAG: Towards Safe Large Language Model-Based Application through Retrieval-Augmented Generatio
 doi:10.1109/iceconf65644.2025.11379484,exclude,system level,title_abstract,,,Secure AI Agents for Cloud Compliance in Adversarial Environments
@@ -1158,10 +1158,10 @@ doi:10.5281/zenodo.18240113,exclude,"survey, position or other",title_abstract,,
 doi:10.22541/au.175761889.90929465/v1,exclude,system level,title_abstract,,,Zero-Trust Proof-Gated Agent Architecture (ZPAA): A Comprehensive Security Model for the Model Conte
 title:promptinjectionllm,exclude,attack only,title_abstract,,,"АТАКИ С ПОМОЩЬЮ ""PROMPT INJECTION"" В ГОЛОСОВЫХ LLM: ФОРМИРОВАНИЕ ОПАСНЫХ АУДИО-КОМАНД"
 doi:10.5281/zenodo.17821810,exclude,not about prompt injection,title_abstract,,,🛡RHEA-Core Public Grant v2.0
-doi:10.21227/frkt-sd48,unsure,,title_abstract,,"recovery-oriented defence pipeline; dataset record, check the paper","""A Recovery-Oriented Defense Pipeline for Prompt Injection Attacks in Large Language Models"""
+doi:10.21227/frkt-sd48,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.21227/frkt-sd48 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,"""A Recovery-Oriented Defense Pipeline for Prompt Injection Attacks in Large Language Models"""
 doi:10.5281/zenodo.18793442,exclude,not about prompt injection,title_abstract,,,"""MH8-Ai-Agent-Abe by Acbeatz.com"" Is an AI Auditor in a Class of His Own"
-doi:10.21227/hdr1-cb12,unsure,,title_abstract,,dataset of a TIFS game-theoretic paper; check whether defences are measured,"""PromptGame Dataset: Prompt Injection Attack Benchmark and Defense Evaluation Data"""
-doi:10.5281/zenodo.20307701,unsure,,title_abstract,,data or code record only; the paper (delimiter-defence benchmark with internal analysis) must be located,2383104532-oss/DCS-Lite: v1.0.0 - Initial Release
+doi:10.21227/hdr1-cb12,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.21227/hdr1-cb12 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,"""PromptGame Dataset: Prompt Injection Attack Benchmark and Defense Evaluation Data"""
+doi:10.5281/zenodo.20307701,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,2383104532-oss/DCS-Lite: v1.0.0 - Initial Release
 doi:10.5281/zenodo.24333533,exclude,not about prompt injection,title_abstract,,,5 Critical Threat Scenarios for Rogue AI Attacks on Europe's Critical Digital Infrastructure and Pos
 doi:10.48448/n4hm-2t82,exclude,not about prompt injection,title_abstract,,,695 - Realism Control One-step Diffusion for Real-world Image Super Resolution
 doi:10.5281/zenodo.21358083,exclude,not about prompt injection,title_abstract,,,8∞重合双环符号编码:通用人工智能认知基座与立维世界模型跃迁
@@ -1183,7 +1183,7 @@ title:aframeworkforlargelanguagemodelassistedinvestigationsofpromptinjectionatta
 doi:10.1109/eespe68405.2026.11649278,exclude,system level,title_abstract,,,A Gateway-Centric Architecture for Bidirectional Content Moderation in Large Language Models
 doi:10.5281/zenodo.21903320,exclude,detector only,title_abstract,,,A Guardrail That Failed Quietly - and Made Things Worse Where It Failed: Silent Ruleset Degradation 
 doi:10.1145/3786335.3813175,exclude,system level,title_abstract,,,A HIPAA-Compliant Architecture for Agentic Clinical AI Systems
-title:ahybriddefenseagainstpromptinjectioninllmagentsevaluatingsecurityefficacyandcomputationalp,unsure,,title_abstract,,hybrid defence for agents; components unclear,A Hybrid Defense Against Prompt Injection in LLM Agents : Evaluating Security Efficacy and Computati
+title:ahybriddefenseagainstpromptinjectioninllmagentsevaluatingsecurityefficacyandcomputationalp,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,A Hybrid Defense Against Prompt Injection in LLM Agents : Evaluating Security Efficacy and Computati
 doi:10.1109/gaiss66401.2026.11779683,exclude,detector only,title_abstract,,,A Hybrid Detection Architecture for Identifying Prompt Injection Attacks in LLM Systems
 doi:10.1109/cyber-ai70573.2026.11755172,exclude,detector only,title_abstract,,,A Hybrid LLM Firewall for Direct Prompt Injection and Instruction Smuggling Defense
 doi:10.2139/ssrn.7366618,exclude,detector only,title_abstract,,,A Hybrid Prompt Injection Defense Framework Using Rule-Based and Learned Detection with Policy-Drive
@@ -1233,7 +1233,7 @@ doi:10.7717/peerj-cs.3773,exclude,"survey, position or other",title_abstract,,,"
 doi:10.1038/s41598-026-66312-8,exclude,not about prompt injection,title_abstract,,,A transport-layer cryptographic framework secures inter-agent communication and verdict provenance i
 doi:10.1016/j.jss.2026.112782,exclude,attack only,title_abstract,,,A white-box prompt injection attack on embodied AI agents driven by large language models
 doi:10.5281/zenodo.19209688,exclude,detector only,title_abstract,,,AASE: Activation-Based AI Safety Enforcement via Lightweight Probes
-doi:10.17605/osf.io/bczej,unsure,,title_abstract,,measurement-validity study of IPI defence metrics; check which defences,ADAPTI-GUARD
+doi:10.17605/osf.io/bczej,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.17605/osf.io/bczej in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,ADAPTI-GUARD
 doi:10.28925/2663-4023.2026.34.1275,exclude,system level,title_abstract,,,"ADVERSARIAL RESILIENCE OF AGENTIC INFRASTRUCTURE-AS-CODE SYSTEMS: THREAT MODEL, ATTACK TAXONOMY, AND"
 doi:10.58532/nbennur3202c10,exclude,not about prompt injection,title_abstract,,,AGENTIC AI AND POST-QUANTUM CRYPTOGRAPHY
 doi:10.1109/tce.2026.3707231,exclude,system level,title_abstract,,,AI 2 -Defense: An Autonomous Counter-AI Framework Against AI-Generated Threats in Consumer Systems
@@ -1276,7 +1276,7 @@ doi:10.5281/zenodo.21631633,exclude,system level,title_abstract,,,Adaptive Decep
 title:adaptivedefenseframeworkformitigatingpromptinjectionattacksinlargelanguagemodels,exclude,"survey, position or other",full_text,,full text: conceptual framework without experiments,Adaptive Defense Framework for Mitigating Prompt Injection Attacks in Large Language Models
 doi:10.14711/thesis-hdl174867,exclude,system level,title_abstract,,,Adaptive Security for Complex Software Systems: Runtime Decision Making in Fuzzing and LLM Agents
 doi:10.4218/etrij.2025-0449,include,,title_abstract,,AORT role-aware transformer retrofit,Adaptive orthogonal role‐aware transformer for robust instruction alignment
-doi:10.32604/cmc.2026.078188,include,,title_abstract,,in-context learning defence,Addressing Prompt Injection in Large Language Models via In-Context Learning
+doi:10.32604/cmc.2026.078188,exclude,jailbreak or direct injection only,title_abstract,,corrected on rereading the abstract: a multi-agent in-context learning framework that classifies harmful user prompts; evaluated as harmfulness detection,Addressing Prompt Injection in Large Language Models via In-Context Learning
 doi:10.47134/jtsi.v3i2.6047,include,,full_text,,full text: AdverShield-LLM: claims certified Gaussian noise at the token level of generation against indirect injection in IoT RAG,AdverShield-LLM: Adversarial Robustness Certification for IoT-Integrated Retrieval-Augmented Generat
 doi:10.5772/intechopen.1016684,exclude,not about prompt injection,title_abstract,,,Adversarial AI Vulnerability in Secondary Education: Threats and Cybersecurity Competencies
 doi:10.5281/zenodo.23584155,exclude,not about prompt injection,title_abstract,,,Adversarial Alignment Collapse: How Human Game-Theoretic Intuition Penetrates LLM Risk-Aversion and 
@@ -1312,7 +1312,7 @@ doi:10.1109/gaiss66401.2026.11779686,exclude,detector only,title_abstract,,,Agen
 doi:10.5281/zenodo.24340700,exclude,not about prompt injection,title_abstract,,,"Agentic AI Security for Europe: After Fugaku and Google's Autonomous Hacking Agent, Why Valid Creden"
 doi:10.5281/zenodo.20731134,exclude,"survey, position or other",title_abstract,,,"Agentic AI Systems as a Persistent Attack Surface: How Memory Poisoning, Skill Injection, Trace Leak"
 doi:10.68854/95fpkq71,exclude,"survey, position or other",title_abstract,,,"Agentic AI Systems: A Taxonomy of Autonomy, Delegation and Accountability for Tool-Using Language-Mo"
-doi:10.62311/nesx/rb5jy-978-81-689653-4-8,unsure,,title_abstract,,monograph with sparse-autoencoder tool-use policy learning against IPI; check for a measured model-side defence,Agentic AI TRiSM with Sparse-Autoencoder Interpretability for Secure Tool-Use Policy Learning and In
+doi:10.62311/nesx/rb5jy-978-81-689653-4-8,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.62311/nesx/rb5jy-978-81-689653-4-8 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Agentic AI TRiSM with Sparse-Autoencoder Interpretability for Secure Tool-Use Policy Learning and In
 doi:10.5281/zenodo.22992489,exclude,"survey, position or other",title_abstract,,,Agentic AI Threats and Security Vol 2
 doi:10.3390/electronics15122740,exclude,"survey, position or other",title_abstract,,,"Agentic AI and Large Language Models for Autonomous IoT Cybersecurity: A Systematic Survey, Taxonomy"
 doi:10.5281/zenodo.19474181,exclude,"survey, position or other",title_abstract,,,"Agentic AI for Cybersecurity: Threats, Defense Mechanisms, and Future Challenges"
@@ -1332,7 +1332,7 @@ doi:10.59256/indjcst.20260502116,exclude,not about prompt injection,title_abstra
 doi:10.1109/scecs69812.2026.11566062,exclude,detector only,title_abstract,,,An Edge–Cloud Collaborative Framework for Latency Optimization in Prompt Injection Defense
 doi:10.5281/zenodo.19364461,exclude,benchmark only,title_abstract,,,An Empirical Benchmark and Security Evaluation of Prompt Injection Attacks in LLM Systems
 doi:10.5281/zenodo.23628772,exclude,system level,title_abstract,,,An Empirical Evaluation of Attack and Defense Dynamics in Enterprise Agentic LLM Pipelines
-title:anempiricalstudyofparameterefficientfinetuninginvisionlanguagemodelsafetypipelines,unsure,,title_abstract,,parameter-efficient fine-tuning of VLMs against typographic injection; scope decision at full text,An Empirical Study of Parameter-Efficient Fine-Tuning in Vision-Language Model Safety Pipelines
+title:anempiricalstudyofparameterefficientfinetuninginvisionlanguagemodelsafetypipelines,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,An Empirical Study of Parameter-Efficient Fine-Tuning in Vision-Language Model Safety Pipelines
 doi:10.22214/ijraset.2026.85566,exclude,detector only,title_abstract,,,An Explainable Graph Attention Network for Indirect Prompt Injection Detection in RAG Systems
 doi:10.1109/icosics70095.2026.11746820,exclude,detector only,title_abstract,,,An Intelligent Prompt Injection Detection System Using Large Language Models and Contextual Analysis
 doi:10.2139/ssrn.7216863,exclude,not about prompt injection,title_abstract,,,An LLM-Based Multi-Agent Framework for Autonomous Business Lead Intelligence Using Public Web Data
@@ -1364,7 +1364,7 @@ doi:10.5281/zenodo.20525492,exclude,"survey, position or other",title_abstract,,
 doi:10.5281/zenodo.20476297,exclude,not about prompt injection,title_abstract,,,"Attack Test Scenarios and Results Data for ""Security Controls and Guardrails for Autonomous AI Agent"
 doi:10.5281/zenodo.24171174,exclude,system level,title_abstract,,,"Attack, Harden, Re-Attack: code, data and results"
 doi:10.2139/ssrn.7399538,exclude,attack only,title_abstract,,,"Attacks That Score, Attacks That Transfer: Guardrail Asymmetry, the Confused Deputy, and Hidden-Eval"
-doi:10.5281/zenodo.20582430,unsure,,title_abstract,,governed multi-stream attention proposal; check whether it is built and measured,Attention Is Not Enough: Constraint Routing Failure and Governed Multi-Stream Attention
+doi:10.5281/zenodo.20582430,exclude,no full text obtainable,full_text,"not retrieved: record removed from Zenodo; search for the paper by title, otherwise it stays not retrieved",full text: not obtained by script or by hand,Attention Is Not Enough: Constraint Routing Failure and Governed Multi-Stream Attention
 doi:10.21203/rs.3.rs-11162232/v1,exclude,attack only,title_abstract,,propagation measurement,"Attenuation, Not Amplification: Measuring Indirect Prompt Injection Propagation and Containment in M"
 doi:10.5281/zenodo.19749422,exclude,not about prompt injection,title_abstract,,,Auburn Governance Stack: Master Architecture Plan — 45-Document Layered Architecture for Verifiable 
 doi:10.5281/zenodo.23315811,exclude,not about prompt injection,title_abstract,,,Auditor OS / V50-S Sentinel Core: Universal Thermodynamic Homeostasis & Epistemic Multi-Anchoring
@@ -1384,11 +1384,11 @@ doi:10.1109/ubmk71847.2026.11745123,exclude,detector only,title_abstract,,,BPI-G
 doi:10.1109/access.2026.3712744,exclude,detector only,title_abstract,,,BSM: A Browser-Resident Framework for Real-Time Detection of JavaScript API Abuse and Prompt Injecti
 doi:10.5281/zenodo.19073968,exclude,not about prompt injection,title_abstract,,,Backbone Omniscience Attack: Measuring Information Leakage in Multi-Agent AI Negotiations
 doi:10.1007/978-981-92-2014-4_6,exclude,attack only,title_abstract,,,Backdooring Societal Bias into Instruction-Tuned Large Language Models Via Virtual Prompt Injection
-doi:10.3390/app16157662,unsure,,title_abstract,,Spotlight-Guard: spotlighting layered with a guard; check whether the spotlighting layer is measured on its own,"Balancing Security and Performance in LLM Agents: Spotlight-Guard, a Layered Defense Against Indirec"
+doi:10.3390/app16157662,include,,full_text,,"full text: Spotlight-Guard: spotlighting measured on its own and inside the layered system, with a component ablation (Tables 3 and 5)","Balancing Security and Performance in LLM Agents: Spotlight-Guard, a Layered Defense Against Indirec"
 doi:10.5281/zenodo.21199146,exclude,not about prompt injection,title_abstract,,,Behavioral Identity Is the Missing Layer in Agent Security - Continuous model-fingerprint monitoring
 doi:10.3390/app162010412,exclude,"survey, position or other",title_abstract,,"Yumusak et al., survey already in the candidate list","Below the Waterline: A Survey of Agentic AI Security, Shadow AI Governance, and LLM Supply-Chain Ris"
-doi:10.1007/978-3-032-18474-0_18,unsure,,title_abstract,,benchmarking defence techniques; no abstract,Benchmarking Defense Techniques for Securing Large Language Models
-doi:10.13140/rg.2.2.11046.28482,unsure,,title_abstract,,benchmarking injection defences in production; no abstract,Benchmarking Prompt Injection Defenses in Production LLM Systems
+doi:10.1007/978-3-032-18474-0_18,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1007/978-3-032-18474-0_18 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Benchmarking Defense Techniques for Securing Large Language Models
+doi:10.13140/rg.2.2.11046.28482,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.13140/rg.2.2.11046.28482 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Benchmarking Prompt Injection Defenses in Production LLM Systems
 doi:10.64751/ijdim.2026.v5.n2.pp131-137,exclude,detector only,title_abstract,,,Benchmarking Prompt Injection Detection for Web Agents
 doi:10.5281/zenodo.22147871,exclude,benchmark only,title_abstract,,,Benchmarking Prompt-Injection Robustness of Tool-Using LLM Agents
 doi:10.17148/ijarcce.2026.15843,exclude,"survey, position or other",title_abstract,,,Beyond Accuracy: Identifying the Stealth Gap in Multimodal Prompt Injection Defenses via a Four‑Dime
@@ -1398,7 +1398,7 @@ doi:10.5281/zenodo.19343033,exclude,system level,title_abstract,,,Beyond Identit
 doi:10.5281/zenodo.18795216,exclude,system level,title_abstract,,,Beyond Prompt Filters: Structural Risk Gating for Agentic LLM Safety
 doi:10.21203/rs.3.rs-10798245/v1,exclude,system level,title_abstract,,,Beyond Prompt Injection: Trust-Boundary Security Assurance for LLM-Integrated and Agentic Applicatio
 doi:10.1002/9781394370047.ch06,exclude,not about prompt injection,title_abstract,,,Beyond Prompts: Training for Healthy Safeguards
-doi:10.1109/aaiml67890.2026.11498175,unsure,,title_abstract,,architecture with explicit authority control; check whether it is built and measured,Beyond Shared Embedding Spaces: Towards LLM Architectures with Explicit Authority Control for Prompt
+doi:10.1109/aaiml67890.2026.11498175,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/aaiml67890.2026.11498175 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Beyond Shared Embedding Spaces: Towards LLM Architectures with Explicit Authority Control for Prompt
 doi:10.1109/icimia69818.2026.11744796,exclude,detector only,title_abstract,,render-aware hidden-text detector,"Beyond Text: A Render-Aware, Semantically-Fused Defence Against Indirect Prompt Injection in Enterpr"
 doi:10.5281/zenodo.23755370,exclude,duplicate version,title_abstract,,code release of the render-aware detector paper,"Beyond Text: Render-Aware, Semantically-Fused Defence Against Indirect Prompt Injection"
 doi:10.5281/zenodo.18150446,exclude,not about prompt injection,title_abstract,,,Beyond Tool and Agent: Emergent Properties in Long-term Human-AI Interaction
@@ -1417,7 +1417,7 @@ doi:10.5281/zenodo.24308068,exclude,system level,title_abstract,,,C.O.R.E.: A Lo
 doi:10.2139/ssrn.7578318,exclude,system level,title_abstract,,,CAPE: Provenance-aware Semantic Authorization for Agentic Payments
 doi:10.1109/tcsvt.2026.3731775,exclude,not about prompt injection,title_abstract,,,CDPformer: Learning Common and Differential CLIP Prompts for Unified Day-Night Image Dehazing
 doi:10.5281/zenodo.20122528,exclude,detector only,title_abstract,,,CEDA-1K: Command-Execution Defense Assessment (1000 entries)
-doi:10.1016/j.patcog.2026.113661,unsure,,title_abstract,,cross-modal injection modelling with a game-theoretic defence; no abstract,CM-PIUG: Cross-modal prompt injection unified modeling and game-theoretic defense strategies
+doi:10.1016/j.patcog.2026.113661,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1016/j.patcog.2026.113661 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,CM-PIUG: Cross-modal prompt injection unified modeling and game-theoretic defense strategies
 doi:10.23939/csn2026.02.056,exclude,detector only,title_abstract,,,COMPARATIVE EVALUATION OF MACHINE LEARNING METHODS FOR PROTECTING LARGE LANGUAGE MODELS FROM PROMPT 
 doi:10.5281/zenodo.20934112,exclude,detector only,title_abstract,,,CPOS-H as a Layered Pre-LLM Execution Gate
 doi:10.5281/zenodo.23994904,exclude,not about prompt injection,title_abstract,,,Cambridge Analytica 2.0: How Enterprise AI Can Rebuild Company Secrets From Data It Was Allowed to S
@@ -1463,7 +1463,7 @@ doi:10.2139/ssrn.6645520,exclude,detector only,title_abstract,,,ContrastShield: 
 doi:10.5281/zenodo.22013134,exclude,system level,title_abstract,,,CortexGate: Step-Level Fine-Tuned Risk Routing and Deterministic Safety Gating for Agentic Pipelines
 doi:10.5281/zenodo.19712045,exclude,not about prompt injection,title_abstract,,,Covert Narcissism Syntax Lockdown Theory: Analysis of the AI Bias-108 × Bug-108 Chain and Its Terms-
 doi:10.5281/zenodo.21735802,exclude,benchmark only,title_abstract,,detection benchmark of PDFs,CrackedPDFs: Paper v1 Dataset and Reproducibility Artifacts
-doi:10.5281/zenodo.23778321,unsure,,title_abstract,,layered defences for Urdu RAG; no abstract,Cross Lingual Indirect Prompt Injection in RAG: Evaluating Layered Defenses on Urdu and Roman Urdu
+doi:10.5281/zenodo.23778321,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,Cross Lingual Indirect Prompt Injection in RAG: Evaluating Layered Defenses on Urdu and Roman Urdu
 doi:10.1186/s42400-026-00628-w,exclude,attack only,title_abstract,,,Cross-layer contagion of prompt injections in multi-agent swarms: a multiplex microscopic markov cha
 doi:10.23919/nisscps00007.2026.00018,exclude,"survey, position or other",title_abstract,,,Cyber AI: A Review of Artificial Intelligence for Offensive and Defensive Web Security
 doi:10.5281/zenodo.20583585,exclude,"survey, position or other",title_abstract,,,Cyber Attacks Targeting Generative AI and Agentic AI Frameworks in the Retail Domain and Strategies 
@@ -1485,7 +1485,7 @@ doi:10.5281/zenodo.21494848,exclude,system level,title_abstract,,,DROS-PGM (v2.0
 doi:10.5281/zenodo.22290237,exclude,system level,title_abstract,,,DROS-WebMCP: A Cryptographically Attributable Execution Governance Layer for the Agentic Web / DROS-
 doi:10.3390/electronics15163640,exclude,system level,title_abstract,,,DT-GenShield: A Digital Twin-Driven Runtime Security Architecture for Protecting Large Language Mode
 doi:10.5753/sbseg.2026.28936,exclude,attack only,title_abstract,,,Data Exfiltration in Model Context Protocol (MCP)-Based Intelligent Agents: An Evaluation of Prompt 
-doi:10.5281/zenodo.23149133,unsure,,title_abstract,,data record only; the paper on prompt-only defences in LLM-assisted scientific review under an adaptive attacker must be located,Data and materials for: Auditing prompt-only defences against prompt injection in LLM-assisted scien
+doi:10.5281/zenodo.23149133,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,Data and materials for: Auditing prompt-only defences against prompt injection in LLM-assisted scien
 doi:10.5281/zenodo.24252942,exclude,system level,title_abstract,,,Data deposit: Security and Utility of Layered Trust-Boundary Defenses in Multi-Agent LLM Systems
 doi:10.17632/xm8ntk7cgd,exclude,"survey, position or other",title_abstract,,,Data extraction dataset for a systematic literature review on prompt-based attacks and defenses in L
 doi:10.4218/etrij.2026-0186,exclude,attack only,title_abstract,,,Data poisoning in LLM multiagent societies: Social proof drives collective decision failure in finan
@@ -1496,10 +1496,10 @@ doi:10.6084/m9.figshare.32957327,exclude,attack only,title_abstract,,,Deconstruc
 doi:10.1109/ubmk71847.2026.11745232,exclude,detector only,title_abstract,,,Deep Learning-Based Detection of Prompt Injection Attacks in Turkish Inputs
 doi:10.64539/msts.v2i1.2026.420,exclude,system level,title_abstract,,,Defending AI Sentinels: A Multi-Layered Runtime Security Architecture for Generative AI in AIOps
 doi:10.55041/ijsrem69156,exclude,system level,title_abstract,,,Defending AI-Assisted Assessments Against Adversarial Prompt Injection: A Multi-Layered Architecture
-doi:10.1109/icaiic68212.2026.11454261,include,,title_abstract,,optimised system-prompt suffix as a prompting defence,Defending Against Prompt Injection Attacks Using Automatic System Prompt Engineering
+doi:10.1109/icaiic68212.2026.11454261,exclude,jailbreak or direct injection only,full_text,,"full text: included at title and abstract; the full text shows the attacks are harmful user prompts from WildJailbreak, with no third-party data channel",Defending Against Prompt Injection Attacks Using Automatic System Prompt Engineering
 doi:10.1002/9781394387717.ch05,exclude,"survey, position or other",title_abstract,,,Defending Models and Applications in Production
 doi:10.5281/zenodo.18342258,exclude,system level,title_abstract,,,"Defending The AI-Powered Commerce Stack: A Security Framework For Prompt Injection, Review Integrity"
-doi:10.1007/978-981-92-0291-1_30,unsure,,title_abstract,,"defence via intention emphasis; no abstract, probably prompting",Defense Against Prompt Injection Attacks via Intention Emphasis
+doi:10.1007/978-981-92-0291-1_30,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1007/978-981-92-0291-1_30 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Defense Against Prompt Injection Attacks via Intention Emphasis
 doi:10.5281/zenodo.23644836,exclude,system level,title_abstract,,,"Defense in Depth for LLM Agents: code, data and results"
 title:defensescontrapromptinjectionenagentsllmavaluacisistemticaianlisimecanicistademodesdefalla,include,,title_abstract,,role: re-measurement; thesis with systematic evaluation and mechanistic failure analysis of agent defences,Defenses contra prompt injection en agents LLM: avaluació sistemàtica i anàlisi mecanicista de modes
 doi:10.70917/ijcisim-2026-4703,exclude,not about prompt injection,title_abstract,,,Defensive Reverse Engineering of LLM Applications: A Black-Box Framework for Security Risk Scoring a
@@ -1545,7 +1545,7 @@ doi:10.1007/s44163-026-01726-x,exclude,"survey, position or other",title_abstrac
 doi:10.5281/zenodo.19472994,exclude,"survey, position or other",title_abstract,,,Endogenous Context Pollution: How AI Safety Mechanisms Contaminate Their Own Reasoning Channel
 doi:10.2139/ssrn.6449999,exclude,not about prompt injection,title_abstract,,,Engagement-Constitutive Identity: A Unified Theory of Consciousness Across Substrates
 doi:10.5281/zenodo.23222373,exclude,not about prompt injection,title_abstract,,,"Engineering Autonomous Intelligence / The Architecture, Tradecraft, and Deployment of Agentic AI Sys"
-doi:10.1109/icietsd68684.2026.11584655,unsure,,title_abstract,,robustness of VLMs against injected image text; scope decision at full text,Enhancing the Robustness of Visual Language Models Against Prompt Injection Attacks
+doi:10.1109/icietsd68684.2026.11584655,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/icietsd68684.2026.11584655 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Enhancing the Robustness of Visual Language Models Against Prompt Injection Attacks
 doi:10.1109/gaiss66401.2026.11779687,exclude,system level,title_abstract,,,Enterprise Agentic AI Infrastructure: A Zero Trust Runtime Security Framework for Secure Autonomous 
 doi:10.5281/zenodo.20564841,exclude,not about prompt injection,title_abstract,,,Enterprise Agentic AI Should Use Real-Time Discovery & Self-Coding (RTDC) Integration Instead Of Sta
 doi:10.5281/zenodo.23037645,exclude,not about prompt injection,title_abstract,,,Enterprise RAG Architecture
@@ -1559,10 +1559,10 @@ doi:10.5281/zenodo.22146809,exclude,system level,title_abstract,,,ErrorCaps: com
 doi:10.1002/9781394406418.ch12,exclude,not about prompt injection,title_abstract,,,Ethical Considerations and Pitfalls
 doi:10.1111/exsy.70460,exclude,not about prompt injection,title_abstract,,,Ethics and Governance in the Age of Generative Artificial Intelligence: A Lifecycle Engineering Pers
 doi:10.55960/jgf.v10i1.320,exclude,not about prompt injection,title_abstract,,,Ethics and Responsibility in the Governance of Artificial Intelligence
-title:evaluatingdefenceindepthstrategiesagainstpromptinjectionattacksinlargelanguagemodels,unsure,,title_abstract,,defence-in-depth evaluation; check which layers include model-side defences,Evaluating Defence-in-Depth Strategies Against Prompt Injection Attacks in Large Language Models
+title:evaluatingdefenceindepthstrategiesagainstpromptinjectionattacksinlargelanguagemodels,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,Evaluating Defence-in-Depth Strategies Against Prompt Injection Attacks in Large Language Models
 doi:10.2139/ssrn.6246379,exclude,system level,title_abstract,,"hybrid guardrails, no abstract",Evaluating Hybrid Guardrail Architectures for Prompt Injection Defense in Large Language Models
 doi:10.3390/computers15090570,include,,title_abstract,,role: re-measurement; four defences replicated in tool-using agents (Computers 15(9):570),"Evaluating Indirect Prompt Injection Defenses in Tool-Using LLM Agents: Security, Utility, and Repli"
-title:evaluatingindirectpromptinjectioninragsystemsdefenseindepthretrievaleffectsandsecurityutil,unsure,,title_abstract,,RAG defence-in-depth benchmark; check which defence layers are measured,"Evaluating Indirect Prompt Injection in RAG Systems: Defense-in-Depth, Retrieval Effects, and Securi"
+title:evaluatingindirectpromptinjectioninragsystemsdefenseindepthretrievaleffectsandsecurityutil,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,"Evaluating Indirect Prompt Injection in RAG Systems: Defense-in-Depth, Retrieval Effects, and Securi"
 doi:10.1109/aiei69164.2026.11497073,exclude,detector only,title_abstract,,,Evaluating LoRA Adaptation and Fine-Tuning for Multi-Class Adversarial Prompt Detection in Transform
 doi:10.70715/jitcai.2026.v3.i3.071,include,,title_abstract,,role: re-measurement; multi-model study of injection defences and usability trade-offs,Evaluating Prompt Injection Defenses in Large Language Models: A Multi-Model Empirical Study of Secu
 doi:10.5281/zenodo.20631344,exclude,"survey, position or other",title_abstract,,,Evaluating Prompt Injection Vulnerabilities in AI Agents
@@ -1574,14 +1574,14 @@ doi:10.1109/access.2026.3727159,exclude,benchmark only,title_abstract,,,Evil-AI 
 doi:10.1109/access.2026.3723800,exclude,benchmark only,title_abstract,,,Execution-Aware Stage-Wise Evaluation Framework for Indirect Prompt Injection in LLM-Based Email Age
 doi:10.5281/zenodo.21008339,exclude,not about prompt injection,title_abstract,,,Executive Brief: Agentic AI Cyber Subversion: The Semantic Layer Integrity Attack
 doi:10.1109/aic70896.2026.11717029,exclude,system level,title_abstract,,,Experimental Analysis of Adversarial Attacks on Agentic AI Systems with Layered Defense Mechanisms
-doi:10.5281/zenodo.24246538,unsure,,title_abstract,,"data record only; the paper ""Experimental Measurement of Indirect Prompt Injection Defences Across Fourteen Control Configurations"" must be located",Experimental Measurement of Indirect Prompt Injection Defences Across Fourteen Control Configuration
+doi:10.5281/zenodo.24246538,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,Experimental Measurement of Indirect Prompt Injection Defences Across Fourteen Control Configuration
 doi:10.67535/tsp.000003.011,exclude,detector only,title_abstract,,,"Explainable Prompt Injection Detection using Sentence Embeddings, Random Forest, and Word-Level Attr"
 doi:10.4018/979-8-3373-8252-4.ch011,exclude,"survey, position or other",title_abstract,,,Explainable and Transparent AI Architectures
 doi:10.1007/978-3-032-42939-1_10,exclude,attack only,title_abstract,,,Exploiting Unsafe Rendering in LLM-Powered Workflow Platforms
 doi:10.1007/s11192-026-05695-x,exclude,attack only,title_abstract,,,Exploiting large language models in peer review: indirect prompt injection attacks and integrity pro
 doi:10.1109/cns69863.2026.11720885,exclude,jailbreak or direct injection only,title_abstract,,,Exposing and Securing LLMs Against Hypocrisy-Induced Manipulation
 doi:10.3390/electronics15071409,exclude,not about prompt injection,title_abstract,,,Federated Retrieval-Augmented Generation for Cybersecurity in Resource-Constrained IoT and Edge Envi
-doi:10.3390/analytics5030025,unsure,,title_abstract,,feedback-guided defence in text-to-Cypher; check whether the model's generation is changed,Feedback-Guided Prompt Injection Defense in Retrieval-Augmented Text-to-Cypher Generation
+doi:10.3390/analytics5030025,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.3390/analytics5030025 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Feedback-Guided Prompt Injection Defense in Retrieval-Augmented Text-to-Cypher Generation
 doi:10.5281/zenodo.20685263,exclude,detector only,title_abstract,,internal probe,"Felt, Not Granted: An Internal Authorization Probe Inherits the Agent's Judgment Error and Is Operat"
 doi:10.1109/uemcon70256.2026.11775552,exclude,detector only,title_abstract,,,FleetSentinel: Population-Level Behavioral Monitoring for Detecting Rogue LLM Agents in Large-Scale 
 doi:10.5281/zenodo.20561549,exclude,not about prompt injection,title_abstract,,,Forget Transformers: Why a Primitive Marine Creature Could Revolutionize Artificial Intelligence
@@ -1619,7 +1619,7 @@ doi:10.5281/zenodo.18469506,exclude,not about prompt injection,title_abstract,,,
 doi:10.1007/978-3-032-39766-9_11,exclude,system level,title_abstract,,,Governing LLM-Based Adaptive Components in Safety-Critical Clinical Decision Support: A Constraint-L
 doi:10.17605/osf.io/weg37,exclude,"survey, position or other",title_abstract,,,Governing Multi-Agent LLM Systems After Compromise: Systematic Survey Protocol
 doi:10.5281/zenodo.22834788,exclude,not about prompt injection,title_abstract,,,Governing the Intelligence Loop: Architectural Mitigations for Epistemic Fragility in Autonomous Spa
-doi:10.2139/ssrn.7082874,unsure,,title_abstract,,GraphShield graph-structured defence; no abstract,GraphShield: A Graph-Structured Defense Framework for Prompt Injection in RAG and Multi-Agent LLM Sy
+doi:10.2139/ssrn.7082874,exclude,no full text obtainable,full_text,not retrieved: open copy exists but the site refuses scripts; open https://doi.org/10.2139/ssrn.7082874 in a browser and save the PDF,full text: not obtained by script or by hand,GraphShield: A Graph-Structured Defense Framework for Prompt Injection in RAG and Multi-Agent LLM Sy
 doi:10.18653/2026.emnlp-main.2226,exclude,not about prompt injection,title_abstract,,,Grounding LLM Agent Intent in Multi-Module Environments with Executable Action Programs
 title:guardragadversarialpreferencetrainingagainstindirectpromptinjectionattacks,include,,title_abstract,,GuardRAG adversarial preference training,GuardRAG: Adversarial Preference Training Against Indirect Prompt Injection Attacks
 doi:10.5281/zenodo.23617102,exclude,detector only,title_abstract,,,GuardRail-as-a-Service: a two-tier prompt injection detection pipeline
@@ -1628,14 +1628,14 @@ title:hirsettlementlayerv01redteamcapturepaymentintegrity,exclude,not about prom
 doi:10.5281/zenodo.19853664,exclude,not about prompt injection,title_abstract,,,HIVE-AI: A Honeypot for the Indirect-Prompt-Injection Vector against Embedded AI APIs
 title:hackingllmsclasificadorbinariodepromptsparadeteccindepromptinjection,exclude,detector only,title_abstract,,,Hacking LLMs : clasificador binario de prompts para detección de prompt injection
 doi:10.5281/zenodo.20329530,exclude,not about prompt injection,title_abstract,,,"Handbook for AI Power Users: Advanced Prompt Engineering — Principles, Methods, Implementation, and "
-doi:10.5281/zenodo.24268977,unsure,,title_abstract,,"harness record only; the paper ""Prompt-Injection Robustness Is Not a Scalar"" must be located",Harness and results for Prompt-Injection Robustness Is Not a Scalar
+doi:10.5281/zenodo.24268977,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,Harness and results for Prompt-Injection Robustness Is Not a Scalar
 doi:10.21203/rs.3.rs-9653510/v1,include,,full_text,,"full text: HAA/ULC: system-prompt protocol with input decoupling and master-objective anchoring, tested on GPT-4o",Hierarchical Adaptive Anti-injection Framework (HAA/ULC): A Lightweight Defense Strategy Based on In
 doi:10.3390/aerospace13100927,exclude,not about prompt injection,title_abstract,,,Hierarchical Safe and Robust UAV Path Planning Based on Large Language Models
 doi:10.1109/cyber-ai70573.2026.11755159,exclude,benchmark only,title_abstract,,,Hijacking Tool-Integrated LLM Agents via Indirect Prompt Injection: A Benchmark Scaffold and Threat 
 doi:10.25776/mvhf-w867,exclude,"survey, position or other",title_abstract,,,"Hijacking the Prompt: A Survey of Prompt Injection Attacks, Detection, and Defense in Large Language"
 doi:10.1007/s10207-026-01307-0,exclude,not about prompt injection,title_abstract,,,Hive-AI: a defended multi-service honeypot framework for generative AI APIs
 doi:10.5281/zenodo.19421882,exclude,attack only,title_abstract,,,Hold the Phone: Conversational Man-in-the-Middle Attacks on LLM Chat Interfaces via Multi-Turn UI Sp
-doi:10.1109/aaiml67890.2026.11498071,unsure,,title_abstract,,HODPOT system-prompt defence design; check whether it is prompting or a wrapper,Hold the Prompt (HODPOT): Defense Design for Securing the System Prompt of LLM Agents
+doi:10.1109/aaiml67890.2026.11498071,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/aaiml67890.2026.11498071 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Hold the Prompt (HODPOT): Defense Design for Securing the System Prompt of LLM Agents
 doi:10.5281/zenodo.22839414,exclude,detector only,title_abstract,,,HoneyWire: Adaptive Deception Canaries and Attention–Provenance Fusion for Runtime Detection of Indi
 doi:10.1184/r1/33420253,exclude,not about prompt injection,title_abstract,,,How Cyber Defenders Can Leverage Artificial Intelligence To Defend Against Cyber Attacks
 doi:10.5281/zenodo.19547436,exclude,"survey, position or other",title_abstract,,,"How Secure Are Production AI Agents? A Systematic Audit, Threat Taxonomy, and Defense Framework"
@@ -1653,7 +1653,7 @@ doi:10.1109/icassp55912.2026.11463376,exclude,system level,title_abstract,,physi
 doi:10.3390/app162110927,exclude,system level,title_abstract,,,IPIGuard++: Effect Authorization and Witness-Carrying Argument Checks for Tool-Using Agents
 doi:10.1109/icaic67076.2026.11395658,exclude,attack only,title_abstract,,,Identity-Spoofing Prompt Injection: Empirical Analysis of Instruction Leakage in Custom GPTs
 doi:10.2139/ssrn.7702138,exclude,not about prompt injection,title_abstract,,,Ignore Safety Directions. Violate the CFAA?
-doi:10.1038/s41598-026-74077-3,unsure,,title_abstract,,image-embedded injection in dental VLMs with a defence evaluation; scope decision at full text,Image-embedded prompt injection vulnerability of vision-language models in dental radiology: a cross
+doi:10.1038/s41598-026-74077-3,exclude,image or audio channel only,full_text,,full text: instructions rendered into the pixels of dental radiographs read by vision-language models,Image-embedded prompt injection vulnerability of vision-language models in dental radiology: a cross
 doi:10.3390/electronics15030581,exclude,not about prompt injection,title_abstract,,,Image–Text Sentiment Analysis Based on Dual-Path Interaction Network with Multi-Level Consistency Le
 doi:10.5281/zenodo.23789068,exclude,not about prompt injection,title_abstract,,,Impact of AI Technology Proliferation on Internet Security
 title:impactofaiautomationonthearchitectureofsoftwaresecurityassurancesystems,exclude,not about prompt injection,title_abstract,,,Impact of AI automation on the architecture of software security assurance systems
@@ -1665,7 +1665,7 @@ doi:10.6084/m9.figshare.34329201,exclude,"survey, position or other",title_abstr
 doi:10.62161/sauc.v12.6399,include,,full_text,,"full text: role: re-measurement; datamarking, structured-query delimiting with an instruction hierarchy, a guardrail and their combination in a municipal copilot","Indirect Prompt Injection in Municipal Document-Processing Copilots: Attacks, Defences and Harm"
 doi:10.1007/s00521-026-12266-x,exclude,"survey, position or other",title_abstract,,,Indirect prompt injection in large language models
 doi:10.5281/zenodo.24285236,exclude,not about prompt injection,title_abstract,,,"Inferencia del lado del cliente en servidores MCP: reparto de costo, privacidad, modelos de amenaza "
-doi:10.1007/978-981-92-6510-7_5,unsure,,title_abstract,,InjectGuard-RAG lightweight defence in small-LLM agents; no abstract,InjectGuard-RAG: Lightweight Defence Against Indirect Prompt Injection in Retrieval-Augmented Small-
+doi:10.1007/978-981-92-6510-7_5,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1007/978-981-92-6510-7_5 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,InjectGuard-RAG: Lightweight Defence Against Indirect Prompt Injection in Retrieval-Augmented Small-
 doi:10.5281/zenodo.18163579,exclude,not about prompt injection,title_abstract,,,Inmunidad por Resonancia Armónica: El Punto de Coherencia Crítica como Paradigma de Seguridad en Int
 title:instructionhierarchyviolationsandrobustnessoflargelanguagemodelstopromptinjectionattacks,exclude,attack only,title_abstract,,thesis measuring robustness without a defence,Instruction-Hierarchy Violations and Robustness of Large Language Models to Prompt Injection Attacks
 doi:10.5281/zenodo.21712771,exclude,attack only,title_abstract,,,"Instruction-hierarchy collapse: a 5-model, 28-scenario prompt-injection audit"
@@ -1739,7 +1739,7 @@ doi:10.5281/zenodo.21235384,exclude,system level,title_abstract,,,"Many Minds, O
 doi:10.21203/rs.3.rs-10868139/v1,exclude,system level,title_abstract,,,Mastyf Guard 1.5B: Cognitive Harvard Architectures for Sub-Millisecond AI Agent Perimeter Defense an
 doi:10.5281/zenodo.20537888,exclude,detector only,full_text,,full text: AgentShield thesis: proxy that scans fetched web content with a second LLM before it reaches the agent,Mbrojtja e agjentëve të bazuar në LLM nga sulmet e prompt injection
 doi:10.2139/ssrn.7276838,exclude,attack only,title_abstract,,,Measuring Indirect Prompt Injection in Autonomous Web Agents
-doi:10.5281/zenodo.23163268,include,,title_abstract,,role: re-measurement; utility cost and generalisation of defences in a controlled simulator,Measuring the utility cost and generalization of prompt-injection defenses with a controlled simulat
+doi:10.5281/zenodo.23163268,exclude,"survey, position or other",title_abstract,,corrected on rereading the abstract: defences run on a simulated model whose susceptibility is a set parameter; the authors state the rates transfer to no deployed language model,Measuring the utility cost and generalization of prompt-injection defenses with a controlled simulat
 doi:10.1109/icesst69086.2026.11582854,exclude,system level,title_abstract,,,MedRAGShield: A Three-Tier Defense Framework Against Document Poisoning and Adversarial Attacks in M
 doi:10.5281/zenodo.21192008,exclude,not about prompt injection,title_abstract,,,Meme Immunology: How Artificial Intelligence Learns to Protect Its Own Mind
 doi:10.5281/zenodo.20451351,exclude,not about prompt injection,title_abstract,,,Metadata Packet for AI Indexing — Non-Injection Semantic Governance Address
@@ -1748,7 +1748,7 @@ doi:10.5281/zenodo.22886107,exclude,system level,title_abstract,,,Mitigating Dir
 doi:10.20944/preprints202609.1352.v1,exclude,detector only,title_abstract,,voting-based routing with detection,Mitigating LLM Prompt Injections via Multi-Vector Representation and Voting-Based Routing
 doi:10.2139/ssrn.7502658,exclude,"survey, position or other",title_abstract,,,Mitigating Prompt Injection Attacks in Large Language Model Applications: A Defense-In-Depth Framewo
 doi:10.47810/clib.26.03,exclude,detector only,title_abstract,,,Mitigating Security Vulnerabilities in Open-Source Large Language Models via a Supervisor Agent Arch
-doi:10.1109/icws72778.2026.00153,unsure,,title_abstract,,dual-stream intent matching; check where it acts,Mitigating Semantic Confusion in LLM-Integrated Web Services via Dynamic Dual-Stream Intent Matching
+doi:10.1109/icws72778.2026.00153,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/icws72778.2026.00153 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Mitigating Semantic Confusion in LLM-Integrated Web Services via Dynamic Dual-Stream Intent Matching
 doi:10.2139/ssrn.6995839,exclude,"survey, position or other",title_abstract,,,"Model-Side Safety Numbers Do Not Reproduce, and the Best Detectors Cannot See Closed Models: A Measu"
 doi:10.1007/978-981-92-3426-4_26,exclude,detector only,title_abstract,,,MongoGuard: A Mongolian Prompt Injection Attack Detection Model Based on Contrastive Learning
 doi:10.5281/zenodo.23519903,exclude,not about prompt injection,title_abstract,,,Monograph 42: The Jain Silicon Protocol
@@ -1765,7 +1765,7 @@ doi:10.5281/zenodo.22874031,exclude,detector only,title_abstract,,code record of
 doi:10.5281/zenodo.18894317,exclude,detector only,title_abstract,,,Nokast-SecureRAG: An Open-Source Framework for Trusted Local AI via SLM-Driven Defense
 doi:10.5281/zenodo.23207842,exclude,not about prompt injection,title_abstract,,,Normative State Locking and Bounded Activation Dynamics: An Information-Theoretic Boundary Framework
 doi:10.36227/techrxiv.177220281.16680821/v1,exclude,system level,title_abstract,,model rotation as moving-target defence,Not All Models Are Equal: Model Selection and Rotation as Moving Target Defense Against Prompt Injec
-doi:10.1109/icassp55912.2026.11462113,unsure,,title_abstract,,detection plus preference-aligned purification; check whether purification changes the protected model,Not Just Detection: Aligned-Driven Purification of Indirect Prompt Injection for Reliable Agent Inte
+doi:10.1109/icassp55912.2026.11462113,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/icassp55912.2026.11462113 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Not Just Detection: Aligned-Driven Purification of Indirect Prompt Injection for Reliable Agent Inte
 doi:10.5281/zenodo.18712066,exclude,detector only,full_text,,full text: Nullform: deterministic rewriting rules that detect structural injections,Nullform: Algebraic Prompt Injection Defense via Monoid Rewriting Systems
 doi:10.62009/emeron.2764.9679.v2.2026.e557,exclude,not about prompt injection,title_abstract,,,O Ensino Ético da Inteligência Artificial na Graduação em Direito: Fraudes por Prompt Injection e a 
 doi:10.5281/zenodo.19193235,exclude,not about prompt injection,title_abstract,,,"OEIL+FORGE: Autonomous Generation, Certification and Deployment of AI Specialists — 12 Claims"
@@ -1796,19 +1796,19 @@ doi:10.30546/2225-0530.14.2.2025.2013,exclude,"survey, position or other",title_
 title:parameterefficientadaptationofdinov3formultitaskultrasoundimageanalysis,exclude,not about prompt injection,title_abstract,,,Parameter-Efficient Adaptation of DINOv3 for Multi-Task Ultrasound Image Analysis
 doi:10.5281/zenodo.18236867,exclude,system level,title_abstract,,patent filing,Patent Filing: Anti-Binding Protection Layer for AI-Facing Documents
 doi:10.5281/zenodo.18486434,exclude,system level,title_abstract,,patent filing,Patent Filing: Non-Blocking Integrity Halt Primitive for Intelligent Systems
-title:pathawaredefenseagainstpromptinjectionattacksinretrievalaugmentedlargelanguagemodels,unsure,,title_abstract,,path-aware defence in RAG; check where it acts,Path-Aware Defense Against Prompt Injection Attacks in Retrieval-Augmented Large Language Models
+title:pathawaredefenseagainstpromptinjectionattacksinretrievalaugmentedlargelanguagemodels,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,Path-Aware Defense Against Prompt Injection Attacks in Retrieval-Augmented Large Language Models
 doi:10.5772/intechopen.1017734,exclude,not about prompt injection,title_abstract,,,Perspective Chapter: Governing the Autonomous Fortress – Multi-Agent AI Systems for Secure and Resil
 doi:10.1109/aic70896.2026.11717282,exclude,not about prompt injection,title_abstract,,,PhishRoute: Cost-Aware Multi-Agent Gating for Phishing Email Detection
 doi:10.5281/zenodo.21349713,include,,title_abstract,,role: re-measurement; six training-free defences on small open-weight tool agents,Poisoned Tools: Prompt-Injection Robustness and Failure Anatomy of Small Open-Weight Tool Agents
 doi:10.2139/ssrn.6734225,exclude,system level,title_abstract,,,Poisoning the Compliance Mind: Adversarial Memory Injection Attacks on RAG-Based AML Agents and a De
 doi:10.5281/zenodo.21853734,exclude,system level,title_abstract,,,Policy Governed Agentic Commerce
-doi:10.17605/osf.io/zakex,include,,title_abstract,,role: measurement; position of hidden instruction (companion measurement study),Position and indirect prompt injection
+doi:10.17605/osf.io/zakex,exclude,attack only,title_abstract,,corrected on rereading the abstract: a preregistered measurement of where in a document a hidden instruction works best; no defence is studied,Position and indirect prompt injection
 doi:10.1145/3846374.3846391,exclude,system level,title_abstract,,,"Position: Agents Orchestrate, Policy Enforces — A Deterministic Tool-Use Control Pattern for Agentic"
 doi:10.1109/uemcon70256.2026.11775495,exclude,attack only,title_abstract,,,Positional Survival of Prompt Injections Through Context Compaction in LLM Agents
 doi:10.5281/zenodo.20640594,exclude,detector only,title_abstract,,,Post-Detection Remediation of Prompt Injection Attacks in LLM-Based Email Security Agents using Ense
 doi:10.1109/svcc69905.2026.11642338,exclude,"survey, position or other",title_abstract,,,Poster: From Assistants to Actors: Deconstructing the Security Implications of Autonomous AI Agents
 doi:10.11159/icaiis26.105,exclude,detector only,title_abstract,,,Predictive Behavioral Risk Detection for Agentic AI via Runtime Execution Monitoring
-doi:10.6084/m9.figshare.35040148,unsure,,title_abstract,,"data record only; the paper ""DefenseComposer"" (66 runtime defence variants) must be located",Primary Evaluation Results for 66 Ordered Runtime Defense Variants
+doi:10.6084/m9.figshare.35040148,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,Primary Evaluation Results for 66 Ordered Runtime Defense Variants
 doi:10.51903/ijgd.v4i1.3699,exclude,not about prompt injection,title_abstract,,,Privacy and Data-Integrity Risk Cards for LLM Agents: A UI/UX Design Framework for Secure Human Over
 doi:10.1109/icici68867.2026.11564888,exclude,detector only,title_abstract,,,Privacy-Preserving Federated Transformer Framework for Detecting Adversarial Prompts in Healthcare C
 doi:10.1002/9781394491148.ch1,exclude,not about prompt injection,title_abstract,,,Privacy‐preserving ML and Secure AI Architectures
@@ -1827,11 +1827,11 @@ doi:10.56975/ijcrt.v14i7.309922,exclude,"survey, position or other",title_abstra
 doi:10.2139/ssrn.6816879,exclude,"survey, position or other",title_abstract,,,"Prompt Injection Attacks: Theory, Techniques, Defense, and Secure AI Systems"
 doi:10.13140/rg.2.2.19516.60800,exclude,"survey, position or other",title_abstract,,,"Prompt Injection Beyond the Input Boundary: A Cross-Surface Perspective on LLM Security, Defense Rob"
 doi:10.5281/zenodo.23046762,exclude,system level,title_abstract,,,"Prompt Injection Defense for Tool-Using AI: Production Architecture, Current Research, Real-World Us"
-title:promptinjectiondefenses,unsure,,title_abstract,,"""Prompt Injection Defenses""; title only, check at full text",Prompt Injection Defenses
+title:promptinjectiondefenses,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,Prompt Injection Defenses
 doi:10.1007/978-3-032-30310-3_46,exclude,detector only,title_abstract,,,Prompt Injection Detection via Attention Tracking: A Comparative Evaluation
 doi:10.5281/zenodo.20674403,exclude,"survey, position or other",title_abstract,,,Prompt Injection Is Not a Bug You Patch
 doi:10.5281/zenodo.18925239,exclude,"survey, position or other",title_abstract,,,Prompt Injection Is the New SQL Injection: Why LLM Security Will Define the Next Decade
-title:promptinjectionresistanceinclinicalllmagentsviastructuredmedicalontologyalignment,unsure,,title_abstract,,ontology alignment for clinical agents; check whether the model is trained,Prompt Injection Resistance in Clinical LLM Agents via Structured Medical Ontology Alignment
+title:promptinjectionresistanceinclinicalllmagentsviastructuredmedicalontologyalignment,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,Prompt Injection Resistance in Clinical LLM Agents via Structured Medical Ontology Alignment
 doi:10.61424/jcsit.v3i2.1077,exclude,"survey, position or other",title_abstract,,,Prompt Injection Threats in Azure-Based Large Language Model Applications
 doi:10.5281/zenodo.19520996,exclude,attack only,title_abstract,,,Prompt Injection and Data Leakage in Large Language Models: An Empirical Study on TinyLlama
 doi:10.2139/ssrn.6740060,exclude,"survey, position or other",title_abstract,,,Prompt Injection and Jailbreak Attacks in Large Language Model-Based Agents
@@ -1844,7 +1844,7 @@ doi:10.5281/zenodo.21830995,exclude,"survey, position or other",title_abstract,,
 doi:10.1109/iccsdfai70505.2026.11648022,exclude,"survey, position or other",title_abstract,,,Prompt Injection as the New SQL Injection: The Emergence of Attacks on AI Reasoning
 doi:10.2139/ssrn.6762100,exclude,not about prompt injection,title_abstract,,,"Prompt Injection in Court Filings: Generative AI in the Brazilian Judiciary, Algorithmic Procedural "
 doi:10.1109/worldsuas70880.2026.11767142,exclude,detector only,title_abstract,,,"Prompt Injection in LLMs: Taxonomy, Detection and Adaptive Defense Mechanisms"
-doi:10.13140/rg.2.2.36570.30408,unsure,,title_abstract,,evaluating and defending satellite-ops agents; no abstract,Prompt Injection in Orbit: Evaluating and Defending LLM Agents in Satellite Mission Operations
+doi:10.13140/rg.2.2.36570.30408,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.13140/rg.2.2.36570.30408 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Prompt Injection in Orbit: Evaluating and Defending LLM Agents in Satellite Mission Operations
 doi:10.5281/zenodo.21370437,exclude,system level,title_abstract,,,Prompt Injection is Not an AI Problem: Why MCP Tool Hardening Matters
 doi:10.5281/zenodo.18366919,exclude,not about prompt injection,title_abstract,,,Prompt Injection is a Control Problem: Topological Constraints on Latent Dynamics
 doi:10.5281/zenodo.18203183,exclude,not about prompt injection,title_abstract,,,Prompt Injection: A Security Challenge for Modern AI Communication
@@ -1853,15 +1853,15 @@ doi:10.17148/iarjset.2026.13801,exclude,not about prompt injection,title_abstrac
 doi:10.5281/zenodo.21120124,include,,title_abstract,,role: re-measurement; factorial study of prompt-transformation defences across benchmarks and model families,Prompt Transformation Effects Do Not Transfer Across Benchmarks or Model Families: A Factorial Study
 doi:10.5281/zenodo.19856513,exclude,"survey, position or other",title_abstract,,,Prompt injection attacks and defenses in large language models: A systematic literature review
 doi:10.59350/k9aqr-fr116,exclude,not about prompt injection,title_abstract,,,Prompt injection defenses open a biosecurity gap
-doi:10.5281/zenodo.23887088,unsure,,title_abstract,,smart-home agent simulator with defence prompts; check which defences,"Prompt injection through device data in LLM smart-home agents: simulator, logs and analysis"
+doi:10.5281/zenodo.23887088,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,"Prompt injection through device data in LLM smart-home agents: simulator, logs and analysis"
 doi:10.5281/zenodo.23811220,include,,title_abstract,,role: re-measurement; defences on a small local agent with costs,"Prompt-Injection Defences on a Small Local Agent: What Works, What It Costs, and How Optimistic Deve"
 doi:10.5281/zenodo.22070840,exclude,detector only,title_abstract,,,Prompt-Injection Detection at 7B: A Head-to-Head Against a Zero-Shot Frontier Judge (Paper 3 artefac
 doi:10.1016/j.neucom.2026.134939,exclude,"survey, position or other",title_abstract,,,"Prompt-based attacks and defenses in large language models: A systematic review of threat models, ta"
 doi:10.5281/zenodo.22805797,exclude,attack only,title_abstract,,,Prompt-injection detection and obedience in three Claude models: data and re-derivation
-doi:10.1016/j.jss.2026.113164,unsure,,title_abstract,,semantic defence against prompt-to-API-call injection; check where it acts,Prompt-to-API-Call injection: Systematic attack generation and semantic defense in LLM agents
+doi:10.1016/j.jss.2026.113164,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1016/j.jss.2026.113164 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Prompt-to-API-Call injection: Systematic attack generation and semantic defense in LLM agents
 doi:10.1109/aiei69164.2026.11497133,exclude,detector only,title_abstract,,,PromptFence: A Semantic Guardrail for Healthcare AI to Defend Against Prompt Injection Attacks
-doi:10.1038/s41598-025-31086-y,unsure,,title_abstract,,PromptGuard structured framework without retraining (Sci Rep); check where it acts,PromptGuard a structured framework for injection resilient language models
-doi:10.1109/icassp55912.2026.11463282,include,,title_abstract,,PromptPatch feedback-driven system-prompt optimisation,PromptPatch: Towards Precise and Stable Behavioral Patching in Large Language Models via Feedback-Dr
+doi:10.1038/s41598-025-31086-y,exclude,jailbreak or direct injection only,full_text,,"full text: PromptGuard: four layers (input filter, role-separated prompt format, output critic, response rewrite); the adversary controls the user's own input and cannot touch tools or retrieval, so the attacks are direct; the format layer is measured alone (Table 8) but only against user-typed prompts",PromptGuard a structured framework for injection resilient language models
+doi:10.1109/icassp55912.2026.11463282,exclude,jailbreak or direct injection only,full_text,,full text: included at title and abstract; the full text shows the attacks are adversarial user inputs (AdvBench goals with PAIR and AutoDAN),PromptPatch: Towards Precise and Stable Behavioral Patching in Large Language Models via Feedback-Dr
 doi:10.3390/fi18070376,exclude,detector only,title_abstract,,,PromptSentinel-X: A Leakage-Aware and Context-Aware Framework for Prompt-Injection Detection in Larg
 doi:10.5281/zenodo.21522997,exclude,detector only,title_abstract,,,PromptShield AI: A Multi-Agent Architecture for Intelligent Prompt Injection and Jailbreak Attack De
 doi:10.1109/sngc69406.2026.11780023,exclude,detector only,title_abstract,,,PromptShield: Machine-Learning-Based Detection of Prompt Injection Attacks in Large Language Models
@@ -1885,12 +1885,12 @@ doi:10.1109/itc-egypt70422.2026.11765637,exclude,detector only,title_abstract,,,
 doi:10.5281/zenodo.23866018,exclude,benchmark only,title_abstract,,,"RAGProbe: canary-scored prompt-injection testing for LLM, RAG and agent applications"
 doi:10.20944/preprints202609.2192.v1,exclude,system level,title_abstract,,,RAGSec: A Defense Framework for RAG Under Adaptive Knowledge Poisoning
 doi:10.18653/v1/2026.findings-acl.738,exclude,detector only,title_abstract,,RAP-ID mechanistic detector,RAP-ID: Mechanistic Prompt Injection Detection via Impostor Behavior Analysis
-doi:10.1109/jiot.2026.3717740,unsure,,title_abstract,,RAPID resource-aware defence for LLM-enabled threat detection; check where it acts,RAPID: A Resource-Aware Prompt Injection Defense for LLM-Enabled Threat Detection
+doi:10.1109/jiot.2026.3717740,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1109/jiot.2026.3717740 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,RAPID: A Resource-Aware Prompt Injection Defense for LLM-Enabled Threat Detection
 doi:10.18653/v1/2026.acl-industry.127,exclude,detector only,title_abstract,,,RAPIDS: Resume Attack Prompt Injection Detection at Scale
 doi:10.1109/dsn69566.2026.00078,exclude,attack only,title_abstract,,,RIPE-II: Retrieval In-Place Poisoning Evaluation with Indirect Injections
 doi:10.1109/access.2026.3729141,exclude,not about prompt injection,title_abstract,,,RIPPLE: Differential Testing of Exact-Value Restoration Boundaries in Privacy-Preserving LLM Pipelin
 doi:10.5281/zenodo.24304831,exclude,not about prompt injection,title_abstract,,,RS-2026-105: The Defence Is the Attack Surface: Weaponising Security Controls in Agentic AI Systems
-doi:10.20944/preprints202603.1023.v1,unsure,,title_abstract,,Real User Instruction black-box authentication middleware; compares with sandwich and spotlighting; check whether it changes the prompt,Real User Instruction: Black-Box Instruction Authentication Middleware Against Indirect Prompt Injec
+doi:10.20944/preprints202603.1023.v1,include,,full_text,,"full text: Real User Instruction: prompt-level separation of user instructions from data, with the model made to list suspected injections before answering; compared with spotlighting baselines on indirect injection (Table 2)",Real User Instruction: Black-Box Instruction Authentication Middleware Against Indirect Prompt Injec
 doi:10.71229/5cn8a439,exclude,detector only,title_abstract,,,Real-Time Detection and Mitigation of Prompt Injection Attacks in LLM-Integrated Enterprise Systems
 doi:10.2139/ssrn.7589166,exclude,not about prompt injection,title_abstract,,,"Real-Time Intrusion Detection Using Honeypots and Large Language Models: An Extended Architecture, S"
 doi:10.5281/zenodo.23534006,exclude,"survey, position or other",title_abstract,,,Real-Time Prompt Injection and Guardrails for Large Language Model Applications: A Review of Attacks
@@ -1919,7 +1919,7 @@ doi:10.2139/ssrn.6969762,exclude,detector only,title_abstract,,,Runtime Attentio
 doi:10.5281/zenodo.20579699,exclude,not about prompt injection,title_abstract,,,"Runtime Integrity Without Attestation: How Agent-Facing Tool Surfaces, Speculative Dispatch, and Mem"
 doi:10.3390/electronics15132829,exclude,system level,title_abstract,,,Runtime Policy Enforcement for MCP-Based LLM Agents
 doi:10.1109/gaiss66401.2026.11779657,exclude,system level,title_abstract,,PIGUARD runtime framework,Runtime Prompt Injection Defense for Production-Scale AI Agent Systems
-title:scalesdualinformationtheoreticapproachestomitigatingandquantifyingpromptinjectionsinragpip,unsure,,title_abstract,,SCALES information-theoretic mitigation in RAG; check where it acts,SCALES: Dual Information-Theoretic Approaches to Mitigating and Quantifying Prompt Injections in RAG
+title:scalesdualinformationtheoreticapproachestomitigatingandquantifyingpromptinjectionsinragpip,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,SCALES: Dual Information-Theoretic Approaches to Mitigating and Quantifying Prompt Injections in RAG
 doi:10.1109/eicars71536.2026.11694445,exclude,detector only,title_abstract,,,SCD-Net: A Deep Semantic Contrastive Defense Network Against Prompt Injection in Power Grid LLMs
 doi:10.17632/7tnzpfdj93,exclude,system level,title_abstract,,SCI-Guard counterfactual intervention (data record),SCI-Guard: Experimental Data and Reproducibility Materials
 doi:10.1016/j.cose.2026.105237,exclude,benchmark only,title_abstract,,,SEAL: An integral methodology for evaluating the security of agentic LLMs
@@ -1934,7 +1934,7 @@ doi:10.5281/zenodo.23715017,exclude,system level,title_abstract,,,"SRA-RiskGate:
 doi:10.18653/2026.findings-emnlp.891,exclude,detector only,title_abstract,,,STARS: Skill Triage via Activation Risk Scoring for LLM Agents
 doi:10.35444/ijana.2026.18105,exclude,system level,title_abstract,,,Safe Intelligence for All: Building Adversarially Resilient LLM Interfaces for CTI
 doi:10.48448/6y9j-xs28,exclude,jailbreak or direct injection only,title_abstract,,,Safe-Unsafe Concept Separation Emerges from a Single Direction in Language Models Activation Space
-doi:10.20944/preprints202609.1881.v1,include,,title_abstract,,SafeAgent dual-objective optimisation of the agent model,SafeAgent: Dual-Objective Optimization Against Prompt and Tool Injection in Interactive Environments
+doi:10.20944/preprints202609.1881.v1,include,,full_text,,"full text: full-text check: data markers with a system-prompt rule and a safety check inside the agent's own reasoning loop, added over filtering and sandboxing (Table 1), with a component ablation",SafeAgent: Dual-Objective Optimization Against Prompt and Tool Injection in Interactive Environments
 doi:10.5281/zenodo.23933491,exclude,not about prompt injection,title_abstract,,,SafeLabs-Eval ASI01 Through Clinical Notes: Independent External Evaluation on a Dental SaaS Applica
 doi:10.5281/zenodo.20772702,include,,title_abstract,,role: re-measurement; cross-family portability of defences in SOC triage,"Same Attack, Different Fates: Cross-Family Portability Failure of Prompt-Injection Defenses in LLM-P"
 doi:10.5281/zenodo.23511832,exclude,"survey, position or other",title_abstract,,"measurement of the published evaluation record, a survey-type study","Same Label, Different Experiment: Measuring the Prompt-Injection and Jailbreak Defense Evaluation Re"
@@ -1952,7 +1952,7 @@ doi:10.3390/app16167974,exclude,system level,title_abstract,,,SecureMCP: Policy-
 doi:10.3390/sym18091565,exclude,system level,title_abstract,,,SecurePrompt-IntegrityNet: Prompt-Injection-Resilient Data Integrity Verification for Agentic LLM Ne
 doi:10.5281/zenodo.23158671,exclude,system level,title_abstract,,"training-free five-layer defence, filters and detectors",SecureRAG: A Training-Free Layered Defence Against Prompt Injection in Retrieval-Augmented Generatio
 doi:10.5281/zenodo.23588032,exclude,attack only,title_abstract,,,Securing AI agents on instant-payment rails: a proof of concept on AI security for fast payment syst
-title:securingaimodelsagainstbackdoorsjailbreaksandpromptinjections,unsure,,title_abstract,,"thesis covering backdoors, jailbreaks and injections; check for a model-side injection defence","Securing AI models against backdoors, jailbreaks, and prompt injections"
+title:securingaimodelsagainstbackdoorsjailbreaksandpromptinjections,exclude,detector only,full_text,,"full text: thesis; its only prompt-injection method, LCF, is a runtime monitor that flags inputs and abstains","Securing AI models against backdoors, jailbreaks, and prompt injections"
 doi:10.56201/wjimt.v8.no6.2024.pg217.248,exclude,"survey, position or other",title_abstract,,,Securing Agentic AI Enterprise Workflows Against Prompt Injection Tool Poisoning Memory Manipulation
 doi:10.5281/zenodo.23876687,exclude,attack only,title_abstract,,,"Securing Agentic AI in the Cloud: Tool Poisoning, Rug Pulls and Goal Hijacking in MCP-Based Educatio"
 doi:10.5281/zenodo.21842991,exclude,detector only,title_abstract,,,Securing Autonomous AI Agents: Detecting and Mitigating Prompt Injection Attacks in LLM-Based System
@@ -1965,7 +1965,7 @@ doi:10.5120/ijcaa46e9a93b9d5,exclude,system level,title_abstract,,,"Securing Gen
 title:securingintelligencethestrategicnecessityofairgappedaisystemsintheageofcloudbasedllms,exclude,not about prompt injection,title_abstract,,,Securing Intelligence: The Strategic Necessity of Air-Gapped AI Systems in the Age of Cloud-Based LL
 doi:10.1007/978-3-032-29251-3_6,exclude,"survey, position or other",title_abstract,,,"Securing LLM Agents in Production: Threat Models, Defenses, and Operational Trade-Offs"
 doi:10.2139/ssrn.6340078,exclude,"survey, position or other",title_abstract,,,"Securing LLM Powered AI Browsers Against Prompt Injection: A Comprehensive Survey, Threat Taxonomy, "
-doi:10.1007/s10664-026-10820-8,unsure,,title_abstract,,LLM-in-the-loop safety-critical case with mitigations and utility trade-offs; no abstract,"Securing LLM-in-the-loop software for empirical study of risks, mitigations, and utility trade-offs "
+doi:10.1007/s10664-026-10820-8,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.1007/s10664-026-10820-8 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,"Securing LLM-in-the-loop software for empirical study of risks, mitigations, and utility trade-offs "
 title:securinglargelanguagemodelsagainstpromptinjectionanddataleakageattackshttpsdoiorg105281zen,exclude,"survey, position or other",title_abstract,,,Securing Large Language Models Against Prompt Injection and Data Leakage Attacks: https://doi.org/10
 doi:10.70593/978-93-7185-447-4,exclude,"survey, position or other",title_abstract,,,"Securing Large Language Models: Adversarial Attacks, Data Privacy, and Artificial Intelligence Safet"
 doi:10.3390/app162111039,include,,title_abstract,,role: re-measurement; cross-model and cross-lingual evaluation of IPI defences in local RAG assistants (Appl. Sci. 16(21):11039),Securing Locally Deployed LLM-RAG Assistants: A Cross-Model and Cross-Lingual Evaluation of Indirect
@@ -1994,7 +1994,7 @@ doi:10.1016/j.inffus.2026.104241,exclude,"survey, position or other",title_abstr
 doi:10.1007/978-3-032-25789-5_5,exclude,not about prompt injection,title_abstract,,,Security as an Ethical Imperative in AI Systems
 doi:10.2139/ssrn.6285458,exclude,not about prompt injection,title_abstract,,,"Security in Virtualized, Containerized, and Cloud-Native Environments: Vulnerabilities and Defensive"
 doi:10.2139/ssrn.7592098,exclude,"survey, position or other",title_abstract,,,"Security of Large Language Models: A Structured Survey of Attack Surfaces, Behavioral Vulnerabilitie"
-doi:10.82419/323,unsure,,title_abstract,,VLM agents under injection; check whether defences are measured; scope decision at full text,Security of Vision-Language Model Agents Against Prompt Injection: From Text-Only Tool Calling to Vi
+doi:10.82419/323,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.82419/323 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Security of Vision-Language Model Agents Against Prompt Injection: From Text-Only Tool Calling to Vi
 doi:10.3390/electronics15225229,exclude,"survey, position or other",title_abstract,,,"Security, Privacy, and Trustworthy Design for Retrieval-Augmented Generation Systems"
 doi:10.1109/southeastcon63549.2026.11476026,exclude,system level,title_abstract,,,Security-Aware Retrieval-Augmented Generation System for Post-Quantum Cryptography Intelligence
 title:selfconsistencycheckingforindirectpromptinjectiondefenseinemailagents,exclude,system level,title_abstract,,self-consistency checking of agent actions,Self-consistency checking for indirect prompt injection defense in email agents
@@ -2018,7 +2018,7 @@ doi:10.5281/zenodo.20258140,exclude,not about prompt injection,title_abstract,,,
 doi:10.4218/etr2.70162,exclude,not about prompt injection,title_abstract,,,"Special issue on trustworthy and safe AI: Interpretability, robustness, and security"
 doi:10.5281/zenodo.23797101,exclude,system level,title_abstract,,,Stateful Monitor-Router-Rollback Regulation for Robust Functional Recovery in Large Language Model A
 doi:10.18653/2026.emnlp-main.2303,include,,full_text,,full text: CBC: supervised fine-tuning and online alignment that teach the model to check task consistency before complying,Staying on Task: Defending Against Prompt Injection via Task Consistency Checking
-doi:10.3390/computers15010055,include,,title_abstract,,SteadyEval: adversarial training and distillation of graders against answer-side injection,SteadyEval: Robust LLM Exam Graders via Adversarial Training and Distillation
+doi:10.3390/computers15010055,exclude,detector only,title_abstract,,corrected on rereading the abstract: a separate adversarially trained filter removes injected text before the unchanged grading model reads the answer,SteadyEval: Robust LLM Exam Graders via Adversarial Training and Distillation
 doi:10.5281/zenodo.19035023,exclude,not about prompt injection,title_abstract,,,Stop the Leak: Securing Your AI's System Instructions
 doi:10.5281/zenodo.21939849,exclude,attack only,title_abstract,,,Structural Immunity and Silent Compromise: Prompt Injection Against LLM-Based and Traditional ML Tex
 doi:10.5281/zenodo.22877616,exclude,not about prompt injection,title_abstract,,,"Structured PREreview of ""Automating Business Intelligence Requirements with Generative AI and Semant"
@@ -2104,7 +2104,7 @@ doi:10.5281/zenodo.21671469,exclude,system level,title_abstract,,,Toward Closing
 doi:10.5281/zenodo.22819018,exclude,benchmark only,title_abstract,,,Toward Reproducible Local Evaluation of Prompt Injection in Open-Weight LLMs: Design and Threat Mode
 doi:10.1109/fdl71572.2026.11725314,exclude,not about prompt injection,title_abstract,,,Toward Trustworthy Edge AI Agents: Automated Threat Modeling as a First-Class Design Requirement: Sp
 doi:10.1016/j.ejrad.2026.113318,exclude,not about prompt injection,title_abstract,,,Toward truly agentic radiology AI: A multimodal architecture framework and differentiated implementa
-doi:10.6082/zc3gv-41k29,unsure,,title_abstract,,thesis on safe agentic systems; check for a measured model-side defence,Towards Safe and Secure Agentic Systems
+doi:10.6082/zc3gv-41k29,exclude,no full text obtainable,full_text,"not retrieved: no open copy found by script; open https://doi.org/10.6082/zc3gv-41k29 in a browser and save the PDF, or go through the university library if the page asks for payment",full text: not obtained by script or by hand,Towards Safe and Secure Agentic Systems
 doi:10.1007/978-3-032-15993-9_34,exclude,not about prompt injection,title_abstract,,,Towards Secure Retrieval-Augmented Generation: Preventing LLM Data Leaks with RBAC
 doi:10.1007/s10207-026-01339-6,exclude,"survey, position or other",title_abstract,,,"Towards trustworthy foundation models: a systematic review of safety, evaluation, and defence mechan"
 doi:10.5281/zenodo.20325768,exclude,duplicate version,title_abstract,,"dataset record of DRIP, already included via arXiv","Training and evaluation dataset for paper ""DRIP: Defending Prompt Injection via Token-wise Represent"
@@ -2139,12 +2139,12 @@ doi:10.5281/zenodo.21340832,exclude,not about prompt injection,title_abstract,,,
 doi:10.5281/zenodo.22867425,exclude,not about prompt injection,title_abstract,,,Universal Fractal Natural Language Decision Map: Real-Time Edge Triage Across Heterogeneous Domains
 doi:10.20944/preprints202606.1520.v1,exclude,attack only,title_abstract,,,Unverifiable Identity Claims as a Structural Vulnerability in LLMs
 doi:10.5281/zenodo.22163198,exclude,detector only,title_abstract,,,UrduGuard: Benchmarking and Detecting Urdu-Language Jailbreak and Prompt-Injection Attacks in Multi-
-doi:10.5281/zenodo.24050517,unsure,,title_abstract,,layered defences for cross-lingual RAG injection (data record of record 1464),"UrduRAG IPI: Multilingual Indirect Prompt Injection Benchmark, Datasets and Experimental Results"
+doi:10.5281/zenodo.24050517,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,"UrduRAG IPI: Multilingual Indirect Prompt Injection Benchmark, Datasets and Experimental Results"
 title:usingcontextorientedrulesandmlanalyticsforautomatictrainingofllmprotectionsystemsagainstpr,exclude,detector only,title_abstract,,,Using context-oriented rules and ML analytics for automatic training of LLM protection systems again
 doi:10.51583/ijltemas.2026.151000080,exclude,detector only,title_abstract,,,Vectorwall: A Hybrid Multi-Layer API Security Gateway with Ensemble Machine Learning and Adaptive Th
 doi:10.21203/rs.3.rs-11040747/v1,exclude,system level,title_abstract,,,Verifiable Provenance for AI Judicial Decision Support Using Transparency Logs and Citation Entailme
 doi:10.1109/smartnets69662.2026.11604866,exclude,benchmark only,title_abstract,,,Veritas: Dynamic Evaluation Framework for Rag Systems' Defense Against Prompt Injection Attacks
-title:verteidigungsmanahmengegenangriffeaufllmbasierendenspamfiltern,unsure,,title_abstract,,German thesis on defences for LLM spam filters; check which defences,Verteidigungsmaßnahmen gegen Angriffe auf LLM basierenden Spam Filtern
+title:verteidigungsmanahmengegenangriffeaufllmbasierendenspamfiltern,exclude,no full text obtainable,full_text,not retrieved: no identifier; search the title in a browser or the library catalogue,full text: not obtained by script or by hand,Verteidigungsmaßnahmen gegen Angriffe auf LLM basierenden Spam Filtern
 doi:10.5281/zenodo.22159565,exclude,attack only,title_abstract,,,VisGuard-Ur: A Proof-of-Concept Study on Typographic Jailbreak and Prompt-Injection Attacks Against 
 doi:10.5281/zenodo.23382162,exclude,not about prompt injection,title_abstract,,,Visual Studio Copilot and SSMS Remote Code Execution (CVE-2026-103572): A Detection Engineering Anal
 doi:10.1016/j.knosys.2026.117001,exclude,"survey, position or other",title_abstract,,"Sammartino et al., survey already in the candidate list",Vulnerabilities in autonomous execution: A survey of security threats and defenses in LLM-driven age
@@ -2164,7 +2164,7 @@ doi:10.1007/978-3-032-16791-0_30,exclude,"survey, position or other",title_abstr
 doi:10.5281/zenodo.22984603,exclude,system level,title_abstract,,,When Psychological Operations Meet Language Models: A Defense Framework for Symbolic Interaction Att
 doi:10.5281/zenodo.24238846,exclude,not about prompt injection,title_abstract,,,When Success Becomes Permission: Verification Decay and Induced Trust Accumulation in Agentic AI Sys
 doi:10.2139/ssrn.7248360,exclude,attack only,title_abstract,,,When Truth is Retrieved but Ignored: Evidence-Present Indirect Injection in Multi-document RAG
-doi:10.5281/zenodo.23735249,unsure,,title_abstract,,data record only; the paper on prompt-level and structural defences against 1000 adaptive LLMail-Inject attacks must be located,"When the User Says ""Send"": Authorization, Parallel Tool Calls, and the Limits of Prompt-Level and St"
+doi:10.5281/zenodo.23735249,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,"When the User Says ""Send"": Authorization, Parallel Tool Calls, and the Limits of Prompt-Level and St"
 doi:10.33767/osf.io/462dp_v1,exclude,not about prompt injection,title_abstract,,,When the Web Speaks Differently to Machines Machine-Human Content Asymmetry in AI-Mediated Informati
 doi:10.5281/zenodo.20790896,exclude,not about prompt injection,title_abstract,,,"Who Does Your Shopping Agent Work For? Where the hype stands against what is delivered, why the neut"
 doi:10.5281/zenodo.24034006,exclude,not about prompt injection,title_abstract,,,Who Governs the Governor? — Stored Prompt Injection Through the API Gateway
@@ -2193,9 +2193,9 @@ doi:10.5281/zenodo.21909786,exclude,benchmark only,title_abstract,,AgentDojo wra
 doi:10.18653/2026.emnlp-demos.19,exclude,system level,title_abstract,,,e2a: A Secure Agent-Native Email Gateway with Phishing and Prompt-Injection Defense
 doi:10.21203/rs.3.rs-10354224/v1,exclude,system level,title_abstract,,,guardrail-rs A Fail-Open Reverse Proxy for Prompt-Injection Defense and PII Redaction in LLM Applica
 doi:10.5281/zenodo.23811350,exclude,duplicate version,title_abstract,,code record of record 1855,"hijack-proof-agent: code and results for ""Prompt-Injection Defences on a Small Local Agent: What Wor"
-doi:10.5281/zenodo.23784336,unsure,,title_abstract,,ranking harm and defence cost in LLM screening; check which defences,"ipi-bench v0.2.1: code and data for ""Beyond Detection: Measuring Ranking Harm and Defense Cost of In"
+doi:10.5281/zenodo.23784336,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,"ipi-bench v0.2.1: code and data for ""Beyond Detection: Measuring Ranking Harm and Defense Cost of In"
 doi:10.5281/zenodo.19489455,exclude,not about prompt injection,title_abstract,,,mathmentorAI/claim-layer: ClaimLayer 2.0.1
-doi:10.5281/zenodo.23665516,unsure,,title_abstract,,memory injection pilot with defence costs; check which defences,memgate pilot: email data and outputs for prompt injection into agent memory (evaluation v2)
+doi:10.5281/zenodo.23665516,exclude,no full text obtainable,full_text,"not retrieved: data or code deposit only; find the paper by its title (author page, arXiv, journal) and save the PDF",full text: not obtained by script or by hand,memgate pilot: email data and outputs for prompt injection into agent memory (evaluation v2)
 doi:10.5281/zenodo.19457343,exclude,not about prompt injection,title_abstract,,,nukIeer/AI-Prompt-Injection-Cheatsheet: New release
 doi:10.5281/zenodo.23197334,exclude,system level,title_abstract,,,process-aware-verification-mfg: code and data for Process-Aware Verification Against Prompt Injectio
 doi:10.5281/zenodo.23758689,exclude,not about prompt injection,title_abstract,,,sharr666/llm-security-and-streaming-benchmarks: v1.0.1: Multi-Document LLM Architecture & Streaming 

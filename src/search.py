@@ -2,9 +2,11 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import os
 import re
+import shutil
 import time
 import unicodedata
 import urllib.error
@@ -752,3 +754,69 @@ def hand_fetch_hint(row: dict, attempts: list[str], notes: list[str]) -> str:
         return (f"no open copy found by script; open https://doi.org/{doi} in a browser and save the PDF, "
                 "or go through the university library if the page asks for payment")
     return "no identifier; search the title in a browser or the library catalogue"
+
+
+# ---- files placed by hand -----------------------------------------------------------------------------------------
+
+def file_sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def place_hand_files(folder: Path, mapping: list[dict], known_slugs: set[str]) -> list[dict]:
+    """Give files saved by hand into the PDF folder their standard names; safe to run again.
+
+    Each mapping row names one uploaded file by its SHA-256, or by its exact file name when no hash is given, and says
+    what to do with it: "use" renames it to <slug>.pdf; "duplicate" and "unusable" move it to <folder>/_not_used/.
+    Files that already carry a standard name (<slug>.pdf) are never touched. A file is never overwritten: when <slug>.pdf
+    already exists with other content, the uploaded file is left where it is and the row says so.
+    """
+    folder = Path(folder)
+    spare = folder / "_not_used"
+    loose = {p: file_sha256(p) for p in sorted(folder.iterdir()) if p.is_file() and p.stem not in known_slugs}
+    results = []
+    for m in mapping:
+        sha, name, slug, action = m.get("sha256", ""), m.get("file_name", ""), m["slug"], m["action"]
+        if sha:      # identical downloads share a fingerprint: prefer the one with the recorded name
+            same = [p for p, h in loose.items() if h == sha]
+            src = next((p for p in same if p.name == name), same[0] if same else None)
+        else:
+            src = next((p for p in loose if p.name == name), None)
+        target = folder / f"{slug}.pdf"
+        out = {"file_name": name, "slug": slug, "action": action, "sha256": sha, "status": ""}
+        if action == "use":
+            if src is None:
+                if target.exists() and (not sha or file_sha256(target) == sha):
+                    out["status"] = "already placed"
+                else:
+                    out["status"] = "not found"
+            elif target.exists():
+                if file_sha256(target) == loose[src]:
+                    spare.mkdir(exist_ok=True)
+                    shutil.move(str(src), str(spare / src.name))
+                    out["status"] = "same file already placed; copy moved to _not_used"
+                else:
+                    out["status"] = "kept aside: a different file already has the standard name"
+            else:
+                src.rename(target)
+                out["status"] = "renamed"
+        elif action in ("duplicate", "unusable"):
+            if src is None:
+                moved = spare / name
+                out["status"] = "already moved" if moved.exists() else "not found"
+            else:
+                spare.mkdir(exist_ok=True)
+                dest = spare / src.name
+                if dest.exists():
+                    dest = spare / f"{dest.stem}_{(sha or file_sha256(src))[:8]}{dest.suffix}"
+                shutil.move(str(src), str(dest))
+                out["status"] = "moved to _not_used"
+        else:
+            out["status"] = "unknown action"
+        if src is not None:
+            loose.pop(src, None)
+        results.append(out)
+    return results

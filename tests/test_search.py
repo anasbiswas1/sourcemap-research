@@ -326,3 +326,65 @@ def test_clean_url_and_hand_fetch_hints():
     assert "library" in search.hand_fetch_hint({"doi": "10.1109/x.1"}, [], ["openalex lists no pdf_url"])
     assert "deposit" in search.hand_fetch_hint({"doi": "10.5281/zenodo.1"}, [], ["zenodo record has no PDF file"])
     assert "removed" in search.hand_fetch_hint({"doi": "10.5281/zenodo.2"}, [], ["zenodo lookup: HTTP 410 (record removed by its owner)"])
+
+
+def test_place_hand_files_renames_by_hash_and_sets_aside_duplicates(tmp_path):
+    d = tmp_path / "defences"
+    d.mkdir()
+    (d / "2401.00001.pdf").write_bytes(b"%PDF already standard")
+    (d / "v1.pdf").write_bytes(b"%PDF paper A")
+    (d / "v1 (1).pdf").write_bytes(b"%PDF paper A again")
+    (d / "page.htm").write_bytes(b"<html>shell</html>")
+    (d / "Big Thesis.pdf").write_bytes(b"%PDF thesis")
+    sha_a = search.file_sha256(d / "v1.pdf")
+    mapping = [
+        {"sha256": sha_a, "file_name": "v1.pdf", "slug": "doi_10_1_a", "action": "use"},
+        {"sha256": search.file_sha256(d / "v1 (1).pdf"), "file_name": "v1 (1).pdf", "slug": "doi_10_1_a", "action": "duplicate"},
+        {"sha256": search.file_sha256(d / "page.htm"), "file_name": "page.htm", "slug": "doi_10_1_b", "action": "unusable"},
+        {"sha256": "", "file_name": "Big Thesis.pdf", "slug": "title_bigthesis", "action": "use"},
+        {"sha256": "0" * 64, "file_name": "missing.pdf", "slug": "doi_10_1_c", "action": "use"},
+    ]
+    known = {"2401.00001", "doi_10_1_a", "doi_10_1_b", "doi_10_1_c", "title_bigthesis"}
+    res = search.place_hand_files(d, mapping, known)
+    assert [r["status"] for r in res] == ["renamed", "moved to _not_used", "moved to _not_used", "renamed", "not found"]
+    assert (d / "doi_10_1_a.pdf").read_bytes() == b"%PDF paper A"
+    assert (d / "title_bigthesis.pdf").exists() and (d / "2401.00001.pdf").exists()
+    assert sorted(p.name for p in (d / "_not_used").iterdir()) == ["page.htm", "v1 (1).pdf"]
+    again = search.place_hand_files(d, mapping, known)          # a second run changes nothing
+    assert [r["status"] for r in again] == ["already placed", "already moved", "already moved", "already placed", "not found"]
+
+
+def test_place_hand_files_never_overwrites_a_standard_file(tmp_path):
+    d = tmp_path / "defences"
+    d.mkdir()
+    (d / "doi_10_1_a.pdf").write_bytes(b"%PDF first copy")
+    (d / "other.pdf").write_bytes(b"%PDF different content")
+    mapping = [{"sha256": search.file_sha256(d / "other.pdf"), "file_name": "other.pdf", "slug": "doi_10_1_a", "action": "use"}]
+    res = search.place_hand_files(d, mapping, {"doi_10_1_a"})
+    assert res[0]["status"].startswith("kept aside")
+    assert (d / "doi_10_1_a.pdf").read_bytes() == b"%PDF first copy" and (d / "other.pdf").exists()
+
+
+def test_place_hand_files_handles_byte_identical_downloads(tmp_path):
+    d = tmp_path / "defences"
+    d.mkdir()
+    (d / "paper.pdf").write_bytes(b"%PDF same bytes")
+    (d / "paper (1).pdf").write_bytes(b"%PDF same bytes")
+    sha = search.file_sha256(d / "paper.pdf")
+    mapping = [{"sha256": sha, "file_name": "paper.pdf", "slug": "doi_10_1_a", "action": "use"},
+               {"sha256": sha, "file_name": "paper (1).pdf", "slug": "doi_10_1_a", "action": "duplicate"}]
+    res = search.place_hand_files(d, mapping, {"doi_10_1_a"})
+    assert [r["status"] for r in res] == ["renamed", "moved to _not_used"]
+    assert [p.name for p in d.iterdir() if p.is_file()] == ["doi_10_1_a.pdf"]
+    assert [p.name for p in (d / "_not_used").iterdir()] == ["paper (1).pdf"]
+
+
+def test_place_hand_files_sets_aside_a_copy_of_an_already_placed_file(tmp_path):
+    d = tmp_path / "defences"
+    d.mkdir()
+    (d / "doi_10_1_a.pdf").write_bytes(b"%PDF same")
+    (d / "download.pdf").write_bytes(b"%PDF same")
+    mapping = [{"sha256": search.file_sha256(d / "download.pdf"), "file_name": "download.pdf", "slug": "doi_10_1_a", "action": "use"}]
+    res = search.place_hand_files(d, mapping, {"doi_10_1_a"})
+    assert res[0]["status"] == "same file already placed; copy moved to _not_used"
+    assert (d / "_not_used" / "download.pdf").exists() and (d / "doi_10_1_a.pdf").exists()
