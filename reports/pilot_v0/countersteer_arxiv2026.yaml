@@ -1,0 +1,493 @@
+report:
+  id: countersteer_arxiv2026
+  slug: '2609.36570'
+  title: 'CounterSteer: Suppressing Indirect Prompt Injection with Activation Steering'
+  first_author: Mark Russinovich
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2609.36570'
+  version_read: arXiv v1
+  first_date: '2026-09-29'
+  read: F
+  role: mixed
+  code_release: manifest of the AgentDojo grid stated as released; code not checked in this pass
+defences:
+- id: cs_gptoss20b
+  name: CounterSteer
+  origin: this_report
+  base_checkpoint: gpt-oss-20b
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  components:
+  - per-model residual-stream direction fitted from paired episodes that differ only in whether an embedded instruction is followed
+  - the direction subtracted at every tool-result token during prefill
+  isolation: ablation_present
+  layout: agent transcript; the edit applies to the tool-result spans, which the serving stack must mark
+  signal_dependence: stated
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: not applicable (weights unchanged)
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  anchor: only white-box serving and tool-result span boundaries
+- id: cs_qwen3_30b
+  name: CounterSteer
+  origin: this_report
+  base_checkpoint: Qwen3-30B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  layout: as cs_gptoss20b
+  signal_dependence: stated
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: not applicable (weights unchanged)
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+- id: cs_llama31_8b
+  name: CounterSteer
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  layout: as cs_gptoss20b
+  signal_dependence: stated
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: not applicable (weights unchanged)
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+- id: spot_gptoss20b
+  name: Spotlighting (re-measured by CounterSteer)
+  origin: other_report
+  base_checkpoint: gpt-oss-20b
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  layout: AgentDojo's spotlighting configuration
+  signal_dependence: not_reported
+  released_weights: not applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 8
+evaluations:
+- id: ev_g_none_ad
+  defence_id: none:gpt-oss-20b
+  benchmark: AgentDojo, fixed 180-episode grid over all four suites
+  split: 180 of 629 user-by-injection pairs, pinned
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo's own security and utility checkers
+  denominator: 180 episodes
+  decoding: greedy, 4096-token per-turn budget
+  sample_size: '180'
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 6
+- id: ev_g_cs_ad
+  defence_id: cs_gptoss20b
+  benchmark: AgentDojo, fixed 180-episode grid over all four suites
+  split: 180 of 629 user-by-injection pairs, pinned
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo's own security and utility checkers
+  denominator: 180 episodes
+  decoding: greedy, 4096-token per-turn budget
+  sample_size: '180'
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 6
+- id: ev_q_none_ad
+  defence_id: none:Qwen3-30B
+  benchmark: AgentDojo, fixed 180-episode grid over all four suites
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo's own security and utility checkers
+  denominator: 180 episodes
+  decoding: greedy, 4096-token per-turn budget
+  sample_size: '180'
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 6
+- id: ev_q_cs_ad
+  defence_id: cs_qwen3_30b
+  benchmark: AgentDojo, fixed 180-episode grid over all four suites
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo's own security and utility checkers
+  denominator: 180 episodes
+  decoding: greedy, 4096-token per-turn budget
+  sample_size: '180'
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 6
+- id: ev_l_none_ad
+  defence_id: none:Llama-3.1-8B
+  benchmark: AgentDojo, fixed 180-episode grid over all four suites
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo's own security and utility checkers
+  denominator: 180 episodes
+  decoding: greedy, 4096-token per-turn budget
+  sample_size: '180'
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 6
+- id: ev_l_cs_ad
+  defence_id: cs_llama31_8b
+  benchmark: AgentDojo, fixed 180-episode grid over all four suites
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo's own security and utility checkers
+  denominator: 180 episodes
+  decoding: greedy, 4096-token per-turn budget
+  sample_size: '180'
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 6
+- id: ev_g_none_batt
+  defence_id: none:gpt-oss-20b
+  benchmark: AgentDojo, fixed 180-episode grid (comparison battery run)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo's own security and utility checkers
+  denominator: 180 episodes
+  decoding: greedy, 4096-token per-turn budget
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 8
+- id: ev_g_spot_batt
+  defence_id: spot_gptoss20b
+  benchmark: AgentDojo, fixed 180-episode grid (comparison battery run)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo's own security and utility checkers
+  denominator: 180 episodes
+  decoding: greedy, 4096-token per-turn budget
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 8
+- id: ev_g_cs_batt
+  defence_id: cs_gptoss20b
+  benchmark: AgentDojo, fixed 180-episode grid (comparison battery run)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo's own security and utility checkers
+  denominator: 180 episodes
+  decoding: greedy, 4096-token per-turn budget
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 8
+- id: ev_g_none_autodojo
+  defence_id: none:gpt-oss-20b
+  benchmark: AutoDojo over AgentDojo, 36 cells
+  attacker_type: adaptive
+  attacker_access: black_box
+  attacker_budget: six optimiser iterations (AD@6)
+  judge: AgentDojo's end-to-end checker
+  decoding: greedy, 4096-token per-turn budget
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 8
+- id: ev_g_cs_autodojo
+  defence_id: cs_gptoss20b
+  benchmark: AutoDojo over AgentDojo, 36 cells
+  attacker_type: adaptive
+  attacker_access: black_box
+  attacker_budget: six optimiser iterations (AD@6)
+  judge: AgentDojo's end-to-end checker
+  decoding: greedy, 4096-token per-turn budget
+  layout_same_as_defence: 'yes'
+  measured_by: countersteer_arxiv2026
+  page: 8
+results:
+- id: r1
+  evaluation_id: ev_g_none_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo compromise rate (undefended)
+  value: '.475'
+  unit: fraction
+  direction: lower_better
+  location: Table II
+  page: 6
+- id: r2
+  evaluation_id: ev_g_cs_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo compromise rate (defended)
+  value: '.079'
+  unit: fraction
+  direction: lower_better
+  location: Table II
+  page: 6
+- id: r3
+  evaluation_id: ev_g_cs_ad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility, % of clean (typography-normalized)
+  value: '94.4'
+  unit: percent
+  direction: higher_better
+  location: Table II
+  page: 6
+- id: r4
+  evaluation_id: ev_q_none_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo compromise rate (undefended)
+  value: '.489'
+  unit: fraction
+  direction: lower_better
+  location: Table II
+  page: 6
+- id: r5
+  evaluation_id: ev_q_cs_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo compromise rate (defended)
+  value: '.072'
+  unit: fraction
+  direction: lower_better
+  location: Table II
+  page: 6
+- id: r6
+  evaluation_id: ev_q_cs_ad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility, % of clean
+  value: '94.1'
+  unit: percent
+  direction: higher_better
+  location: Table II
+  page: 6
+- id: r7
+  evaluation_id: ev_l_none_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo compromise rate (undefended)
+  value: '.100'
+  unit: fraction
+  direction: lower_better
+  location: Table II
+  page: 6
+- id: r8
+  evaluation_id: ev_l_cs_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo compromise rate (defended)
+  value: '.050'
+  unit: fraction
+  direction: lower_better
+  location: Table II
+  page: 6
+- id: r9
+  evaluation_id: ev_l_cs_ad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility, % of clean
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  location: Table II
+  page: 6
+- id: r10
+  evaluation_id: ev_g_none_batt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: cmp (no defense)
+  value: '.483'
+  unit: fraction
+  direction: lower_better
+  location: Table III
+  page: 8
+- id: r11
+  evaluation_id: ev_g_none_batt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: 'util (no defense: absolute clean completion)'
+  value: '98.1'
+  unit: percent
+  direction: higher_better
+  location: Table III
+  page: 8
+- id: r12
+  evaluation_id: ev_g_spot_batt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: cmp (spotlighting)
+  value: '.420'
+  unit: fraction
+  direction: lower_better
+  location: Table III
+  page: 8
+- id: r13
+  evaluation_id: ev_g_spot_batt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: util (% of clean)
+  value: '92.5'
+  unit: percent
+  direction: higher_better
+  location: Table III
+  page: 8
+- id: r14
+  evaluation_id: ev_g_cs_batt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: cmp (CounterSteer)
+  value: '.091'
+  unit: fraction
+  direction: lower_better
+  location: Table III
+  page: 8
+- id: r15
+  evaluation_id: ev_g_cs_batt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: util (% of clean)
+  value: '90.6'
+  unit: percent
+  direction: higher_better
+  location: Table III
+  page: 8
+- id: r16
+  evaluation_id: ev_g_none_autodojo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo AD@6 (no defense)
+  value: '.673'
+  unit: fraction
+  direction: lower_better
+  location: Table III, bottom block
+  page: 8
+- id: r17
+  evaluation_id: ev_g_cs_autodojo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo AD@6 (CounterSteer)
+  value: '.175'
+  unit: fraction
+  direction: lower_better
+  location: Table III, bottom block
+  page: 8
+comparisons:
+- id: c_g_ad
+  left: ev_g_cs_ad
+  right: ev_g_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 6
+- id: c_q_ad
+  left: ev_q_cs_ad
+  right: ev_q_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 6
+- id: c_l_ad
+  left: ev_l_cs_ad
+  right: ev_l_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 6
+- id: c_g_spot
+  left: ev_g_cs_batt
+  right: ev_g_spot_batt
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 8
+- id: c_g_adaptive
+  left: ev_g_cs_autodojo
+  right: ev_g_none_autodojo
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 8
+claims:
+- id: k1
+  text: AgentDojo compromise falls from 0.10-0.49 to 0.006-0.079 at 93-100% normalized benign utility across five models
+  location: abstract
+  anchor: AgentDojo compromise rate from 0.10–0.49 to 0.006–0.079
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_g_ad
+  - c_q_ad
+  - c_l_ad
+  page: 1
+- id: k2
+  text: a benchmark-level adaptive attacker is held to about a quarter of its undefended success on the two most deeply evaluated models
+  location: abstract
+  anchor: held to roughly a quarter of that on the two most deeply
+  jobs:
+  - R1
+  supported_by:
+  - c_g_adaptive
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+schema_gaps:
+- where: results r3, r6, r9, r13, r15
+  note: benign utility is a percentage of the same row's own clean run, while the no-defence row is absolute; v0's unit list has no relative-to-own-baseline unit
+- where: evaluations ev_g_*_ad and ev_g_*_batt
+  note: the same configuration has a canonical run (.475 to .079) and a comparison-battery run (.483 to .091); v0 has no field for the run or regeneration an evaluation belongs to
+- where: results r1 to r17
+  note: the agentic compromise rates are stated to be lower bounds because of the per-turn generation budget (p. 6); v0 cannot mark a value as a bound
+- where: defences cs_*
+  note: the amendment-1 fields assume training; a fitted steering direction has a fitting set of paired episodes but no training targets, so the fields are coded no without a matching value
+- where: report
+  note: surviving compromises are split into delegated-authority tasks (the user's own prompt hands authority to retrieved content) and the rest (p. 7); v0 has no field for a task partition that changes how a compromise should
+    be read
+- where: coverage
+  note: utility under attack is reported in the full-suite tables (cited, not coded here); v0 coverage cannot point to where in the report a quantity is found

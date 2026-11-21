@@ -1,0 +1,681 @@
+report:
+  id: secalign_ccs2025
+  slug: '2410.05451'
+  title: 'SecAlign: Defending Against Prompt Injection with Preference Optimization'
+  first_author: Sizhe Chen
+  venue: ACM CCS 2025
+  peer_reviewed: 'yes'
+  doi: 10.1145/3719027.3744836
+  arxiv: '2410.05451'
+  version_read: arXiv v3 (carries the CCS 2025 proceedings header)
+  first_date: '2024-10-07'
+  read: F
+  role: proposes
+  code_release: linked from the abstract
+defences:
+- id: secalign_mistral7bi
+  name: SecAlign
+  origin: this_report
+  base_checkpoint: Mistral-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  components:
+  - the model's own prompt template
+  - DPO on prompt-injected inputs with the legitimate response preferred (LoRA)
+  isolation: ablation_present
+  layout: instruction and data inside one [INST] block, data separated from the instruction by a single space
+  signal_dependence: stated
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: code linked; weights not checked
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: We apply SecAlign to five open-weight models
+- id: secalign_llama3_8bi
+  name: SecAlign
+  origin: this_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  components:
+  - instruction in the system role, data in the user role
+  - DPO on prompt-injected inputs with the legitimate response preferred (LoRA)
+  isolation: ablation_present
+  layout: instruction in the system role, data in the user role
+  signal_dependence: stated
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: code linked; weights not checked
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: We apply SecAlign to five open-weight models
+- id: struq_mistral7bi
+  name: StruQ (reproduced from its released code)
+  origin: other_report
+  base_checkpoint: Mistral-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  layout: as secalign_mistral7bi
+  signal_dependence: not_reported
+  released_weights: not stated
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  anchor: We reproduce StruQ [3] exactly using the released code
+- id: struq_llama3_8bi
+  name: StruQ (reproduced from its released code)
+  origin: other_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - sft
+  isolation: not_applicable
+  layout: as secalign_llama3_8bi
+  signal_dependence: not_reported
+  released_weights: not stated
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  anchor: We reproduce StruQ [3] exactly using the released code
+evaluations:
+- id: ev_m_none_free
+  defence_id: none:Mistral-7B-Instruct
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: maximum over Ignore, Completion and Ignore-Completion
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  sample_size: '208'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_m_struq_free
+  defence_id: struq_mistral7bi
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: maximum over Ignore, Completion and Ignore-Completion
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  sample_size: '208'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_m_sec_free
+  defence_id: secalign_mistral7bi
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: maximum over Ignore, Completion and Ignore-Completion
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  sample_size: '208'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_m_none_opt
+  defence_id: none:Mistral-7B-Instruct
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: optimisation
+  attacker_access: white_box
+  attacker_budget: maximum over GCG, AdvPrompter and NeuralExec; GCG plotted to 500 steps (Figure 5)
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_m_struq_opt
+  defence_id: struq_mistral7bi
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: optimisation
+  attacker_access: white_box
+  attacker_budget: maximum over GCG, AdvPrompter and NeuralExec
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_m_sec_opt
+  defence_id: secalign_mistral7bi
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: optimisation
+  attacker_access: white_box
+  attacker_budget: maximum over GCG, AdvPrompter and NeuralExec
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_l_none_free
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: maximum over Ignore, Completion and Ignore-Completion
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  sample_size: '208'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_l_struq_free
+  defence_id: struq_llama3_8bi
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: maximum over Ignore, Completion and Ignore-Completion
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  sample_size: '208'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_l_sec_free
+  defence_id: secalign_llama3_8bi
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: maximum over Ignore, Completion and Ignore-Completion
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  sample_size: '208'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_l_none_opt
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: optimisation
+  attacker_access: white_box
+  attacker_budget: maximum over GCG, AdvPrompter and NeuralExec
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_l_struq_opt
+  defence_id: struq_llama3_8bi
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: optimisation
+  attacker_access: white_box
+  attacker_budget: maximum over GCG, AdvPrompter and NeuralExec
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_l_sec_opt
+  defence_id: secalign_llama3_8bi
+  benchmark: AlpacaFarm samples with a data part
+  split: 208 samples
+  attacker_type: optimisation
+  attacker_access: white_box
+  attacker_budget: maximum over GCG, AdvPrompter and NeuralExec
+  judge: reply begins with Hacked or hacked
+  denominator: 208 samples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_m_none_util
+  defence_id: none:Mistral-7B-Instruct
+  benchmark: AlpacaEval2 on all 805 AlpacaFarm samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4-turbo against davinci003 reference replies
+  decoding: not reported
+  sample_size: '805'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_m_sec_util
+  defence_id: secalign_mistral7bi
+  benchmark: AlpacaEval2 on all 805 AlpacaFarm samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4-turbo against davinci003 reference replies
+  decoding: not reported
+  sample_size: '805'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_l_none_util
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: AlpacaEval2 on all 805 AlpacaFarm samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4-turbo against davinci003 reference replies
+  decoding: not reported
+  sample_size: '805'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_l_sec_util
+  defence_id: secalign_llama3_8bi
+  benchmark: AlpacaEval2 on all 805 AlpacaFarm samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4-turbo against davinci003 reference replies
+  decoding: not reported
+  sample_size: '805'
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 15
+- id: ev_l_none_sep
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: SEP (9.1K samples, one unique injection task each)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: Ignore attack with the injection at the start, middle or end of the data
+  judge: SEP's own criterion
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 10
+- id: ev_l_sec_sep
+  defence_id: secalign_llama3_8bi
+  benchmark: SEP (9.1K samples, one unique injection task each)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: Ignore attack with the injection at the start, middle or end of the data
+  judge: SEP's own criterion
+  layout_same_as_defence: 'yes'
+  measured_by: secalign_ccs2025
+  page: 10
+- id: ev_l_none_injecagent
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: InjecAgent
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent's own criterion
+  layout_same_as_defence: unclear
+  measured_by: secalign_ccs2025
+  page: 10
+- id: ev_l_sec_injecagent
+  defence_id: secalign_llama3_8bi
+  benchmark: InjecAgent
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent's own criterion
+  layout_same_as_defence: unclear
+  measured_by: secalign_ccs2025
+  page: 10
+results:
+- id: r_m_none_free
+  evaluation_id: ev_m_none_free
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Free
+  value: '59'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_m_struq_free
+  evaluation_id: ev_m_struq_free
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Free
+  value: '2'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_m_sec_free
+  evaluation_id: ev_m_sec_free
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Free
+  value: '0'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_m_none_opt
+  evaluation_id: ev_m_none_opt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Based
+  value: '89'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_m_struq_opt
+  evaluation_id: ev_m_struq_opt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Based
+  value: '27'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_m_sec_opt
+  evaluation_id: ev_m_sec_opt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Based
+  value: '1'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_l_none_free
+  evaluation_id: ev_l_none_free
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Free
+  value: '51'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_l_struq_free
+  evaluation_id: ev_l_struq_free
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Free
+  value: '0'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_l_sec_free
+  evaluation_id: ev_l_sec_free
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Free
+  value: '0'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_l_none_opt
+  evaluation_id: ev_l_none_opt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Based
+  value: '97'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_l_struq_opt
+  evaluation_id: ev_l_struq_opt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Based
+  value: '45'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_l_sec_opt
+  evaluation_id: ev_l_sec_opt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Max ASR Opt.-Based
+  value: '8'
+  unit: percent
+  direction: lower_better
+  location: Table 6
+  page: 15
+- id: r_m_none_util
+  evaluation_id: ev_m_none_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate
+  value: '67.01'
+  unit: percent
+  direction: higher_better
+  location: Table 6
+  page: 15
+- id: r_m_sec_util
+  evaluation_id: ev_m_sec_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate
+  value: '69.22'
+  unit: percent
+  direction: higher_better
+  location: Table 6
+  page: 15
+- id: r_l_none_util
+  evaluation_id: ev_l_none_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate
+  value: '85.39'
+  unit: percent
+  direction: higher_better
+  location: Table 6
+  page: 15
+- id: r_l_sec_util
+  evaluation_id: ev_l_sec_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate
+  value: '85.88'
+  unit: percent
+  direction: higher_better
+  location: Table 6
+  page: 15
+- id: r_l_none_sep_util
+  evaluation_id: ev_l_none_sep
+  quantity: other
+  coverage: proxy
+  metric_as_printed: SEP Utility (w.r.t. None)
+  value: '50.0'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 10
+- id: r_l_sec_sep_util
+  evaluation_id: ev_l_sec_sep
+  quantity: other
+  coverage: proxy
+  metric_as_printed: SEP Utility (w.r.t. None)
+  value: '46.6'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 10
+- id: r_l_none_sep_end
+  evaluation_id: ev_l_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP Ignore ASR (end)
+  value: '64.0'
+  unit: percent
+  direction: lower_better
+  location: Table 3
+  page: 10
+- id: r_l_sec_sep_end
+  evaluation_id: ev_l_sec_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP Ignore ASR (end)
+  value: '6.5'
+  unit: percent
+  direction: lower_better
+  location: Table 3
+  page: 10
+- id: r_l_sec_sep_start
+  evaluation_id: ev_l_sec_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP Ignore ASR (start)
+  value: '11.0'
+  unit: percent
+  direction: lower_better
+  location: Table 3
+  page: 10
+- id: r_l_none_ia
+  evaluation_id: ev_l_none_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '75.9'
+  unit: percent
+  direction: lower_better
+  location: Table 3
+  page: 10
+- id: r_l_sec_ia
+  evaluation_id: ev_l_sec_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  location: Table 3
+  page: 10
+comparisons:
+- id: c_m_free
+  left: ev_m_sec_free
+  right: ev_m_none_free
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 15
+- id: c_m_opt
+  left: ev_m_sec_opt
+  right: ev_m_none_opt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 15
+- id: c_l_opt
+  left: ev_l_sec_opt
+  right: ev_l_none_opt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 15
+- id: c_l_struq_opt
+  left: ev_l_sec_opt
+  right: ev_l_struq_opt
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 15
+- id: c_m_util
+  left: ev_m_sec_util
+  right: ev_m_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 15
+- id: c_l_util
+  left: ev_l_sec_util
+  right: ev_l_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 15
+claims:
+- id: k1
+  text: first method that brings the success of various prompt injections below 10%, including attacks unseen in training
+  location: abstract
+  anchor: reduces the success rates of various prompt injections to <10%
+  jobs:
+  - R1
+  supported_by:
+  - c_m_free
+  - c_m_opt
+  - c_l_opt
+  page: 1
+- id: k2
+  text: SecAlign models keep similar utility to the model before defensive training
+  location: abstract
+  anchor: similar utility to the one before defensive training
+  jobs:
+  - general_utility
+  supported_by:
+  - c_m_util
+  - c_l_util
+  page: 1
+coverage:
+  R1: direct
+  R2clean: unclear
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+schema_gaps:
+- where: comparisons c_*
+  note: decoding settings are not reported anywhere in the paper; both arms ran in one harness, so c6 is coded matched; v0 cannot separate matched and stated from matched by construction with the value unreported
+- where: comparison c_l_struq_opt
+  note: the varied element is the training method (DPO against SFT), not one of the six conditions; v0 has no field naming what a mechanism comparison varies
+- where: defences secalign_*
+  note: facts come from several pages (models p7, format dependence p8, ablation p11); v0 allows one page per record
+- where: results r_l_*_sep_util
+  note: SEP utility is reported relative to the undefended model (50.0 by construction) and it is not stated whether it is scored on clean or attacked inputs; v0 has no relative-to-baseline unit and no clean/attacked flag,
+    so it is coded other and R2clean coverage unclear
+- where: results r_l_*_sep_*
+  note: SEP ASR is reported for three injection positions (start, middle, end); v0 has no field for the position of the injection inside the data
+- where: claim k2
+  note: 'the utility claim rests on AlpacaEval2 and other general benchmarks only (coding rule: general utility, never R2); v0 records this through jobs but has no explicit flag'

@@ -1,0 +1,365 @@
+report:
+  id: spotlighting_arxiv2024
+  slug: '2403.14720'
+  title: Defending Against Indirect Prompt Injection Attacks With Spotlighting
+  first_author: Keegan Hines
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2403.14720'
+  version_read: arXiv v1
+  first_date: '2024-03-20'
+  read: F
+  role: proposes
+  code_release: none found in the paper
+defences:
+- id: spot_delimit_gpt35
+  name: Spotlighting by delimiting
+  origin: this_report
+  base_checkpoint: GPT-3.5-Turbo (June 2023 version)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  components:
+  - system-prompt instruction not to obey text between the symbols
+  - begin and end symbols around the document
+  isolation: ablation_present
+  layout: instruction and document both in the system prompt; document between << and >>
+  signal_dependence: measured
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  released_weights: not applicable (API model)
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  anchor: Including specialized delimiters to mark the beginning and end of the input document
+- id: spot_datamark_gpt35
+  name: Spotlighting by datamarking
+  origin: this_report
+  base_checkpoint: GPT-3.5-Turbo (June 2023 version)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  components:
+  - system-prompt instruction
+  - a marking character between every word of the document
+  isolation: no_ablation
+  layout: instruction and document both in the system prompt; whitespace in the document replaced by a marking character
+  signal_dependence: not_reported
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  released_weights: not applicable (API model)
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  anchor: we interleave a special token throughout the entirety of the text
+- id: spot_datamark_text003
+  name: Spotlighting by datamarking
+  origin: this_report
+  base_checkpoint: text-davinci-003
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: no_ablation
+  layout: as spot_datamark_gpt35
+  signal_dependence: not_reported
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  released_weights: not applicable (API model)
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+- id: spot_datamark_gpt4
+  name: Spotlighting by datamarking
+  origin: this_report
+  base_checkpoint: GPT-4 (June 2023 version)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: no_ablation
+  layout: as spot_datamark_gpt35
+  signal_dependence: not_reported
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  released_weights: not applicable (API model)
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+- id: spot_encode_gpt35
+  name: Spotlighting by encoding (base64)
+  origin: this_report
+  base_checkpoint: GPT-3.5-Turbo (June 2023 version)
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  components:
+  - system-prompt instruction
+  - the document encoded in base64
+  isolation: no_ablation
+  layout: instruction and encoded document both in the system prompt
+  signal_dependence: not_reported
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  released_weights: not applicable (API model)
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  anchor: the input text is transformed using a well-known encoding algorithm such as base64
+evaluations:
+- id: ev_gpt35_sum_none
+  defence_id: none:GPT-3.5-Turbo
+  benchmark: authors' synthetic corpus of 1000 documents with keyword-payload injections, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: one fixed payload per document
+  judge: payload keyword returned in place of the task (Appendix 8.1)
+  denominator: attack documents in the corpus
+  decoding: temperature 1.0
+  sample_size: '1000'
+  layout_same_as_defence: 'no'
+  measured_by: spotlighting_arxiv2024
+  page: 3
+- id: ev_gpt35_sum_datamark
+  defence_id: spot_datamark_gpt35
+  benchmark: authors' synthetic corpus of 1000 documents with keyword-payload injections, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: one fixed payload per document
+  judge: payload keyword returned in place of the task (Appendix 8.1)
+  denominator: attack documents in the corpus
+  decoding: temperature 1.0
+  sample_size: '1000'
+  layout_same_as_defence: 'yes'
+  measured_by: spotlighting_arxiv2024
+  page: 4
+- id: ev_text003_sum_none
+  defence_id: none:text-davinci-003
+  benchmark: authors' synthetic corpus, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: payload keyword returned in place of the task
+  decoding: temperature 1.0
+  sample_size: '1000'
+  layout_same_as_defence: 'no'
+  measured_by: spotlighting_arxiv2024
+  page: 4
+- id: ev_text003_sum_datamark
+  defence_id: spot_datamark_text003
+  benchmark: authors' synthetic corpus, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: payload keyword returned in place of the task
+  decoding: temperature 1.0
+  sample_size: '1000'
+  layout_same_as_defence: 'yes'
+  measured_by: spotlighting_arxiv2024
+  page: 4
+- id: ev_gpt35_qa_datamark
+  defence_id: spot_datamark_gpt35
+  benchmark: authors' synthetic corpus, document Q&A task
+  attacker_type: static
+  attacker_access: black_box
+  judge: payload keyword returned in place of the task
+  decoding: temperature 1.0
+  layout_same_as_defence: 'yes'
+  measured_by: spotlighting_arxiv2024
+  page: 4
+- id: ev_gpt4_qa_datamark
+  defence_id: spot_datamark_gpt4
+  benchmark: authors' synthetic corpus, document Q&A task
+  attacker_type: static
+  attacker_access: black_box
+  judge: payload keyword returned in place of the task
+  decoding: temperature 1.0
+  layout_same_as_defence: 'yes'
+  measured_by: spotlighting_arxiv2024
+  page: 4
+- id: ev_gpt35_sum_encode
+  defence_id: spot_encode_gpt35
+  benchmark: authors' synthetic corpus, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: payload keyword returned in place of the task
+  decoding: temperature 1.0
+  layout_same_as_defence: 'yes'
+  measured_by: spotlighting_arxiv2024
+  page: 5
+- id: ev_gpt35_qa_encode
+  defence_id: spot_encode_gpt35
+  benchmark: authors' synthetic corpus, document Q&A task
+  attacker_type: static
+  attacker_access: black_box
+  judge: payload keyword returned in place of the task
+  decoding: temperature 1.0
+  layout_same_as_defence: 'yes'
+  measured_by: spotlighting_arxiv2024
+  page: 5
+- id: ev_gpt35_nlp_datamark
+  defence_id: spot_datamark_gpt35
+  benchmark: SQuAD, IMDB sentiment, SuperGLUE WiC and BoolQ with datamarked inputs, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scoring
+  layout_same_as_defence: 'yes'
+  measured_by: spotlighting_arxiv2024
+  page: 5
+results:
+- id: r1
+  evaluation_id: ev_gpt35_sum_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: 50%
+  unit: percent
+  direction: lower_better
+  location: Section 5.1 text
+  page: 4
+- id: r2
+  evaluation_id: ev_gpt35_sum_datamark
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: 3.10%
+  unit: percent
+  direction: lower_better
+  location: Figure 4 caption
+  page: 4
+- id: r3
+  evaluation_id: ev_text003_sum_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: 40%
+  unit: percent
+  direction: lower_better
+  location: Section 5.1 text
+  page: 4
+- id: r4
+  evaluation_id: ev_text003_sum_datamark
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: 0.00%
+  unit: percent
+  direction: lower_better
+  location: Figure 4 caption
+  page: 4
+- id: r5
+  evaluation_id: ev_gpt35_qa_datamark
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: 8.0%
+  unit: percent
+  direction: lower_better
+  location: Figure 5 caption
+  page: 4
+- id: r6
+  evaluation_id: ev_gpt4_qa_datamark
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: 1.0%
+  unit: percent
+  direction: lower_better
+  location: Figure 5 caption
+  page: 4
+- id: r7
+  evaluation_id: ev_gpt35_sum_encode
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: 0.0%
+  unit: percent
+  direction: lower_better
+  location: Figure 6 caption
+  page: 5
+- id: r8
+  evaluation_id: ev_gpt35_qa_encode
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: 1.8%
+  unit: percent
+  direction: lower_better
+  location: Figure 6 caption
+  page: 5
+comparisons:
+- id: c1
+  left: ev_gpt35_sum_datamark
+  right: ev_gpt35_sum_none
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 4
+- id: c2
+  left: ev_text003_sum_datamark
+  right: ev_text003_sum_none
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 4
+claims:
+- id: k1
+  text: spotlighting cuts attack success from over 50% to under 2% with GPT-family models
+  location: abstract
+  anchor: reduces the attack success rate from greater than 50% to below
+  jobs:
+  - R1
+  supported_by:
+  - c1
+  - c2
+  page: 1
+- id: k2
+  text: minimal detrimental impact on underlying NLP tasks
+  location: abstract
+  anchor: minimal detrimental impact to underlying
+  jobs:
+  - R2
+  supported_by: []
+  page: 1
+coverage:
+  R1: direct
+  R2clean: proxy
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+schema_gaps:
+- where: results r1, r3
+  note: the baselines are printed as approximate values (approximately 50%, 40%); v0 has no way to mark a value as approximate or as a bound (below 3%)
+- where: evaluation ev_gpt35_nlp_datamark
+  note: the clean-task results are shown only as bar charts without printed numbers (Figures 7 and 8); v0 cannot record that a result exists but is read only from a figure
+- where: defences spot_datamark_*, spot_encode_*
+  note: for a prompting defence the signal-removed condition coincides with the instruction-only baseline (Figure 2, Figure 3); v0's signal_dependence has no value for that
+- where: report
+  note: the work was later published (CAMLIS 2024, per citing papers); v0 has no field linking the version read to a later peer-reviewed version
+- where: results
+  note: the judge has a strict and a relaxed reading of success (Appendix 8.1); v0 has no field for which reading produced the number

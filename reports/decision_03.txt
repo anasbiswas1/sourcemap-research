@@ -1,0 +1,9 @@
+decision_03: SCHEMA FROZEN (v1)
+this step: 2026-11-21
+pilot reports: spotlighting_arxiv2024, secalign_ccs2025, aside_iclr2026, countersteer_arxiv2026, jia_critical_arxiv2025, secfid_arxiv2026
+records: 23 defences, 76 evaluations, 103 results, 27 comparisons, 11 claims
+checked against the PDFs: 102 printed values and 25 anchors, each found on its page
+comparison grades: A 27, B 0, C 0, U 0
+schema gaps under v0: 33; answered in v1 by 22 new fields, 15 widened value sets and 2 coding rules (schema/pilot_changes.md); residual notes under v1: 2
+frozen: schema/record_schema.yaml (v1) with schema/coding_rules.md
+next: notebook 04 (full extraction of the included studies, with their full-text check)

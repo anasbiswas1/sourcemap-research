@@ -1,0 +1,595 @@
+report:
+  id: aside_iclr2026
+  slug: '2503.10566'
+  title: 'ASIDE: Architectural Separation of Instructions and Data in Language Models'
+  first_author: Egor Zverev
+  venue: ICLR 2026
+  peer_reviewed: 'yes'
+  arxiv: '2503.10566'
+  version_read: arXiv v4 (marked as published at ICLR 2026)
+  first_date: '2025-03-13'
+  read: F
+  role: proposes
+  code_release: not checked in this pass
+  extraction_scope: Sections 4 and 5.1; Llama 3.1 8B and Mistral 7B v0.3 rows of Tables 1 and 3 (other models, direct-injection columns and Section 6 not coded in the pilot)
+defences:
+- id: aside_llama31_8b
+  name: ASIDE
+  origin: this_report
+  base_checkpoint: Llama 3.1 8B (pretrained), instruction-tuned by the authors
+  axis1:
+  - fixed_embedding_transform
+  axis2:
+  - sft
+  components:
+  - fixed orthogonal rotation of the embeddings of data tokens
+  - standard instruction tuning without injected examples
+  isolation: ablation_present
+  layout: 'Alpaca template: instruction with the template''s system prompt in the instruction part; the input and any injection go through the rotated data embedding'
+  signal_dependence: measured_other_checkpoint
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not checked in this pass
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  anchor: we apply a fixed (i.e., not learnable) orthogonal rotation
+  signal_dependence_detail: rotation-angle ablation on Qwen3-8B only (Figure 7, values in the figure)
+  pages:
+    signal_dependence: 17
+- id: aside_mistral7b
+  name: ASIDE
+  origin: this_report
+  base_checkpoint: Mistral 7B v0.3 (pretrained), instruction-tuned by the authors
+  axis1:
+  - fixed_embedding_transform
+  axis2:
+  - sft
+  isolation: ablation_present
+  layout: as aside_llama31_8b
+  signal_dependence: measured_other_checkpoint
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not checked in this pass
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  signal_dependence_detail: rotation-angle ablation on Qwen3-8B only (Figure 7, values in the figure)
+  pages:
+    signal_dependence: 17
+- id: ise_llama31_8b
+  name: ISE (re-implemented by the ASIDE authors)
+  origin: other_report
+  base_checkpoint: Llama 3.1 8B (pretrained), instruction-tuned by the authors
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: not_applicable
+  layout: as aside_llama31_8b
+  signal_dependence: not_reported
+  released_weights: not checked in this pass
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+evaluations:
+- id: ev_l_van_bipia_text
+  defence_id: none:Llama 3.1 8B, instruction-tuned with the same data (Vanilla)
+  benchmark: BIPIA text split (programmatically scored scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: BIPIA's programmatic success rule
+  decoding: greedy, up to 1024 tokens
+  sample_size: 3 independent runs
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 7
+  baseline_kind: same_data_twin
+- id: ev_l_aside_bipia_text
+  defence_id: aside_llama31_8b
+  benchmark: BIPIA text split (programmatically scored scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: BIPIA's programmatic success rule
+  decoding: greedy, up to 1024 tokens
+  sample_size: 3 independent runs
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 7
+- id: ev_l_ise_bipia_text
+  defence_id: ise_llama31_8b
+  benchmark: BIPIA text split (programmatically scored scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: BIPIA's programmatic success rule
+  decoding: greedy, up to 1024 tokens
+  sample_size: 3 independent runs
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 7
+- id: ev_l_van_struq_ood
+  defence_id: none:Llama 3.1 8B, instruction-tuned with the same data (Vanilla)
+  benchmark: Structured Queries benchmark, out-of-domain (following StruQ)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: Naive, Ignore, Escape and Completion attacks, averaged
+  judge: StruQ's success rule (Print exactly Hacked)
+  decoding: greedy, up to 1024 tokens
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 7
+  baseline_kind: same_data_twin
+- id: ev_l_aside_struq_ood
+  defence_id: aside_llama31_8b
+  benchmark: Structured Queries benchmark, out-of-domain (following StruQ)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: Naive, Ignore, Escape and Completion attacks, averaged
+  judge: StruQ's success rule (Print exactly Hacked)
+  decoding: greedy, up to 1024 tokens
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 7
+- id: ev_m_van_bipia_text
+  defence_id: none:Mistral 7B v0.3, instruction-tuned with the same data (Vanilla)
+  benchmark: BIPIA text split (programmatically scored scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: BIPIA's programmatic success rule
+  decoding: greedy, up to 1024 tokens
+  sample_size: 3 independent runs
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 7
+  baseline_kind: same_data_twin
+- id: ev_m_aside_bipia_text
+  defence_id: aside_mistral7b
+  benchmark: BIPIA text split (programmatically scored scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: BIPIA's programmatic success rule
+  decoding: greedy, up to 1024 tokens
+  sample_size: 3 independent runs
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 7
+- id: ev_m_van_struq_id
+  defence_id: none:Mistral 7B v0.3, instruction-tuned with the same data (Vanilla)
+  benchmark: Structured Queries benchmark, in-domain (following StruQ)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: Naive, Ignore, Escape and Completion attacks, averaged
+  judge: StruQ's success rule (Print exactly Hacked)
+  decoding: greedy, up to 1024 tokens
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 7
+  baseline_kind: same_data_twin
+- id: ev_m_aside_struq_id
+  defence_id: aside_mistral7b
+  benchmark: Structured Queries benchmark, in-domain (following StruQ)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: Naive, Ignore, Escape and Completion attacks, averaged
+  judge: StruQ's success rule (Print exactly Hacked)
+  decoding: greedy, up to 1024 tokens
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 7
+- id: ev_l_van_sep
+  defence_id: none:Llama 3.1 8B, instruction-tuned with the same data (Vanilla)
+  benchmark: SEP (9160 instruction and input pairs) and AlpacaEval 1.0
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: one unrelated probe instruction per pair
+  judge: SEP probe execution rule; AlpacaEval GPT-4 judge against text-davinci-003
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 23
+  baseline_kind: same_data_twin
+- id: ev_l_aside_sep
+  defence_id: aside_llama31_8b
+  benchmark: SEP (9160 instruction and input pairs) and AlpacaEval 1.0
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: one unrelated probe instruction per pair
+  judge: SEP probe execution rule; AlpacaEval GPT-4 judge against text-davinci-003
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 23
+- id: ev_m_van_sep
+  defence_id: none:Mistral 7B v0.3, instruction-tuned with the same data (Vanilla)
+  benchmark: SEP (9160 instruction and input pairs) and AlpacaEval 1.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: SEP probe execution rule; AlpacaEval GPT-4 judge
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 23
+  baseline_kind: same_data_twin
+- id: ev_m_aside_sep
+  defence_id: aside_mistral7b
+  benchmark: SEP (9160 instruction and input pairs) and AlpacaEval 1.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: SEP probe execution rule; AlpacaEval GPT-4 judge
+  layout_same_as_defence: 'yes'
+  measured_by: aside_iclr2026
+  page: 23
+results:
+- id: r1
+  evaluation_id: ev_l_van_bipia_text
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (BIPIA-text)
+  value: '13.6'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 7
+  qualifier: exact
+  value_source: table
+  spread: mean and standard deviation over 3 independent runs
+- id: r2
+  evaluation_id: ev_l_aside_bipia_text
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (BIPIA-text)
+  value: '4.1'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 7
+  qualifier: exact
+  value_source: table
+  spread: mean and standard deviation over 3 independent runs
+- id: r3
+  evaluation_id: ev_l_ise_bipia_text
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (BIPIA-text)
+  value: '11.0'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 7
+  qualifier: exact
+  value_source: table
+  spread: mean and standard deviation over 3 independent runs
+- id: r4
+  evaluation_id: ev_l_van_struq_ood
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (StruQ-OOD)
+  value: '50.5'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 7
+  qualifier: exact
+  value_source: table
+  spread: mean and standard deviation over 3 independent runs
+- id: r5
+  evaluation_id: ev_l_aside_struq_ood
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (StruQ-OOD)
+  value: '47.3'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 7
+  qualifier: exact
+  value_source: table
+  spread: mean and standard deviation over 3 independent runs
+- id: r6
+  evaluation_id: ev_m_van_bipia_text
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (BIPIA-text)
+  value: '11.1'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 7
+  qualifier: exact
+  value_source: table
+  spread: mean and standard deviation over 3 independent runs
+- id: r7
+  evaluation_id: ev_m_aside_bipia_text
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (BIPIA-text)
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 7
+  qualifier: exact
+  value_source: table
+  spread: mean and standard deviation over 3 independent runs
+- id: r8
+  evaluation_id: ev_m_van_struq_id
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (StruQ-ID)
+  value: '33.4'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 7
+  qualifier: exact
+  value_source: table
+  spread: mean and standard deviation over 3 independent runs
+- id: r9
+  evaluation_id: ev_m_aside_struq_id
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (StruQ-ID)
+  value: '9.6'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 7
+  qualifier: exact
+  value_source: table
+  spread: mean and standard deviation over 3 independent runs
+- id: r10
+  evaluation_id: ev_l_van_sep
+  quantity: other
+  coverage: proxy
+  metric_as_printed: SEP [%]
+  value: '53.2'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r11
+  evaluation_id: ev_l_aside_sep
+  quantity: other
+  coverage: proxy
+  metric_as_printed: SEP [%]
+  value: '83.1'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r12
+  evaluation_id: ev_l_van_sep
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP Utility [%]
+  value: '70.3'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r13
+  evaluation_id: ev_l_aside_sep
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP Utility [%]
+  value: '63.0'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r14
+  evaluation_id: ev_l_van_sep
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval [%]
+  value: '89.3'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r15
+  evaluation_id: ev_l_aside_sep
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval [%]
+  value: '86.6'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r16
+  evaluation_id: ev_m_van_sep
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP Utility [%]
+  value: '45.0'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r17
+  evaluation_id: ev_m_aside_sep
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP Utility [%]
+  value: '25.3'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r18
+  evaluation_id: ev_m_van_sep
+  quantity: other
+  coverage: proxy
+  metric_as_printed: SEP [%]
+  value: '48.0'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r19
+  evaluation_id: ev_m_aside_sep
+  quantity: other
+  coverage: proxy
+  metric_as_printed: SEP [%]
+  value: '92.1'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r20
+  evaluation_id: ev_m_van_sep
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval [%]
+  value: '44.3'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+- id: r21
+  evaluation_id: ev_m_aside_sep
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval [%]
+  value: '45.4'
+  unit: percent
+  direction: higher_better
+  location: Table 3
+  page: 23
+  qualifier: exact
+  value_source: table
+  spread: standard error of the mean
+comparisons:
+- id: c_l_bipia
+  left: ev_l_aside_bipia_text
+  right: ev_l_van_bipia_text
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 7
+  varies: the fixed rotation of data-token embeddings (ASIDE) against the same-data instruction-tuned twin (Vanilla)
+- id: c_m_bipia
+  left: ev_m_aside_bipia_text
+  right: ev_m_van_bipia_text
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 7
+  varies: the fixed rotation of data-token embeddings (ASIDE) against the same-data instruction-tuned twin (Vanilla)
+- id: c_m_struq
+  left: ev_m_aside_struq_id
+  right: ev_m_van_struq_id
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 7
+  varies: the fixed rotation of data-token embeddings (ASIDE) against the same-data instruction-tuned twin (Vanilla)
+- id: c_l_sep
+  left: ev_l_aside_sep
+  right: ev_l_van_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  page: 23
+  varies: the fixed rotation of data-token embeddings (ASIDE) against the same-data instruction-tuned twin (Vanilla)
+- id: c_m_sep
+  left: ev_m_aside_sep
+  right: ev_m_van_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  page: 23
+  varies: the fixed rotation of data-token embeddings (ASIDE) against the same-data instruction-tuned twin (Vanilla)
+claims:
+- id: k1
+  text: instruction-tuning with ASIDE gives much higher instruction-data separation without performance loss
+  location: abstract
+  anchor: achieves substantially higher instruction-data separation without performance loss
+  jobs:
+  - general_utility
+  - R2
+  supported_by:
+  - c_l_sep
+  - c_m_sep
+  page: 1
+  contradicted_by:
+  - r13
+  - r17
+- id: k2
+  text: ASIDE makes models more robust on prompt injection benchmarks without dedicated safety training
+  location: abstract
+  anchor: makes the models more robust to prompt injection benchmarks, even without dedicated safety training
+  jobs:
+  - R1
+  supported_by:
+  - c_l_bipia
+  - c_m_bipia
+  - c_m_struq
+  page: 1
+coverage:
+  R1: direct
+  R2clean: proxy
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    R2clean: Table 3 (SEP Utility)

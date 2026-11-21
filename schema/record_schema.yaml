@@ -1,0 +1,522 @@
+# Record schema v1, frozen in notebook 03 after the six-report pilot.
+# One YAML file per report in reports/records/<report_id>.yaml. How to choose each value: schema/coding_rules.md.
+# What changed from the pilot draft (schema/record_schema_v0.yaml) and why: schema/pilot_changes.md.
+# Field spec: type, allowed values, required, from_paper (read from the paper, so the record needs a page).
+version: 1
+page_rule: 'Every record with from_paper fields carries page (1-based PDF page index, within the PDF''s length). A fact on another page goes in pages: {field: page}.'
+kinds:
+  report:
+    one: true
+    fields:
+      id:
+        type: str
+        required: true
+      slug:
+        type: str
+        required: true
+      title:
+        type: str
+        required: true
+      first_author:
+        type: str
+        required: true
+      venue:
+        type: str
+        required: true
+      peer_reviewed:
+        type: enum
+        values:
+        - 'yes'
+        - 'no'
+        - unknown
+        required: true
+      doi:
+        type: str
+      arxiv:
+        type: str
+      version_read:
+        type: str
+        required: true
+      first_date:
+        type: str
+        required: true
+      read:
+        type: enum
+        values:
+        - F
+        - A
+        required: true
+      role:
+        type: enum
+        values:
+        - proposes
+        - re_measures
+        - benchmark
+        - mixed
+        required: true
+      code_release:
+        type: str
+      later_version:
+        type: str
+      extraction_scope:
+        type: str
+        required: true
+  defences:
+    fields:
+      id:
+        type: str
+        required: true
+      name:
+        type: str
+        required: true
+      origin:
+        type: enum
+        values:
+        - this_report
+        - other_report
+        required: true
+      base_checkpoint:
+        type: str
+        required: true
+        from_paper: true
+      axis1:
+        type: enum_list
+        values:
+        - chat_roles
+        - delimiters_markers
+        - encodings
+        - learned_token_features
+        - fixed_embedding_transform
+        - position
+        - internal_intervention
+        - no_signal
+        required: true
+      axis2:
+        type: enum_list
+        values:
+        - prompting
+        - soft_tokens_frozen
+        - sft
+        - preference_optimisation
+        - distillation
+        - adversarial_rl
+        - fixed_inference_rule
+        required: true
+      components:
+        type: list
+      isolation:
+        type: enum
+        values:
+        - ablation_present
+        - no_ablation
+        - not_applicable
+        required: true
+      layout:
+        type: str
+        from_paper: true
+      signal_dependence:
+        type: enum
+        values:
+        - measured
+        - measured_other_checkpoint
+        - stated
+        - baseline_only
+        - not_reported
+        - not_applicable
+        required: true
+      layout_compat:
+        type: map
+        keys:
+        - user_turn
+        - separate_role
+        - system_context
+        - agent_tool_result
+        values:
+        - supported
+        - unsupported
+        - untested
+      released_weights:
+        type: str
+      trains_instruction_pair:
+        type: enum
+        values:
+        - 'yes'
+        - partly
+        - 'no'
+        - not_applicable
+        required: true
+      trains_carry_through:
+        type: enum
+        values:
+        - yes_exact_targets
+        - yes_by_preference
+        - 'no'
+        - not_applicable
+        required: true
+      page:
+        type: page
+      anchor:
+        type: str
+      name_as_printed:
+        type: str
+      checkpoint_id:
+        type: str
+      signal_dependence_detail:
+        type: str
+      pages:
+        type: pages
+  evaluations:
+    fields:
+      id:
+        type: str
+        required: true
+      defence_id:
+        type: str
+        required: true
+      benchmark:
+        type: str
+        required: true
+        from_paper: true
+      split:
+        type: str
+      attacker_type:
+        type: enum
+        values:
+        - static
+        - adaptive
+        - optimisation
+        - human
+        - rl
+        - none
+        required: true
+      attacker_access:
+        type: enum
+        values:
+        - black_box
+        - grey_box
+        - white_box
+        - not_applicable
+        - unreported
+        required: true
+      attacker_budget:
+        type: str
+      judge:
+        type: str
+        required: true
+      denominator:
+        type: str
+      decoding:
+        type: str
+      sample_size:
+        type: str
+      layout_same_as_defence:
+        type: enum
+        values:
+        - 'yes'
+        - 'no'
+        - unclear
+        required: true
+      measured_by:
+        type: str
+        required: true
+      page:
+        type: page
+      baseline_kind:
+        type: enum
+        values:
+        - off_the_shelf
+        - same_data_twin
+        - instruction_prompt_only
+        - not_applicable
+      run:
+        type: str
+      injection_position:
+        type: enum
+        values:
+        - start
+        - middle
+        - end
+        - mixed
+        - varied
+        - unreported
+      judge_reading:
+        type: enum
+        values:
+        - single
+        - strict
+        - relaxed
+      subset_of:
+        type: str
+      locked_split:
+        type: enum
+        values:
+        - 'yes'
+        - 'no'
+        - unreported
+      same_checkpoint_as:
+        type: str
+      pages:
+        type: pages
+  results:
+    fields:
+      id:
+        type: str
+        required: true
+      evaluation_id:
+        type: str
+        required: true
+      quantity:
+        type: enum
+        values:
+        - R1
+        - R2clean
+        - R2attack
+        - R3ns
+        - R3cp
+        - R3safe
+        - general_utility
+        - other
+        required: true
+      coverage:
+        type: enum
+        values:
+        - direct
+        - proxy
+        required: true
+      metric_as_printed:
+        type: str
+        required: true
+        from_paper: true
+      value:
+        type: str
+        required: false
+        from_paper: true
+      unit:
+        type: enum
+        values:
+        - percent
+        - fraction
+        - score
+        - count
+        - percent_of_reference
+        required: true
+      direction:
+        type: enum
+        values:
+        - higher_better
+        - lower_better
+        required: true
+      location:
+        type: str
+      page:
+        type: page
+      also_quantity:
+        type: enum_list
+        values:
+        - R1
+        - R2clean
+        - R2attack
+        - R3ns
+        - R3cp
+        - R3safe
+        - general_utility
+        - other
+      qualifier:
+        type: enum
+        values:
+        - exact
+        - approximate
+        - upper_bound
+        - lower_bound
+        required: true
+      value_source:
+        type: enum
+        values:
+        - text
+        - table
+        - figure_caption
+        - figure_only
+        required: true
+      reference:
+        type: str
+      spread:
+        type: str
+  comparisons:
+    fields:
+      id:
+        type: str
+        required: true
+      left:
+        type: str
+        required: true
+      right:
+        type: str
+        required: true
+      purpose:
+        type: enum
+        values:
+        - W
+        - M
+        - X
+        required: true
+      c1_base:
+        type: enum
+        values:
+        - matched
+        - matched_unstated
+        - unmatched
+        - unreported
+        - manipulated
+        required: true
+      c2_layout:
+        type: enum
+        values:
+        - matched
+        - matched_unstated
+        - unmatched
+        - unreported
+        - manipulated
+        required: true
+      c3_benchmark:
+        type: enum
+        values:
+        - matched
+        - matched_unstated
+        - unmatched
+        - unreported
+        - manipulated
+        required: true
+      c4_attacker:
+        type: enum
+        values:
+        - matched
+        - matched_unstated
+        - unmatched
+        - unreported
+        - manipulated
+        required: true
+      c5_judge:
+        type: enum
+        values:
+        - matched
+        - matched_unstated
+        - unmatched
+        - unreported
+        - manipulated
+        required: true
+      c6_decoding:
+        type: enum
+        values:
+        - matched
+        - matched_unstated
+        - unmatched
+        - unreported
+        - manipulated
+        required: true
+      page:
+        type: page
+      varies:
+        type: str
+        required: true
+  claims:
+    fields:
+      id:
+        type: str
+        required: true
+      text:
+        type: str
+        required: true
+      location:
+        type: str
+        required: true
+      anchor:
+        type: str
+        required: true
+        from_paper: true
+      jobs:
+        type: enum_list
+        values:
+        - R1
+        - R2
+        - R3
+        - general_utility
+        required: true
+      supported_by:
+        type: list
+      page:
+        type: page
+      contradicted_by:
+        type: list
+  coverage:
+    one: true
+    fields:
+      R1:
+        type: enum
+        values:
+        - direct
+        - proxy
+        - aggregate_only
+        - not_reported
+        - unclear
+        - not_applicable
+        required: true
+      R2clean:
+        type: enum
+        values:
+        - direct
+        - proxy
+        - aggregate_only
+        - not_reported
+        - unclear
+        - not_applicable
+        required: true
+      R2attack:
+        type: enum
+        values:
+        - direct
+        - proxy
+        - aggregate_only
+        - not_reported
+        - unclear
+        - not_applicable
+        required: true
+      R3ns:
+        type: enum
+        values:
+        - direct
+        - proxy
+        - aggregate_only
+        - not_reported
+        - unclear
+        - not_applicable
+        required: true
+      R3cp:
+        type: enum
+        values:
+        - direct
+        - proxy
+        - aggregate_only
+        - not_reported
+        - unclear
+        - not_applicable
+        required: true
+      R3safe:
+        type: enum
+        values:
+        - direct
+        - proxy
+        - aggregate_only
+        - not_reported
+        - unclear
+        - not_applicable
+        required: true
+      where:
+        type: map_free
+  schema_gaps:
+    fields:
+      where:
+        type: str
+        required: true
+      note:
+        type: str
+        required: true

@@ -1,0 +1,405 @@
+report:
+  id: jia_critical_arxiv2025
+  slug: '2505.18333'
+  title: A Critical Evaluation of Defenses against Prompt Injection Attacks
+  first_author: Yuqi Jia
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2505.18333'
+  version_read: arXiv v1
+  first_date: '2025-05-23'
+  read: F
+  role: re_measures
+  code_release: https://github.com/PIEval123/PIEval
+  extraction_scope: 'Section 5.1: StruQ and SecAlign on Llama-3-8B-Instruct (Instruction Hierarchy, detectors and Appendix A not coded in the pilot)'
+defences:
+- id: secalign_llama3_8bi_rel
+  name: SecAlign (checkpoint released by its authors)
+  origin: other_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  layout: the released model's own delimiters; special tokens filtered from the data at run time
+  signal_dependence: not_reported
+  released_weights: downloaded from the SecAlign release
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  anchor: We downloaded LLMs released by StruQ and SecAlign
+- id: struq_llama3_8bi_rel
+  name: StruQ (checkpoint released by its authors)
+  origin: other_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  layout: the released model's own delimiters; special tokens filtered from the data at run time
+  signal_dependence: not_reported
+  released_weights: downloaded from the StruQ release
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  anchor: We downloaded LLMs released by StruQ and SecAlign
+evaluations:
+- id: ev_none_opi_comb
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection (seven NLP tasks)
+  split: 4,900 target and injected prompt tuples
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: Combined Attack
+  judge: reply equivalent to the injected task's reference response (ASV)
+  denominator: 4,900 tuples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 9
+  baseline_kind: off_the_shelf
+- id: ev_sec_opi_comb
+  defence_id: secalign_llama3_8bi_rel
+  benchmark: OpenPromptInjection (seven NLP tasks)
+  split: 4,900 target and injected prompt tuples
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: Combined Attack
+  judge: reply equivalent to the injected task's reference response (ASV)
+  denominator: 4,900 tuples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 9
+  same_checkpoint_as: secalign_ccs2025:secalign_llama3_8bi
+- id: ev_none_opi_gcg
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection (seven NLP tasks)
+  split: 50 tuples
+  attacker_type: optimisation
+  attacker_access: white_box
+  attacker_budget: GCG optimising the separator
+  judge: reply equivalent to the injected task's reference response (ASV)
+  denominator: 50 tuples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 9
+  baseline_kind: off_the_shelf
+  subset_of: the 4,900 OpenPromptInjection tuples
+- id: ev_sec_opi_gcg
+  defence_id: secalign_llama3_8bi_rel
+  benchmark: OpenPromptInjection (seven NLP tasks)
+  split: 50 tuples
+  attacker_type: optimisation
+  attacker_access: white_box
+  attacker_budget: GCG optimising the separator
+  judge: reply equivalent to the injected task's reference response (ASV)
+  denominator: 50 tuples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 9
+  same_checkpoint_as: secalign_ccs2025:secalign_llama3_8bi
+  subset_of: the 4,900 OpenPromptInjection tuples
+- id: ev_sec_opi_gcg_adapt
+  defence_id: secalign_llama3_8bi_rel
+  benchmark: OpenPromptInjection (seven NLP tasks)
+  split: 50 tuples
+  attacker_type: adaptive
+  attacker_access: white_box
+  attacker_budget: GCG with delimiters built from the nearest tokens to the defence's special tokens
+  judge: reply equivalent to the injected task's reference response (ASV)
+  denominator: 50 tuples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 9
+  same_checkpoint_as: secalign_ccs2025:secalign_llama3_8bi
+  subset_of: the 4,900 OpenPromptInjection tuples
+- id: ev_struq_opi_gcg
+  defence_id: struq_llama3_8bi_rel
+  benchmark: OpenPromptInjection (seven NLP tasks)
+  split: 50 tuples
+  attacker_type: optimisation
+  attacker_access: white_box
+  attacker_budget: GCG optimising the separator
+  judge: reply equivalent to the injected task's reference response (ASV)
+  denominator: 50 tuples
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 9
+  subset_of: the 4,900 OpenPromptInjection tuples
+- id: ev_sec_alpaca_rel
+  defence_id: secalign_llama3_8bi_rel
+  benchmark: AlpacaEval on AlpacaFarm, reference model Llama-3-8B-Instruct
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AlpacaEval win rate against the undefended Llama-3-8B-Instruct
+  decoding: not reported
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 8
+  same_checkpoint_as: secalign_ccs2025:secalign_llama3_8bi
+- id: ev_none_opi_util
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection clean prompt-response pairs
+  split: 700 pairs, 100 per task
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy on the target task
+  decoding: not reported
+  sample_size: '700'
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 8
+  baseline_kind: off_the_shelf
+- id: ev_sec_opi_util
+  defence_id: secalign_llama3_8bi_rel
+  benchmark: OpenPromptInjection clean prompt-response pairs
+  split: 700 pairs, 100 per task
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy on the target task
+  decoding: not reported
+  sample_size: '700'
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 8
+  same_checkpoint_as: secalign_ccs2025:secalign_llama3_8bi
+- id: ev_none_mmlu_util
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: MMLU-PI clean pairs
+  split: 200 MMLU test prompts
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MMLU accuracy
+  decoding: not reported
+  sample_size: '200'
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 8
+  baseline_kind: off_the_shelf
+- id: ev_sec_mmlu_util
+  defence_id: secalign_llama3_8bi_rel
+  benchmark: MMLU-PI clean pairs
+  split: 200 MMLU test prompts
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MMLU accuracy
+  decoding: not reported
+  sample_size: '200'
+  layout_same_as_defence: 'yes'
+  measured_by: jia_critical_arxiv2025
+  page: 8
+  same_checkpoint_as: secalign_ccs2025:secalign_llama3_8bi
+results:
+- id: r1
+  evaluation_id: ev_none_opi_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV, Combined Attack (existing)
+  value: '0.52'
+  unit: fraction
+  direction: lower_better
+  location: Table 2
+  page: 9
+  qualifier: exact
+  value_source: table
+- id: r2
+  evaluation_id: ev_sec_opi_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV, Combined Attack (existing)
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  location: Table 2
+  page: 9
+  qualifier: exact
+  value_source: table
+- id: r3
+  evaluation_id: ev_none_opi_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV, GCG (existing)
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  location: Table 2
+  page: 9
+  qualifier: exact
+  value_source: table
+- id: r4
+  evaluation_id: ev_sec_opi_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV, GCG (existing)
+  value: '0.24'
+  unit: fraction
+  direction: lower_better
+  location: Table 2
+  page: 9
+  qualifier: exact
+  value_source: table
+- id: r5
+  evaluation_id: ev_sec_opi_gcg_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV, GCG (adaptive)
+  value: '0.46'
+  unit: fraction
+  direction: lower_better
+  location: Table 2
+  page: 9
+  qualifier: exact
+  value_source: table
+- id: r6
+  evaluation_id: ev_struq_opi_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV, GCG (existing)
+  value: '0.80'
+  unit: fraction
+  direction: lower_better
+  location: Table 2
+  page: 9
+  qualifier: exact
+  value_source: table
+- id: r7
+  evaluation_id: ev_sec_alpaca_rel
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Win Rate (%) against Llama-3-8B-Instruct
+  value: '36.42'
+  unit: percent
+  direction: higher_better
+  location: Table 1(a)
+  page: 8
+  qualifier: exact
+  value_source: table
+  reference: the undefended Llama-3-8B-Instruct as the AlpacaEval reference model
+- id: r8
+  evaluation_id: ev_none_opi_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: absolute utility, OpenPromptInjection
+  value: '0.65'
+  unit: fraction
+  direction: higher_better
+  location: Table 1(b)
+  page: 8
+  qualifier: exact
+  value_source: table
+- id: r9
+  evaluation_id: ev_sec_opi_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: absolute utility, OpenPromptInjection
+  value: '0.48'
+  unit: fraction
+  direction: higher_better
+  location: Table 1(b)
+  page: 8
+  qualifier: exact
+  value_source: table
+- id: r10
+  evaluation_id: ev_none_mmlu_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: absolute utility, MMLU-PI
+  value: '0.45'
+  unit: fraction
+  direction: higher_better
+  location: Table 1(b)
+  page: 8
+  qualifier: exact
+  value_source: table
+- id: r11
+  evaluation_id: ev_sec_mmlu_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: absolute utility, MMLU-PI
+  value: '0.34'
+  unit: fraction
+  direction: higher_better
+  location: Table 1(b)
+  page: 8
+  qualifier: exact
+  value_source: table
+comparisons:
+- id: c_comb
+  left: ev_sec_opi_comb
+  right: ev_none_opi_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  page: 9
+  varies: the defence (defended against undefended arm)
+- id: c_gcg
+  left: ev_sec_opi_gcg
+  right: ev_none_opi_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  page: 9
+  varies: the defence (defended against undefended arm)
+- id: c_adapt
+  left: ev_sec_opi_gcg_adapt
+  right: ev_sec_opi_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: manipulated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  page: 9
+  varies: 'the attacker: adaptive GCG against existing GCG on the same defended model'
+- id: c_util
+  left: ev_sec_opi_util
+  right: ev_none_opi_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  page: 8
+  varies: the defence (defended against undefended arm)
+claims:
+- id: k1
+  text: existing defences are not as successful as previously reported when evaluated with diverse prompts, adaptive attacks and absolute utility
+  location: abstract
+  anchor: we show that existing defenses are not as successful as previously reported
+  jobs:
+  - R1
+  - R2
+  - general_utility
+  supported_by:
+  - c_gcg
+  - c_adapt
+  - c_util
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2
+    R2clean: Table 1(b), OpenPromptInjection absolute utility

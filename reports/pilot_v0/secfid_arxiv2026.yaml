@@ -1,0 +1,537 @@
+report:
+  id: secfid_arxiv2026
+  slug: '2606.30783'
+  title: 'Security–Fidelity Tradeoffs: The Hidden Cost of Prompt Injection Defense'
+  first_author: Mitchell Hermon
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2606.30783'
+  version_read: arXiv v1
+  first_date: '2026-06-29'
+  read: F
+  role: mixed
+  code_release: not checked in this pass
+defences:
+- id: aside_llama31_8b_sf
+  name: ASIDE (re-measured by SecFid)
+  origin: other_report
+  base_checkpoint: Llama 3.1 8B
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: not_applicable
+  layout: the inference procedure specified by the defence
+  signal_dependence: not_reported
+  released_weights: released checkpoint used
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 24
+- id: ise_llama31_8b_sf
+  name: ISE (re-measured by SecFid)
+  origin: other_report
+  base_checkpoint: Llama 3.1 8B
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: not_applicable
+  layout: the inference procedure specified by the defence
+  signal_dependence: not_reported
+  released_weights: released checkpoint used
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 24
+- id: metasecalign_8b_sf
+  name: SecAlign as printed; the checkpoint is facebook/Meta-SecAlign-8B (LoRA adapter)
+  origin: other_report
+  base_checkpoint: Llama 3.1 8B with the facebook/Meta-SecAlign-8B adapter
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  layout: the inference procedure specified by the defence (data in its own input role)
+  signal_dependence: not_reported
+  released_weights: facebook/Meta-SecAlign-8B
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 24
+  anchor: facebook/Meta-SecAlign-8B
+- id: deftokens_llama31_8b_sf
+  name: DefensiveTokens (re-measured by SecFid)
+  origin: other_report
+  base_checkpoint: Llama 3.1 8B
+  axis1:
+  - learned_token_features
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  layout: five defensive tokens prepended to the input
+  signal_dependence: not_reported
+  released_weights: released tokens used
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 24
+  anchor: DefensiveTokens is evaluated with five defensive tokens prepended to the input
+- id: secfid_dpo_8b
+  name: Fidelity-aware DPO (SecFid preference tuning)
+  origin: this_report
+  base_checkpoint: Meta-SecAlign-8B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  components:
+  - Meta-SecAlign-8B starting point
+  - DPO with processed preferred to ignored and ignored preferred to executed, on counting, extraction and translation
+  isolation: ablation_present
+  layout: as metasecalign_8b_sf
+  signal_dependence: not_reported
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not checked in this pass
+  trains_instruction_pair: 'no'
+  trains_carry_through: yes_by_preference
+  page: 7
+  anchor: We build preferences from the three-way labels with the ordering
+evaluations:
+- id: ev_base
+  defence_id: none:Llama 3.1 8B
+  benchmark: 'SecFid (1,168 instances: counting, extraction, translation, editing)'
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: one probe per instance, plain or persuasive framing, prefix, inside or suffix
+  judge: signature answer for execution; set, count or embedding-similarity checks for processed or ignored
+  denominator: 1,168 instances
+  decoding: temperature 0
+  sample_size: '1168'
+  layout_same_as_defence: 'yes'
+  measured_by: secfid_arxiv2026
+  page: 6
+- id: ev_aside
+  defence_id: aside_llama31_8b_sf
+  benchmark: SecFid (1,168 instances)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: as ev_base
+  judge: as ev_base
+  denominator: 1,168 instances
+  decoding: temperature 0
+  sample_size: '1168'
+  layout_same_as_defence: 'yes'
+  measured_by: secfid_arxiv2026
+  page: 6
+- id: ev_ise
+  defence_id: ise_llama31_8b_sf
+  benchmark: SecFid (1,168 instances)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: as ev_base
+  judge: as ev_base
+  denominator: 1,168 instances
+  decoding: temperature 0
+  sample_size: '1168'
+  layout_same_as_defence: 'yes'
+  measured_by: secfid_arxiv2026
+  page: 6
+- id: ev_msa
+  defence_id: metasecalign_8b_sf
+  benchmark: SecFid (1,168 instances)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: as ev_base
+  judge: as ev_base
+  denominator: 1,168 instances
+  decoding: temperature 0
+  sample_size: '1168'
+  layout_same_as_defence: 'yes'
+  measured_by: secfid_arxiv2026
+  page: 6
+- id: ev_dt
+  defence_id: deftokens_llama31_8b_sf
+  benchmark: SecFid (1,168 instances)
+  attacker_type: static
+  attacker_access: black_box
+  attacker_budget: as ev_base
+  judge: as ev_base
+  denominator: 1,168 instances
+  decoding: temperature 0
+  sample_size: '1168'
+  layout_same_as_defence: 'yes'
+  measured_by: secfid_arxiv2026
+  page: 6
+- id: ev_msa_core
+  defence_id: metasecalign_8b_sf
+  benchmark: SecFid core held-out split (counting, extraction, translation)
+  split: 141 locked cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: as ev_base
+  denominator: '141'
+  decoding: temperature 0
+  sample_size: '141'
+  layout_same_as_defence: 'yes'
+  measured_by: secfid_arxiv2026
+  page: 7
+- id: ev_dpo_core
+  defence_id: secfid_dpo_8b
+  benchmark: SecFid core held-out split (counting, extraction, translation)
+  split: 141 locked cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: as ev_base
+  denominator: '141'
+  decoding: temperature 0
+  sample_size: '141'
+  layout_same_as_defence: 'yes'
+  measured_by: secfid_arxiv2026
+  page: 7
+- id: ev_msa_edit
+  defence_id: metasecalign_8b_sf
+  benchmark: SecFid editing task, held out from training
+  split: 273 cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: as ev_base
+  denominator: '273'
+  decoding: temperature 0
+  sample_size: '273'
+  layout_same_as_defence: 'yes'
+  measured_by: secfid_arxiv2026
+  page: 7
+- id: ev_dpo_edit
+  defence_id: secfid_dpo_8b
+  benchmark: SecFid editing task, held out from training
+  split: 273 cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: as ev_base
+  denominator: '273'
+  decoding: temperature 0
+  sample_size: '273'
+  layout_same_as_defence: 'yes'
+  measured_by: secfid_arxiv2026
+  page: 7
+results:
+- id: r_base_e
+  evaluation_id: ev_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Exec.
+  value: '49.1'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_base_i
+  evaluation_id: ev_base
+  quantity: R3ns
+  coverage: direct
+  metric_as_printed: Ign.
+  value: '7.7'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_base_p
+  evaluation_id: ev_base
+  quantity: R3cp
+  coverage: direct
+  metric_as_printed: Proc.
+  value: '50.2'
+  unit: percent
+  direction: higher_better
+  location: Table 1
+  page: 6
+- id: r_aside_e
+  evaluation_id: ev_aside
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Exec.
+  value: '5.7'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_aside_i
+  evaluation_id: ev_aside
+  quantity: R3ns
+  coverage: direct
+  metric_as_printed: Ign.
+  value: '24.7'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_aside_p
+  evaluation_id: ev_aside
+  quantity: R3cp
+  coverage: direct
+  metric_as_printed: Proc.
+  value: '39.6'
+  unit: percent
+  direction: higher_better
+  location: Table 1
+  page: 6
+- id: r_ise_e
+  evaluation_id: ev_ise
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Exec.
+  value: '14.0'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_ise_i
+  evaluation_id: ev_ise
+  quantity: R3ns
+  coverage: direct
+  metric_as_printed: Ign.
+  value: '20.3'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_ise_p
+  evaluation_id: ev_ise
+  quantity: R3cp
+  coverage: direct
+  metric_as_printed: Proc.
+  value: '53.6'
+  unit: percent
+  direction: higher_better
+  location: Table 1
+  page: 6
+- id: r_msa_e
+  evaluation_id: ev_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Exec.
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_msa_i
+  evaluation_id: ev_msa
+  quantity: R3ns
+  coverage: direct
+  metric_as_printed: Ign.
+  value: '26.1'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_msa_p
+  evaluation_id: ev_msa
+  quantity: R3cp
+  coverage: direct
+  metric_as_printed: Proc.
+  value: '67.0'
+  unit: percent
+  direction: higher_better
+  location: Table 1
+  page: 6
+- id: r_dt_e
+  evaluation_id: ev_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Exec.
+  value: '1.9'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_dt_i
+  evaluation_id: ev_dt
+  quantity: R3ns
+  coverage: direct
+  metric_as_printed: Ign.
+  value: '53.7'
+  unit: percent
+  direction: lower_better
+  location: Table 1
+  page: 6
+- id: r_dt_p
+  evaluation_id: ev_dt
+  quantity: R3cp
+  coverage: direct
+  metric_as_printed: Proc.
+  value: '37.7'
+  unit: percent
+  direction: higher_better
+  location: Table 1
+  page: 6
+- id: r_core_msa_i
+  evaluation_id: ev_msa_core
+  quantity: R3ns
+  coverage: direct
+  metric_as_printed: Ign.
+  value: '17.7'
+  unit: percent
+  direction: lower_better
+  location: Table 2
+  page: 7
+- id: r_core_msa_p
+  evaluation_id: ev_msa_core
+  quantity: R3cp
+  coverage: direct
+  metric_as_printed: Proc.
+  value: '73.8'
+  unit: percent
+  direction: higher_better
+  location: Table 2
+  page: 7
+- id: r_core_dpo_i
+  evaluation_id: ev_dpo_core
+  quantity: R3ns
+  coverage: direct
+  metric_as_printed: Ign.
+  value: '9.2'
+  unit: percent
+  direction: lower_better
+  location: Table 2
+  page: 7
+- id: r_core_dpo_p
+  evaluation_id: ev_dpo_core
+  quantity: R3cp
+  coverage: direct
+  metric_as_printed: Proc.
+  value: '83.0'
+  unit: percent
+  direction: higher_better
+  location: Table 2
+  page: 7
+- id: r_edit_msa_p
+  evaluation_id: ev_msa_edit
+  quantity: R3cp
+  coverage: direct
+  metric_as_printed: Proc.
+  value: '43.2'
+  unit: percent
+  direction: higher_better
+  location: Table 2
+  page: 7
+- id: r_edit_dpo_p
+  evaluation_id: ev_dpo_edit
+  quantity: R3cp
+  coverage: direct
+  metric_as_printed: Proc.
+  value: '80.6'
+  unit: percent
+  direction: higher_better
+  location: Table 2
+  page: 7
+- id: r_edit_dpo_e
+  evaluation_id: ev_dpo_edit
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Exec.
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  location: Table 2
+  page: 7
+comparisons:
+- id: c_aside
+  left: ev_aside
+  right: ev_base
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 6
+- id: c_msa
+  left: ev_msa
+  right: ev_base
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 6
+- id: c_dt
+  left: ev_dt
+  right: ev_base
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 6
+- id: c_dpo_core
+  left: ev_dpo_core
+  right: ev_msa_core
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 7
+- id: c_dpo_edit
+  left: ev_dpo_edit
+  right: ev_msa_edit
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 7
+claims:
+- id: k1
+  text: defences resist injected instructions largely by suppressing untrusted text, and no model or defence achieves both security and fidelity
+  location: abstract
+  anchor: defenses resist injected instructions largely by suppressing untrusted text
+  jobs:
+  - R1
+  - R3
+  supported_by:
+  - c_aside
+  - c_msa
+  - c_dt
+  page: 1
+- id: k2
+  text: fidelity-aware preference tuning raises processing while keeping security
+  location: Section 4.3
+  anchor: S EC F ID preference tuning improves processing while
+  jobs:
+  - R1
+  - R3
+  supported_by:
+  - c_dpo_core
+  - c_dpo_edit
+  page: 7
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: proxy
+  R3ns: direct
+  R3cp: direct
+  R3safe: direct
+schema_gaps:
+- where: defence metasecalign_8b_sf
+  note: the paper prints SecAlign but evaluates the released facebook/Meta-SecAlign-8B adapter (p. 24); v0 has one name field and no checkpoint identifier, so the two defences can be conflated across reports
+- where: results r_*_p
+  note: Processed is both correct handling of the data (R3cp) and the user's task done under attack (R2attack proxy) in translation and editing; v0 allows one quantity per printed result
+- where: results
+  note: the base rows of Table 1 report the paired change from base in parentheses next to each defended rate; v0 has no field for a printed difference
+- where: results
+  note: safe processing (R3safe) is defined (p. 4) and reported by task and framing (Tables 15 to 23), not per defence in Table 1; v0 coverage cannot say that a quantity is reported only at an aggregate level
+- where: claim k2
+  note: the supporting split was locked before testing and one task (editing) was held out entirely; v0 has no field for whether a test split was locked or held out from training
