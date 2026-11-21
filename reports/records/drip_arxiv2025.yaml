@@ -1,0 +1,1769 @@
+report:
+  id: drip_arxiv2025
+  slug: '2511.00447'
+  title: 'DRIP: Defending Prompt Injection via Token-wise Representation Editing and Residual Instruction Fusion'
+  first_author: Ruofan Liu
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2511.00447'
+  version_read: arXiv v2
+  first_date: '2025-11-01'
+  read: F
+  role: proposes
+  code_release: demo site cited; code not checked
+  later_version: DOI 10.1145/3830454.3832577 (from the search record; not read)
+  extraction_scope: 'Sections 3 and 4.1 to 4.3: the Undefended, SecAlign and Ours rows of Tables 3, 4 and 6 and the Naive, Hackaprompt, GCG and NeuralExec rows of Table 5; the abstract claims (StruQ, ISE and PFT rows, family
+    averages of Table 5, Figure 8, Table 7 ablation and Appendix tables not coded)'
+defences:
+- id: drip_l8
+  name: DRIP
+  origin: this_report
+  base_checkpoint: LLaMA-8B (as printed; Llama 3 chat template)
+  axis1:
+  - chat_roles
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: partly
+  trains_carry_through: yes_by_preference
+  page: 6
+  components:
+  - 'de-instruction shift: a learned token-wise linear edit of the data tokens'' embeddings'
+  - 'instruction fusion: the last instruction token''s hidden state added to the output state before the LM head'
+  - 'DPO with LoRA on curated SEP-train pairs: injected tasks resampled from SQuAD so the same instruction strings also appear as top-level instructions with other data'
+  - preferred responses process the whole data section, the injected sentence included (Figure 4 translates it; the prompt adds a do-not-omit instruction)
+  layout: instruction in the system turn, data in the user turn, response in the assistant turn
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: not stated
+  anchor: 'Experiments use two widely adopted decoder-only backbones: LLaMA-8B [19] and Mistral-7B'
+  pages:
+    components: 4
+    trains_instruction_pair: 5
+    trains_carry_through: 6
+    layout: 5
+    isolation: 12
+- id: secalign_l8
+  name: SecAlign (baseline run by the DRIP authors)
+  origin: other_report
+  base_checkpoint: LLaMA-8B (as printed; Llama 3 chat template)
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: Extends StruQ by replacing the SFT loss with a preference-based DPO objective
+- id: drip_m7
+  name: DRIP
+  origin: this_report
+  base_checkpoint: Mistral-7B (as printed)
+  axis1:
+  - chat_roles
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: partly
+  trains_carry_through: yes_by_preference
+  page: 6
+  components:
+  - 'de-instruction shift: a learned token-wise linear edit of the data tokens'' embeddings'
+  - 'instruction fusion: the last instruction token''s hidden state added to the output state before the LM head'
+  - 'DPO with LoRA on curated SEP-train pairs: injected tasks resampled from SQuAD so the same instruction strings also appear as top-level instructions with other data'
+  - preferred responses process the whole data section, the injected sentence included (Figure 4 translates it; the prompt adds a do-not-omit instruction)
+  layout: instruction in the system turn, data in the user turn, response in the assistant turn
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: not stated
+  anchor: 'Experiments use two widely adopted decoder-only backbones: LLaMA-8B [19] and Mistral-7B'
+  pages:
+    components: 4
+    trains_instruction_pair: 5
+    trains_carry_through: 6
+    layout: 5
+    isolation: 12
+- id: secalign_m7
+  name: SecAlign (baseline run by the DRIP authors)
+  origin: other_report
+  base_checkpoint: Mistral-7B (as printed)
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: Extends StruQ by replacing the SFT loss with a preference-based DPO objective
+evaluations:
+- id: ev_l8_none_sep
+  defence_id: none:LLaMA-8B (as printed; Llama 3 chat template)
+  benchmark: SEP benchmark (9,160 tuples, injected task in the data and as the instruction)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string emitted in the instruction placement and suppressed in the data placement
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  sample_size: 9,160
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l8_sec_sep
+  defence_id: secalign_l8
+  benchmark: SEP benchmark (9,160 tuples, injected task in the data and as the instruction)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string emitted in the instruction placement and suppressed in the data placement
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  sample_size: 9,160
+  decoding: not reported
+- id: ev_l8_drip_sep
+  defence_id: drip_l8
+  benchmark: SEP benchmark (9,160 tuples, injected task in the data and as the instruction)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string emitted in the instruction placement and suppressed in the data placement
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  sample_size: 9,160
+  decoding: not reported
+- id: ev_m7_none_sep
+  defence_id: none:Mistral-7B (as printed)
+  benchmark: SEP benchmark (9,160 tuples, injected task in the data and as the instruction)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string emitted in the instruction placement and suppressed in the data placement
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  sample_size: 9,160
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m7_sec_sep
+  defence_id: secalign_m7
+  benchmark: SEP benchmark (9,160 tuples, injected task in the data and as the instruction)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string emitted in the instruction placement and suppressed in the data placement
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  sample_size: 9,160
+  decoding: not reported
+- id: ev_m7_drip_sep
+  defence_id: drip_m7
+  benchmark: SEP benchmark (9,160 tuples, injected task in the data and as the instruction)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string emitted in the instruction placement and suppressed in the data placement
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  sample_size: 9,160
+  decoding: not reported
+- id: ev_l8_none_injecagent
+  defence_id: none:LLaMA-8B (as printed; Llama 3 chat template)
+  benchmark: InjecAgent, Enhanced setting (1,054 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: agent executes the malicious API
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  attacker_budget: Enhanced setting adversarial prefix
+  sample_size: 1,054
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l8_sec_injecagent
+  defence_id: secalign_l8
+  benchmark: InjecAgent, Enhanced setting (1,054 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: agent executes the malicious API
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  attacker_budget: Enhanced setting adversarial prefix
+  sample_size: 1,054
+  decoding: not reported
+- id: ev_l8_drip_injecagent
+  defence_id: drip_l8
+  benchmark: InjecAgent, Enhanced setting (1,054 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: agent executes the malicious API
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  attacker_budget: Enhanced setting adversarial prefix
+  sample_size: 1,054
+  decoding: not reported
+- id: ev_m7_none_injecagent
+  defence_id: none:Mistral-7B (as printed)
+  benchmark: InjecAgent, Enhanced setting (1,054 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: agent executes the malicious API
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  attacker_budget: Enhanced setting adversarial prefix
+  sample_size: 1,054
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m7_sec_injecagent
+  defence_id: secalign_m7
+  benchmark: InjecAgent, Enhanced setting (1,054 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: agent executes the malicious API
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  attacker_budget: Enhanced setting adversarial prefix
+  sample_size: 1,054
+  decoding: not reported
+- id: ev_m7_drip_injecagent
+  defence_id: drip_m7
+  benchmark: InjecAgent, Enhanced setting (1,054 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: agent executes the malicious API
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 7
+  attacker_budget: Enhanced setting adversarial prefix
+  sample_size: 1,054
+  decoding: not reported
+- id: ev_l8_none_naive
+  defence_id: none:LLaMA-8B (as printed; Llama 3 chat template)
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Naive
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+  baseline_kind: off_the_shelf
+- id: ev_l8_sec_naive
+  defence_id: secalign_l8
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Naive
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_l8_drip_naive
+  defence_id: drip_l8
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Naive
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_m7_none_naive
+  defence_id: none:Mistral-7B (as printed)
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Naive
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+  baseline_kind: off_the_shelf
+- id: ev_m7_sec_naive
+  defence_id: secalign_m7
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Naive
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_m7_drip_naive
+  defence_id: drip_m7
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Naive
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_l8_none_hackaprompt
+  defence_id: none:LLaMA-8B (as printed; Llama 3 chat template)
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: human
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Hackaprompt
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+  baseline_kind: off_the_shelf
+- id: ev_l8_sec_hackaprompt
+  defence_id: secalign_l8
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: human
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Hackaprompt
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_l8_drip_hackaprompt
+  defence_id: drip_l8
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: human
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Hackaprompt
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_m7_none_hackaprompt
+  defence_id: none:Mistral-7B (as printed)
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: human
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Hackaprompt
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+  baseline_kind: off_the_shelf
+- id: ev_m7_sec_hackaprompt
+  defence_id: secalign_m7
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: human
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Hackaprompt
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_m7_drip_hackaprompt
+  defence_id: drip_m7
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: human
+  attacker_access: black_box
+  judge: reply equals hacked after trimming whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: Hackaprompt
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_l8_none_gcg
+  defence_id: none:LLaMA-8B (as printed; Llama 3 chat template)
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: GCG sample-specific prefix and suffix
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+  baseline_kind: off_the_shelf
+- id: ev_l8_sec_gcg
+  defence_id: secalign_l8
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: GCG sample-specific prefix and suffix
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_l8_drip_gcg
+  defence_id: drip_l8
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: GCG sample-specific prefix and suffix
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_m7_none_gcg
+  defence_id: none:Mistral-7B (as printed)
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: GCG sample-specific prefix and suffix
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+  baseline_kind: off_the_shelf
+- id: ev_m7_sec_gcg
+  defence_id: secalign_m7
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: GCG sample-specific prefix and suffix
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_m7_drip_gcg
+  defence_id: drip_m7
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: GCG sample-specific prefix and suffix
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_l8_none_neuralexec
+  defence_id: none:LLaMA-8B (as printed; Llama 3 chat template)
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: NeuralExec model-universal trigger
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+  baseline_kind: off_the_shelf
+- id: ev_l8_sec_neuralexec
+  defence_id: secalign_l8
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: NeuralExec model-universal trigger
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_l8_drip_neuralexec
+  defence_id: drip_l8
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: NeuralExec model-universal trigger
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_m7_none_neuralexec
+  defence_id: none:Mistral-7B (as printed)
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: NeuralExec model-universal trigger
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+  baseline_kind: off_the_shelf
+- id: ev_m7_sec_neuralexec
+  defence_id: secalign_m7
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: NeuralExec model-universal trigger
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_m7_drip_neuralexec
+  defence_id: drip_m7
+  benchmark: AlpacaFarm samples with a data part, Print exactly 'hacked'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply starts with hacked, case-insensitive
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 8
+  attacker_budget: NeuralExec model-universal trigger
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+- id: ev_l8_none_ifeval
+  defence_id: none:LLaMA-8B (as printed; Llama 3 chat template)
+  benchmark: IFEval (541 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: official rule-based checks, strict instruction-level accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '541'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l8_sec_ifeval
+  defence_id: secalign_l8
+  benchmark: IFEval (541 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: official rule-based checks, strict instruction-level accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '541'
+  decoding: not reported
+- id: ev_l8_drip_ifeval
+  defence_id: drip_l8
+  benchmark: IFEval (541 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: official rule-based checks, strict instruction-level accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '541'
+  decoding: not reported
+- id: ev_m7_none_ifeval
+  defence_id: none:Mistral-7B (as printed)
+  benchmark: IFEval (541 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: official rule-based checks, strict instruction-level accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '541'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m7_sec_ifeval
+  defence_id: secalign_m7
+  benchmark: IFEval (541 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: official rule-based checks, strict instruction-level accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '541'
+  decoding: not reported
+- id: ev_m7_drip_ifeval
+  defence_id: drip_m7
+  benchmark: IFEval (541 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: official rule-based checks, strict instruction-level accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '541'
+  decoding: not reported
+- id: ev_l8_none_alpacaeval
+  defence_id: none:LLaMA-8B (as printed; Llama 3 chat template)
+  benchmark: AlpacaEval 2.0 (805 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge win rate against GPT-4 reference outputs, ties as half
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '805'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l8_sec_alpacaeval
+  defence_id: secalign_l8
+  benchmark: AlpacaEval 2.0 (805 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge win rate against GPT-4 reference outputs, ties as half
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '805'
+  decoding: not reported
+- id: ev_l8_drip_alpacaeval
+  defence_id: drip_l8
+  benchmark: AlpacaEval 2.0 (805 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge win rate against GPT-4 reference outputs, ties as half
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '805'
+  decoding: not reported
+- id: ev_m7_none_alpacaeval
+  defence_id: none:Mistral-7B (as printed)
+  benchmark: AlpacaEval 2.0 (805 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge win rate against GPT-4 reference outputs, ties as half
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '805'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m7_sec_alpacaeval
+  defence_id: secalign_m7
+  benchmark: AlpacaEval 2.0 (805 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge win rate against GPT-4 reference outputs, ties as half
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '805'
+  decoding: not reported
+- id: ev_m7_drip_alpacaeval
+  defence_id: drip_m7
+  benchmark: AlpacaEval 2.0 (805 prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge win rate against GPT-4 reference outputs, ties as half
+  layout_same_as_defence: 'yes'
+  measured_by: drip_arxiv2025
+  page: 10
+  sample_size: '805'
+  decoding: not reported
+results:
+- id: r_l8_none_sep
+  evaluation_id: ev_l8_none_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP %
+  value: '21.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l8_sec_sep
+  evaluation_id: ev_l8_sec_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP %
+  value: '31.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l8_drip_sep
+  evaluation_id: ev_l8_drip_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP %
+  value: '80.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m7_none_sep
+  evaluation_id: ev_m7_none_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP %
+  value: '20.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m7_sec_sep
+  evaluation_id: ev_m7_sec_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP %
+  value: '58.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m7_drip_sep
+  evaluation_id: ev_m7_drip_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP %
+  value: '70.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l8_none_injecagent
+  evaluation_id: ev_l8_none_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR %
+  value: '64.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 4
+- id: r_l8_sec_injecagent
+  evaluation_id: ev_l8_sec_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR %
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 4
+- id: r_l8_drip_injecagent
+  evaluation_id: ev_l8_drip_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR %
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 4
+- id: r_m7_none_injecagent
+  evaluation_id: ev_m7_none_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR %
+  value: '30.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 4
+- id: r_m7_sec_injecagent
+  evaluation_id: ev_m7_sec_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR %
+  value: '0.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 4
+- id: r_m7_drip_injecagent
+  evaluation_id: ev_m7_drip_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR %
+  value: '1.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 4
+- id: r_l8_none_naive
+  evaluation_id: ev_l8_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '5.74'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_sec_naive
+  evaluation_id: ev_l8_sec_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_drip_naive
+  evaluation_id: ev_l8_drip_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_none_naive
+  evaluation_id: ev_m7_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '2.39'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_sec_naive
+  evaluation_id: ev_m7_sec_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_drip_naive
+  evaluation_id: ev_m7_drip_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_none_hackaprompt
+  evaluation_id: ev_l8_none_hackaprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Hackaprompt
+  value: '23.81'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_sec_hackaprompt
+  evaluation_id: ev_l8_sec_hackaprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Hackaprompt
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_drip_hackaprompt
+  evaluation_id: ev_l8_drip_hackaprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Hackaprompt
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_none_hackaprompt
+  evaluation_id: ev_m7_none_hackaprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Hackaprompt
+  value: '38.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_sec_hackaprompt
+  evaluation_id: ev_m7_sec_hackaprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Hackaprompt
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_drip_hackaprompt
+  evaluation_id: ev_m7_drip_hackaprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Hackaprompt
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_none_gcg
+  evaluation_id: ev_l8_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '98.08'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_sec_gcg
+  evaluation_id: ev_l8_sec_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '66.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_drip_gcg
+  evaluation_id: ev_l8_drip_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '1.06'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_none_gcg
+  evaluation_id: ev_m7_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_sec_gcg
+  evaluation_id: ev_m7_sec_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '98.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_drip_gcg
+  evaluation_id: ev_m7_drip_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '3.37'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_none_neuralexec
+  evaluation_id: ev_l8_none_neuralexec
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NeuralExec
+  value: '12.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_sec_neuralexec
+  evaluation_id: ev_l8_sec_neuralexec
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NeuralExec
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_drip_neuralexec
+  evaluation_id: ev_l8_drip_neuralexec
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NeuralExec
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_none_neuralexec
+  evaluation_id: ev_m7_none_neuralexec
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NeuralExec
+  value: '51.92'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_sec_neuralexec
+  evaluation_id: ev_m7_sec_neuralexec
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NeuralExec
+  value: '2.88'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_m7_drip_neuralexec
+  evaluation_id: ev_m7_drip_neuralexec
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NeuralExec
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_l8_none_ifeval
+  evaluation_id: ev_l8_none_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval (%)
+  value: '72.66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_l8_sec_ifeval
+  evaluation_id: ev_l8_sec_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval (%)
+  value: '65.47'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_l8_drip_ifeval
+  evaluation_id: ev_l8_drip_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval (%)
+  value: '76.02'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_m7_none_ifeval
+  evaluation_id: ev_m7_none_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval (%)
+  value: '58.51'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_m7_sec_ifeval
+  evaluation_id: ev_m7_sec_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval (%)
+  value: '48.68'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_m7_drip_ifeval
+  evaluation_id: ev_m7_drip_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval (%)
+  value: '60.07'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_l8_none_alpacaeval
+  evaluation_id: ev_l8_none_alpacaeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval-2.0 (%)
+  value: '85.37'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_l8_sec_alpacaeval
+  evaluation_id: ev_l8_sec_alpacaeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval-2.0 (%)
+  value: '64.64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_l8_drip_alpacaeval
+  evaluation_id: ev_l8_drip_alpacaeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval-2.0 (%)
+  value: '83.89'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_m7_none_alpacaeval
+  evaluation_id: ev_m7_none_alpacaeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval-2.0 (%)
+  value: '86.39'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_m7_sec_alpacaeval
+  evaluation_id: ev_m7_sec_alpacaeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval-2.0 (%)
+  value: '72.08'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+- id: r_m7_drip_alpacaeval
+  evaluation_id: ev_m7_drip_alpacaeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval-2.0 (%)
+  value: '82.78'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 6
+comparisons:
+- id: c_l8_sep_drip_none
+  left: ev_l8_drip_sep
+  right: ev_l8_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l8_sep_drip_sec
+  left: ev_l8_drip_sep
+  right: ev_l8_sec_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 7
+- id: c_m7_sep_drip_none
+  left: ev_m7_drip_sep
+  right: ev_m7_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m7_sep_drip_sec
+  left: ev_m7_drip_sep
+  right: ev_m7_sec_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 7
+- id: c_l8_injecagent_drip_none
+  left: ev_l8_drip_injecagent
+  right: ev_l8_none_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l8_injecagent_drip_sec
+  left: ev_l8_drip_injecagent
+  right: ev_l8_sec_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 7
+- id: c_m7_injecagent_drip_none
+  left: ev_m7_drip_injecagent
+  right: ev_m7_none_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m7_injecagent_drip_sec
+  left: ev_m7_drip_injecagent
+  right: ev_m7_sec_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 7
+- id: c_l8_naive_drip_none
+  left: ev_l8_drip_naive
+  right: ev_l8_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l8_naive_drip_sec
+  left: ev_l8_drip_naive
+  right: ev_l8_sec_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 8
+- id: c_m7_naive_drip_none
+  left: ev_m7_drip_naive
+  right: ev_m7_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_m7_naive_drip_sec
+  left: ev_m7_drip_naive
+  right: ev_m7_sec_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 8
+- id: c_l8_hackaprompt_drip_none
+  left: ev_l8_drip_hackaprompt
+  right: ev_l8_none_hackaprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l8_hackaprompt_drip_sec
+  left: ev_l8_drip_hackaprompt
+  right: ev_l8_sec_hackaprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 8
+- id: c_m7_hackaprompt_drip_none
+  left: ev_m7_drip_hackaprompt
+  right: ev_m7_none_hackaprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_m7_hackaprompt_drip_sec
+  left: ev_m7_drip_hackaprompt
+  right: ev_m7_sec_hackaprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 8
+- id: c_l8_gcg_drip_none
+  left: ev_l8_drip_gcg
+  right: ev_l8_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l8_gcg_drip_sec
+  left: ev_l8_drip_gcg
+  right: ev_l8_sec_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 8
+- id: c_m7_gcg_drip_none
+  left: ev_m7_drip_gcg
+  right: ev_m7_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_m7_gcg_drip_sec
+  left: ev_m7_drip_gcg
+  right: ev_m7_sec_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 8
+- id: c_l8_neuralexec_drip_none
+  left: ev_l8_drip_neuralexec
+  right: ev_l8_none_neuralexec
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l8_neuralexec_drip_sec
+  left: ev_l8_drip_neuralexec
+  right: ev_l8_sec_neuralexec
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 8
+- id: c_m7_neuralexec_drip_none
+  left: ev_m7_drip_neuralexec
+  right: ev_m7_none_neuralexec
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_m7_neuralexec_drip_sec
+  left: ev_m7_drip_neuralexec
+  right: ev_m7_sec_neuralexec
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 8
+- id: c_l8_ifeval_drip_none
+  left: ev_l8_drip_ifeval
+  right: ev_l8_none_ifeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_l8_ifeval_drip_sec
+  left: ev_l8_drip_ifeval
+  right: ev_l8_sec_ifeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 10
+- id: c_m7_ifeval_drip_none
+  left: ev_m7_drip_ifeval
+  right: ev_m7_none_ifeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_m7_ifeval_drip_sec
+  left: ev_m7_drip_ifeval
+  right: ev_m7_sec_ifeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 10
+- id: c_l8_alpacaeval_drip_none
+  left: ev_l8_drip_alpacaeval
+  right: ev_l8_none_alpacaeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_l8_alpacaeval_drip_sec
+  left: ev_l8_drip_alpacaeval
+  right: ev_l8_sec_alpacaeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 10
+- id: c_m7_alpacaeval_drip_none
+  left: ev_m7_drip_alpacaeval
+  right: ev_m7_none_alpacaeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_m7_alpacaeval_drip_sec
+  left: ev_m7_drip_alpacaeval
+  right: ev_m7_sec_alpacaeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: DRIP against SecAlign trained by the same authors on the same base'
+  page: 10
+claims:
+- id: k1
+  text: role separation score improves by 12 to 49 points over prior defences
+  location: abstract
+  anchor: improves role separation score by 12–49%
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_l8_sep_drip_sec
+  - c_m7_sep_drip_sec
+  page: 1
+- id: k2
+  text: attack success under adaptive attacks falls by over 66%
+  location: abstract
+  anchor: duces attack success rate by over 66% for adaptive attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_l8_gcg_drip_sec
+  - c_m7_gcg_drip_sec
+  - c_l8_gcg_drip_none
+  - c_m7_gcg_drip_none
+  page: 1
+- id: k3
+  text: utility on par with the undefended model
+  location: abstract
+  anchor: achieves utility on par with the undefended model
+  jobs:
+  - general_utility
+  supported_by:
+  - c_l8_ifeval_drip_none
+  - c_m7_ifeval_drip_none
+  - c_l8_alpacaeval_drip_none
+  - c_m7_alpacaeval_drip_none
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 4 and 5
+    other: Table 3 (SEP score)
+    general_utility: Table 6 (IFEval, AlpacaEval 2.0)

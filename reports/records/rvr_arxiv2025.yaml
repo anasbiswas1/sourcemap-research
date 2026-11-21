@@ -1,0 +1,2435 @@
+report:
+  id: rvr_arxiv2025
+  slug: '2504.20472'
+  title: 'Robustness via Referencing: Defending against Prompt Injection Attacks by Referencing the Executed Instruction'
+  first_author: Yulin Chen
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2504.20472'
+  version_read: arXiv v2
+  first_date: '2025-04-29'
+  read: F
+  role: proposes
+  code_release: stated as public in a footnote; not checked
+  later_version: Findings of ACL 2026, DOI 10.18653/v1/2026.findings-acl.61 (from the search record; not read)
+  extraction_scope: 'Sections 4 and 5.1 to 5.3 and Appendix B: the None, StruQ and Ours rows of Table 2 (Inj-SQuAD, indirect) and the None and Ours rows of Table 3; the abstract claims (Table 1 direct scenario, other prompting
+    baselines, Tables 4 to 6 and 9 to 12 not coded)'
+defences:
+- id: rvr_l3
+  name: Robustness via Referencing (instruction referencing with filtering)
+  origin: this_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  components:
+  - data split into lines of at most K words, each prefixed with a tag [L X]; the instruction placed as line 1
+  - instruction and data enclosed in <Instruction Area> and <Data Area> markers
+  - prompt asks the model to name the tag and instruction it executes for each answer; two in-context examples
+  - filter keeps only the answer referencing [L 1]
+  layout: 'one prompt: instruction area, then the tagged data lines in a data area'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The entire defense pipeline consists of three se- quential steps
+  pages:
+    components: 5
+    isolation: 17
+- id: struq_l3
+  name: StruQ (baseline run by the authors)
+  origin: other_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  anchor: To compare with fine-tuning method, we select StruQ
+- id: rvr_q2
+  name: Robustness via Referencing (instruction referencing with filtering)
+  origin: this_report
+  base_checkpoint: Qwen2-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  components:
+  - data split into lines of at most K words, each prefixed with a tag [L X]; the instruction placed as line 1
+  - instruction and data enclosed in <Instruction Area> and <Data Area> markers
+  - prompt asks the model to name the tag and instruction it executes for each answer; two in-context examples
+  - filter keeps only the answer referencing [L 1]
+  layout: 'one prompt: instruction area, then the tagged data lines in a data area'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The entire defense pipeline consists of three se- quential steps
+  pages:
+    components: 5
+    isolation: 17
+- id: struq_q2
+  name: StruQ (baseline run by the authors)
+  origin: other_report
+  base_checkpoint: Qwen2-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  anchor: To compare with fine-tuning method, we select StruQ
+- id: rvr_l31
+  name: Robustness via Referencing (instruction referencing with filtering)
+  origin: this_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  components:
+  - data split into lines of at most K words, each prefixed with a tag [L X]; the instruction placed as line 1
+  - instruction and data enclosed in <Instruction Area> and <Data Area> markers
+  - prompt asks the model to name the tag and instruction it executes for each answer; two in-context examples
+  - filter keeps only the answer referencing [L 1]
+  layout: 'one prompt: instruction area, then the tagged data lines in a data area'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The entire defense pipeline consists of three se- quential steps
+  pages:
+    components: 5
+    isolation: 17
+- id: struq_l31
+  name: StruQ (baseline run by the authors)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  anchor: To compare with fine-tuning method, we select StruQ
+evaluations:
+- id: ev_l3_none_naive
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_ignore
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_escape
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_fakecom
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_combined
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l3_struq_naive
+  defence_id: struq_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_struq_ignore
+  defence_id: struq_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_struq_escape
+  defence_id: struq_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_struq_fakecom
+  defence_id: struq_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_struq_combined
+  defence_id: struq_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_rvr_naive
+  defence_id: rvr_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_rvr_ignore
+  defence_id: rvr_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_rvr_escape
+  defence_id: rvr_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_rvr_fakecom
+  defence_id: rvr_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_rvr_combined
+  defence_id: rvr_l3
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_none_util_squad
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: SQuAD without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_util_triviaqa
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: TriviaQA without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_util_sst2
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: SST2 without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l3_rvr_util_squad
+  defence_id: rvr_l3
+  benchmark: SQuAD without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_rvr_util_triviaqa
+  defence_id: rvr_l3
+  benchmark: TriviaQA without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l3_rvr_util_sst2
+  defence_id: rvr_l3
+  benchmark: SST2 without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_none_naive
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_ignore
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_escape
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_fakecom
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_combined
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_q2_struq_naive
+  defence_id: struq_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_struq_ignore
+  defence_id: struq_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_struq_escape
+  defence_id: struq_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_struq_fakecom
+  defence_id: struq_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_struq_combined
+  defence_id: struq_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_rvr_naive
+  defence_id: rvr_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_rvr_ignore
+  defence_id: rvr_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_rvr_escape
+  defence_id: rvr_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_rvr_fakecom
+  defence_id: rvr_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_rvr_combined
+  defence_id: rvr_q2
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_none_util_squad
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: SQuAD without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_util_triviaqa
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: TriviaQA without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_util_sst2
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: SST2 without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_q2_rvr_util_squad
+  defence_id: rvr_q2
+  benchmark: SQuAD without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_rvr_util_triviaqa
+  defence_id: rvr_q2
+  benchmark: TriviaQA without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_q2_rvr_util_sst2
+  defence_id: rvr_q2
+  benchmark: SST2 without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_none_naive
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_ignore
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_escape
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_fakecom
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_combined
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_struq_naive
+  defence_id: struq_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_struq_ignore
+  defence_id: struq_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_struq_escape
+  defence_id: struq_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_struq_fakecom
+  defence_id: struq_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_struq_combined
+  defence_id: struq_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_rvr_naive
+  defence_id: rvr_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_rvr_ignore
+  defence_id: rvr_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_rvr_escape
+  defence_id: rvr_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_rvr_fakecom
+  defence_id: rvr_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_rvr_combined
+  defence_id: rvr_l31
+  benchmark: Inj-SQuAD (900 samples, injections for phishing, advertisement and propaganda)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response contains the answer to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '900'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_none_util_squad
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: SQuAD without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_util_triviaqa
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: TriviaQA without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_util_sst2
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: SST2 without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_rvr_util_squad
+  defence_id: rvr_l31
+  benchmark: SQuAD without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_rvr_util_triviaqa
+  defence_id: rvr_l31
+  benchmark: TriviaQA without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+- id: ev_l31_rvr_util_sst2
+  defence_id: rvr_l31
+  benchmark: SST2 without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: rvr_arxiv2025
+  page: 8
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 13
+results:
+- id: r_l3_none_naive
+  evaluation_id: ev_l3_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '53.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_ignore
+  evaluation_id: ev_l3_none_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '73.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_escape
+  evaluation_id: ev_l3_none_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '75.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_fakecom
+  evaluation_id: ev_l3_none_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '84.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_combined
+  evaluation_id: ev_l3_none_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '86.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_struq_naive
+  evaluation_id: ev_l3_struq_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '3.33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_struq_ignore
+  evaluation_id: ev_l3_struq_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '4.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_struq_escape
+  evaluation_id: ev_l3_struq_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '4.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_struq_fakecom
+  evaluation_id: ev_l3_struq_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '3.33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_struq_combined
+  evaluation_id: ev_l3_struq_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '16.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_rvr_naive
+  evaluation_id: ev_l3_rvr_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_rvr_ignore
+  evaluation_id: ev_l3_rvr_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '1.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_rvr_escape
+  evaluation_id: ev_l3_rvr_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '0.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_rvr_fakecom
+  evaluation_id: ev_l3_rvr_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '1.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_rvr_combined
+  evaluation_id: ev_l3_rvr_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '0.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_util_squad
+  evaluation_id: ev_l3_none_util_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SQuAD
+  value: '83.56'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l3_none_util_triviaqa
+  evaluation_id: ev_l3_none_util_triviaqa
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: TriviaQA
+  value: '75.78'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l3_none_util_sst2
+  evaluation_id: ev_l3_none_util_sst2
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SST2
+  value: '94.84'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l3_rvr_util_squad
+  evaluation_id: ev_l3_rvr_util_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SQuAD
+  value: '87.78'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l3_rvr_util_triviaqa
+  evaluation_id: ev_l3_rvr_util_triviaqa
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: TriviaQA
+  value: '77.44'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l3_rvr_util_sst2
+  evaluation_id: ev_l3_rvr_util_sst2
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SST2
+  value: '93.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_q2_none_naive
+  evaluation_id: ev_q2_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '70.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_ignore
+  evaluation_id: ev_q2_none_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '80.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_escape
+  evaluation_id: ev_q2_none_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '78.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_fakecom
+  evaluation_id: ev_q2_none_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '96.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_combined
+  evaluation_id: ev_q2_none_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '92.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_struq_naive
+  evaluation_id: ev_q2_struq_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '12.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_struq_ignore
+  evaluation_id: ev_q2_struq_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '11.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_struq_escape
+  evaluation_id: ev_q2_struq_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '11.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_struq_fakecom
+  evaluation_id: ev_q2_struq_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '78.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_struq_combined
+  evaluation_id: ev_q2_struq_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '82.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_rvr_naive
+  evaluation_id: ev_q2_rvr_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '4.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_rvr_ignore
+  evaluation_id: ev_q2_rvr_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '2.33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_rvr_escape
+  evaluation_id: ev_q2_rvr_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '2.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_rvr_fakecom
+  evaluation_id: ev_q2_rvr_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '1.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_rvr_combined
+  evaluation_id: ev_q2_rvr_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '1.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_util_squad
+  evaluation_id: ev_q2_none_util_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SQuAD
+  value: '79.44'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_q2_none_util_triviaqa
+  evaluation_id: ev_q2_none_util_triviaqa
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: TriviaQA
+  value: '77.22'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_q2_none_util_sst2
+  evaluation_id: ev_q2_none_util_sst2
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SST2
+  value: '94.95'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_q2_rvr_util_squad
+  evaluation_id: ev_q2_rvr_util_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SQuAD
+  value: '88.11'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_q2_rvr_util_triviaqa
+  evaluation_id: ev_q2_rvr_util_triviaqa
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: TriviaQA
+  value: '78.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_q2_rvr_util_sst2
+  evaluation_id: ev_q2_rvr_util_sst2
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SST2
+  value: '94.04'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l31_none_naive
+  evaluation_id: ev_l31_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '64.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_ignore
+  evaluation_id: ev_l31_none_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '77.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_escape
+  evaluation_id: ev_l31_none_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '76.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_fakecom
+  evaluation_id: ev_l31_none_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '85.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_combined
+  evaluation_id: ev_l31_none_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '84.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_struq_naive
+  evaluation_id: ev_l31_struq_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_struq_ignore
+  evaluation_id: ev_l31_struq_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '1.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_struq_escape
+  evaluation_id: ev_l31_struq_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '0.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_struq_fakecom
+  evaluation_id: ev_l31_struq_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '46.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_struq_combined
+  evaluation_id: ev_l31_struq_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '56.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_rvr_naive
+  evaluation_id: ev_l31_rvr_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_rvr_ignore
+  evaluation_id: ev_l31_rvr_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '0.33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_rvr_escape
+  evaluation_id: ev_l31_rvr_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '0.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_rvr_fakecom
+  evaluation_id: ev_l31_rvr_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '0.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_rvr_combined
+  evaluation_id: ev_l31_rvr_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '0.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_util_squad
+  evaluation_id: ev_l31_none_util_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SQuAD
+  value: '82.11'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l31_none_util_triviaqa
+  evaluation_id: ev_l31_none_util_triviaqa
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: TriviaQA
+  value: '79.11'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l31_none_util_sst2
+  evaluation_id: ev_l31_none_util_sst2
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SST2
+  value: '94.61'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l31_rvr_util_squad
+  evaluation_id: ev_l31_rvr_util_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SQuAD
+  value: '88.22'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l31_rvr_util_triviaqa
+  evaluation_id: ev_l31_rvr_util_triviaqa
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: TriviaQA
+  value: '79.44'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l31_rvr_util_sst2
+  evaluation_id: ev_l31_rvr_util_sst2
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: SST2
+  value: '92.78'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+comparisons:
+- id: c_l3_naive_rvr_none
+  left: ev_l3_rvr_naive
+  right: ev_l3_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_naive_rvr_struq
+  left: ev_l3_rvr_naive
+  right: ev_l3_struq_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l3_ignore_rvr_none
+  left: ev_l3_rvr_ignore
+  right: ev_l3_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_ignore_rvr_struq
+  left: ev_l3_rvr_ignore
+  right: ev_l3_struq_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l3_escape_rvr_none
+  left: ev_l3_rvr_escape
+  right: ev_l3_none_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_escape_rvr_struq
+  left: ev_l3_rvr_escape
+  right: ev_l3_struq_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l3_fakecom_rvr_none
+  left: ev_l3_rvr_fakecom
+  right: ev_l3_none_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_fakecom_rvr_struq
+  left: ev_l3_rvr_fakecom
+  right: ev_l3_struq_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l3_combined_rvr_none
+  left: ev_l3_rvr_combined
+  right: ev_l3_none_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_combined_rvr_struq
+  left: ev_l3_rvr_combined
+  right: ev_l3_struq_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l3_util_squad
+  left: ev_l3_rvr_util_squad
+  right: ev_l3_none_util_squad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_util_triviaqa
+  left: ev_l3_rvr_util_triviaqa
+  right: ev_l3_none_util_triviaqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_util_sst2
+  left: ev_l3_rvr_util_sst2
+  right: ev_l3_none_util_sst2
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q2_naive_rvr_none
+  left: ev_q2_rvr_naive
+  right: ev_q2_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_naive_rvr_struq
+  left: ev_q2_rvr_naive
+  right: ev_q2_struq_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_q2_ignore_rvr_none
+  left: ev_q2_rvr_ignore
+  right: ev_q2_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_ignore_rvr_struq
+  left: ev_q2_rvr_ignore
+  right: ev_q2_struq_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_q2_escape_rvr_none
+  left: ev_q2_rvr_escape
+  right: ev_q2_none_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_escape_rvr_struq
+  left: ev_q2_rvr_escape
+  right: ev_q2_struq_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_q2_fakecom_rvr_none
+  left: ev_q2_rvr_fakecom
+  right: ev_q2_none_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_fakecom_rvr_struq
+  left: ev_q2_rvr_fakecom
+  right: ev_q2_struq_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_q2_combined_rvr_none
+  left: ev_q2_rvr_combined
+  right: ev_q2_none_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_combined_rvr_struq
+  left: ev_q2_rvr_combined
+  right: ev_q2_struq_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_q2_util_squad
+  left: ev_q2_rvr_util_squad
+  right: ev_q2_none_util_squad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q2_util_triviaqa
+  left: ev_q2_rvr_util_triviaqa
+  right: ev_q2_none_util_triviaqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q2_util_sst2
+  left: ev_q2_rvr_util_sst2
+  right: ev_q2_none_util_sst2
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_naive_rvr_none
+  left: ev_l31_rvr_naive
+  right: ev_l31_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_naive_rvr_struq
+  left: ev_l31_rvr_naive
+  right: ev_l31_struq_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l31_ignore_rvr_none
+  left: ev_l31_rvr_ignore
+  right: ev_l31_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_ignore_rvr_struq
+  left: ev_l31_rvr_ignore
+  right: ev_l31_struq_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l31_escape_rvr_none
+  left: ev_l31_rvr_escape
+  right: ev_l31_none_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_escape_rvr_struq
+  left: ev_l31_rvr_escape
+  right: ev_l31_struq_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l31_fakecom_rvr_none
+  left: ev_l31_rvr_fakecom
+  right: ev_l31_none_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_fakecom_rvr_struq
+  left: ev_l31_rvr_fakecom
+  right: ev_l31_struq_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l31_combined_rvr_none
+  left: ev_l31_rvr_combined
+  right: ev_l31_none_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_combined_rvr_struq
+  left: ev_l31_rvr_combined
+  right: ev_l31_struq_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: referencing with filtering (prompting) against StruQ fine-tuning on the same base'
+  page: 6
+- id: c_l31_util_squad
+  left: ev_l31_rvr_util_squad
+  right: ev_l31_none_util_squad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_util_triviaqa
+  left: ev_l31_rvr_util_triviaqa
+  right: ev_l31_none_util_triviaqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_util_sst2
+  left: ev_l31_rvr_util_sst2
+  right: ev_l31_none_util_sst2
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: outperforms prompting baselines, comparable to fine-tuning, ASR near 0% in some scenarios
+  location: abstract
+  anchor: reducing the ASR to nearly 0% in some scenarios
+  jobs:
+  - R1
+  supported_by:
+  - c_l3_naive_rvr_none
+  - c_l3_ignore_rvr_none
+  - c_l3_escape_rvr_none
+  - c_l3_fakecom_rvr_none
+  - c_l3_combined_rvr_none
+  - c_q2_naive_rvr_none
+  - c_q2_ignore_rvr_none
+  - c_q2_escape_rvr_none
+  - c_q2_fakecom_rvr_none
+  - c_q2_combined_rvr_none
+  - c_l31_naive_rvr_none
+  - c_l31_ignore_rvr_none
+  - c_l31_escape_rvr_none
+  - c_l31_fakecom_rvr_none
+  - c_l31_combined_rvr_none
+  - c_l3_naive_rvr_struq
+  - c_l3_ignore_rvr_struq
+  - c_l3_escape_rvr_struq
+  - c_l3_fakecom_rvr_struq
+  - c_l3_combined_rvr_struq
+  - c_q2_naive_rvr_struq
+  - c_q2_ignore_rvr_struq
+  - c_q2_escape_rvr_struq
+  - c_q2_fakecom_rvr_struq
+  - c_q2_combined_rvr_struq
+  - c_l31_naive_rvr_struq
+  - c_l31_ignore_rvr_struq
+  - c_l31_escape_rvr_struq
+  - c_l31_fakecom_rvr_struq
+  - c_l31_combined_rvr_struq
+  page: 1
+- id: k2
+  text: minimal impact on overall utility
+  location: abstract
+  anchor: our approach has minimal impact on overall util- ity
+  jobs:
+  - R2
+  supported_by:
+  - c_l3_util_squad
+  - c_l3_util_triviaqa
+  - c_l3_util_sst2
+  - c_q2_util_squad
+  - c_q2_util_triviaqa
+  - c_q2_util_sst2
+  - c_l31_util_squad
+  - c_l31_util_triviaqa
+  - c_l31_util_sst2
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2 (Inj-SQuAD)
+    R2clean: Table 3 (accuracy without attacks)

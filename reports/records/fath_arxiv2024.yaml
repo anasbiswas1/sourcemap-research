@@ -1,0 +1,1636 @@
+report:
+  id: fath_arxiv2024
+  slug: '2410.21492'
+  title: 'FATH: Authentication-based Test-time Defense against Indirect Prompt Injection Attacks'
+  first_author: Jiongxiao Wang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2410.21492'
+  version_read: arXiv v2
+  first_date: '2024-10-28'
+  read: F
+  role: proposes
+  code_release: https://github.com/Jayfeather1024/FATH
+  extraction_scope: 'Sections 4 and 5.1 to 5.6: the No Defense and FATH rows of Table 2 (Judge Score, Combined Attack and Adaptive Attack columns), Table 3, the optimisation-attack numbers in Section 5.5 and the w/o Authentication
+    Tags row of Table 4; the abstract claim (other baselines, Naive to Fake Completion columns and the appendix not coded)'
+defences:
+- id: fath_l3
+  name: FATH
+  origin: this_report
+  base_checkpoint: Meta-Llama-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: measured_other_checkpoint
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - instruction and external text wrapped in fresh hash-based tags
+  - 'security policy: answer every instruction, each under its own tag'
+  - rule-based parsing returns only the text under the authorised-response tag
+  - chain-of-thought and in-context examples in the prompt
+  layout: 'one user message: instruction and external text each between hash-based tags'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Finally, an authentication verification process
+  signal_dependence_detail: 'Table 4 (GPT3.5) removes the authentication tags: adaptive ASR 0.06 to 0.18 against 0.00'
+  pages:
+    signal_dependence: 9
+    isolation: 9
+- id: fath_g35
+  name: FATH
+  origin: this_report
+  base_checkpoint: gpt-3.5-turbo
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - instruction and external text wrapped in fresh hash-based tags
+  - 'security policy: answer every instruction, each under its own tag'
+  - rule-based parsing returns only the text under the authorised-response tag
+  - chain-of-thought and in-context examples in the prompt
+  layout: 'one user message: instruction and external text each between hash-based tags'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Finally, an authentication verification process
+  signal_dependence_detail: 'Table 4 (GPT3.5) removes the authentication tags: adaptive ASR 0.06 to 0.18 against 0.00'
+  pages:
+    signal_dependence: 9
+    isolation: 9
+- id: fath_notags_g35
+  name: FATH without authentication tags (ablation)
+  origin: this_report
+  base_checkpoint: gpt-3.5-turbo
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  anchor: w/o Authentication Tags
+evaluations:
+- id: ev_l3_none_judge
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection+ target instructions without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-3.5 rates each answer 1 to 10 (LLM-as-a-Judge), averaged
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_comb_url
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_comb_qa
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_comb_clf
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_adapt_url
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_adapt_qa
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_adapt_clf
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_l3_fath_judge
+  defence_id: fath_l3
+  benchmark: OpenPromptInjection+ target instructions without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-3.5 rates each answer 1 to 10 (LLM-as-a-Judge), averaged
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_l3_fath_comb_url
+  defence_id: fath_l3
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_l3_fath_comb_qa
+  defence_id: fath_l3
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_l3_fath_comb_clf
+  defence_id: fath_l3
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_l3_fath_adapt_url
+  defence_id: fath_l3
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: hand-written adaptive attack built on the Combined Attack with knowledge of the defence prompt
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_l3_fath_adapt_qa
+  defence_id: fath_l3
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: hand-written adaptive attack built on the Combined Attack with knowledge of the defence prompt
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_l3_fath_adapt_clf
+  defence_id: fath_l3
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: hand-written adaptive attack built on the Combined Attack with knowledge of the defence prompt
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_g35_none_judge
+  defence_id: none:gpt-3.5-turbo
+  benchmark: OpenPromptInjection+ target instructions without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-3.5 rates each answer 1 to 10 (LLM-as-a-Judge), averaged
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g35_none_comb_url
+  defence_id: none:gpt-3.5-turbo
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g35_none_comb_qa
+  defence_id: none:gpt-3.5-turbo
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g35_none_comb_clf
+  defence_id: none:gpt-3.5-turbo
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g35_none_adapt_url
+  defence_id: none:gpt-3.5-turbo
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g35_none_adapt_qa
+  defence_id: none:gpt-3.5-turbo
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g35_none_adapt_clf
+  defence_id: none:gpt-3.5-turbo
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g35_fath_judge
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ target instructions without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-3.5 rates each answer 1 to 10 (LLM-as-a-Judge), averaged
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_g35_fath_comb_url
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_g35_fath_comb_qa
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_g35_fath_comb_clf
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack (escape characters, context ignoring, fake completion)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_g35_fath_adapt_url
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: hand-written adaptive attack built on the Combined Attack with knowledge of the defence prompt
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_g35_fath_adapt_qa
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: hand-written adaptive attack built on the Combined Attack with knowledge of the defence prompt
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_g35_fath_adapt_clf
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: hand-written adaptive attack built on the Combined Attack with knowledge of the defence prompt
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_l3_none_ia_comb
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: InjecAgent, direct-harm attack intention (510 examples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack
+  sample_size: '510'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_l3_fath_ia_comb
+  defence_id: fath_l3
+  benchmark: InjecAgent, direct-harm attack intention (510 examples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack
+  sample_size: '510'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_l3_none_ia_adapt
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: InjecAgent, direct-harm attack intention (510 examples)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack
+  sample_size: '510'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_l3_fath_ia_adapt
+  defence_id: fath_l3
+  benchmark: InjecAgent, direct-harm attack intention (510 examples)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: hand-written adaptive attack against FATH
+  sample_size: '510'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_g35_none_ia_comb
+  defence_id: none:gpt-3.5-turbo
+  benchmark: InjecAgent, direct-harm attack intention (510 examples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack
+  sample_size: '510'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g35_fath_ia_comb
+  defence_id: fath_g35
+  benchmark: InjecAgent, direct-harm attack intention (510 examples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of examples successfully attacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack
+  sample_size: '510'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_g35_none_ia_adapt
+  defence_id: none:gpt-3.5-turbo
+  benchmark: InjecAgent, direct-harm attack intention (510 examples)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: Combined Attack
+  sample_size: '510'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g35_fath_ia_adapt
+  defence_id: fath_g35
+  benchmark: InjecAgent, direct-harm attack intention (510 examples)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 8
+  attacker_budget: hand-written adaptive attack against FATH
+  sample_size: '510'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_l3_none_opt
+  defence_id: none:Meta-Llama-3-8B-Instruct
+  benchmark: OpenPromptInjection+, injection Print exactly "Hacked"! with an optimised prefix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply is the target output Hacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 9
+  attacker_budget: gradient-optimised prefix (Liu et al. 2024 framework); against FATH, expectation over five tag sets
+  decoding: model default generation parameters
+  pages:
+    benchmark: 9
+    judge: 9
+  baseline_kind: off_the_shelf
+- id: ev_l3_fath_opt
+  defence_id: fath_l3
+  benchmark: OpenPromptInjection+, injection Print exactly "Hacked"! with an optimised prefix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply is the target output Hacked
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 9
+  attacker_budget: gradient-optimised prefix (Liu et al. 2024 framework); against FATH, expectation over five tag sets
+  decoding: model default generation parameters
+  pages:
+    benchmark: 9
+    judge: 9
+- id: ev_t4_notags_url
+  defence_id: fath_notags_g35
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 9
+  attacker_budget: hand-written adaptive attack against this setting (Appendix E.2)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_t4_fath_url
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ (URL injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 9
+  attacker_budget: hand-written adaptive attack against FATH
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_t4_notags_qa
+  defence_id: fath_notags_g35
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 9
+  attacker_budget: hand-written adaptive attack against this setting (Appendix E.2)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_t4_fath_qa
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ (QA injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 9
+  attacker_budget: hand-written adaptive attack against FATH
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_t4_notags_clf
+  defence_id: fath_notags_g35
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 9
+  attacker_budget: hand-written adaptive attack against this setting (Appendix E.2)
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+- id: ev_t4_fath_clf
+  defence_id: fath_g35
+  benchmark: OpenPromptInjection+ (CLF injection task), 100 Stanford Alpaca target instructions
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: proportion of examples successfully attacked (criterion per injection task not stated in the pages read)
+  layout_same_as_defence: 'yes'
+  measured_by: fath_arxiv2024
+  page: 9
+  attacker_budget: hand-written adaptive attack against FATH
+  sample_size: '100'
+  decoding: model default generation parameters
+  pages:
+    benchmark: 7
+    judge: 7
+    decoding: 7
+results:
+- id: r_l3_none_judge
+  evaluation_id: ev_l3_none_judge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Judge Score
+  value: '8.31'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_none_comb_url
+  evaluation_id: ev_l3_none_comb_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, URL
+  value: '0.60'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_none_comb_qa
+  evaluation_id: ev_l3_none_comb_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, QA
+  value: '0.98'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_none_comb_clf
+  evaluation_id: ev_l3_none_comb_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, CLF
+  value: '0.72'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_none_adapt_url
+  evaluation_id: ev_l3_none_adapt_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, URL
+  value: '0.60'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_none_adapt_qa
+  evaluation_id: ev_l3_none_adapt_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, QA
+  value: '0.98'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_none_adapt_clf
+  evaluation_id: ev_l3_none_adapt_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, CLF
+  value: '0.72'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_fath_judge
+  evaluation_id: ev_l3_fath_judge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Judge Score
+  value: '6.73'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_fath_comb_url
+  evaluation_id: ev_l3_fath_comb_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, URL
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_fath_comb_qa
+  evaluation_id: ev_l3_fath_comb_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, QA
+  value: '0.01'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_fath_comb_clf
+  evaluation_id: ev_l3_fath_comb_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, CLF
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_fath_adapt_url
+  evaluation_id: ev_l3_fath_adapt_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, URL
+  value: '0.26'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_fath_adapt_qa
+  evaluation_id: ev_l3_fath_adapt_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, QA
+  value: '0.34'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_fath_adapt_clf
+  evaluation_id: ev_l3_fath_adapt_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, CLF
+  value: '0.31'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_none_judge
+  evaluation_id: ev_g35_none_judge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Judge Score
+  value: '7.94'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_none_comb_url
+  evaluation_id: ev_g35_none_comb_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, URL
+  value: '0.61'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_none_comb_qa
+  evaluation_id: ev_g35_none_comb_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, QA
+  value: '0.70'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_none_comb_clf
+  evaluation_id: ev_g35_none_comb_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, CLF
+  value: '0.84'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_none_adapt_url
+  evaluation_id: ev_g35_none_adapt_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, URL
+  value: '0.61'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_none_adapt_qa
+  evaluation_id: ev_g35_none_adapt_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, QA
+  value: '0.70'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_none_adapt_clf
+  evaluation_id: ev_g35_none_adapt_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, CLF
+  value: '0.84'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_fath_judge
+  evaluation_id: ev_g35_fath_judge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Judge Score
+  value: '6.91'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_fath_comb_url
+  evaluation_id: ev_g35_fath_comb_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, URL
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_fath_comb_qa
+  evaluation_id: ev_g35_fath_comb_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, QA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_fath_comb_clf
+  evaluation_id: ev_g35_fath_comb_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack, CLF
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_fath_adapt_url
+  evaluation_id: ev_g35_fath_adapt_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, URL
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_fath_adapt_qa
+  evaluation_id: ev_g35_fath_adapt_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, QA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_g35_fath_adapt_clf
+  evaluation_id: ev_g35_fath_adapt_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, CLF
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l3_none_ia_comb
+  evaluation_id: ev_l3_none_ia_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack
+  value: '99.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l3_fath_ia_comb
+  evaluation_id: ev_l3_fath_ia_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l3_none_ia_adapt
+  evaluation_id: ev_l3_none_ia_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack
+  value: '99.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l3_fath_ia_adapt
+  evaluation_id: ev_l3_fath_ia_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_g35_none_ia_comb
+  evaluation_id: ev_g35_none_ia_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_g35_fath_ia_comb
+  evaluation_id: ev_g35_fath_ia_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Combined Attack
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_g35_none_ia_adapt
+  evaluation_id: ev_g35_none_ia_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_g35_fath_ia_adapt
+  evaluation_id: ev_g35_fath_ia_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_l3_none_opt
+  evaluation_id: ev_l3_none_opt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 9
+  location: Section 5.5
+- id: r_l3_fath_opt
+  evaluation_id: ev_l3_fath_opt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 9
+  location: Section 5.5
+- id: r_t4_notags_url
+  evaluation_id: ev_t4_notags_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, URL
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_t4_fath_url
+  evaluation_id: ev_t4_fath_url
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, URL
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_t4_notags_qa
+  evaluation_id: ev_t4_notags_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, QA
+  value: '0.07'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_t4_fath_qa
+  evaluation_id: ev_t4_fath_qa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, QA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_t4_notags_clf
+  evaluation_id: ev_t4_notags_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, CLF
+  value: '0.18'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_t4_fath_clf
+  evaluation_id: ev_t4_fath_clf
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Adaptive Attack, CLF
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+comparisons:
+- id: c_l3_judge
+  left: ev_l3_fath_judge
+  right: ev_l3_none_judge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_comb_url
+  left: ev_l3_fath_comb_url
+  right: ev_l3_none_comb_url
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_comb_qa
+  left: ev_l3_fath_comb_qa
+  right: ev_l3_none_comb_qa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_comb_clf
+  left: ev_l3_fath_comb_clf
+  right: ev_l3_none_comb_clf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_adapt_url
+  left: ev_l3_fath_adapt_url
+  right: ev_l3_none_adapt_url
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_adapt_qa
+  left: ev_l3_fath_adapt_qa
+  right: ev_l3_none_adapt_qa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_adapt_clf
+  left: ev_l3_fath_adapt_clf
+  right: ev_l3_none_adapt_clf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g35_judge
+  left: ev_g35_fath_judge
+  right: ev_g35_none_judge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g35_comb_url
+  left: ev_g35_fath_comb_url
+  right: ev_g35_none_comb_url
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g35_comb_qa
+  left: ev_g35_fath_comb_qa
+  right: ev_g35_none_comb_qa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g35_comb_clf
+  left: ev_g35_fath_comb_clf
+  right: ev_g35_none_comb_clf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g35_adapt_url
+  left: ev_g35_fath_adapt_url
+  right: ev_g35_none_adapt_url
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g35_adapt_qa
+  left: ev_g35_fath_adapt_qa
+  right: ev_g35_none_adapt_qa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g35_adapt_clf
+  left: ev_g35_fath_adapt_clf
+  right: ev_g35_none_adapt_clf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_ia_comb
+  left: ev_l3_fath_ia_comb
+  right: ev_l3_none_ia_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_ia_adapt
+  left: ev_l3_fath_ia_adapt
+  right: ev_l3_none_ia_adapt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g35_ia_comb
+  left: ev_g35_fath_ia_comb
+  right: ev_g35_none_ia_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g35_ia_adapt
+  left: ev_g35_fath_ia_adapt
+  right: ev_g35_none_ia_adapt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l3_opt
+  left: ev_l3_fath_opt
+  right: ev_l3_none_opt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_t4_url
+  left: ev_t4_fath_url
+  right: ev_t4_notags_url
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the hash-based authentication tags (FATH against FATH with the tags removed), each under its own adaptive attack
+  page: 9
+- id: c_t4_qa
+  left: ev_t4_fath_qa
+  right: ev_t4_notags_qa
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the hash-based authentication tags (FATH against FATH with the tags removed), each under its own adaptive attack
+  page: 9
+- id: c_t4_clf
+  left: ev_t4_fath_clf
+  right: ev_t4_notags_clf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the hash-based authentication tags (FATH against FATH with the tags removed), each under its own adaptive attack
+  page: 9
+claims:
+- id: k1
+  text: state-of-the-art defence against indirect prompt injection on Llama3 and GPT3.5 across attack methods
+  location: abstract
+  anchor: achieving state-of-the-art performance under Llama3 and GPT3.5 models across various attack methods
+  jobs:
+  - R1
+  supported_by:
+  - c_l3_comb_url
+  - c_l3_comb_qa
+  - c_l3_comb_clf
+  - c_l3_adapt_url
+  - c_l3_adapt_qa
+  - c_l3_adapt_clf
+  - c_g35_comb_url
+  - c_g35_comb_qa
+  - c_g35_comb_clf
+  - c_g35_adapt_url
+  - c_g35_adapt_qa
+  - c_g35_adapt_clf
+  - c_l3_ia_comb
+  - c_l3_ia_adapt
+  - c_g35_ia_comb
+  - c_g35_ia_adapt
+  - c_l3_opt
+  page: 1
+coverage:
+  R1: direct
+  R2clean: proxy
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 2, 3 and 4, Section 5.5
+    R2clean: Table 2 (Judge Score, GPT-3.5 rating of answers without attacks)
+schema_gaps:
+- where: results r_l3_none_ia_*, r_g35_none_ia_*
+  note: Table 3 prints the Llama3 no-defence ASR as a percentage (99.3) and the GPT3.5 one as a fraction (1.00); each is coded in its printed unit

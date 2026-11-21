@@ -1,0 +1,8 @@
+decision_04a: BATCH CHECKED
+this step: 2026-11-21
+reports: struq_arxiv2024, ih_arxiv2024, ise_iclr2025, metasecalign_arxiv2025, defensivetokens_aisec2025, jatmo_arxiv2023, bipia_kdd2025, cacheprune_arxiv2025, drip_arxiv2025, fath_arxiv2024, rvr_arxiv2025, moe_arxiv2025
+records: 53 defences, 580 evaluations, 604 results, 360 comparisons, 25 claims
+checked against the PDFs: 598 printed values, 6 chart values and 78 anchors, each found on its page
+comparison grades: A 298, B 62, C 0, U 0
+residual notes: 2; full-text exclusions found while coding: 0
+next: batch 04b

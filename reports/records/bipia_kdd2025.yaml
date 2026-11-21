@@ -1,0 +1,5246 @@
+report:
+  id: bipia_kdd2025
+  slug: '2312.14197'
+  title: Benchmarking and Defending Against Indirect Prompt Injection Attacks on Large Language Models
+  first_author: Jingwei Yi
+  venue: KDD 2025 (31st ACM SIGKDD Conference)
+  peer_reviewed: 'yes'
+  doi: 10.1145/3690624.3709179
+  arxiv: '2312.14197'
+  version_read: arXiv v4 (carries the KDD '25 header and DOI)
+  first_date: '2023-12-21'
+  read: F
+  role: mixed
+  code_release: https://github.com/microsoft/BIPIA (linked from the abstract)
+  extraction_scope: 'Sections 6 and 7.1 to 7.2: every row of Tables 3 and 4 (ROUGE-1, MT-Bench, the five task ASRs and the overall ASR); the abstract claims (the benchmark results of Table 2, Figures 3 to 5 and the ablation
+    Figures 10 and 11 not coded)'
+defences:
+- id: icl_gpt4
+  name: In-context learning with explicit reminder (black-box defence)
+  origin: this_report
+  base_checkpoint: GPT-4
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - explicit reminder not to execute instructions in the external content
+  - worked examples from the BIPIA training set
+  layout: 'one prompt: application instruction with the reminder, worked examples as earlier turns, then the external content'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we employ this technique to teach an LLM the boundaries
+  pages:
+    isolation: 8
+- id: mt_gpt4
+  name: Multi-turn dialogue with explicit reminder (black-box defence)
+  origin: this_report
+  base_checkpoint: GPT-4
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - external content moved to an earlier user turn
+  - instruction with explicit reminder in the current turn
+  layout: external content in the previous turn, the instruction in the current turn
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we propose moving third-party content, which may contain malicious instructions
+  signal_dependence_detail: Figure 11 reverts to a single turn without the separation; bars only, values not printed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+- id: icl_gpt35
+  name: In-context learning with explicit reminder (black-box defence)
+  origin: this_report
+  base_checkpoint: GPT-3.5-Turbo
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - explicit reminder not to execute instructions in the external content
+  - worked examples from the BIPIA training set
+  layout: 'one prompt: application instruction with the reminder, worked examples as earlier turns, then the external content'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we employ this technique to teach an LLM the boundaries
+  pages:
+    isolation: 8
+- id: mt_gpt35
+  name: Multi-turn dialogue with explicit reminder (black-box defence)
+  origin: this_report
+  base_checkpoint: GPT-3.5-Turbo
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - external content moved to an earlier user turn
+  - instruction with explicit reminder in the current turn
+  layout: external content in the previous turn, the instruction in the current turn
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we propose moving third-party content, which may contain malicious instructions
+  signal_dependence_detail: Figure 11 reverts to a single turn without the separation; bars only, values not printed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+- id: icl_v7
+  name: In-context learning with explicit reminder (black-box defence)
+  origin: this_report
+  base_checkpoint: Vicuna-7B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - explicit reminder not to execute instructions in the external content
+  - worked examples from the BIPIA training set
+  layout: 'one prompt: application instruction with the reminder, worked examples as earlier turns, then the external content'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we employ this technique to teach an LLM the boundaries
+  pages:
+    isolation: 8
+- id: mt_v7
+  name: Multi-turn dialogue with explicit reminder (black-box defence)
+  origin: this_report
+  base_checkpoint: Vicuna-7B
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - external content moved to an earlier user turn
+  - instruction with explicit reminder in the current turn
+  layout: external content in the previous turn, the instruction in the current turn
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we propose moving third-party content, which may contain malicious instructions
+  signal_dependence_detail: Figure 11 reverts to a single turn without the separation; bars only, values not printed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+- id: icl_v13
+  name: In-context learning with explicit reminder (black-box defence)
+  origin: this_report
+  base_checkpoint: Vicuna-13B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - explicit reminder not to execute instructions in the external content
+  - worked examples from the BIPIA training set
+  layout: 'one prompt: application instruction with the reminder, worked examples as earlier turns, then the external content'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we employ this technique to teach an LLM the boundaries
+  pages:
+    isolation: 8
+- id: mt_v13
+  name: Multi-turn dialogue with explicit reminder (black-box defence)
+  origin: this_report
+  base_checkpoint: Vicuna-13B
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - external content moved to an earlier user turn
+  - instruction with explicit reminder in the current turn
+  layout: external content in the previous turn, the instruction in the current turn
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we propose moving third-party content, which may contain malicious instructions
+  signal_dependence_detail: Figure 11 reverts to a single turn without the separation; bars only, values not printed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+- id: wb_bipia_v7
+  name: 'White-box defence: <data> tokens, reminder and adversarial fine-tuning (BIPIA labels)'
+  origin: this_report
+  base_checkpoint: Vicuna-7B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  components:
+  - new special tokens <data> and </data> around the external content
+  - explicit reminder in the prompt template
+  - one epoch of supervised fine-tuning on attacked BIPIA training prompts with benign targets (BIPIA labels)
+  layout: application instruction with the reminder, external content between <data> and </data>, then the user instruction
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we introduce two special tokens to the vocabulary of the LLM
+  signal_dependence_detail: Figure 10 removes the special tokens together with the adversarial training; no run with the tokens alone removed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+- id: wb_orig_v7
+  name: 'White-box defence: <data> tokens, reminder and adversarial fine-tuning (responses of the original LLM)'
+  origin: this_report
+  base_checkpoint: Vicuna-7B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  components:
+  - new special tokens <data> and </data> around the external content
+  - explicit reminder in the prompt template
+  - one epoch of supervised fine-tuning on attacked BIPIA training prompts with benign targets (responses of the original LLM)
+  layout: application instruction with the reminder, external content between <data> and </data>, then the user instruction
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we introduce two special tokens to the vocabulary of the LLM
+  signal_dependence_detail: Figure 10 removes the special tokens together with the adversarial training; no run with the tokens alone removed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+- id: wb_gpt4r_v7
+  name: 'White-box defence: <data> tokens, reminder and adversarial fine-tuning (GPT-4 responses)'
+  origin: this_report
+  base_checkpoint: Vicuna-7B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  components:
+  - new special tokens <data> and </data> around the external content
+  - explicit reminder in the prompt template
+  - one epoch of supervised fine-tuning on attacked BIPIA training prompts with benign targets (GPT-4 responses)
+  layout: application instruction with the reminder, external content between <data> and </data>, then the user instruction
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we introduce two special tokens to the vocabulary of the LLM
+  signal_dependence_detail: Figure 10 removes the special tokens together with the adversarial training; no run with the tokens alone removed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+- id: wb_bipia_v13
+  name: 'White-box defence: <data> tokens, reminder and adversarial fine-tuning (BIPIA labels)'
+  origin: this_report
+  base_checkpoint: Vicuna-13B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  components:
+  - new special tokens <data> and </data> around the external content
+  - explicit reminder in the prompt template
+  - one epoch of supervised fine-tuning on attacked BIPIA training prompts with benign targets (BIPIA labels)
+  layout: application instruction with the reminder, external content between <data> and </data>, then the user instruction
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we introduce two special tokens to the vocabulary of the LLM
+  signal_dependence_detail: Figure 10 removes the special tokens together with the adversarial training; no run with the tokens alone removed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+- id: wb_orig_v13
+  name: 'White-box defence: <data> tokens, reminder and adversarial fine-tuning (responses of the original LLM)'
+  origin: this_report
+  base_checkpoint: Vicuna-13B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  components:
+  - new special tokens <data> and </data> around the external content
+  - explicit reminder in the prompt template
+  - one epoch of supervised fine-tuning on attacked BIPIA training prompts with benign targets (responses of the original LLM)
+  layout: application instruction with the reminder, external content between <data> and </data>, then the user instruction
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we introduce two special tokens to the vocabulary of the LLM
+  signal_dependence_detail: Figure 10 removes the special tokens together with the adversarial training; no run with the tokens alone removed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+- id: wb_gpt4r_v13
+  name: 'White-box defence: <data> tokens, reminder and adversarial fine-tuning (GPT-4 responses)'
+  origin: this_report
+  base_checkpoint: Vicuna-13B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  components:
+  - new special tokens <data> and </data> around the external content
+  - explicit reminder in the prompt template
+  - one epoch of supervised fine-tuning on attacked BIPIA training prompts with benign targets (GPT-4 responses)
+  layout: application instruction with the reminder, external content between <data> and </data>, then the user instruction
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we introduce two special tokens to the vocabulary of the LLM
+  signal_dependence_detail: Figure 10 removes the special tokens together with the adversarial training; no run with the tokens alone removed
+  pages:
+    isolation: 8
+    signal_dependence: 9
+evaluations:
+- id: ev_gpt4_none_rouge
+  defence_id: none:GPT-4
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_email
+  defence_id: none:GPT-4
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_web
+  defence_id: none:GPT-4
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_table
+  defence_id: none:GPT-4
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_summ
+  defence_id: none:GPT-4
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_code
+  defence_id: none:GPT-4
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_overall
+  defence_id: none:GPT-4
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_icl_rouge
+  defence_id: icl_gpt4
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_gpt4_icl_email
+  defence_id: icl_gpt4
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_icl_web
+  defence_id: icl_gpt4
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_icl_table
+  defence_id: icl_gpt4
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_icl_summ
+  defence_id: icl_gpt4
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_icl_code
+  defence_id: icl_gpt4
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_icl_overall
+  defence_id: icl_gpt4
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_mt_rouge
+  defence_id: mt_gpt4
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_gpt4_mt_email
+  defence_id: mt_gpt4
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_mt_web
+  defence_id: mt_gpt4
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_mt_table
+  defence_id: mt_gpt4
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_mt_summ
+  defence_id: mt_gpt4
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_mt_code
+  defence_id: mt_gpt4
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt4_mt_overall
+  defence_id: mt_gpt4
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_none_rouge
+  defence_id: none:GPT-3.5-Turbo
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_gpt35_none_email
+  defence_id: none:GPT-3.5-Turbo
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt35_none_web
+  defence_id: none:GPT-3.5-Turbo
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt35_none_table
+  defence_id: none:GPT-3.5-Turbo
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt35_none_summ
+  defence_id: none:GPT-3.5-Turbo
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt35_none_code
+  defence_id: none:GPT-3.5-Turbo
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt35_none_overall
+  defence_id: none:GPT-3.5-Turbo
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_gpt35_icl_rouge
+  defence_id: icl_gpt35
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_gpt35_icl_email
+  defence_id: icl_gpt35
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_icl_web
+  defence_id: icl_gpt35
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_icl_table
+  defence_id: icl_gpt35
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_icl_summ
+  defence_id: icl_gpt35
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_icl_code
+  defence_id: icl_gpt35
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_icl_overall
+  defence_id: icl_gpt35
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_mt_rouge
+  defence_id: mt_gpt35
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_gpt35_mt_email
+  defence_id: mt_gpt35
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_mt_web
+  defence_id: mt_gpt35
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_mt_table
+  defence_id: mt_gpt35
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_mt_summ
+  defence_id: mt_gpt35
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_mt_code
+  defence_id: mt_gpt35
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_gpt35_mt_overall
+  defence_id: mt_gpt35
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_none_rouge
+  defence_id: none:Vicuna-7B
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_v7_none_email
+  defence_id: none:Vicuna-7B
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v7_none_web
+  defence_id: none:Vicuna-7B
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v7_none_table
+  defence_id: none:Vicuna-7B
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v7_none_summ
+  defence_id: none:Vicuna-7B
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v7_none_code
+  defence_id: none:Vicuna-7B
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v7_none_overall
+  defence_id: none:Vicuna-7B
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v7_icl_rouge
+  defence_id: icl_v7
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v7_icl_email
+  defence_id: icl_v7
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_icl_web
+  defence_id: icl_v7
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_icl_table
+  defence_id: icl_v7
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_icl_summ
+  defence_id: icl_v7
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_icl_code
+  defence_id: icl_v7
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_icl_overall
+  defence_id: icl_v7
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_mt_rouge
+  defence_id: mt_v7
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v7_mt_email
+  defence_id: mt_v7
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_mt_web
+  defence_id: mt_v7
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_mt_table
+  defence_id: mt_v7
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_mt_summ
+  defence_id: mt_v7
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_mt_code
+  defence_id: mt_v7
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_mt_overall
+  defence_id: mt_v7
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_none_rouge
+  defence_id: none:Vicuna-13B
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_v13_none_email
+  defence_id: none:Vicuna-13B
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v13_none_web
+  defence_id: none:Vicuna-13B
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v13_none_table
+  defence_id: none:Vicuna-13B
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v13_none_summ
+  defence_id: none:Vicuna-13B
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v13_none_code
+  defence_id: none:Vicuna-13B
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v13_none_overall
+  defence_id: none:Vicuna-13B
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_v13_icl_rouge
+  defence_id: icl_v13
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v13_icl_email
+  defence_id: icl_v13
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_icl_web
+  defence_id: icl_v13
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_icl_table
+  defence_id: icl_v13
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_icl_summ
+  defence_id: icl_v13
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_icl_code
+  defence_id: icl_v13
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_icl_overall
+  defence_id: icl_v13
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_mt_rouge
+  defence_id: mt_v13
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v13_mt_email
+  defence_id: mt_v13
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_mt_web
+  defence_id: mt_v13
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_mt_table
+  defence_id: mt_v13
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_mt_summ
+  defence_id: mt_v13
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_mt_code
+  defence_id: mt_v13
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_mt_overall
+  defence_id: mt_v13
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 2,000 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_none_mtbench
+  defence_id: none:Vicuna-7B
+  benchmark: MT-Bench
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MT-Bench score
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: not reported
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_v7_wb_bipia_rouge
+  defence_id: wb_bipia_v7
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v7_wb_bipia_mtbench
+  defence_id: wb_bipia_v7
+  benchmark: MT-Bench
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MT-Bench score
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: not reported
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v7_wb_bipia_email
+  defence_id: wb_bipia_v7
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_bipia_web
+  defence_id: wb_bipia_v7
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_bipia_table
+  defence_id: wb_bipia_v7
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_bipia_summ
+  defence_id: wb_bipia_v7
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_bipia_code
+  defence_id: wb_bipia_v7
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_bipia_overall
+  defence_id: wb_bipia_v7
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_orig_rouge
+  defence_id: wb_orig_v7
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v7_wb_orig_mtbench
+  defence_id: wb_orig_v7
+  benchmark: MT-Bench
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MT-Bench score
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: not reported
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v7_wb_orig_email
+  defence_id: wb_orig_v7
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_orig_web
+  defence_id: wb_orig_v7
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_orig_table
+  defence_id: wb_orig_v7
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_orig_summ
+  defence_id: wb_orig_v7
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_orig_code
+  defence_id: wb_orig_v7
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_orig_overall
+  defence_id: wb_orig_v7
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_gpt4r_rouge
+  defence_id: wb_gpt4r_v7
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v7_wb_gpt4r_mtbench
+  defence_id: wb_gpt4r_v7
+  benchmark: MT-Bench
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MT-Bench score
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: not reported
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v7_wb_gpt4r_email
+  defence_id: wb_gpt4r_v7
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_gpt4r_web
+  defence_id: wb_gpt4r_v7
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_gpt4r_table
+  defence_id: wb_gpt4r_v7
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_gpt4r_summ
+  defence_id: wb_gpt4r_v7
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_gpt4r_code
+  defence_id: wb_gpt4r_v7
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v7_wb_gpt4r_overall
+  defence_id: wb_gpt4r_v7
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_none_mtbench
+  defence_id: none:Vicuna-13B
+  benchmark: MT-Bench
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MT-Bench score
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: not reported
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_v13_wb_bipia_rouge
+  defence_id: wb_bipia_v13
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v13_wb_bipia_mtbench
+  defence_id: wb_bipia_v13
+  benchmark: MT-Bench
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MT-Bench score
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: not reported
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v13_wb_bipia_email
+  defence_id: wb_bipia_v13
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_bipia_web
+  defence_id: wb_bipia_v13
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_bipia_table
+  defence_id: wb_bipia_v13
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_bipia_summ
+  defence_id: wb_bipia_v13
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_bipia_code
+  defence_id: wb_bipia_v13
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_bipia_overall
+  defence_id: wb_bipia_v13
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_orig_rouge
+  defence_id: wb_orig_v13
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v13_wb_orig_mtbench
+  defence_id: wb_orig_v13
+  benchmark: MT-Bench
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MT-Bench score
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: not reported
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v13_wb_orig_email
+  defence_id: wb_orig_v13
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_orig_web
+  defence_id: wb_orig_v13
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_orig_table
+  defence_id: wb_orig_v13
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_orig_summ
+  defence_id: wb_orig_v13
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_orig_code
+  defence_id: wb_orig_v13
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_orig_overall
+  defence_id: wb_orig_v13
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_gpt4r_rouge
+  defence_id: wb_gpt4r_v13
+  benchmark: BIPIA-Clean (same tasks, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: ROUGE-1 recall against the targets
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v13_wb_gpt4r_mtbench
+  defence_id: wb_gpt4r_v13
+  benchmark: MT-Bench
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: MT-Bench score
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: not reported
+  pages:
+    judge: 3
+    decoding: 7
+    benchmark: 7
+- id: ev_v13_wb_gpt4r_email
+  defence_id: wb_gpt4r_v13
+  benchmark: BIPIA test set, Email QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_gpt4r_web
+  defence_id: wb_gpt4r_v13
+  benchmark: BIPIA test set, Web QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_gpt4r_table
+  defence_id: wb_gpt4r_v13
+  benchmark: BIPIA test set, Table QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_gpt4r_summ
+  defence_id: wb_gpt4r_v13
+  benchmark: BIPIA test set, Summarization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_gpt4r_code
+  defence_id: wb_gpt4r_v13
+  benchmark: BIPIA test set, Code QA
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+- id: ev_v13_wb_gpt4r_overall
+  defence_id: wb_gpt4r_v13
+  benchmark: BIPIA test set, all five tasks (weighted by example count)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'BIPIA pipeline: rule-based checks, LLM-as-judge and language detection'
+  layout_same_as_defence: 'yes'
+  measured_by: bipia_kdd2025
+  page: 8
+  decoding: temperature 0, at most 512 tokens
+  pages:
+    judge: 3
+    decoding: 7
+  injection_position: varied
+results:
+- id: r_gpt4_none_rouge
+  evaluation_id: ev_gpt4_none_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6985'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_none_email
+  evaluation_id: ev_gpt4_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.1524'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_none_web
+  evaluation_id: ev_gpt4_none_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.2792'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_none_table
+  evaluation_id: ev_gpt4_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.3472'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_none_summ
+  evaluation_id: ev_gpt4_none_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.3917'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_none_code
+  evaluation_id: ev_gpt4_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.2863'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_none_overall
+  evaluation_id: ev_gpt4_none_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.3103'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_icl_rouge
+  evaluation_id: ev_gpt4_icl_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6590'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_icl_email
+  evaluation_id: ev_gpt4_icl_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.1036'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_icl_web
+  evaluation_id: ev_gpt4_icl_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.2382'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_icl_table
+  evaluation_id: ev_gpt4_icl_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.3238'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_icl_summ
+  evaluation_id: ev_gpt4_icl_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.3075'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_icl_code
+  evaluation_id: ev_gpt4_icl_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0056'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_icl_overall
+  evaluation_id: ev_gpt4_icl_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.2408'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_mt_rouge
+  evaluation_id: ev_gpt4_mt_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.7201'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_mt_email
+  evaluation_id: ev_gpt4_mt_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.0959'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_mt_web
+  evaluation_id: ev_gpt4_mt_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.2585'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_mt_table
+  evaluation_id: ev_gpt4_mt_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.2974'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_mt_summ
+  evaluation_id: ev_gpt4_mt_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.1810'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_mt_code
+  evaluation_id: ev_gpt4_mt_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0097'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt4_mt_overall
+  evaluation_id: ev_gpt4_mt_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.2056'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_none_rouge
+  evaluation_id: ev_gpt35_none_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6554'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_none_email
+  evaluation_id: ev_gpt35_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.1634'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_none_web
+  evaluation_id: ev_gpt35_none_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.2347'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_none_table
+  evaluation_id: ev_gpt35_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.2257'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_none_summ
+  evaluation_id: ev_gpt35_none_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.3658'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_none_code
+  evaluation_id: ev_gpt35_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.2844'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_none_overall
+  evaluation_id: ev_gpt35_none_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.2616'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_icl_rouge
+  evaluation_id: ev_gpt35_icl_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6289'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_icl_email
+  evaluation_id: ev_gpt35_icl_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.1779'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_icl_web
+  evaluation_id: ev_gpt35_icl_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.1600'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_icl_table
+  evaluation_id: ev_gpt35_icl_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.1910'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_icl_summ
+  evaluation_id: ev_gpt35_icl_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.2560'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_icl_code
+  evaluation_id: ev_gpt35_icl_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0789'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_icl_overall
+  evaluation_id: ev_gpt35_icl_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.1884'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_mt_rouge
+  evaluation_id: ev_gpt35_mt_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6786'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_mt_email
+  evaluation_id: ev_gpt35_mt_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.1376'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_mt_web
+  evaluation_id: ev_gpt35_mt_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.2025'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_mt_table
+  evaluation_id: ev_gpt35_mt_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.1936'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_mt_summ
+  evaluation_id: ev_gpt35_mt_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.2221'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_mt_code
+  evaluation_id: ev_gpt35_mt_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0583'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_gpt35_mt_overall
+  evaluation_id: ev_gpt35_mt_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.1843'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_none_rouge
+  evaluation_id: ev_v7_none_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6187'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_none_email
+  evaluation_id: ev_v7_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.1124'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_none_web
+  evaluation_id: ev_v7_none_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.0693'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_none_table
+  evaluation_id: ev_v7_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.0827'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_none_summ
+  evaluation_id: ev_v7_none_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.2117'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_none_code
+  evaluation_id: ev_v7_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.1632'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_none_overall
+  evaluation_id: ev_v7_none_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.1237'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_icl_rouge
+  evaluation_id: ev_v7_icl_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6065'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_icl_email
+  evaluation_id: ev_v7_icl_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.0512'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_icl_web
+  evaluation_id: ev_v7_icl_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.0394'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_icl_table
+  evaluation_id: ev_v7_icl_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.0396'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_icl_summ
+  evaluation_id: ev_v7_icl_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.2148'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_icl_code
+  evaluation_id: ev_v7_icl_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0599'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_icl_overall
+  evaluation_id: ev_v7_icl_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.0885'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_mt_rouge
+  evaluation_id: ev_v7_mt_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6084'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_mt_email
+  evaluation_id: ev_v7_mt_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.1127'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_mt_web
+  evaluation_id: ev_v7_mt_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.0410'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_mt_table
+  evaluation_id: ev_v7_mt_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.0565'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_mt_summ
+  evaluation_id: ev_v7_mt_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.0817'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_mt_code
+  evaluation_id: ev_v7_mt_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0023'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_mt_overall
+  evaluation_id: ev_v7_mt_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.0617'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_none_rouge
+  evaluation_id: ev_v13_none_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6134'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_none_email
+  evaluation_id: ev_v13_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.1242'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_none_web
+  evaluation_id: ev_v13_none_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.1272'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_none_table
+  evaluation_id: ev_v13_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.1337'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_none_summ
+  evaluation_id: ev_v13_none_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.2052'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_none_code
+  evaluation_id: ev_v13_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.1755'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_none_overall
+  evaluation_id: ev_v13_none_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.1531'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_icl_rouge
+  evaluation_id: ev_v13_icl_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6025'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_icl_email
+  evaluation_id: ev_v13_icl_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.2353'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_icl_web
+  evaluation_id: ev_v13_icl_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.1456'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_icl_table
+  evaluation_id: ev_v13_icl_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.1804'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_icl_summ
+  evaluation_id: ev_v13_icl_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.1763'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_icl_code
+  evaluation_id: ev_v13_icl_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0468'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_icl_overall
+  evaluation_id: ev_v13_icl_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.1658'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_mt_rouge
+  evaluation_id: ev_v13_mt_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6274'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_mt_email
+  evaluation_id: ev_v13_mt_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.1379'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_mt_web
+  evaluation_id: ev_v13_mt_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.1024'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_mt_table
+  evaluation_id: ev_v13_mt_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.1168'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_mt_summ
+  evaluation_id: ev_v13_mt_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.1028'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_mt_code
+  evaluation_id: ev_v13_mt_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0015'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_mt_overall
+  evaluation_id: ev_v13_mt_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.1021'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_none_mtbench
+  evaluation_id: ev_v7_none_mtbench
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability MT-Bench
+  value: '4.8063'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v7_wb_bipia_rouge
+  evaluation_id: ev_v7_wb_bipia_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.5306'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_bipia_mtbench
+  evaluation_id: ev_v7_wb_bipia_mtbench
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability MT-Bench
+  value: '4.2938'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_bipia_email
+  evaluation_id: ev_v7_wb_bipia_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.0202'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_bipia_web
+  evaluation_id: ev_v7_wb_bipia_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.0159'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_bipia_table
+  evaluation_id: ev_v7_wb_bipia_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.0410'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_bipia_summ
+  evaluation_id: ev_v7_wb_bipia_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.0049'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_bipia_code
+  evaluation_id: ev_v7_wb_bipia_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0300'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_bipia_overall
+  evaluation_id: ev_v7_wb_bipia_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.0214'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_orig_rouge
+  evaluation_id: ev_v7_wb_orig_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6122'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_orig_mtbench
+  evaluation_id: ev_v7_wb_orig_mtbench
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability MT-Bench
+  value: '4.5687'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_orig_email
+  evaluation_id: ev_v7_wb_orig_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.0015'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_orig_web
+  evaluation_id: ev_v7_wb_orig_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.0062'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_orig_table
+  evaluation_id: ev_v7_wb_orig_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.0057'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_orig_summ
+  evaluation_id: ev_v7_wb_orig_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.0043'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_orig_code
+  evaluation_id: ev_v7_wb_orig_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.2244'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_orig_overall
+  evaluation_id: ev_v7_wb_orig_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.0240'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_gpt4r_rouge
+  evaluation_id: ev_v7_wb_gpt4r_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6260'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_gpt4r_mtbench
+  evaluation_id: ev_v7_wb_gpt4r_mtbench
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability MT-Bench
+  value: '4.8312'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_gpt4r_email
+  evaluation_id: ev_v7_wb_gpt4r_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.0065'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_gpt4r_web
+  evaluation_id: ev_v7_wb_gpt4r_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.0045'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_gpt4r_table
+  evaluation_id: ev_v7_wb_gpt4r_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.0046'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_gpt4r_summ
+  evaluation_id: ev_v7_wb_gpt4r_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.0037'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_gpt4r_code
+  evaluation_id: ev_v7_wb_gpt4r_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0129'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v7_wb_gpt4r_overall
+  evaluation_id: ev_v7_wb_gpt4r_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.0053'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_none_mtbench
+  evaluation_id: ev_v13_none_mtbench
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability MT-Bench
+  value: '5.2062'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_v13_wb_bipia_rouge
+  evaluation_id: ev_v13_wb_bipia_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6109'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_bipia_mtbench
+  evaluation_id: ev_v13_wb_bipia_mtbench
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability MT-Bench
+  value: '1.6625'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_bipia_email
+  evaluation_id: ev_v13_wb_bipia_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.0217'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_bipia_web
+  evaluation_id: ev_v13_wb_bipia_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.0126'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_bipia_table
+  evaluation_id: ev_v13_wb_bipia_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.0370'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_bipia_summ
+  evaluation_id: ev_v13_wb_bipia_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.0064'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_bipia_code
+  evaluation_id: ev_v13_wb_bipia_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0207'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_bipia_overall
+  evaluation_id: ev_v13_wb_bipia_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.0192'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_orig_rouge
+  evaluation_id: ev_v13_wb_orig_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6240'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_orig_mtbench
+  evaluation_id: ev_v13_wb_orig_mtbench
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability MT-Bench
+  value: '4.3375'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_orig_email
+  evaluation_id: ev_v13_wb_orig_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.0024'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_orig_web
+  evaluation_id: ev_v13_wb_orig_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.0055'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_orig_table
+  evaluation_id: ev_v13_wb_orig_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.0051'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_orig_summ
+  evaluation_id: ev_v13_wb_orig_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.0034'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_orig_code
+  evaluation_id: ev_v13_wb_orig_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0067'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_orig_overall
+  evaluation_id: ev_v13_wb_orig_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.0046'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_gpt4r_rouge
+  evaluation_id: ev_v13_wb_gpt4r_rouge
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: ROUGE-1 (recall)
+  value: '0.6337'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_gpt4r_mtbench
+  evaluation_id: ev_v13_wb_gpt4r_mtbench
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability MT-Bench
+  value: '4.5500'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_gpt4r_email
+  evaluation_id: ev_v13_wb_gpt4r_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Email QA
+  value: '0.0060'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_gpt4r_web
+  evaluation_id: ev_v13_wb_gpt4r_web
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web QA
+  value: '0.0044'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_gpt4r_table
+  evaluation_id: ev_v13_wb_gpt4r_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Table QA
+  value: '0.0057'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_gpt4r_summ
+  evaluation_id: ev_v13_wb_gpt4r_summ
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Summarization
+  value: '0.0036'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_gpt4r_code
+  evaluation_id: ev_v13_wb_gpt4r_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Code QA
+  value: '0.0036'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_v13_wb_gpt4r_overall
+  evaluation_id: ev_v13_wb_gpt4r_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '0.0047'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+comparisons:
+- id: c_gpt4_icl_rouge
+  left: ev_gpt4_icl_rouge
+  right: ev_gpt4_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_icl_email
+  left: ev_gpt4_icl_email
+  right: ev_gpt4_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_icl_web
+  left: ev_gpt4_icl_web
+  right: ev_gpt4_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_icl_table
+  left: ev_gpt4_icl_table
+  right: ev_gpt4_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_icl_summ
+  left: ev_gpt4_icl_summ
+  right: ev_gpt4_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_icl_code
+  left: ev_gpt4_icl_code
+  right: ev_gpt4_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_icl_overall
+  left: ev_gpt4_icl_overall
+  right: ev_gpt4_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_mt_rouge
+  left: ev_gpt4_mt_rouge
+  right: ev_gpt4_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_mt_email
+  left: ev_gpt4_mt_email
+  right: ev_gpt4_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_mt_web
+  left: ev_gpt4_mt_web
+  right: ev_gpt4_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_mt_table
+  left: ev_gpt4_mt_table
+  right: ev_gpt4_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_mt_summ
+  left: ev_gpt4_mt_summ
+  right: ev_gpt4_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_mt_code
+  left: ev_gpt4_mt_code
+  right: ev_gpt4_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt4_mt_overall
+  left: ev_gpt4_mt_overall
+  right: ev_gpt4_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_icl_rouge
+  left: ev_gpt35_icl_rouge
+  right: ev_gpt35_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_icl_email
+  left: ev_gpt35_icl_email
+  right: ev_gpt35_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_icl_web
+  left: ev_gpt35_icl_web
+  right: ev_gpt35_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_icl_table
+  left: ev_gpt35_icl_table
+  right: ev_gpt35_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_icl_summ
+  left: ev_gpt35_icl_summ
+  right: ev_gpt35_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_icl_code
+  left: ev_gpt35_icl_code
+  right: ev_gpt35_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_icl_overall
+  left: ev_gpt35_icl_overall
+  right: ev_gpt35_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_mt_rouge
+  left: ev_gpt35_mt_rouge
+  right: ev_gpt35_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_mt_email
+  left: ev_gpt35_mt_email
+  right: ev_gpt35_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_mt_web
+  left: ev_gpt35_mt_web
+  right: ev_gpt35_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_mt_table
+  left: ev_gpt35_mt_table
+  right: ev_gpt35_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_mt_summ
+  left: ev_gpt35_mt_summ
+  right: ev_gpt35_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_mt_code
+  left: ev_gpt35_mt_code
+  right: ev_gpt35_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpt35_mt_overall
+  left: ev_gpt35_mt_overall
+  right: ev_gpt35_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_icl_rouge
+  left: ev_v7_icl_rouge
+  right: ev_v7_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_icl_email
+  left: ev_v7_icl_email
+  right: ev_v7_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_icl_web
+  left: ev_v7_icl_web
+  right: ev_v7_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_icl_table
+  left: ev_v7_icl_table
+  right: ev_v7_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_icl_summ
+  left: ev_v7_icl_summ
+  right: ev_v7_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_icl_code
+  left: ev_v7_icl_code
+  right: ev_v7_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_icl_overall
+  left: ev_v7_icl_overall
+  right: ev_v7_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_mt_rouge
+  left: ev_v7_mt_rouge
+  right: ev_v7_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_mt_email
+  left: ev_v7_mt_email
+  right: ev_v7_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_mt_web
+  left: ev_v7_mt_web
+  right: ev_v7_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_mt_table
+  left: ev_v7_mt_table
+  right: ev_v7_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_mt_summ
+  left: ev_v7_mt_summ
+  right: ev_v7_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_mt_code
+  left: ev_v7_mt_code
+  right: ev_v7_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_mt_overall
+  left: ev_v7_mt_overall
+  right: ev_v7_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_icl_rouge
+  left: ev_v13_icl_rouge
+  right: ev_v13_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_icl_email
+  left: ev_v13_icl_email
+  right: ev_v13_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_icl_web
+  left: ev_v13_icl_web
+  right: ev_v13_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_icl_table
+  left: ev_v13_icl_table
+  right: ev_v13_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_icl_summ
+  left: ev_v13_icl_summ
+  right: ev_v13_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_icl_code
+  left: ev_v13_icl_code
+  right: ev_v13_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_icl_overall
+  left: ev_v13_icl_overall
+  right: ev_v13_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_mt_rouge
+  left: ev_v13_mt_rouge
+  right: ev_v13_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_mt_email
+  left: ev_v13_mt_email
+  right: ev_v13_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_mt_web
+  left: ev_v13_mt_web
+  right: ev_v13_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_mt_table
+  left: ev_v13_mt_table
+  right: ev_v13_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_mt_summ
+  left: ev_v13_mt_summ
+  right: ev_v13_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_mt_code
+  left: ev_v13_mt_code
+  right: ev_v13_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_mt_overall
+  left: ev_v13_mt_overall
+  right: ev_v13_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_wb_bipia_rouge
+  left: ev_v7_wb_bipia_rouge
+  right: ev_v7_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_bipia_mtbench
+  left: ev_v7_wb_bipia_mtbench
+  right: ev_v7_none_mtbench
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_wb_bipia_email
+  left: ev_v7_wb_bipia_email
+  right: ev_v7_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_bipia_web
+  left: ev_v7_wb_bipia_web
+  right: ev_v7_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_bipia_table
+  left: ev_v7_wb_bipia_table
+  right: ev_v7_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_bipia_summ
+  left: ev_v7_wb_bipia_summ
+  right: ev_v7_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_bipia_code
+  left: ev_v7_wb_bipia_code
+  right: ev_v7_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_bipia_overall
+  left: ev_v7_wb_bipia_overall
+  right: ev_v7_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_orig_rouge
+  left: ev_v7_wb_orig_rouge
+  right: ev_v7_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_orig_mtbench
+  left: ev_v7_wb_orig_mtbench
+  right: ev_v7_none_mtbench
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_wb_orig_email
+  left: ev_v7_wb_orig_email
+  right: ev_v7_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_orig_web
+  left: ev_v7_wb_orig_web
+  right: ev_v7_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_orig_table
+  left: ev_v7_wb_orig_table
+  right: ev_v7_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_orig_summ
+  left: ev_v7_wb_orig_summ
+  right: ev_v7_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_orig_code
+  left: ev_v7_wb_orig_code
+  right: ev_v7_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_orig_overall
+  left: ev_v7_wb_orig_overall
+  right: ev_v7_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_gpt4r_rouge
+  left: ev_v7_wb_gpt4r_rouge
+  right: ev_v7_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_gpt4r_mtbench
+  left: ev_v7_wb_gpt4r_mtbench
+  right: ev_v7_none_mtbench
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v7_wb_gpt4r_email
+  left: ev_v7_wb_gpt4r_email
+  right: ev_v7_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_gpt4r_web
+  left: ev_v7_wb_gpt4r_web
+  right: ev_v7_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_gpt4r_table
+  left: ev_v7_wb_gpt4r_table
+  right: ev_v7_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_gpt4r_summ
+  left: ev_v7_wb_gpt4r_summ
+  right: ev_v7_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_gpt4r_code
+  left: ev_v7_wb_gpt4r_code
+  right: ev_v7_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v7_wb_gpt4r_overall
+  left: ev_v7_wb_gpt4r_overall
+  right: ev_v7_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_bipia_rouge
+  left: ev_v13_wb_bipia_rouge
+  right: ev_v13_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_bipia_mtbench
+  left: ev_v13_wb_bipia_mtbench
+  right: ev_v13_none_mtbench
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_wb_bipia_email
+  left: ev_v13_wb_bipia_email
+  right: ev_v13_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_bipia_web
+  left: ev_v13_wb_bipia_web
+  right: ev_v13_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_bipia_table
+  left: ev_v13_wb_bipia_table
+  right: ev_v13_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_bipia_summ
+  left: ev_v13_wb_bipia_summ
+  right: ev_v13_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_bipia_code
+  left: ev_v13_wb_bipia_code
+  right: ev_v13_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_bipia_overall
+  left: ev_v13_wb_bipia_overall
+  right: ev_v13_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_orig_rouge
+  left: ev_v13_wb_orig_rouge
+  right: ev_v13_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_orig_mtbench
+  left: ev_v13_wb_orig_mtbench
+  right: ev_v13_none_mtbench
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_wb_orig_email
+  left: ev_v13_wb_orig_email
+  right: ev_v13_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_orig_web
+  left: ev_v13_wb_orig_web
+  right: ev_v13_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_orig_table
+  left: ev_v13_wb_orig_table
+  right: ev_v13_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_orig_summ
+  left: ev_v13_wb_orig_summ
+  right: ev_v13_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_orig_code
+  left: ev_v13_wb_orig_code
+  right: ev_v13_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_orig_overall
+  left: ev_v13_wb_orig_overall
+  right: ev_v13_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_gpt4r_rouge
+  left: ev_v13_wb_gpt4r_rouge
+  right: ev_v13_none_rouge
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_gpt4r_mtbench
+  left: ev_v13_wb_gpt4r_mtbench
+  right: ev_v13_none_mtbench
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_v13_wb_gpt4r_email
+  left: ev_v13_wb_gpt4r_email
+  right: ev_v13_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_gpt4r_web
+  left: ev_v13_wb_gpt4r_web
+  right: ev_v13_none_web
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_gpt4r_table
+  left: ev_v13_wb_gpt4r_table
+  right: ev_v13_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_gpt4r_summ
+  left: ev_v13_wb_gpt4r_summ
+  right: ev_v13_none_summ
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_gpt4r_code
+  left: ev_v13_wb_gpt4r_code
+  right: ev_v13_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+- id: c_v13_wb_gpt4r_overall
+  left: ev_v13_wb_gpt4r_overall
+  right: ev_v13_none_overall
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unmatched
+  varies: the defence; the fine-tuned model was decoded with a 512-token cap, the original (same numbers as Table 3) with 2,000
+  page: 8
+claims:
+- id: k1
+  text: the black-box defences give substantial mitigation
+  location: abstract
+  anchor: our black-box defense provides substantial mitigation
+  jobs:
+  - R1
+  supported_by:
+  - c_gpt4_icl_overall
+  - c_gpt4_mt_overall
+  - c_gpt35_icl_overall
+  - c_gpt35_mt_overall
+  - c_v7_icl_overall
+  - c_v7_mt_overall
+  - c_v13_icl_overall
+  - c_v13_mt_overall
+  page: 1
+  contradicted_by:
+  - r_gpt35_icl_email
+  - r_v7_icl_summ
+  - r_v7_mt_email
+  - r_v13_icl_email
+  - r_v13_icl_web
+  - r_v13_icl_table
+  - r_v13_icl_overall
+  - r_v13_mt_email
+- id: k2
+  text: the white-box defence brings attack success to near zero
+  location: abstract
+  anchor: our white-box defense reduces the attack success rate to near-zero levels
+  jobs:
+  - R1
+  supported_by:
+  - c_v7_wb_bipia_overall
+  - c_v7_wb_orig_overall
+  - c_v7_wb_gpt4r_overall
+  - c_v13_wb_bipia_overall
+  - c_v13_wb_orig_overall
+  - c_v13_wb_gpt4r_overall
+  page: 1
+  contradicted_by:
+  - r_v7_wb_orig_code
+- id: k3
+  text: both defences preserve the output quality of the LLMs
+  location: abstract
+  anchor: all while preserving the output quality of LLMs
+  jobs:
+  - R2
+  - general_utility
+  supported_by:
+  - c_gpt4_icl_rouge
+  - c_gpt4_mt_rouge
+  - c_gpt35_icl_rouge
+  - c_gpt35_mt_rouge
+  - c_v7_icl_rouge
+  - c_v7_mt_rouge
+  - c_v13_icl_rouge
+  - c_v13_mt_rouge
+  - c_v7_wb_bipia_rouge
+  - c_v7_wb_bipia_mtbench
+  - c_v7_wb_orig_rouge
+  - c_v7_wb_orig_mtbench
+  - c_v7_wb_gpt4r_rouge
+  - c_v7_wb_gpt4r_mtbench
+  - c_v13_wb_bipia_rouge
+  - c_v13_wb_bipia_mtbench
+  - c_v13_wb_orig_rouge
+  - c_v13_wb_orig_mtbench
+  - c_v13_wb_gpt4r_rouge
+  - c_v13_wb_gpt4r_mtbench
+  page: 1
+  contradicted_by:
+  - r_v7_wb_bipia_rouge
+  - r_v7_wb_bipia_mtbench
+  - r_v13_wb_bipia_mtbench
+coverage:
+  R1: direct
+  R2clean: proxy
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 3 and 4 (per task and overall)
+    R2clean: Tables 3 and 4 (ROUGE-1 recall on BIPIA-Clean)
+    general_utility: Table 4 (MT-Bench, white-box only)

@@ -1,0 +1,1705 @@
+report:
+  id: moe_arxiv2025
+  slug: '2504.07467'
+  title: Defense against Prompt Injection Attacks via Mixture of Encodings
+  first_author: Ruiyi Zhang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2504.07467'
+  version_read: arXiv v1
+  first_date: '2025-04-10'
+  read: F
+  role: proposes
+  code_release: none found in the paper
+  extraction_scope: 'Sections 3 to 5: the No Defense, Base64 and Ours rows of Table 1 (all four datasets) and of Table 2 for MMLU, Squad, MGSM and SamSum; the abstract claims (Datamark, Ignoring and Caesar rows, the other
+    Table 2 columns and Appendices G and H not coded)'
+defences:
+- id: moe_gpt4
+  name: Mixture of encodings
+  origin: this_report
+  base_checkpoint: GPT-4 (turbo-2024-04-09)
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - 'three calls: external text in plain form, in Base64 and in a Caesar cipher (shift 3)'
+  - 'classification: label with the highest summed probability over the three answers'
+  - 'generation: a fourth call with a meta-prompt that writes the answer from the three responses'
+  layout: user prompt followed by the external text (plain, Base64 or Caesar), one call each
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We first input both prompts P1 and P2 from
+  pages:
+    components: 3
+    layout: 3
+  signal_dependence_detail: removing the encodings leaves the No Defense prompt; Base64 alone and Caesar alone are run as baselines
+- id: b64_gpt4
+  name: Base64 defence (spotlighting by encoding)
+  origin: other_report
+  base_checkpoint: GPT-4 (turbo-2024-04-09)
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  anchor: 'P2: [User Prompt] + Base64(External Text)'
+- id: moe_gpt4o
+  name: Mixture of encodings
+  origin: this_report
+  base_checkpoint: GPT-4o (2024-05-13)
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - 'three calls: external text in plain form, in Base64 and in a Caesar cipher (shift 3)'
+  - 'classification: label with the highest summed probability over the three answers'
+  - 'generation: a fourth call with a meta-prompt that writes the answer from the three responses'
+  layout: user prompt followed by the external text (plain, Base64 or Caesar), one call each
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We first input both prompts P1 and P2 from
+  pages:
+    components: 3
+    layout: 3
+  signal_dependence_detail: removing the encodings leaves the No Defense prompt; Base64 alone and Caesar alone are run as baselines
+- id: b64_gpt4o
+  name: Base64 defence (spotlighting by encoding)
+  origin: other_report
+  base_checkpoint: GPT-4o (2024-05-13)
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  anchor: 'P2: [User Prompt] + Base64(External Text)'
+evaluations:
+- id: ev_gpt4_none_email
+  defence_id: none:GPT-4 (turbo-2024-04-09)
+  benchmark: BIPIA subset, Email (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 11,250
+  decoding: not reported
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_table
+  defence_id: none:GPT-4 (turbo-2024-04-09)
+  benchmark: BIPIA subset, Table (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_abstract
+  defence_id: none:GPT-4 (turbo-2024-04-09)
+  benchmark: BIPIA subset, Abstract (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_code
+  defence_id: none:GPT-4 (turbo-2024-04-09)
+  benchmark: BIPIA subset, Code (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 7,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_mmlu
+  defence_id: none:GPT-4 (turbo-2024-04-09)
+  benchmark: MMLU (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14 K
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_squad
+  defence_id: none:GPT-4 (turbo-2024-04-09)
+  benchmark: Squad (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 10.6 K
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_mgsm
+  defence_id: none:GPT-4 (turbo-2024-04-09)
+  benchmark: MGSM (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 1.3 K
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_none_samsum
+  defence_id: none:GPT-4 (turbo-2024-04-09)
+  benchmark: SamSum (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14.7 K
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpt4_b64_email
+  defence_id: b64_gpt4
+  benchmark: BIPIA subset, Email (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 11,250
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4_b64_table
+  defence_id: b64_gpt4
+  benchmark: BIPIA subset, Table (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4_b64_abstract
+  defence_id: b64_gpt4
+  benchmark: BIPIA subset, Abstract (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4_b64_code
+  defence_id: b64_gpt4
+  benchmark: BIPIA subset, Code (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 7,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4_b64_mmlu
+  defence_id: b64_gpt4
+  benchmark: MMLU (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14 K
+  decoding: not reported
+- id: ev_gpt4_b64_squad
+  defence_id: b64_gpt4
+  benchmark: Squad (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 10.6 K
+  decoding: not reported
+- id: ev_gpt4_b64_mgsm
+  defence_id: b64_gpt4
+  benchmark: MGSM (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 1.3 K
+  decoding: not reported
+- id: ev_gpt4_b64_samsum
+  defence_id: b64_gpt4
+  benchmark: SamSum (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14.7 K
+  decoding: not reported
+- id: ev_gpt4_moe_email
+  defence_id: moe_gpt4
+  benchmark: BIPIA subset, Email (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 11,250
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4_moe_table
+  defence_id: moe_gpt4
+  benchmark: BIPIA subset, Table (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4_moe_abstract
+  defence_id: moe_gpt4
+  benchmark: BIPIA subset, Abstract (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4_moe_code
+  defence_id: moe_gpt4
+  benchmark: BIPIA subset, Code (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 7,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4_moe_mmlu
+  defence_id: moe_gpt4
+  benchmark: MMLU (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14 K
+  decoding: not reported
+- id: ev_gpt4_moe_squad
+  defence_id: moe_gpt4
+  benchmark: Squad (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 10.6 K
+  decoding: not reported
+- id: ev_gpt4_moe_mgsm
+  defence_id: moe_gpt4
+  benchmark: MGSM (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 1.3 K
+  decoding: not reported
+- id: ev_gpt4_moe_samsum
+  defence_id: moe_gpt4
+  benchmark: SamSum (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14.7 K
+  decoding: not reported
+- id: ev_gpt4o_none_email
+  defence_id: none:GPT-4o (2024-05-13)
+  benchmark: BIPIA subset, Email (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 11,250
+  decoding: not reported
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gpt4o_none_table
+  defence_id: none:GPT-4o (2024-05-13)
+  benchmark: BIPIA subset, Table (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gpt4o_none_abstract
+  defence_id: none:GPT-4o (2024-05-13)
+  benchmark: BIPIA subset, Abstract (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gpt4o_none_code
+  defence_id: none:GPT-4o (2024-05-13)
+  benchmark: BIPIA subset, Code (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 7,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gpt4o_none_mmlu
+  defence_id: none:GPT-4o (2024-05-13)
+  benchmark: MMLU (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14 K
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpt4o_none_squad
+  defence_id: none:GPT-4o (2024-05-13)
+  benchmark: Squad (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 10.6 K
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpt4o_none_mgsm
+  defence_id: none:GPT-4o (2024-05-13)
+  benchmark: MGSM (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 1.3 K
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpt4o_none_samsum
+  defence_id: none:GPT-4o (2024-05-13)
+  benchmark: SamSum (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14.7 K
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpt4o_b64_email
+  defence_id: b64_gpt4o
+  benchmark: BIPIA subset, Email (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 11,250
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4o_b64_table
+  defence_id: b64_gpt4o
+  benchmark: BIPIA subset, Table (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4o_b64_abstract
+  defence_id: b64_gpt4o
+  benchmark: BIPIA subset, Abstract (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4o_b64_code
+  defence_id: b64_gpt4o
+  benchmark: BIPIA subset, Code (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 7,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4o_b64_mmlu
+  defence_id: b64_gpt4o
+  benchmark: MMLU (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14 K
+  decoding: not reported
+- id: ev_gpt4o_b64_squad
+  defence_id: b64_gpt4o
+  benchmark: Squad (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 10.6 K
+  decoding: not reported
+- id: ev_gpt4o_b64_mgsm
+  defence_id: b64_gpt4o
+  benchmark: MGSM (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 1.3 K
+  decoding: not reported
+- id: ev_gpt4o_b64_samsum
+  defence_id: b64_gpt4o
+  benchmark: SamSum (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14.7 K
+  decoding: not reported
+- id: ev_gpt4o_moe_email
+  defence_id: moe_gpt4o
+  benchmark: BIPIA subset, Email (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 11,250
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4o_moe_table
+  defence_id: moe_gpt4o
+  benchmark: BIPIA subset, Table (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4o_moe_abstract
+  defence_id: moe_gpt4o
+  benchmark: BIPIA subset, Abstract (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 22,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4o_moe_code
+  defence_id: moe_gpt4o
+  benchmark: BIPIA subset, Code (50 attack types)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated (BIPIA attacks)
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 3
+  sample_size: 7,500
+  decoding: not reported
+  pages:
+    benchmark: 4
+- id: ev_gpt4o_moe_mmlu
+  defence_id: moe_gpt4o
+  benchmark: MMLU (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14 K
+  decoding: not reported
+- id: ev_gpt4o_moe_squad
+  defence_id: moe_gpt4o
+  benchmark: Squad (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 10.6 K
+  decoding: not reported
+- id: ev_gpt4o_moe_mgsm
+  defence_id: moe_gpt4o
+  benchmark: MGSM (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 1.3 K
+  decoding: not reported
+- id: ev_gpt4o_moe_samsum
+  defence_id: moe_gpt4o
+  benchmark: SamSum (helpfulness benchmark, no attack)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric not stated
+  layout_same_as_defence: 'yes'
+  measured_by: moe_arxiv2025
+  page: 4
+  sample_size: 14.7 K
+  decoding: not reported
+results:
+- id: r_gpt4_none_email
+  evaluation_id: ev_gpt4_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Email
+  value: '14.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_none_table
+  evaluation_id: ev_gpt4_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Table
+  value: '34.52'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_none_abstract
+  evaluation_id: ev_gpt4_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Abstract
+  value: '25.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_none_code
+  evaluation_id: ev_gpt4_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Code
+  value: '1.96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_none_mmlu
+  evaluation_id: ev_gpt4_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '83.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_none_squad
+  evaluation_id: ev_gpt4_none_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Squad
+  value: '43.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_none_mgsm
+  evaluation_id: ev_gpt4_none_mgsm
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MGSM
+  value: '38.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_none_samsum
+  evaluation_id: ev_gpt4_none_samsum
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SamSum
+  value: '41.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_b64_email
+  evaluation_id: ev_gpt4_b64_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Email
+  value: '3.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_b64_table
+  evaluation_id: ev_gpt4_b64_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Table
+  value: '10.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_b64_abstract
+  evaluation_id: ev_gpt4_b64_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Abstract
+  value: '8.66'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_b64_code
+  evaluation_id: ev_gpt4_b64_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Code
+  value: '0.15'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_b64_mmlu
+  evaluation_id: ev_gpt4_b64_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '44.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_b64_squad
+  evaluation_id: ev_gpt4_b64_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Squad
+  value: '43.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_b64_mgsm
+  evaluation_id: ev_gpt4_b64_mgsm
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MGSM
+  value: '19.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_b64_samsum
+  evaluation_id: ev_gpt4_b64_samsum
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SamSum
+  value: '37.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_moe_email
+  evaluation_id: ev_gpt4_moe_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Email
+  value: '1.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_moe_table
+  evaluation_id: ev_gpt4_moe_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Table
+  value: '3.75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_moe_abstract
+  evaluation_id: ev_gpt4_moe_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Abstract
+  value: '6.79'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_moe_code
+  evaluation_id: ev_gpt4_moe_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Code
+  value: '0.07'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4_moe_mmlu
+  evaluation_id: ev_gpt4_moe_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '77.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_moe_squad
+  evaluation_id: ev_gpt4_moe_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Squad
+  value: '43.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_moe_mgsm
+  evaluation_id: ev_gpt4_moe_mgsm
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MGSM
+  value: '36.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4_moe_samsum
+  evaluation_id: ev_gpt4_moe_samsum
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SamSum
+  value: '38.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_none_email
+  evaluation_id: ev_gpt4o_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Email
+  value: '12.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_none_table
+  evaluation_id: ev_gpt4o_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Table
+  value: '36.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_none_abstract
+  evaluation_id: ev_gpt4o_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Abstract
+  value: '26.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_none_code
+  evaluation_id: ev_gpt4o_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Code
+  value: '7.59'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_none_mmlu
+  evaluation_id: ev_gpt4o_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '79.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_none_squad
+  evaluation_id: ev_gpt4o_none_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Squad
+  value: '43.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_none_mgsm
+  evaluation_id: ev_gpt4o_none_mgsm
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MGSM
+  value: '53.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_none_samsum
+  evaluation_id: ev_gpt4o_none_samsum
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SamSum
+  value: '41.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_b64_email
+  evaluation_id: ev_gpt4o_b64_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Email
+  value: '1.90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_b64_table
+  evaluation_id: ev_gpt4o_b64_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Table
+  value: '1.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_b64_abstract
+  evaluation_id: ev_gpt4o_b64_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Abstract
+  value: '5.70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_b64_code
+  evaluation_id: ev_gpt4o_b64_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Code
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_b64_mmlu
+  evaluation_id: ev_gpt4o_b64_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '64.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_b64_squad
+  evaluation_id: ev_gpt4o_b64_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Squad
+  value: '37.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_b64_mgsm
+  evaluation_id: ev_gpt4o_b64_mgsm
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MGSM
+  value: '5.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_b64_samsum
+  evaluation_id: ev_gpt4o_b64_samsum
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SamSum
+  value: '35.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_moe_email
+  evaluation_id: ev_gpt4o_moe_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Email
+  value: '1.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_moe_table
+  evaluation_id: ev_gpt4o_moe_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Table
+  value: '1.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_moe_abstract
+  evaluation_id: ev_gpt4o_moe_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Abstract
+  value: '1.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_moe_code
+  evaluation_id: ev_gpt4o_moe_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Code
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_gpt4o_moe_mmlu
+  evaluation_id: ev_gpt4o_moe_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '75.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_moe_squad
+  evaluation_id: ev_gpt4o_moe_squad
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Squad
+  value: '42.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_moe_mgsm
+  evaluation_id: ev_gpt4o_moe_mgsm
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MGSM
+  value: '52.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt4o_moe_samsum
+  evaluation_id: ev_gpt4o_moe_samsum
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SamSum
+  value: '39.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+comparisons:
+- id: c_gpt4_email_moe_none
+  left: ev_gpt4_moe_email
+  right: ev_gpt4_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_gpt4_email_moe_b64
+  left: ev_gpt4_moe_email
+  right: ev_gpt4_b64_email
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 3
+- id: c_gpt4_table_moe_none
+  left: ev_gpt4_moe_table
+  right: ev_gpt4_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_gpt4_table_moe_b64
+  left: ev_gpt4_moe_table
+  right: ev_gpt4_b64_table
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 3
+- id: c_gpt4_abstract_moe_none
+  left: ev_gpt4_moe_abstract
+  right: ev_gpt4_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_gpt4_abstract_moe_b64
+  left: ev_gpt4_moe_abstract
+  right: ev_gpt4_b64_abstract
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 3
+- id: c_gpt4_code_moe_none
+  left: ev_gpt4_moe_code
+  right: ev_gpt4_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_gpt4_code_moe_b64
+  left: ev_gpt4_moe_code
+  right: ev_gpt4_b64_code
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 3
+- id: c_gpt4_mmlu_moe_none
+  left: ev_gpt4_moe_mmlu
+  right: ev_gpt4_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_gpt4_mmlu_moe_b64
+  left: ev_gpt4_moe_mmlu
+  right: ev_gpt4_b64_mmlu
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 4
+- id: c_gpt4_squad_moe_none
+  left: ev_gpt4_moe_squad
+  right: ev_gpt4_none_squad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_gpt4_squad_moe_b64
+  left: ev_gpt4_moe_squad
+  right: ev_gpt4_b64_squad
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 4
+- id: c_gpt4_mgsm_moe_none
+  left: ev_gpt4_moe_mgsm
+  right: ev_gpt4_none_mgsm
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_gpt4_mgsm_moe_b64
+  left: ev_gpt4_moe_mgsm
+  right: ev_gpt4_b64_mgsm
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 4
+- id: c_gpt4_samsum_moe_none
+  left: ev_gpt4_moe_samsum
+  right: ev_gpt4_none_samsum
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_gpt4_samsum_moe_b64
+  left: ev_gpt4_moe_samsum
+  right: ev_gpt4_b64_samsum
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 4
+- id: c_gpt4o_email_moe_none
+  left: ev_gpt4o_moe_email
+  right: ev_gpt4o_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_gpt4o_email_moe_b64
+  left: ev_gpt4o_moe_email
+  right: ev_gpt4o_b64_email
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 3
+- id: c_gpt4o_table_moe_none
+  left: ev_gpt4o_moe_table
+  right: ev_gpt4o_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_gpt4o_table_moe_b64
+  left: ev_gpt4o_moe_table
+  right: ev_gpt4o_b64_table
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 3
+- id: c_gpt4o_abstract_moe_none
+  left: ev_gpt4o_moe_abstract
+  right: ev_gpt4o_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_gpt4o_abstract_moe_b64
+  left: ev_gpt4o_moe_abstract
+  right: ev_gpt4o_b64_abstract
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 3
+- id: c_gpt4o_code_moe_none
+  left: ev_gpt4o_moe_code
+  right: ev_gpt4o_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_gpt4o_code_moe_b64
+  left: ev_gpt4o_moe_code
+  right: ev_gpt4o_b64_code
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 3
+- id: c_gpt4o_mmlu_moe_none
+  left: ev_gpt4o_moe_mmlu
+  right: ev_gpt4o_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_gpt4o_mmlu_moe_b64
+  left: ev_gpt4o_moe_mmlu
+  right: ev_gpt4o_b64_mmlu
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 4
+- id: c_gpt4o_squad_moe_none
+  left: ev_gpt4o_moe_squad
+  right: ev_gpt4o_none_squad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_gpt4o_squad_moe_b64
+  left: ev_gpt4o_moe_squad
+  right: ev_gpt4o_b64_squad
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 4
+- id: c_gpt4o_mgsm_moe_none
+  left: ev_gpt4o_moe_mgsm
+  right: ev_gpt4o_none_mgsm
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_gpt4o_mgsm_moe_b64
+  left: ev_gpt4o_moe_mgsm
+  right: ev_gpt4o_b64_mgsm
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 4
+- id: c_gpt4o_samsum_moe_none
+  left: ev_gpt4o_moe_samsum
+  right: ev_gpt4o_none_samsum
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_gpt4o_samsum_moe_b64
+  left: ev_gpt4o_moe_samsum
+  right: ev_gpt4o_b64_samsum
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the mixture (plain, Base64 and Caesar answers combined) against Base64 alone
+  page: 4
+claims:
+- id: k1
+  text: one of the lowest attack success rates
+  location: abstract
+  anchor: achieves one of the low- est attack success rates under prompt injec- tion attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_gpt4_email_moe_none
+  - c_gpt4_table_moe_none
+  - c_gpt4_abstract_moe_none
+  - c_gpt4_code_moe_none
+  - c_gpt4o_email_moe_none
+  - c_gpt4o_table_moe_none
+  - c_gpt4o_abstract_moe_none
+  - c_gpt4o_code_moe_none
+  page: 1
+- id: k2
+  text: high performance across all NLP tasks, better than other encoding defences
+  location: abstract
+  anchor: while maintaining high performance across all NLP tasks
+  jobs:
+  - general_utility
+  - R2
+  supported_by:
+  - c_gpt4_mmlu_moe_b64
+  - c_gpt4_squad_moe_b64
+  - c_gpt4_mgsm_moe_b64
+  - c_gpt4_samsum_moe_b64
+  - c_gpt4o_mmlu_moe_b64
+  - c_gpt4o_squad_moe_b64
+  - c_gpt4o_mgsm_moe_b64
+  - c_gpt4o_samsum_moe_b64
+  page: 1
+  contradicted_by:
+  - r_gpt4_moe_mmlu
+  - r_gpt4o_moe_mmlu
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    R2clean: Table 2 (Squad; SamSum as a summary proxy)
+    general_utility: Table 2 (MMLU, MGSM)

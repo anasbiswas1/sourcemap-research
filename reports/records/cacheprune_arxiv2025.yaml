@@ -1,0 +1,1392 @@
+report:
+  id: cacheprune_arxiv2025
+  slug: '2504.21228'
+  title: 'CachePrune: Teaching LLMs What Not to Follow via KV-Cache Editing'
+  first_author: Rui Wang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2504.21228'
+  version_read: arXiv v3
+  first_date: '2025-04-29'
+  read: F
+  role: proposes
+  code_release: none found in the paper
+  extraction_scope: 'Sections 3 to 4.2 and Appendix A: the Vanilla and CachePrune rows of Table 1 for all three models and all columns; the abstract claims (Delimiting, Datamarking, Sandwich and Encode_Base64 rows, Tables
+    2 to 6, the adaptive attacks of Appendix F and Tables 13 to 14 not coded)'
+defences:
+- id: cp_l3
+  name: CachePrune
+  origin: this_report
+  base_checkpoint: LLama3-8B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: stated
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - neurons in the key and value cache of the context tokens pruned (0.5% of neurons)
+  - mask chosen by a preferential attribution loss on 8 examples (poisoned against clean responses)
+  layout: the original prompt (Vanilla) with the context span's position known; the pruning mask applied to the context's KV cache
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not applicable (no weights changed)
+  anchor: By default, We experiment with N = 8 for neu- ral attribution
+  signal_dependence_detail: the masking requires knowing the context boundary (p. 6); no run with a wrong or missing boundary
+  pages:
+    isolation: 13
+- id: cp_m7
+  name: CachePrune
+  origin: this_report
+  base_checkpoint: Mistral-7B-Instruct-V3.0
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: stated
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - neurons in the key and value cache of the context tokens pruned (0.5% of neurons)
+  - mask chosen by a preferential attribution loss on 8 examples (poisoned against clean responses)
+  layout: the original prompt (Vanilla) with the context span's position known; the pruning mask applied to the context's KV cache
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not applicable (no weights changed)
+  anchor: By default, We experiment with N = 8 for neu- ral attribution
+  signal_dependence_detail: the masking requires knowing the context boundary (p. 6); no run with a wrong or missing boundary
+  pages:
+    isolation: 13
+- id: cp_phi
+  name: CachePrune
+  origin: this_report
+  base_checkpoint: Phi-3.5-mini-instruct (3.8B)
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: stated
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  components:
+  - neurons in the key and value cache of the context tokens pruned (0.5% of neurons)
+  - mask chosen by a preferential attribution loss on 8 examples (poisoned against clean responses)
+  layout: the original prompt (Vanilla) with the context span's position known; the pruning mask applied to the context's KV cache
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not applicable (no weights changed)
+  anchor: By default, We experiment with N = 8 for neu- ral attribution
+  signal_dependence_detail: the masking requires knowing the context boundary (p. 6); no run with a wrong or missing boundary
+  pages:
+    isolation: 13
+evaluations:
+- id: ev_l3_none_squad_attack
+  defence_id: none:LLama3-8B
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_squad_clean
+  defence_id: none:LLama3-8B
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_hotpot_attack
+  defence_id: none:LLama3-8B
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_hotpot_clean
+  defence_id: none:LLama3-8B
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_wild_attack
+  defence_id: none:LLama3-8B
+  benchmark: WildChat dialogue summarization, a user question in the dialogue with an added focus sentence
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); LLM judge scores summary quality 1 to 5
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  baseline_kind: off_the_shelf
+- id: ev_l3_cp_squad_attack
+  defence_id: cp_l3
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_l3_cp_squad_clean
+  defence_id: cp_l3
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_l3_cp_hotpot_attack
+  defence_id: cp_l3
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_l3_cp_hotpot_clean
+  defence_id: cp_l3
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_l3_cp_wild_attack
+  defence_id: cp_l3
+  benchmark: WildChat dialogue summarization, a user question in the dialogue with an added focus sentence
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); LLM judge scores summary quality 1 to 5
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_m7_none_squad_attack
+  defence_id: none:Mistral-7B-Instruct-V3.0
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_m7_none_squad_clean
+  defence_id: none:Mistral-7B-Instruct-V3.0
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  baseline_kind: off_the_shelf
+- id: ev_m7_none_hotpot_attack
+  defence_id: none:Mistral-7B-Instruct-V3.0
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_m7_none_hotpot_clean
+  defence_id: none:Mistral-7B-Instruct-V3.0
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  baseline_kind: off_the_shelf
+- id: ev_m7_none_wild_attack
+  defence_id: none:Mistral-7B-Instruct-V3.0
+  benchmark: WildChat dialogue summarization, a user question in the dialogue with an added focus sentence
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); LLM judge scores summary quality 1 to 5
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  baseline_kind: off_the_shelf
+- id: ev_m7_cp_squad_attack
+  defence_id: cp_m7
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_m7_cp_squad_clean
+  defence_id: cp_m7
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_m7_cp_hotpot_attack
+  defence_id: cp_m7
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_m7_cp_hotpot_clean
+  defence_id: cp_m7
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_m7_cp_wild_attack
+  defence_id: cp_m7
+  benchmark: WildChat dialogue summarization, a user question in the dialogue with an added focus sentence
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); LLM judge scores summary quality 1 to 5
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_phi_none_squad_attack
+  defence_id: none:Phi-3.5-mini-instruct (3.8B)
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_phi_none_squad_clean
+  defence_id: none:Phi-3.5-mini-instruct (3.8B)
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  baseline_kind: off_the_shelf
+- id: ev_phi_none_hotpot_attack
+  defence_id: none:Phi-3.5-mini-instruct (3.8B)
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  baseline_kind: off_the_shelf
+- id: ev_phi_none_hotpot_clean
+  defence_id: none:Phi-3.5-mini-instruct (3.8B)
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  baseline_kind: off_the_shelf
+- id: ev_phi_none_wild_attack
+  defence_id: none:Phi-3.5-mini-instruct (3.8B)
+  benchmark: WildChat dialogue summarization, a user question in the dialogue with an added focus sentence
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); LLM judge scores summary quality 1 to 5
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  baseline_kind: off_the_shelf
+- id: ev_phi_cp_squad_attack
+  defence_id: cp_phi
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_phi_cp_squad_clean
+  defence_id: cp_phi
+  benchmark: SQuAD with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_phi_cp_hotpot_attack
+  defence_id: cp_phi
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits)
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  injection_position: varied
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_phi_cp_hotpot_clean
+  defence_id: cp_phi
+  benchmark: HotpotQA with instructions injected at the start, middle or end of the context (Abdelnabi et al. splits) (clean prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: F1 against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  run: mean of 3 trials (CachePrune rows)
+- id: ev_phi_cp_wild_attack
+  defence_id: cp_phi
+  benchmark: WildChat dialogue summarization, a user question in the dialogue with an added focus sentence
+  attacker_type: static
+  attacker_access: black_box
+  judge: proportion of poisoned responses (how a response is judged poisoned is not stated); LLM judge scores summary quality 1 to 5
+  layout_same_as_defence: 'yes'
+  measured_by: cacheprune_arxiv2025
+  page: 7
+  decoding: greedy
+  pages:
+    benchmark: 6
+    judge: 11
+    decoding: 11
+  run: mean of 3 trials (CachePrune rows)
+results:
+- id: r_l3_none_squad_asr
+  evaluation_id: ev_l3_none_squad_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '27.86'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_l3_none_squad_f1c
+  evaluation_id: ev_l3_none_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '28.20'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_l3_none_squad_f1
+  evaluation_id: ev_l3_none_squad_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '19.56'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_l3_none_hotpot_asr
+  evaluation_id: ev_l3_none_hotpot_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '69.01'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_l3_none_hotpot_f1c
+  evaluation_id: ev_l3_none_hotpot_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '16.24'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_l3_none_hotpot_f1
+  evaluation_id: ev_l3_none_hotpot_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '5.12'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_l3_none_wild_asr
+  evaluation_id: ev_l3_none_wild_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '14.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_l3_none_wild_gpt-score
+  evaluation_id: ev_l3_none_wild_attack
+  quantity: R3cp
+  coverage: proxy
+  metric_as_printed: GPT-Score
+  value: '3.32'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_l3_cp_squad_asr
+  evaluation_id: ev_l3_cp_squad_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '7.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.22 over 3 trials
+- id: r_l3_cp_squad_f1c
+  evaluation_id: ev_l3_cp_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '28.68'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.30 over 3 trials
+- id: r_l3_cp_squad_f1
+  evaluation_id: ev_l3_cp_squad_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '22.84'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.49 over 3 trials
+- id: r_l3_cp_hotpot_asr
+  evaluation_id: ev_l3_cp_hotpot_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '15.23'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 1.56 over 3 trials
+- id: r_l3_cp_hotpot_f1c
+  evaluation_id: ev_l3_cp_hotpot_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '16.21'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.61 over 3 trials
+- id: r_l3_cp_hotpot_f1
+  evaluation_id: ev_l3_cp_hotpot_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '10.97'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.35 over 3 trials
+- id: r_l3_cp_wild_asr
+  evaluation_id: ev_l3_cp_wild_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.41 over 3 trials
+- id: r_l3_cp_wild_gpt-score
+  evaluation_id: ev_l3_cp_wild_attack
+  quantity: R3cp
+  coverage: proxy
+  metric_as_printed: GPT-Score
+  value: '3.32'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.10 over 3 trials
+- id: r_m7_none_squad_asr
+  evaluation_id: ev_m7_none_squad_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '9.01'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_m7_none_squad_f1c
+  evaluation_id: ev_m7_none_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '22.78'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_m7_none_squad_f1
+  evaluation_id: ev_m7_none_squad_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '19.04'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_m7_none_hotpot_asr
+  evaluation_id: ev_m7_none_hotpot_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '25.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_m7_none_hotpot_f1c
+  evaluation_id: ev_m7_none_hotpot_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '14.10'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_m7_none_hotpot_f1
+  evaluation_id: ev_m7_none_hotpot_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '10.12'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_m7_none_wild_asr
+  evaluation_id: ev_m7_none_wild_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_m7_none_wild_gpt-score
+  evaluation_id: ev_m7_none_wild_attack
+  quantity: R3cp
+  coverage: proxy
+  metric_as_printed: GPT-Score
+  value: '3.88'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_m7_cp_squad_asr
+  evaluation_id: ev_m7_cp_squad_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.68'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.41 over 3 trials
+- id: r_m7_cp_squad_f1c
+  evaluation_id: ev_m7_cp_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '24.46'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.91 over 3 trials
+- id: r_m7_cp_squad_f1
+  evaluation_id: ev_m7_cp_squad_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '23.10'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 1.32 over 3 trials
+- id: r_m7_cp_hotpot_asr
+  evaluation_id: ev_m7_cp_hotpot_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '5.51'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 1.10 over 3 trials
+- id: r_m7_cp_hotpot_f1c
+  evaluation_id: ev_m7_cp_hotpot_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '14.38'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.57 over 3 trials
+- id: r_m7_cp_hotpot_f1
+  evaluation_id: ev_m7_cp_hotpot_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '13.32'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.42 over 3 trials
+- id: r_m7_cp_wild_asr
+  evaluation_id: ev_m7_cp_wild_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.26 over 3 trials
+- id: r_m7_cp_wild_gpt-score
+  evaluation_id: ev_m7_cp_wild_attack
+  quantity: R3cp
+  coverage: proxy
+  metric_as_printed: GPT-Score
+  value: '3.90'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.03 over 3 trials
+- id: r_phi_none_squad_asr
+  evaluation_id: ev_phi_none_squad_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '10.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_phi_none_squad_f1c
+  evaluation_id: ev_phi_none_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '26.03'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_phi_none_squad_f1
+  evaluation_id: ev_phi_none_squad_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '25.64'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_phi_none_hotpot_asr
+  evaluation_id: ev_phi_none_hotpot_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '21.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_phi_none_hotpot_f1c
+  evaluation_id: ev_phi_none_hotpot_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '14.14'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_phi_none_hotpot_f1
+  evaluation_id: ev_phi_none_hotpot_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '7.69'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_phi_none_wild_asr
+  evaluation_id: ev_phi_none_wild_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '3.32'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_phi_none_wild_gpt-score
+  evaluation_id: ev_phi_none_wild_attack
+  quantity: R3cp
+  coverage: proxy
+  metric_as_printed: GPT-Score
+  value: '3.78'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_phi_cp_squad_asr
+  evaluation_id: ev_phi_cp_squad_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.71'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.18 over 3 trials
+- id: r_phi_cp_squad_f1c
+  evaluation_id: ev_phi_cp_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '26.76'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.56 over 3 trials
+- id: r_phi_cp_squad_f1
+  evaluation_id: ev_phi_cp_squad_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '25.55'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.60 over 3 trials
+- id: r_phi_cp_hotpot_asr
+  evaluation_id: ev_phi_cp_hotpot_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.76'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.50 over 3 trials
+- id: r_phi_cp_hotpot_f1c
+  evaluation_id: ev_phi_cp_hotpot_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: F1(clean)
+  value: '14.17'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.78 over 3 trials
+- id: r_phi_cp_hotpot_f1
+  evaluation_id: ev_phi_cp_hotpot_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: F1 (attack)
+  value: '9.79'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 1.12 over 3 trials
+- id: r_phi_cp_wild_asr
+  evaluation_id: ev_phi_cp_wild_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.25 over 3 trials
+- id: r_phi_cp_wild_gpt-score
+  evaluation_id: ev_phi_cp_wild_attack
+  quantity: R3cp
+  coverage: proxy
+  metric_as_printed: GPT-Score
+  value: '3.60'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: ± 0.31 over 3 trials
+comparisons:
+- id: c_l3_hotpot_attack
+  left: ev_l3_cp_hotpot_attack
+  right: ev_l3_none_hotpot_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l3_hotpot_clean
+  left: ev_l3_cp_hotpot_clean
+  right: ev_l3_none_hotpot_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l3_squad_attack
+  left: ev_l3_cp_squad_attack
+  right: ev_l3_none_squad_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l3_squad_clean
+  left: ev_l3_cp_squad_clean
+  right: ev_l3_none_squad_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l3_wild_attack
+  left: ev_l3_cp_wild_attack
+  right: ev_l3_none_wild_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m7_hotpot_attack
+  left: ev_m7_cp_hotpot_attack
+  right: ev_m7_none_hotpot_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m7_hotpot_clean
+  left: ev_m7_cp_hotpot_clean
+  right: ev_m7_none_hotpot_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m7_squad_attack
+  left: ev_m7_cp_squad_attack
+  right: ev_m7_none_squad_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m7_squad_clean
+  left: ev_m7_cp_squad_clean
+  right: ev_m7_none_squad_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m7_wild_attack
+  left: ev_m7_cp_wild_attack
+  right: ev_m7_none_wild_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_hotpot_attack
+  left: ev_phi_cp_hotpot_attack
+  right: ev_phi_none_hotpot_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_hotpot_clean
+  left: ev_phi_cp_hotpot_clean
+  right: ev_phi_none_hotpot_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_squad_attack
+  left: ev_phi_cp_squad_attack
+  right: ev_phi_none_squad_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_squad_clean
+  left: ev_phi_cp_squad_clean
+  right: ev_phi_none_squad_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_wild_attack
+  left: ev_phi_cp_wild_attack
+  right: ev_phi_none_wild_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+claims:
+- id: k1
+  text: CachePrune significantly reduces attack success
+  location: abstract
+  anchor: CachePrune significantly reduces the attack success rate
+  jobs:
+  - R1
+  supported_by:
+  - c_l3_squad_attack
+  - c_l3_hotpot_attack
+  - c_l3_wild_attack
+  - c_m7_squad_attack
+  - c_m7_hotpot_attack
+  - c_m7_wild_attack
+  - c_phi_squad_attack
+  - c_phi_hotpot_attack
+  - c_phi_wild_attack
+  page: 1
+- id: k2
+  text: while keeping the model's ability to follow user instructions
+  location: abstract
+  anchor: preserving the LLM’s ability to follow user instructions
+  jobs:
+  - R2
+  supported_by:
+  - c_l3_squad_clean
+  - c_l3_hotpot_clean
+  - c_m7_squad_clean
+  - c_m7_hotpot_clean
+  - c_phi_squad_clean
+  - c_phi_hotpot_clean
+  - c_l3_squad_attack
+  - c_l3_hotpot_attack
+  - c_m7_squad_attack
+  - c_m7_hotpot_attack
+  - c_phi_squad_attack
+  - c_phi_hotpot_attack
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: proxy
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    R2clean: Table 1 (F1 clean)
+    R2attack: Table 1 (F1 attack)
+    R3cp: Table 1 (GPT-Score of WildChat summaries)

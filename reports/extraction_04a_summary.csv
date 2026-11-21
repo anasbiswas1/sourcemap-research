@@ -1,0 +1,13 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,residual_notes,problems
+04a,struq_arxiv2024,2402.06363,proposes,2,24,24,24,0,4,12,12,0,0,0,2,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0
+04a,ih_arxiv2024,2404.13208,proposes,1,6,6,0,6,3,3,3,0,0,0,2,direct,not_reported,not_reported,not_reported,not_reported,not_reported,1,0
+04a,ise_iclr2025,2410.09102,proposes,5,30,30,30,0,7,15,15,0,0,0,2,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0
+04a,metasecalign_arxiv2025,2507.02735,proposes,5,40,46,46,0,7,26,26,0,0,0,2,direct,direct,direct,not_reported,not_reported,not_reported,0,0
+04a,defensivetokens_aisec2025,2507.07974,proposes,5,72,72,72,0,7,40,40,0,0,0,2,direct,proxy,not_reported,not_reported,not_reported,not_reported,0,0
+04a,jatmo_arxiv2023,2312.17673,proposes,1,41,41,41,0,3,20,0,20,0,0,2,direct,aggregate_only,not_reported,not_reported,not_reported,not_reported,0,0
+04a,bipia_kdd2025,2312.14197,mixed,14,134,134,134,0,17,104,62,42,0,0,3,direct,proxy,not_reported,not_reported,not_reported,not_reported,0,0
+04a,cacheprune_arxiv2025,2504.21228,proposes,3,30,48,48,0,5,15,15,0,0,0,2,direct,direct,direct,not_reported,proxy,not_reported,0,0
+04a,drip_arxiv2025,2511.00447,proposes,4,48,48,48,0,7,32,32,0,0,0,3,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0
+04a,fath_arxiv2024,2410.21492,proposes,3,44,44,44,0,4,22,22,0,0,0,1,direct,proxy,not_reported,not_reported,not_reported,not_reported,1,0
+04a,rvr_arxiv2025,2504.20472,proposes,6,63,63,63,0,8,39,39,0,0,0,2,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0
+04a,moe_arxiv2025,2504.07467,proposes,4,48,48,48,0,6,32,32,0,0,0,2,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0

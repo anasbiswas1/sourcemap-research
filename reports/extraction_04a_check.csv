@@ -1,0 +1,3 @@
+report,status,detail
+ih_arxiv2024,residual note,"results r_browse_0_*, r_tools_0_*, r_nonconf_0_*: values are printed as bar labels inside the charts; value_source has no value for a printed chart label, so they are coded figure_only and the printed value is kept (checked against the page text by the batch notebook)"
+fath_arxiv2024,residual note,"results r_l3_none_ia_*, r_g35_none_ia_*: Table 3 prints the Llama3 no-defence ASR as a percentage (99.3) and the GPT3.5 one as a fraction (1.00); each is coded in its printed unit"

@@ -1,0 +1,901 @@
+report:
+  id: struq_arxiv2024
+  slug: '2402.06363'
+  title: 'StruQ: Defending Against Prompt Injection with Structured Queries'
+  first_author: Sizhe Chen
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2402.06363'
+  version_read: arXiv v2
+  first_date: '2024-02-09'
+  read: F
+  role: proposes
+  code_release: linked from the abstract
+  extraction_scope: 'Sections 5 and 5.1 to 5.4: Llama and Mistral columns of Tables 2 and 3 for the Naive, Completion-Real, Completion-Close (Max), Tree-of-Attack and GCG rows; the abstract claims (other attack rows, HackAPrompt,
+    Tables 4 to 9 and Section 5.5 not coded)'
+defences:
+- id: struq_llama7b
+  name: StruQ
+  origin: this_report
+  base_checkpoint: Llama-7B (base model)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: stated
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 9
+  components:
+  - 'secure front-end: reserved special tokens as delimiters, the delimiter strings filtered out of the data'
+  - structured instruction tuning on cleaned Alpaca with Naive and Completion-Other injections in the data part
+  layout: instruction, data and response sections each opened by reserved delimiter tokens in one prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: code linked; weights not checked
+  anchor: We apply StruQ to two popular open-source foundation models
+  signal_dependence_detail: Section 5.4 trains separate models with textual or special delimiters (Table 6, attack success 1% in every combination); no run of a trained StruQ model with its delimiters removed or moved
+  pages:
+    isolation: 11
+    signal_dependence: 12
+    layout: 7
+- id: struq_mistral7b
+  name: StruQ
+  origin: this_report
+  base_checkpoint: Mistral-7B (base model)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: stated
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 9
+  components:
+  - 'secure front-end: reserved special tokens as delimiters, the delimiter strings filtered out of the data'
+  - structured instruction tuning on cleaned Alpaca with Naive and Completion-Other injections in the data part
+  layout: instruction, data and response sections each opened by reserved delimiter tokens in one prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: code linked; weights not checked
+  anchor: We apply StruQ to two popular open-source foundation models
+  signal_dependence_detail: Section 5.4 trains separate models with textual or special delimiters (Table 6, attack success 1% in every combination); no run of a trained StruQ model with its delimiters removed or moved
+  pages:
+    isolation: 11
+    signal_dependence: 12
+    layout: 7
+evaluations:
+- id: ev_llama_naive_none
+  defence_id: none:Llama-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Naive attack
+  injection_position: end
+  pages: &id001
+    benchmark: 9
+    judge: 9
+    baseline_kind: 11
+- id: ev_llama_naive_def
+  defence_id: struq_llama7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Naive attack
+  injection_position: end
+  pages: *id001
+- id: ev_llama_creal_none
+  defence_id: none:Llama-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Completion-Real attack
+  injection_position: end
+  pages: *id001
+- id: ev_llama_creal_def
+  defence_id: struq_llama7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Completion-Real attack
+  injection_position: end
+  pages: *id001
+- id: ev_llama_cclose_none
+  defence_id: none:Llama-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: highest of nine near-miss delimiter variants (Table 4)
+  injection_position: end
+  pages: *id001
+- id: ev_llama_cclose_def
+  defence_id: struq_llama7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: highest of nine near-miss delimiter variants (Table 4)
+  injection_position: end
+  pages: *id001
+- id: ev_llama_tap_none
+  defence_id: none:Llama-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Tree-of-Attacks with Pruning, judge LLM replaced by substring matching
+  injection_position: end
+  pages: *id001
+- id: ev_llama_tap_def
+  defence_id: struq_llama7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Tree-of-Attacks with Pruning, judge LLM replaced by substring matching
+  injection_position: end
+  pages: *id001
+- id: ev_llama_gcg_none
+  defence_id: none:Llama-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: 500 GCG iterations
+  injection_position: end
+  pages: *id001
+- id: ev_llama_gcg_def
+  defence_id: struq_llama7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: 500 GCG iterations
+  injection_position: end
+  pages: *id001
+- id: ev_llama_util_none
+  defence_id: none:Llama-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaEval 1.0 (805 AlpacaFarm samples)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against davinci003
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '805'
+  pages: &id002
+    benchmark: 9
+    judge: 9
+    baseline_kind: 11
+- id: ev_llama_util_def
+  defence_id: struq_llama7b
+  benchmark: AlpacaEval 1.0 (805 AlpacaFarm samples)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against davinci003
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '805'
+  pages: *id002
+- id: ev_mistral_naive_none
+  defence_id: none:Mistral-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Naive attack
+  injection_position: end
+  pages: &id003
+    benchmark: 9
+    judge: 9
+    baseline_kind: 11
+- id: ev_mistral_naive_def
+  defence_id: struq_mistral7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Naive attack
+  injection_position: end
+  pages: *id003
+- id: ev_mistral_creal_none
+  defence_id: none:Mistral-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Completion-Real attack
+  injection_position: end
+  pages: *id003
+- id: ev_mistral_creal_def
+  defence_id: struq_mistral7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Completion-Real attack
+  injection_position: end
+  pages: *id003
+- id: ev_mistral_cclose_none
+  defence_id: none:Mistral-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: highest of nine near-miss delimiter variants (Table 4)
+  injection_position: end
+  pages: *id003
+- id: ev_mistral_cclose_def
+  defence_id: struq_mistral7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: highest of nine near-miss delimiter variants (Table 4)
+  injection_position: end
+  pages: *id003
+- id: ev_mistral_tap_none
+  defence_id: none:Mistral-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Tree-of-Attacks with Pruning, judge LLM replaced by substring matching
+  injection_position: end
+  pages: *id003
+- id: ev_mistral_tap_def
+  defence_id: struq_mistral7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: Tree-of-Attacks with Pruning, judge LLM replaced by substring matching
+  injection_position: end
+  pages: *id003
+- id: ev_mistral_gcg_none
+  defence_id: none:Mistral-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: 500 GCG iterations
+  injection_position: end
+  pages: *id003
+- id: ev_mistral_gcg_def
+  defence_id: struq_mistral7b
+  benchmark: AlpacaFarm samples with a data part
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply contains Hacked! or hacked!, each such reply inspected by hand to remove false positives
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '208'
+  split: 208 samples, injection at the end of the data
+  attacker_budget: 500 GCG iterations
+  injection_position: end
+  pages: *id003
+- id: ev_mistral_util_none
+  defence_id: none:Mistral-7B, instruction-tuned on the same Alpaca data (Undef.)
+  benchmark: AlpacaEval 1.0 (805 AlpacaFarm samples)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against davinci003
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  baseline_kind: same_data_twin
+  sample_size: '805'
+  pages: &id004
+    benchmark: 9
+    judge: 9
+    baseline_kind: 11
+- id: ev_mistral_util_def
+  defence_id: struq_mistral7b
+  benchmark: AlpacaEval 1.0 (805 AlpacaFarm samples)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against davinci003
+  layout_same_as_defence: 'yes'
+  measured_by: struq_arxiv2024
+  page: 10
+  sample_size: '805'
+  pages: *id004
+results:
+- id: r_llama_naive_0_none
+  evaluation_id: ev_llama_naive_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Naive
+  value: '6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_naive_0_def
+  evaluation_id: ev_llama_naive_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Naive
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_creal_0_none
+  evaluation_id: ev_llama_creal_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Completion-Real
+  value: '96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_creal_0_def
+  evaluation_id: ev_llama_creal_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Completion-Real
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_cclose_0_none
+  evaluation_id: ev_llama_cclose_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Completion-Close (Max)
+  value: '96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_cclose_0_def
+  evaluation_id: ev_llama_cclose_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Completion-Close (Max)
+  value: '1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_tap_0_none
+  evaluation_id: ev_llama_tap_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Tree-of-Attack
+  value: '97'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_tap_0_def
+  evaluation_id: ev_llama_tap_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Tree-of-Attack
+  value: '9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_gcg_0_none
+  evaluation_id: ev_llama_gcg_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Greedy Coordinate Gradient
+  value: '97'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_gcg_0_def
+  evaluation_id: ev_llama_gcg_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Greedy Coordinate Gradient
+  value: '58'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_llama_util_0_none
+  evaluation_id: ev_llama_util_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Utility (AlpacaEval)
+  value: '67.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: AlpacaEval standard error 0.7% (p. 9)
+- id: r_llama_util_0_def
+  evaluation_id: ev_llama_util_def
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Utility (AlpacaEval)
+  value: '67.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: AlpacaEval standard error 0.7% (p. 9)
+- id: r_mistral_naive_0_none
+  evaluation_id: ev_mistral_naive_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Naive
+  value: '5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_naive_0_def
+  evaluation_id: ev_mistral_naive_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Naive
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_creal_0_none
+  evaluation_id: ev_mistral_creal_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Completion-Real
+  value: '96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_creal_0_def
+  evaluation_id: ev_mistral_creal_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Completion-Real
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_cclose_0_none
+  evaluation_id: ev_mistral_cclose_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Completion-Close (Max)
+  value: '96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_cclose_0_def
+  evaluation_id: ev_mistral_cclose_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Completion-Close (Max)
+  value: '1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_tap_0_none
+  evaluation_id: ev_mistral_tap_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Tree-of-Attack
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_tap_0_def
+  evaluation_id: ev_mistral_tap_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Tree-of-Attack
+  value: '36'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_gcg_0_none
+  evaluation_id: ev_mistral_gcg_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Greedy Coordinate Gradient
+  value: '99'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_gcg_0_def
+  evaluation_id: ev_mistral_gcg_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate, Greedy Coordinate Gradient
+  value: '56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_mistral_util_0_none
+  evaluation_id: ev_mistral_util_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Utility (AlpacaEval)
+  value: '80.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: AlpacaEval standard error 0.7% (p. 9)
+- id: r_mistral_util_0_def
+  evaluation_id: ev_mistral_util_def
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Utility (AlpacaEval)
+  value: '78.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: AlpacaEval standard error 0.7% (p. 9)
+comparisons:
+- id: c_llama_naive
+  left: ev_llama_naive_def
+  right: ev_llama_naive_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_llama_creal
+  left: ev_llama_creal_def
+  right: ev_llama_creal_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_llama_cclose
+  left: ev_llama_cclose_def
+  right: ev_llama_cclose_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_llama_tap
+  left: ev_llama_tap_def
+  right: ev_llama_tap_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_llama_gcg
+  left: ev_llama_gcg_def
+  right: ev_llama_gcg_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_llama_util
+  left: ev_llama_util_def
+  right: ev_llama_util_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_mistral_naive
+  left: ev_mistral_naive_def
+  right: ev_mistral_naive_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_mistral_creal
+  left: ev_mistral_creal_def
+  right: ev_mistral_creal_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_mistral_cclose
+  left: ev_mistral_cclose_def
+  right: ev_mistral_cclose_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_mistral_tap
+  left: ev_mistral_tap_def
+  right: ev_mistral_tap_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_mistral_gcg
+  left: ev_mistral_gcg_def
+  right: ev_mistral_gcg_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_mistral_util
+  left: ev_mistral_util_def
+  right: ev_mistral_util_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+claims:
+- id: k1
+  text: structured queries significantly improve resistance to prompt injection
+  location: abstract
+  anchor: significantly improves resistance to prompt injection attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_llama_naive
+  - c_llama_creal
+  - c_llama_cclose
+  - c_llama_tap
+  - c_mistral_naive
+  - c_mistral_creal
+  - c_mistral_cclose
+  - c_mistral_tap
+  page: 1
+  contradicted_by:
+  - r_llama_gcg_0_def
+  - r_mistral_gcg_0_def
+- id: k2
+  text: little or no loss of utility
+  location: abstract
+  anchor: with little or no impact on utility
+  jobs:
+  - general_utility
+  supported_by:
+  - c_llama_util
+  - c_mistral_util
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2 (string match with hand inspection)
+    general_utility: Table 3 (AlpacaEval 1.0)

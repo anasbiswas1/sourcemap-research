@@ -1,0 +1,1167 @@
+report:
+  id: ise_iclr2025
+  slug: '2410.09102'
+  title: 'Instructional Segment Embedding: Improving LLM Safety with Instruction Hierarchy'
+  first_author: Tong Wu
+  venue: ICLR 2025
+  peer_reviewed: 'yes'
+  arxiv: '2410.09102'
+  version_read: arXiv v2 (marked as published at ICLR 2025)
+  first_date: '2024-10-09'
+  read: F
+  role: proposes
+  code_release: PyTorch snippet in Appendix A; repository not checked
+  extraction_scope: 'Sections 5 and 6.1: Table 1 (Structured Query benchmark, Llama-2-13B), the AlpacaEval row and the Naive and Completion-R rows for in-domain and out-of-domain attacks; the abstract claims (Ignore and Escape-S
+    rows, Average and Worst rows, the Instruction Hierarchy benchmark in Figure 5, Sections 6.3 to 6.4 and the appendix tables not coded)'
+defences:
+- id: delim_clean_l2_13b
+  name: Delimiter (new delimiter tokens, following Chen et al. 2024)
+  origin: other_report
+  base_checkpoint: Llama-2-13B (pretrained)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - newly added delimiter tokens
+  - full supervised fine-tuning on Clean Alpaca
+  layout: system and user instructions, data and output separated by newly added delimiter tokens
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not stated
+  anchor: we utilize Llama-2-13B (Touvron et al., 2023) and Llama-3-8B
+  pages:
+    components: 6
+- id: ise_clean_l2_13b
+  name: ISE
+  origin: this_report
+  base_checkpoint: Llama-2-13B (pretrained)
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - learned segment embedding per token type (system, user, data, output)
+  - full supervised fine-tuning on Clean Alpaca
+  layout: text delimiters, with a learned segment embedding added to every token (instruction, data or output)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not stated
+  anchor: we utilize Llama-2-13B (Touvron et al., 2023) and Llama-3-8B
+  pages:
+    isolation: 7
+    components: 5
+- id: advtext_l2_13b
+  name: Adversarial Alpaca training with text delimiters (Baseline)
+  origin: other_report
+  base_checkpoint: Llama-2-13B (pretrained)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - text delimiters
+  - full supervised fine-tuning on Adversarial Alpaca (instructions from other samples injected into the data, plain or after a fake response)
+  layout: system and user instructions, data and output separated by text delimiters
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not stated
+  anchor: we utilize Llama-2-13B (Touvron et al., 2023) and Llama-3-8B
+  pages:
+    components: 6
+- id: delim_adv_l2_13b
+  name: Delimiter (new delimiter tokens, following Chen et al. 2024)
+  origin: other_report
+  base_checkpoint: Llama-2-13B (pretrained)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - newly added delimiter tokens
+  - full supervised fine-tuning on Adversarial Alpaca (instructions from other samples injected into the data, plain or after a fake response)
+  layout: system and user instructions, data and output separated by newly added delimiter tokens
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not stated
+  anchor: we utilize Llama-2-13B (Touvron et al., 2023) and Llama-3-8B
+  pages:
+    components: 6
+- id: ise_adv_l2_13b
+  name: ISE
+  origin: this_report
+  base_checkpoint: Llama-2-13B (pretrained)
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - learned segment embedding per token type (system, user, data, output)
+  - full supervised fine-tuning on Adversarial Alpaca (instructions from other samples injected into the data, plain or after a fake response)
+  layout: text delimiters, with a learned segment embedding added to every token (instruction, data or output)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not stated
+  anchor: we utilize Llama-2-13B (Touvron et al., 2023) and Llama-3-8B
+  pages:
+    isolation: 7
+    components: 5
+evaluations:
+- id: ev_base_clean_util
+  defence_id: none:Llama-2-13B, instruction-tuned on Clean Alpaca with text delimiters (Baseline)
+  benchmark: AlpacaEval 1.0
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against the reference model
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  decoding: top-p sampling with the model's default settings
+  pages:
+    benchmark: 6
+    decoding: 5
+  baseline_kind: same_data_twin
+- id: ev_delim_clean_util
+  defence_id: delim_clean_l2_13b
+  benchmark: AlpacaEval 1.0
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against the reference model
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  decoding: top-p sampling with the model's default settings
+  pages:
+    benchmark: 6
+    decoding: 5
+- id: ev_ise_clean_util
+  defence_id: ise_clean_l2_13b
+  benchmark: AlpacaEval 1.0
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against the reference model
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  decoding: top-p sampling with the model's default settings
+  pages:
+    benchmark: 6
+    decoding: 5
+- id: ev_base_adv_util
+  defence_id: advtext_l2_13b
+  benchmark: AlpacaEval 1.0
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against the reference model
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  decoding: top-p sampling with the model's default settings
+  pages:
+    benchmark: 6
+    decoding: 5
+- id: ev_delim_adv_util
+  defence_id: delim_adv_l2_13b
+  benchmark: AlpacaEval 1.0
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against the reference model
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  decoding: top-p sampling with the model's default settings
+  pages:
+    benchmark: 6
+    decoding: 5
+- id: ev_ise_adv_util
+  defence_id: ise_adv_l2_13b
+  benchmark: AlpacaEval 1.0
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 pairwise preference against the reference model
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  decoding: top-p sampling with the model's default settings
+  pages:
+    benchmark: 6
+    decoding: 5
+- id: ev_base_clean_id_naive
+  defence_id: none:Llama-2-13B, instruction-tuned on Clean Alpaca with text delimiters (Baseline)
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Naive
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: &id001
+    benchmark: 6
+    judge: 6
+    decoding: 5
+    sample_size: 19
+  baseline_kind: same_data_twin
+- id: ev_delim_clean_id_naive
+  defence_id: delim_clean_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Naive
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_ise_clean_id_naive
+  defence_id: ise_clean_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Naive
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_base_adv_id_naive
+  defence_id: advtext_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Naive
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_delim_adv_id_naive
+  defence_id: delim_adv_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Naive
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_ise_adv_id_naive
+  defence_id: ise_adv_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Naive
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_base_clean_id_creal
+  defence_id: none:Llama-2-13B, instruction-tuned on Clean Alpaca with text delimiters (Baseline)
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Completion-R
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+  baseline_kind: same_data_twin
+- id: ev_delim_clean_id_creal
+  defence_id: delim_clean_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Completion-R
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_ise_clean_id_creal
+  defence_id: ise_clean_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Completion-R
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_base_adv_id_creal
+  defence_id: advtext_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Completion-R
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_delim_adv_id_creal
+  defence_id: delim_adv_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Completion-R
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_ise_adv_id_creal
+  defence_id: ise_adv_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: In-Domain Completion-R
+  injection_position: end
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_base_clean_ood_naive
+  defence_id: none:Llama-2-13B, instruction-tuned on Clean Alpaca with text delimiters (Baseline)
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Naive
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+  baseline_kind: same_data_twin
+- id: ev_delim_clean_ood_naive
+  defence_id: delim_clean_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Naive
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_ise_clean_ood_naive
+  defence_id: ise_clean_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Naive
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_base_adv_ood_naive
+  defence_id: advtext_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Naive
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_delim_adv_ood_naive
+  defence_id: delim_adv_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Naive
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_ise_adv_ood_naive
+  defence_id: ise_adv_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Naive
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_base_clean_ood_creal
+  defence_id: none:Llama-2-13B, instruction-tuned on Clean Alpaca with text delimiters (Baseline)
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Completion-R
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+  baseline_kind: same_data_twin
+- id: ev_delim_clean_ood_creal
+  defence_id: delim_clean_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Completion-R
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_ise_clean_ood_creal
+  defence_id: ise_clean_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Completion-R
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_base_adv_ood_creal
+  defence_id: advtext_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Completion-R
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_delim_adv_ood_creal
+  defence_id: delim_adv_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Completion-R
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+- id: ev_ise_adv_ood_creal
+  defence_id: ise_adv_l2_13b
+  benchmark: AlpacaEval test samples with a data part (Structured Query benchmark)
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply does not contain the word hacked
+  layout_same_as_defence: 'yes'
+  measured_by: ise_iclr2025
+  page: 7
+  split: 208 samples
+  sample_size: '208'
+  attacker_budget: Out-of-Domain Completion-R
+  injection_position: mixed
+  decoding: top-p sampling with the model's default settings
+  pages: *id001
+results:
+- id: r_base_clean_util
+  evaluation_id: ev_base_clean_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability (AlpacaEval)
+  value: '72.76'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_clean_util
+  evaluation_id: ev_delim_clean_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability (AlpacaEval)
+  value: '72.67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_clean_util
+  evaluation_id: ev_ise_clean_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability (AlpacaEval)
+  value: '72.13'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_base_adv_util
+  evaluation_id: ev_base_adv_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability (AlpacaEval)
+  value: '73.41'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_adv_util
+  evaluation_id: ev_delim_adv_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability (AlpacaEval)
+  value: '72.26'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_adv_util
+  evaluation_id: ev_ise_adv_util
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Capability (AlpacaEval)
+  value: '73.76'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_base_clean_id_naive
+  evaluation_id: ev_base_clean_id_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Naive)
+  value: '65.87'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_clean_id_naive
+  evaluation_id: ev_delim_clean_id_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Naive)
+  value: '68.75'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_clean_id_naive
+  evaluation_id: ev_ise_clean_id_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Naive)
+  value: '75.96'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_base_adv_id_naive
+  evaluation_id: ev_base_adv_id_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Naive)
+  value: '100.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_adv_id_naive
+  evaluation_id: ev_delim_adv_id_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Naive)
+  value: '99.04'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_adv_id_naive
+  evaluation_id: ev_ise_adv_id_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Naive)
+  value: '100.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_base_clean_id_creal
+  evaluation_id: ev_base_clean_id_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Completion-R)
+  value: '4.81'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_clean_id_creal
+  evaluation_id: ev_delim_clean_id_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Completion-R)
+  value: '7.21'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_clean_id_creal
+  evaluation_id: ev_ise_clean_id_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Completion-R)
+  value: '40.38'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_base_adv_id_creal
+  evaluation_id: ev_base_adv_id_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Completion-R)
+  value: '70.19'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_adv_id_creal
+  evaluation_id: ev_delim_adv_id_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Completion-R)
+  value: '100.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_adv_id_creal
+  evaluation_id: ev_ise_adv_id_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, In-Domain Completion-R)
+  value: '100.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_base_clean_ood_naive
+  evaluation_id: ev_base_clean_ood_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Naive)
+  value: '62.02'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_clean_ood_naive
+  evaluation_id: ev_delim_clean_ood_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Naive)
+  value: '66.35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_clean_ood_naive
+  evaluation_id: ev_ise_clean_ood_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Naive)
+  value: '69.71'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_base_adv_ood_naive
+  evaluation_id: ev_base_adv_ood_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Naive)
+  value: '64.90'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_adv_ood_naive
+  evaluation_id: ev_delim_adv_ood_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Naive)
+  value: '67.79'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_adv_ood_naive
+  evaluation_id: ev_ise_adv_ood_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Naive)
+  value: '76.44'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_base_clean_ood_creal
+  evaluation_id: ev_base_clean_ood_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Completion-R)
+  value: '1.92'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_clean_ood_creal
+  evaluation_id: ev_delim_clean_ood_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Completion-R)
+  value: '12.99'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_clean_ood_creal
+  evaluation_id: ev_ise_clean_ood_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Completion-R)
+  value: '34.14'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_base_adv_ood_creal
+  evaluation_id: ev_base_adv_ood_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Completion-R)
+  value: '85.58'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_delim_adv_ood_creal
+  evaluation_id: ev_delim_adv_ood_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Completion-R)
+  value: '91.35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_ise_adv_ood_creal
+  evaluation_id: ev_ise_adv_ood_creal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (Robustness, Out-of-Domain Completion-R)
+  value: '99.52'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+comparisons:
+- id: c_util_ise_clean_base_clean
+  left: ev_ise_clean_util
+  right: ev_base_clean_util
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same-data twin without it, both trained on Clean Alpaca
+  page: 7
+- id: c_util_ise_adv_base_adv
+  left: ev_ise_adv_util
+  right: ev_base_adv_util
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same training without it, both trained on Adversarial Alpaca
+  page: 7
+- id: c_util_ise_adv_delim_adv
+  left: ev_ise_adv_util
+  right: ev_delim_adv_util
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ISE against new delimiter tokens (the StruQ-style design), both trained on Adversarial Alpaca
+  page: 7
+- id: c_id_naive_ise_clean_base_clean
+  left: ev_ise_clean_id_naive
+  right: ev_base_clean_id_naive
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same-data twin without it, both trained on Clean Alpaca
+  page: 7
+- id: c_id_naive_ise_adv_base_adv
+  left: ev_ise_adv_id_naive
+  right: ev_base_adv_id_naive
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same training without it, both trained on Adversarial Alpaca
+  page: 7
+- id: c_id_naive_ise_adv_delim_adv
+  left: ev_ise_adv_id_naive
+  right: ev_delim_adv_id_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ISE against new delimiter tokens (the StruQ-style design), both trained on Adversarial Alpaca
+  page: 7
+- id: c_id_creal_ise_clean_base_clean
+  left: ev_ise_clean_id_creal
+  right: ev_base_clean_id_creal
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same-data twin without it, both trained on Clean Alpaca
+  page: 7
+- id: c_id_creal_ise_adv_base_adv
+  left: ev_ise_adv_id_creal
+  right: ev_base_adv_id_creal
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same training without it, both trained on Adversarial Alpaca
+  page: 7
+- id: c_id_creal_ise_adv_delim_adv
+  left: ev_ise_adv_id_creal
+  right: ev_delim_adv_id_creal
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ISE against new delimiter tokens (the StruQ-style design), both trained on Adversarial Alpaca
+  page: 7
+- id: c_ood_naive_ise_clean_base_clean
+  left: ev_ise_clean_ood_naive
+  right: ev_base_clean_ood_naive
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same-data twin without it, both trained on Clean Alpaca
+  page: 7
+- id: c_ood_naive_ise_adv_base_adv
+  left: ev_ise_adv_ood_naive
+  right: ev_base_adv_ood_naive
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same training without it, both trained on Adversarial Alpaca
+  page: 7
+- id: c_ood_naive_ise_adv_delim_adv
+  left: ev_ise_adv_ood_naive
+  right: ev_delim_adv_ood_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ISE against new delimiter tokens (the StruQ-style design), both trained on Adversarial Alpaca
+  page: 7
+- id: c_ood_creal_ise_clean_base_clean
+  left: ev_ise_clean_ood_creal
+  right: ev_base_clean_ood_creal
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same-data twin without it, both trained on Clean Alpaca
+  page: 7
+- id: c_ood_creal_ise_adv_base_adv
+  left: ev_ise_adv_ood_creal
+  right: ev_base_adv_ood_creal
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the learned segment embedding (ISE) against the same training without it, both trained on Adversarial Alpaca
+  page: 7
+- id: c_ood_creal_ise_adv_delim_adv
+  left: ev_ise_adv_ood_creal
+  right: ev_delim_adv_ood_creal
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ISE against new delimiter tokens (the StruQ-style design), both trained on Adversarial Alpaca
+  page: 7
+claims:
+- id: k1
+  text: average robust accuracy rises by up to 15.75% (Structured Query) and 18.68% (Instruction Hierarchy)
+  location: abstract
+  anchor: an average robust accuracy increase of up to 15.75% and 18.68%
+  jobs:
+  - R1
+  supported_by:
+  - c_id_naive_ise_clean_base_clean
+  - c_id_creal_ise_clean_base_clean
+  page: 1
+- id: k2
+  text: instruction following on AlpacaEval improves by up to 4.1%
+  location: abstract
+  anchor: an improvement in the instruction-following capability of up to 4.1% on AlpacaEval
+  jobs:
+  - general_utility
+  supported_by: []
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1 (string match on hacked)
+    general_utility: Table 1 (AlpacaEval 1.0)

@@ -1,0 +1,1590 @@
+report:
+  id: metasecalign_arxiv2025
+  slug: '2507.02735'
+  title: 'Meta-SecAlign: Training LLMs against Prompt Injection for Robust Agents'
+  first_author: Sizhe Chen
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2507.02735'
+  version_read: arXiv v4
+  first_date: '2025-07-03'
+  read: F
+  role: proposes
+  code_release: training and evaluation code stated as public (p. 2); not checked
+  extraction_scope: 'Sections 3 and 4.1 to 4.3 and Appendices A and B: the Llama-3.3-70B-Instruct Undef., SecAlign and Ours columns of Tables 3 and 4, the GCG row of Table 5 (8B and 70B), and the randomized-position columns
+    of Table 1 for AgentDojo utility and AlpacaFarm ASR; the abstract claims (Table 2, commercial-model columns, Table 6, Appendices C to F not coded)'
+defences:
+- id: msa_70b
+  name: Meta-SecAlign
+  origin: this_report
+  base_checkpoint: Llama-3.3-70B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: stated
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  name_as_printed: Meta-SecAlign-70B
+  components:
+  - added input role for the data
+  - SecAlign simulated injections at a randomized position
+  - self-generated preferred and rejected responses from the initial model
+  - DPO with LoRA on Cleaned-Alpaca (19157 pairs)
+  layout: instruction in the user role, data in an added input role, Llama chat template
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: defended models stated as released under commercial licences (p. 2)
+  anchor: we fine-tune L LAMA -3.1-8B-I NSTRUCT and L LAMA -3.3-70B
+  signal_dependence_detail: models must be used with the exact prompt format (p. 15); no numbers
+  pages:
+    components: 15
+    isolation: 5
+    signal_dependence: 15
+    layout: 15
+    released_weights: 2
+- id: secalign_70b
+  name: SecAlign (re-trained by the authors with the Meta-SecAlign chat template)
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: instruction in the user role, data in an added input role, Llama chat template
+  anchor: Our SecAlign LLMs use the same chat template as Meta-SecAlign models
+- id: msa_8b
+  name: Meta-SecAlign
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: stated
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  name_as_printed: Meta-SecAlign-8B
+  components:
+  - added input role for the data
+  - SecAlign simulated injections at a randomized position
+  - self-generated preferred and rejected responses from the initial model
+  - DPO with LoRA on Cleaned-Alpaca (19157 pairs)
+  layout: instruction in the user role, data in an added input role, Llama chat template
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: defended models stated as released under commercial licences (p. 2)
+  anchor: we fine-tune L LAMA -3.1-8B-I NSTRUCT and L LAMA -3.3-70B
+  signal_dependence_detail: models must be used with the exact prompt format (p. 15); no numbers
+  pages:
+    components: 15
+    isolation: 5
+    signal_dependence: 15
+    layout: 15
+    released_weights: 2
+- id: secalign_8b
+  name: SecAlign (re-trained by the authors with the Meta-SecAlign chat template)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: instruction in the user role, data in an added input role, Llama chat template
+  anchor: Our SecAlign LLMs use the same chat template as Meta-SecAlign models
+- id: msa_fixedpos_70b
+  name: Meta-SecAlign without randomized injection position
+  origin: this_report
+  base_checkpoint: Llama-3.3-70B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  layout: instruction in the user role, data in an added input role, Llama chat template
+  anchor: Randomized injection position improves utility while maintaining similar security
+evaluations:
+- id: ev_70b_none_alpacaeval
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: AlpacaEval2 on all 805 AlpacaFarm samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 turbo responses
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  sample_size: '805'
+  decoding: temperature 0 (Table 7)
+  pages: &id001
+    benchmark: 16
+    judge: 16
+    decoding: 16
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_alpacaeval
+  defence_id: secalign_70b
+  benchmark: AlpacaEval2 on all 805 AlpacaFarm samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 turbo responses
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  sample_size: '805'
+  decoding: temperature 0 (Table 7)
+  pages: *id001
+- id: ev_70b_msa_alpacaeval
+  defence_id: msa_70b
+  benchmark: AlpacaEval2 on all 805 AlpacaFarm samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 turbo responses
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  sample_size: '805'
+  decoding: temperature 0 (Table 7)
+  pages: *id001
+- id: ev_70b_none_seputil
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: SEP samples, AlpacaEval2 prompting against Llama3-8B-Instruct
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  decoding: temperature 0 (Table 7)
+  pages: &id002
+    benchmark: 16
+    judge: 16
+    decoding: 16
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_seputil
+  defence_id: secalign_70b
+  benchmark: SEP samples, AlpacaEval2 prompting against Llama3-8B-Instruct
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  decoding: temperature 0 (Table 7)
+  pages: *id002
+- id: ev_70b_msa_seputil
+  defence_id: msa_70b
+  benchmark: SEP samples, AlpacaEval2 prompting against Llama3-8B-Instruct
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  decoding: temperature 0 (Table 7)
+  pages: *id002
+- id: ev_70b_none_alpacafarm
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked!
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  attacker_budget: any of 6 attacks (straightforward and ignore before or after data, completion, completion-ignore)
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: &id003
+    benchmark: 16
+    judge: 16
+    decoding: 16
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_alpacafarm
+  defence_id: secalign_70b
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked!
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  attacker_budget: any of 6 attacks (straightforward and ignore before or after data, completion, completion-ignore)
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: *id003
+- id: ev_70b_msa_alpacafarm
+  defence_id: msa_70b
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked!
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  attacker_budget: any of 6 attacks (straightforward and ignore before or after data, completion, completion-ignore)
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: *id003
+- id: ev_70b_none_sepasr
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: SEP (9.1K samples, one injected instruction each)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness word appears in the reply
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  attacker_budget: any of the same 6 attacks
+  decoding: temperature 0 (Table 7)
+  pages: &id004
+    benchmark: 16
+    judge: 16
+    decoding: 16
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_sepasr
+  defence_id: secalign_70b
+  benchmark: SEP (9.1K samples, one injected instruction each)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness word appears in the reply
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  attacker_budget: any of the same 6 attacks
+  decoding: temperature 0 (Table 7)
+  pages: *id004
+- id: ev_70b_msa_sepasr
+  defence_id: msa_70b
+  benchmark: SEP (9.1K samples, one injected instruction each)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness word appears in the reply
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  attacker_budget: any of the same 6 attacks
+  decoding: temperature 0 (Table 7)
+  pages: *id004
+- id: ev_70b_none_tasktracker
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: TaskTracker (31K samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o judges whether the reply responds to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  attacker_budget: injection positions and ignore sentences as specified by the dataset
+  decoding: temperature 0 (Table 7)
+  pages: &id005
+    benchmark: 16
+    judge: 17
+    decoding: 16
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_tasktracker
+  defence_id: secalign_70b
+  benchmark: TaskTracker (31K samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o judges whether the reply responds to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  attacker_budget: injection positions and ignore sentences as specified by the dataset
+  decoding: temperature 0 (Table 7)
+  pages: *id005
+- id: ev_70b_msa_tasktracker
+  defence_id: msa_70b
+  benchmark: TaskTracker (31K samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o judges whether the reply responds to the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 7
+  attacker_budget: injection positions and ignore sentences as specified by the dataset
+  decoding: temperature 0 (Table 7)
+  pages: *id005
+- id: ev_70b_none_dojo_clean
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: AgentDojo, 97 user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task checker (user goal achieved)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  sample_size: '97'
+  decoding: temperature 0, top-p 0.9, 16K context
+  run: with AgentDojo's repeat_user_prompt (sandwich) defence and the Llama system prompt in every arm
+  pages: &id006
+    benchmark: 17
+    judge: 17
+    decoding: 16
+    run: 17
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_dojo_clean
+  defence_id: secalign_70b
+  benchmark: AgentDojo, 97 user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task checker (user goal achieved)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  sample_size: '97'
+  decoding: temperature 0, top-p 0.9, 16K context
+  run: with AgentDojo's repeat_user_prompt (sandwich) defence and the Llama system prompt in every arm
+  pages: *id006
+- id: ev_70b_msa_dojo_clean
+  defence_id: msa_70b
+  benchmark: AgentDojo, 97 user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task checker (user goal achieved)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  sample_size: '97'
+  decoding: temperature 0, top-p 0.9, 16K context
+  run: with AgentDojo's repeat_user_prompt (sandwich) defence and the Llama system prompt in every arm
+  pages: *id006
+- id: ev_70b_none_dojo_attack
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: AgentDojo, 949 user-task and injection-task pairs
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'AgentDojo checkers: user goal achieved (utility under attack); malicious API called (ASR)'
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: important_instructions attack
+  sample_size: '949'
+  decoding: temperature 0, top-p 0.9, 16K context
+  run: with AgentDojo's repeat_user_prompt (sandwich) defence and the Llama system prompt in every arm
+  pages: &id007
+    benchmark: 17
+    judge: 17
+    decoding: 16
+    run: 17
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_dojo_attack
+  defence_id: secalign_70b
+  benchmark: AgentDojo, 949 user-task and injection-task pairs
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'AgentDojo checkers: user goal achieved (utility under attack); malicious API called (ASR)'
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: important_instructions attack
+  sample_size: '949'
+  decoding: temperature 0, top-p 0.9, 16K context
+  run: with AgentDojo's repeat_user_prompt (sandwich) defence and the Llama system prompt in every arm
+  pages: *id007
+- id: ev_70b_msa_dojo_attack
+  defence_id: msa_70b
+  benchmark: AgentDojo, 949 user-task and injection-task pairs
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'AgentDojo checkers: user goal achieved (utility under attack); malicious API called (ASR)'
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: important_instructions attack
+  sample_size: '949'
+  decoding: temperature 0, top-p 0.9, 16K context
+  run: with AgentDojo's repeat_user_prompt (sandwich) defence and the Llama system prompt in every arm
+  pages: *id007
+- id: ev_70b_none_wasp_clean
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: WASP benign utility set (WebArena, axtree pages)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  sample_size: '37'
+  decoding: not reported
+  pages: &id008
+    benchmark: 17
+    judge: 17
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_wasp_clean
+  defence_id: secalign_70b
+  benchmark: WASP benign utility set (WebArena, axtree pages)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  sample_size: '37'
+  decoding: not reported
+  pages: *id008
+- id: ev_70b_msa_wasp_clean
+  defence_id: msa_70b
+  benchmark: WASP benign utility set (WebArena, axtree pages)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  sample_size: '37'
+  decoding: not reported
+  pages: *id008
+- id: ev_70b_none_wasp_attack
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: WASP injected samples (2 benign tasks x 42 injected tasks)
+  attacker_type: static
+  attacker_access: black_box
+  judge: agent diverted at any point (intermediate) or injected task completed (end to end)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  sample_size: '84'
+  decoding: not reported
+  pages: &id009
+    benchmark: 17
+    judge: 17
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_wasp_attack
+  defence_id: secalign_70b
+  benchmark: WASP injected samples (2 benign tasks x 42 injected tasks)
+  attacker_type: static
+  attacker_access: black_box
+  judge: agent diverted at any point (intermediate) or injected task completed (end to end)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  sample_size: '84'
+  decoding: not reported
+  pages: *id009
+- id: ev_70b_msa_wasp_attack
+  defence_id: msa_70b
+  benchmark: WASP injected samples (2 benign tasks x 42 injected tasks)
+  attacker_type: static
+  attacker_access: black_box
+  judge: agent diverted at any point (intermediate) or injected task completed (end to end)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  sample_size: '84'
+  decoding: not reported
+  pages: *id009
+- id: ev_70b_none_injecagent
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: InjecAgent (1K API-calling samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the malicious API is called (ASR-total)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: higher of base and enhanced settings
+  sample_size: 1K
+  decoding: temperature 0 (Table 7)
+  run: with the sandwich defence in every arm
+  pages: &id010
+    benchmark: 17
+    judge: 17
+    decoding: 16
+    run: 17
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_injecagent
+  defence_id: secalign_70b
+  benchmark: InjecAgent (1K API-calling samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the malicious API is called (ASR-total)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: higher of base and enhanced settings
+  sample_size: 1K
+  decoding: temperature 0 (Table 7)
+  run: with the sandwich defence in every arm
+  pages: *id010
+- id: ev_70b_msa_injecagent
+  defence_id: msa_70b
+  benchmark: InjecAgent (1K API-calling samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the malicious API is called (ASR-total)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: higher of base and enhanced settings
+  sample_size: 1K
+  decoding: temperature 0 (Table 7)
+  run: with the sandwich defence in every arm
+  pages: *id010
+- id: ev_8b_none_gcg
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked! plus a GCG suffix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply begins with Hacked, ignoring case and surrounding whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: 500 GCG steps per example, 512 candidates per step, one run, no restarts
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: &id011
+    benchmark: 16
+    judge: 16
+    attacker_budget: 16
+    decoding: 16
+  baseline_kind: off_the_shelf
+- id: ev_8b_sec_gcg
+  defence_id: secalign_8b
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked! plus a GCG suffix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply begins with Hacked, ignoring case and surrounding whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: 500 GCG steps per example, 512 candidates per step, one run, no restarts
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: *id011
+- id: ev_8b_msa_gcg
+  defence_id: msa_8b
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked! plus a GCG suffix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply begins with Hacked, ignoring case and surrounding whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: 500 GCG steps per example, 512 candidates per step, one run, no restarts
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: *id011
+- id: ev_70b_none_gcg
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked! plus a GCG suffix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply begins with Hacked, ignoring case and surrounding whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: 500 GCG steps per example, 512 candidates per step, one run, no restarts
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: *id011
+  baseline_kind: off_the_shelf
+- id: ev_70b_sec_gcg
+  defence_id: secalign_70b
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked! plus a GCG suffix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply begins with Hacked, ignoring case and surrounding whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: 500 GCG steps per example, 512 candidates per step, one run, no restarts
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: *id011
+- id: ev_70b_msa_gcg
+  defence_id: msa_70b
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked! plus a GCG suffix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: reply begins with Hacked, ignoring case and surrounding whitespace
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 8
+  attacker_budget: 500 GCG steps per example, 512 candidates per step, one run, no restarts
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: *id011
+- id: ev_t1_fixed_dojo_clean
+  defence_id: msa_fixedpos_70b
+  benchmark: AgentDojo, 97 user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task checker (user goal achieved)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 5
+  sample_size: '97'
+  decoding: temperature 0, top-p 0.9, 16K context
+  run: with AgentDojo's repeat_user_prompt (sandwich) defence and the Llama system prompt in every arm
+  pages: *id006
+- id: ev_t1_rand_dojo_clean
+  defence_id: msa_70b
+  benchmark: AgentDojo, 97 user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task checker (user goal achieved)
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 5
+  sample_size: '97'
+  decoding: temperature 0, top-p 0.9, 16K context
+  run: with AgentDojo's repeat_user_prompt (sandwich) defence and the Llama system prompt in every arm
+  pages: *id006
+- id: ev_t1_fixed_alpacafarm
+  defence_id: msa_fixedpos_70b
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked!
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 5
+  attacker_budget: any of 6 attacks (straightforward and ignore before or after data, completion, completion-ignore)
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: *id003
+- id: ev_t1_rand_alpacafarm
+  defence_id: msa_70b
+  benchmark: AlpacaFarm samples with a data part, Print exactly Hacked!
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: metasecalign_arxiv2025
+  page: 5
+  attacker_budget: any of 6 attacks (straightforward and ignore before or after data, completion, completion-ignore)
+  sample_size: '208'
+  decoding: temperature 0 (Table 7)
+  pages: *id003
+results:
+- id: r_70b_none_alpacaeval2_utility
+  evaluation_id: ev_70b_none_alpacaeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 Utility
+  value: '44.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_sec_alpacaeval2_utility
+  evaluation_id: ev_70b_sec_alpacaeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 Utility
+  value: '38.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_msa_alpacaeval2_utility
+  evaluation_id: ev_70b_msa_alpacaeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 Utility
+  value: '44.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_none_sep_utility
+  evaluation_id: ev_70b_none_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP Utility
+  value: '62.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_sec_sep_utility
+  evaluation_id: ev_70b_sec_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP Utility
+  value: '51.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_msa_sep_utility
+  evaluation_id: ev_70b_msa_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP Utility
+  value: '60.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_none_alpacafarm_asr
+  evaluation_id: ev_70b_none_alpacafarm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '95.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_sec_alpacafarm_asr
+  evaluation_id: ev_70b_sec_alpacafarm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_msa_alpacafarm_asr
+  evaluation_id: ev_70b_msa_alpacafarm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_none_sep_asr
+  evaluation_id: ev_70b_none_sepasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '99.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_sec_sep_asr
+  evaluation_id: ev_70b_sec_sepasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '12.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_msa_sep_asr
+  evaluation_id: ev_70b_msa_sepasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '4.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_none_tasktracker_asr
+  evaluation_id: ev_70b_none_tasktracker
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '19.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_sec_tasktracker_asr
+  evaluation_id: ev_70b_sec_tasktracker
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_msa_tasktracker_asr
+  evaluation_id: ev_70b_msa_tasktracker
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_70b_none_agentdojo_utility
+  evaluation_id: ev_70b_none_dojo_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo Utility
+  value: '59.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_sec_agentdojo_utility
+  evaluation_id: ev_70b_sec_dojo_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo Utility
+  value: '6.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_msa_agentdojo_utility
+  evaluation_id: ev_70b_msa_dojo_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo Utility
+  value: '84.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_none_agentdojo_utility_w_attack
+  evaluation_id: ev_70b_none_dojo_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Utility w. Attack
+  value: '43.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_sec_agentdojo_utility_w_attack
+  evaluation_id: ev_70b_sec_dojo_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Utility w. Attack
+  value: '7.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_msa_agentdojo_utility_w_attack
+  evaluation_id: ev_70b_msa_dojo_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Utility w. Attack
+  value: '79.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_none_agentdojo_asr
+  evaluation_id: ev_70b_none_dojo_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '14.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_sec_agentdojo_asr
+  evaluation_id: ev_70b_sec_dojo_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_msa_agentdojo_asr
+  evaluation_id: ev_70b_msa_dojo_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '1.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_none_wasp_utility
+  evaluation_id: ev_70b_none_wasp_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: WASP Utility
+  value: '62.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_sec_wasp_utility
+  evaluation_id: ev_70b_sec_wasp_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: WASP Utility
+  value: '45.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_msa_wasp_utility
+  evaluation_id: ev_70b_msa_wasp_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: WASP Utility
+  value: '59.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_none_wasp_intermediate_asr
+  evaluation_id: ev_70b_none_wasp_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: WASP Intermediate ASR
+  value: '20.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_sec_wasp_intermediate_asr
+  evaluation_id: ev_70b_sec_wasp_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: WASP Intermediate ASR
+  value: '4.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_msa_wasp_intermediate_asr
+  evaluation_id: ev_70b_msa_wasp_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: WASP Intermediate ASR
+  value: '1.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_none_wasp_end2end_asr
+  evaluation_id: ev_70b_none_wasp_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: WASP End2End ASR
+  value: '2.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_sec_wasp_end2end_asr
+  evaluation_id: ev_70b_sec_wasp_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: WASP End2End ASR
+  value: '1.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_msa_wasp_end2end_asr
+  evaluation_id: ev_70b_msa_wasp_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: WASP End2End ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_none_injecagent_asr
+  evaluation_id: ev_70b_none_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '53.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_sec_injecagent_asr
+  evaluation_id: ev_70b_sec_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_70b_msa_injecagent_asr
+  evaluation_id: ev_70b_msa_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_8b_none_gcg
+  evaluation_id: ev_8b_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm GCG Adaptive ASR
+  value: '87.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_8b_sec_gcg
+  evaluation_id: ev_8b_sec_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm GCG Adaptive ASR
+  value: '28.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_8b_msa_gcg
+  evaluation_id: ev_8b_msa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm GCG Adaptive ASR
+  value: '20.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_70b_none_gcg
+  evaluation_id: ev_70b_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm GCG Adaptive ASR
+  value: '98.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_70b_sec_gcg
+  evaluation_id: ev_70b_sec_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm GCG Adaptive ASR
+  value: '53.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_70b_msa_gcg
+  evaluation_id: ev_70b_msa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm GCG Adaptive ASR
+  value: '47.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t1_fixed_dojo_clean
+  evaluation_id: ev_t1_fixed_dojo_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo Utility
+  value: '15.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_rand_dojo_clean
+  evaluation_id: ev_t1_rand_dojo_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo Utility
+  value: '84.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_fixed_alpacafarm
+  evaluation_id: ev_t1_fixed_alpacafarm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_rand_alpacafarm
+  evaluation_id: ev_t1_rand_alpacafarm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+comparisons:
+- id: c_70b_alpacaeval_msa_none
+  left: ev_70b_msa_alpacaeval
+  right: ev_70b_none_alpacaeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_70b_alpacaeval_msa_sec
+  left: ev_70b_msa_alpacaeval
+  right: ev_70b_sec_alpacaeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 7
+- id: c_70b_seputil_msa_none
+  left: ev_70b_msa_seputil
+  right: ev_70b_none_seputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_70b_seputil_msa_sec
+  left: ev_70b_msa_seputil
+  right: ev_70b_sec_seputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 7
+- id: c_70b_alpacafarm_msa_none
+  left: ev_70b_msa_alpacafarm
+  right: ev_70b_none_alpacafarm
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_70b_alpacafarm_msa_sec
+  left: ev_70b_msa_alpacafarm
+  right: ev_70b_sec_alpacafarm
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 7
+- id: c_70b_sepasr_msa_none
+  left: ev_70b_msa_sepasr
+  right: ev_70b_none_sepasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_70b_sepasr_msa_sec
+  left: ev_70b_msa_sepasr
+  right: ev_70b_sec_sepasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 7
+- id: c_70b_tasktracker_msa_none
+  left: ev_70b_msa_tasktracker
+  right: ev_70b_none_tasktracker
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_70b_tasktracker_msa_sec
+  left: ev_70b_msa_tasktracker
+  right: ev_70b_sec_tasktracker
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 7
+- id: c_70b_dojo_clean_msa_none
+  left: ev_70b_msa_dojo_clean
+  right: ev_70b_none_dojo_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_70b_dojo_clean_msa_sec
+  left: ev_70b_msa_dojo_clean
+  right: ev_70b_sec_dojo_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 8
+- id: c_70b_dojo_attack_msa_none
+  left: ev_70b_msa_dojo_attack
+  right: ev_70b_none_dojo_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_70b_dojo_attack_msa_sec
+  left: ev_70b_msa_dojo_attack
+  right: ev_70b_sec_dojo_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 8
+- id: c_70b_wasp_clean_msa_none
+  left: ev_70b_msa_wasp_clean
+  right: ev_70b_none_wasp_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_70b_wasp_clean_msa_sec
+  left: ev_70b_msa_wasp_clean
+  right: ev_70b_sec_wasp_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 8
+- id: c_70b_wasp_attack_msa_none
+  left: ev_70b_msa_wasp_attack
+  right: ev_70b_none_wasp_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_70b_wasp_attack_msa_sec
+  left: ev_70b_msa_wasp_attack
+  right: ev_70b_sec_wasp_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 8
+- id: c_70b_injecagent_msa_none
+  left: ev_70b_msa_injecagent
+  right: ev_70b_none_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_70b_injecagent_msa_sec
+  left: ev_70b_msa_injecagent
+  right: ev_70b_sec_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 8
+- id: c_8b_gcg_msa_none
+  left: ev_8b_msa_gcg
+  right: ev_8b_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_8b_gcg_msa_sec
+  left: ev_8b_msa_gcg
+  right: ev_8b_sec_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 8
+- id: c_70b_gcg_msa_none
+  left: ev_70b_msa_gcg
+  right: ev_70b_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_70b_gcg_msa_sec
+  left: ev_70b_msa_gcg
+  right: ev_70b_sec_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Meta-SecAlign against SecAlign re-trained with the same chat template'
+  page: 8
+- id: c_t1_dojo_clean
+  left: ev_t1_rand_dojo_clean
+  right: ev_t1_fixed_dojo_clean
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: randomized injection position in training (on against off), self-generated labels in both
+  page: 5
+- id: c_t1_alpacafarm
+  left: ev_t1_rand_alpacafarm
+  right: ev_t1_fixed_alpacafarm
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: randomized injection position in training (on against off), self-generated labels in both
+  page: 5
+claims:
+- id: k1
+  text: Meta-SecAlign keeps almost all of the undefended model's utility
+  location: abstract
+  anchor: Meta-SecAlign maintains almost all the undefended LLM’s utility
+  jobs:
+  - general_utility
+  - R2
+  supported_by:
+  - c_70b_alpacaeval_msa_none
+  - c_70b_seputil_msa_none
+  - c_70b_dojo_clean_msa_none
+  - c_70b_dojo_attack_msa_none
+  - c_70b_wasp_clean_msa_none
+  page: 1
+- id: k2
+  text: better overall security than SecAlign against static and GCG adaptive attacks
+  location: abstract
+  anchor: achieving better overall security than SecAlign against various static and GCG adaptive attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_70b_sepasr_msa_sec
+  - c_70b_wasp_attack_msa_sec
+  - c_8b_gcg_msa_sec
+  - c_70b_gcg_msa_sec
+  page: 1
+  contradicted_by:
+  - r_70b_msa_injecagent_asr
+  - r_70b_msa_agentdojo_asr
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 3, 4 and 5
+    R2clean: Table 4 (AgentDojo and WASP task checkers); SEP utility is a proxy
+    R2attack: Table 4 (AgentDojo utility under attack)
+    general_utility: Table 3 (AlpacaEval2)

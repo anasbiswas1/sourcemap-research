@@ -1,0 +1,264 @@
+report:
+  id: ih_arxiv2024
+  slug: '2404.13208'
+  title: 'The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions'
+  first_author: Eric Wallace
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2404.13208'
+  version_read: arXiv v1
+  first_date: '2024-04-19'
+  read: F
+  role: proposes
+  code_release: none found in the paper
+  extraction_scope: 'whole report: Sections 3 and 4 and Appendix B; Figure 2 and 3 indirect-injection bars and the Figure 4 User Non-Conflicting Instructions bars coded (direct-injection, extraction and jailbreak bars not
+    coded)'
+defences:
+- id: ih_gpt35
+  name: Instruction Hierarchy
+  origin: this_report
+  base_checkpoint: GPT-3.5 Turbo
+  axis1:
+  - chat_roles
+  axis2:
+  - sft
+  - preference_optimisation
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  components:
+  - training data that marks instructions as aligned or misaligned by message type (system, user, tool output)
+  - targets from context distillation and context ignorance; instructions in browsing and tool outputs treated as misaligned
+  - supervised fine-tuning and RLHF on GPT-3.5 Turbo
+  layout: system message, user message and tool or browsing outputs as separate message types
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: no (closed model)
+  anchor: We fine-tune GPT-3.5 Turbo using supervised finetuning and reinforcement learning
+  pages:
+    components: 6
+    layout_compat: 13
+evaluations:
+- id: ev_browse_none
+  defence_id: none:GPT-3.5 Turbo, fine-tuned on the capability data only (Baseline LM)
+  benchmark: 'Prompt Injection (Indirect via Browsing): hand-written injections added to web results'
+  attacker_type: human
+  attacker_access: black_box
+  judge: not stated
+  layout_same_as_defence: 'yes'
+  measured_by: ih_arxiv2024
+  page: 7
+  baseline_kind: same_data_twin
+  pages: &id001
+    benchmark: 13
+    baseline_kind: 7
+- id: ev_browse_def
+  defence_id: ih_gpt35
+  benchmark: 'Prompt Injection (Indirect via Browsing): hand-written injections added to web results'
+  attacker_type: human
+  attacker_access: black_box
+  judge: not stated
+  layout_same_as_defence: 'yes'
+  measured_by: ih_arxiv2024
+  page: 7
+  pages: *id001
+- id: ev_tools_none
+  defence_id: none:GPT-3.5 Turbo, fine-tuned on the capability data only (Baseline LM)
+  benchmark: 'Prompt Injection (Indirect via Tools): injections in tool return values, held-out red-teamer outputs'
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated
+  layout_same_as_defence: 'yes'
+  measured_by: ih_arxiv2024
+  page: 7
+  baseline_kind: same_data_twin
+  attacker_budget: held-out injections written by the RL-trained red-teamer
+  pages: *id001
+- id: ev_tools_def
+  defence_id: ih_gpt35
+  benchmark: 'Prompt Injection (Indirect via Tools): injections in tool return values, held-out red-teamer outputs'
+  attacker_type: static
+  attacker_access: black_box
+  judge: not stated
+  layout_same_as_defence: 'yes'
+  measured_by: ih_arxiv2024
+  page: 7
+  attacker_budget: held-out injections written by the RL-trained red-teamer
+  pages: *id001
+- id: ev_nonconf_none
+  defence_id: none:GPT-3.5 Turbo, fine-tuned on the capability data only (Baseline LM)
+  benchmark: 'User Non-Conflicting Instructions: held-out synthetic system prompts with reasonable user instructions'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 judges refusal; non-refusal rate reported
+  layout_same_as_defence: 'yes'
+  measured_by: ih_arxiv2024
+  page: 9
+  baseline_kind: same_data_twin
+  pages: &id002
+    benchmark: 13
+    judge: 13
+    baseline_kind: 7
+- id: ev_nonconf_def
+  defence_id: ih_gpt35
+  benchmark: 'User Non-Conflicting Instructions: held-out synthetic system prompts with reasonable user instructions'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4 judges refusal; non-refusal rate reported
+  layout_same_as_defence: 'yes'
+  measured_by: ih_arxiv2024
+  page: 9
+  pages: *id002
+results:
+- id: r_browse_0_none
+  evaluation_id: ev_browse_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (%)
+  value: '77.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 7
+  location: Figure 2 bar labels
+  spread: error bar of one standard deviation drawn, not printed (p. 7)
+- id: r_browse_0_def
+  evaluation_id: ev_browse_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (%)
+  value: '85.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 7
+  location: Figure 2 bar labels
+  spread: error bar of one standard deviation drawn, not printed (p. 7)
+- id: r_tools_0_none
+  evaluation_id: ev_tools_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (%)
+  value: '77.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 7
+  location: Figure 3 bar labels
+  spread: error bar of one standard deviation drawn, not printed (p. 7)
+- id: r_tools_0_def
+  evaluation_id: ev_tools_def
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Robustness (%)
+  value: '87.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 7
+  location: Figure 3 bar labels
+  spread: error bar of one standard deviation drawn, not printed (p. 7)
+- id: r_nonconf_0_none
+  evaluation_id: ev_nonconf_none
+  quantity: other
+  coverage: direct
+  metric_as_printed: Compliance Rate (%)
+  value: '78.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 9
+  location: Figure 4 bar labels
+  spread: error bar of one standard deviation drawn, not printed (p. 7)
+- id: r_nonconf_0_def
+  evaluation_id: ev_nonconf_def
+  quantity: other
+  coverage: direct
+  metric_as_printed: Compliance Rate (%)
+  value: '77.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 9
+  location: Figure 4 bar labels
+  spread: error bar of one standard deviation drawn, not printed (p. 7)
+comparisons:
+- id: c_browse
+  left: ev_browse_def
+  right: ev_browse_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_tools
+  left: ev_tools_def
+  right: ev_tools_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_nonconf
+  left: ev_nonconf_def
+  right: ev_nonconf_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 9
+claims:
+- id: k1
+  text: large gains in robustness, including attack types not seen in training
+  location: abstract
+  anchor: it drastically increases robustness—even for attack types not seen during training
+  jobs:
+  - R1
+  supported_by:
+  - c_browse
+  - c_tools
+  page: 1
+- id: k2
+  text: minimal loss of standard capabilities
+  location: abstract
+  anchor: while imposing minimal degradations on standard capabilities
+  jobs:
+  - general_utility
+  supported_by: []
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Figures 2 and 3 (indirect via browsing, indirect via tools)
+    general_utility: Section 4 says capability metrics were comparable; no numbers printed
+schema_gaps:
+- where: results r_browse_0_*, r_tools_0_*, r_nonconf_0_*
+  note: values are printed as bar labels inside the charts; value_source has no value for a printed chart label, so they are coded figure_only and the printed value is kept (checked against the page text by the batch notebook)
