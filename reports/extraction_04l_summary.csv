@@ -1,0 +1,3 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,values_third_extraction,chart_values_third_extraction,residual_notes,problems
+04l,instrucot_arxiv2026,2601.04666,proposes,20,48,48,48,0,22,40,40,0,0,0,2,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,3,0
+04l,guardrag_uwthesis2026,title_guardragadversarialpreferencetrainingagainstindirectpromptin,mixed,5,46,52,52,0,8,22,22,0,0,0,3,direct,proxy,not_reported,not_reported,not_reported,not_reported,0,0,4,0

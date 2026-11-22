@@ -1,0 +1,8 @@
+decision_04l: BATCH CHECKED
+this step: 2026-11-22
+reports: instrucot_arxiv2026, guardrag_uwthesis2026
+records: 25 defences, 94 evaluations, 100 results, 62 comparisons, 5 claims
+checked against the PDFs: 100 printed values (0 of them found only in the third extraction), 0 chart values (0 of them found only in the third extraction) and 30 anchors, each found on its page
+comparison grades: A 62, B 0, C 0, U 0
+residual notes: 7; full-text exclusions found while coding: 0
+next: 04_second_pass if it has not been run, then the re-code of the fields below the agreement threshold, then 04_full_extraction
