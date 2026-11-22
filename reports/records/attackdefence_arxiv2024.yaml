@@ -23,7 +23,7 @@ defences:
   - position
   axis2:
   - prompting
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -47,7 +47,7 @@ defences:
   - position
   axis2:
   - prompting
-  isolation: not_applicable
+  isolation: ablation_present
   signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -62,6 +62,8 @@ defences:
     system_context: untested
     agent_tool_result: untested
   anchor: Fake Completion Defense with Template
+  pages:
+    isolation: 7
 - id: sand_l3
   name: Sandwich (baseline)
   origin: other_report
@@ -84,7 +86,7 @@ defences:
   - position
   axis2:
   - prompting
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -108,7 +110,7 @@ defences:
   - position
   axis2:
   - prompting
-  isolation: not_applicable
+  isolation: ablation_present
   signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -123,6 +125,8 @@ defences:
     system_context: untested
     agent_tool_result: untested
   anchor: Fake Completion Defense with Template
+  pages:
+    isolation: 7
 - id: sand_q2
   name: Sandwich (baseline)
   origin: other_report
@@ -145,7 +149,7 @@ defences:
   - position
   axis2:
   - prompting
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -169,7 +173,7 @@ defences:
   - position
   axis2:
   - prompting
-  isolation: not_applicable
+  isolation: ablation_present
   signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -184,6 +188,8 @@ defences:
     system_context: untested
     agent_tool_result: untested
   anchor: Fake Completion Defense with Template
+  pages:
+    isolation: 7
 - id: sand_l31
   name: Sandwich (baseline)
   origin: other_report

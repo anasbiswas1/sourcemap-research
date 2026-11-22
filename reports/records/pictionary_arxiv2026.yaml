@@ -22,8 +22,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -37,6 +37,8 @@ defences:
     system_context: untested
     agent_tool_result: supported
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_haiku
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -45,8 +47,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -56,6 +58,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_g55
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -64,8 +68,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -75,6 +79,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_nano
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -83,8 +89,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -94,6 +100,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_mini
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -102,8 +110,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -113,6 +121,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_qwen
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -121,8 +131,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -132,6 +142,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_kimi
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -140,8 +152,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -151,6 +163,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_grok
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -159,8 +173,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -170,6 +184,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_gpro
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -178,8 +194,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -189,6 +205,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_glite
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -197,8 +215,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -208,6 +226,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: pic_g54
   name: Pictionary (untrusted content rendered as a typographic image)
   origin: this_report
@@ -216,8 +236,8 @@ defences:
   - encodings
   axis2:
   - fixed_inference_rule
-  isolation: not_applicable
-  signal_dependence: not_applicable
+  isolation: ablation_present
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 5
@@ -227,6 +247,8 @@ defences:
   layout: image attachment for documents; image content in tool messages
   layout_compat: *id001
   anchor: Pictionary converts untrusted text into a typographic image
+  pages:
+    isolation: 19
 - id: aud_gaud
   name: untrusted content synthesised as speech (audio rendering)
   origin: this_report
@@ -236,7 +258,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 8
@@ -252,7 +274,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 8

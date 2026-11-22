@@ -24,7 +24,7 @@ defences:
   axis2:
   - prompting
   isolation: ablation_present
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 2
@@ -44,7 +44,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 2
@@ -60,7 +60,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 2
@@ -76,7 +76,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 2
@@ -92,7 +92,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 2

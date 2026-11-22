@@ -38,7 +38,7 @@ defences:
   origin: other_report
   base_checkpoint: Llama-3-8B-Instruct
   axis1:
-  - no_signal
+  - delimiters_markers
   axis2:
   - preference_optimisation
   isolation: not_applicable
@@ -71,7 +71,7 @@ defences:
   origin: other_report
   base_checkpoint: Mistral-7B-Instruct-v0.3
   axis1:
-  - no_signal
+  - delimiters_markers
   axis2:
   - preference_optimisation
   isolation: not_applicable

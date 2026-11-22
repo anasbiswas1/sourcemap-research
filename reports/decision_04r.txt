@@ -1,0 +1,10 @@
+decision_04r: AMENDMENT 2 APPLIED; 124 RECORDS RE-CODED; AMENDED RULES HOLD IN EVERY RECORD
+this step: 2026-11-22
+agreement figures before resolution: reports/agreement_04.csv, committed in f324d27 04 second pass: seeded 20 percent sample of 25 studies coded again from the PDFs, agreement per field type before resolution
+rules amended: 7 (axis 1, chat roles and internal interventions), 8 (isolation, not_applicable defined), 9 (signal dependence for prompting, fixed rules and trained defences), 32 (pooled results, R1, R3safe and R3cp proxies)
+re-coded in every record: axis 1, isolation and signal dependence in 843 defence records; coverage R1, R3ns, R3cp and R3safe in 124 reports (reports/recode_04r.csv)
+changed: 525 fields in 74 record files; axis1 27; isolation 138; signal_dependence 294; coverage 12; results 21; other 33
+amended-rule problems: 190 before, 0 after
+second-pass disagreements resolved: 286 (to the first code 198, to the second 81, to neither 7); reports/second_pass_resolution_04r.csv
+not changed: printed values, anchors, evaluations and comparisons
+next: notebook 04_full_extraction (one record per included study, CSV tables under reports/extraction/, decisive values)

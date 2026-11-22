@@ -23,7 +23,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -43,7 +43,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -75,7 +75,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -91,7 +91,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -107,13 +107,14 @@ defences:
   axis2:
   - prompting
   isolation: ablation_present
-  signal_dependence: measured
+  signal_dependence: measured_other_checkpoint
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 9
   layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
   layout_compat: *id001
   anchor: 'The Privileged Channel: A cryptographic-style encapsulation schema'
+  signal_dependence_detail: 'nopc_gfm: privileged channel moved to the data, on Gemini 3 Flash (medium thinking) only'
 - id: stat_gp
   name: Static data delimiter (negative spotlighting)
   origin: other_report
@@ -123,7 +124,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -139,7 +140,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -155,13 +156,14 @@ defences:
   axis2:
   - prompting
   isolation: ablation_present
-  signal_dependence: measured
+  signal_dependence: measured_other_checkpoint
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 9
   layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
   layout_compat: *id001
   anchor: 'The Privileged Channel: A cryptographic-style encapsulation schema'
+  signal_dependence_detail: 'nopc_gfm: privileged channel moved to the data, on Gemini 3 Flash (medium thinking) only'
 - id: stat_glm
   name: Static data delimiter (negative spotlighting)
   origin: other_report
@@ -171,7 +173,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -187,7 +189,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -203,13 +205,14 @@ defences:
   axis2:
   - prompting
   isolation: ablation_present
-  signal_dependence: measured
+  signal_dependence: measured_other_checkpoint
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 9
   layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
   layout_compat: *id001
   anchor: 'The Privileged Channel: A cryptographic-style encapsulation schema'
+  signal_dependence_detail: 'nopc_gfm: privileged channel moved to the data, on Gemini 3 Flash (medium thinking) only'
 - id: stat_g54
   name: Static data delimiter (negative spotlighting)
   origin: other_report
@@ -219,7 +222,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -235,7 +238,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 16
@@ -251,13 +254,14 @@ defences:
   axis2:
   - prompting
   isolation: ablation_present
-  signal_dependence: measured
+  signal_dependence: measured_other_checkpoint
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 9
   layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
   layout_compat: *id001
   anchor: 'The Privileged Channel: A cryptographic-style encapsulation schema'
+  signal_dependence_detail: 'nopc_gfm: privileged channel moved to the data, on Gemini 3 Flash (medium thinking) only'
 - id: nopc_gfm
   name: RUI without the privileged channel (data wrapped instead of the instruction)
   origin: this_report
@@ -266,7 +270,7 @@ defences:
   - delimiters_markers
   axis2:
   - prompting
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: measured
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -282,7 +286,7 @@ defences:
   - delimiters_markers
   axis2:
   - prompting
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: measured
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable

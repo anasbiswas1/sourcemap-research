@@ -61,7 +61,7 @@ defences:
   - sft
   - distillation
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 12
@@ -113,7 +113,7 @@ defences:
   - sft
   - distillation
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 12
@@ -165,7 +165,7 @@ defences:
   - sft
   - distillation
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 12
@@ -217,7 +217,7 @@ defences:
   - sft
   - distillation
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 12
@@ -231,7 +231,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: baseline_only
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 10

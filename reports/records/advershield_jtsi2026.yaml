@@ -18,7 +18,7 @@ defences:
   origin: this_report
   base_checkpoint: Mistral-7B-Instruct-v0.3
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
   isolation: ablation_present

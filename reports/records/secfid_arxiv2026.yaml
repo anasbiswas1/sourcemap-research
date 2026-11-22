@@ -66,7 +66,7 @@ defences:
   origin: other_report
   base_checkpoint: Llama 3.1 8B
   axis1:
-  - learned_token_features
+  - chat_roles
   axis2:
   - soft_tokens_frozen
   isolation: not_applicable

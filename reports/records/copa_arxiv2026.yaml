@@ -39,7 +39,7 @@ defences:
   origin: other_report
   base_checkpoint: Meta-Llama-3.1-8B-Instruct
   axis1:
-  - no_signal
+  - delimiters_markers
   axis2:
   - preference_optimisation
   isolation: not_applicable

@@ -98,7 +98,7 @@ defences:
   - prompting
   isolation: no_ablation
   layout: as spot_datamark_gpt35
-  signal_dependence: baseline_only
+  signal_dependence: not_reported
   layout_compat:
     user_turn: untested
     separate_role: untested

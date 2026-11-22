@@ -23,7 +23,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 1
@@ -43,7 +43,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 1
@@ -63,7 +63,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 1
@@ -83,7 +83,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 1
@@ -103,7 +103,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 1
@@ -123,7 +123,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 1

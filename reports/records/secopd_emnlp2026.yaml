@@ -22,7 +22,7 @@ defences:
   - chat_roles
   axis2:
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'

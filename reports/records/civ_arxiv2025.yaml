@@ -23,7 +23,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: ablation_present
-  signal_dependence: measured
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 8
@@ -39,7 +39,7 @@ defences:
     agent_tool_result: untested
   released_weights: not applicable (frozen model)
   anchor: We deploy Llama-3-8B Instruct as our baseline, surgically replacing
-  signal_dependence_detail: 'Table 3: unsigned labels give 7.1% ASR and no trust propagation 3.2%, against 0% for the full system'
+  signal_dependence_detail: Table 3 variants change how the labels are signed, propagated or cached and keep them; the signal-removed condition is the frozen undefended model
   pages:
     components: 7
     signal_dependence: 9
@@ -53,7 +53,7 @@ defences:
   axis2:
   - fixed_inference_rule
   isolation: not_applicable
-  signal_dependence: not_applicable
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 9

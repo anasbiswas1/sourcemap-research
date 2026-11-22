@@ -23,7 +23,7 @@ defences:
   - prompting
   - fixed_inference_rule
   isolation: ablation_present
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 4
@@ -43,7 +43,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 6
@@ -60,7 +60,7 @@ defences:
   - prompting
   - fixed_inference_rule
   isolation: ablation_present
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 4
@@ -76,7 +76,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 6

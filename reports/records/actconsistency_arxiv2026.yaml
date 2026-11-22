@@ -22,7 +22,7 @@ defences:
   - no_signal
   axis2:
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -40,7 +40,7 @@ defences:
   axis2:
   - sft
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -56,7 +56,7 @@ defences:
   - no_signal
   axis2:
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -74,7 +74,7 @@ defences:
   axis2:
   - sft
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -90,7 +90,7 @@ defences:
   - no_signal
   axis2:
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -108,7 +108,7 @@ defences:
   axis2:
   - sft
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -124,7 +124,7 @@ defences:
   - no_signal
   axis2:
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -142,7 +142,7 @@ defences:
   axis2:
   - sft
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -158,7 +158,7 @@ defences:
   - no_signal
   axis2:
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -176,7 +176,7 @@ defences:
   axis2:
   - sft
   - distillation
-  isolation: not_applicable
+  isolation: no_ablation
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -189,7 +189,7 @@ defences:
   origin: other_report
   base_checkpoint: Qwen3-8B
   axis1:
-  - no_signal
+  - delimiters_markers
   axis2:
   - preference_optimisation
   isolation: not_applicable

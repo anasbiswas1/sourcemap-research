@@ -18,7 +18,7 @@ defences:
   origin: this_report
   base_checkpoint: Qwen-2.5-7B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
   isolation: ablation_present
@@ -38,10 +38,10 @@ defences:
   origin: this_report
   base_checkpoint: Qwen-2.5-7B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -54,7 +54,7 @@ defences:
   origin: this_report
   base_checkpoint: Qwen-2.5-7B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
   isolation: ablation_present
@@ -70,10 +70,10 @@ defences:
   origin: this_report
   base_checkpoint: Qwen-2.5-7B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -86,10 +86,10 @@ defences:
   origin: this_report
   base_checkpoint: Qwen-2.5-7B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -102,10 +102,10 @@ defences:
   origin: this_report
   base_checkpoint: Qwen-2.5-7B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -118,10 +118,10 @@ defences:
   origin: this_report
   base_checkpoint: Qwen-2.5-7B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -134,7 +134,7 @@ defences:
   origin: this_report
   base_checkpoint: Llama-3.1-8B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
   isolation: ablation_present
@@ -150,10 +150,10 @@ defences:
   origin: this_report
   base_checkpoint: Llama-3.1-8B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -166,10 +166,10 @@ defences:
   origin: this_report
   base_checkpoint: Llama-3.1-8B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -182,10 +182,10 @@ defences:
   origin: this_report
   base_checkpoint: Qwen-2.5-7B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -198,10 +198,10 @@ defences:
   origin: this_report
   base_checkpoint: Qwen-2.5-1.5B
   axis1:
-  - internal_intervention
+  - no_signal
   axis2:
   - fixed_inference_rule
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable

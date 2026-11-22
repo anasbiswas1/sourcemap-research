@@ -19,12 +19,12 @@ defences:
   origin: this_report
   base_checkpoint: Qwen3-4B-Instruct-2507
   axis1:
-  - chat_roles
+  - no_signal
   axis2:
   - adversarial_rl
   - distillation
   isolation: ablation_present
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 1
@@ -40,12 +40,12 @@ defences:
   origin: this_report
   base_checkpoint: Llama-3.1-8B-Instruct
   axis1:
-  - chat_roles
+  - no_signal
   axis2:
   - adversarial_rl
   - distillation
   isolation: ablation_present
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 1
@@ -57,12 +57,12 @@ defences:
   origin: this_report
   base_checkpoint: Qwen3.6-27B
   axis1:
-  - chat_roles
+  - no_signal
   axis2:
   - adversarial_rl
   - distillation
   isolation: ablation_present
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 1
@@ -74,12 +74,12 @@ defences:
   origin: this_report
   base_checkpoint: GPT-OSS-20B (native instruction hierarchy)
   axis1:
-  - chat_roles
+  - no_signal
   axis2:
   - adversarial_rl
   - distillation
   isolation: ablation_present
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 1
@@ -95,7 +95,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 11
@@ -127,7 +127,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 11

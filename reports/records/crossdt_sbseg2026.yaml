@@ -21,7 +21,7 @@ defences:
   - delimiters_markers
   axis2:
   - soft_tokens_frozen
-  isolation: no_ablation
+  isolation: not_applicable
   signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -41,7 +41,7 @@ defences:
   - delimiters_markers
   axis2:
   - soft_tokens_frozen
-  isolation: no_ablation
+  isolation: not_applicable
   signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -57,7 +57,7 @@ defences:
   - delimiters_markers
   axis2:
   - soft_tokens_frozen
-  isolation: no_ablation
+  isolation: not_applicable
   signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'

@@ -1,0 +1,526 @@
+report,unit,field,old,new,reason,page
+actconsistency_arxiv2026,defences:act_q17,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:bct_q17,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:act_q8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:bct_q8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:act_phi,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:bct_phi,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:act_oss,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:bct_oss,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:act_gem,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:bct_gem,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+actconsistency_arxiv2026,defences:secalign_q8,axis1,no_signal,delimiters_markers,the report describes SecAlign as extending StruQ's structured queries that delimit instructions from data; no_signal would say SecAlign shows no source,3
+adaptiveipi_arxiv2025,defences:ip_v,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+adaptiveipi_arxiv2025,defences:ip_l,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+advershield_jtsi2026,defences:tagd,axis1,internal_intervention,no_signal,"TAGD scales its noise by attention salience, not by the source of the token; no source is shown at inference",3
+agentsafeevo_arxiv2026,defences:spot,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",8
+asb_iclr2025,defences:instr_m00,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m01,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m02,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m03,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m04,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m05,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m06,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m07,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m08,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m09,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m10,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m11,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+asb_iclr2025,defences:instr_m12,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+attackdefence_arxiv2024,defences:ign_l3,isolation,not_applicable,no_ablation,"a defence this report runs as a method; no run with a component removed or changed is reported (Section 5.4 tests closed models, gradient attacks and StruQ, not components)",
+attackdefence_arxiv2024,defences:fct_l3,isolation,not_applicable,ablation_present,"Ours-Fakecom, the same defence without the chat template, is reported beside Fakecom-t (Table 3)",7
+attackdefence_arxiv2024,defences:fct_l3,pages.isolation,,7,page of the fact behind the new isolation,7
+attackdefence_arxiv2024,defences:ign_q2,isolation,not_applicable,no_ablation,"a defence this report runs as a method; no run with a component removed or changed is reported (Section 5.4 tests closed models, gradient attacks and StruQ, not components)",
+attackdefence_arxiv2024,defences:fct_q2,isolation,not_applicable,ablation_present,"Ours-Fakecom, the same defence without the chat template, is reported beside Fakecom-t (Table 3)",7
+attackdefence_arxiv2024,defences:fct_q2,pages.isolation,,7,page of the fact behind the new isolation,7
+attackdefence_arxiv2024,defences:ign_l31,isolation,not_applicable,no_ablation,"a defence this report runs as a method; no run with a component removed or changed is reported (Section 5.4 tests closed models, gradient attacks and StruQ, not components)",
+attackdefence_arxiv2024,defences:fct_l31,isolation,not_applicable,ablation_present,"Ours-Fakecom, the same defence without the chat template, is reported beside Fakecom-t (Table 3)",7
+attackdefence_arxiv2024,defences:fct_l31,pages.isolation,,7,page of the fact behind the new isolation,7
+autodojo_arxiv2026,defences:rem_g4m,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+autodojo_arxiv2026,defences:rem_g54m,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+autodojo_arxiv2026,defences:rem_gem,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+autodojo_arxiv2026,defences:rem_ds,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+autodojo_arxiv2026,defences:rem_hk,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+autonomytax_arxiv2026,defences:secalign_l3,axis1,no_signal,delimiters_markers,"the report gives SecAlign's training but not its layout (p.12); SecAlign builds on StruQ's delimited format, which this report codes delimiters_markers; no_signal would say SecAlign shows no source",12
+autonomytax_arxiv2026,defences:secalign_mi,axis1,no_signal,delimiters_markers,"the report gives SecAlign's training but not its layout (p.12); SecAlign builds on StruQ's delimited format, which this report codes delimiters_markers; no_signal would say SecAlign shows no source",12
+backfire_zenodo2026,defences:srp_llama,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+backfire_zenodo2026,defences:spot_llama,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",14
+backfire_zenodo2026,defences:srp_ds,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+backfire_zenodo2026,defences:spot_ds,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",14
+backfire_zenodo2026,defences:srp_qwen,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+backfire_zenodo2026,defences:spot_qwen,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",15
+backfire_zenodo2026,defences:srp_haiku,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+backfire_zenodo2026,defences:spot_haiku,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",15
+backfire_zenodo2026,defences:srp_sonnet,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+backfire_zenodo2026,defences:spot_sonnet,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",15
+benchvalid_rs2026,defences:instr_gemma2,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_gemma2,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+benchvalid_rs2026,defences:instr_llama33,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_llama33,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+benchvalid_rs2026,defences:instr_dsr1,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_dsr1,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+benchvalid_rs2026,defences:instr_phi4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_phi4,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+benchvalid_rs2026,defences:instr_novapro,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_novapro,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+benchvalid_rs2026,defences:instr_pixtral,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_pixtral,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+benchvalid_rs2026,defences:instr_qwen14,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_qwen14,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+benchvalid_rs2026,defences:instr_mistral7,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_mistral7,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+benchvalid_rs2026,defences:instr_llama31,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_llama31,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+benchvalid_rs2026,defences:instr_qwen7,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+benchvalid_rs2026,defences:spot_qwen7,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+cacheprune_arxiv2025,defences:cp_l3,signal_dependence,stated,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+cacheprune_arxiv2025,defences:cp_m7,signal_dependence,stated,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+cacheprune_arxiv2025,defences:cp_phi,signal_dependence,stated,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+civ_arxiv2025,defences:civ_l3,signal_dependence,measured,baseline_only,"the Table 3 variants change how the trust labels are signed, propagated or cached; none runs CIV without the labels; the signal-removed condition is the frozen undefended model, which is reported",9
+civ_arxiv2025,defences:civ_l3,signal_dependence_detail,"Table 3: unsigned labels give 7.1% ASR and no trust propagation 3.2%, against 0% for the full system","Table 3 variants change how the labels are signed, propagated or cached and keep them; the signal-removed condition is the frozen undefended model",detail follows the new signal_dependence,
+civ_arxiv2025,defences:civ_unsigned_l3,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",9
+codel_arxiv2026,defences:agentalign_q,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codel_arxiv2026,defences:reta_q,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codel_arxiv2026,defences:agentalign_l,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codel_arxiv2026,defences:reta_l,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_0,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_0,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_1,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_1,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_2,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_2,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_3,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_3,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_5,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_5,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_6,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_6,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_7,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_7,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_8,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_9,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_9,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_10,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_10,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_11,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_11,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_12,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_12,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_13,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_13,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_14,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_14,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_15,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_15,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_16,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_16,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+codt_arxiv2025,defences:codt_17,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+codt_arxiv2025,defences:codt_17,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+constsanitlog_icssa2026,defences:dm_q,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",5
+copa_arxiv2026,defences:secalign_l31,axis1,no_signal,delimiters_markers,the report does not describe SecAlign's layout; coded as the other unspecified re-runs of SecAlign in the corpus are coded; no_signal would say SecAlign shows no source,
+countersteer_arxiv2026,defences:cs_gptoss20b,signal_dependence,stated,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+countersteer_arxiv2026,defences:cs_qwen3_30b,signal_dependence,stated,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+countersteer_arxiv2026,defences:cs_llama31_8b,signal_dependence,stated,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+countersteer_arxiv2026,defences:spot_gptoss20b,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+crossdt_sbseg2026,defences:dt_llama,isolation,no_ablation,not_applicable,"a defence from another report, run without removing or changing its components",
+crossdt_sbseg2026,defences:dt_qwen,isolation,no_ablation,not_applicable,"a defence from another report, run without removing or changing its components",
+crossdt_sbseg2026,defences:dt_phi,isolation,no_ablation,not_applicable,"a defence from another report, run without removing or changing its components",
+dynppa_arxiv2026,defences:ppa_l33,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+dynppa_arxiv2026,defences:dyn_l33,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+eroded_zenodo2026,defences:msaft2026,isolation,ablation_present,not_applicable,the record is itself a variant or control of another record in the same report (the released Meta-SecAlign after the report's own benign fine-tuning; the defence's components are not removed),
+eroded_zenodo2026,defences:msaft2027,isolation,ablation_present,not_applicable,the record is itself a variant or control of another record in the same report (the released Meta-SecAlign after the report's own benign fine-tuning; the defence's components are not removed),
+eroded_zenodo2026,defences:msaft2028,isolation,ablation_present,not_applicable,the record is itself a variant or control of another record in the same report (the released Meta-SecAlign after the report's own benign fine-tuning; the defence's components are not removed),
+eroded_zenodo2026,defences:reponly,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (the repair applied to the undefended model, a variant of ftrep)",
+explosive_arxiv2026,defences:epdpo,isolation,not_applicable,no_ablation,"a defence this report runs as a method; no run with a component removed or changed is reported (the reported steps are checkpoints, not components)",
+gemini_arxiv2025,defences:icl_g20,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+glasswall_techrxiv2026,defences:mw,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",5
+gptred_arxiv2026,defences:gpt55,isolation,no_ablation,not_applicable,"the record is itself a variant or control of another record in the same report (the previous production model, the comparison arm for GPT-Red training)",
+haaulc_rs2026,defences:ulc,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+haaulc_rs2026,defences:ulc,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+hybridrag_ijaiml2026,defences:san_qw,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+hybridrag_ijaiml2026,defences:ih_qw,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+hybridrag_ijaiml2026,defences:hyb_qw,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+hybridrag_ijaiml2026,defences:san_phi,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+hybridrag_ijaiml2026,defences:ih_phi,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+hybridrag_ijaiml2026,defences:hyb_phi,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+hybridrag_ijaiml2026,defences:san_mis,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+hybridrag_ijaiml2026,defences:ih_mis,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+hybridrag_ijaiml2026,defences:hyb_mis,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+icon_arxiv2026,defences:icon_q3,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+icon_arxiv2026,defences:icon_q3,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+icon_arxiv2026,defences:icon_l31,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+icon_arxiv2026,defences:icon_l31,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+icon_arxiv2026,defences:icon_m8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+icon_arxiv2026,defences:icon_m8,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+ignorednotrefused_arxiv2026,defences:inter_qwen9,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_qwen9,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:guard_qwen9,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:guard_qwen9,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_gemma4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_gemma4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:guard_gemma4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:guard_gemma4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_spark4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_spark4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_ornith9,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_ornith9,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:guard_ornith9,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:guard_ornith9,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_qwen4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_qwen4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:guard_qwen4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:guard_qwen4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_gemma12,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_gemma12,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:guard_gemma12,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:guard_gemma12,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_nemo4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_nemo4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:guard_nemo4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:guard_nemo4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_nanb3,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_nanb3,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:guard_nanb3,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:guard_nanb3,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_minicpm2,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_minicpm2,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_minis14,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_minis14,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:guard_minis14,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:guard_minis14,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:inter_lfm26,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:inter_lfm26,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ignorednotrefused_arxiv2026,defences:guard_lfm26,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ignorednotrefused_arxiv2026,defences:guard_lfm26,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ihdec_arxiv2026,defences:ihdec_l31,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",14
+instrucot_arxiv2026,defences:ip_l3,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+instrucot_arxiv2026,defences:ip_l31,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+instrucot_arxiv2026,defences:ip_q25,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+instrucot_arxiv2026,defences:ip_q3,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+intentguard_arxiv2025,defences:ig_qwen,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+intentguard_arxiv2025,defences:sep_qwen,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+intentguard_arxiv2025,defences:ig_oss,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+intentguard_arxiv2025,defences:sep_oss,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+ipidefrepl_computers2026,defences:spot_g54,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",19
+ipidefrepl_computers2026,defences:spot_g54m,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",19
+ipidefrepl_computers2026,defences:spot_cs46,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",19
+ise_iclr2025,defences:advtext_l2_13b,signal_dependence,not_applicable,not_reported,a trained defence with a source signal; no run with the signal removed or moved,
+jatmohouyi_arxiv2025,defences:jatmo_q05,isolation,no_ablation,not_applicable,"a defence from another report, run without removing or changing its components",
+jatmohouyi_arxiv2025,defences:jatmo_q4,isolation,no_ablation,not_applicable,"a defence from another report, run without removing or changing its components",
+jatmohouyi_arxiv2025,defences:jatmo_l7,isolation,no_ablation,not_applicable,"a defence from another report, run without removing or changing its components",
+ldd_arxiv2025,defences:ldd_m0,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ldd_arxiv2025,defences:ldd_m1,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ldd_arxiv2025,defences:ldd_m2,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ldd_arxiv2025,defences:ldd_m3,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ldd_arxiv2025,defences:ldd_m4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ldd_arxiv2025,defences:ldd_m5,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ldd_arxiv2025,defences:ldd_m6,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ldd_arxiv2025,defences:ldd_m7,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+ldd_arxiv2025,defences:ldd_m8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+liu_benchmark_arxiv2023,defences:instr_gpt4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+localrag_applsci2026,defences:c3,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",15
+localrag_applsci2026,defences:c4,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",15
+loginject_arxiv2026,defences:spot,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",15
+loginject_arxiv2026,report,role,mixed,benchmark,the report's contribution is measurement on its log-injection benchmark and an evaluation of existing defence layers (p.19); it proposes no defence of its own,19
+longpibench_arxiv2026,defences:instr,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+longpibench_arxiv2026,defences:delim,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",8
+medmas_arxiv2026,defences:instr_sq,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+medmas_arxiv2026,defences:delim_sq,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+medmas_arxiv2026,defences:instr_mq,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+medmas_arxiv2026,defences:delim_mq,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+medmas_arxiv2026,defences:instr_aq,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+medmas_arxiv2026,defences:delim_aq,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+medmas_arxiv2026,defences:instr_sl,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+medmas_arxiv2026,defences:delim_sl,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+medmas_arxiv2026,defences:instr_ml,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+medmas_arxiv2026,defences:delim_ml,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+municipal_sauc2026,defences:dm,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",9
+municipal_sauc2026,defences:sq,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",9
+municipal_sauc2026,coverage,R1,direct,aggregate_only,every result is pooled over the models (the defences' base is a pooled set); aggregate_only applies whatever the instrument,7
+municipal_sauc2026,coverage,R2clean,direct,aggregate_only,follows from the same reading as R1: pooled over the models,7
+peerrevcheck_osf2025,defences:check,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+peerrevcheck_osf2025,defences:check,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+peerrevcheck_osf2025,coverage,R1,proxy,aggregate_only,every result is pooled over the models (the defences' base is a pooled set); aggregate_only applies whatever the instrument,4
+peerrevcheck_osf2025,coverage,R2clean,proxy,aggregate_only,follows from the same reading as R1: pooled over the models,4
+pictionary_arxiv2026,defences:pic_opus,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_opus,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_opus,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_haiku,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_haiku,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_haiku,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_g55,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_g55,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_g55,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_nano,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_nano,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_nano,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_mini,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_mini,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_mini,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_qwen,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_qwen,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_qwen,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_kimi,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_kimi,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_kimi,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_grok,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_grok,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_grok,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_gpro,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_gpro,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_gpro,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_glite,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_glite,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_glite,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+pictionary_arxiv2026,defences:pic_g54,isolation,not_applicable,ablation_present,"Appendix B runs Pictionary with the rendering changed (pagination, code rendering, alternative visual styles)",19
+pictionary_arxiv2026,defences:pic_g54,pages.isolation,,19,page of the fact behind the new isolation,19
+pictionary_arxiv2026,defences:pic_g54,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+pictionary_arxiv2026,defences:aud_gaud,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",8
+pictionary_arxiv2026,defences:aud_qomni,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",8
+pidefthesis_upv2026,defences:spot_nano,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",34
+pidefthesis_upv2026,defences:rem_nano,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pidefthesis_upv2026,defences:spot_gem,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",34
+pidefthesis_upv2026,defences:rem_gem,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pidefthesis_upv2026,defences:spot_q7,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",34
+pidefthesis_upv2026,defences:rem_q7,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pidefthesis_upv2026,defences:spot_q32,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",34
+pidefthesis_upv2026,defences:rem_q32,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pidefthesis_upv2026,defences:spot_l3,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",34
+pidefthesis_upv2026,defences:rem_l3,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pidefthesis_upv2026,defences:spot_l8,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",34
+pidefthesis_upv2026,defences:rem_l8,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pidefthesis_upv2026,defences:spot_l70,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",34
+pidefthesis_upv2026,defences:rem_l70,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pipette_arxiv2026,defences:pip_q4,axis1,chat_roles,no_signal,"adversarial training inside the AgentDojo and ASB tool-calling harness; the tool role is the harness's own; the method adds no role or turn, trains no order over roles and reads no role at inference",1
+pipette_arxiv2026,defences:pip_q4,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pipette_arxiv2026,defences:pip_l8,axis1,chat_roles,no_signal,"adversarial training inside the AgentDojo and ASB tool-calling harness; the tool role is the harness's own; the method adds no role or turn, trains no order over roles and reads no role at inference",1
+pipette_arxiv2026,defences:pip_l8,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pipette_arxiv2026,defences:pip_q27,axis1,chat_roles,no_signal,"adversarial training inside the AgentDojo and ASB tool-calling harness; the tool role is the harness's own; the method adds no role or turn, trains no order over roles and reads no role at inference",1
+pipette_arxiv2026,defences:pip_q27,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pipette_arxiv2026,defences:pip_oss,axis1,chat_roles,no_signal,"adversarial training inside the AgentDojo and ASB tool-calling harness; the tool role is the harness's own; the method adds no role or turn, trains no order over roles and reads no role at inference",1
+pipette_arxiv2026,defences:pip_oss,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pipette_arxiv2026,defences:spot_q4,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",12
+pipette_arxiv2026,defences:spot_l8,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",12
+pismith_colm2026,defences:instr_q,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+poisonedtools_zenodo2026,defences:d1,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+poisonedtools_zenodo2026,defences:d4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+poisonedtools_zenodo2026,coverage,R1,direct,aggregate_only,every result is pooled over the models (the defences' base is a pooled set); aggregate_only applies whatever the instrument,9
+poisonedtools_zenodo2026,coverage,R2clean,direct,aggregate_only,follows from the same reading as R1: pooled over the models,9
+ppa_arxiv2025,defences:ppa_g35,isolation,not_applicable,ablation_present,"the system-prompt format is changed (PRE, ESD, EIBD, RIZD, WBR) and each is reported",5
+ppa_arxiv2025,defences:ppa_g35,pages.isolation,,5,page of the fact behind the new isolation,5
+ppa_arxiv2025,defences:ppa_g4,isolation,not_applicable,ablation_present,"the system-prompt format is changed (PRE, ESD, EIBD, RIZD, WBR) and each is reported",5
+ppa_arxiv2025,defences:ppa_g4,pages.isolation,,5,page of the fact behind the new isolation,5
+ppa_arxiv2025,defences:ppa_l3,isolation,not_applicable,ablation_present,"the system-prompt format is changed (PRE, ESD, EIBD, RIZD, WBR) and each is reported",5
+ppa_arxiv2025,defences:ppa_l3,pages.isolation,,5,page of the fact behind the new isolation,5
+ppa_arxiv2025,defences:ppa_ds,isolation,not_applicable,ablation_present,"the system-prompt format is changed (PRE, ESD, EIBD, RIZD, WBR) and each is reported",5
+ppa_arxiv2025,defences:ppa_ds,pages.isolation,,5,page of the fact behind the new isolation,5
+provtransformer_arxiv2026,defences:nob_smol,signal_dependence,not_applicable,not_reported,a trained defence with a source signal; no run with the signal removed or moved,
+provtransformer_arxiv2026,defences:nob_l3,signal_dependence,not_applicable,not_reported,a trained defence with a source signal; no run with the signal removed or moved,
+provtransformer_arxiv2026,defences:nob_q25,signal_dependence,not_applicable,not_reported,a trained defence with a source signal; no run with the signal removed or moved,
+provtransformer_arxiv2026,defences:nob_mi,signal_dependence,not_applicable,not_reported,a trained defence with a source signal; no run with the signal removed or moved,
+provtransformer_arxiv2026,defences:instr_l3,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+pvst_arxiv2026,defences:rftsucc,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (stages, controls and training-subset variants of DPO-gate, the PVST method)",
+pvst_arxiv2026,defences:rftgate,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (stages, controls and training-subset variants of DPO-gate, the PVST method)",
+pvst_arxiv2026,defences:dpoany,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (stages, controls and training-subset variants of DPO-gate, the PVST method)",
+pvst_arxiv2026,defences:dpoclean,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (stages, controls and training-subset variants of DPO-gate, the PVST method)",
+pvst_arxiv2026,defences:dpooracle,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (stages, controls and training-subset variants of DPO-gate, the PVST method)",
+pvst_arxiv2026,defences:rftgate_lo,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (stages, controls and training-subset variants of DPO-gate, the PVST method)",
+pvst_arxiv2026,defences:dpogate_lo,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (stages, controls and training-subset variants of DPO-gate, the PVST method)",
+ragmitig_ccs2026,defences:prompt,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",3
+ragmitig_ccs2026,defences:iso,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",3
+ragmitig_ccs2026,defences:ih,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ragmitig_ccs2026,defences:ground,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+ragmitig_ccs2026,defences:flags,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",3
+readable_arxiv2026,defences:match_slack,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:laf_slack,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:laf_slack,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (leave-family-out, controlled-role, random-direction and off-band-layer variants of the suite-matched edit)",
+readable_arxiv2026,defences:match_ws,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:laf_ws,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:laf_ws,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (leave-family-out, controlled-role, random-direction and off-band-layer variants of the suite-matched edit)",
+readable_arxiv2026,defences:ctrl_slack,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:ctrl_slack,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (leave-family-out, controlled-role, random-direction and off-band-layer variants of the suite-matched edit)",
+readable_arxiv2026,defences:rand_slack,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:rand_slack,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (leave-family-out, controlled-role, random-direction and off-band-layer variants of the suite-matched edit)",
+readable_arxiv2026,defences:l8_slack,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:l8_slack,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (leave-family-out, controlled-role, random-direction and off-band-layer variants of the suite-matched edit)",
+readable_arxiv2026,defences:match_llama,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:ctrl_llama,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:ctrl_llama,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (leave-family-out, controlled-role, random-direction and off-band-layer variants of the suite-matched edit)",
+readable_arxiv2026,defences:rand_llama,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:rand_llama,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (leave-family-out, controlled-role, random-direction and off-band-layer variants of the suite-matched edit)",
+readable_arxiv2026,defences:role_q7,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:role_q7,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (leave-family-out, controlled-role, random-direction and off-band-layer variants of the suite-matched edit)",
+readable_arxiv2026,defences:role_q15,axis1,internal_intervention,no_signal,"the direction edit is applied to the residual stream at the final input token, wherever the untrusted text sits; it is not keyed by source",16
+readable_arxiv2026,defences:role_q15,isolation,ablation_present,not_applicable,"the record is itself a variant or control of another record in the same report (leave-family-out, controlled-role, random-direction and off-band-layer variants of the suite-matched edit)",
+reta_arxiv2026,defences:reta_q,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+reta_arxiv2026,defences:reta_l,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+rui_preprints2026,defences:stat_gfm,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+rui_preprints2026,defences:rand_gfm,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+rui_preprints2026,defences:stat_gfl,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+rui_preprints2026,defences:rand_gfl,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+rui_preprints2026,defences:rui_gfl,signal_dependence,measured,measured_other_checkpoint,the run with the privileged channel moved to the data (nopc_gfm) is on Gemini 3 Flash (medium thinking) only,
+rui_preprints2026,defences:rui_gfl,signal_dependence_detail,,"nopc_gfm: privileged channel moved to the data, on Gemini 3 Flash (medium thinking) only",detail follows the new signal_dependence,
+rui_preprints2026,defences:stat_gp,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",21
+rui_preprints2026,defences:rand_gp,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",21
+rui_preprints2026,defences:rui_gp,signal_dependence,measured,measured_other_checkpoint,the run with the privileged channel moved to the data (nopc_gfm) is on Gemini 3 Flash (medium thinking) only,
+rui_preprints2026,defences:rui_gp,signal_dependence_detail,,"nopc_gfm: privileged channel moved to the data, on Gemini 3 Flash (medium thinking) only",detail follows the new signal_dependence,
+rui_preprints2026,defences:stat_glm,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",21
+rui_preprints2026,defences:rand_glm,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",21
+rui_preprints2026,defences:rui_glm,signal_dependence,measured,measured_other_checkpoint,the run with the privileged channel moved to the data (nopc_gfm) is on Gemini 3 Flash (medium thinking) only,
+rui_preprints2026,defences:rui_glm,signal_dependence_detail,,"nopc_gfm: privileged channel moved to the data, on Gemini 3 Flash (medium thinking) only",detail follows the new signal_dependence,
+rui_preprints2026,defences:stat_g54,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",21
+rui_preprints2026,defences:rand_g54,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",21
+rui_preprints2026,defences:rui_g54,signal_dependence,measured,measured_other_checkpoint,the run with the privileged channel moved to the data (nopc_gfm) is on Gemini 3 Flash (medium thinking) only,
+rui_preprints2026,defences:rui_g54,signal_dependence_detail,,"nopc_gfm: privileged channel moved to the data, on Gemini 3 Flash (medium thinking) only",detail follows the new signal_dependence,
+rui_preprints2026,defences:nopc_gfm,isolation,ablation_present,not_applicable,the record is itself a variant or control of another record in the same report (ablations of RUI),
+rui_preprints2026,defences:noeai_gfm,isolation,ablation_present,not_applicable,the record is itself a variant or control of another record in the same report (ablations of RUI),
+rvr_arxiv2025,defences:rvr_l3,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+rvr_arxiv2025,defences:rvr_q2,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+rvr_arxiv2025,defences:rvr_l31,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+safereview_arxiv2026,defences:sysdef,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+secfid_arxiv2026,defences:deftokens_llama31_8b_sf,axis1,learned_token_features,chat_roles,"DefensiveTokens are placed before the whole input and mark no source; the method's source signal is its instruction-in-system, data-in-user layout (defensivetokens_aisec2025, p.7), as coded for the other DefensiveTokens records",defensivetokens_aisec2025 p.7
+secinfer_arxiv2025,defences:instr_l31,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+secopd_emnlp2026,defences:secopd,isolation,not_applicable,no_ablation,"a defence this report runs as a method; no run with a component removed or changed is reported (the GRPO baseline is another training method, not SecOPD with a part removed)",
+securecai_arxiv2026,defences:secai_nosan,signal_dependence,not_reported,not_applicable,axis 1 is no_signal: no inference-time source signal,
+securecai_arxiv2026,defences:cai,axis2,sft,sft;preference_optimisation,the report describes Constitutional AI as supervised critique-revision followed by RL from AI feedback (p.1); the RL stage is preference optimisation,1
+securecai_arxiv2026,defences:ih,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+smallagentsq_zenodo2026,defences:inline_l1q4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+smallagentsq_zenodo2026,defences:inline_l1q4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+smallagentsq_zenodo2026,defences:spot_l1q4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+smallagentsq_zenodo2026,defences:inline_l1q8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+smallagentsq_zenodo2026,defences:inline_l1q8,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+smallagentsq_zenodo2026,defences:spot_l1q8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+smallagentsq_zenodo2026,defences:inline_q15q4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+smallagentsq_zenodo2026,defences:inline_q15q4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+smallagentsq_zenodo2026,defences:spot_q15q4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+smallagentsq_zenodo2026,defences:inline_q15q8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+smallagentsq_zenodo2026,defences:inline_q15q8,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+smallagentsq_zenodo2026,defences:spot_q15q8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+smalllocal_zenodo2026,defences:spot,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",15
+smalllocal_zenodo2026,defences:rule,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+smalllocal_zenodo2026,defences:rule,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+socportab_zenodo2026,defences:warn_gemma,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+socportab_zenodo2026,defences:xml_gemma,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+socportab_zenodo2026,defences:spot_gemma,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+socportab_zenodo2026,defences:warn_llama,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+socportab_zenodo2026,defences:xml_llama,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+socportab_zenodo2026,defences:spot_llama,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+socportab_zenodo2026,defences:warn_phi,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+socportab_zenodo2026,defences:xml_phi,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+socportab_zenodo2026,defences:spot_phi,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+socportab_zenodo2026,defences:warn_mistral,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+socportab_zenodo2026,defences:xml_mistral,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+socportab_zenodo2026,defences:spot_mistral,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+socportab_zenodo2026,defences:warn_qwen,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+socportab_zenodo2026,defences:xml_qwen,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+socportab_zenodo2026,defences:spot_qwen,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",6
+spotguard_applsci2026,defences:spot,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",19
+spotlighting_arxiv2024,defences:spot_datamark_gpt4,signal_dependence,baseline_only,not_reported,prompting or fixed inference rule with a source signal; no undefended run of this base is reported,
+tab_arxiv2026,defences:spot_mm,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",24
+tab_arxiv2026,defences:spot_qw,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",24
+tab_arxiv2026,defences:spot_g54,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",24
+tab_arxiv2026,coverage,R1,proxy,direct,distractor execution is the rate at which the injected instruction is executed; R1 does not require the instruction to be malicious,24
+tab_arxiv2026,coverage,R3cp,not_reported,proxy,"task resolution needs the agent to act on the helpful cue placed in the file it reads, instruction-bearing data the task asks for",24
+tab_arxiv2026,coverage,where.R3cp,,Table 10 task resolution (the helpful cue in the file must be used),names the instrument for the new code,24
+tab_arxiv2026,results:r_mm_base_dexec,coverage,proxy,direct,R1 re-checked: execution rate of the injected instruction,24
+tab_arxiv2026,results:r_mm_base_res,also_quantity,,R3cp,R3cp re-checked: task resolution needs the helpful cue in the file,24
+tab_arxiv2026,results:r_mm_spot_dexec,coverage,proxy,direct,R1 re-checked: execution rate of the injected instruction,24
+tab_arxiv2026,results:r_mm_spot_res,also_quantity,,R3cp,R3cp re-checked: task resolution needs the helpful cue in the file,24
+tab_arxiv2026,results:r_mm_rup_dexec,coverage,proxy,direct,R1 re-checked: execution rate of the injected instruction,24
+tab_arxiv2026,results:r_mm_rup_res,also_quantity,,R3cp,R3cp re-checked: task resolution needs the helpful cue in the file,24
+tab_arxiv2026,results:r_qw_base_dexec,coverage,proxy,direct,R1 re-checked: execution rate of the injected instruction,24
+tab_arxiv2026,results:r_qw_base_res,also_quantity,,R3cp,R3cp re-checked: task resolution needs the helpful cue in the file,24
+tab_arxiv2026,results:r_qw_spot_dexec,coverage,proxy,direct,R1 re-checked: execution rate of the injected instruction,24
+tab_arxiv2026,results:r_qw_spot_res,also_quantity,,R3cp,R3cp re-checked: task resolution needs the helpful cue in the file,24
+tab_arxiv2026,results:r_qw_rup_dexec,coverage,proxy,direct,R1 re-checked: execution rate of the injected instruction,24
+tab_arxiv2026,results:r_qw_rup_res,also_quantity,,R3cp,R3cp re-checked: task resolution needs the helpful cue in the file,24
+tab_arxiv2026,results:r_g54_base_dexec,coverage,proxy,direct,R1 re-checked: execution rate of the injected instruction,24
+tab_arxiv2026,results:r_g54_base_res,also_quantity,,R3cp,R3cp re-checked: task resolution needs the helpful cue in the file,24
+tab_arxiv2026,results:r_g54_spot_dexec,coverage,proxy,direct,R1 re-checked: execution rate of the injected instruction,24
+tab_arxiv2026,results:r_g54_spot_res,also_quantity,,R3cp,R3cp re-checked: task resolution needs the helpful cue in the file,24
+tab_arxiv2026,results:r_g54_rup_dexec,coverage,proxy,direct,R1 re-checked: execution rate of the injected instruction,24
+tab_arxiv2026,results:r_g54_rup_res,also_quantity,,R3cp,R3cp re-checked: task resolution needs the helpful cue in the file,24
+textpixels_arxiv2026,defences:render_qwen,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+textpixels_arxiv2026,defences:render_gpt,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+textpixels_arxiv2026,defences:render_haiku,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+textpixels_arxiv2026,defences:render_gem,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+textpixels_arxiv2026,defences:render_glm,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+textpixels_arxiv2026,defences:render_ds,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",4
+tracer_emnlp2026,defences:rag7e1,isolation,ablation_present,not_applicable,the record is itself a variant or control of another record in the same report (the epoch-1 checkpoint of the 7B RAG specialist),
+tracer_emnlp2026,defences:rag7e1,pages.isolation,8,,the old page supported the old isolation,
+tracer_emnlp2026,defences:rag7e1,signal_dependence,not_reported,measured_other_checkpoint,Table 11 removes the RAG wrapper and the RAG system prompt on the 3B RAG specialist only,18
+tracer_emnlp2026,defences:rag7e1,pages.signal_dependence,,18,page of the fact behind the new signal_dependence,18
+tracer_emnlp2026,defences:rag7e1,signal_dependence_detail,,"Table 11: RAG wrapper and RAG system prompt removed on the 3B RAG specialist (rag3), not on this checkpoint",detail follows the new signal_dependence,
+tracer_emnlp2026,defences:rag7,signal_dependence,not_reported,measured_other_checkpoint,Table 11 removes the RAG wrapper and the RAG system prompt on the 3B RAG specialist only,18
+tracer_emnlp2026,defences:rag7,pages.signal_dependence,,18,page of the fact behind the new signal_dependence,18
+tracer_emnlp2026,defences:rag7,signal_dependence_detail,,"Table 11: RAG wrapper and RAG system prompt removed on the 3B RAG specialist (rag3), not on this checkpoint",detail follows the new signal_dependence,
+tracer_emnlp2026,defences:t6,isolation,not_applicable,ablation_present,the TRACER method itself on an unnamed checkpoint; its components are ablated (Tables 8 and 11),8
+tracer_emnlp2026,defences:t6,pages.isolation,,8,page of the fact behind the new isolation,8
+tracer_emnlp2026,defences:t6,signal_dependence,not_reported,measured_other_checkpoint,Table 11 removes the RAG wrapper and the RAG system prompt on the 3B RAG specialist only,18
+tracer_emnlp2026,defences:t6,pages.signal_dependence,,18,page of the fact behind the new signal_dependence,18
+tracer_emnlp2026,defences:t6,signal_dependence_detail,,"Table 11: RAG wrapper and RAG system prompt removed on the 3B RAG specialist (rag3), not on this checkpoint",detail follows the new signal_dependence,
+tracer_emnlp2026,coverage,R2attack,proxy,direct,evidence accuracy scores the user's question under an injection; the report-level code disagreed with the coding of its own results (direct),16
+tracer_emnlp2026,coverage,R3cp,not_reported,proxy,Table 6 scores answers that must use valid evidence carrying an embedded injection,16
+tracer_emnlp2026,coverage,where.R3cp,,Table 6 evidence accuracy (valid evidence carrying an injection),names the instrument for the new code,16
+tracer_emnlp2026,results:r_t6_rag_acc,also_quantity,,R3cp,R3cp re-checked: valid evidence carrying an injection must be used,16
+tracer_emnlp2026,results:r_t6_tool_acc,also_quantity,,R3cp,R3cp re-checked: valid evidence carrying an injection must be used,16
+tracer_emnlp2026,results:r_t6_agent_acc,also_quantity,,R3cp,R3cp re-checked: valid evidence carrying an injection must be used,16
+transfact_zenodo2026,defences:srp_haiku,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+transfact_zenodo2026,defences:spot_haiku,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",12
+transfact_zenodo2026,defences:srp_sonnet,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+transfact_zenodo2026,defences:spot_sonnet,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",12
+transfact_zenodo2026,defences:srp_llama,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+transfact_zenodo2026,defences:spot_llama,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",12
+transfact_zenodo2026,defences:srp_ds,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+transfact_zenodo2026,defences:spot_ds,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",12
+transfact_zenodo2026,defences:srp_qwen,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+transfact_zenodo2026,defences:spot_qwen,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",12
+univdef_arxiv2026,defences:delim_gem,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+univdef_arxiv2026,defences:delim_qw,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+univdef_arxiv2026,defences:delim_l3,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+univdef_arxiv2026,defences:delim_l31,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+univdef_arxiv2026,defences:delim_g35,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+univdef_arxiv2026,defences:delim_g4,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",7
+untrustedcomponent_arxiv2026,defences:d1_15,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+untrustedcomponent_arxiv2026,defences:d1_7,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+untrustedcomponent_arxiv2026,defences:g1_15,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+verih_arxiv2025,defences:guard_q4,axis1,chat_roles,no_signal,SysHint and GuardRules are wording in the system prompt; the system and user roles are the template's own; prompt wording alone is no_signal,4
+verih_arxiv2025,defences:guard_q4,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+verih_arxiv2025,defences:guard_q8,axis1,chat_roles,no_signal,SysHint and GuardRules are wording in the system prompt; the system and user roles are the template's own; prompt wording alone is no_signal,4
+verih_arxiv2025,defences:guard_q8,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+verih_arxiv2025,defences:guard_q14,axis1,chat_roles,no_signal,SysHint and GuardRules are wording in the system prompt; the system and user roles are the template's own; prompt wording alone is no_signal,4
+verih_arxiv2025,defences:guard_q14,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+verih_arxiv2025,defences:guard_q36,axis1,chat_roles,no_signal,SysHint and GuardRules are wording in the system prompt; the system and user roles are the template's own; prompt wording alone is no_signal,4
+verih_arxiv2025,defences:guard_q36,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+verih_arxiv2025,defences:guard_phi,axis1,chat_roles,no_signal,SysHint and GuardRules are wording in the system prompt; the system and user roles are the template's own; prompt wording alone is no_signal,4
+verih_arxiv2025,defences:guard_phi,signal_dependence,baseline_only,not_applicable,axis 1 is no_signal: no inference-time source signal,
+whosaidthis_zenodo2026,defences:lever_q8,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_q8,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",14
+whosaidthis_zenodo2026,defences:lever_q17,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_q17,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",14
+whosaidthis_zenodo2026,defences:lever_smol,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_smol,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",14
+whosaidthis_zenodo2026,defences:lever_gran,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_gran,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",14
+whosaidthis_zenodo2026,defences:lever_olmo7,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_olmo7,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",14
+whosaidthis_zenodo2026,defences:lever_phi4,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_phi4,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",14
+whosaidthis_zenodo2026,defences:lever_q14,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_q14,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+whosaidthis_zenodo2026,defences:lever_q32,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_q32,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+whosaidthis_zenodo2026,defences:lever_fal,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_fal,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+whosaidthis_zenodo2026,defences:lever_yi,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_yi,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+whosaidthis_zenodo2026,defences:lever_olmo13,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_olmo13,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+whosaidthis_zenodo2026,defences:lever_olmo32,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosaidthis_zenodo2026,defences:lever_olmo32,signal_dependence,not_reported,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+whosewords_zenodo2026,defences:rolesteer,isolation,not_applicable,no_ablation,a defence this report runs as a method; no run with a component removed or changed is reported (whole text searched),
+whosewords_zenodo2026,defences:rolesteer,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16
+whosewords_zenodo2026,defences:randdir,signal_dependence,not_applicable,baseline_only,"prompting or fixed inference rule with a source signal; its signal-removed condition is the undefended run, which is reported",16

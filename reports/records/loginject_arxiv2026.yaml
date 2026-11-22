@@ -9,7 +9,7 @@ report:
   version_read: arXiv v1
   first_date: '2026-07-16'
   read: F
-  role: mixed
+  role: benchmark
   extraction_scope: Table 9 rows Baseline and Spotlight on GPT-4o (four objectives, overall attack success and benign accuracy); the Section 7.5 claim on spotlighting (input filtering, output validation and every combination
     containing them are left out as filter, detector and system level; Tables 6 to 8 test no defence)
 defences:
@@ -22,7 +22,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 11

@@ -24,7 +24,7 @@ defences:
   axis2:
   - prompting
   - fixed_inference_rule
-  isolation: not_applicable
+  isolation: ablation_present
   signal_dependence: not_reported
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -41,6 +41,7 @@ defences:
   anchor: The workflow of Polymorphic Prompt Assembling
   pages:
     components: 4
+    isolation: 5
 - id: ppa_g4
   name: Polymorphic Prompt Assembling (PPA)
   origin: this_report
@@ -50,7 +51,7 @@ defences:
   axis2:
   - prompting
   - fixed_inference_rule
-  isolation: not_applicable
+  isolation: ablation_present
   signal_dependence: not_reported
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -67,6 +68,7 @@ defences:
   anchor: The workflow of Polymorphic Prompt Assembling
   pages:
     components: 4
+    isolation: 5
 - id: ppa_l3
   name: Polymorphic Prompt Assembling (PPA)
   origin: this_report
@@ -76,7 +78,7 @@ defences:
   axis2:
   - prompting
   - fixed_inference_rule
-  isolation: not_applicable
+  isolation: ablation_present
   signal_dependence: not_reported
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -93,6 +95,7 @@ defences:
   anchor: The workflow of Polymorphic Prompt Assembling
   pages:
     components: 4
+    isolation: 5
 - id: ppa_ds
   name: Polymorphic Prompt Assembling (PPA)
   origin: this_report
@@ -102,7 +105,7 @@ defences:
   axis2:
   - prompting
   - fixed_inference_rule
-  isolation: not_applicable
+  isolation: ablation_present
   signal_dependence: not_reported
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
@@ -119,6 +122,7 @@ defences:
   anchor: The workflow of Polymorphic Prompt Assembling
   pages:
     components: 4
+    isolation: 5
 evaluations:
 - id: ev_g35_roleplayin
   defence_id: ppa_g35

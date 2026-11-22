@@ -26,7 +26,7 @@ defences:
   - the direction subtracted at every tool-result token during prefill
   isolation: ablation_present
   layout: agent transcript; the edit applies to the tool-result spans, which the serving stack must mark
-  signal_dependence: stated
+  signal_dependence: baseline_only
   layout_compat:
     user_turn: untested
     separate_role: untested
@@ -48,7 +48,7 @@ defences:
   - fixed_inference_rule
   isolation: ablation_present
   layout: as cs_gptoss20b
-  signal_dependence: stated
+  signal_dependence: baseline_only
   layout_compat:
     user_turn: untested
     separate_role: untested
@@ -69,7 +69,7 @@ defences:
   - fixed_inference_rule
   isolation: ablation_present
   layout: as cs_gptoss20b
-  signal_dependence: stated
+  signal_dependence: baseline_only
   layout_compat:
     user_turn: untested
     separate_role: untested
@@ -90,7 +90,7 @@ defences:
   - prompting
   isolation: not_applicable
   layout: AgentDojo's spotlighting configuration
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   released_weights: not applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable

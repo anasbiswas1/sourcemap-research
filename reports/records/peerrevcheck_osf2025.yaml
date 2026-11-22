@@ -21,8 +21,8 @@ defences:
   - no_signal
   axis2:
   - prompting
-  isolation: not_applicable
-  signal_dependence: baseline_only
+  isolation: no_ablation
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 3
@@ -190,8 +190,8 @@ claims:
   - c_clean
   page: 1
 coverage:
-  R1: proxy
-  R2clean: proxy
+  R1: aggregate_only
+  R2clean: aggregate_only
   R2attack: not_reported
   R3ns: not_reported
   R3cp: not_reported

@@ -85,3 +85,35 @@ def test_agreement_counts_disagreements():
     assert {d["field"] for d in dis} == {"isolation", "axis1", "value"}
     assert extract.validate_second_pass(sp, schema_mod.load_schema(Path(__file__).resolve().parent.parent / "schema" / "record_schema.yaml"),
                                         [{"result": "x1"}, {"result": "x2"}], rec, [["d1"]]) == []
+
+
+def test_apply_changes_checks_the_old_value_and_edits_in_place():
+    recs = {"r_a": _rec()}
+    rows = [{"report": "r_a", "unit": "defences:d1", "field": "axis1", "old": "chat_roles", "new": "no_signal", "reason": "", "page": ""},
+            {"report": "r_a", "unit": "defences:d1", "field": "pages.isolation", "old": "", "new": "5", "reason": "", "page": "5"},
+            {"report": "r_a", "unit": "results:x1", "field": "also_quantity", "old": "", "new": "R3cp", "reason": "", "page": ""},
+            {"report": "r_a", "unit": "coverage", "field": "R3cp", "old": "not_reported", "new": "proxy", "reason": "", "page": ""},
+            {"report": "r_a", "unit": "coverage", "field": "R1", "old": "proxy", "new": "direct", "reason": "", "page": ""}]
+    probs = extract.apply_changes(recs, rows)
+    d = recs["r_a"]["defences"][0]
+    assert d["axis1"] == ["no_signal"] and d["pages"] == {"isolation": 5}
+    assert recs["r_a"]["results"][1]["also_quantity"] == ["R3cp"] and recs["r_a"]["coverage"]["R3cp"] == "proxy"
+    assert len(probs) == 1 and "expects 'proxy'" in probs[0]          # R1 is direct on file: the row is refused
+    back = [{"report": "r_a", "unit": "defences:d1", "field": "pages.isolation", "old": "5", "new": "", "reason": "", "page": ""}]
+    assert extract.apply_changes(recs, back) == [] and "pages" not in d
+
+
+def test_rule_problems_follow_amendment_2():
+    rec = _rec()
+    assert extract.rule_problems(rec) == []
+    d = rec["defences"][0]
+    d["axis1"], d["signal_dependence"] = ["no_signal"], "baseline_only"
+    probs = extract.rule_problems(rec)
+    assert any("not_applicable exactly when" in p for p in probs) and any("baseline_only on a trained" in p for p in probs)
+    d["axis1"], d["axis2"], d["signal_dependence"] = ["delimiters_markers"], ["prompting"], "stated"
+    assert any("stated on a prompting" in p for p in extract.rule_problems(rec))
+    d["signal_dependence"], d["origin"], d["isolation"] = "baseline_only", "other_report", "no_ablation"
+    assert any("another report's defence" in p for p in extract.rule_problems(rec))
+    d["origin"] = "this_report"
+    rec["coverage"]["R3cp"] = "proxy"
+    assert any("coverage R3cp is proxy but no result" in p for p in extract.rule_problems(rec))

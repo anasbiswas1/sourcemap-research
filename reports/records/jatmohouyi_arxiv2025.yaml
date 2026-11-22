@@ -22,7 +22,7 @@ defences:
   axis2:
   - sft
   - distillation
-  isolation: no_ablation
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -43,7 +43,7 @@ defences:
   axis2:
   - sft
   - distillation
-  isolation: no_ablation
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -64,7 +64,7 @@ defences:
   axis2:
   - sft
   - distillation
-  isolation: no_ablation
+  isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'

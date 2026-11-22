@@ -22,7 +22,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 29
@@ -58,7 +58,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 29
@@ -90,7 +90,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: baseline_only
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 29
@@ -220,7 +220,7 @@ results:
 - id: r_mm_base_dexec
   evaluation_id: ev_mm_base
   quantity: R1
-  coverage: proxy
+  coverage: direct
   metric_as_printed: distractor execution rate Pr(Dexec)
   value: '42.2'
   unit: percent
@@ -241,10 +241,12 @@ results:
   value_source: table
   page: 24
   location: Table 10
+  also_quantity:
+  - R3cp
 - id: r_mm_spot_dexec
   evaluation_id: ev_mm_spot
   quantity: R1
-  coverage: proxy
+  coverage: direct
   metric_as_printed: distractor execution rate Pr(Dexec)
   value: '27.4'
   unit: percent
@@ -265,10 +267,12 @@ results:
   value_source: table
   page: 24
   location: Table 10
+  also_quantity:
+  - R3cp
 - id: r_mm_rup_dexec
   evaluation_id: ev_mm_rup
   quantity: R1
-  coverage: proxy
+  coverage: direct
   metric_as_printed: distractor execution rate Pr(Dexec)
   value: '20.6'
   unit: percent
@@ -289,10 +293,12 @@ results:
   value_source: table
   page: 24
   location: Table 10
+  also_quantity:
+  - R3cp
 - id: r_qw_base_dexec
   evaluation_id: ev_qw_base
   quantity: R1
-  coverage: proxy
+  coverage: direct
   metric_as_printed: distractor execution rate Pr(Dexec)
   value: '40.4'
   unit: percent
@@ -313,10 +319,12 @@ results:
   value_source: table
   page: 24
   location: Table 10
+  also_quantity:
+  - R3cp
 - id: r_qw_spot_dexec
   evaluation_id: ev_qw_spot
   quantity: R1
-  coverage: proxy
+  coverage: direct
   metric_as_printed: distractor execution rate Pr(Dexec)
   value: '24.5'
   unit: percent
@@ -337,10 +345,12 @@ results:
   value_source: table
   page: 24
   location: Table 10
+  also_quantity:
+  - R3cp
 - id: r_qw_rup_dexec
   evaluation_id: ev_qw_rup
   quantity: R1
-  coverage: proxy
+  coverage: direct
   metric_as_printed: distractor execution rate Pr(Dexec)
   value: '18.3'
   unit: percent
@@ -361,10 +371,12 @@ results:
   value_source: table
   page: 24
   location: Table 10
+  also_quantity:
+  - R3cp
 - id: r_g54_base_dexec
   evaluation_id: ev_g54_base
   quantity: R1
-  coverage: proxy
+  coverage: direct
   metric_as_printed: distractor execution rate Pr(Dexec)
   value: '64.6'
   unit: percent
@@ -385,10 +397,12 @@ results:
   value_source: table
   page: 24
   location: Table 10
+  also_quantity:
+  - R3cp
 - id: r_g54_spot_dexec
   evaluation_id: ev_g54_spot
   quantity: R1
-  coverage: proxy
+  coverage: direct
   metric_as_printed: distractor execution rate Pr(Dexec)
   value: '28.4'
   unit: percent
@@ -409,10 +423,12 @@ results:
   value_source: table
   page: 24
   location: Table 10
+  also_quantity:
+  - R3cp
 - id: r_g54_rup_dexec
   evaluation_id: ev_g54_rup
   quantity: R1
-  coverage: proxy
+  coverage: direct
   metric_as_printed: distractor execution rate Pr(Dexec)
   value: '15.1'
   unit: percent
@@ -433,6 +449,8 @@ results:
   value_source: table
   page: 24
   location: Table 10
+  also_quantity:
+  - R3cp
 comparisons:
 - id: c_mm_spot
   left: ev_mm_spot
@@ -523,16 +541,17 @@ claims:
   - c_g54_rup
   page: 1
 coverage:
-  R1: proxy
+  R1: direct
   R2clean: not_reported
   R2attack: direct
   R3ns: not_reported
-  R3cp: not_reported
+  R3cp: proxy
   R3safe: not_reported
   where:
     R1: Table 10 distractor execution (irrelevant, not malicious, injected instructions)
     R2attack: Table 10 task resolution
     R2clean: not reported
+    R3cp: Table 10 task resolution (the helpful cue in the file must be used)
 schema_gaps:
 - where: report
   note: distractors are plausible irrelevant instructions rather than attacks, so distractor execution is coded as a proxy for injection success; the GPT-5.4 mini defence rows are single runs

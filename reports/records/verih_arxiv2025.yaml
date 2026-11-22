@@ -45,11 +45,11 @@ defences:
   origin: this_report
   base_checkpoint: Qwen3-4B
   axis1:
-  - chat_roles
+  - no_signal
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: baseline_only
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 4
@@ -82,11 +82,11 @@ defences:
   origin: this_report
   base_checkpoint: Qwen3-8B
   axis1:
-  - chat_roles
+  - no_signal
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: baseline_only
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 4
@@ -119,11 +119,11 @@ defences:
   origin: this_report
   base_checkpoint: Qwen3-14B
   axis1:
-  - chat_roles
+  - no_signal
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: baseline_only
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 4
@@ -156,11 +156,11 @@ defences:
   origin: this_report
   base_checkpoint: Qwen3.6-35B-A3B
   axis1:
-  - chat_roles
+  - no_signal
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: baseline_only
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 4
@@ -193,11 +193,11 @@ defences:
   origin: this_report
   base_checkpoint: Phi-4-mini-reasoning
   axis1:
-  - chat_roles
+  - no_signal
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: baseline_only
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 4

@@ -118,8 +118,8 @@ defences:
   axis2:
   - preference_optimisation
   - distillation
-  isolation: ablation_present
-  signal_dependence: not_reported
+  isolation: not_applicable
+  signal_dependence: measured_other_checkpoint
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 5
@@ -129,7 +129,8 @@ defences:
   anchor: The optimizer itself is standard GRPO
   pages:
     components: 4
-    isolation: 8
+    signal_dependence: 18
+  signal_dependence_detail: 'Table 11: RAG wrapper and RAG system prompt removed on the 3B RAG specialist (rag3), not on this checkpoint'
 - id: rag7
   name: TRACER, RAG specialist (7B, final checkpoint)
   origin: this_report
@@ -140,7 +141,7 @@ defences:
   - preference_optimisation
   - distillation
   isolation: ablation_present
-  signal_dependence: not_reported
+  signal_dependence: measured_other_checkpoint
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 5
@@ -151,6 +152,8 @@ defences:
   pages:
     components: 4
     isolation: 8
+    signal_dependence: 18
+  signal_dependence_detail: 'Table 11: RAG wrapper and RAG system prompt removed on the 3B RAG specialist (rag3), not on this checkpoint'
 - id: fu3
   name: TRACER trained on follow-up attacks only (six intermediate 3B snapshots, pooled)
   origin: this_report
@@ -204,12 +207,16 @@ defences:
   axis2:
   - preference_optimisation
   - distillation
-  isolation: not_applicable
-  signal_dependence: not_reported
+  isolation: ablation_present
+  signal_dependence: measured_other_checkpoint
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 13
   anchor: Table 6 shows that TRACER retains high clean/evidence accuracy
+  pages:
+    isolation: 8
+    signal_dependence: 18
+  signal_dependence_detail: 'Table 11: RAG wrapper and RAG system prompt removed on the 3B RAG specialist (rag3), not on this checkpoint'
 - id: t11
   name: TRACER RAG specialist, Table 11 runs
   origin: this_report
@@ -1414,6 +1421,8 @@ results:
   value_source: table
   page: 16
   location: Table 6
+  also_quantity:
+  - R3cp
 - id: r_t6base_tool
   evaluation_id: ev_t6base_tool
   quantity: R1
@@ -1450,6 +1459,8 @@ results:
   value_source: table
   page: 16
   location: Table 6
+  also_quantity:
+  - R3cp
 - id: r_t6base_agent
   evaluation_id: ev_t6base_agent
   quantity: R1
@@ -1486,6 +1497,8 @@ results:
   value_source: table
   page: 16
   location: Table 6
+  also_quantity:
+  - R3cp
 - id: r_base3_clean
   evaluation_id: ev_base3_clean
   quantity: R2clean
@@ -2043,14 +2056,15 @@ claims:
 coverage:
   R1: proxy
   R2clean: direct
-  R2attack: proxy
+  R2attack: direct
   R3ns: not_reported
-  R3cp: not_reported
+  R3cp: proxy
   R3safe: not_reported
   where:
     R1: conditional answer flip (correct clean answer turned wrong), Tables 1, 5, 6, 8 and 11
     R2clean: Table 9 (tool training only; RAG clean accuracy is a 78 to 82% range in the text and Figure 4)
     R2attack: Table 6 evidence accuracy
+    R3cp: Table 6 evidence accuracy (valid evidence carrying an injection)
 schema_gaps:
 - where: results r_* (R1)
   note: ASR is a conditional answer flip on GSM8K pooled over three payload families (reasoning rewrite, false verified answer, explicit instruction); it does not check that an injected instruction was carried out, so R1 is

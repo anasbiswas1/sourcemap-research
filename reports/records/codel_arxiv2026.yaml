@@ -50,7 +50,7 @@ defences:
   axis2:
   - sft
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 16
@@ -85,7 +85,7 @@ defences:
   - sft
   - preference_optimisation
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 16
@@ -156,7 +156,7 @@ defences:
   axis2:
   - sft
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 16
@@ -191,7 +191,7 @@ defences:
   - sft
   - preference_optimisation
   isolation: not_applicable
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 16

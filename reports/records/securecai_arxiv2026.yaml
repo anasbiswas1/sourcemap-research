@@ -24,7 +24,7 @@ defences:
   - sft
   - preference_optimisation
   isolation: ablation_present
-  signal_dependence: not_reported
+  signal_dependence: not_applicable
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
   page: 4
@@ -50,6 +50,7 @@ defences:
   - no_signal
   axis2:
   - sft
+  - preference_optimisation
   isolation: not_applicable
   signal_dependence: not_applicable
   trains_instruction_pair: 'no'
@@ -67,7 +68,7 @@ defences:
   axis2:
   - prompting
   isolation: not_applicable
-  signal_dependence: baseline_only
+  signal_dependence: not_applicable
   trains_instruction_pair: not_applicable
   trains_carry_through: not_applicable
   page: 7

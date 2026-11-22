@@ -42,7 +42,7 @@ defences:
   axis2:
   - preference_optimisation
   - sft
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -75,7 +75,7 @@ defences:
   axis2:
   - preference_optimisation
   - sft
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -108,7 +108,7 @@ defences:
   axis2:
   - preference_optimisation
   - sft
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
@@ -140,7 +140,7 @@ defences:
   - chat_roles
   axis2:
   - sft
-  isolation: ablation_present
+  isolation: not_applicable
   signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'

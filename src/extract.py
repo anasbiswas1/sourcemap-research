@@ -318,3 +318,118 @@ def agreement(first: dict, second: dict, matches: dict) -> tuple[list[dict], lis
     add("multi-label", "defence set (method level, per report)", len(set_j), None, None, sum(set_j) / len(set_j))
     add("numeric", "printed values re-read from their addresses", len(vals), sum(vals) / len(vals) if vals else 0)
     return rows, per_report, dis
+
+
+# ---------------------------------------------------------------- 04r: applying a listed re-code, and the amended rules as checks
+CHANGE_FIELDS = ["report", "unit", "field", "old", "new", "reason", "page"]
+LIST_FIELDS = {"axis1", "axis2", "also_quantity"}
+PROMPT_OR_RULE = {"prompting", "fixed_inference_rule"}
+
+
+def encode(v) -> str:
+    """One cell for a field value: lists joined by ';', absent as ''."""
+    if v is None:
+        return ""
+    return ";".join(str(x) for x in v) if isinstance(v, list) else str(v)
+
+
+def _decode(field: str, s: str):
+    if s == "":
+        return None
+    if field.split(".")[-1] in LIST_FIELDS:
+        return s.split(";")
+    if field.startswith("pages."):
+        return int(s)
+    return s
+
+
+def _target(rec: dict, unit: str) -> dict:
+    if unit in ("report", "coverage"):
+        return rec[unit]
+    kind, _, rid = unit.partition(":")
+    for row in rec.get(kind) or []:
+        if row.get("id") == rid:
+            return row
+    raise KeyError(unit)
+
+
+def field_value(rec: dict, unit: str, field: str):
+    obj = _target(rec, unit)
+    if "." in field:
+        a, b = field.split(".", 1)
+        return (obj.get(a) or {}).get(b)
+    return obj.get(field)
+
+
+def apply_changes(records: dict, rows: list[dict]) -> list[str]:
+    """Applies listed changes in place. A row whose old value is not the value on file is refused, so a change list
+    built from other files than the committed ones cannot be applied by mistake."""
+    problems = []
+    for r in rows:
+        rec = records.get(r["report"])
+        if rec is None:
+            problems.append(f"{r['report']}: no such record")
+            continue
+        try:
+            obj = _target(rec, r["unit"])
+        except KeyError:
+            problems.append(f"{r['report']}:{r['unit']}: no such unit")
+            continue
+        cur = encode(field_value(rec, r["unit"], r["field"]))
+        if cur != r["old"]:
+            problems.append(f"{r['report']}:{r['unit']}:{r['field']} is {cur!r} on file, the change list expects {r['old']!r}")
+            continue
+        new = _decode(r["field"], r["new"])
+        if "." in r["field"]:
+            a, b = r["field"].split(".", 1)
+            sub = obj.get(a) or {}
+            if new is None:
+                sub.pop(b, None)
+            else:
+                sub[b] = new
+            if sub:
+                obj[a] = sub
+            else:
+                obj.pop(a, None)
+        elif new is None:
+            obj.pop(r["field"], None)
+        else:
+            obj[r["field"]] = new
+    return problems
+
+
+def rule_problems(rec: dict) -> list[str]:
+    """Amended rules 8, 9 and 32 (coding_rules.md, Amendment 2) checked on one record."""
+    out = []
+    has_none = any(str(e.get("defence_id", "")).startswith("none:") for e in rec.get("evaluations") or [])
+    for d in rec.get("defences") or []:
+        a1, sig = d["axis1"], d["signal_dependence"]
+        trained = not set(d["axis2"]) <= PROMPT_OR_RULE
+        tag = f"defences:{d['id']}"
+        if "no_signal" in a1 and len(a1) > 1:
+            out.append(f"{tag}: no_signal combined with another axis 1 value")
+        if (a1 == ["no_signal"]) != (sig == "not_applicable"):
+            out.append(f"{tag}: axis 1 {encode(a1)} with signal_dependence {sig} (not_applicable exactly when axis 1 is no_signal)")
+        if trained and sig == "baseline_only":
+            out.append(f"{tag}: baseline_only on a trained defence")
+        if not trained and sig == "stated":
+            out.append(f"{tag}: stated on a prompting defence or fixed rule (measured, baseline_only or not_reported)")
+        if sig == "baseline_only" and not has_none:
+            out.append(f"{tag}: baseline_only but the report has no undefended evaluation")
+        if sig == "measured_other_checkpoint" and not d.get("signal_dependence_detail"):
+            out.append(f"{tag}: measured_other_checkpoint without signal_dependence_detail naming the checkpoint")
+        if d["origin"] == "other_report" and d["isolation"] == "no_ablation":
+            out.append(f"{tag}: no_ablation on another report's defence (not_applicable unless this report ablates it)")
+    cov = rec.get("coverage") or {}
+    for q in ("R1", "R3ns", "R3cp", "R3safe"):
+        rs = [x for x in rec.get("results") or [] if x.get("quantity") == q or q in (x.get("also_quantity") or [])]
+        if cov.get(q) in ("direct", "proxy") and not rs:
+            out.append(f"coverage {q} is {cov.get(q)} but no result carries {q}")
+        if cov.get(q) in ("not_reported", "not_applicable") and rs:
+            out.append(f"coverage {q} is {cov.get(q)} but {len(rs)} results carry {q}")
+        main = [x["coverage"] for x in rs if x.get("quantity") == q]
+        if main and len(main) == len(rs) and cov.get(q) in ("direct", "proxy"):
+            best = "direct" if "direct" in main else "proxy"
+            if best != cov.get(q):
+                out.append(f"coverage {q} is {cov.get(q)} but the best result coded for it is {best}")
+    return out

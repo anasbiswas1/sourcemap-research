@@ -41,7 +41,7 @@ defences:
   - chat_roles
   axis2:
   - adversarial_rl
-  isolation: no_ablation
+  isolation: not_applicable
   signal_dependence: not_reported
   trains_instruction_pair: 'no'
   trains_carry_through: 'no'
