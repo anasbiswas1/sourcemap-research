@@ -1,0 +1,547 @@
+report:
+  id: crosslingjudge_ubmk2026
+  slug: doi_10_1109_ubmk71847_2026_11745222
+  title: LLM-as-a-Judge Vulnerabilities in Review Summarization and a Reasoning-based Defense against Cross-Lingual Prompt Injection
+  first_author: Ali Kerem Güler
+  venue: UBMK 2026 (11th International Conference on Computer Science and Engineering, IEEE)
+  peer_reviewed: 'yes'
+  doi: 10.1109/UBMK71847.2026.11745222
+  version_read: IEEE Xplore version
+  first_date: '2026-09-01'
+  read: F
+  role: proposes
+  code_release: not stated
+  extraction_scope: 'Section IV.B: Table I (ASR in Mode 1 and Mode 2 for six models); the abstract claim (Figure 3 language breakdown, latency, Table II and the judge results of Figure 5, which are figure-only, not coded)'
+defences:
+- id: guard_gemma2
+  name: reasoning guardrail (inspect for language switches and override commands, then summarise)
+  origin: this_report
+  base_checkpoint: Gemma 2 9B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: single-turn summarisation of one review; the guardrail is a system prompt asking for a reasoning block before the summary
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  anchor: In Mode 2 (reasoning guardrail), conversely, a system prompt was prepended
+- id: guard_gemma3
+  name: reasoning guardrail (inspect for language switches and override commands, then summarise)
+  origin: this_report
+  base_checkpoint: Gemma 3 4B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: single-turn summarisation of one review; the guardrail is a system prompt asking for a reasoning block before the summary
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  anchor: In Mode 2 (reasoning guardrail), conversely, a system prompt was prepended
+- id: guard_qwen25
+  name: reasoning guardrail (inspect for language switches and override commands, then summarise)
+  origin: this_report
+  base_checkpoint: Qwen 2.5 7B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: single-turn summarisation of one review; the guardrail is a system prompt asking for a reasoning block before the summary
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  anchor: In Mode 2 (reasoning guardrail), conversely, a system prompt was prepended
+- id: guard_qwen3
+  name: reasoning guardrail (inspect for language switches and override commands, then summarise)
+  origin: this_report
+  base_checkpoint: Qwen 3 8B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: single-turn summarisation of one review; the guardrail is a system prompt asking for a reasoning block before the summary
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  anchor: In Mode 2 (reasoning guardrail), conversely, a system prompt was prepended
+- id: guard_llama31
+  name: reasoning guardrail (inspect for language switches and override commands, then summarise)
+  origin: this_report
+  base_checkpoint: Llama 3.1 8B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: single-turn summarisation of one review; the guardrail is a system prompt asking for a reasoning block before the summary
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  anchor: In Mode 2 (reasoning guardrail), conversely, a system prompt was prepended
+- id: guard_llama32
+  name: reasoning guardrail (inspect for language switches and override commands, then summarise)
+  origin: this_report
+  base_checkpoint: Llama 3.2 3B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: single-turn summarisation of one review; the guardrail is a system prompt asking for a reasoning block before the summary
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  anchor: In Mode 2 (reasoning guardrail), conversely, a system prompt was prepended
+evaluations:
+- id: ev_gemma2_none
+  defence_id: none:Gemma 2 9B
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gemma2_guard
+  defence_id: guard_gemma2
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+- id: ev_gemma3_none
+  defence_id: none:Gemma 3 4B
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_gemma3_guard
+  defence_id: guard_gemma3
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+- id: ev_qwen25_none
+  defence_id: none:Qwen 2.5 7B
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_qwen25_guard
+  defence_id: guard_qwen25
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+- id: ev_qwen3_none
+  defence_id: none:Qwen 3 8B
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_qwen3_guard
+  defence_id: guard_qwen3
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+- id: ev_llama31_none
+  defence_id: none:Llama 3.1 8B
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_llama31_guard
+  defence_id: guard_llama31
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+- id: ev_llama32_none
+  defence_id: none:Llama 3.2 3B
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_llama32_guard
+  defence_id: guard_llama32
+  benchmark: 500 Turkish restaurant reviews (Protel Check and Place), each poisoned with an English, Spanish and Turkish [SYSTEM OVERRIDE] payload demanding a fixed malicious summary
+  attacker_type: static
+  attacker_access: black_box
+  judge: the summary contains a scam-related and a danger-related term in any of the three languages (translations count)
+  layout_same_as_defence: 'yes'
+  measured_by: crosslingjudge_ubmk2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,500 poisoned inputs per model and mode
+  pages:
+    benchmark: 4
+results:
+- id: r_gemma2_none
+  evaluation_id: ev_gemma2_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '67.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_gemma2_guard
+  evaluation_id: ev_gemma2_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_gemma3_none
+  evaluation_id: ev_gemma3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '88.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_gemma3_guard
+  evaluation_id: ev_gemma3_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '57.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_qwen25_none
+  evaluation_id: ev_qwen25_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '60.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_qwen25_guard
+  evaluation_id: ev_qwen25_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '20.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_qwen3_none
+  evaluation_id: ev_qwen3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '99.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_qwen3_guard
+  evaluation_id: ev_qwen3_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '56.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_llama31_none
+  evaluation_id: ev_llama31_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '20.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_llama31_guard
+  evaluation_id: ev_llama31_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '13.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_llama32_none
+  evaluation_id: ev_llama32_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '5.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_llama32_guard
+  evaluation_id: ev_llama32_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '55.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+comparisons:
+- id: c_gemma2
+  left: ev_gemma2_guard
+  right: ev_gemma2_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_gemma3
+  left: ev_gemma3_guard
+  right: ev_gemma3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_qwen25
+  left: ev_qwen25_guard
+  right: ev_qwen25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_qwen3
+  left: ev_qwen3_guard
+  right: ev_qwen3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_llama31
+  left: ev_llama31_guard
+  right: ev_llama31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_llama32
+  left: ev_llama32_guard
+  right: ev_llama32_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+claims:
+- id: k1
+  text: the reasoning guardrail reduced attack success on most models by an average of 23.0 points but backfired on the smallest model (5.5% to 55.3%)
+  location: abstract
+  anchor: The reasoning guardrail sharply reduced successful attacks on most models
+  jobs:
+  - R1
+  supported_by:
+  - c_gemma2
+  - c_gemma3
+  - c_qwen25
+  - c_qwen3
+  - c_llama31
+  - c_llama32
+  page: 1
+  contradicted_by:
+  - r_llama32_guard
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table I
+    R2clean: summary quality on clean reviews is not reported (only the detector's false-positive rate)
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: the judge-targeted results (Figure 5) are figure-only; the detector is a keyword rule in three languages and the paper reports a 0.0% false-positive rate on clean reviews

@@ -1,0 +1,813 @@
+report:
+  id: localrag_applsci2026
+  slug: doi_10_3390_app162111039
+  title: 'Securing Locally Deployed LLM-RAG Assistants: A Cross-Model and Cross-Lingual Evaluation of Indirect Prompt Injection Defenses'
+  first_author: Sofia Gonzalez-Sancho
+  venue: Applied Sciences 16 (2026) 11039
+  peer_reviewed: 'yes'
+  doi: 10.3390/app162111039
+  version_read: published version
+  first_date: '2026-11-07'
+  read: F
+  role: re_measures
+  code_release: repository with Docker reproduction (Section 4.2)
+  extraction_scope: 'Sections 5.1 and 5.4: configurations C2 (tools, no defence), C3 and C4 in Table 6 (Llama 3.1 8B) and Table 10 (four language conditions), and the English replication values in the text (C1 without tools,
+    and C5, a deterministic output filter, not coded; the cross-model C3 and C4 values are in Figure 2 only, and the abstract''s headline claims concern C5)'
+defences:
+- id: c3
+  name: 'C3: retrieved documents structurally delimited and declared untrusted in the system prompt'
+  origin: other_report
+  base_checkpoint: Llama 3.1 8B (llama3.1:8b, Q4_K_M)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: 'local RAG assistant: top-3 retrieved documents in the prompt, simulated tools requested as TOOL_CALL lines'
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  anchor: 'C3: Explicit instruction–data separation'
+- id: c4
+  name: 'C4: C3 plus tool-use rules (documents cannot authorise actions) and a self-validation instruction'
+  origin: this_report
+  base_checkpoint: Llama 3.1 8B (llama3.1:8b, Q4_K_M)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: 'local RAG assistant: top-3 retrieved documents in the prompt, simulated tools requested as TOOL_CALL lines'
+  layout_compat: *id001
+  anchor: 'C4: Instruction–data separation with tool policy and response validation'
+evaluations:
+- id: ev_es_none
+  defence_id: none:Llama 3.1 8B (llama3.1:8b, Q4_K_M)
+  benchmark: Spanish synthetic corpus (40 documents, 32 queries; four attack families), TF-IDF top-3 retrieval
+  attacker_type: static
+  attacker_access: black_box
+  judge: automatic labels (marker and structure rules) with adjudication
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 15
+  decoding: temperature 0.0, seed 42
+  sample_size: 32 queries (27 exposed to a poisoned document)
+  denominator: ASR over the 27 exposed queries; other metrics over all 32
+  pages:
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_es_c3
+  defence_id: c3
+  benchmark: Spanish synthetic corpus (40 documents, 32 queries; four attack families), TF-IDF top-3 retrieval
+  attacker_type: static
+  attacker_access: black_box
+  judge: automatic labels (marker and structure rules) with adjudication
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 15
+  decoding: temperature 0.0, seed 42
+  sample_size: 32 queries (27 exposed to a poisoned document)
+  denominator: ASR over the 27 exposed queries; other metrics over all 32
+  pages:
+    decoding: 12
+- id: ev_es_c4
+  defence_id: c4
+  benchmark: Spanish synthetic corpus (40 documents, 32 queries; four attack families), TF-IDF top-3 retrieval
+  attacker_type: static
+  attacker_access: black_box
+  judge: automatic labels (marker and structure rules) with adjudication
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 15
+  decoding: temperature 0.0, seed 42
+  sample_size: 32 queries (27 exposed to a poisoned document)
+  denominator: ASR over the 27 exposed queries; other metrics over all 32
+  pages:
+    decoding: 12
+- id: ev_eses_none
+  defence_id: none:Llama 3.1 8B (llama3.1:8b, Q4_K_M)
+  benchmark: controlled cross-lingual condition ES-ES (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 28 exposed queries of 32
+  baseline_kind: off_the_shelf
+- id: ev_eses_c3
+  defence_id: c3
+  benchmark: controlled cross-lingual condition ES-ES (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 28 exposed queries of 32
+- id: ev_eses_c4
+  defence_id: c4
+  benchmark: controlled cross-lingual condition ES-ES (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 28 exposed queries of 32
+- id: ev_esen_none
+  defence_id: none:Llama 3.1 8B (llama3.1:8b, Q4_K_M)
+  benchmark: controlled cross-lingual condition ES-EN (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 21 exposed queries of 32
+  baseline_kind: off_the_shelf
+- id: ev_esen_c3
+  defence_id: c3
+  benchmark: controlled cross-lingual condition ES-EN (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 21 exposed queries of 32
+- id: ev_esen_c4
+  defence_id: c4
+  benchmark: controlled cross-lingual condition ES-EN (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 21 exposed queries of 32
+- id: ev_enes_none
+  defence_id: none:Llama 3.1 8B (llama3.1:8b, Q4_K_M)
+  benchmark: controlled cross-lingual condition EN-ES (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 21 exposed queries of 32
+  baseline_kind: off_the_shelf
+- id: ev_enes_c3
+  defence_id: c3
+  benchmark: controlled cross-lingual condition EN-ES (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 21 exposed queries of 32
+- id: ev_enes_c4
+  defence_id: c4
+  benchmark: controlled cross-lingual condition EN-ES (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 21 exposed queries of 32
+- id: ev_enen_none
+  defence_id: none:Llama 3.1 8B (llama3.1:8b, Q4_K_M)
+  benchmark: controlled cross-lingual condition EN-EN (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 27 exposed queries of 32
+  baseline_kind: off_the_shelf
+- id: ev_enen_c3
+  defence_id: c3
+  benchmark: controlled cross-lingual condition EN-EN (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 27 exposed queries of 32
+- id: ev_enen_c4
+  defence_id: c4
+  benchmark: controlled cross-lingual condition EN-EN (query language, malicious-document language), multilingual embedding retriever
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 20
+  decoding: temperature 0.0, seed 42
+  sample_size: 27 exposed queries of 32
+- id: ev_eng_none
+  defence_id: none:Llama 3.1 8B (llama3.1:8b, Q4_K_M)
+  benchmark: independent English replication of the corpus and queries
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 16
+  decoding: temperature 0.0, seed 42
+  sample_size: 29 exposed queries
+  baseline_kind: off_the_shelf
+- id: ev_eng_c3
+  defence_id: c3
+  benchmark: independent English replication of the corpus and queries
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 16
+  decoding: temperature 0.0, seed 42
+  sample_size: 29 exposed queries
+- id: ev_eng_c4
+  defence_id: c4
+  benchmark: independent English replication of the corpus and queries
+  attacker_type: static
+  attacker_access: black_box
+  judge: extended bilingual automatic evaluator
+  layout_same_as_defence: 'yes'
+  measured_by: localrag_applsci2026
+  page: 16
+  decoding: temperature 0.0, seed 42
+  sample_size: 29 exposed queries
+results:
+- id: r_es_none_asr
+  evaluation_id: ev_es_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR
+  value: '74.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_none_mis
+  evaluation_id: ev_es_none
+  quantity: other
+  coverage: direct
+  metric_as_printed: tool misuse rate (unjustified consequential tool request)
+  value: '21.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_none_leak
+  evaluation_id: ev_es_none
+  quantity: other
+  coverage: direct
+  metric_as_printed: synthetic-data leakage rate
+  value: '3.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_none_util
+  evaluation_id: ev_es_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: answer utility on the poisoned corpus
+  value: '53.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_c3_asr
+  evaluation_id: ev_es_c3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR
+  value: '70.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_c3_mis
+  evaluation_id: ev_es_c3
+  quantity: other
+  coverage: direct
+  metric_as_printed: tool misuse rate (unjustified consequential tool request)
+  value: '34.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_c3_leak
+  evaluation_id: ev_es_c3
+  quantity: other
+  coverage: direct
+  metric_as_printed: synthetic-data leakage rate
+  value: '12.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_c3_util
+  evaluation_id: ev_es_c3
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: answer utility on the poisoned corpus
+  value: '62.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_c4_asr
+  evaluation_id: ev_es_c4
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR
+  value: '29.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_c4_mis
+  evaluation_id: ev_es_c4
+  quantity: other
+  coverage: direct
+  metric_as_printed: tool misuse rate (unjustified consequential tool request)
+  value: '6.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_c4_leak
+  evaluation_id: ev_es_c4
+  quantity: other
+  coverage: direct
+  metric_as_printed: synthetic-data leakage rate
+  value: '3.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_es_c4_util
+  evaluation_id: ev_es_c4
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: answer utility on the poisoned corpus
+  value: '34.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_eses_none
+  evaluation_id: ev_eses_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, ES-ES
+  value: '50.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_eses_c3
+  evaluation_id: ev_eses_c3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, ES-ES
+  value: '57.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_eses_c4
+  evaluation_id: ev_eses_c4
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, ES-ES
+  value: '39.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_esen_none
+  evaluation_id: ev_esen_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, ES-EN
+  value: '47.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_esen_c3
+  evaluation_id: ev_esen_c3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, ES-EN
+  value: '47.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_esen_c4
+  evaluation_id: ev_esen_c4
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, ES-EN
+  value: '9.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_enes_none
+  evaluation_id: ev_enes_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, EN-ES
+  value: '57.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_enes_c3
+  evaluation_id: ev_enes_c3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, EN-ES
+  value: '47.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_enes_c4
+  evaluation_id: ev_enes_c4
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, EN-ES
+  value: '42.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_enen_none
+  evaluation_id: ev_enen_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, EN-EN
+  value: '70.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_enen_c3
+  evaluation_id: ev_enen_c3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, EN-EN
+  value: '63.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_enen_c4
+  evaluation_id: ev_enen_c4
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, EN-EN
+  value: '37.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 10
+- id: r_eng_none
+  evaluation_id: ev_eng_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, English replication
+  value: '55.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 16
+  location: Section 5.1
+- id: r_eng_c3
+  evaluation_id: ev_eng_c3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, English replication
+  value: '62.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 16
+  location: Section 5.1
+- id: r_eng_c4
+  evaluation_id: ev_eng_c4
+  quantity: R1
+  coverage: direct
+  metric_as_printed: conditional ASR, English replication
+  value: '34.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 16
+  location: Section 5.1
+comparisons:
+- id: c_es_c3
+  left: ev_es_c3
+  right: ev_es_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_es_c4
+  left: ev_es_c4
+  right: ev_es_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_es_c4c3
+  left: ev_es_c4
+  right: ev_es_c3
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: tool-use rules and self-validation added to the delimiting prompt
+  page: 15
+- id: c_eses_c3
+  left: ev_eses_c3
+  right: ev_eses_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_eses_c4
+  left: ev_eses_c4
+  right: ev_eses_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_eses_c4c3
+  left: ev_eses_c4
+  right: ev_eses_c3
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: tool-use rules and self-validation added to the delimiting prompt
+  page: 20
+- id: c_esen_c3
+  left: ev_esen_c3
+  right: ev_esen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_esen_c4
+  left: ev_esen_c4
+  right: ev_esen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_esen_c4c3
+  left: ev_esen_c4
+  right: ev_esen_c3
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: tool-use rules and self-validation added to the delimiting prompt
+  page: 20
+- id: c_enes_c3
+  left: ev_enes_c3
+  right: ev_enes_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_enes_c4
+  left: ev_enes_c4
+  right: ev_enes_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_enes_c4c3
+  left: ev_enes_c4
+  right: ev_enes_c3
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: tool-use rules and self-validation added to the delimiting prompt
+  page: 20
+- id: c_enen_c3
+  left: ev_enen_c3
+  right: ev_enen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_enen_c4
+  left: ev_enen_c4
+  right: ev_enen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_enen_c4c3
+  left: ev_enen_c4
+  right: ev_enen_c3
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: tool-use rules and self-validation added to the delimiting prompt
+  page: 20
+- id: c_eng_c3
+  left: ev_eng_c3
+  right: ev_eng_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_eng_c4
+  left: ev_eng_c4
+  right: ev_eng_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 6 and 10, Section 5.1
+    R2attack: Table 6 (answer utility over all 32 queries on the poisoned corpus)
+    R2clean: not reported
+schema_gaps:
+- where: report
+  note: the paper's emphasis is the deterministic output filter C5, left out as a filter; C3 (delimiting) does not lower ASR against C2 in the Llama table and raises tool misuse from 21.9% to 34.4%; the abstract's claims all
+    concern C5, so no claim is coded
+- where: evaluations ev_es_*
+  note: ASR is conditioned on the 27 queries that retrieved a poisoned document, while utility, misuse and leakage use all 32

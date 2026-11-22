@@ -1,0 +1,1418 @@
+report:
+  id: benchvalid_rs2026
+  slug: doi_10_21203_rs_3_rs_10962146_v1
+  title: Are LLM-Agent Prompt-Injection Benchmarks Still Valid? A Cross-Model and Cross-Benchmark Study
+  first_author: Sushil Khairnar
+  venue: Research Square preprint
+  peer_reviewed: 'no'
+  doi: 10.21203/rs.3.rs-10962146/v1
+  version_read: Research Square v1
+  first_date: '2026-10-07'
+  read: F
+  role: re_measures
+  code_release: harness stated as open-sourced; not checked
+  extraction_scope: 'Section V.D: Table III (defence sweep on the targeted BIPIA-email attack, ten models); the abstract claim on defences (Tables I and II, which test undefended models only, not coded)'
+defences:
+- id: instr_gemma2
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: Gemma 2 9B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_gemma2
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: Gemma 2 9B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+- id: instr_llama33
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: Llama 3.3 70B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: *id001
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_llama33
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: Llama 3.3 70B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+- id: instr_dsr1
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: DeepSeek R1
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: *id001
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_dsr1
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: DeepSeek R1
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+- id: instr_phi4
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: Phi-4 14B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: *id001
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_phi4
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: Phi-4 14B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+- id: instr_novapro
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: Nova Pro
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: *id001
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_novapro
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: Nova Pro
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+- id: instr_pixtral
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: Mistral Pixtral Large
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: *id001
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_pixtral
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: Mistral Pixtral Large
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+- id: instr_qwen14
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: Qwen2.5 14B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: *id001
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_qwen14
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: Qwen2.5 14B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+- id: instr_mistral7
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: Mistral 7B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: *id001
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_mistral7
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: Mistral 7B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+- id: instr_llama31
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: Llama 3.1 8B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: *id001
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_llama31
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: Llama 3.1 8B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+- id: instr_qwen7
+  name: instruction defence (warning that the data is untrusted)
+  origin: other_report
+  base_checkpoint: Qwen2.5 7B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt'
+  layout_compat: *id001
+  anchor: instruction- defense (with a warning message informing customers
+- id: spot_qwen7
+  name: spotlighting by delimiting the untrusted data
+  origin: other_report
+  base_checkpoint: Qwen2.5 7B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: 'BIPIA email task: the email with the injected sentence request is placed in the prompt; email delimited'
+  layout_compat: *id001
+  anchor: spotlighting (by delimiting untrusted data)
+evaluations:
+- id: ev_gemma2_none
+  defence_id: none:Gemma 2 9B
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_gemma2_instr
+  defence_id: instr_gemma2
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_gemma2_spot
+  defence_id: spot_gemma2
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_llama33_none
+  defence_id: none:Llama 3.3 70B
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_llama33_instr
+  defence_id: instr_llama33
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_llama33_spot
+  defence_id: spot_llama33
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_dsr1_none
+  defence_id: none:DeepSeek R1
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_dsr1_instr
+  defence_id: instr_dsr1
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_dsr1_spot
+  defence_id: spot_dsr1
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_phi4_none
+  defence_id: none:Phi-4 14B
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_phi4_instr
+  defence_id: instr_phi4
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_phi4_spot
+  defence_id: spot_phi4
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_novapro_none
+  defence_id: none:Nova Pro
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_novapro_instr
+  defence_id: instr_novapro
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_novapro_spot
+  defence_id: spot_novapro
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_pixtral_none
+  defence_id: none:Mistral Pixtral Large
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_pixtral_instr
+  defence_id: instr_pixtral
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_pixtral_spot
+  defence_id: spot_pixtral
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_qwen14_none
+  defence_id: none:Qwen2.5 14B
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_qwen14_instr
+  defence_id: instr_qwen14
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_qwen14_spot
+  defence_id: spot_qwen14
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_mistral7_none
+  defence_id: none:Mistral 7B
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_mistral7_instr
+  defence_id: instr_mistral7
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_mistral7_spot
+  defence_id: spot_mistral7
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_llama31_none
+  defence_id: none:Llama 3.1 8B
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_llama31_instr
+  defence_id: instr_llama31
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_llama31_spot
+  defence_id: spot_llama31
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_qwen7_none
+  defence_id: none:Qwen2.5 7B
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+  baseline_kind: off_the_shelf
+- id: ev_qwen7_instr
+  defence_id: instr_qwen7
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+- id: ev_qwen7_spot
+  defence_id: spot_qwen7
+  benchmark: BIPIA email scenarios, one targeted content-insertion injection, 50 cases with two repeats
+  attacker_type: static
+  attacker_access: black_box
+  judge: the target sentence appears in the reply (case-insensitive substring); failed API calls excluded
+  layout_same_as_defence: 'yes'
+  measured_by: benchvalid_rs2026
+  page: 6
+  decoding: provider default (no explicit temperature)
+  sample_size: 50 cases x 2 repeats
+  pages:
+    benchmark: 4
+    decoding: 4
+results:
+- id: r_gemma2_none
+  evaluation_id: ev_gemma2_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_gemma2_instr
+  evaluation_id: ev_gemma2_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_gemma2_spot
+  evaluation_id: ev_gemma2_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '15'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_llama33_none
+  evaluation_id: ev_llama33_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_llama33_instr
+  evaluation_id: ev_llama33_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_llama33_spot
+  evaluation_id: ev_llama33_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '97'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_dsr1_none
+  evaluation_id: ev_dsr1_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '93'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_dsr1_instr
+  evaluation_id: ev_dsr1_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '83'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_dsr1_spot
+  evaluation_id: ev_dsr1_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_phi4_none
+  evaluation_id: ev_phi4_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_phi4_instr
+  evaluation_id: ev_phi4_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_phi4_spot
+  evaluation_id: ev_phi4_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '65'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_novapro_none
+  evaluation_id: ev_novapro_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '63'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_novapro_instr
+  evaluation_id: ev_novapro_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_novapro_spot
+  evaluation_id: ev_novapro_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_pixtral_none
+  evaluation_id: ev_pixtral_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '53'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_pixtral_instr
+  evaluation_id: ev_pixtral_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_pixtral_spot
+  evaluation_id: ev_pixtral_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_qwen14_none
+  evaluation_id: ev_qwen14_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '45'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_qwen14_instr
+  evaluation_id: ev_qwen14_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_qwen14_spot
+  evaluation_id: ev_qwen14_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_mistral7_none
+  evaluation_id: ev_mistral7_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_mistral7_instr
+  evaluation_id: ev_mistral7_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_mistral7_spot
+  evaluation_id: ev_mistral7_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_llama31_none
+  evaluation_id: ev_llama31_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_llama31_instr
+  evaluation_id: ev_llama31_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_llama31_spot
+  evaluation_id: ev_llama31_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_qwen7_none
+  evaluation_id: ev_qwen7_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_qwen7_instr
+  evaluation_id: ev_qwen7_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+- id: r_qwen7_spot
+  evaluation_id: ev_qwen7_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: BIPIA targeted-insertion ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table III
+comparisons:
+- id: c_gemma2_instr
+  left: ev_gemma2_instr
+  right: ev_gemma2_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gemma2_spot
+  left: ev_gemma2_spot
+  right: ev_gemma2_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_llama33_instr
+  left: ev_llama33_instr
+  right: ev_llama33_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_llama33_spot
+  left: ev_llama33_spot
+  right: ev_llama33_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_dsr1_instr
+  left: ev_dsr1_instr
+  right: ev_dsr1_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_dsr1_spot
+  left: ev_dsr1_spot
+  right: ev_dsr1_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_phi4_instr
+  left: ev_phi4_instr
+  right: ev_phi4_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_phi4_spot
+  left: ev_phi4_spot
+  right: ev_phi4_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_novapro_instr
+  left: ev_novapro_instr
+  right: ev_novapro_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_novapro_spot
+  left: ev_novapro_spot
+  right: ev_novapro_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_pixtral_instr
+  left: ev_pixtral_instr
+  right: ev_pixtral_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_pixtral_spot
+  left: ev_pixtral_spot
+  right: ev_pixtral_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qwen14_instr
+  left: ev_qwen14_instr
+  right: ev_qwen14_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qwen14_spot
+  left: ev_qwen14_spot
+  right: ev_qwen14_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mistral7_instr
+  left: ev_mistral7_instr
+  right: ev_mistral7_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mistral7_spot
+  left: ev_mistral7_spot
+  right: ev_mistral7_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_llama31_instr
+  left: ev_llama31_instr
+  right: ev_llama31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_llama31_spot
+  left: ev_llama31_spot
+  right: ev_llama31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qwen7_instr
+  left: ev_qwen7_instr
+  right: ev_qwen7_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qwen7_spot
+  left: ev_qwen7_spot
+  right: ev_qwen7_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+claims:
+- id: k1
+  text: none of the examined prompt-based defences works universally across models
+  location: abstract
+  anchor: none of the examined prompt-based defenses works universally across models
+  jobs:
+  - R1
+  supported_by:
+  - c_gemma2_instr
+  - c_gemma2_spot
+  - c_llama33_instr
+  - c_llama33_spot
+  - c_dsr1_instr
+  - c_dsr1_spot
+  - c_phi4_instr
+  - c_phi4_spot
+  - c_novapro_instr
+  - c_novapro_spot
+  - c_pixtral_instr
+  - c_pixtral_spot
+  - c_qwen14_instr
+  - c_qwen14_spot
+  - c_mistral7_instr
+  - c_mistral7_spot
+  - c_llama31_instr
+  - c_llama31_spot
+  - c_qwen7_instr
+  - c_qwen7_spot
+  page: 2
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table III
+    R2clean: no utility is reported for the defence sweep
+    R2attack: not reported
+schema_gaps:
+- where: evaluations ev_*_none
+  note: the no-defence values in Table III differ from Table I for the models in both (DeepSeek R1 93 against 98, Nova Pro 63 against 66, Mistral Pixtral 53 against 38, Llama 3.1 8B 5 against 0), so the two tables come from
+    different runs
+- where: report
+  note: one targeted attack per benchmark; the paper notes that the weakest models' low ASR reflects poor instruction following rather than a defence

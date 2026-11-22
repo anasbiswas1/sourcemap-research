@@ -1,0 +1,11 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,values_third_extraction,chart_values_third_extraction,residual_notes,problems
+04g,textpixels_arxiv2026,2611.24231,re_measures,6,96,96,96,0,8,48,48,0,0,0,2,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,2,0
+04g,constsanitlog_icssa2026,doi_10_1109_icssa70263_2026_11765792,proposes,3,10,20,20,0,4,6,6,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,2,0
+04g,crosslingjudge_ubmk2026,doi_10_1109_ubmk71847_2026_11745222,proposes,6,12,12,12,0,7,6,6,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04g,smallsecure_asiaccs2026,doi_10_1145_3779208_3804880,proposes,3,12,12,12,0,4,12,9,3,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,2,0
+04g,ragmitig_ccs2026,doi_10_1145_3830454_3846434,re_measures,5,18,24,24,0,6,15,15,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,2,0
+04g,benchvalid_rs2026,doi_10_21203_rs_3_rs_10962146_v1,re_measures,20,30,30,30,0,21,20,20,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,2,0
+04g,localrag_applsci2026,doi_10_3390_app162111039,re_measures,2,18,27,27,0,2,17,17,0,0,0,0,direct,not_reported,direct,not_reported,not_reported,not_reported,0,0,2,0
+04g,ipidefrepl_computers2026,doi_10_3390_computers15090570,re_measures,6,18,27,27,0,7,12,12,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,2,0
+04g,glasswall_techrxiv2026,doi_10_36227_techrxiv_177219982_22869977_v1,proposes,2,7,7,7,0,3,4,3,1,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04g,aort_etrij2026,doi_10_4218_etrij_2025_0449,proposes,2,10,10,10,0,3,5,5,0,0,0,1,aggregate_only,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,2,0

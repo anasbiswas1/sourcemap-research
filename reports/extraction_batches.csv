@@ -69,3 +69,13 @@ batch,report,slug,coded,status
 04f,secpo_arxiv2026,2610.41998,2026-11-22,checked
 04f,tracer_emnlp2026,2610.19133,2026-11-22,checked
 04f,untrustedcomponent_arxiv2026,2611.11571,2026-11-22,checked
+04g,aort_etrij2026,doi_10_4218_etrij_2025_0449,2026-11-22,checked
+04g,benchvalid_rs2026,doi_10_21203_rs_3_rs_10962146_v1,2026-11-22,checked
+04g,constsanitlog_icssa2026,doi_10_1109_icssa70263_2026_11765792,2026-11-22,checked
+04g,crosslingjudge_ubmk2026,doi_10_1109_ubmk71847_2026_11745222,2026-11-22,checked
+04g,glasswall_techrxiv2026,doi_10_36227_techrxiv_177219982_22869977_v1,2026-11-22,checked
+04g,ipidefrepl_computers2026,doi_10_3390_computers15090570,2026-11-22,checked
+04g,localrag_applsci2026,doi_10_3390_app162111039,2026-11-22,checked
+04g,ragmitig_ccs2026,doi_10_1145_3830454_3846434,2026-11-22,checked
+04g,smallsecure_asiaccs2026,doi_10_1145_3779208_3804880,2026-11-22,checked
+04g,textpixels_arxiv2026,2611.24231,2026-11-22,checked

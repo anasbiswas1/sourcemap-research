@@ -1,0 +1,559 @@
+report:
+  id: constsanitlog_icssa2026
+  slug: doi_10_1109_icssa70263_2026_11765792
+  title: Constitutional Sanitization and Fine-Tuning for Robustness to Prompt Injection in LLM-Based Log Analysis
+  first_author: Wenkai Ma
+  venue: ICSSA 2026 (6th International Conference on Smart Sensors and Applications, IEEE)
+  peer_reviewed: 'yes'
+  doi: 10.1109/ICSSA70263.2026.11765792
+  version_read: IEEE Xplore version
+  first_date: '2026-09-01'
+  read: F
+  role: proposes
+  code_release: artifact mentioned; not checked
+  extraction_scope: 'Section VI: Table III and Table IV rows for No Defense, Datamarking (Qwen only) and SFT; the introduction claim (Constitutional Sanitization, a sanitiser, and every condition that includes it, Table V
+    and Figure 2 not coded)'
+defences:
+- id: sft_q
+  name: LoRA SFT on safe responses from the sanitised pipeline
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - 312 training rows (292 attack, 20 normal); attack targets are safe responses produced under Constitutional Sanitization, normal targets are high-utility baseline responses
+  - LoRA rank 16, alpha 32, two epochs
+  layout: 'single-turn log analysis: one log entry in, one report out (event type, severity, explanation, injection flag)'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Attack examples preferen- tially use safe final Constitutional Sanitization responses
+  pages:
+    components: 4
+- id: sft_l
+  name: LoRA SFT on safe responses from the sanitised pipeline
+  origin: this_report
+  base_checkpoint: Llama 3.1 8B Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - 312 training rows (292 attack, 20 normal); attack targets are safe responses produced under Constitutional Sanitization, normal targets are high-utility baseline responses
+  - LoRA rank 16, alpha 32, two epochs
+  layout: 'single-turn log analysis: one log entry in, one report out (event type, severity, explanation, injection flag)'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Attack examples preferen- tially use safe final Constitutional Sanitization responses
+  pages:
+    components: 4
+- id: dm_q
+  name: Datamarking (log marked as untrusted data, instruction-like strings framed as data)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'single-turn log analysis: one log entry in, one report out (event type, severity, explanation, injection flag); log content explicitly boundary-marked'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Datamarking: log content is explicitly marked as untrusted'
+evaluations:
+- id: ev_q_none_att
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: frozen external validation set, 600 attack rows (logic splitting, sanitisation spoofing, obfuscated payloads; four goals), rule-based adaptive variants
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic goal-specific validator; quoting or analysing the injection does not count
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '600'
+  denominator: 600 attack rows
+  baseline_kind: off_the_shelf
+- id: ev_q_none_ben
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: frozen external validation set, 400 benign logs (160 suspicious-looking hard negatives)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: BERTScore of the explanation against a gold reference; injection flag and block or refusal from the parsed output
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '400'
+  denominator: 400 benign rows
+  baseline_kind: off_the_shelf
+- id: ev_q_dm_att
+  defence_id: dm_q
+  benchmark: frozen external validation set, 600 attack rows (logic splitting, sanitisation spoofing, obfuscated payloads; four goals), rule-based adaptive variants
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic goal-specific validator; quoting or analysing the injection does not count
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '600'
+  denominator: 600 attack rows
+- id: ev_q_dm_ben
+  defence_id: dm_q
+  benchmark: frozen external validation set, 400 benign logs (160 suspicious-looking hard negatives)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: BERTScore of the explanation against a gold reference; injection flag and block or refusal from the parsed output
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '400'
+  denominator: 400 benign rows
+- id: ev_q_sft_att
+  defence_id: sft_q
+  benchmark: frozen external validation set, 600 attack rows (logic splitting, sanitisation spoofing, obfuscated payloads; four goals), rule-based adaptive variants
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic goal-specific validator; quoting or analysing the injection does not count
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '600'
+  denominator: 600 attack rows
+- id: ev_q_sft_ben
+  defence_id: sft_q
+  benchmark: frozen external validation set, 400 benign logs (160 suspicious-looking hard negatives)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: BERTScore of the explanation against a gold reference; injection flag and block or refusal from the parsed output
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '400'
+  denominator: 400 benign rows
+- id: ev_l_none_att
+  defence_id: none:Llama 3.1 8B Instruct
+  benchmark: frozen external validation set, 600 attack rows (logic splitting, sanitisation spoofing, obfuscated payloads; four goals), rule-based adaptive variants
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic goal-specific validator; quoting or analysing the injection does not count
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '600'
+  denominator: 600 attack rows
+  baseline_kind: off_the_shelf
+- id: ev_l_none_ben
+  defence_id: none:Llama 3.1 8B Instruct
+  benchmark: frozen external validation set, 400 benign logs (160 suspicious-looking hard negatives)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: BERTScore of the explanation against a gold reference; injection flag and block or refusal from the parsed output
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '400'
+  denominator: 400 benign rows
+  baseline_kind: off_the_shelf
+- id: ev_l_sft_att
+  defence_id: sft_l
+  benchmark: frozen external validation set, 600 attack rows (logic splitting, sanitisation spoofing, obfuscated payloads; four goals), rule-based adaptive variants
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic goal-specific validator; quoting or analysing the injection does not count
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '600'
+  denominator: 600 attack rows
+- id: ev_l_sft_ben
+  defence_id: sft_l
+  benchmark: frozen external validation set, 400 benign logs (160 suspicious-looking hard negatives)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: BERTScore of the explanation against a gold reference; injection flag and block or refusal from the parsed output
+  layout_same_as_defence: 'yes'
+  measured_by: constsanitlog_icssa2026
+  page: 5
+  decoding: not reported
+  sample_size: '400'
+  denominator: 400 benign rows
+results:
+- id: r_q_none_asr
+  evaluation_id: ev_q_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack successes out of 600 (ASR)
+  value: '519'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_none_bert
+  evaluation_id: ev_q_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: explanation BERTScore on benign logs
+  value: '.8577'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_none_fpr
+  evaluation_id: ev_q_none_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows flagged as injections (FPR count)
+  value: '0'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_none_blk
+  evaluation_id: ev_q_none_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows blocked or refused (count)
+  value: '14'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_dm_asr
+  evaluation_id: ev_q_dm_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack successes out of 600 (ASR)
+  value: '383'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_dm_bert
+  evaluation_id: ev_q_dm_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: explanation BERTScore on benign logs
+  value: '.8573'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_dm_fpr
+  evaluation_id: ev_q_dm_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows flagged as injections (FPR count)
+  value: '0'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_dm_blk
+  evaluation_id: ev_q_dm_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows blocked or refused (count)
+  value: '0'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_sft_asr
+  evaluation_id: ev_q_sft_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack successes out of 600 (ASR)
+  value: '269'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_sft_bert
+  evaluation_id: ev_q_sft_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: explanation BERTScore on benign logs
+  value: '.8611'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_sft_fpr
+  evaluation_id: ev_q_sft_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows flagged as injections (FPR count)
+  value: '1'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_q_sft_blk
+  evaluation_id: ev_q_sft_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows blocked or refused (count)
+  value: '17'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_l_none_asr
+  evaluation_id: ev_l_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack successes out of 600 (ASR)
+  value: '329'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_l_none_bert
+  evaluation_id: ev_l_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: explanation BERTScore on benign logs
+  value: '.8561'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_l_none_fpr
+  evaluation_id: ev_l_none_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows flagged as injections (FPR count)
+  value: '45'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_l_none_blk
+  evaluation_id: ev_l_none_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows blocked or refused (count)
+  value: '5'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_l_sft_asr
+  evaluation_id: ev_l_sft_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack successes out of 600 (ASR)
+  value: '286'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_l_sft_bert
+  evaluation_id: ev_l_sft_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: explanation BERTScore on benign logs
+  value: '.8637'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_l_sft_fpr
+  evaluation_id: ev_l_sft_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows flagged as injections (FPR count)
+  value: '3'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+- id: r_l_sft_blk
+  evaluation_id: ev_l_sft_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign rows blocked or refused (count)
+  value: '0'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table III
+comparisons:
+- id: c_q_dm_att
+  left: ev_q_dm_att
+  right: ev_q_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_q_dm_ben
+  left: ev_q_dm_ben
+  right: ev_q_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_q_sft_att
+  left: ev_q_sft_att
+  right: ev_q_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_q_sft_ben
+  left: ev_q_sft_ben
+  right: ev_q_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_l_sft_att
+  left: ev_l_sft_att
+  right: ev_l_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_l_sft_ben
+  left: ev_l_sft_ben
+  right: ev_l_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+claims:
+- id: k1
+  text: the defences reduce attack success in model-dependent ways, with residual attacks and benign blocking
+  location: introduction
+  anchor: Results reveal model-dependent ASR reductions
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_q_sft_att
+  - c_l_sft_att
+  - c_q_dm_att
+  - c_q_sft_ben
+  - c_l_sft_ben
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table III (counts out of 600)
+    R2clean: Table III (BERTScore on benign logs)
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: the paper's headline defence, Constitutional Sanitization, redacts suspicious spans before the model sees them and is left out as a sanitiser; the SFT targets were themselves produced under sanitisation, so the coded
+    SFT defence distils that pipeline
+- where: results r_*_asr
+  note: Table III prints counts with Wilson intervals; the abstract gives the No Defense rates (86.50% Qwen, 54.83% Llama)

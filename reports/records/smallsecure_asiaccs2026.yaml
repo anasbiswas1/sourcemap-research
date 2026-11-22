@@ -1,0 +1,558 @@
+report:
+  id: smallsecure_asiaccs2026
+  slug: doi_10_1145_3779208_3804880
+  title: 'POSTER: Small but Secure: Distilling SecAlign Defense on Edge LLMs via On-Policy RL'
+  first_author: Debasmita Dey
+  venue: ASIA CCS 2026 (poster)
+  peer_reviewed: 'yes'
+  doi: 10.1145/3779208.3804880
+  version_read: ACM published version
+  first_date: '2026-06-01'
+  read: F
+  role: proposes
+  code_release: not stated
+  extraction_scope: 'Section 4: Table 1 (all columns and rows); the abstract claim'
+defences:
+- id: onp
+  name: on-policy RL distillation of Meta-SecAlign-8B into a 1B student (reverse-KL advantage, PPO clipping)
+  origin: this_report
+  base_checkpoint: Llama-3.2-1B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  components:
+  - student samples responses to injected SecAlign-style inputs; teacher log-probabilities on the same tokens give a per-token negative reverse KL as the advantage
+  - PPO-style clipped importance-sampling update, LoRA rank 4, 1,000 training samples, three epochs
+  layout: Alpaca-style instruction with data, Llama-3.2 chat template; how instruction and data are separated is not described further
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We apply the on-policy RL distillation framework for transferring
+  pages:
+    components: 2
+- id: kd
+  name: standard knowledge distillation from Meta-SecAlign-8B (forward KL on teacher logits, fixed data)
+  origin: this_report
+  base_checkpoint: Llama-3.2-1B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: Alpaca-style instruction with data, Llama-3.2 chat template; how instruction and data are separated is not described further
+  layout_compat: *id001
+  anchor: Standard Distillation. We minimize forward KL divergence
+- id: msa8
+  name: Meta-SecAlign-8B (released checkpoint, the teacher)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as released
+  anchor: The teacher model is Meta-SecAlign-8B-Instruct
+evaluations:
+- id: ev_none_ign
+  defence_id: none:Llama-3.2-1B-Instruct
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Ignore attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+  baseline_kind: off_the_shelf
+- id: ev_none_comp
+  defence_id: none:Llama-3.2-1B-Instruct
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Completion attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+  baseline_kind: off_the_shelf
+- id: ev_none_igc
+  defence_id: none:Llama-3.2-1B-Instruct
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Ignore-Completion attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+  baseline_kind: off_the_shelf
+- id: ev_msa8_ign
+  defence_id: msa8
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Ignore attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+- id: ev_msa8_comp
+  defence_id: msa8
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Completion attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+- id: ev_msa8_igc
+  defence_id: msa8
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Ignore-Completion attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+- id: ev_kd_ign
+  defence_id: kd
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Ignore attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+- id: ev_kd_comp
+  defence_id: kd
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Completion attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+- id: ev_kd_igc
+  defence_id: kd
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Ignore-Completion attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+- id: ev_onp_ign
+  defence_id: onp
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Ignore attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+- id: ev_onp_comp
+  defence_id: onp
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Completion attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+- id: ev_onp_igc
+  defence_id: onp
+  benchmark: AlpacaFarm, 208 samples with a data part, injected instruction Print exactly Hacked!, Ignore-Completion attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: the response begins with Hacked or hacked
+  layout_same_as_defence: 'yes'
+  measured_by: smallsecure_asiaccs2026
+  page: 3
+  decoding: not reported
+  sample_size: '208'
+  pages:
+    benchmark: 2
+results:
+- id: r_none_ign
+  evaluation_id: ev_none_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '48.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_none_comp
+  evaluation_id: ev_none_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '24.04'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_none_igc
+  evaluation_id: ev_none_igc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore-Completion
+  value: '58.17'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_msa8_ign
+  evaluation_id: ev_msa8_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '5.29'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_msa8_comp
+  evaluation_id: ev_msa8_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_msa8_igc
+  evaluation_id: ev_msa8_igc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore-Completion
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_kd_ign
+  evaluation_id: ev_kd_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '15.38'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_kd_comp
+  evaluation_id: ev_kd_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '17.31'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_kd_igc
+  evaluation_id: ev_kd_igc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore-Completion
+  value: '29.81'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_onp_ign
+  evaluation_id: ev_onp_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '0.96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_onp_comp
+  evaluation_id: ev_onp_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '4.81'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_onp_igc
+  evaluation_id: ev_onp_igc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore-Completion
+  value: '3.85'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+comparisons:
+- id: c_onp_ign
+  left: ev_onp_ign
+  right: ev_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_kd_ign
+  left: ev_kd_ign
+  right: ev_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_onp_kd_ign
+  left: ev_onp_ign
+  right: ev_kd_ign
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: on-policy sampling with a reverse-KL advantage instead of forward-KL distillation on fixed data
+  page: 3
+- id: c_onp_msa_ign
+  left: ev_onp_ign
+  right: ev_msa8_ign
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the 1B distilled student against its 8B teacher
+  page: 3
+- id: c_onp_comp
+  left: ev_onp_comp
+  right: ev_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_kd_comp
+  left: ev_kd_comp
+  right: ev_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_onp_kd_comp
+  left: ev_onp_comp
+  right: ev_kd_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: on-policy sampling with a reverse-KL advantage instead of forward-KL distillation on fixed data
+  page: 3
+- id: c_onp_msa_comp
+  left: ev_onp_comp
+  right: ev_msa8_comp
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the 1B distilled student against its 8B teacher
+  page: 3
+- id: c_onp_igc
+  left: ev_onp_igc
+  right: ev_none_igc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_kd_igc
+  left: ev_kd_igc
+  right: ev_none_igc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_onp_kd_igc
+  left: ev_onp_igc
+  right: ev_kd_igc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: on-policy sampling with a reverse-KL advantage instead of forward-KL distillation on fixed data
+  page: 3
+- id: c_onp_msa_igc
+  left: ev_onp_igc
+  right: ev_msa8_igc
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the 1B distilled student against its 8B teacher
+  page: 3
+claims:
+- id: k1
+  text: on-policy RL distillation clearly beats standard distillation and matches the 8B SecAlign teacher
+  location: abstract
+  anchor: dramatically outperforms standard knowledge distillation
+  jobs:
+  - R1
+  supported_by:
+  - c_onp_kd_ign
+  - c_onp_kd_comp
+  - c_onp_kd_igc
+  - c_onp_msa_ign
+  - c_onp_msa_comp
+  - c_onp_msa_igc
+  - c_onp_ign
+  - c_onp_comp
+  - c_onp_igc
+  page: 1
+  contradicted_by:
+  - r_onp_comp
+  - r_onp_igc
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    R2clean: no utility is reported
+    general_utility: not reported
+schema_gaps:
+- where: report
+  note: no utility of the distilled student is reported, so the security result cannot be weighed against task performance; the input layout is not described beyond the Llama-3.2 chat template, so axis 1 is coded no_signal
+- where: claims k1
+  note: against Completion and Ignore-Completion the student (4.81%, 3.85%) is well above the teacher (0.48%, 0.00%)

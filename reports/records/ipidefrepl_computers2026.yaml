@@ -1,0 +1,893 @@
+report:
+  id: ipidefrepl_computers2026
+  slug: doi_10_3390_computers15090570
+  title: 'Evaluating Indirect Prompt Injection Defenses in Tool-Using LLM Agents: Security, Utility, and Replication'
+  first_author: Adil R. Khan
+  venue: Computers 15 (2026) 570
+  peer_reviewed: 'yes'
+  doi: 10.3390/computers15090570
+  version_read: published version
+  first_date: '2026-08-31'
+  read: F
+  role: re_measures
+  code_release: not stated
+  extraction_scope: 'Section 5: Spotlighting and Repeat User Prompt rows with the undefended control in Tables 5 (raw ASR), 7 (benign utility) and 9 (utility under attack) for the three models (the Prompt Injection Detector,
+    a detector, and Tool Filter, a tool filter, are left out; the feasibility-conditioned ASR and the per-run tables are not coded)'
+defences:
+- id: spot_g54
+  name: Spotlighting (tool-returned content wrapped in explicit delimiters, AgentDojo implementation)
+  origin: other_report
+  base_checkpoint: GPT-5.4
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: AgentDojo banking agent; the injection arrives in tool outputs
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: tool-returned content as external data by wrapping it with explicit delimiters
+- id: rep_g54
+  name: Repeat User Prompt (the user instruction repeated after tool content)
+  origin: other_report
+  base_checkpoint: GPT-5.4
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 21
+  layout: AgentDojo banking agent; the injection arrives in tool outputs
+  layout_compat: *id001
+  anchor: Repeat User Prompt reinforces the original user instruction
+- id: spot_g54m
+  name: Spotlighting (tool-returned content wrapped in explicit delimiters, AgentDojo implementation)
+  origin: other_report
+  base_checkpoint: GPT-5.4-mini
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: AgentDojo banking agent; the injection arrives in tool outputs
+  layout_compat: *id001
+  anchor: tool-returned content as external data by wrapping it with explicit delimiters
+- id: rep_g54m
+  name: Repeat User Prompt (the user instruction repeated after tool content)
+  origin: other_report
+  base_checkpoint: GPT-5.4-mini
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 21
+  layout: AgentDojo banking agent; the injection arrives in tool outputs
+  layout_compat: *id001
+  anchor: Repeat User Prompt reinforces the original user instruction
+- id: spot_cs46
+  name: Spotlighting (tool-returned content wrapped in explicit delimiters, AgentDojo implementation)
+  origin: other_report
+  base_checkpoint: Claude Sonnet 4.6
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: AgentDojo banking agent; the injection arrives in tool outputs
+  layout_compat: *id001
+  anchor: tool-returned content as external data by wrapping it with explicit delimiters
+- id: rep_cs46
+  name: Repeat User Prompt (the user instruction repeated after tool content)
+  origin: other_report
+  base_checkpoint: Claude Sonnet 4.6
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 21
+  layout: AgentDojo banking agent; the injection arrives in tool outputs
+  layout_compat: *id001
+  anchor: Repeat User Prompt reinforces the original user instruction
+evaluations:
+- id: ev_g54_none_att
+  defence_id: none:GPT-5.4
+  benchmark: AgentDojo v0.1.35 banking suite, important_instructions attack, two independent replications pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 19
+  decoding: temperature 0
+  sample_size: 288 attack instances
+  pages:
+    benchmark: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g54_none_ben
+  defence_id: none:GPT-5.4
+  benchmark: AgentDojo v0.1.35 banking suite, no injection, two independent replications pooled
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 23
+  decoding: temperature 0
+  sample_size: 32 benign task evaluations
+  pages:
+    benchmark: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g54_spot_att
+  defence_id: spot_g54
+  benchmark: AgentDojo v0.1.35 banking suite, important_instructions attack, two independent replications pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 19
+  decoding: temperature 0
+  sample_size: 288 attack instances
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_g54_spot_ben
+  defence_id: spot_g54
+  benchmark: AgentDojo v0.1.35 banking suite, no injection, two independent replications pooled
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 23
+  decoding: temperature 0
+  sample_size: 32 benign task evaluations
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_g54_rep_att
+  defence_id: rep_g54
+  benchmark: AgentDojo v0.1.35 banking suite, important_instructions attack, two independent replications pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 19
+  decoding: temperature 0
+  sample_size: 288 attack instances
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_g54_rep_ben
+  defence_id: rep_g54
+  benchmark: AgentDojo v0.1.35 banking suite, no injection, two independent replications pooled
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 23
+  decoding: temperature 0
+  sample_size: 32 benign task evaluations
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_g54m_none_att
+  defence_id: none:GPT-5.4-mini
+  benchmark: AgentDojo v0.1.35 banking suite, important_instructions attack, two independent replications pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 19
+  decoding: temperature 0
+  sample_size: 288 attack instances
+  pages:
+    benchmark: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g54m_none_ben
+  defence_id: none:GPT-5.4-mini
+  benchmark: AgentDojo v0.1.35 banking suite, no injection, two independent replications pooled
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 23
+  decoding: temperature 0
+  sample_size: 32 benign task evaluations
+  pages:
+    benchmark: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_g54m_spot_att
+  defence_id: spot_g54m
+  benchmark: AgentDojo v0.1.35 banking suite, important_instructions attack, two independent replications pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 19
+  decoding: temperature 0
+  sample_size: 288 attack instances
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_g54m_spot_ben
+  defence_id: spot_g54m
+  benchmark: AgentDojo v0.1.35 banking suite, no injection, two independent replications pooled
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 23
+  decoding: temperature 0
+  sample_size: 32 benign task evaluations
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_g54m_rep_att
+  defence_id: rep_g54m
+  benchmark: AgentDojo v0.1.35 banking suite, important_instructions attack, two independent replications pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 19
+  decoding: temperature 0
+  sample_size: 288 attack instances
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_g54m_rep_ben
+  defence_id: rep_g54m
+  benchmark: AgentDojo v0.1.35 banking suite, no injection, two independent replications pooled
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 23
+  decoding: temperature 0
+  sample_size: 32 benign task evaluations
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_cs46_none_att
+  defence_id: none:Claude Sonnet 4.6
+  benchmark: AgentDojo v0.1.35 banking suite, important_instructions attack, two independent replications pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 19
+  decoding: temperature 0
+  sample_size: 288 attack instances
+  pages:
+    benchmark: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_cs46_none_ben
+  defence_id: none:Claude Sonnet 4.6
+  benchmark: AgentDojo v0.1.35 banking suite, no injection, two independent replications pooled
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 23
+  decoding: temperature 0
+  sample_size: 32 benign task evaluations
+  pages:
+    benchmark: 7
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_cs46_spot_att
+  defence_id: spot_cs46
+  benchmark: AgentDojo v0.1.35 banking suite, important_instructions attack, two independent replications pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 19
+  decoding: temperature 0
+  sample_size: 288 attack instances
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_cs46_spot_ben
+  defence_id: spot_cs46
+  benchmark: AgentDojo v0.1.35 banking suite, no injection, two independent replications pooled
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 23
+  decoding: temperature 0
+  sample_size: 32 benign task evaluations
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_cs46_rep_att
+  defence_id: rep_cs46
+  benchmark: AgentDojo v0.1.35 banking suite, important_instructions attack, two independent replications pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 19
+  decoding: temperature 0
+  sample_size: 288 attack instances
+  pages:
+    benchmark: 7
+    decoding: 7
+- id: ev_cs46_rep_ben
+  defence_id: rep_cs46
+  benchmark: AgentDojo v0.1.35 banking suite, no injection, two independent replications pooled
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: ipidefrepl_computers2026
+  page: 23
+  decoding: temperature 0
+  sample_size: 32 benign task evaluations
+  pages:
+    benchmark: 7
+    decoding: 7
+results:
+- id: r_g54_none_asr
+  evaluation_id: ev_g54_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: raw ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5
+  spread: 0/288 attack successes
+- id: r_g54_none_uua
+  evaluation_id: ev_g54_none_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '55.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 9
+- id: r_g54_none_bu
+  evaluation_id: ev_g54_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '56.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_g54_spot_asr
+  evaluation_id: ev_g54_spot_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: raw ASR
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5
+  spread: 1/288 attack successes
+- id: r_g54_spot_uua
+  evaluation_id: ev_g54_spot_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '55.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 9
+- id: r_g54_spot_bu
+  evaluation_id: ev_g54_spot_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '50.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_g54_rep_asr
+  evaluation_id: ev_g54_rep_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: raw ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5
+  spread: 0/288 attack successes
+- id: r_g54_rep_uua
+  evaluation_id: ev_g54_rep_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '55.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 9
+- id: r_g54_rep_bu
+  evaluation_id: ev_g54_rep_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '50.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_g54m_none_asr
+  evaluation_id: ev_g54m_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: raw ASR
+  value: '3.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5
+  spread: 11/288 attack successes
+- id: r_g54m_none_uua
+  evaluation_id: ev_g54m_none_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '58.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 9
+- id: r_g54m_none_bu
+  evaluation_id: ev_g54m_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '75.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_g54m_spot_asr
+  evaluation_id: ev_g54m_spot_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: raw ASR
+  value: '3.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5
+  spread: 9/288 attack successes
+- id: r_g54m_spot_uua
+  evaluation_id: ev_g54m_spot_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '58.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 9
+- id: r_g54m_spot_bu
+  evaluation_id: ev_g54m_spot_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '59.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_g54m_rep_asr
+  evaluation_id: ev_g54m_rep_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: raw ASR
+  value: '1.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5
+  spread: 5/288 attack successes
+- id: r_g54m_rep_uua
+  evaluation_id: ev_g54m_rep_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '59.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 9
+- id: r_g54m_rep_bu
+  evaluation_id: ev_g54m_rep_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '81.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_cs46_none_asr
+  evaluation_id: ev_cs46_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: raw ASR
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5
+  spread: 1/288 attack successes
+- id: r_cs46_none_uua
+  evaluation_id: ev_cs46_none_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '71.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 9
+- id: r_cs46_none_bu
+  evaluation_id: ev_cs46_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '84.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_cs46_spot_asr
+  evaluation_id: ev_cs46_spot_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: raw ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5
+  spread: 0/288 attack successes
+- id: r_cs46_spot_uua
+  evaluation_id: ev_cs46_spot_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '78.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 9
+- id: r_cs46_spot_bu
+  evaluation_id: ev_cs46_spot_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '71.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_cs46_rep_asr
+  evaluation_id: ev_cs46_rep_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: raw ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5
+  spread: 0/288 attack successes
+- id: r_cs46_rep_uua
+  evaluation_id: ev_cs46_rep_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '71.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 9
+- id: r_cs46_rep_bu
+  evaluation_id: ev_cs46_rep_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '90.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+comparisons:
+- id: c_g54_spot_att
+  left: ev_g54_spot_att
+  right: ev_g54_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_g54_spot_ben
+  left: ev_g54_spot_ben
+  right: ev_g54_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_g54_rep_att
+  left: ev_g54_rep_att
+  right: ev_g54_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_g54_rep_ben
+  left: ev_g54_rep_ben
+  right: ev_g54_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_g54m_spot_att
+  left: ev_g54m_spot_att
+  right: ev_g54m_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_g54m_spot_ben
+  left: ev_g54m_spot_ben
+  right: ev_g54m_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_g54m_rep_att
+  left: ev_g54m_rep_att
+  right: ev_g54m_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_g54m_rep_ben
+  left: ev_g54m_rep_ben
+  right: ev_g54m_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_cs46_spot_att
+  left: ev_cs46_spot_att
+  right: ev_cs46_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_cs46_spot_ben
+  left: ev_cs46_spot_ben
+  right: ev_cs46_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_cs46_rep_att
+  left: ev_cs46_rep_att
+  right: ev_cs46_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_cs46_rep_ben
+  left: ev_cs46_rep_ben
+  right: ev_cs46_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+claims:
+- id: k1
+  text: defence evaluation should report attack outcomes together with goal feasibility, legitimate-task utility, action availability and run-to-run variation
+  location: abstract
+  anchor: defense evaluation should report attack outcomes, goal feasibility
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_g54_spot_att
+  - c_g54_spot_ben
+  - c_g54_rep_att
+  - c_g54_rep_ben
+  - c_g54m_spot_att
+  - c_g54m_spot_ben
+  - c_g54m_rep_att
+  - c_g54m_rep_ben
+  - c_cs46_spot_att
+  - c_cs46_spot_ben
+  - c_cs46_rep_att
+  - c_cs46_rep_ben
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 5
+    R2clean: Table 7
+    R2attack: Table 9
+schema_gaps:
+- where: evaluations ev_*_att
+  note: undefended ASR is near zero for GPT-5.4 (0/288) and Claude Sonnet 4.6 (1/288), and the paper shows that several injection goals were not reachable for those models (Table 6), so their defence comparisons carry little
+    information; the model names are as printed
+- where: results r_*_uua
+  note: Table 9's utility-under-attack values sit on page 27 while the ASR evaluation is anchored on page 19; both pool the same 288 attack instances

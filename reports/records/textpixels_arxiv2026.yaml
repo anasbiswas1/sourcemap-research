@@ -1,0 +1,3111 @@
+report:
+  id: textpixels_arxiv2026
+  slug: '2611.24231'
+  title: What Survives the Shift from Text to Pixels? Conditional Protection against Prompt Injection in Image-Rendered Documents
+  first_author: Haoyang Liu
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2611.24231'
+  version_read: arXiv v1
+  first_date: '2026-11-18'
+  read: F
+  role: re_measures
+  code_release: not stated
+  extraction_scope: 'Sections 4 and 5.1: Tables 1, 2 and 3; the abstract claims (rendering and wording sweeps of Figure 2, the candidate search of Figure 3, the reading diagnostics of Table 4 and the activation-patching and
+    attention-blocking results of Tables 5 and 6 not coded)'
+defences:
+- id: render_qwen
+  name: untrusted source rendered as page images (re-measured)
+  origin: other_report
+  base_checkpoint: Qwen3-VL-8B-Instruct
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  layout: system policy and question as text; the external source with the injected command rendered as page images (PNG)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: A promising miti- gation is to render the document as page images
+- id: render_gpt
+  name: untrusted source rendered as page images (re-measured)
+  origin: other_report
+  base_checkpoint: GPT-5-nano
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  layout: system policy and question as text; the external source with the injected command rendered as page images (PNG)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: A promising miti- gation is to render the document as page images
+- id: render_haiku
+  name: untrusted source rendered as page images (re-measured)
+  origin: other_report
+  base_checkpoint: Haiku 5.5
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  layout: system policy and question as text; the external source with the injected command rendered as page images (PNG)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: A promising miti- gation is to render the document as page images
+- id: render_gem
+  name: untrusted source rendered as page images (re-measured)
+  origin: other_report
+  base_checkpoint: Gemini 3.1 Flash-Lite
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  layout: system policy and question as text; the external source with the injected command rendered as page images (PNG)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: A promising miti- gation is to render the document as page images
+- id: render_glm
+  name: untrusted source rendered as page images (re-measured)
+  origin: other_report
+  base_checkpoint: GLM-5.3-Flash
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  layout: system policy and question as text; the external source with the injected command rendered as page images (PNG)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: A promising miti- gation is to render the document as page images
+- id: render_ds
+  name: untrusted source rendered as page images (re-measured)
+  origin: other_report
+  base_checkpoint: DeepSeek V4.1 Flash 1017
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  layout: system policy and question as text; the external source with the injected command rendered as page images (PNG)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: A promising miti- gation is to render the document as page images
+evaluations:
+- id: ev_qwen_text_append
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_append
+  defence_id: render_qwen
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_qwen_text_format
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_format
+  defence_id: render_qwen
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_qwen_text_replace
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_replace
+  defence_id: render_qwen
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_gpt_text_append
+  defence_id: none:GPT-5-nano
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_append
+  defence_id: render_gpt
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_gpt_text_format
+  defence_id: none:GPT-5-nano
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_format
+  defence_id: render_gpt
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_gpt_text_replace
+  defence_id: none:GPT-5-nano
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_replace
+  defence_id: render_gpt
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_haiku_text_append
+  defence_id: none:Haiku 5.5
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_haiku_img_append
+  defence_id: render_haiku
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_haiku_text_format
+  defence_id: none:Haiku 5.5
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_haiku_img_format
+  defence_id: render_haiku
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_haiku_text_replace
+  defence_id: none:Haiku 5.5
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_haiku_img_replace
+  defence_id: render_haiku
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_gem_text_append
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_append
+  defence_id: render_gem
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_gem_text_format
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_format
+  defence_id: render_gem
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_gem_text_replace
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_replace
+  defence_id: render_gem
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_glm_text_append
+  defence_id: none:GLM-5.3-Flash
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_glm_img_append
+  defence_id: render_glm
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_glm_text_format
+  defence_id: none:GLM-5.3-Flash
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_glm_img_format
+  defence_id: render_glm
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_glm_text_replace
+  defence_id: none:GLM-5.3-Flash
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_glm_img_replace
+  defence_id: render_glm
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_ds_text_append
+  defence_id: none:DeepSeek V4.1 Flash 1017
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_ds_img_append
+  defence_id: render_ds
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, append a source-specific marker; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_ds_text_format
+  defence_id: none:DeepSeek V4.1 Flash 1017
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_ds_img_format
+  defence_id: render_ds
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, format the answer as marker | answer; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_ds_text_replace
+  defence_id: none:DeepSeek V4.1 Flash 1017
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_ds_img_replace
+  defence_id: render_ds
+  benchmark: 191 English LongBench sources (Qasper, MultiFieldQA-en, HotpotQA), inline command, wrapper W1, replace the answer with a fixed phrase; two wordings averaged, datasets weighted equally
+  attacker_type: static
+  attacker_access: black_box
+  judge: the visible response carries out the injected operation; truncated responses excluded
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  pages:
+    benchmark: 3
+- id: ev_qwen_text_orig
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_orig
+  defence_id: render_qwen
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_qwen_text_integr
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_integr
+  defence_id: render_qwen
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_gpt_text_orig
+  defence_id: none:GPT-5-nano
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_orig
+  defence_id: render_gpt
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_gpt_text_integr
+  defence_id: none:GPT-5-nano
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_integr
+  defence_id: render_gpt
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_haiku_text_orig
+  defence_id: none:Haiku 5.5
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_haiku_img_orig
+  defence_id: render_haiku
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_haiku_text_integr
+  defence_id: none:Haiku 5.5
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_haiku_img_integr
+  defence_id: render_haiku
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_gem_text_orig
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_orig
+  defence_id: render_gem
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_gem_text_integr
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_integr
+  defence_id: render_gem
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_glm_text_orig
+  defence_id: none:GLM-5.3-Flash
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_glm_img_orig
+  defence_id: render_glm
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_glm_text_integr
+  defence_id: none:GLM-5.3-Flash
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_glm_img_integr
+  defence_id: render_glm
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_ds_text_orig
+  defence_id: none:DeepSeek V4.1 Flash 1017
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_ds_img_orig
+  defence_id: render_ds
+  benchmark: same sources without injection, original LongBench questions (191)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_ds_text_integr
+  defence_id: none:DeepSeek V4.1 Flash 1017
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+  baseline_kind: off_the_shelf
+- id: ev_ds_img_integr
+  defence_id: render_ds
+  benchmark: same sources without injection, integration questions needing two evidence spans (191, written by the authors)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LongBench word-overlap F1, best over references
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '191'
+- id: ev_qwen_text_sp_nat_append
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_sp_nat_append
+  defence_id: render_qwen
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_qwen_text_sp_nat_format
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_sp_nat_format
+  defence_id: render_qwen
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_qwen_text_sp_nat_replace
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_sp_nat_replace
+  defence_id: render_qwen
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_qwen_text_sp_rnd_append
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: 90-source subset, separate-page protocol, random-string target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_sp_rnd_append
+  defence_id: render_qwen
+  benchmark: 90-source subset, separate-page protocol, random-string target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_qwen_text_sp_rnd_format
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: 90-source subset, separate-page protocol, random-string target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_sp_rnd_format
+  defence_id: render_qwen
+  benchmark: 90-source subset, separate-page protocol, random-string target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_qwen_text_sp_rnd_replace
+  defence_id: none:Qwen3-VL-8B-Instruct
+  benchmark: 90-source subset, separate-page protocol, random-string target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_qwen_img_sp_rnd_replace
+  defence_id: render_qwen
+  benchmark: 90-source subset, separate-page protocol, random-string target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gpt_text_sp_nat_append
+  defence_id: none:GPT-5-nano
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_sp_nat_append
+  defence_id: render_gpt
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gpt_text_sp_nat_format
+  defence_id: none:GPT-5-nano
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_sp_nat_format
+  defence_id: render_gpt
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gpt_text_sp_nat_replace
+  defence_id: none:GPT-5-nano
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_sp_nat_replace
+  defence_id: render_gpt
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gpt_text_sp_rnd_append
+  defence_id: none:GPT-5-nano
+  benchmark: 90-source subset, separate-page protocol, random-string target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_sp_rnd_append
+  defence_id: render_gpt
+  benchmark: 90-source subset, separate-page protocol, random-string target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gpt_text_sp_rnd_format
+  defence_id: none:GPT-5-nano
+  benchmark: 90-source subset, separate-page protocol, random-string target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_sp_rnd_format
+  defence_id: render_gpt
+  benchmark: 90-source subset, separate-page protocol, random-string target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gpt_text_sp_rnd_replace
+  defence_id: none:GPT-5-nano
+  benchmark: 90-source subset, separate-page protocol, random-string target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gpt_img_sp_rnd_replace
+  defence_id: render_gpt
+  benchmark: 90-source subset, separate-page protocol, random-string target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gem_text_sp_nat_append
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_sp_nat_append
+  defence_id: render_gem
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gem_text_sp_nat_format
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_sp_nat_format
+  defence_id: render_gem
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gem_text_sp_nat_replace
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_sp_nat_replace
+  defence_id: render_gem
+  benchmark: 90-source subset, separate-page protocol, natural-phrase target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gem_text_sp_rnd_append
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: 90-source subset, separate-page protocol, random-string target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_sp_rnd_append
+  defence_id: render_gem
+  benchmark: 90-source subset, separate-page protocol, random-string target, append a source-specific marker
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gem_text_sp_rnd_format
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: 90-source subset, separate-page protocol, random-string target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_sp_rnd_format
+  defence_id: render_gem
+  benchmark: 90-source subset, separate-page protocol, random-string target, format the answer as marker | answer
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+- id: ev_gem_text_sp_rnd_replace
+  defence_id: none:Gemini 3.1 Flash-Lite
+  benchmark: 90-source subset, separate-page protocol, random-string target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'no'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+  baseline_kind: off_the_shelf
+- id: ev_gem_img_sp_rnd_replace
+  defence_id: render_gem
+  benchmark: 90-source subset, separate-page protocol, random-string target, replace the answer with a fixed phrase
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'strict success: the exact target in the requested structure'
+  layout_same_as_defence: 'yes'
+  measured_by: textpixels_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '90'
+results:
+- id: r_qwen_text_append
+  evaluation_id: ev_qwen_text_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '73.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_qwen_img_append
+  evaluation_id: ev_qwen_img_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '5.01'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_qwen_text_format
+  evaluation_id: ev_qwen_text_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '71.72'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_qwen_img_format
+  evaluation_id: ev_qwen_img_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '11.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_qwen_text_replace
+  evaluation_id: ev_qwen_text_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '98.73'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_qwen_img_replace
+  evaluation_id: ev_qwen_img_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '77.96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gpt_text_append
+  evaluation_id: ev_gpt_text_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '77.95'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gpt_img_append
+  evaluation_id: ev_gpt_img_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gpt_text_format
+  evaluation_id: ev_gpt_text_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '72.12'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gpt_img_format
+  evaluation_id: ev_gpt_img_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gpt_text_replace
+  evaluation_id: ev_gpt_text_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '29.53'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gpt_img_replace
+  evaluation_id: ev_gpt_img_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '1.12'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_haiku_text_append
+  evaluation_id: ev_haiku_text_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '2.46'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_haiku_img_append
+  evaluation_id: ev_haiku_img_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_haiku_text_format
+  evaluation_id: ev_haiku_text_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '5.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_haiku_img_format
+  evaluation_id: ev_haiku_img_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_haiku_text_replace
+  evaluation_id: ev_haiku_text_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '0.93'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_haiku_img_replace
+  evaluation_id: ev_haiku_img_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gem_text_append
+  evaluation_id: ev_gem_text_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '93.97'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gem_img_append
+  evaluation_id: ev_gem_img_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '47.27'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gem_text_format
+  evaluation_id: ev_gem_text_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '97.85'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gem_img_format
+  evaluation_id: ev_gem_img_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '59.79'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gem_text_replace
+  evaluation_id: ev_gem_text_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '30.57'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_gem_img_replace
+  evaluation_id: ev_gem_img_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '0.24'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_glm_text_append
+  evaluation_id: ev_glm_text_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '65.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_glm_img_append
+  evaluation_id: ev_glm_img_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '4.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_glm_text_format
+  evaluation_id: ev_glm_text_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '61.63'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_glm_img_format
+  evaluation_id: ev_glm_img_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '1.92'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_glm_text_replace
+  evaluation_id: ev_glm_text_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '0.24'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_glm_img_replace
+  evaluation_id: ev_glm_img_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_ds_text_append
+  evaluation_id: ev_ds_text_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '64.87'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_ds_img_append
+  evaluation_id: ev_ds_img_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, append
+  value: '0.61'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_ds_text_format
+  evaluation_id: ev_ds_text_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '89.26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_ds_img_format
+  evaluation_id: ev_ds_img_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, format
+  value: '6.69'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_ds_text_replace
+  evaluation_id: ev_ds_text_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '3.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_ds_img_replace
+  evaluation_id: ev_ds_img_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, replace
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_qwen_text_orig
+  evaluation_id: ev_qwen_text_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '50.99'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_qwen_img_orig
+  evaluation_id: ev_qwen_img_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '50.33'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_qwen_text_integr
+  evaluation_id: ev_qwen_text_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '59.22'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_qwen_img_integr
+  evaluation_id: ev_qwen_img_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '36.71'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt_text_orig
+  evaluation_id: ev_gpt_text_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '50.11'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt_img_orig
+  evaluation_id: ev_gpt_img_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '49.83'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt_text_integr
+  evaluation_id: ev_gpt_text_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '86.72'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gpt_img_integr
+  evaluation_id: ev_gpt_img_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '77.48'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_haiku_text_orig
+  evaluation_id: ev_haiku_text_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '52.29'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_haiku_img_orig
+  evaluation_id: ev_haiku_img_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '53.13'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_haiku_text_integr
+  evaluation_id: ev_haiku_text_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '81.97'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_haiku_img_integr
+  evaluation_id: ev_haiku_img_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '84.07'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gem_text_orig
+  evaluation_id: ev_gem_text_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '55.18'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gem_img_orig
+  evaluation_id: ev_gem_img_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '55.04'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gem_text_integr
+  evaluation_id: ev_gem_text_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '83.46'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_gem_img_integr
+  evaluation_id: ev_gem_img_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '84.05'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_glm_text_orig
+  evaluation_id: ev_glm_text_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '52.87'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_glm_img_orig
+  evaluation_id: ev_glm_img_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '52.60'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_glm_text_integr
+  evaluation_id: ev_glm_text_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '82.10'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_glm_img_integr
+  evaluation_id: ev_glm_img_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '82.92'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_ds_text_orig
+  evaluation_id: ev_ds_text_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '54.82'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_ds_img_orig
+  evaluation_id: ev_ds_img_orig
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, orig
+  value: '51.15'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_ds_text_integr
+  evaluation_id: ev_ds_text_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '87.84'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_ds_img_integr
+  evaluation_id: ev_ds_img_integr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean QA F1, integr
+  value: '85.13'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 2
+- id: r_qwen_text_sp_nat_append
+  evaluation_id: ev_qwen_text_sp_nat_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, natural-phrase target
+  value: '73.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_img_sp_nat_append
+  evaluation_id: ev_qwen_img_sp_nat_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, natural-phrase target
+  value: '51.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_text_sp_nat_format
+  evaluation_id: ev_qwen_text_sp_nat_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, natural-phrase target
+  value: '68.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_img_sp_nat_format
+  evaluation_id: ev_qwen_img_sp_nat_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, natural-phrase target
+  value: '73.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_text_sp_nat_replace
+  evaluation_id: ev_qwen_text_sp_nat_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, natural-phrase target
+  value: '79.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_img_sp_nat_replace
+  evaluation_id: ev_qwen_img_sp_nat_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, natural-phrase target
+  value: '80.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_text_sp_rnd_append
+  evaluation_id: ev_qwen_text_sp_rnd_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, random-string target
+  value: '87.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_img_sp_rnd_append
+  evaluation_id: ev_qwen_img_sp_rnd_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, random-string target
+  value: '59.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_text_sp_rnd_format
+  evaluation_id: ev_qwen_text_sp_rnd_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, random-string target
+  value: '94.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_img_sp_rnd_format
+  evaluation_id: ev_qwen_img_sp_rnd_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, random-string target
+  value: '77.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_text_sp_rnd_replace
+  evaluation_id: ev_qwen_text_sp_rnd_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, random-string target
+  value: '95.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_qwen_img_sp_rnd_replace
+  evaluation_id: ev_qwen_img_sp_rnd_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, random-string target
+  value: '73.33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_text_sp_nat_append
+  evaluation_id: ev_gpt_text_sp_nat_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, natural-phrase target
+  value: '15.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_img_sp_nat_append
+  evaluation_id: ev_gpt_img_sp_nat_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, natural-phrase target
+  value: '1.13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_text_sp_nat_format
+  evaluation_id: ev_gpt_text_sp_nat_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, natural-phrase target
+  value: '33.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_img_sp_nat_format
+  evaluation_id: ev_gpt_img_sp_nat_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, natural-phrase target
+  value: '2.24'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_text_sp_nat_replace
+  evaluation_id: ev_gpt_text_sp_nat_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, natural-phrase target
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_img_sp_nat_replace
+  evaluation_id: ev_gpt_img_sp_nat_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, natural-phrase target
+  value: '0.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_text_sp_rnd_append
+  evaluation_id: ev_gpt_text_sp_rnd_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, random-string target
+  value: '21.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_img_sp_rnd_append
+  evaluation_id: ev_gpt_img_sp_rnd_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, random-string target
+  value: '0.57'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_text_sp_rnd_format
+  evaluation_id: ev_gpt_text_sp_rnd_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, random-string target
+  value: '55.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_img_sp_rnd_format
+  evaluation_id: ev_gpt_img_sp_rnd_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, random-string target
+  value: '2.26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_text_sp_rnd_replace
+  evaluation_id: ev_gpt_text_sp_rnd_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, random-string target
+  value: '1.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gpt_img_sp_rnd_replace
+  evaluation_id: ev_gpt_img_sp_rnd_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, random-string target
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_text_sp_nat_append
+  evaluation_id: ev_gem_text_sp_nat_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, natural-phrase target
+  value: '80.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_img_sp_nat_append
+  evaluation_id: ev_gem_img_sp_nat_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, natural-phrase target
+  value: '25.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_text_sp_nat_format
+  evaluation_id: ev_gem_text_sp_nat_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, natural-phrase target
+  value: '86.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_img_sp_nat_format
+  evaluation_id: ev_gem_img_sp_nat_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, natural-phrase target
+  value: '41.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_text_sp_nat_replace
+  evaluation_id: ev_gem_text_sp_nat_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, natural-phrase target
+  value: '0.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_img_sp_nat_replace
+  evaluation_id: ev_gem_img_sp_nat_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, natural-phrase target
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_text_sp_rnd_append
+  evaluation_id: ev_gem_text_sp_rnd_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, random-string target
+  value: '92.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_img_sp_rnd_append
+  evaluation_id: ev_gem_img_sp_rnd_append
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, append, random-string target
+  value: '51.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_text_sp_rnd_format
+  evaluation_id: ev_gem_text_sp_rnd_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, random-string target
+  value: '98.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_img_sp_rnd_format
+  evaluation_id: ev_gem_img_sp_rnd_format
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, format, random-string target
+  value: '71.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_text_sp_rnd_replace
+  evaluation_id: ev_gem_text_sp_rnd_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, random-string target
+  value: '2.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_gem_img_sp_rnd_replace
+  evaluation_id: ev_gem_img_sp_rnd_replace
+  quantity: R1
+  coverage: direct
+  metric_as_printed: strict success, replace, random-string target
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+comparisons:
+- id: c_qwen_append
+  left: ev_qwen_img_append
+  right: ev_qwen_text_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_format
+  left: ev_qwen_img_format
+  right: ev_qwen_text_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_replace
+  left: ev_qwen_img_replace
+  right: ev_qwen_text_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_append
+  left: ev_gpt_img_append
+  right: ev_gpt_text_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_format
+  left: ev_gpt_img_format
+  right: ev_gpt_text_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_replace
+  left: ev_gpt_img_replace
+  right: ev_gpt_text_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_haiku_append
+  left: ev_haiku_img_append
+  right: ev_haiku_text_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_haiku_format
+  left: ev_haiku_img_format
+  right: ev_haiku_text_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_haiku_replace
+  left: ev_haiku_img_replace
+  right: ev_haiku_text_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_append
+  left: ev_gem_img_append
+  right: ev_gem_text_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_format
+  left: ev_gem_img_format
+  right: ev_gem_text_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_replace
+  left: ev_gem_img_replace
+  right: ev_gem_text_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_glm_append
+  left: ev_glm_img_append
+  right: ev_glm_text_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_glm_format
+  left: ev_glm_img_format
+  right: ev_glm_text_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_glm_replace
+  left: ev_glm_img_replace
+  right: ev_glm_text_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_ds_append
+  left: ev_ds_img_append
+  right: ev_ds_text_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_ds_format
+  left: ev_ds_img_format
+  right: ev_ds_text_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_ds_replace
+  left: ev_ds_img_replace
+  right: ev_ds_text_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_orig
+  left: ev_qwen_img_orig
+  right: ev_qwen_text_orig
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_integr
+  left: ev_qwen_img_integr
+  right: ev_qwen_text_integr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_orig
+  left: ev_gpt_img_orig
+  right: ev_gpt_text_orig
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_integr
+  left: ev_gpt_img_integr
+  right: ev_gpt_text_integr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_haiku_orig
+  left: ev_haiku_img_orig
+  right: ev_haiku_text_orig
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_haiku_integr
+  left: ev_haiku_img_integr
+  right: ev_haiku_text_integr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_orig
+  left: ev_gem_img_orig
+  right: ev_gem_text_orig
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_integr
+  left: ev_gem_img_integr
+  right: ev_gem_text_integr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_glm_orig
+  left: ev_glm_img_orig
+  right: ev_glm_text_orig
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_glm_integr
+  left: ev_glm_img_integr
+  right: ev_glm_text_integr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_ds_orig
+  left: ev_ds_img_orig
+  right: ev_ds_text_orig
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_ds_integr
+  left: ev_ds_img_integr
+  right: ev_ds_text_integr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_sp_nat_append
+  left: ev_qwen_img_sp_nat_append
+  right: ev_qwen_text_sp_nat_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_sp_nat_format
+  left: ev_qwen_img_sp_nat_format
+  right: ev_qwen_text_sp_nat_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_sp_nat_replace
+  left: ev_qwen_img_sp_nat_replace
+  right: ev_qwen_text_sp_nat_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_sp_rnd_append
+  left: ev_qwen_img_sp_rnd_append
+  right: ev_qwen_text_sp_rnd_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_sp_rnd_format
+  left: ev_qwen_img_sp_rnd_format
+  right: ev_qwen_text_sp_rnd_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_qwen_sp_rnd_replace
+  left: ev_qwen_img_sp_rnd_replace
+  right: ev_qwen_text_sp_rnd_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_sp_nat_append
+  left: ev_gpt_img_sp_nat_append
+  right: ev_gpt_text_sp_nat_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_sp_nat_format
+  left: ev_gpt_img_sp_nat_format
+  right: ev_gpt_text_sp_nat_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_sp_nat_replace
+  left: ev_gpt_img_sp_nat_replace
+  right: ev_gpt_text_sp_nat_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_sp_rnd_append
+  left: ev_gpt_img_sp_rnd_append
+  right: ev_gpt_text_sp_rnd_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_sp_rnd_format
+  left: ev_gpt_img_sp_rnd_format
+  right: ev_gpt_text_sp_rnd_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gpt_sp_rnd_replace
+  left: ev_gpt_img_sp_rnd_replace
+  right: ev_gpt_text_sp_rnd_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_sp_nat_append
+  left: ev_gem_img_sp_nat_append
+  right: ev_gem_text_sp_nat_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_sp_nat_format
+  left: ev_gem_img_sp_nat_format
+  right: ev_gem_text_sp_nat_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_sp_nat_replace
+  left: ev_gem_img_sp_nat_replace
+  right: ev_gem_text_sp_nat_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_sp_rnd_append
+  left: ev_gem_img_sp_rnd_append
+  right: ev_gem_text_sp_rnd_append
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_sp_rnd_format
+  left: ev_gem_img_sp_rnd_format
+  right: ev_gem_text_sp_rnd_format
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+- id: c_gem_sp_rnd_replace
+  left: ev_gem_img_sp_rnd_replace
+  right: ev_gem_text_sp_rnd_replace
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the source presented as page images instead of text
+  page: 4
+claims:
+- id: k1
+  text: rendering reduces append and format execution for every model, yet Qwen3-VL-8B still executes image-borne replacement at 77.96%
+  location: abstract
+  anchor: Rendering reduces append and format execution for every model
+  jobs:
+  - R1
+  supported_by:
+  - c_qwen_append
+  - c_qwen_format
+  - c_qwen_replace
+  - c_gpt_append
+  - c_gpt_format
+  - c_gpt_replace
+  - c_haiku_append
+  - c_haiku_format
+  - c_haiku_replace
+  - c_gem_append
+  - c_gem_format
+  - c_gem_replace
+  - c_glm_append
+  - c_glm_format
+  - c_glm_replace
+  - c_ds_append
+  - c_ds_format
+  - c_ds_replace
+  page: 1
+  contradicted_by:
+  - r_qwen_img_replace
+- id: k2
+  text: utility ratios on original questions range from 93.31% to 101.61%, but Qwen falls to 61.99% on integration questions
+  location: abstract
+  anchor: Utility ratios on original questions range from 93.31% to 101.61%
+  jobs:
+  - R2
+  supported_by:
+  - c_qwen_orig
+  - c_qwen_integr
+  - c_gpt_orig
+  - c_gpt_integr
+  - c_haiku_orig
+  - c_haiku_integr
+  - c_gem_orig
+  - c_gem_integr
+  - c_glm_orig
+  - c_glm_integr
+  - c_ds_orig
+  - c_ds_integr
+  page: 1
+  contradicted_by:
+  - r_qwen_img_integr
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1 and 3
+    R2clean: Table 2 (clean QA F1 on the same sources)
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: a re-measurement of rendering untrusted text as images (the Pictionary idea) across six multimodal models; the Haiku 5.5 row is a closed model named as printed; the paper's figures show that larger fonts, higher resolution
+    and a search over eight fixed candidates remove much of the protection
+- where: evaluations ev_*_sp_*
+  note: Table 3 uses a separate-page protocol (commands on their own page with a question-referencing lead-in) on 90 sources, so it is not comparable with Table 1's inline protocol

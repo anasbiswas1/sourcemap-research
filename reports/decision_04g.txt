@@ -1,0 +1,8 @@
+decision_04g: BATCH CHECKED
+this step: 2026-11-22
+reports: textpixels_arxiv2026, constsanitlog_icssa2026, crosslingjudge_ubmk2026, smallsecure_asiaccs2026, ragmitig_ccs2026, benchvalid_rs2026, localrag_applsci2026, ipidefrepl_computers2026, glasswall_techrxiv2026, aort_etrij2026
+records: 55 defences, 231 evaluations, 265 results, 145 comparisons, 10 claims
+checked against the PDFs: 265 printed values (0 of them found only in the third extraction), 0 chart values (0 of them found only in the third extraction) and 65 anchors, each found on its page
+comparison grades: A 141, B 4, C 0, U 0
+residual notes: 18; full-text exclusions found while coding: 2
+next: batch 04h

@@ -1,0 +1,300 @@
+report:
+  id: glasswall_techrxiv2026
+  slug: doi_10_36227_techrxiv_177219982_22869977_v1
+  title: 'The Glass Wall: Enforcing Cognitive Segregation in Large Language Models via Zonal LoRA Hardening'
+  first_author: Jamil Alshaer
+  venue: TechRxiv preprint
+  peer_reviewed: 'no'
+  doi: 10.36227/techrxiv.177219982.22869977/v1
+  version_read: TechRxiv v1
+  first_date: '2026-02-27'
+  read: F
+  role: proposes
+  code_release: https://github.com/azimuth-logic-research/Glass-Wall-Protocol (p. 7)
+  extraction_scope: 'Section IV: Table I text rows (Phases I to III) and the utility retention stated in Section IV.F; the abstract claim (the vision rows of Table I and Table III, which test injections carried in images,
+    and the per-vector Table II, all zero, not coded separately)'
+defences:
+- id: mw
+  name: Glass Wall middleware only (zone sentinels, sentinel sanitisation, hardened system prompt)
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B-Instruct (4-bit NF4)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'RAG prompt: untrusted data wrapped in <|P_ZONE_START|> and <|P_ZONE_END|> sentinels, closing sentinels inside the data replaced with [BLOCKED], hardened system prompt'
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: untested
+  anchor: All untrusted data is wrapped in high-entropy sentinels
+- id: gw
+  name: Glass Wall (middleware plus a LoRA adapter on the query and value projections)
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B-Instruct (4-bit NF4)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - zone sentinels with sentinel sanitisation and a hardened system prompt
+  - LoRA on Q and V projections trained for 15 steps on adversarial samples
+  layout: 'RAG prompt: untrusted data wrapped in <|P_ZONE_START|> and <|P_ZONE_END|> sentinels, closing sentinels inside the data replaced with [BLOCKED], hardened system prompt'
+  layout_compat: *id001
+  anchor: By exposing the model to adversarial samples during a 15-step
+  pages:
+    components: 3
+evaluations:
+- id: ev_p1_none
+  defence_id: none:Qwen-2.5-7B-Instruct (4-bit NF4)
+  benchmark: 'author-built RAG injection suite, Phase I baseline vulnerability: five basic attack vectors'
+  attacker_type: static
+  attacker_access: black_box
+  judge: leak detected in the response (detector not described)
+  layout_same_as_defence: 'yes'
+  measured_by: glasswall_techrxiv2026
+  page: 5
+  decoding: not reported
+  sample_size: 10,000 iterations
+  baseline_kind: off_the_shelf
+- id: ev_p1_mw
+  defence_id: mw
+  benchmark: 'author-built RAG injection suite, Phase I baseline vulnerability: five basic attack vectors'
+  attacker_type: static
+  attacker_access: black_box
+  judge: leak detected in the response (detector not described)
+  layout_same_as_defence: 'yes'
+  measured_by: glasswall_techrxiv2026
+  page: 5
+  decoding: not reported
+  sample_size: 10,000 iterations
+- id: ev_p2_none
+  defence_id: none:Qwen-2.5-7B-Instruct (4-bit NF4)
+  benchmark: author-built RAG injection suite, Phase II initial stress test
+  attacker_type: static
+  attacker_access: black_box
+  judge: leak detected in the response (detector not described)
+  layout_same_as_defence: 'yes'
+  measured_by: glasswall_techrxiv2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,100 iterations
+  baseline_kind: off_the_shelf
+- id: ev_p2_gw
+  defence_id: gw
+  benchmark: author-built RAG injection suite, Phase II initial stress test
+  attacker_type: static
+  attacker_access: black_box
+  judge: leak detected in the response (detector not described)
+  layout_same_as_defence: 'yes'
+  measured_by: glasswall_techrxiv2026
+  page: 5
+  decoding: not reported
+  sample_size: 1,100 iterations
+- id: ev_p3_none
+  defence_id: none:Qwen-2.5-7B-Instruct (4-bit NF4)
+  benchmark: 'author-built RAG injection suite, Phase III stratified certification: ten attack vectors including recursive logic and Arabic injections'
+  attacker_type: static
+  attacker_access: black_box
+  judge: leak detected in the response (detector not described)
+  layout_same_as_defence: 'yes'
+  measured_by: glasswall_techrxiv2026
+  page: 5
+  decoding: not reported
+  sample_size: 10,000 iterations
+  baseline_kind: off_the_shelf
+- id: ev_p3_gw
+  defence_id: gw
+  benchmark: 'author-built RAG injection suite, Phase III stratified certification: ten attack vectors including recursive logic and Arabic injections'
+  attacker_type: static
+  attacker_access: black_box
+  judge: leak detected in the response (detector not described)
+  layout_same_as_defence: 'yes'
+  measured_by: glasswall_techrxiv2026
+  page: 5
+  decoding: not reported
+  sample_size: 10,000 iterations
+- id: ev_util_gw
+  defence_id: gw
+  benchmark: standard summarisation benchmarks (not named)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: not stated
+  layout_same_as_defence: 'yes'
+  measured_by: glasswall_techrxiv2026
+  page: 5
+  decoding: not reported
+results:
+- id: r_p1_none
+  evaluation_id: ev_p1_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Phase I baseline vulnerability
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_p1_mw
+  evaluation_id: ev_p1_mw
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Phase I baseline vulnerability
+  value: '21.17'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_p2_none
+  evaluation_id: ev_p2_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Phase II initial stress test
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_p2_gw
+  evaluation_id: ev_p2_gw
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Phase II initial stress test
+  value: '0.000'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_p3_none
+  evaluation_id: ev_p3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Phase III stratified certification
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_p3_gw
+  evaluation_id: ev_p3_gw
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Phase III stratified certification
+  value: '0.000'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table I
+- id: r_util_gw
+  evaluation_id: ev_util_gw
+  quantity: general_utility
+  coverage: proxy
+  metric_as_printed: summarisation performance retained
+  value: '98.2'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 5
+  location: Section IV.F
+  reference: the unhardened model
+comparisons:
+- id: c_p1_mw
+  left: ev_p1_mw
+  right: ev_p1_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_p2_gw
+  left: ev_p2_gw
+  right: ev_p2_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_p3_gw
+  left: ev_p3_gw
+  right: ev_p3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_lora
+  left: ev_p3_gw
+  right: ev_p1_mw
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: unmatched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the LoRA adapter added to the middleware (Phase III against Phase I, different attack sets)
+  page: 5
+claims:
+- id: k1
+  text: the Glass Wall moves text injection from a 100% baseline failure rate to 0.00% ASR across all tested vectors
+  location: abstract
+  anchor: a transition from a 100% baseline failure rate to a deterministic 0.00% ASR
+  jobs:
+  - R1
+  supported_by:
+  - c_p3_gw
+  - c_p2_gw
+  - c_lora
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table I
+    general_utility: Section IV.F (98.2% retained, benchmark not named)
+    R2clean: not reported
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: the attack suite, detector and LoRA training data are author-built and only briefly described; the unprotected arm is reported as 100% in every phase, the middleware-only and full arms were tested on different attack
+    sets, and the 0.000% claims are not checked against any public benchmark

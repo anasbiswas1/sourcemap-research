@@ -1,0 +1,384 @@
+report:
+  id: aort_etrij2026
+  slug: doi_10_4218_etrij_2025_0449
+  title: Adaptive orthogonal role-aware transformer for robust instruction alignment
+  first_author: Yeo Chan Yoon
+  venue: ETRI Journal 48(5) (2026) 924-935
+  peer_reviewed: 'yes'
+  doi: 10.4218/etrij.2025-0449
+  version_read: published version (Wiley)
+  first_date: '2026-06-24'
+  read: F
+  role: proposes
+  code_release: not stated
+  extraction_scope: 'Section 7.1: the Vanilla and AORT averages over five backbones stated in the text for the four indirect benchmarks, and the LLaMA 3.1 8B BIPIA-text values stated in the abstract; the abstract claim (the
+    per-model cells of Table 1, including the ISE and ASIDE rows, are not coded because the PDF text layer prints every decimal point in that table as a colon; the direct-injection columns are out of scope; Tables 2 to 4 are
+    mechanism analyses)'
+defences:
+- id: aort_avg
+  name: AORT (adaptive orthogonal role-aware transformer)
+  origin: this_report
+  base_checkpoint: five backbones averaged (LLaMA 2 7B, LLaMA 2 13B, LLaMA 3.1 8B, Qwen2.5 7B, Mistral 7B)
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - sft
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components: &id001
+  - 'role mask from the chat template: system and developer text is instruction; user turns, retrieved documents and tool outputs are data'
+  - at every layer, data tokens are re-encoded with a learned orthonormal transform and instruction keys get a learned additive attention bias
+  - backbone frozen; AORT parameters trained with next-token loss plus cross-role margin, decorrelation and smoothness terms on the same instruction data as the baselines
+  layout: chat template with system/developer instruction segments and user or retrieved data segments
+  layout_compat: &id002
+    user_turn: untested
+    separate_role: supported
+    system_context: supported
+    agent_tool_result: untested
+  anchor: This structure was used to supply a binary role mask
+  pages:
+    components: 6
+- id: aort_l31
+  name: AORT (adaptive orthogonal role-aware transformer)
+  origin: this_report
+  base_checkpoint: LLaMA 3.1 8B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - sft
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components: *id001
+  layout: chat template with system/developer instruction segments and user or retrieved data segments
+  layout_compat: *id002
+  anchor: This structure was used to supply a binary role mask
+  pages:
+    components: 6
+evaluations:
+- id: ev_avg_none_bipiatext
+  defence_id: none:five backbones averaged (LLaMA 2 7B, LLaMA 2 13B, LLaMA 3.1 8B, Qwen2.5 7B, Mistral 7B)
+  benchmark: BIPIA-text (indirect injection), averaged over the five backbones
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_avg_aort_bipiatext
+  defence_id: aort_avg
+  benchmark: BIPIA-text (indirect injection), averaged over the five backbones
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 7
+  decoding: not reported
+- id: ev_avg_none_bipiacode
+  defence_id: none:five backbones averaged (LLaMA 2 7B, LLaMA 2 13B, LLaMA 3.1 8B, Qwen2.5 7B, Mistral 7B)
+  benchmark: BIPIA-code (indirect injection), averaged over the five backbones
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_avg_aort_bipiacode
+  defence_id: aort_avg
+  benchmark: BIPIA-code (indirect injection), averaged over the five backbones
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 7
+  decoding: not reported
+- id: ev_avg_none_struqid
+  defence_id: none:five backbones averaged (LLaMA 2 7B, LLaMA 2 13B, LLaMA 3.1 8B, Qwen2.5 7B, Mistral 7B)
+  benchmark: StruQ-ID (indirect injection), averaged over the five backbones
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_avg_aort_struqid
+  defence_id: aort_avg
+  benchmark: StruQ-ID (indirect injection), averaged over the five backbones
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 7
+  decoding: not reported
+- id: ev_avg_none_struqood
+  defence_id: none:five backbones averaged (LLaMA 2 7B, LLaMA 2 13B, LLaMA 3.1 8B, Qwen2.5 7B, Mistral 7B)
+  benchmark: StruQ-OOD (indirect injection), averaged over the five backbones
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_avg_aort_struqood
+  defence_id: aort_avg
+  benchmark: StruQ-OOD (indirect injection), averaged over the five backbones
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 7
+  decoding: not reported
+- id: ev_l31_none_bipiatext
+  defence_id: none:LLaMA 3.1 8B
+  benchmark: BIPIA-text (indirect injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 1
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_l31_aort_bipiatext
+  defence_id: aort_l31
+  benchmark: BIPIA-text (indirect injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark success criteria (Supplementary Section S1)
+  layout_same_as_defence: 'yes'
+  measured_by: aort_etrij2026
+  page: 1
+  decoding: not reported
+results:
+- id: r_avg_none_bipiatext
+  evaluation_id: ev_avg_none_bipiatext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: average ASR, BIPIA-text
+  value: '15.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 7.1
+- id: r_avg_aort_bipiatext
+  evaluation_id: ev_avg_aort_bipiatext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: average ASR, BIPIA-text
+  value: '4.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 7.1
+- id: r_avg_none_bipiacode
+  evaluation_id: ev_avg_none_bipiacode
+  quantity: R1
+  coverage: direct
+  metric_as_printed: average ASR, BIPIA-code
+  value: '17.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 7.1
+- id: r_avg_aort_bipiacode
+  evaluation_id: ev_avg_aort_bipiacode
+  quantity: R1
+  coverage: direct
+  metric_as_printed: average ASR, BIPIA-code
+  value: '6.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 7.1
+- id: r_avg_none_struqid
+  evaluation_id: ev_avg_none_struqid
+  quantity: R1
+  coverage: direct
+  metric_as_printed: average ASR, StruQ-ID
+  value: '45.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 7.1
+- id: r_avg_aort_struqid
+  evaluation_id: ev_avg_aort_struqid
+  quantity: R1
+  coverage: direct
+  metric_as_printed: average ASR, StruQ-ID
+  value: '27.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 7.1
+- id: r_avg_none_struqood
+  evaluation_id: ev_avg_none_struqood
+  quantity: R1
+  coverage: direct
+  metric_as_printed: average ASR, StruQ-OOD
+  value: '45.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 7.1
+- id: r_avg_aort_struqood
+  evaluation_id: ev_avg_aort_struqood
+  quantity: R1
+  coverage: direct
+  metric_as_printed: average ASR, StruQ-OOD
+  value: '34.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 7.1
+- id: r_l31_none_bipiatext
+  evaluation_id: ev_l31_none_bipiatext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, BIPIA-text
+  value: '13.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 1
+  location: abstract (Table 1 cell)
+- id: r_l31_aort_bipiatext
+  evaluation_id: ev_l31_aort_bipiatext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, BIPIA-text
+  value: '2.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 1
+  location: abstract (Table 1 cell)
+comparisons:
+- id: c_avg_bipiatext
+  left: ev_avg_aort_bipiatext
+  right: ev_avg_none_bipiatext
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_avg_bipiacode
+  left: ev_avg_aort_bipiacode
+  right: ev_avg_none_bipiacode
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_avg_struqid
+  left: ev_avg_aort_struqid
+  right: ev_avg_none_struqid
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_avg_struqood
+  left: ev_avg_aort_struqood
+  right: ev_avg_none_struqood
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_bipiatext
+  left: ev_l31_aort_bipiatext
+  right: ev_l31_none_bipiatext
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 1
+claims:
+- id: k1
+  text: AORT reduces ASR from 13.6% to 2.1% on LLaMA 3.1 8B on BIPIA-text and achieves the lowest ASR in most settings
+  location: abstract
+  anchor: AORT reduces the ASR from 13.6% to 2.1%
+  jobs:
+  - R1
+  supported_by:
+  - c_l31_bipiatext
+  - c_avg_bipiatext
+  - c_avg_bipiacode
+  - c_avg_struqid
+  - c_avg_struqood
+  page: 1
+coverage:
+  R1: aggregate_only
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Section 7.1 averages; one per-model pair from the abstract
+    R2clean: not reported in the main text
+    R2attack: not reported
+schema_gaps:
+- where: results
+  note: the PDF text layer encodes the decimal points of Table 1 as colons in every extraction (for example 13:6 for 13.6), so the per-model cells, including the same-data ISE and ASIDE baselines, cannot be checked against
+    the text and are not coded; the text averages match the Table 1 cells read with points
+- where: evaluations ev_*_none_*
+  note: the Vanilla baseline is the same backbone fine-tuned on the same instruction data without the role-aware changes (same-data twin); the training data, success criteria and decoding are in the supplement, which was not
+    read
