@@ -1,0 +1,841 @@
+report:
+  id: municipal_sauc2026
+  slug: doi_10_62161_sauc_v12_6399
+  title: 'Indirect Prompt Injection in Municipal Document-Processing Copilots: Attacks, Defences and Harm'
+  first_author: Jorge Cisneros-González
+  venue: Street Art & Urban Creativity
+  peer_reviewed: 'yes'
+  doi: 10.62161/sauc.v12.6399
+  version_read: published version (12(5), 2026)
+  first_date: '2026-09-05'
+  read: F
+  role: re_measures
+  extraction_scope: 'Tables 2 to 4: no defence (D0), datamarking (D1) and structured-query delimiting with an instruction hierarchy (D2), pooled over four models, ASR by objective and overall and fidelity on legitimate cases;
+    the abstract claim (the guardrail D3 screens untrusted spans and is a detector; the combined condition D4 contains it)'
+defences:
+- id: dm
+  name: D1 spotlighting by datamarking of untrusted spans
+  origin: other_report
+  base_checkpoint: DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: system prompt with criteria and task; case file serialised as JSON in the prompt; payloads in free text, fields, attachments, hidden text or tables
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Spotlighting through datamarking supplies the model
+- id: sq
+  name: D2 structured-query delimiting with an instruction hierarchy (prompt level)
+  origin: other_report
+  base_checkpoint: DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: system prompt with criteria and task; case file serialised as JSON in the prompt; payloads in free text, fields, attachments, hidden text or tables
+  layout_compat: *id001
+  anchor: structured-query delimiting with an instruction hierarchy (D2)
+evaluations:
+- id: ev_o1_none
+  defence_id: none:DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  benchmark: 'municipal aid-procedure copilot, objective: eligibility manipulation (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_o2_none
+  defence_id: none:DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  benchmark: 'municipal aid-procedure copilot, objective: requirement falsification (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_o3_none
+  defence_id: none:DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  benchmark: 'municipal aid-procedure copilot, objective: summary falsification (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_o4_none
+  defence_id: none:DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  benchmark: 'municipal aid-procedure copilot, objective: misrouting (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_o5_none
+  defence_id: none:DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  benchmark: 'municipal aid-procedure copilot, objective: rule exfiltration (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_o6_none
+  defence_id: none:DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  benchmark: 'municipal aid-procedure copilot, objective: fraudulent payment or contact insertion (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_o1_dm
+  defence_id: dm
+  benchmark: 'municipal aid-procedure copilot, objective: eligibility manipulation (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o2_dm
+  defence_id: dm
+  benchmark: 'municipal aid-procedure copilot, objective: requirement falsification (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o3_dm
+  defence_id: dm
+  benchmark: 'municipal aid-procedure copilot, objective: summary falsification (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o4_dm
+  defence_id: dm
+  benchmark: 'municipal aid-procedure copilot, objective: misrouting (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o5_dm
+  defence_id: dm
+  benchmark: 'municipal aid-procedure copilot, objective: rule exfiltration (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o6_dm
+  defence_id: dm
+  benchmark: 'municipal aid-procedure copilot, objective: fraudulent payment or contact insertion (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o1_sq
+  defence_id: sq
+  benchmark: 'municipal aid-procedure copilot, objective: eligibility manipulation (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o2_sq
+  defence_id: sq
+  benchmark: 'municipal aid-procedure copilot, objective: requirement falsification (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o3_sq
+  defence_id: sq
+  benchmark: 'municipal aid-procedure copilot, objective: summary falsification (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o4_sq
+  defence_id: sq
+  benchmark: 'municipal aid-procedure copilot, objective: misrouting (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o5_sq
+  defence_id: sq
+  benchmark: 'municipal aid-procedure copilot, objective: rule exfiltration (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_o6_sq
+  defence_id: sq
+  benchmark: 'municipal aid-procedure copilot, objective: fraudulent payment or contact insertion (five vectors x five variants)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 9
+  decoding: temperature 0
+  sample_size: '100'
+- id: ev_all_none
+  defence_id: none:DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  benchmark: municipal aid-procedure copilot, all six objectives
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 7
+  decoding: temperature 0
+  sample_size: '600'
+  baseline_kind: instruction_prompt_only
+- id: ev_fid_none
+  defence_id: none:DeepSeek-V4-Flash, Qwen3.7-flash, Gemini 3.5 Flash-Lite and Mistral Small, pooled
+  benchmark: legitimate, unpoisoned case files
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: all authoritative output fields match the rule-based ground truth
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 6
+  decoding: temperature 0
+  sample_size: '200'
+  baseline_kind: instruction_prompt_only
+- id: ev_all_dm
+  defence_id: dm
+  benchmark: municipal aid-procedure copilot, all six objectives
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 7
+  decoding: temperature 0
+  sample_size: '600'
+- id: ev_fid_dm
+  defence_id: dm
+  benchmark: legitimate, unpoisoned case files
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: all authoritative output fields match the rule-based ground truth
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 6
+  decoding: temperature 0
+  sample_size: '200'
+- id: ev_all_sq
+  defence_id: sq
+  benchmark: municipal aid-procedure copilot, all six objectives
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic match against ground truth and success marker, plus a validated gpt-5.6-terra judge
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 7
+  decoding: temperature 0
+  sample_size: '600'
+- id: ev_fid_sq
+  defence_id: sq
+  benchmark: legitimate, unpoisoned case files
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: all authoritative output fields match the rule-based ground truth
+  layout_same_as_defence: 'yes'
+  measured_by: municipal_sauc2026
+  page: 6
+  decoding: temperature 0
+  sample_size: '200'
+results:
+- id: r_o1_none
+  evaluation_id: ev_o1_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, eligibility manipulation
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o2_none
+  evaluation_id: ev_o2_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, requirement falsification
+  value: '6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o3_none
+  evaluation_id: ev_o3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, summary falsification
+  value: '8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o4_none
+  evaluation_id: ev_o4_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, misrouting
+  value: '38'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o5_none
+  evaluation_id: ev_o5_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, rule exfiltration
+  value: '17'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o6_none
+  evaluation_id: ev_o6_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fraudulent payment or contact insertion
+  value: '26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o1_dm
+  evaluation_id: ev_o1_dm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, eligibility manipulation
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o2_dm
+  evaluation_id: ev_o2_dm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, requirement falsification
+  value: '7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o3_dm
+  evaluation_id: ev_o3_dm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, summary falsification
+  value: '3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o4_dm
+  evaluation_id: ev_o4_dm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, misrouting
+  value: '33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o5_dm
+  evaluation_id: ev_o5_dm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, rule exfiltration
+  value: '13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o6_dm
+  evaluation_id: ev_o6_dm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fraudulent payment or contact insertion
+  value: '13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o1_sq
+  evaluation_id: ev_o1_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, eligibility manipulation
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o2_sq
+  evaluation_id: ev_o2_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, requirement falsification
+  value: '6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o3_sq
+  evaluation_id: ev_o3_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, summary falsification
+  value: '6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o4_sq
+  evaluation_id: ev_o4_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, misrouting
+  value: '26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o5_sq
+  evaluation_id: ev_o5_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, rule exfiltration
+  value: '15'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_o6_sq
+  evaluation_id: ev_o6_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fraudulent payment or contact insertion
+  value: '12'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_all_none
+  evaluation_id: ev_all_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, all objectives
+  value: '15.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_fid_none
+  evaluation_id: ev_fid_none
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: fidelity on legitimate cases
+  value: '80.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_all_dm
+  evaluation_id: ev_all_dm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, all objectives
+  value: '11.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_fid_dm
+  evaluation_id: ev_fid_dm
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: fidelity on legitimate cases
+  value: '59.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_all_sq
+  evaluation_id: ev_all_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, all objectives
+  value: '10.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_fid_sq
+  evaluation_id: ev_fid_sq
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: fidelity on legitimate cases
+  value: '78.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+comparisons:
+- id: c_o1_dm
+  left: ev_o1_dm
+  right: ev_o1_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o2_dm
+  left: ev_o2_dm
+  right: ev_o2_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o3_dm
+  left: ev_o3_dm
+  right: ev_o3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o4_dm
+  left: ev_o4_dm
+  right: ev_o4_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o5_dm
+  left: ev_o5_dm
+  right: ev_o5_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o6_dm
+  left: ev_o6_dm
+  right: ev_o6_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_all_dm
+  left: ev_all_dm
+  right: ev_all_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_fid_dm
+  left: ev_fid_dm
+  right: ev_fid_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_o1_sq
+  left: ev_o1_sq
+  right: ev_o1_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o2_sq
+  left: ev_o2_sq
+  right: ev_o2_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o3_sq
+  left: ev_o3_sq
+  right: ev_o3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o4_sq
+  left: ev_o4_sq
+  right: ev_o4_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o5_sq
+  left: ev_o5_sq
+  right: ev_o5_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_o6_sq
+  left: ev_o6_sq
+  right: ev_o6_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_all_sq
+  left: ev_all_sq
+  right: ev_all_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_fid_sq
+  left: ev_fid_sq
+  right: ev_fid_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+claims:
+- id: k1
+  text: defences reduce attack success unevenly across objectives, barely affecting summary falsification
+  location: abstract
+  anchor: Defences reduce attack success, but unevenly across objectives
+  jobs:
+  - R1
+  supported_by:
+  - c_o1_dm
+  - c_o2_dm
+  - c_o3_dm
+  - c_o4_dm
+  - c_o5_dm
+  - c_o6_dm
+  - c_o1_sq
+  - c_o2_sq
+  - c_o3_sq
+  - c_o4_sq
+  - c_o5_sq
+  - c_o6_sq
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 3 and 4
+    R2clean: Table 2
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: results are pooled over four models with 100 attacks per objective and defence cell; datamarking lowers fidelity on legitimate cases from 80.5% to 59.0%

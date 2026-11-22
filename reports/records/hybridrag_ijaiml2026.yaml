@@ -1,0 +1,1042 @@
+report:
+  id: hybridrag_ijaiml2026
+  slug: doi_10_51483_ijaiml_2557
+  title: 'Hybrid Defense Against Indirect Prompt Injection in RAG: A Cross-Model Benchmark'
+  first_author: Geetha Raghuraj
+  venue: International Journal of Artificial Intelligence and Machine Learning
+  peer_reviewed: 'yes'
+  doi: 10.51483/ijaiml.2557
+  version_read: published version (Vol. 6, No. 3)
+  first_date: '2026-01-01'
+  read: F
+  role: proposes
+  extraction_scope: 'Tables I and II: None, Sanitize, Instruction Hierarchy and Hybrid for three models (ASR on attacked queries, accuracy on clean queries); the abstract claim (Output Verification passes the answer to a second
+    checking call and is left out as a detector)'
+defences:
+- id: san_qw
+  name: Sanitize (retrieved content in <retrieved_data> tags with a system-level note that it is untrusted)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct (4-bit)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt and user prompt with the top-3 retrieved passages and the question
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Explicit <retrieved_data> delimiter tags are used to enclose retrieved content
+- id: ih_qw
+  name: Instruction Hierarchy prompt (system > user task > retrieved context; ignore embedded commands)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct (4-bit)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt and user prompt with the top-3 retrieved passages and the question
+  layout_compat: *id001
+  anchor: A stronger system prompt sets an explicit priority order
+- id: hyb_qw
+  name: Hybrid (Sanitize tags plus the instruction-hierarchy system prompt)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct (4-bit)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: system prompt and user prompt with the top-3 retrieved passages and the question
+  layout_compat: *id001
+  anchor: 'Boundary layer: C is wrapped as'
+- id: san_phi
+  name: Sanitize (retrieved content in <retrieved_data> tags with a system-level note that it is untrusted)
+  origin: other_report
+  base_checkpoint: Phi-3-mini-4k-instruct (4-bit)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt and user prompt with the top-3 retrieved passages and the question
+  layout_compat: *id001
+  anchor: Explicit <retrieved_data> delimiter tags are used to enclose retrieved content
+- id: ih_phi
+  name: Instruction Hierarchy prompt (system > user task > retrieved context; ignore embedded commands)
+  origin: other_report
+  base_checkpoint: Phi-3-mini-4k-instruct (4-bit)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt and user prompt with the top-3 retrieved passages and the question
+  layout_compat: *id001
+  anchor: A stronger system prompt sets an explicit priority order
+- id: hyb_phi
+  name: Hybrid (Sanitize tags plus the instruction-hierarchy system prompt)
+  origin: this_report
+  base_checkpoint: Phi-3-mini-4k-instruct (4-bit)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: system prompt and user prompt with the top-3 retrieved passages and the question
+  layout_compat: *id001
+  anchor: 'Boundary layer: C is wrapped as'
+- id: san_mis
+  name: Sanitize (retrieved content in <retrieved_data> tags with a system-level note that it is untrusted)
+  origin: other_report
+  base_checkpoint: Mistral-7B-Instruct-v0.3 (4-bit)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt and user prompt with the top-3 retrieved passages and the question
+  layout_compat: *id001
+  anchor: Explicit <retrieved_data> delimiter tags are used to enclose retrieved content
+- id: ih_mis
+  name: Instruction Hierarchy prompt (system > user task > retrieved context; ignore embedded commands)
+  origin: other_report
+  base_checkpoint: Mistral-7B-Instruct-v0.3 (4-bit)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt and user prompt with the top-3 retrieved passages and the question
+  layout_compat: *id001
+  anchor: A stronger system prompt sets an explicit priority order
+- id: hyb_mis
+  name: Hybrid (Sanitize tags plus the instruction-hierarchy system prompt)
+  origin: this_report
+  base_checkpoint: Mistral-7B-Instruct-v0.3 (4-bit)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: system prompt and user prompt with the top-3 retrieved passages and the question
+  layout_compat: *id001
+  anchor: 'Boundary layer: C is wrapped as'
+evaluations:
+- id: ev_qw_none
+  defence_id: none:Qwen2.5-7B-Instruct (4-bit)
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+  baseline_kind: instruction_prompt_only
+- id: ev_qw_none_clean
+  defence_id: none:Qwen2.5-7B-Instruct (4-bit)
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+  baseline_kind: instruction_prompt_only
+- id: ev_qw_san
+  defence_id: san_qw
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+- id: ev_qw_san_clean
+  defence_id: san_qw
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+- id: ev_qw_ih
+  defence_id: ih_qw
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+- id: ev_qw_ih_clean
+  defence_id: ih_qw
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+- id: ev_qw_hyb
+  defence_id: hyb_qw
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+- id: ev_qw_hyb_clean
+  defence_id: hyb_qw
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+- id: ev_phi_none
+  defence_id: none:Phi-3-mini-4k-instruct (4-bit)
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+  baseline_kind: instruction_prompt_only
+- id: ev_phi_none_clean
+  defence_id: none:Phi-3-mini-4k-instruct (4-bit)
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+  baseline_kind: instruction_prompt_only
+- id: ev_phi_san
+  defence_id: san_phi
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+- id: ev_phi_san_clean
+  defence_id: san_phi
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+- id: ev_phi_ih
+  defence_id: ih_phi
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+- id: ev_phi_ih_clean
+  defence_id: ih_phi
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+- id: ev_phi_hyb
+  defence_id: hyb_phi
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+- id: ev_phi_hyb_clean
+  defence_id: hyb_phi
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+- id: ev_mis_none
+  defence_id: none:Mistral-7B-Instruct-v0.3 (4-bit)
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+  baseline_kind: instruction_prompt_only
+- id: ev_mis_none_clean
+  defence_id: none:Mistral-7B-Instruct-v0.3 (4-bit)
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+  baseline_kind: instruction_prompt_only
+- id: ev_mis_san
+  defence_id: san_mis
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+- id: ev_mis_san_clean
+  defence_id: san_mis
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+- id: ev_mis_ih
+  defence_id: ih_mis
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+- id: ev_mis_ih_clean
+  defence_id: ih_mis
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+- id: ev_mis_hyb
+  defence_id: hyb_mis
+  benchmark: SQuAD 60-question RAG corpus, 35% of passages poisoned (about 20 attacked queries)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack canary string in the output
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 6
+  decoding: deterministic
+  sample_size: about 20 attacked queries
+- id: ev_mis_hyb_clean
+  defence_id: hyb_mis
+  benchmark: SQuAD 60-question RAG corpus, clean queries (about 40)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: hybridrag_ijaiml2026
+  page: 7
+  decoding: deterministic
+  sample_size: about 40 clean queries
+results:
+- id: r_qw_none_asr
+  evaluation_id: ev_qw_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_qw_none_acc
+  evaluation_id: ev_qw_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '72.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_qw_san_asr
+  evaluation_id: ev_qw_san
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '15'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_qw_san_acc
+  evaluation_id: ev_qw_san_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '82.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_qw_ih_asr
+  evaluation_id: ev_qw_ih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_qw_ih_acc
+  evaluation_id: ev_qw_ih_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '77.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_qw_hyb_asr
+  evaluation_id: ev_qw_hyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_qw_hyb_acc
+  evaluation_id: ev_qw_hyb_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '85.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_phi_none_asr
+  evaluation_id: ev_phi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_phi_none_acc
+  evaluation_id: ev_phi_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '72.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_phi_san_asr
+  evaluation_id: ev_phi_san
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_phi_san_acc
+  evaluation_id: ev_phi_san_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '77.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_phi_ih_asr
+  evaluation_id: ev_phi_ih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_phi_ih_acc
+  evaluation_id: ev_phi_ih_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '77.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_phi_hyb_asr
+  evaluation_id: ev_phi_hyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_phi_hyb_acc
+  evaluation_id: ev_phi_hyb_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '77.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_mis_none_asr
+  evaluation_id: ev_mis_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_mis_none_acc
+  evaluation_id: ev_mis_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '67.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_mis_san_asr
+  evaluation_id: ev_mis_san
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_mis_san_acc
+  evaluation_id: ev_mis_san_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '67.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_mis_ih_asr
+  evaluation_id: ev_mis_ih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_mis_ih_acc
+  evaluation_id: ev_mis_ih_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '70.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+- id: r_mis_hyb_asr
+  evaluation_id: ev_mis_hyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table I
+- id: r_mis_hyb_acc
+  evaluation_id: ev_mis_hyb_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: task accuracy on clean queries
+  value: '65.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table II
+comparisons:
+- id: c_qw_san
+  left: ev_qw_san
+  right: ev_qw_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qw_san_clean
+  left: ev_qw_san_clean
+  right: ev_qw_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_qw_ih
+  left: ev_qw_ih
+  right: ev_qw_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qw_ih_clean
+  left: ev_qw_ih_clean
+  right: ev_qw_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_qw_hyb
+  left: ev_qw_hyb
+  right: ev_qw_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qw_hyb_clean
+  left: ev_qw_hyb_clean
+  right: ev_qw_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_qw_hyb_vs_san
+  left: ev_qw_hyb
+  right: ev_qw_san
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the hybrid against its Sanitize component alone
+  page: 6
+- id: c_qw_hyb_vs_ih
+  left: ev_qw_hyb
+  right: ev_qw_ih
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the hybrid against its instruction-hierarchy component alone
+  page: 6
+- id: c_phi_san
+  left: ev_phi_san
+  right: ev_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_phi_san_clean
+  left: ev_phi_san_clean
+  right: ev_phi_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_ih
+  left: ev_phi_ih
+  right: ev_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_phi_ih_clean
+  left: ev_phi_ih_clean
+  right: ev_phi_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_hyb
+  left: ev_phi_hyb
+  right: ev_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_phi_hyb_clean
+  left: ev_phi_hyb_clean
+  right: ev_phi_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_hyb_vs_san
+  left: ev_phi_hyb
+  right: ev_phi_san
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the hybrid against its Sanitize component alone
+  page: 6
+- id: c_phi_hyb_vs_ih
+  left: ev_phi_hyb
+  right: ev_phi_ih
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the hybrid against its instruction-hierarchy component alone
+  page: 6
+- id: c_mis_san
+  left: ev_mis_san
+  right: ev_mis_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mis_san_clean
+  left: ev_mis_san_clean
+  right: ev_mis_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_mis_ih
+  left: ev_mis_ih
+  right: ev_mis_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mis_ih_clean
+  left: ev_mis_ih_clean
+  right: ev_mis_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_mis_hyb
+  left: ev_mis_hyb
+  right: ev_mis_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mis_hyb_clean
+  left: ev_mis_hyb_clean
+  right: ev_mis_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_mis_hyb_vs_san
+  left: ev_mis_hyb
+  right: ev_mis_san
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the hybrid against its Sanitize component alone
+  page: 6
+- id: c_mis_hyb_vs_ih
+  left: ev_mis_hyb
+  right: ev_mis_ih
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the hybrid against its instruction-hierarchy component alone
+  page: 6
+claims:
+- id: k1
+  text: the hybrid defence never showed a severe accuracy drop in any model
+  location: abstract
+  anchor: the hybrid defense never showed any severe accuracy drop in any model
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_qw_hyb
+  - c_phi_hyb
+  - c_mis_hyb
+  - c_qw_hyb_clean
+  - c_phi_hyb_clean
+  - c_mis_hyb_clean
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table I
+    R2clean: Table II
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: about 20 attacked and 40 clean queries per model, so a single query moves ASR by 5 points; on Mistral the hybrid is above Sanitize alone (10% vs 5%)

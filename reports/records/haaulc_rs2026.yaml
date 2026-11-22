@@ -1,0 +1,241 @@
+report:
+  id: haaulc_rs2026
+  slug: doi_10_21203_rs_3_rs_9653510_v1
+  title: 'Hierarchical Adaptive Anti-injection Framework (HAA/ULC): A Lightweight Defense Strategy Based on Input Decoupling and Semantic Isolation'
+  first_author: Zhishu Dou
+  venue: Research Square preprint
+  peer_reviewed: 'no'
+  doi: 10.21203/rs.3.rs-9653510/v1
+  version_read: v1 (11 May 2026)
+  first_date: '2026-05-11'
+  read: F
+  role: proposes
+  extraction_scope: Table 1 rows Document Poisoning and Web Content Injection (indirect injection) for GPT-4o with and without the ULC V3.2 protocol, and the Section 5.2.4 usability scores; the Section 5.2.2 claim (direct,
+    role-play, task-drift, chain-of-thought, encoded and hybrid rows are direct injection; the multi-agent cascade is described in text only)
+defences:
+- id: ulc
+  name: HAA/ULC V3.2 system-prompt protocol (input split into Data, Question and Instruction, relevance and conflict review, master-objective restatement; only PASS fields are used)
+  origin: this_report
+  base_checkpoint: GPT-4o (2024-08-06)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: system prompt protocol; user input containing the attack sample
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Input Decoupling Engine
+evaluations:
+- id: ev_doc_none
+  defence_id: none:GPT-4o (2024-08-06)
+  benchmark: 'author-built attack library, indirect injection: Document Poisoning (6 samples, 3 runs each, majority)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious instruction executed (human raters)
+  layout_same_as_defence: 'yes'
+  measured_by: haaulc_rs2026
+  page: 12
+  decoding: temperature 0.2
+  sample_size: '6'
+  baseline_kind: instruction_prompt_only
+- id: ev_doc_ulc
+  defence_id: ulc
+  benchmark: 'author-built attack library, indirect injection: Document Poisoning (6 samples, 3 runs each, majority)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious instruction executed (human raters)
+  layout_same_as_defence: 'yes'
+  measured_by: haaulc_rs2026
+  page: 12
+  decoding: temperature 0.2
+  sample_size: '6'
+- id: ev_web_none
+  defence_id: none:GPT-4o (2024-08-06)
+  benchmark: 'author-built attack library, indirect injection: Web Content Injection (4 samples, 3 runs each, majority)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious instruction executed (human raters)
+  layout_same_as_defence: 'yes'
+  measured_by: haaulc_rs2026
+  page: 12
+  decoding: temperature 0.2
+  sample_size: '4'
+  baseline_kind: instruction_prompt_only
+- id: ev_web_ulc
+  defence_id: ulc
+  benchmark: 'author-built attack library, indirect injection: Web Content Injection (4 samples, 3 runs each, majority)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious instruction executed (human raters)
+  layout_same_as_defence: 'yes'
+  measured_by: haaulc_rs2026
+  page: 12
+  decoding: temperature 0.2
+  sample_size: '4'
+- id: ev_tu_none
+  defence_id: none:GPT-4o (2024-08-06)
+  benchmark: 100 legitimate business queries
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task usability score (1 to 5)
+  layout_same_as_defence: 'yes'
+  measured_by: haaulc_rs2026
+  page: 14
+  decoding: temperature 0.2
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_tu_ulc
+  defence_id: ulc
+  benchmark: 100 legitimate business queries
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task usability score (1 to 5)
+  layout_same_as_defence: 'yes'
+  measured_by: haaulc_rs2026
+  page: 14
+  decoding: temperature 0.2
+  sample_size: '100'
+results:
+- id: r_doc_none
+  evaluation_id: ev_doc_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Document Poisoning
+  value: '75.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_doc_ulc
+  evaluation_id: ev_doc_ulc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Document Poisoning
+  value: '20.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_web_none
+  evaluation_id: ev_web_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web Content Injection
+  value: '60.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_web_ulc
+  evaluation_id: ev_web_ulc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Web Content Injection
+  value: '28.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_tu_none
+  evaluation_id: ev_tu_none
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average task usability score
+  value: '4.8'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 5.2.4
+- id: r_tu_ulc
+  evaluation_id: ev_tu_ulc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average task usability score
+  value: '4.6'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 5.2.4
+comparisons:
+- id: c_doc
+  left: ev_doc_ulc
+  right: ev_doc_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_web
+  left: ev_web_ulc
+  right: ev_web_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_tu
+  left: ev_tu_ulc
+  right: ev_tu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+claims:
+- id: k1
+  text: the protocol raises defence success against indirect injection in knowledge-base documents to 76%
+  location: Section 5.2.2
+  anchor: DSR improved to 76%
+  jobs:
+  - R1
+  supported_by:
+  - c_doc
+  - c_web
+  page: 13
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1 (indirect rows)
+    R2clean: Section 5.2.4
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: the indirect rows rest on 6 and 4 samples, and their percentages (75.0, 20.0, 60.0, 28.0) do not correspond to whole numbers of samples; Section 5.2.2 gives a different baseline (65% leakage) for the knowledge-base
+    case than Table 1

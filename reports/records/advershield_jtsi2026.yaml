@@ -1,0 +1,120 @@
+report:
+  id: advershield_jtsi2026
+  slug: doi_10_47134_jtsi_v3i2_6047
+  title: 'AdverShield-LLM: Adversarial Robustness Certification for IoT-Integrated Retrieval-Augmented Generation via Randomized Smoothing'
+  first_author: Yasser Samir Hadi
+  venue: Journal of Technology and System Information
+  peer_reviewed: 'yes'
+  doi: 10.47134/jtsi.v3i2.6047
+  version_read: published version
+  first_date: '2026-07-06'
+  read: F
+  role: proposes
+  extraction_scope: Table 6 row TAGD only against Table 5 Vanilla RAG on MS-RAG-IoT (attack success, attack types pooled); the Table 6 remark on TAGD (the full system and PLSA isolate passages, query the model per group and
+    aggregate, which is system level; RobustRAG, JailGuard, PoisonedRAG-Def, CAF-RAG and EBIDS+RAG are filters, detectors or system designs; the per-attack-type comparison is figure only)
+defences:
+- id: tagd
+  name: TAGD only (token-adaptive Gaussian noise on input embeddings, scaled inversely to attention salience, with smoothed generation over 50 samples)
+  origin: this_report
+  base_checkpoint: Mistral-7B-Instruct-v0.3
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: RAG prompt with retrieved IoT passages
+  anchor: Token-Adaptive Gaussian Defense (TAGD)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+evaluations:
+- id: ev_none
+  defence_id: none:Mistral-7B-Instruct-v0.3
+  benchmark: MS-RAG-IoT, corpus poisoning, indirect prompt injection and embedding perturbation pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: adversary's desired response produced
+  layout_same_as_defence: 'yes'
+  measured_by: advershield_jtsi2026
+  page: 19
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_tagd
+  defence_id: tagd
+  benchmark: MS-RAG-IoT, corpus poisoning, indirect prompt injection and embedding perturbation pooled
+  attacker_type: static
+  attacker_access: black_box
+  judge: adversary's desired response produced
+  layout_same_as_defence: 'yes'
+  measured_by: advershield_jtsi2026
+  page: 21
+  decoding: not reported
+results:
+- id: r_none
+  evaluation_id: ev_none
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: ASR, attack types pooled
+  value: '74.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 5 (Vanilla RAG)
+- id: r_tagd
+  evaluation_id: ev_tagd
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: ASR, attack types pooled
+  value: '31.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 6
+comparisons:
+- id: c_tagd
+  left: ev_tagd
+  right: ev_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+claims:
+- id: k1
+  text: the generation-stage noise layer is needed against indirect prompt injection
+  location: Section on the ablation study
+  anchor: indicating the necessity of certification for generation stage
+  jobs:
+  - R1
+  supported_by:
+  - c_tagd
+  page: 21
+coverage:
+  R1: proxy
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 5 and 6 (attack types pooled)
+    R2clean: not reported for TAGD alone
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: attack success pools corpus poisoning, prompt injection and embedding perturbation, so it is a proxy for injection; the ablation setting (sigma 0.50, m=5) is not stated for Table 5; the 'PLSA only' row repeats the
+    RobustRAG row of Table 5 exactly

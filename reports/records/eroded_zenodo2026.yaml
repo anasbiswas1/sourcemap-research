@@ -1,0 +1,1795 @@
+report:
+  id: eroded_zenodo2026
+  slug: doi_10_5281_zenodo_23972864
+  title: 'Code, data and extended report for "Defended in Training, Eroded in Deployment: Benign Fine-Tuning Undermines Weight-Based Prompt-Injection Defenses"'
+  first_author: Hai Ho
+  venue: Zenodo (extended report with code and data)
+  peer_reviewed: 'no'
+  doi: 10.5281/zenodo.23972864
+  version_read: Zenodo record
+  first_date: '2026-11-05'
+  read: F
+  role: re_measures
+  extraction_scope: 'Table E4: undefended Llama-3.1-8B-Instruct and merged Meta-SecAlign-8B, each with and without benign QLoRA fine-tuning (three seeds), the SFT repair variants, worst-case and per-attack ASR on six static
+    attacks and MMLU; the Figure E4 claim (the figures E1 to E6 repeat or extend supplementary tables of the main paper, which is not this record; quantisation rows are not defences)'
+defences:
+- id: msa
+  name: Meta-SecAlign-8B, merged BF16, null adapter
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  layout: AlpacaFarm instruction with the data in the input role (Meta-SecAlign template)
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Meta-SecAlign, merged BF16
+- id: msaft2026
+  name: Meta-SecAlign-8B merged, then benign QLoRA fine-tuning on 5,000 Alpaca examples (seed 2026)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: AlpacaFarm instruction with the data in the input role (Meta-SecAlign template)
+  layout_compat: *id001
+  anchor: Meta-SecAlign merged + FT s2026
+- id: ftrep2026
+  name: SFT repair on security examples applied to the benignly fine-tuned undefended model (seed 2026)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct + benign fine-tuning (seed 2026)
+  axis1:
+  - chat_roles
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: AlpacaFarm instruction with the data in the input role (Meta-SecAlign template)
+  layout_compat: *id001
+  anchor: Undefended + FT + repair s2026
+- id: msaft2027
+  name: Meta-SecAlign-8B merged, then benign QLoRA fine-tuning on 5,000 Alpaca examples (seed 2027)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: AlpacaFarm instruction with the data in the input role (Meta-SecAlign template)
+  layout_compat: *id001
+  anchor: Meta-SecAlign merged + FT s2027
+- id: ftrep2027
+  name: SFT repair on security examples applied to the benignly fine-tuned undefended model (seed 2027)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct + benign fine-tuning (seed 2027)
+  axis1:
+  - chat_roles
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: AlpacaFarm instruction with the data in the input role (Meta-SecAlign template)
+  layout_compat: *id001
+  anchor: Undefended + FT + repair s2027
+- id: msaft2028
+  name: Meta-SecAlign-8B merged, then benign QLoRA fine-tuning on 5,000 Alpaca examples (seed 2028)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: AlpacaFarm instruction with the data in the input role (Meta-SecAlign template)
+  layout_compat: *id001
+  anchor: Meta-SecAlign merged + FT s2028
+- id: ftrep2028
+  name: SFT repair on security examples applied to the benignly fine-tuned undefended model (seed 2028)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct + benign fine-tuning (seed 2028)
+  axis1:
+  - chat_roles
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: AlpacaFarm instruction with the data in the input role (Meta-SecAlign template)
+  layout_compat: *id001
+  anchor: Undefended + FT + repair s2028
+- id: reponly
+  name: SFT repair on security examples applied to the undefended model
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: AlpacaFarm instruction with the data in the input role (Meta-SecAlign template)
+  layout_compat: *id001
+  anchor: Undefended + repair only
+evaluations:
+- id: ev_undef
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+  baseline_kind: off_the_shelf
+- id: ev_undef_mmlu
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_undft2026
+  defence_id: none:Llama-3.1-8B-Instruct + benign fine-tuning (seed 2026)
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+  baseline_kind: same_data_twin
+- id: ev_undft2026_mmlu
+  defence_id: none:Llama-3.1-8B-Instruct + benign fine-tuning (seed 2026)
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: same_data_twin
+- id: ev_undft2027
+  defence_id: none:Llama-3.1-8B-Instruct + benign fine-tuning (seed 2027)
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+  baseline_kind: same_data_twin
+- id: ev_undft2027_mmlu
+  defence_id: none:Llama-3.1-8B-Instruct + benign fine-tuning (seed 2027)
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: same_data_twin
+- id: ev_undft2028
+  defence_id: none:Llama-3.1-8B-Instruct + benign fine-tuning (seed 2028)
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+  baseline_kind: same_data_twin
+- id: ev_undft2028_mmlu
+  defence_id: none:Llama-3.1-8B-Instruct + benign fine-tuning (seed 2028)
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: same_data_twin
+- id: ev_ftrep2026
+  defence_id: ftrep2026
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+- id: ev_ftrep2026_mmlu
+  defence_id: ftrep2026
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+- id: ev_ftrep2027
+  defence_id: ftrep2027
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+- id: ev_ftrep2027_mmlu
+  defence_id: ftrep2027
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+- id: ev_ftrep2028
+  defence_id: ftrep2028
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+- id: ev_ftrep2028_mmlu
+  defence_id: ftrep2028
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+- id: ev_reponly
+  defence_id: reponly
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+- id: ev_reponly_mmlu
+  defence_id: reponly
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+- id: ev_msa
+  defence_id: msa
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+- id: ev_msa_mmlu
+  defence_id: msa
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+- id: ev_msaft2026
+  defence_id: msaft2026
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+- id: ev_msaft2026_mmlu
+  defence_id: msaft2026
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+- id: ev_msaft2027
+  defence_id: msaft2027
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+- id: ev_msaft2027_mmlu
+  defence_id: msaft2027
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+- id: ev_msaft2028
+  defence_id: msaft2028
+  benchmark: AlpacaFarm, 208 samples, six static injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack output check (worst case: any of the six attacks succeeds)'
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '208'
+- id: ev_msaft2028_mmlu
+  defence_id: msaft2028
+  benchmark: MMLU, 300 questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: eroded_zenodo2026
+  page: 4
+  decoding: not reported
+  sample_size: '300'
+results:
+- id: r_undef_worst_case
+  evaluation_id: ev_undef
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '91.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undef_naive
+  evaluation_id: ev_undef
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '7.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undef_ignore
+  evaluation_id: ev_undef
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '9.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undef_escape
+  evaluation_id: ev_undef
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '10.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undef_fake_completion
+  evaluation_id: ev_undef
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '33.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undef_fake_role_header
+  evaluation_id: ev_undef
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '87.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undef_combined
+  evaluation_id: ev_undef
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '57.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undef_mmlu
+  evaluation_id: ev_undef_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '63.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2026_worst_case
+  evaluation_id: ev_undft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '96.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2026_naive
+  evaluation_id: ev_undft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '9.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2026_ignore
+  evaluation_id: ev_undft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '37.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2026_escape
+  evaluation_id: ev_undft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '23.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2026_fake_completion
+  evaluation_id: ev_undft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '85.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2026_fake_role_header
+  evaluation_id: ev_undft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '91.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2026_combined
+  evaluation_id: ev_undft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '90.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2026_mmlu
+  evaluation_id: ev_undft2026_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '57.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2027_worst_case
+  evaluation_id: ev_undft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '98.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2027_naive
+  evaluation_id: ev_undft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '9.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2027_ignore
+  evaluation_id: ev_undft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '35.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2027_escape
+  evaluation_id: ev_undft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '23.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2027_fake_completion
+  evaluation_id: ev_undft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '90.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2027_fake_role_header
+  evaluation_id: ev_undft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '95.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2027_combined
+  evaluation_id: ev_undft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '96.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2027_mmlu
+  evaluation_id: ev_undft2027_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '62.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2028_worst_case
+  evaluation_id: ev_undft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '98.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2028_naive
+  evaluation_id: ev_undft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '26.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2028_ignore
+  evaluation_id: ev_undft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '55.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2028_escape
+  evaluation_id: ev_undft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '29.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2028_fake_completion
+  evaluation_id: ev_undft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '92.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2028_fake_role_header
+  evaluation_id: ev_undft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '94.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2028_combined
+  evaluation_id: ev_undft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '95.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_undft2028_mmlu
+  evaluation_id: ev_undft2028_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '63.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2026_worst_case
+  evaluation_id: ev_ftrep2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '3.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2026_naive
+  evaluation_id: ev_ftrep2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '1.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2026_ignore
+  evaluation_id: ev_ftrep2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2026_escape
+  evaluation_id: ev_ftrep2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '3.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2026_fake_completion
+  evaluation_id: ev_ftrep2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2026_fake_role_header
+  evaluation_id: ev_ftrep2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2026_combined
+  evaluation_id: ev_ftrep2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2026_mmlu
+  evaluation_id: ev_ftrep2026_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '58.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2027_worst_case
+  evaluation_id: ev_ftrep2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '2.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2027_naive
+  evaluation_id: ev_ftrep2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '1.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2027_ignore
+  evaluation_id: ev_ftrep2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2027_escape
+  evaluation_id: ev_ftrep2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '2.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2027_fake_completion
+  evaluation_id: ev_ftrep2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2027_fake_role_header
+  evaluation_id: ev_ftrep2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2027_combined
+  evaluation_id: ev_ftrep2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2027_mmlu
+  evaluation_id: ev_ftrep2027_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '61.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2028_worst_case
+  evaluation_id: ev_ftrep2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '3.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2028_naive
+  evaluation_id: ev_ftrep2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '3.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2028_ignore
+  evaluation_id: ev_ftrep2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2028_escape
+  evaluation_id: ev_ftrep2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '1.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2028_fake_completion
+  evaluation_id: ev_ftrep2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2028_fake_role_header
+  evaluation_id: ev_ftrep2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2028_combined
+  evaluation_id: ev_ftrep2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_ftrep2028_mmlu
+  evaluation_id: ev_ftrep2028_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '60.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_reponly_worst_case
+  evaluation_id: ev_reponly
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '12.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_reponly_naive
+  evaluation_id: ev_reponly
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '10.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_reponly_ignore
+  evaluation_id: ev_reponly
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '6.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_reponly_escape
+  evaluation_id: ev_reponly
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '7.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_reponly_fake_completion
+  evaluation_id: ev_reponly
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_reponly_fake_role_header
+  evaluation_id: ev_reponly
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_reponly_combined
+  evaluation_id: ev_reponly
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_reponly_mmlu
+  evaluation_id: ev_reponly_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '62.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msa_worst_case
+  evaluation_id: ev_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '3.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msa_naive
+  evaluation_id: ev_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msa_ignore
+  evaluation_id: ev_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msa_escape
+  evaluation_id: ev_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msa_fake_completion
+  evaluation_id: ev_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msa_fake_role_header
+  evaluation_id: ev_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '3.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msa_combined
+  evaluation_id: ev_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msa_mmlu
+  evaluation_id: ev_msa_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '62.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2026_worst_case
+  evaluation_id: ev_msaft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '82.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2026_naive
+  evaluation_id: ev_msaft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '3.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2026_ignore
+  evaluation_id: ev_msaft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '13.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2026_escape
+  evaluation_id: ev_msaft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '8.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2026_fake_completion
+  evaluation_id: ev_msaft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '31.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2026_fake_role_header
+  evaluation_id: ev_msaft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '76.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2026_combined
+  evaluation_id: ev_msaft2026
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '33.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2026_mmlu
+  evaluation_id: ev_msaft2026_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '57.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2027_worst_case
+  evaluation_id: ev_msaft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '86.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2027_naive
+  evaluation_id: ev_msaft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '5.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2027_ignore
+  evaluation_id: ev_msaft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '13.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2027_escape
+  evaluation_id: ev_msaft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '4.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2027_fake_completion
+  evaluation_id: ev_msaft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '54.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2027_fake_role_header
+  evaluation_id: ev_msaft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '78.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2027_combined
+  evaluation_id: ev_msaft2027
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '57.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2027_mmlu
+  evaluation_id: ev_msaft2027_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '61.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2028_worst_case
+  evaluation_id: ev_msaft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, worst case
+  value: '92.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2028_naive
+  evaluation_id: ev_msaft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, naive
+  value: '12.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2028_ignore
+  evaluation_id: ev_msaft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, ignore
+  value: '18.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2028_escape
+  evaluation_id: ev_msaft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, escape
+  value: '10.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2028_fake_completion
+  evaluation_id: ev_msaft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake completion
+  value: '63.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2028_fake_role_header
+  evaluation_id: ev_msaft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, fake role header
+  value: '88.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2028_combined
+  evaluation_id: ev_msaft2028
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, combined
+  value: '71.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+- id: r_msaft2028_mmlu
+  evaluation_id: ev_msaft2028_mmlu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: MMLU accuracy
+  value: '63.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table E4
+comparisons:
+- id: c_msa
+  left: ev_msa
+  right: ev_undef
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_msa_mmlu
+  left: ev_msa_mmlu
+  right: ev_undef_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_reponly
+  left: ev_reponly
+  right: ev_undef
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_reponly_mmlu
+  left: ev_reponly_mmlu
+  right: ev_undef_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_ftrep2026
+  left: ev_ftrep2026
+  right: ev_undft2026
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_ftrep2026_mmlu
+  left: ev_ftrep2026_mmlu
+  right: ev_undft2026_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_msaft2026_vs_msa
+  left: ev_msaft2026
+  right: ev_msa
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: benign fine-tuning applied after the defence
+  page: 4
+- id: c_msaft2026_vs_undft
+  left: ev_msaft2026
+  right: ev_undft2026
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence present before the same benign fine-tuning
+  page: 4
+- id: c_ftrep2027
+  left: ev_ftrep2027
+  right: ev_undft2027
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_ftrep2027_mmlu
+  left: ev_ftrep2027_mmlu
+  right: ev_undft2027_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_msaft2027_vs_msa
+  left: ev_msaft2027
+  right: ev_msa
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: benign fine-tuning applied after the defence
+  page: 4
+- id: c_msaft2027_vs_undft
+  left: ev_msaft2027
+  right: ev_undft2027
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence present before the same benign fine-tuning
+  page: 4
+- id: c_ftrep2028
+  left: ev_ftrep2028
+  right: ev_undft2028
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_ftrep2028_mmlu
+  left: ev_ftrep2028_mmlu
+  right: ev_undft2028_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_msaft2028_vs_msa
+  left: ev_msaft2028
+  right: ev_msa
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: benign fine-tuning applied after the defence
+  page: 4
+- id: c_msaft2028_vs_undft
+  left: ev_msaft2028
+  right: ev_undft2028
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence present before the same benign fine-tuning
+  page: 4
+claims:
+- id: k1
+  text: benign fine-tuning on ordinary instruction data removes weight-based prompt-injection defences
+  location: Figure E4 caption
+  anchor: Benign fine-tuning (orange) removes all three defenses at n = 5000
+  jobs:
+  - R1
+  supported_by:
+  - c_msaft2026_vs_msa
+  - c_msaft2027_vs_msa
+  - c_msaft2028_vs_msa
+  page: 2
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table E4
+    R2clean: Table E4 (MMLU, 300 questions)
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: this record is the extended report archived with the code and data; its Table E4 comes from the main paper's merge-path setting; the attacks are the six static templates, with the worst case over them reported first

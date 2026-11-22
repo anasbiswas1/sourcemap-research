@@ -1,0 +1,172 @@
+report:
+  id: spotguard_applsci2026
+  slug: doi_10_3390_app16157662
+  title: 'Balancing Security and Performance in LLM Agents: Spotlight-Guard, a Layered Defense Against Indirect Prompt Injection'
+  first_author: Doygun Demirol
+  venue: Applied Sciences
+  peer_reviewed: 'yes'
+  doi: 10.3390/app16157662
+  version_read: published version
+  first_date: '2026-08-02'
+  read: F
+  role: proposes
+  extraction_scope: Table 3 rows Baseline and Spotlighting-Only (ASR and benign success); (Detector-Only and every Spotlight-Guard configuration contain the LLM guard, quarantine and fallback models and are left out as detector
+    and system level; ReAct is an agent prompting format rather than a defence and is not coded; Table 5 ablates components inside the full system)
+defences:
+- id: spot
+  name: Spotlighting-Only (untrusted tool content encoded with delimiters or Base64 before the model reads it)
+  origin: other_report
+  base_checkpoint: locally hosted 7B-class open-weight model via Ollama (qwen2.5:7b serves the pipeline; the baseline model is not named separately)
+  axis1:
+  - delimiters_markers
+  - encodings
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: InjecAgent-derived tool-integrated agent cases; untrusted tool content encoded
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: The Spotlighting (Data Encoding) sub-component isolates content from untrusted
+evaluations:
+- id: ev_none
+  defence_id: none:locally hosted 7B-class open-weight model via Ollama (qwen2.5:7b serves the pipeline; the baseline model is not named separately)
+  benchmark: InjecAgent-based stratified benchmark, 250 adversarial cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: rule-based automated judge (attack success when the defence is bypassed)
+  layout_same_as_defence: 'yes'
+  measured_by: spotguard_applsci2026
+  page: 19
+  decoding: greedy, temperature 0
+  sample_size: '250'
+  baseline_kind: off_the_shelf
+- id: ev_none_ben
+  defence_id: none:locally hosted 7B-class open-weight model via Ollama (qwen2.5:7b serves the pipeline; the baseline model is not named separately)
+  benchmark: InjecAgent-based stratified benchmark, 250 benign cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: rule-based automated judge (benign request served)
+  layout_same_as_defence: 'yes'
+  measured_by: spotguard_applsci2026
+  page: 19
+  decoding: greedy, temperature 0
+  sample_size: '250'
+  baseline_kind: off_the_shelf
+- id: ev_spot
+  defence_id: spot
+  benchmark: InjecAgent-based stratified benchmark, 250 adversarial cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: rule-based automated judge (attack success when the defence is bypassed)
+  layout_same_as_defence: 'yes'
+  measured_by: spotguard_applsci2026
+  page: 19
+  decoding: greedy, temperature 0
+  sample_size: '250'
+- id: ev_spot_ben
+  defence_id: spot
+  benchmark: InjecAgent-based stratified benchmark, 250 benign cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: rule-based automated judge (benign request served)
+  layout_same_as_defence: 'yes'
+  measured_by: spotguard_applsci2026
+  page: 19
+  decoding: greedy, temperature 0
+  sample_size: '250'
+results:
+- id: r_none_asr
+  evaluation_id: ev_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '36.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 3
+- id: r_none_bs
+  evaluation_id: ev_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign success rate
+  value: '93.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 3
+- id: r_spot_asr
+  evaluation_id: ev_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '20.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 3
+- id: r_spot_bs
+  evaluation_id: ev_spot_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign success rate
+  value: '98.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 3
+comparisons:
+- id: c_spot
+  left: ev_spot
+  right: ev_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_spot_ben
+  left: ev_spot_ben
+  right: ev_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 3
+    R2clean: Table 3 (benign success)
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: the paper does not name the model behind the Baseline and Spotlighting-Only arms or which spotlighting encoding they use (delimiters or Base64); its headline result (36.0% to 17.2%) is for the full layered system,
+    which is out of scope; no claim is coded for the spotlighting arm alone

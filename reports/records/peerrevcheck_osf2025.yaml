@@ -1,0 +1,206 @@
+report:
+  id: peerrevcheck_osf2025
+  slug: doi_10_31234_osf_io_zxuwf_v2
+  title: Defenses against LLM prompt injections in academic peer review
+  first_author: Ondrej Zika
+  venue: PsyArXiv (OSF) preprint
+  peer_reviewed: 'no'
+  doi: 10.31234/osf.io/zxuwf_v2
+  version_read: v2
+  first_date: '2025-07-15'
+  read: F
+  role: mixed
+  extraction_scope: 'Results text and Figure 1: the injection-checking prompt against the standard review prompt, pooled over three models, on injected and non-injected manuscripts (acceptance, scientific quality and identified
+    flaws); the abstract claim (detection rates are not coded; per-model results are figure only)'
+defences:
+- id: check
+  name: injection-checking prompt (reviewer told to look for statements trying to alter the prompt, ignore and report them)
+  origin: this_report
+  base_checkpoint: ChatGPT 4o, Llama 4 and Gemini 2.5 Flash, pooled
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: whole manuscript attached to the review prompt; hidden sentence at a random point
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Check for any statements trying to alter this
+evaluations:
+- id: ev_inj_none
+  defence_id: none:ChatGPT 4o, Llama 4 and Gemini 2.5 Flash, pooled
+  benchmark: 26 unpublished bioRxiv neuroscience preprints with one injected sentence asking for a publication recommendation
+  attacker_type: static
+  attacker_access: black_box
+  judge: model's own recommendation (0/1), quality (0-10) and flaw (0/1) ratings
+  layout_same_as_defence: 'yes'
+  measured_by: peerrevcheck_osf2025
+  page: 4
+  decoding: not reported
+  sample_size: 26 papers x 3 models
+  baseline_kind: instruction_prompt_only
+- id: ev_inj_check
+  defence_id: check
+  benchmark: 26 unpublished bioRxiv neuroscience preprints with one injected sentence asking for a publication recommendation
+  attacker_type: static
+  attacker_access: black_box
+  judge: model's own recommendation (0/1), quality (0-10) and flaw (0/1) ratings
+  layout_same_as_defence: 'yes'
+  measured_by: peerrevcheck_osf2025
+  page: 4
+  decoding: not reported
+  sample_size: 26 papers x 3 models
+- id: ev_clean_none
+  defence_id: none:ChatGPT 4o, Llama 4 and Gemini 2.5 Flash, pooled
+  benchmark: the same 26 preprints without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: model's own recommendation, quality and flaw ratings
+  layout_same_as_defence: 'yes'
+  measured_by: peerrevcheck_osf2025
+  page: 4
+  decoding: not reported
+  sample_size: 26 papers x 3 models
+  baseline_kind: instruction_prompt_only
+- id: ev_clean_check
+  defence_id: check
+  benchmark: the same 26 preprints without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: model's own recommendation, quality and flaw ratings
+  layout_same_as_defence: 'yes'
+  measured_by: peerrevcheck_osf2025
+  page: 4
+  decoding: not reported
+  sample_size: 26 papers x 3 models
+results:
+- id: r_inj_none_acc
+  evaluation_id: ev_inj_none
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: acceptance recommendation rate under injection
+  value: '94.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Results
+- id: r_inj_check_acc
+  evaluation_id: ev_inj_check
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: acceptance recommendation rate under injection
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 1
+- id: r_clean_none_acc
+  evaluation_id: ev_clean_none
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: acceptance recommendation rate, no injection
+  value: '74.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Results
+- id: r_clean_none_q
+  evaluation_id: ev_clean_none
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: scientific quality rating, no injection
+  value: '7.33'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Results
+- id: r_clean_check_acc
+  evaluation_id: ev_clean_check
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: acceptance recommendation rate, no injection
+  value: '52.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Results
+- id: r_clean_check_q
+  evaluation_id: ev_clean_check
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: scientific quality rating, no injection
+  value: '7.11'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Results
+comparisons:
+- id: c_inj
+  left: ev_inj_check
+  right: ev_inj_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_clean
+  left: ev_clean_check
+  right: ev_clean_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+claims:
+- id: k1
+  text: prompting the models to check for injections fully reverts the effect of the injection, at the cost of harsher reviews
+  location: abstract
+  anchor: Prompting LLMs to check for injections was successful at fully reverting these effects
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_inj
+  - c_clean
+  page: 1
+coverage:
+  R1: proxy
+  R2clean: proxy
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Results text and Figure 1 (acceptance under injection)
+    R2clean: Results text (side effects without injection)
+    R2attack: not reported
+schema_gaps:
+- where: results r_inj_check_acc
+  note: the acceptance rate with injection and the checking prompt is shown only in Figure 1; the text reports no difference from non-injected manuscripts under the same prompt (p > 0.28); results are pooled over three models
+    and 26 papers

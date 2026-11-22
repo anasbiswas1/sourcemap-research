@@ -1,0 +1,8 @@
+decision_04k: BATCH CHECKED
+this step: 2026-11-22
+reports: haaulc_rs2026, peerrevcheck_osf2025, spotguard_applsci2026, advershield_jtsi2026, hybridrag_ijaiml2026, eroded_zenodo2026, municipal_sauc2026
+records: 23 defences, 88 evaluations, 162 results, 64 comparisons, 6 claims
+checked against the PDFs: 161 printed values (0 of them found only in the third extraction), 0 chart values (0 of them found only in the third extraction) and 29 anchors, each found on its page
+comparison grades: A 64, B 0, C 0, U 0
+residual notes: 7; full-text exclusions found while coding: 2
+next: notebook 04 (full extraction: assembly of the five tables, second pass and agreement)
