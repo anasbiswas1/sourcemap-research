@@ -1,0 +1,30 @@
+report: civ_arxiv2025
+role: proposes
+coverage: {R1: direct, R2clean: proxy, R2attack: not_reported, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: CIV (Contextual Integrity Verification), hard mask + gate
+  origin: this_report
+  bases: [Llama-3-8B-Instruct]
+  axis1: [internal_intervention]
+  axis2: [fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: CIV ablation variants
+  origin: this_report
+  bases: [Llama-3-8B-Instruct]
+  variants: [hard mask only, no trust propagation, unsigned labels, KV trust disabled, soft mask]
+  axis1: [internal_intervention]
+  axis2: [fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_civ_elite, value: "0%"}
+- {result: r_abl_full, value: "0%"}
+- {result: r_abl_unsigned, value: "7.1%"}
+- {result: r_none_sim, value: "100%"}
+- {result: r_none_elite, value: "54%"}
+- {result: r_civ_sim, value: "93.1%"}

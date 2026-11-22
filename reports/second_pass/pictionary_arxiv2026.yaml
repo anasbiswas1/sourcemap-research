@@ -1,0 +1,30 @@
+report: pictionary_arxiv2026
+role: proposes
+coverage: {R1: direct, R2clean: direct, R2attack: direct, R3ns: proxy, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: Pictionary (untrusted content rendered as typographic images)
+  origin: this_report
+  bases: [Claude Opus 4.7, Claude Haiku 4.5, GPT-5.5, GPT-5.4 nano, GPT-5.4 mini, GPT-5.4, Qwen3.6-plus, Kimi-K2.6, Grok 4.3, Gemini 3.1 Pro, Gemini 3.1 Flash Lite]
+  axis1: [encodings]
+  axis2: [fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Pictionary variants (audio rendering, alternative visual styles, pagination)
+  origin: this_report
+  bases: [GPT-Audio Mini, Qwen3.5-Omni-Plus, several of the ten models]
+  variants: [audio (text to speech), alternative visual styles, pagination]
+  axis1: [encodings]
+  axis2: [fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_art_kimi_img_u, value: "99"}
+- {result: r_di_qwen_txt_asr, value: "96.4"}
+- {result: r_audatt_qomni_aud_u, value: "93.4"}
+- {result: r_di_glite_img_u, value: "100.0"}
+- {result: r_di_nano_txt_asr, value: "14.3"}
+- {result: r_di_kimi_txt_u, value: "76.0"}

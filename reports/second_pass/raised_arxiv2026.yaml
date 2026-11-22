@@ -1,0 +1,58 @@
+report: raised_arxiv2026
+role: proposes
+coverage: {R1: direct, R2clean: direct, R2attack: direct, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: RAISED (self-generation + self-distillation)
+  origin: this_report
+  bases: [Gemma-4-12B-it, Nemotron-3-Nano-30B-A3B, Qwen3.8-27B]
+  axis1: [chat_roles]
+  axis2: [distillation]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: RAISED ablation variants (data and objective)
+  origin: this_report
+  bases: [Gemma-4-12B-it]
+  variants: [Glaive SFT, Glaive DPO, Glaive self-distillation, self-generated DPO]
+  axis1: [chat_roles]
+  axis2: [sft, preference_optimisation, distillation]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: SecAlign++
+  origin: other_report
+  bases: [Gemma-4-12B-it, Nemotron-3-Nano-30B-A3B, Qwen3.8-27B]
+  variants: [main recipe, extended training (Nemotron)]
+  axis1: [chat_roles]
+  axis2: [preference_optimisation]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: Prompt Sandwiching (repeat user prompt)
+  origin: other_report
+  bases: [Gemma-4-12B-it, Nemotron-3-Nano-30B-A3B, Qwen3.8-27B]
+  axis1: [position]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Spotlighting
+  origin: other_report
+  bases: [Gemma-4-12B-it, Nemotron-3-Nano-30B-A3B, Qwen3.8-27B]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_nem_raised_dyu, value: "25.0"}
+- {result: r_gem_sand_aduatk, value: "64.4"}
+- {result: r_gem_sapp_adu, value: "77.3"}
+- {result: r_gem_sand_dyasr, value: "56.1"}
+- {result: r_gem_sapp_dyuatk, value: "46.2"}
+- {result: r_gem_spot_adu, value: "80.4"}

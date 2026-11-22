@@ -1,0 +1,18 @@
+field_type,field,pairs,exact_agreement,kappa,mean_jaccard,meets_threshold,action
+categorical,role,25,0.96,0.92,,yes,none
+categorical,coverage.R1,25,0.84,0.363,,no,re-code this field in full
+categorical,coverage.R2clean,25,0.84,0.682,,yes,none
+categorical,coverage.R2attack,25,0.88,0.777,,yes,none
+categorical,coverage.R3ns,25,0.96,0.0,,no,re-code this field in full
+categorical,coverage.R3cp,25,0.92,0.468,,no,re-code this field in full
+categorical,coverage.R3safe,25,0.96,0.0,,no,re-code this field in full
+categorical,defence.origin,151,1.0,1.0,,yes,none
+categorical,defence.isolation,151,0.199,0.125,,no,re-code this field in full
+categorical,defence.signal_dependence,151,0.596,0.438,,no,re-code this field in full
+categorical,defence.trains_instruction_pair,151,1.0,1.0,,yes,none
+categorical,defence.trains_carry_through,151,0.987,0.973,,yes,none
+categorical (pooled),all categorical fields,930,0.785,0.751,,no,summary row (the rule applies field by field)
+multi-label,defence.axis1,151,0.728,,0.728,no,re-code this field in full
+multi-label,defence.axis2,151,0.848,,0.897,yes,none
+multi-label,"defence set (method level, per report)",25,,,0.805,yes,none
+numeric,printed values re-read from their addresses,146,1.0,,,yes,none

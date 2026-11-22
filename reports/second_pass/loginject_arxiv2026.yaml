@@ -1,0 +1,20 @@
+report: loginject_arxiv2026
+role: benchmark
+coverage: {R1: direct, R2clean: direct, R2attack: not_reported, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: Spotlighting (prompt hardening with XML delimiters and trust instruction)
+  origin: other_report
+  bases: [GPT-4o]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_exfil_none, value: "82.1"}
+- {result: r_fab_spot, value: "52.1"}
+- {result: r_exfil_spot, value: "45.3"}
+- {result: r_all_none, value: "87.3"}
+- {result: r_inst_spot, value: "49.8"}
+- {result: r_ben_none, value: "94.2%"}

@@ -1,0 +1,8 @@
+decision_04sp: AGREEMENT BELOW THRESHOLD ON 7 FIELDS (consistency check, one coder)
+this step: 2026-11-22
+sample: 25 of 124 included studies (seed 2026, hash rank), listed in reports/second_pass_ids.txt
+printed values re-read from their addresses: 146 of 146 agree
+meets the threshold: role, coverage R2clean, coverage R2attack, defence origin, trains_instruction_pair, trains_carry_through, axis 2, defence set, printed values
+below the threshold, to be re-coded in full: coverage R1, coverage R3ns, coverage R3cp, coverage R3safe, defence isolation, signal dependence, axis 1
+note: kappa is low where one code holds almost every pair (R3ns and R3safe agree in 24 of 25 reports); the rule is applied as written
+next: amend the coding rules where the disagreements show a gap, re-code these fields in every record (notebook 04r), code the last two studies (batch 04l), then notebook 04_full_extraction

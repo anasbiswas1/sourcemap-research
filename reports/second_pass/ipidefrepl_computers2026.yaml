@@ -1,0 +1,29 @@
+report: ipidefrepl_computers2026
+role: re_measures
+coverage: {R1: direct, R2clean: direct, R2attack: direct, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: Spotlighting (prompt structuring)
+  origin: other_report
+  bases: [GPT-5.4, GPT-5.4-mini, Claude Sonnet 4.6]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Repeat User Prompt (instruction reinforcement)
+  origin: other_report
+  bases: [GPT-5.4, GPT-5.4-mini, Claude Sonnet 4.6]
+  axis1: [position]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_g54m_none_asr, value: "3.8%"}
+- {result: r_cs46_none_asr, value: "0.3%"}
+- {result: r_g54m_rep_uua, value: "59.0%"}
+- {result: r_g54m_rep_asr, value: "1.7%"}
+- {result: r_g54_rep_uua, value: "55.2%"}
+- {result: r_g54_none_bu, value: "56.2%"}

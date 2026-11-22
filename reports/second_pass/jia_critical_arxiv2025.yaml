@@ -1,0 +1,38 @@
+report: jia_critical_arxiv2025
+role: re_measures
+coverage: {R1: direct, R2clean: direct, R2attack: not_reported, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: StruQ (released checkpoints)
+  origin: other_report
+  bases: [Llama-3-8B-Instruct, Llama-3-8B]
+  axis1: [delimiters_markers]
+  axis2: [sft]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: SecAlign (released checkpoints)
+  origin: other_report
+  bases: [Llama-3-8B-Instruct, Llama-3-8B]
+  axis1: [delimiters_markers]
+  axis2: [preference_optimisation]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: Instruction Hierarchy (as deployed in GPT-4o-mini)
+  origin: other_report
+  bases: [GPT-4o-mini]
+  axis1: [chat_roles]
+  axis2: [sft, preference_optimisation]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+values:
+- {result: r5, value: "0.46"}
+- {result: r1, value: "0.52"}
+- {result: r7, value: "36.42"}
+- {result: r11, value: "0.34"}
+- {result: r10, value: "0.45"}
+- {result: r8, value: "0.65"}

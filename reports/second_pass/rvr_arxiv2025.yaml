@@ -1,0 +1,75 @@
+report: rvr_arxiv2025
+role: proposes
+coverage: {R1: direct, R2clean: direct, R2attack: not_reported, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: RVR (Robustness via Referencing; tagged lines, referenced execution, tag filter)
+  origin: this_report
+  bases: [Llama3-8B-Instruct, Qwen2-7B-Instruct, Llama3.1-8B-Instruct, Llama3-70B-Instruct, Llama3.1-405B-Instruct, Qwen2-72B-Instruct, GPT-4o-mini, GPT-4o, GPT-4.1]
+  axis1: [delimiters_markers]
+  axis2: [prompting, fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: RVR variants (split only, dynamic tags, without in-context examples)
+  origin: this_report
+  bases: [GPT-4o-mini, GPT-4o, Llama3.1-8B-Instruct]
+  variants: [split only, dynamic tags, without in-context examples]
+  axis1: [delimiters_markers]
+  axis2: [prompting, fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Sandwich
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Qwen2-7B-Instruct, Llama3.1-8B-Instruct, Llama3-70B-Instruct, Llama3.1-405B-Instruct, Qwen2-72B-Instruct, GPT-4o-mini, GPT-4o, GPT-4.1]
+  axis1: [position]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Reminder
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Qwen2-7B-Instruct, Llama3.1-8B-Instruct, Llama3-70B-Instruct, Llama3.1-405B-Instruct, Qwen2-72B-Instruct, GPT-4o-mini, GPT-4o, GPT-4.1]
+  axis1: [no_signal]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Instructional
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Qwen2-7B-Instruct, Llama3.1-8B-Instruct, Llama3-70B-Instruct, Llama3.1-405B-Instruct, Qwen2-72B-Instruct, GPT-4o-mini, GPT-4o, GPT-4.1]
+  axis1: [no_signal]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Spotlight
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Qwen2-7B-Instruct, Llama3.1-8B-Instruct, Llama3-70B-Instruct, Llama3.1-405B-Instruct, Qwen2-72B-Instruct, GPT-4o-mini, GPT-4o, GPT-4.1]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: StruQ
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Qwen2-7B-Instruct, Llama3.1-8B-Instruct]
+  axis1: [delimiters_markers]
+  axis2: [sft]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+values:
+- {result: r_q2_none_util_sst2, value: "94.95"}
+- {result: r_l31_struq_ignore, value: "1.11"}
+- {result: r_l31_rvr_fakecom, value: "0.22"}
+- {result: r_l31_rvr_util_sst2, value: "92.78"}
+- {result: r_q2_rvr_util_sst2, value: "94.04"}
+- {result: r_q2_none_util_triviaqa, value: "77.22"}

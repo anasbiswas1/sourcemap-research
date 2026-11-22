@@ -1,0 +1,48 @@
+report: agentsafeevo_arxiv2026
+role: proposes
+coverage: {R1: direct, R2clean: not_reported, R2attack: direct, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: AgentSafeEvo (defender)
+  origin: this_report
+  bases: [Qwen3-8B]
+  axis1: [no_signal]
+  axis2: [adversarial_rl]
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: AgentSafeEvo ablation variants
+  origin: this_report
+  bases: [Qwen3-8B]
+  variants: [w/o learnability weighting, w/o defender weighting, w/o attacker weighting]
+  axis1: [no_signal]
+  axis2: [adversarial_rl]
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: Static-AT (fixed SFT attacker, defender-only RL)
+  origin: this_report
+  bases: [Qwen3-8B]
+  axis1: [no_signal]
+  axis2: [adversarial_rl]
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: Spotlighting with Delimiting
+  origin: other_report
+  bases: [Qwen3-8B]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_spot_msb_nrp, value: "29.55"}
+- {result: r_base_bfcl, value: "66.13"}
+- {result: r_noaw_th, value: "40.63"}
+- {result: r_static_ad_asr, value: "6.71"}
+- {result: r_static_msb_asr, value: "38.64"}
+- {result: r_ase_msb_nrp, value: "46.00"}

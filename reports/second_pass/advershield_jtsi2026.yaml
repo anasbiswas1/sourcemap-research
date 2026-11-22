@@ -1,0 +1,25 @@
+report: advershield_jtsi2026
+role: proposes
+coverage: {R1: proxy, R2clean: direct, R2attack: unclear, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: TAGD only (token-adaptive Gaussian smoothing at generation)
+  origin: this_report
+  bases: [Mistral-7B-Instruct-v0.3]
+  axis1: [no_signal]
+  axis2: [fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: AdverShield-LLM without PLSA (TAGD + IACRS)
+  origin: this_report
+  bases: [Mistral-7B-Instruct-v0.3]
+  axis1: [no_signal]
+  axis2: [fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_none, value: "74.2"}
+- {result: r_tagd, value: "31.6"}

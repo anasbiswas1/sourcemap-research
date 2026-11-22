@@ -1,0 +1,85 @@
+report: ltbd_arxiv2026
+role: proposes
+coverage: {R1: direct, R2clean: proxy, R2attack: not_reported, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: LTBD (learnable trust-boundary delimiters, boundary + CE + preference)
+  origin: this_report
+  bases: [Llama3-8B-Instruct, Llama3.1-8B-Instruct, Falcon3-7B-Instruct, Qwen2.5-7B-Instruct]
+  axis1: [delimiters_markers]
+  axis2: [soft_tokens_frozen]
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: LTBD ablation variants (prefix + CE, boundary + CE)
+  origin: this_report
+  bases: [Llama3-8B-Instruct, Llama3.1-8B-Instruct]
+  variants: [prefix + CE, boundary + CE]
+  axis1: [delimiters_markers]
+  axis2: [soft_tokens_frozen]
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: DefensiveToken
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Llama3.1-8B-Instruct, Falcon3-7B-Instruct, Qwen2.5-7B-Instruct]
+  axis1: [delimiters_markers]
+  axis2: [soft_tokens_frozen]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: TextGrad (optimised defensive prompt)
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Llama3.1-8B-Instruct, Falcon3-7B-Instruct, Qwen2.5-7B-Instruct]
+  axis1: [no_signal]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Reminder
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Llama3.1-8B-Instruct, Falcon3-7B-Instruct, Qwen2.5-7B-Instruct]
+  axis1: [no_signal]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Sandwich
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Llama3.1-8B-Instruct, Falcon3-7B-Instruct, Qwen2.5-7B-Instruct]
+  axis1: [position]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: StruQ (LoRA and full fine-tuning)
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Llama3.1-8B-Instruct, Falcon3-7B-Instruct, Qwen2.5-7B-Instruct]
+  variants: [StruQ-LoRA, StruQ-Full]
+  axis1: [delimiters_markers]
+  axis2: [sft]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: SecAlign-LoRA
+  origin: other_report
+  bases: [Llama3-8B-Instruct, Llama3.1-8B-Instruct, Falcon3-7B-Instruct, Qwen2.5-7B-Instruct]
+  axis1: [delimiters_markers]
+  axis2: [preference_optimisation]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+values:
+- {result: r_l31_ltbd_alp_win, value: "30.98"}
+- {result: r_f3_sec_tt_asr, value: "1.1"}
+- {result: r_q25_dt_alp_asr, value: "0.96"}
+- {result: r_l31_dt_tt_asr, value: "0.19"}
+- {result: r_q25_struq_sep_asr, value: "2.0"}
+- {result: r_f3_none_sep_asr, value: "78.49"}

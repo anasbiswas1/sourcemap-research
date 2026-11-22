@@ -1,0 +1,30 @@
+report: ppa_arxiv2025
+role: proposes
+coverage: {R1: direct, R2clean: not_reported, R2attack: not_reported, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: PPA (Polymorphic Prompt Assembling)
+  origin: this_report
+  bases: [GPT-3.5-Turbo, GPT-4-Turbo, Llama-3.3-70B, DeepSeek-V3]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: PPA system-prompt styles (PRE, ESD, EIBD, RIZD, WBR)
+  origin: this_report
+  bases: [GPT-3.5-Turbo]
+  variants: [PRE, ESD, EIBD, RIZD, WBR]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_g4_escapechar, value: "1.40%"}
+- {result: r_l3_adversaria, value: "0.00%"}
+- {result: r_ds_naïveattac, value: "1.60%"}
+- {result: r_l3_obfuscatio, value: "0.60%"}
+- {result: r_g4_fakecomple, value: "5.80%"}
+- {result: r_g35_adversaria, value: "0.20%"}

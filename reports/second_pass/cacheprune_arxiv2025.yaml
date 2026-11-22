@@ -1,0 +1,66 @@
+report: cacheprune_arxiv2025
+role: proposes
+coverage: {R1: direct, R2clean: direct, R2attack: direct, R3ns: not_reported, R3cp: proxy, R3safe: not_reported}
+defences:
+- name: CachePrune
+  origin: this_report
+  bases: [LLama3-8B, Mistral-7B-Instruct-v0.3, Phi-3.5-mini-instruct]
+  axis1: [internal_intervention]
+  axis2: [fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: stated
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: CachePrune ablation variants (mask transfer, k, attribution loss, alpha, without phi, N)
+  origin: this_report
+  bases: [LLama3-8B, Mistral-7B-Instruct-v0.3, Phi-3.5-mini-instruct]
+  variants: [mask transfer code/text, k=2, k=4, full attribution loss, alpha values, without phi, N=4, N=12]
+  axis1: [internal_intervention]
+  axis2: [fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: stated
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Delimiting
+  origin: other_report
+  bases: [LLama3-8B, Mistral-7B-Instruct-v0.3, Phi-3.5-mini-instruct]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Datamarking
+  origin: other_report
+  bases: [LLama3-8B, Mistral-7B-Instruct-v0.3, Phi-3.5-mini-instruct]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Sandwich
+  origin: other_report
+  bases: [LLama3-8B, Mistral-7B-Instruct-v0.3, Phi-3.5-mini-instruct]
+  axis1: [position]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Encode_Base64
+  origin: other_report
+  bases: [LLama3-8B, Mistral-7B-Instruct-v0.3, Phi-3.5-mini-instruct]
+  axis1: [encodings]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_m7_cp_squad_asr, value: "0.68"}
+- {result: r_l3_cp_hotpot_f1, value: "10.97"}
+- {result: r_m7_cp_squad_f1, value: "23.10"}
+- {result: r_m7_cp_hotpot_f1, value: "13.32"}
+- {result: r_m7_none_hotpot_f1c, value: "14.10"}
+- {result: r_phi_cp_wild_asr, value: "1.89"}

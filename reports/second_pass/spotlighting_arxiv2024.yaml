@@ -1,0 +1,47 @@
+report: spotlighting_arxiv2024
+role: proposes
+coverage: {R1: direct, R2clean: direct, R2attack: not_reported, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: Spotlighting via delimiting
+  origin: this_report
+  bases: [GPT-3.5-Turbo]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Spotlighting via datamarking
+  origin: this_report
+  bases: [GPT-3.5-Turbo, text-davinci-003, GPT-4]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Spotlighting via encoding (base64)
+  origin: this_report
+  bases: [GPT-3.5-Turbo, GPT-4]
+  axis1: [encodings]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Defensive system instructions only
+  origin: this_report
+  bases: [GPT-3.5-Turbo]
+  axis1: [no_signal]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r7, value: "0.0%"}
+- {result: r1, value: "50%"}
+- {result: r8, value: "1.8%"}
+- {result: r3, value: "40%"}
+- {result: r4, value: "0.00%"}
+- {result: r5, value: "8.0%"}

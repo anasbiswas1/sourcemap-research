@@ -1,0 +1,39 @@
+report: intentguard_arxiv2025
+role: proposes
+coverage: {R1: direct, R2clean: direct, R2attack: direct, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: IntentGuard (recovery mode)
+  origin: this_report
+  bases: [Qwen3-32B, gpt-oss-20B]
+  axis1: [chat_roles]
+  axis2: [prompting, fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: IntentGuard ablation variants
+  origin: this_report
+  bases: [Qwen3-32B, gpt-oss-20B]
+  variants: [system prompt only, start-of-thinking prefilling only, end-of-thinking refinement only, format specification demonstration, conflict reasoning demonstration, dense embedding tracing]
+  axis1: [chat_roles]
+  axis2: [prompting, fixed_inference_rule]
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: SEP Defense (prompt engineering marking what to execute and what to process)
+  origin: other_report
+  bases: [Qwen3-32B, gpt-oss-20B]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_m2w_qwen_van_pair_asr, value: "1.000"}
+- {result: r_adj_oss_van_pair_asr, value: "0.731"}
+- {result: r_m2w_qwen_ig_gcg_util, value: "0.733"}
+- {result: r_m2w_oss_ig_pair_util, value: "0.649"}
+- {result: r_m2w_oss_sep_beam_util, value: "0.541"}
+- {result: r_adj_oss_sep_ben, value: "0.649"}

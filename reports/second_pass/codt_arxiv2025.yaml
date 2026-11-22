@@ -1,0 +1,20 @@
+report: codt_arxiv2025
+role: proposes
+coverage: {R1: direct, R2clean: direct, R2attack: direct, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: Chain-of-Defensive-Thought (CoDT) prompting
+  origin: this_report
+  bases: [GPT-4o, GPT-3.5-turbo, Claude 3.5 Sonnet, Claude 3.5 Haiku, Claude 3 Sonnet, Claude 3 Haiku, Llama-3.1-8B-Instruct, Llama-3-8B-Instruct, Mistral-7B-Instruct-v0.3, Gemma-2-9b-it, Qwen2.5-7B-Instruct, deepseek-llm-7b-chat, OLMo-7B-0724-Instruct, Phi-3.5-mini-instruct, Yi-1.5-9B-Chat, Llama-2-7b-chat, Mistral-7B-Instruct-v0.2, Qwen2-7B-Instruct]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_nq_4_codt_asr, value: "28%"}
+- {result: r_nq_14_codt_clean, value: "63%"}
+- {result: r_nq_0_std_clean, value: "60%"}
+- {result: r_rt_17_std_acc, value: "38%"}
+- {result: r_rt_1_codt_clean, value: "63%"}
+- {result: r_rt_17_codt_asr, value: "16%"}

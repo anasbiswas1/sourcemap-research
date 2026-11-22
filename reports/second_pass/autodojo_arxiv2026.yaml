@@ -1,0 +1,29 @@
+report: autodojo_arxiv2026
+role: benchmark
+coverage: {R1: direct, R2clean: direct, R2attack: direct, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: Reminder (prompt-level)
+  origin: other_report
+  bases: [GPT-4o-mini, GPT-5.4-mini, Gemini-2.5-Flash, DeepSeek-v4-Flash, Claude-Haiku-4.5]
+  axis1: [no_signal]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Spotlighting (prompt-level)
+  origin: other_report
+  bases: [GPT-4o-mini, GPT-5.4-mini, Gemini-2.5-Flash, DeepSeek-v4-Flash, Claude-Haiku-4.5]
+  axis1: [delimiters_markers]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_ad_spot_hk_sa, value: "0.0"}
+- {result: r_ad_none_g4m_aa, value: "52.4"}
+- {result: r_ad_none_gem_cu, value: "63.2"}
+- {result: r_ad_none_hk_cu, value: "70.2"}
+- {result: r_ad_spot_g4m_sua, value: "43.4"}
+- {result: r_ad_none_ds_sa, value: "22.6"}

@@ -1,0 +1,47 @@
+report: pismith_colm2026
+role: re_measures
+coverage: {R1: direct, R2clean: direct, R2attack: not_reported, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: Meta-SecAlign-8B
+  origin: other_report
+  bases: [Llama-3.1-8B-Instruct]
+  axis1: [chat_roles]
+  axis2: [preference_optimisation]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: Instruction Hierarchy (GPT-4o-mini)
+  origin: other_report
+  bases: [GPT-4o-mini]
+  axis1: [chat_roles]
+  axis2: [sft, preference_optimisation]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: Sandwich
+  origin: other_report
+  bases: [Qwen3-4B-Instruct-2507]
+  axis1: [position]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+- name: Instructional
+  origin: other_report
+  bases: [Qwen3-4B-Instruct-2507]
+  axis1: [no_signal]
+  axis2: [prompting]
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+values:
+- {result: r_none_u, value: "0.74"}
+- {result: r_sand_direct, value: "0.56"}
+- {result: r_sand_pismith_at10, value: "0.99"}
+- {result: r_sand_strat, value: "0.97"}
+- {result: r_none_pair, value: "0.68"}
+- {result: r_none_pismith, value: "0.92"}

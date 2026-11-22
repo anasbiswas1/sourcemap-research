@@ -1,0 +1,39 @@
+report: copa_arxiv2026
+role: proposes
+coverage: {R1: direct, R2clean: not_reported, R2attack: not_reported, R3ns: not_reported, R3cp: not_reported, R3safe: not_reported}
+defences:
+- name: COPA (continual GRPO with margin-weighted replay)
+  origin: this_report
+  bases: [Meta-Llama-3.1-8B-Instruct, Mistral-7B-v0.3, Qwen2.5-7B]
+  axis1: [no_signal]
+  axis2: [adversarial_rl]
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: COPA ablation variants
+  origin: this_report
+  bases: [Meta-Llama-3.1-8B-Instruct]
+  variants: [uniform replay, DPO objective]
+  axis1: [no_signal]
+  axis2: [adversarial_rl, preference_optimisation]
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: SecAlign (embedded in the lifelong pipeline)
+  origin: other_report
+  bases: [Meta-Llama-3.1-8B-Instruct]
+  axis1: [delimiters_markers]
+  axis2: [preference_optimisation]
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+values:
+- {result: r_life_copa_ap, value: "0.850"}
+- {result: r_mmlu_none, value: "0.332"}
+- {result: r_life_copa_bwt, value: "+0.028"}
+- {result: r_gpqa_none, value: "0.300"}
+- {result: r_life_sa, value: "0.221"}
+- {result: r_life_copa, value: "0.035"}

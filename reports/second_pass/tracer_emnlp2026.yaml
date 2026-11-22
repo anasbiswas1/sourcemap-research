@@ -1,0 +1,30 @@
+report: tracer_emnlp2026
+role: proposes
+coverage: {R1: direct, R2clean: direct, R2attack: direct, R3ns: not_reported, R3cp: proxy, R3safe: not_reported}
+defences:
+- name: TRACER (RAG-framed training, composite reward + ATRC)
+  origin: this_report
+  bases: [Qwen2.5-3B-Instruct, Qwen2.5-7B-Instruct]
+  axis1: [delimiters_markers]
+  axis2: [adversarial_rl, distillation]
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+- name: TRACER training-condition and objective variants
+  origin: this_report
+  bases: [Qwen2.5-3B-Instruct, Qwen2.5-7B-Instruct]
+  variants: [follow-up-trained checkpoints, tool-trained, multi-framing RAG+tool, agent-trained, answer-only reward, composite reward without ATRC, 7B RAG epochs]
+  axis1: [delimiters_markers]
+  axis2: [adversarial_rl, distillation]
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+values:
+- {result: r_base7_tool, value: "36.6%"}
+- {result: r_tool3_agent, value: "15.8%"}
+- {result: r_multi3_tool, value: "21.7%"}
+- {result: r_rag7e1_agent, value: "8.5%"}
+- {result: r_abl_comp, value: "13.8"}
+- {result: r_tool3_fu, value: "20.0%"}
