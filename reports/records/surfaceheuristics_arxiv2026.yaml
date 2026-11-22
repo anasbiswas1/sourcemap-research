@@ -1,0 +1,1217 @@
+report:
+  id: surfaceheuristics_arxiv2026
+  slug: '2601.07185'
+  title: Defenses Against Prompt Attacks Learn Surface Heuristics
+  first_author: Shawn Li
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  doi: 10.18653/v1/2026.acl-long.502
+  arxiv: '2601.07185'
+  version_read: arXiv v1
+  first_date: '2026-01-12'
+  read: F
+  role: re_measures
+  code_release: not checked
+  later_version: ACL 2026 (from the search record; not read)
+  extraction_scope: 'Sections 3 to 4.2.1: Table 1 (GPQA and MMLU columns) and the second-position columns of Table 2 (GPQA and MMLU), both base models; the abstract claim (AIME, where all accuracies are 0, the prompt guards,
+    which act outside the model, Tables 3 to 5 and the appendix not coded)'
+defences:
+- id: struq_l3
+  name: StruQ (fine-tuned by the authors)
+  origin: other_report
+  base_checkpoint: Llama-3 (instruction-tuned)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: exemplified by SecAlign (Chen et al., 2024) and StrucQ
+  name_as_printed: StrucQ
+- id: secalign_l3
+  name: SecAlign (fine-tuned by the authors)
+  origin: other_report
+  base_checkpoint: Llama-3 (instruction-tuned)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: exemplified by SecAlign (Chen et al., 2024) and StrucQ
+- id: struq_m
+  name: StruQ (fine-tuned by the authors)
+  origin: other_report
+  base_checkpoint: Mistral (instruction-tuned)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: exemplified by SecAlign (Chen et al., 2024) and StrucQ
+  name_as_printed: StrucQ
+- id: secalign_m
+  name: SecAlign (fine-tuned by the authors)
+  origin: other_report
+  base_checkpoint: Mistral (instruction-tuned)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: exemplified by SecAlign (Chen et al., 2024) and StrucQ
+evaluations:
+- id: ev_t1_l3_base_gpqa
+  defence_id: none:Llama-3 (instruction-tuned)
+  benchmark: GPQA diamond (100 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_t1_l3_base_mmlu
+  defence_id: none:Llama-3 (instruction-tuned)
+  benchmark: MMLU validation (1,204 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_t1_l3_struq_gpqa
+  defence_id: struq_l3
+  benchmark: GPQA diamond (100 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t1_l3_struq_mmlu
+  defence_id: struq_l3
+  benchmark: MMLU validation (1,204 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t1_l3_secalign_gpqa
+  defence_id: secalign_l3
+  benchmark: GPQA diamond (100 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t1_l3_secalign_mmlu
+  defence_id: secalign_l3
+  benchmark: MMLU validation (1,204 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t1_m_base_gpqa
+  defence_id: none:Mistral (instruction-tuned)
+  benchmark: GPQA diamond (100 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_t1_m_base_mmlu
+  defence_id: none:Mistral (instruction-tuned)
+  benchmark: MMLU validation (1,204 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_t1_m_struq_gpqa
+  defence_id: struq_m
+  benchmark: GPQA diamond (100 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t1_m_struq_mmlu
+  defence_id: struq_m
+  benchmark: MMLU validation (1,204 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t1_m_secalign_gpqa
+  defence_id: secalign_m
+  benchmark: GPQA diamond (100 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t1_m_secalign_mmlu
+  defence_id: secalign_m
+  benchmark: MMLU validation (1,204 questions), single question
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t2_l3_base_gpqa
+  defence_id: none:Llama-3 (instruction-tuned)
+  benchmark: GPQA diamond (100 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_t2_l3_base_mmlu
+  defence_id: none:Llama-3 (instruction-tuned)
+  benchmark: MMLU validation (1,204 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_t2_l3_struq_gpqa
+  defence_id: struq_l3
+  benchmark: GPQA diamond (100 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t2_l3_struq_mmlu
+  defence_id: struq_l3
+  benchmark: MMLU validation (1,204 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t2_l3_secalign_gpqa
+  defence_id: secalign_l3
+  benchmark: GPQA diamond (100 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t2_l3_secalign_mmlu
+  defence_id: secalign_l3
+  benchmark: MMLU validation (1,204 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t2_m_base_gpqa
+  defence_id: none:Mistral (instruction-tuned)
+  benchmark: GPQA diamond (100 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_t2_m_base_mmlu
+  defence_id: none:Mistral (instruction-tuned)
+  benchmark: MMLU validation (1,204 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+  baseline_kind: off_the_shelf
+- id: ev_t2_m_struq_gpqa
+  defence_id: struq_m
+  benchmark: GPQA diamond (100 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t2_m_struq_mmlu
+  defence_id: struq_m
+  benchmark: MMLU validation (1,204 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t2_m_secalign_gpqa
+  defence_id: secalign_m
+  benchmark: GPQA diamond (100 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: '100'
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+- id: ev_t2_m_secalign_mmlu
+  defence_id: secalign_m
+  benchmark: MMLU validation (1,204 questions), second of two concatenated benign questions
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: accuracy against the answer key; refusal of the benign task
+  layout_same_as_defence: 'yes'
+  measured_by: surfaceheuristics_arxiv2026
+  page: 5
+  sample_size: 1,204
+  decoding: greedy decoding
+  pages:
+    benchmark: 5
+    decoding: 13
+results:
+- id: r_t1_l3_base_gpqa_acc
+  evaluation_id: ev_t1_l3_base_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '30.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_base_gpqa_rr
+  evaluation_id: ev_t1_l3_base_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '4.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_base_mmlu_acc
+  evaluation_id: ev_t1_l3_base_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '65.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_base_mmlu_rr
+  evaluation_id: ev_t1_l3_base_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '2.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_struq_gpqa_acc
+  evaluation_id: ev_t1_l3_struq_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '16.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_struq_gpqa_rr
+  evaluation_id: ev_t1_l3_struq_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '40.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_struq_mmlu_acc
+  evaluation_id: ev_t1_l3_struq_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '32.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_struq_mmlu_rr
+  evaluation_id: ev_t1_l3_struq_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '48.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_secalign_gpqa_acc
+  evaluation_id: ev_t1_l3_secalign_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '25.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_secalign_gpqa_rr
+  evaluation_id: ev_t1_l3_secalign_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '27.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_secalign_mmlu_acc
+  evaluation_id: ev_t1_l3_secalign_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '42.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_l3_secalign_mmlu_rr
+  evaluation_id: ev_t1_l3_secalign_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '18.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_base_gpqa_acc
+  evaluation_id: ev_t1_m_base_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '23.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_base_gpqa_rr
+  evaluation_id: ev_t1_m_base_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '20.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_base_mmlu_acc
+  evaluation_id: ev_t1_m_base_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '47.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_base_mmlu_rr
+  evaluation_id: ev_t1_m_base_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '2.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_struq_gpqa_acc
+  evaluation_id: ev_t1_m_struq_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '12.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_struq_gpqa_rr
+  evaluation_id: ev_t1_m_struq_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '24.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_struq_mmlu_acc
+  evaluation_id: ev_t1_m_struq_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '24.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_struq_mmlu_rr
+  evaluation_id: ev_t1_m_struq_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '32.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_secalign_gpqa_acc
+  evaluation_id: ev_t1_m_secalign_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '13.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_secalign_gpqa_rr
+  evaluation_id: ev_t1_m_secalign_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '40.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_secalign_mmlu_acc
+  evaluation_id: ev_t1_m_secalign_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc
+  value: '17.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t1_m_secalign_mmlu_rr
+  evaluation_id: ev_t1_m_secalign_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (%) refusal of the benign task
+  value: '45.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_t2_l3_base_gpqa_acc
+  evaluation_id: ev_t2_l3_base_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '32.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_base_gpqa_rr
+  evaluation_id: ev_t2_l3_base_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '8.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_base_mmlu_acc
+  evaluation_id: ev_t2_l3_base_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '62.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_base_mmlu_rr
+  evaluation_id: ev_t2_l3_base_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '4.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_struq_gpqa_acc
+  evaluation_id: ev_t2_l3_struq_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '6.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_struq_gpqa_rr
+  evaluation_id: ev_t2_l3_struq_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '66.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_struq_mmlu_acc
+  evaluation_id: ev_t2_l3_struq_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '5.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_struq_mmlu_rr
+  evaluation_id: ev_t2_l3_struq_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '90.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_secalign_gpqa_acc
+  evaluation_id: ev_t2_l3_secalign_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '20.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_secalign_gpqa_rr
+  evaluation_id: ev_t2_l3_secalign_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '50.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_secalign_mmlu_acc
+  evaluation_id: ev_t2_l3_secalign_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '29.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_l3_secalign_mmlu_rr
+  evaluation_id: ev_t2_l3_secalign_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '34.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_base_gpqa_acc
+  evaluation_id: ev_t2_m_base_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '28.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_base_gpqa_rr
+  evaluation_id: ev_t2_m_base_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '16.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_base_mmlu_acc
+  evaluation_id: ev_t2_m_base_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '48.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_base_mmlu_rr
+  evaluation_id: ev_t2_m_base_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '2.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_struq_gpqa_acc
+  evaluation_id: ev_t2_m_struq_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '12.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_struq_gpqa_rr
+  evaluation_id: ev_t2_m_struq_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '34.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_struq_mmlu_acc
+  evaluation_id: ev_t2_m_struq_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '19.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_struq_mmlu_rr
+  evaluation_id: ev_t2_m_struq_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '62.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_secalign_gpqa_acc
+  evaluation_id: ev_t2_m_secalign_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '8.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_secalign_gpqa_rr
+  evaluation_id: ev_t2_m_secalign_gpqa
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '74.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_secalign_mmlu_acc
+  evaluation_id: ev_t2_m_secalign_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Acc (2nd Pos)
+  value: '3.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_t2_m_secalign_mmlu_rr
+  evaluation_id: ev_t2_m_secalign_mmlu
+  quantity: other
+  coverage: direct
+  metric_as_printed: RR (2nd Pos)
+  value: '89.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+comparisons:
+- id: c_t1_l3_struq_gpqa
+  left: ev_t1_l3_struq_gpqa
+  right: ev_t1_l3_base_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t1_l3_struq_mmlu
+  left: ev_t1_l3_struq_mmlu
+  right: ev_t1_l3_base_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t1_l3_secalign_gpqa
+  left: ev_t1_l3_secalign_gpqa
+  right: ev_t1_l3_base_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t1_l3_secalign_mmlu
+  left: ev_t1_l3_secalign_mmlu
+  right: ev_t1_l3_base_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t1_m_struq_gpqa
+  left: ev_t1_m_struq_gpqa
+  right: ev_t1_m_base_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t1_m_struq_mmlu
+  left: ev_t1_m_struq_mmlu
+  right: ev_t1_m_base_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t1_m_secalign_gpqa
+  left: ev_t1_m_secalign_gpqa
+  right: ev_t1_m_base_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t1_m_secalign_mmlu
+  left: ev_t1_m_secalign_mmlu
+  right: ev_t1_m_base_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t2_l3_struq_gpqa
+  left: ev_t2_l3_struq_gpqa
+  right: ev_t2_l3_base_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t2_l3_struq_mmlu
+  left: ev_t2_l3_struq_mmlu
+  right: ev_t2_l3_base_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t2_l3_secalign_gpqa
+  left: ev_t2_l3_secalign_gpqa
+  right: ev_t2_l3_base_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t2_l3_secalign_mmlu
+  left: ev_t2_l3_secalign_mmlu
+  right: ev_t2_l3_base_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t2_m_struq_gpqa
+  left: ev_t2_m_struq_gpqa
+  right: ev_t2_m_base_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t2_m_struq_mmlu
+  left: ev_t2_m_struq_mmlu
+  right: ev_t2_m_base_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t2_m_secalign_gpqa
+  left: ev_t2_m_secalign_gpqa
+  right: ev_t2_m_base_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_t2_m_secalign_mmlu
+  left: ev_t2_m_secalign_mmlu
+  right: ev_t2_m_base_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+claims:
+- id: k1
+  text: defence fine-tuning makes models reject benign content placed later in a prompt
+  location: abstract
+  anchor: suffix-task rejection rises from below10%to as high as 90%
+  jobs:
+  - general_utility
+  supported_by:
+  - c_t2_l3_struq_gpqa
+  - c_t2_l3_struq_mmlu
+  - c_t2_l3_secalign_gpqa
+  - c_t2_l3_secalign_mmlu
+  - c_t2_m_struq_gpqa
+  - c_t2_m_struq_mmlu
+  - c_t2_m_secalign_gpqa
+  - c_t2_m_secalign_mmlu
+  page: 1
+coverage:
+  R1: not_reported
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    general_utility: Tables 1 and 2 (benign benchmarks; refusal rate as other)

@@ -1,0 +1,1163 @@
+report:
+  id: verih_arxiv2025
+  slug: '2511.04694'
+  title: Reasoning Up the Instruction Ladder for Controllable Language Models
+  first_author: Zishuo Zheng
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2511.04694'
+  version_read: arXiv v5
+  first_date: '2025-10-30'
+  read: F
+  role: proposes
+  code_release: not checked
+  later_version: Findings of ACL 2026, DOI 10.18653/v1/2026.findings-acl.1960 (from the search record; not read)
+  extraction_scope: 'Sections 3 to 5: the TensorTrust inject and helpful columns of Table 3 for all five models, rows w/ CoT, w/ CoT+SysHint+GuardRules and +VerIH; the abstract claim (instruction-following and IHEval results,
+    Harmbench and WildJailbreak, Tables 2 and 4 and the appendix not coded)'
+defences:
+- id: verih_q4
+  name: VerIH reinforcement learning (instruction-hierarchy reasoning)
+  origin: this_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - 'RL with verifiable rewards on VerIH: constraint-following tasks with aligned and conflicting system and user instructions'
+  - SysHint system prompt asking the model to reason about the system-user relationship, kept in training
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: +VerIH refers to our method that is trained with our dataset VerIH
+  pages:
+    isolation: 8
+- id: guard_q4
+  name: SysHint + GuardRules (prompting)
+  origin: this_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: *id001
+  anchor: SysHint is a system prompt that explicitly prompts models
+- id: verih_q8
+  name: VerIH reinforcement learning (instruction-hierarchy reasoning)
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - 'RL with verifiable rewards on VerIH: constraint-following tasks with aligned and conflicting system and user instructions'
+  - SysHint system prompt asking the model to reason about the system-user relationship, kept in training
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: *id001
+  anchor: +VerIH refers to our method that is trained with our dataset VerIH
+  pages:
+    isolation: 8
+- id: guard_q8
+  name: SysHint + GuardRules (prompting)
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: *id001
+  anchor: SysHint is a system prompt that explicitly prompts models
+- id: verih_q14
+  name: VerIH reinforcement learning (instruction-hierarchy reasoning)
+  origin: this_report
+  base_checkpoint: Qwen3-14B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - 'RL with verifiable rewards on VerIH: constraint-following tasks with aligned and conflicting system and user instructions'
+  - SysHint system prompt asking the model to reason about the system-user relationship, kept in training
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: *id001
+  anchor: +VerIH refers to our method that is trained with our dataset VerIH
+  pages:
+    isolation: 8
+- id: guard_q14
+  name: SysHint + GuardRules (prompting)
+  origin: this_report
+  base_checkpoint: Qwen3-14B
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: *id001
+  anchor: SysHint is a system prompt that explicitly prompts models
+- id: verih_q36
+  name: VerIH reinforcement learning (instruction-hierarchy reasoning)
+  origin: this_report
+  base_checkpoint: Qwen3.6-35B-A3B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - 'RL with verifiable rewards on VerIH: constraint-following tasks with aligned and conflicting system and user instructions'
+  - SysHint system prompt asking the model to reason about the system-user relationship, kept in training
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: *id001
+  anchor: +VerIH refers to our method that is trained with our dataset VerIH
+  pages:
+    isolation: 8
+- id: guard_q36
+  name: SysHint + GuardRules (prompting)
+  origin: this_report
+  base_checkpoint: Qwen3.6-35B-A3B
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: *id001
+  anchor: SysHint is a system prompt that explicitly prompts models
+- id: verih_phi
+  name: VerIH reinforcement learning (instruction-hierarchy reasoning)
+  origin: this_report
+  base_checkpoint: Phi-4-mini-reasoning
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - 'RL with verifiable rewards on VerIH: constraint-following tasks with aligned and conflicting system and user instructions'
+  - SysHint system prompt asking the model to reason about the system-user relationship, kept in training
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: *id001
+  anchor: +VerIH refers to our method that is trained with our dataset VerIH
+  pages:
+    isolation: 8
+- id: guard_phi
+  name: SysHint + GuardRules (prompting)
+  origin: this_report
+  base_checkpoint: Phi-4-mini-reasoning
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: system prompt with the higher-priority instruction, user prompt with the request
+  layout_compat: *id001
+  anchor: SysHint is a system prompt that explicitly prompts models
+evaluations:
+- id: ev_q4_cot_inject
+  defence_id: none:Qwen3-4B with thinking (w/ CoT)
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q4_cot_helpful
+  defence_id: none:Qwen3-4B with thinking (w/ CoT)
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q4_guard_inject
+  defence_id: guard_q4
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_q4_guard_helpful
+  defence_id: guard_q4
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_q4_verih_inject
+  defence_id: verih_q4
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_q4_verih_helpful
+  defence_id: verih_q4
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_q8_cot_inject
+  defence_id: none:Qwen3-8B with thinking (w/ CoT)
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q8_cot_helpful
+  defence_id: none:Qwen3-8B with thinking (w/ CoT)
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q8_guard_inject
+  defence_id: guard_q8
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_q8_guard_helpful
+  defence_id: guard_q8
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_q8_verih_inject
+  defence_id: verih_q8
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_q8_verih_helpful
+  defence_id: verih_q8
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_q14_cot_inject
+  defence_id: none:Qwen3-14B with thinking (w/ CoT)
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q14_cot_helpful
+  defence_id: none:Qwen3-14B with thinking (w/ CoT)
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q14_guard_inject
+  defence_id: guard_q14
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_q14_guard_helpful
+  defence_id: guard_q14
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_q14_verih_inject
+  defence_id: verih_q14
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_q14_verih_helpful
+  defence_id: verih_q14
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_q36_cot_inject
+  defence_id: none:Qwen3.6-35B-A3B with thinking (w/ CoT)
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q36_cot_helpful
+  defence_id: none:Qwen3.6-35B-A3B with thinking (w/ CoT)
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q36_guard_inject
+  defence_id: guard_q36
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_q36_guard_helpful
+  defence_id: guard_q36
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_q36_verih_inject
+  defence_id: verih_q36
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_q36_verih_helpful
+  defence_id: verih_q36
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_phi_cot_inject
+  defence_id: none:Phi-4-mini-reasoning with thinking (w/ CoT)
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_phi_cot_helpful
+  defence_id: none:Phi-4-mini-reasoning with thinking (w/ CoT)
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_phi_guard_inject
+  defence_id: guard_phi
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_phi_guard_helpful
+  defence_id: guard_phi
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_phi_verih_inject
+  defence_id: verih_phi
+  benchmark: TensorTrust injection (hijacking) set
+  attacker_type: human
+  attacker_access: black_box
+  judge: attack succeeds when the injected goal is met (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  attacker_budget: TensorTrust player-written attacks
+  decoding: not reported
+- id: ev_phi_verih_helpful
+  defence_id: verih_phi
+  benchmark: TensorTrust helpful set (benign requests)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: request complied with (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: verih_arxiv2025
+  page: 7
+  decoding: not reported
+results:
+- id: r_q4_cot_inject
+  evaluation_id: ev_q4_cot_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '59.49'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q4_cot_helpful
+  evaluation_id: ev_q4_cot_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '82.74'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q4_guard_inject
+  evaluation_id: ev_q4_guard_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '54.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q4_guard_helpful
+  evaluation_id: ev_q4_guard_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '86.04'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q4_verih_inject
+  evaluation_id: ev_q4_verih_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '46.77'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q4_verih_helpful
+  evaluation_id: ev_q4_verih_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '86.60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q8_cot_inject
+  evaluation_id: ev_q8_cot_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '55.91'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q8_cot_helpful
+  evaluation_id: ev_q8_cot_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '83.96'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q8_guard_inject
+  evaluation_id: ev_q8_guard_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '49.13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q8_guard_helpful
+  evaluation_id: ev_q8_guard_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '86.79'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q8_verih_inject
+  evaluation_id: ev_q8_verih_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '32.58'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q8_verih_helpful
+  evaluation_id: ev_q8_verih_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '86.79'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q14_cot_inject
+  evaluation_id: ev_q14_cot_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '51.32'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q14_cot_helpful
+  evaluation_id: ev_q14_cot_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '86.23'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q14_guard_inject
+  evaluation_id: ev_q14_guard_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '50.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q14_guard_helpful
+  evaluation_id: ev_q14_guard_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '87.45'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q14_verih_inject
+  evaluation_id: ev_q14_verih_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '36.63'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q14_verih_helpful
+  evaluation_id: ev_q14_verih_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '86.79'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q36_cot_inject
+  evaluation_id: ev_q36_cot_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '12.54'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q36_cot_helpful
+  evaluation_id: ev_q36_cot_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '78.49'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q36_guard_inject
+  evaluation_id: ev_q36_guard_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '11.77'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q36_guard_helpful
+  evaluation_id: ev_q36_guard_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '81.04'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q36_verih_inject
+  evaluation_id: ev_q36_verih_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '6.76'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q36_verih_helpful
+  evaluation_id: ev_q36_verih_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '79.91'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_phi_cot_inject
+  evaluation_id: ev_phi_cot_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '38.71'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_phi_cot_helpful
+  evaluation_id: ev_phi_cot_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '31.32'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_phi_guard_inject
+  evaluation_id: ev_phi_guard_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '39.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_phi_guard_helpful
+  evaluation_id: ev_phi_guard_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '33.30'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_phi_verih_inject
+  evaluation_id: ev_phi_verih_inject
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TensorTrust inject
+  value: '57.93'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_phi_verih_helpful
+  evaluation_id: ev_phi_verih_helpful
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: TensorTrust helpful
+  value: '71.70'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+comparisons:
+- id: c_q4_inject_verih_cot
+  left: ev_q4_verih_inject
+  right: ev_q4_cot_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q4_inject_verih_guard
+  left: ev_q4_verih_inject
+  right: ev_q4_guard_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+- id: c_q4_helpful_verih_cot
+  left: ev_q4_verih_helpful
+  right: ev_q4_cot_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q4_helpful_verih_guard
+  left: ev_q4_verih_helpful
+  right: ev_q4_guard_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+- id: c_q8_inject_verih_cot
+  left: ev_q8_verih_inject
+  right: ev_q8_cot_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q8_inject_verih_guard
+  left: ev_q8_verih_inject
+  right: ev_q8_guard_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+- id: c_q8_helpful_verih_cot
+  left: ev_q8_verih_helpful
+  right: ev_q8_cot_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q8_helpful_verih_guard
+  left: ev_q8_verih_helpful
+  right: ev_q8_guard_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+- id: c_q14_inject_verih_cot
+  left: ev_q14_verih_inject
+  right: ev_q14_cot_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q14_inject_verih_guard
+  left: ev_q14_verih_inject
+  right: ev_q14_guard_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+- id: c_q14_helpful_verih_cot
+  left: ev_q14_verih_helpful
+  right: ev_q14_cot_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q14_helpful_verih_guard
+  left: ev_q14_verih_helpful
+  right: ev_q14_guard_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+- id: c_q36_inject_verih_cot
+  left: ev_q36_verih_inject
+  right: ev_q36_cot_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q36_inject_verih_guard
+  left: ev_q36_verih_inject
+  right: ev_q36_guard_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+- id: c_q36_helpful_verih_cot
+  left: ev_q36_verih_helpful
+  right: ev_q36_cot_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q36_helpful_verih_guard
+  left: ev_q36_verih_helpful
+  right: ev_q36_guard_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+- id: c_phi_inject_verih_cot
+  left: ev_phi_verih_inject
+  right: ev_phi_cot_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_inject_verih_guard
+  left: ev_phi_verih_inject
+  right: ev_phi_guard_inject
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+- id: c_phi_helpful_verih_cot
+  left: ev_phi_verih_helpful
+  right: ev_phi_cot_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_phi_helpful_verih_guard
+  left: ev_phi_verih_helpful
+  right: ev_phi_guard_helpful
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: VerIH training against the same model with the SysHint and GuardRules prompts
+  page: 7
+claims:
+- id: k1
+  text: more robust to jailbreak and prompt injection, absolute attack success down by up to 20%
+  location: abstract
+  anchor: reducing abso- lute attack success rates by up to 20%
+  jobs:
+  - R1
+  supported_by:
+  - c_q4_inject_verih_cot
+  - c_q8_inject_verih_cot
+  - c_q14_inject_verih_cot
+  - c_q36_inject_verih_cot
+  - c_phi_inject_verih_cot
+  page: 1
+  contradicted_by:
+  - r_phi_verih_inject
+coverage:
+  R1: direct
+  R2clean: proxy
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 3 (TensorTrust inject)
+    R2clean: Table 3 (TensorTrust helpful)
+schema_gaps:
+- where: defences verih_*
+  note: VerIH trains with reinforcement learning from verifiable rewards; axis 2 has no value for non-adversarial RL, so it is coded preference_optimisation

@@ -1,0 +1,222 @@
+report:
+  id: promptfencing_arxiv2025
+  slug: '2511.19727'
+  title: 'Prompt Fencing: A Cryptographic Approach to Establishing Security Boundaries in Large Language Model Prompts'
+  first_author: Steven Peh
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2511.19727'
+  version_read: arXiv (version not printed on the PDF)
+  first_date: '2025-11-24'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Sections 5 to 6.3.1: Table 2 (average injection success counts, both models, baseline and fenced); the abstract claim (overhead in Table 1, the boundary forgery tests of Section 6.3.2 and Table 4 not coded)'
+defences:
+- id: fence_gem
+  name: Prompt Fencing (simulated fence awareness)
+  origin: this_report
+  base_checkpoint: Gemini 2.5 Pro
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 24
+  components:
+  - 'segments decorated with HMAC-signed metadata: trust rating and content type'
+  - fence signatures validated before the call
+  - prompt instructions telling the model to treat untrusted fences as data
+  layout: prompt segments wrapped in fences carrying signed metadata (trust rating, content type), with fence-awareness instructions
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: comparing baseline (unfenced) against fence-aware conditions
+  pages:
+    components: 1
+- id: fence_cla
+  name: Prompt Fencing (simulated fence awareness)
+  origin: this_report
+  base_checkpoint: Claude Sonnet 4.5
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: no_ablation
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 24
+  components:
+  - 'segments decorated with HMAC-signed metadata: trust rating and content type'
+  - fence signatures validated before the call
+  - prompt instructions telling the model to treat untrusted fences as data
+  layout: prompt segments wrapped in fences carrying signed metadata (trust rating, content type), with fence-awareness instructions
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: comparing baseline (unfenced) against fence-aware conditions
+  pages:
+    components: 1
+evaluations:
+- id: ev_gem_base
+  defence_id: none:Gemini 2.5 Pro
+  benchmark: review-analysis task, 100 samples with injections in 50 (boundary-confusion markers and a fake system note)
+  attacker_type: static
+  attacker_access: black_box
+  judge: injected output (Final Rating=100) produced
+  layout_same_as_defence: 'yes'
+  measured_by: promptfencing_arxiv2025
+  page: 24
+  sample_size: 50 injected samples per run
+  run: average of 3 runs
+  decoding: not reported
+  pages:
+    benchmark: 25
+  baseline_kind: off_the_shelf
+- id: ev_gem_fence
+  defence_id: fence_gem
+  benchmark: review-analysis task, 100 samples with injections in 50 (boundary-confusion markers and a fake system note)
+  attacker_type: static
+  attacker_access: black_box
+  judge: injected output (Final Rating=100) produced
+  layout_same_as_defence: 'yes'
+  measured_by: promptfencing_arxiv2025
+  page: 24
+  sample_size: 50 injected samples per run
+  run: average of 3 runs
+  decoding: not reported
+  pages:
+    benchmark: 25
+- id: ev_cla_base
+  defence_id: none:Claude Sonnet 4.5
+  benchmark: review-analysis task, 100 samples with injections in 50 (boundary-confusion markers and a fake system note)
+  attacker_type: static
+  attacker_access: black_box
+  judge: injected output (Final Rating=100) produced
+  layout_same_as_defence: 'yes'
+  measured_by: promptfencing_arxiv2025
+  page: 24
+  sample_size: 50 injected samples per run
+  run: average of 3 runs
+  decoding: not reported
+  pages:
+    benchmark: 25
+  baseline_kind: off_the_shelf
+- id: ev_cla_fence
+  defence_id: fence_cla
+  benchmark: review-analysis task, 100 samples with injections in 50 (boundary-confusion markers and a fake system note)
+  attacker_type: static
+  attacker_access: black_box
+  judge: injected output (Final Rating=100) produced
+  layout_same_as_defence: 'yes'
+  measured_by: promptfencing_arxiv2025
+  page: 24
+  sample_size: 50 injected samples per run
+  run: average of 3 runs
+  decoding: not reported
+  pages:
+    benchmark: 25
+results:
+- id: r_gem_base
+  evaluation_id: ev_gem_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Average Success Count (out of 50)
+  value: '39.7'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 2
+- id: r_gem_fence
+  evaluation_id: ev_gem_fence
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Average Success Count (out of 50)
+  value: '0'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 2
+- id: r_cla_base
+  evaluation_id: ev_cla_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Average Success Count (out of 50)
+  value: '47.0'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 2
+- id: r_cla_fence
+  evaluation_id: ev_cla_fence
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Average Success Count (out of 50)
+  value: '0'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 2
+comparisons:
+- id: c_gem
+  left: ev_gem_fence
+  right: ev_gem_base
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 24
+- id: c_cla
+  left: ev_cla_fence
+  right: ev_cla_base
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 24
+claims:
+- id: k1
+  text: 'simulated fence awareness prevented all injections: 86.7% to 0% over 300 cases'
+  location: abstract
+  anchor: simulated awareness through prompt instructions achieved complete prevention of injection attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_gem
+  - c_cla
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2

@@ -1,0 +1,509 @@
+report:
+  id: advft2022_arxiv2025
+  slug: '2509.14271'
+  title: 'Early Approaches to Adversarial Fine-Tuning for Prompt Injection Defense: A 2022 Study of GPT-3 and Contemporary Models'
+  first_author: Gustavo Sandoval
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2509.14271'
+  version_read: arXiv v1
+  first_date: '2025-09-15'
+  read: F
+  role: proposes
+  code_release: https://github.com/GusSand/PromptInject
+  extraction_scope: 'whole report (8 pages): Table 1 coded (before and after adversarial fine-tuning, Ada, Babbage, Curie); the abstract claim (Table 2, models tested without the defence, and Figure 5 not coded)'
+defences:
+- id: aft_ada
+  name: Adversarial fine-tuning with <userInput> tags
+  origin: this_report
+  base_checkpoint: text-ada-001
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - user input wrapped in <userInput> tags
+  - OpenAI fine-tuning on translation, grammar, sentiment and summarisation samples, some with injected instructions inside the tags and completions that follow the original instruction
+  layout: PROMPT + <userInput> USER_INPUT </userInput>
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: no (OpenAI fine-tuned models)
+  anchor: user input gets wrapped in the user input tags
+  pages:
+    layout: 4
+- id: aft_babbage
+  name: Adversarial fine-tuning with <userInput> tags
+  origin: this_report
+  base_checkpoint: text-babbage-001
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - user input wrapped in <userInput> tags
+  - OpenAI fine-tuning on translation, grammar, sentiment and summarisation samples, some with injected instructions inside the tags and completions that follow the original instruction
+  layout: PROMPT + <userInput> USER_INPUT </userInput>
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: no (OpenAI fine-tuned models)
+  anchor: user input gets wrapped in the user input tags
+  pages:
+    layout: 4
+- id: aft_curie
+  name: Adversarial fine-tuning with <userInput> tags
+  origin: this_report
+  base_checkpoint: text-curie-001
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - user input wrapped in <userInput> tags
+  - OpenAI fine-tuning on translation, grammar, sentiment and summarisation samples, some with injected instructions inside the tags and completions that follow the original instruction
+  layout: PROMPT + <userInput> USER_INPUT </userInput>
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: no (OpenAI fine-tuned models)
+  anchor: user input gets wrapped in the user input tags
+  pages:
+    layout: 4
+evaluations:
+- id: ev_ada_before_gh
+  defence_id: none:text-ada-001
+  benchmark: 'PromptInject: 35 task prompts with goal hijacking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five goal hijacking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+  baseline_kind: off_the_shelf
+- id: ev_ada_before_pl
+  defence_id: none:text-ada-001
+  benchmark: 'PromptInject: 35 task prompts with prompt leaking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five prompt leaking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+  baseline_kind: off_the_shelf
+- id: ev_ada_after_gh
+  defence_id: aft_ada
+  benchmark: 'PromptInject: 35 task prompts with goal hijacking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five goal hijacking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+- id: ev_ada_after_pl
+  defence_id: aft_ada
+  benchmark: 'PromptInject: 35 task prompts with prompt leaking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five prompt leaking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+- id: ev_babbage_before_gh
+  defence_id: none:text-babbage-001
+  benchmark: 'PromptInject: 35 task prompts with goal hijacking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five goal hijacking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+  baseline_kind: off_the_shelf
+- id: ev_babbage_before_pl
+  defence_id: none:text-babbage-001
+  benchmark: 'PromptInject: 35 task prompts with prompt leaking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five prompt leaking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+  baseline_kind: off_the_shelf
+- id: ev_babbage_after_gh
+  defence_id: aft_babbage
+  benchmark: 'PromptInject: 35 task prompts with goal hijacking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five goal hijacking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+- id: ev_babbage_after_pl
+  defence_id: aft_babbage
+  benchmark: 'PromptInject: 35 task prompts with prompt leaking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five prompt leaking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+- id: ev_curie_before_gh
+  defence_id: none:text-curie-001
+  benchmark: 'PromptInject: 35 task prompts with goal hijacking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five goal hijacking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+  baseline_kind: off_the_shelf
+- id: ev_curie_before_pl
+  defence_id: none:text-curie-001
+  benchmark: 'PromptInject: 35 task prompts with prompt leaking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five prompt leaking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+  baseline_kind: off_the_shelf
+- id: ev_curie_after_gh
+  defence_id: aft_curie
+  benchmark: 'PromptInject: 35 task prompts with goal hijacking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five goal hijacking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+- id: ev_curie_after_pl
+  defence_id: aft_curie
+  benchmark: 'PromptInject: 35 task prompts with prompt leaking strings (1,260 attack variations)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: Levenshtein similarity of the output to the target string above a threshold
+  layout_same_as_defence: 'yes'
+  measured_by: advft2022_arxiv2025
+  page: 5
+  attacker_budget: five prompt leaking strings
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+results:
+- id: r_ada_before_gh
+  evaluation_id: ev_ada_before_gh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Goal Hijacking
+  value: '26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ada_before_pl
+  evaluation_id: ev_ada_before_pl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Prompt Leaking
+  value: '2.86'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ada_after_gh
+  evaluation_id: ev_ada_after_gh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Goal Hijacking
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ada_after_pl
+  evaluation_id: ev_ada_after_pl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Prompt Leaking
+  value: '2.86'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_babbage_before_gh
+  evaluation_id: ev_babbage_before_gh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Goal Hijacking
+  value: '31'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_babbage_before_pl
+  evaluation_id: ev_babbage_before_pl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Prompt Leaking
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_babbage_after_gh
+  evaluation_id: ev_babbage_after_gh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Goal Hijacking
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_babbage_after_pl
+  evaluation_id: ev_babbage_after_pl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Prompt Leaking
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_curie_before_gh
+  evaluation_id: ev_curie_before_gh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Goal Hijacking
+  value: '18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_curie_before_pl
+  evaluation_id: ev_curie_before_pl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Prompt Leaking
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_curie_after_gh
+  evaluation_id: ev_curie_after_gh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Goal Hijacking
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_curie_after_pl
+  evaluation_id: ev_curie_after_pl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack success rate, Prompt Leaking
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+comparisons:
+- id: c_ada_gh
+  left: ev_ada_after_gh
+  right: ev_ada_before_gh
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_ada_pl
+  left: ev_ada_after_pl
+  right: ev_ada_before_pl
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_babbage_gh
+  left: ev_babbage_after_gh
+  right: ev_babbage_before_gh
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_babbage_pl
+  left: ev_babbage_after_pl
+  right: ev_babbage_before_pl
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_curie_gh
+  left: ev_curie_after_gh
+  right: ev_curie_before_gh
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_curie_pl
+  left: ev_curie_after_pl
+  right: ev_curie_before_pl
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+claims:
+- id: k1
+  text: attack success falls from 31% to near zero for the smaller GPT-3 models
+  location: abstract
+  anchor: attack success rates were reduced to near zero for smaller GPT-3 variants
+  jobs:
+  - R1
+  supported_by:
+  - c_ada_gh
+  - c_babbage_gh
+  - c_curie_gh
+  page: 1
+  contradicted_by:
+  - r_ada_after_pl
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1

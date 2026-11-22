@@ -1,0 +1,13 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,values_third_extraction,chart_values_third_extraction,residual_notes,problems
+04c,civ_arxiv2025,2508.09288,proposes,2,8,8,8,0,3,4,3,0,0,1,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,0,0
+04c,advft2022_arxiv2025,2509.14271,proposes,3,12,12,12,0,4,6,6,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,0,0
+04c,secinfer_arxiv2025,2509.24967,proposes,5,96,146,146,0,6,30,30,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,0,0
+04c,rlhammer_arxiv2025,2510.04885,re_measures,1,8,8,8,0,2,4,4,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,0,0
+04c,arlas_arxiv2025,2510.05442,proposes,4,6,12,12,0,5,4,4,0,0,0,1,direct,not_reported,unclear,not_reported,not_reported,not_reported,0,0,0,0
+04c,attackermovessecond_arxiv2025,2510.09023,re_measures,9,36,36,36,0,10,27,27,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,0,0
+04c,verih_arxiv2025,2511.04694,proposes,10,30,30,30,0,11,20,20,0,0,0,1,direct,proxy,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04c,promptfencing_arxiv2025,2511.19727,proposes,2,4,4,4,0,3,2,2,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,0,0
+04c,ldd_arxiv2025,2511.21752,proposes,9,18,18,18,0,10,9,9,0,0,0,1,proxy,not_reported,direct,not_reported,not_reported,not_reported,0,0,0,0
+04c,surfaceheuristics_arxiv2026,2601.07185,re_measures,4,24,48,48,0,5,16,16,0,0,0,1,not_reported,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,0,0
+04c,reasalign_arxiv2026,2601.10173,proposes,6,42,58,36,20,8,38,38,0,0,0,2,direct,direct,direct,not_reported,not_reported,not_reported,0,2,4,0
+04c,redvisor_arxiv2026,2602.01795,proposes,12,105,105,96,0,14,91,91,0,0,0,2,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,2,0

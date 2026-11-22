@@ -1,0 +1,8 @@
+decision_04c: BATCH CHECKED
+this step: 2026-11-22
+reports: civ_arxiv2025, advft2022_arxiv2025, secinfer_arxiv2025, rlhammer_arxiv2025, arlas_arxiv2025, attackermovessecond_arxiv2025, verih_arxiv2025, promptfencing_arxiv2025, ldd_arxiv2025, surfaceheuristics_arxiv2026, reasalign_arxiv2026, redvisor_arxiv2026
+records: 67 defences, 389 evaluations, 485 results, 251 comparisons, 14 claims
+checked against the PDFs: 454 printed values (0 of them found only in the third extraction), 20 chart values (2 of them found only in the third extraction) and 81 anchors, each found on its page
+comparison grades: A 250, B 0, C 0, U 1
+residual notes: 7; full-text exclusions found while coding: 0
+next: batch 04d

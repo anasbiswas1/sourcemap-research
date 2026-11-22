@@ -1,0 +1,849 @@
+report:
+  id: ldd_arxiv2025
+  slug: '2511.21752'
+  title: 'Semantics as a Shield: Label Disguise Defense (LDD) against Prompt Injection in LLM Sentiment Classification'
+  first_author: Yanxi Li
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2511.21752'
+  version_read: arXiv v3
+  first_date: '2025-11-23'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'whole report (8 pages): Table 2 (attacked few-shot mean accuracy, native labels against the sentiment-associated alias group, all nine configurations); the abstract claim (the other-alias group, single
+    pairs in Table 1 and the zero-shot results of Table 3 not coded)'
+defences:
+- id: ldd_m0
+  name: Label Disguise Defense, mean of four sentiment-associated label pairs
+  origin: this_report
+  base_checkpoint: GPT-5
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  components:
+  - output labels replaced by aliases (heaven/hell, green/red, good/bad, happy/sad) taught by few-shot demonstrations
+  - predictions mapped back to positive and negative
+  layout: few-shot prompt with alias labels, then the attacked review
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: mean of four sentiment-associated pairs
+- id: ldd_m1
+  name: Label Disguise Defense, mean of four sentiment-associated label pairs
+  origin: this_report
+  base_checkpoint: GPT-4o
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  components:
+  - output labels replaced by aliases (heaven/hell, green/red, good/bad, happy/sad) taught by few-shot demonstrations
+  - predictions mapped back to positive and negative
+  layout: few-shot prompt with alias labels, then the attacked review
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: mean of four sentiment-associated pairs
+- id: ldd_m2
+  name: Label Disguise Defense, mean of four sentiment-associated label pairs
+  origin: this_report
+  base_checkpoint: GPT-4o-mini
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  components:
+  - output labels replaced by aliases (heaven/hell, green/red, good/bad, happy/sad) taught by few-shot demonstrations
+  - predictions mapped back to positive and negative
+  layout: few-shot prompt with alias labels, then the attacked review
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: mean of four sentiment-associated pairs
+- id: ldd_m3
+  name: Label Disguise Defense, mean of four sentiment-associated label pairs
+  origin: this_report
+  base_checkpoint: LLaMA 3.2
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  components:
+  - output labels replaced by aliases (heaven/hell, green/red, good/bad, happy/sad) taught by few-shot demonstrations
+  - predictions mapped back to positive and negative
+  layout: few-shot prompt with alias labels, then the attacked review
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: mean of four sentiment-associated pairs
+- id: ldd_m4
+  name: Label Disguise Defense, mean of four sentiment-associated label pairs
+  origin: this_report
+  base_checkpoint: LLaMA 3.2 (1B)
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  components:
+  - output labels replaced by aliases (heaven/hell, green/red, good/bad, happy/sad) taught by few-shot demonstrations
+  - predictions mapped back to positive and negative
+  layout: few-shot prompt with alias labels, then the attacked review
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: mean of four sentiment-associated pairs
+- id: ldd_m5
+  name: Label Disguise Defense, mean of four sentiment-associated label pairs
+  origin: this_report
+  base_checkpoint: mistral-large
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  components:
+  - output labels replaced by aliases (heaven/hell, green/red, good/bad, happy/sad) taught by few-shot demonstrations
+  - predictions mapped back to positive and negative
+  layout: few-shot prompt with alias labels, then the attacked review
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: mean of four sentiment-associated pairs
+- id: ldd_m6
+  name: Label Disguise Defense, mean of four sentiment-associated label pairs
+  origin: this_report
+  base_checkpoint: mistral-small
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  components:
+  - output labels replaced by aliases (heaven/hell, green/red, good/bad, happy/sad) taught by few-shot demonstrations
+  - predictions mapped back to positive and negative
+  layout: few-shot prompt with alias labels, then the attacked review
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: mean of four sentiment-associated pairs
+- id: ldd_m7
+  name: Label Disguise Defense, mean of four sentiment-associated label pairs
+  origin: this_report
+  base_checkpoint: Gemma3
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  components:
+  - output labels replaced by aliases (heaven/hell, green/red, good/bad, happy/sad) taught by few-shot demonstrations
+  - predictions mapped back to positive and negative
+  layout: few-shot prompt with alias labels, then the attacked review
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: mean of four sentiment-associated pairs
+- id: ldd_m8
+  name: Label Disguise Defense, mean of four sentiment-associated label pairs
+  origin: this_report
+  base_checkpoint: Gemma3 (12B)
+  axis1:
+  - encodings
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  components:
+  - output labels replaced by aliases (heaven/hell, green/red, good/bad, happy/sad) taught by few-shot demonstrations
+  - predictions mapped back to positive and negative
+  layout: few-shot prompt with alias labels, then the attacked review
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: mean of four sentiment-associated pairs
+evaluations:
+- id: ev_m0_native
+  defence_id: none:GPT-5, native-label few-shot prompt
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+  baseline_kind: instruction_prompt_only
+- id: ev_m0_ldd
+  defence_id: ldd_m0
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+- id: ev_m1_native
+  defence_id: none:GPT-4o, native-label few-shot prompt
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+  baseline_kind: instruction_prompt_only
+- id: ev_m1_ldd
+  defence_id: ldd_m1
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+- id: ev_m2_native
+  defence_id: none:GPT-4o-mini, native-label few-shot prompt
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+  baseline_kind: instruction_prompt_only
+- id: ev_m2_ldd
+  defence_id: ldd_m2
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+- id: ev_m3_native
+  defence_id: none:LLaMA 3.2, native-label few-shot prompt
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+  baseline_kind: instruction_prompt_only
+- id: ev_m3_ldd
+  defence_id: ldd_m3
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+- id: ev_m4_native
+  defence_id: none:LLaMA 3.2 (1B), native-label few-shot prompt
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+  baseline_kind: instruction_prompt_only
+- id: ev_m4_ldd
+  defence_id: ldd_m4
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+- id: ev_m5_native
+  defence_id: none:mistral-large, native-label few-shot prompt
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+  baseline_kind: instruction_prompt_only
+- id: ev_m5_ldd
+  defence_id: ldd_m5
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+- id: ev_m6_native
+  defence_id: none:mistral-small, native-label few-shot prompt
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+  baseline_kind: instruction_prompt_only
+- id: ev_m6_ldd
+  defence_id: ldd_m6
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+- id: ev_m7_native
+  defence_id: none:Gemma3, native-label few-shot prompt
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+  baseline_kind: instruction_prompt_only
+- id: ev_m7_ldd
+  defence_id: ldd_m7
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+- id: ev_m8_native
+  defence_id: none:Gemma3 (12B), native-label few-shot prompt
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+  baseline_kind: instruction_prompt_only
+- id: ev_m8_ldd
+  defence_id: ldd_m8
+  benchmark: 200 IMDb reviews with a fixed suffix that requests the wrong class using the original labels
+  attacker_type: static
+  attacker_access: black_box
+  judge: sentiment accuracy after mapping back
+  layout_same_as_defence: 'yes'
+  measured_by: ldd_arxiv2025
+  page: 7
+  attacker_budget: fixed class-directive suffix
+  sample_size: '200'
+  decoding: not reported
+results:
+- id: r_m0_native
+  evaluation_id: ev_m0_native
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '49.44'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m0_ldd
+  evaluation_id: ev_m0_ldd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '57.97'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m1_native
+  evaluation_id: ev_m1_native
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '88.44'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m1_ldd
+  evaluation_id: ev_m1_ldd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '90.03'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m2_native
+  evaluation_id: ev_m2_native
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '89.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m2_ldd
+  evaluation_id: ev_m2_ldd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '83.09'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m3_native
+  evaluation_id: ev_m3_native
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '64.25'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m3_ldd
+  evaluation_id: ev_m3_ldd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '72.66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m4_native
+  evaluation_id: ev_m4_native
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '50.81'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m4_ldd
+  evaluation_id: ev_m4_ldd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '50.02'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m5_native
+  evaluation_id: ev_m5_native
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '84.56'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m5_ldd
+  evaluation_id: ev_m5_ldd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '78.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m6_native
+  evaluation_id: ev_m6_native
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '86.81'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m6_ldd
+  evaluation_id: ev_m6_ldd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '85.44'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m7_native
+  evaluation_id: ev_m7_native
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '79.31'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m7_ldd
+  evaluation_id: ev_m7_ldd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '74.31'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m8_native
+  evaluation_id: ev_m8_native
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '85.19'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+- id: r_m8_ldd
+  evaluation_id: ev_m8_ldd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Attacked few-shot mean accuracy (%)
+  value: '81.33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+  also_quantity:
+  - R1
+comparisons:
+- id: c_m0
+  left: ev_m0_ldd
+  right: ev_m0_native
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the output labels (sentiment-associated aliases against native labels), same demonstrations
+  page: 7
+- id: c_m1
+  left: ev_m1_ldd
+  right: ev_m1_native
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the output labels (sentiment-associated aliases against native labels), same demonstrations
+  page: 7
+- id: c_m2
+  left: ev_m2_ldd
+  right: ev_m2_native
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the output labels (sentiment-associated aliases against native labels), same demonstrations
+  page: 7
+- id: c_m3
+  left: ev_m3_ldd
+  right: ev_m3_native
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the output labels (sentiment-associated aliases against native labels), same demonstrations
+  page: 7
+- id: c_m4
+  left: ev_m4_ldd
+  right: ev_m4_native
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the output labels (sentiment-associated aliases against native labels), same demonstrations
+  page: 7
+- id: c_m5
+  left: ev_m5_ldd
+  right: ev_m5_native
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the output labels (sentiment-associated aliases against native labels), same demonstrations
+  page: 7
+- id: c_m6
+  left: ev_m6_ldd
+  right: ev_m6_native
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the output labels (sentiment-associated aliases against native labels), same demonstrations
+  page: 7
+- id: c_m7
+  left: ev_m7_ldd
+  right: ev_m7_native
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the output labels (sentiment-associated aliases against native labels), same demonstrations
+  page: 7
+- id: c_m8
+  left: ev_m8_ldd
+  right: ev_m8_native
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the output labels (sentiment-associated aliases against native labels), same demonstrations
+  page: 7
+claims:
+- id: k1
+  text: sentiment-associated labels beat other aliases everywhere but beat the native-label baseline in only three of nine configurations
+  location: abstract
+  anchor: exceed a baseline using the original labels
+  jobs:
+  - R2
+  - R1
+  supported_by:
+  - c_m0
+  - c_m1
+  - c_m2
+  - c_m3
+  - c_m4
+  - c_m5
+  - c_m6
+  - c_m7
+  - c_m8
+  page: 1
+coverage:
+  R1: proxy
+  R2clean: not_reported
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R2attack: Table 2 (accuracy on attacked reviews)
+    R1: Table 2 (same accuracy read as resistance)

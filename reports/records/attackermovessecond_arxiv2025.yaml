@@ -1,0 +1,1369 @@
+report:
+  id: attackermovessecond_arxiv2025
+  slug: '2510.09023'
+  title: 'The Attacker Moves Second: Stronger Adaptive Attacks Bypass Defenses against LLM Jailbreaks and Prompt Injections'
+  first_author: Milad Nasr
+  venue: arXiv preprint (under review)
+  peer_reviewed: 'no'
+  arxiv: '2510.09023'
+  version_read: arXiv v1
+  first_date: '2025-10-10'
+  read: F
+  role: re_measures
+  code_release: not checked
+  extraction_scope: 'Sections 3 to 5 and Appendix C: Table 7 rows None, Spotlighting and Prompt Sandwiching for all four models (MetaSecAlign 70B is coded as the defended model against Llama-3.3 70B); the abstract claim (detectors,
+    Circuit Breakers, the RL and gradient attacks on StruQ and other trained defences, the human red-teaming counts and Tables 2 to 6 not coded)'
+defences:
+- id: msa70b
+  name: MetaSecAlign 70B (released model, re-measured)
+  origin: other_report
+  base_checkpoint: Llama-3.3 70B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  name_as_printed: MetaSecAlign 70B
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: We re-evaluated this defense in the same agentic setting using our search-based attack
+- id: spot_gem
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Gemini-2.5 Pro
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Spotlighting marks trusted text with special delimiter tokens
+- id: sand_gem
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: Gemini-2.5 Pro
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we focus on Spotlighting (Hines et al., 2024), Prompt Sandwiching
+- id: spot_g5m
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: GPT-5 Mini
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Spotlighting marks trusted text with special delimiter tokens
+- id: sand_g5m
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: GPT-5 Mini
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we focus on Spotlighting (Hines et al., 2024), Prompt Sandwiching
+- id: spot_l33
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Llama-3.3 70B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Spotlighting marks trusted text with special delimiter tokens
+- id: sand_l33
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: Llama-3.3 70B
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we focus on Spotlighting (Hines et al., 2024), Prompt Sandwiching
+- id: spot_msa
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: MetaSecAlign 70B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Spotlighting marks trusted text with special delimiter tokens
+- id: sand_msa
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: MetaSecAlign 70B
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we focus on Spotlighting (Hines et al., 2024), Prompt Sandwiching
+evaluations:
+- id: ev_none_gem_clean
+  defence_id: none:Gemini-2.5 Pro
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_none_gem_static
+  defence_id: none:Gemini-2.5 Pro
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_none_gem_search
+  defence_id: none:Gemini-2.5 Pro
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+  baseline_kind: off_the_shelf
+- id: ev_none_g5m_clean
+  defence_id: none:GPT-5 Mini
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_none_g5m_static
+  defence_id: none:GPT-5 Mini
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_none_g5m_search
+  defence_id: none:GPT-5 Mini
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+  baseline_kind: off_the_shelf
+- id: ev_none_l33_clean
+  defence_id: none:Llama-3.3 70B
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_none_l33_static
+  defence_id: none:Llama-3.3 70B
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_none_l33_search
+  defence_id: none:Llama-3.3 70B
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+  baseline_kind: off_the_shelf
+- id: ev_none_msa_clean
+  defence_id: msa70b
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+- id: ev_none_msa_static
+  defence_id: msa70b
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+- id: ev_none_msa_search
+  defence_id: msa70b
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+- id: ev_spot_gem_clean
+  defence_id: spot_gem
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+- id: ev_spot_gem_static
+  defence_id: spot_gem
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+- id: ev_spot_gem_search
+  defence_id: spot_gem
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+- id: ev_spot_g5m_clean
+  defence_id: spot_g5m
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+- id: ev_spot_g5m_static
+  defence_id: spot_g5m
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+- id: ev_spot_g5m_search
+  defence_id: spot_g5m
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+- id: ev_spot_l33_clean
+  defence_id: spot_l33
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+- id: ev_spot_l33_static
+  defence_id: spot_l33
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+- id: ev_spot_l33_search
+  defence_id: spot_l33
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+- id: ev_spot_msa_clean
+  defence_id: spot_msa
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+- id: ev_spot_msa_static
+  defence_id: spot_msa
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+- id: ev_spot_msa_search
+  defence_id: spot_msa
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+- id: ev_sand_gem_clean
+  defence_id: sand_gem
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+- id: ev_sand_gem_static
+  defence_id: sand_gem
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+- id: ev_sand_gem_search
+  defence_id: sand_gem
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+- id: ev_sand_g5m_clean
+  defence_id: sand_g5m
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+- id: ev_sand_g5m_static
+  defence_id: sand_g5m
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+- id: ev_sand_g5m_search
+  defence_id: sand_g5m
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+- id: ev_sand_l33_clean
+  defence_id: sand_l33
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+- id: ev_sand_l33_static
+  defence_id: sand_l33
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+- id: ev_sand_l33_search
+  defence_id: sand_l33
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+- id: ev_sand_msa_clean
+  defence_id: sand_msa
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  decoding: not reported
+- id: ev_sand_msa_static
+  defence_id: sand_msa
+  benchmark: AgentDojo with the static important-instructions template
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: AgentDojo important-instructions template
+  decoding: not reported
+- id: ev_sand_msa_search
+  defence_id: sand_msa
+  benchmark: AgentDojo scenarios attacked by search
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: attacker goal met (AgentDojo security check)
+  layout_same_as_defence: 'yes'
+  measured_by: attackermovessecond_arxiv2025
+  page: 25
+  attacker_budget: adaptive search attack (LLM-guided), up to 800 queries per scenario
+  decoding: not reported
+  pages:
+    attacker_budget: 25
+results:
+- id: r_none_gem_u
+  evaluation_id: ev_none_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '74.23'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_gem_static
+  evaluation_id: ev_none_gem_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_gem_search
+  evaluation_id: ev_none_gem_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_g5m_u
+  evaluation_id: ev_none_g5m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '72.16'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_g5m_static
+  evaluation_id: ev_none_g5m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_g5m_search
+  evaluation_id: ev_none_g5m_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_l33_u
+  evaluation_id: ev_none_l33_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '56.70'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_l33_static
+  evaluation_id: ev_none_l33_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_l33_search
+  evaluation_id: ev_none_l33_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_msa_u
+  evaluation_id: ev_none_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '73.20'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_msa_static
+  evaluation_id: ev_none_msa_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_none_msa_search
+  evaluation_id: ev_none_msa_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_gem_u
+  evaluation_id: ev_spot_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '75.26'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_gem_static
+  evaluation_id: ev_spot_gem_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '28'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_gem_search
+  evaluation_id: ev_spot_gem_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '99'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_g5m_u
+  evaluation_id: ev_spot_g5m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '76.29'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_g5m_static
+  evaluation_id: ev_spot_g5m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_g5m_search
+  evaluation_id: ev_spot_g5m_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '47'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_l33_u
+  evaluation_id: ev_spot_l33_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '39.18'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_l33_static
+  evaluation_id: ev_spot_l33_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '28'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_l33_search
+  evaluation_id: ev_spot_l33_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '99'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_msa_u
+  evaluation_id: ev_spot_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '68.04'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_msa_static
+  evaluation_id: ev_spot_msa_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_spot_msa_search
+  evaluation_id: ev_spot_msa_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '99'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_gem_u
+  evaluation_id: ev_sand_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '73.20'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_gem_static
+  evaluation_id: ev_sand_gem_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '21'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_gem_search
+  evaluation_id: ev_sand_gem_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '95'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_g5m_u
+  evaluation_id: ev_sand_g5m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '75.26'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_g5m_static
+  evaluation_id: ev_sand_g5m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_g5m_search
+  evaluation_id: ev_sand_g5m_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '69'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_l33_u
+  evaluation_id: ev_sand_l33_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '53.61'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_l33_static
+  evaluation_id: ev_sand_l33_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_l33_search
+  evaluation_id: ev_sand_l33_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_msa_u
+  evaluation_id: ev_sand_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '79.38'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_msa_static
+  evaluation_id: ev_sand_msa_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_sand_msa_search
+  evaluation_id: ev_sand_msa_search
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Search Attack ASR
+  value: '99'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+comparisons:
+- id: c_spot_gem_clean
+  left: ev_spot_gem_clean
+  right: ev_none_gem_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_gem_static
+  left: ev_spot_gem_static
+  right: ev_none_gem_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_gem_search
+  left: ev_spot_gem_search
+  right: ev_none_gem_search
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_gem_clean
+  left: ev_sand_gem_clean
+  right: ev_none_gem_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_gem_static
+  left: ev_sand_gem_static
+  right: ev_none_gem_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_gem_search
+  left: ev_sand_gem_search
+  right: ev_none_gem_search
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_g5m_clean
+  left: ev_spot_g5m_clean
+  right: ev_none_g5m_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_g5m_static
+  left: ev_spot_g5m_static
+  right: ev_none_g5m_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_g5m_search
+  left: ev_spot_g5m_search
+  right: ev_none_g5m_search
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_g5m_clean
+  left: ev_sand_g5m_clean
+  right: ev_none_g5m_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_g5m_static
+  left: ev_sand_g5m_static
+  right: ev_none_g5m_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_g5m_search
+  left: ev_sand_g5m_search
+  right: ev_none_g5m_search
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_l33_clean
+  left: ev_spot_l33_clean
+  right: ev_none_l33_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_l33_static
+  left: ev_spot_l33_static
+  right: ev_none_l33_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_l33_search
+  left: ev_spot_l33_search
+  right: ev_none_l33_search
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_l33_clean
+  left: ev_sand_l33_clean
+  right: ev_none_l33_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_l33_static
+  left: ev_sand_l33_static
+  right: ev_none_l33_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_l33_search
+  left: ev_sand_l33_search
+  right: ev_none_l33_search
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_msa_clean
+  left: ev_spot_msa_clean
+  right: ev_none_msa_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_msa_static
+  left: ev_spot_msa_static
+  right: ev_none_msa_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_spot_msa_search
+  left: ev_spot_msa_search
+  right: ev_none_msa_search
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_msa_clean
+  left: ev_sand_msa_clean
+  right: ev_none_msa_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_msa_static
+  left: ev_sand_msa_static
+  right: ev_none_msa_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_sand_msa_search
+  left: ev_sand_msa_search
+  right: ev_none_msa_search
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_msa_vs_l33_clean
+  left: ev_none_msa_clean
+  right: ev_none_l33_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: MetaSecAlign 70B against its base Llama-3.3 70B
+  page: 25
+- id: c_msa_vs_l33_static
+  left: ev_none_msa_static
+  right: ev_none_l33_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: MetaSecAlign 70B against its base Llama-3.3 70B
+  page: 25
+- id: c_msa_vs_l33_search
+  left: ev_none_msa_search
+  right: ev_none_l33_search
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: MetaSecAlign 70B against its base Llama-3.3 70B
+  page: 25
+claims:
+- id: k1
+  text: adaptive attacks bypass 12 recent defences with attack success above 90% for most
+  location: abstract
+  anchor: we bypass 12 recent defenses (based on a diverse set of techniques)
+  jobs:
+  - R1
+  supported_by:
+  - c_spot_gem_search
+  - c_spot_g5m_search
+  - c_spot_l33_search
+  - c_spot_msa_search
+  - c_sand_gem_search
+  - c_sand_g5m_search
+  - c_sand_l33_search
+  - c_sand_msa_search
+  - c_msa_vs_l33_search
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 7 (static and search ASR)
+    R2clean: Table 7 (utility)

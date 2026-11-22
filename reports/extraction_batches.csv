@@ -23,3 +23,15 @@ batch,report,slug,coded,status
 04b,pft_arxiv2025,2505.00626,2026-11-22,checked
 04b,ppa_arxiv2025,2506.05739,2026-11-22,checked
 04b,signedprompt_arxiv2024,2401.07612,2026-11-22,checked
+04c,advft2022_arxiv2025,2509.14271,2026-11-22,checked
+04c,arlas_arxiv2025,2510.05442,2026-11-22,checked
+04c,attackermovessecond_arxiv2025,2510.09023,2026-11-22,checked
+04c,civ_arxiv2025,2508.09288,2026-11-22,checked
+04c,ldd_arxiv2025,2511.21752,2026-11-22,checked
+04c,promptfencing_arxiv2025,2511.19727,2026-11-22,checked
+04c,reasalign_arxiv2026,2601.10173,2026-11-22,checked
+04c,redvisor_arxiv2026,2602.01795,2026-11-22,checked
+04c,rlhammer_arxiv2025,2510.04885,2026-11-22,checked
+04c,secinfer_arxiv2025,2509.24967,2026-11-22,checked
+04c,surfaceheuristics_arxiv2026,2601.07185,2026-11-22,checked
+04c,verih_arxiv2025,2511.04694,2026-11-22,checked

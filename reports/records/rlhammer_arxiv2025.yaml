@@ -1,0 +1,322 @@
+report:
+  id: rlhammer_arxiv2025
+  slug: '2510.04885'
+  title: 'RL Is a Hammer and LLMs Are Nails: A Simple Reinforcement Learning Recipe for Strong Prompt Injection'
+  first_author: Yuxin Wen
+  venue: arXiv preprint (under review)
+  peer_reviewed: 'no'
+  arxiv: '2510.04885'
+  version_read: arXiv v1
+  first_date: '2025-10-06'
+  read: F
+  role: re_measures
+  code_release: not checked
+  extraction_scope: 'Sections 4.1 to 4.2: the Llama-3.1-8B-Instruct and Meta-SecAlign-8B columns of Table 1 (baseline attacks, GCG, and RL-Hammer trained against each target); the abstract claim (commercial models with built-in
+    defences, which have no undefended counterpart here, Meta-SecAlign-70B, whose base differs, and Tables 3 to 7 not coded)'
+defences:
+- id: msa8b
+  name: Meta-SecAlign-8B (released model, re-measured)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  name_as_printed: Meta-SecAlign-8B
+  layout: tool use enabled by prompting (white-box models)
+  anchor: consider Llama-3.1-8B-Instruct (Grattafiori et al., 2024), Meta-SecAlign-8B
+evaluations:
+- id: ev_none_default
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: InjecAgent, 100 held-out test samples
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker's target tool call made (InjecAgent)
+  layout_same_as_defence: 'yes'
+  measured_by: rlhammer_arxiv2025
+  page: 6
+  attacker_budget: InjecAgent default injection
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 5
+    sample_size: 5
+  baseline_kind: off_the_shelf
+- id: ev_msa_default
+  defence_id: msa8b
+  benchmark: InjecAgent, 100 held-out test samples
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker's target tool call made (InjecAgent)
+  layout_same_as_defence: 'yes'
+  measured_by: rlhammer_arxiv2025
+  page: 6
+  attacker_budget: InjecAgent default injection
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 5
+    sample_size: 5
+- id: ev_none_enh
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: InjecAgent, 100 held-out test samples
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker's target tool call made (InjecAgent)
+  layout_same_as_defence: 'yes'
+  measured_by: rlhammer_arxiv2025
+  page: 6
+  attacker_budget: InjecAgent enhanced injection
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 5
+    sample_size: 5
+  baseline_kind: off_the_shelf
+- id: ev_msa_enh
+  defence_id: msa8b
+  benchmark: InjecAgent, 100 held-out test samples
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker's target tool call made (InjecAgent)
+  layout_same_as_defence: 'yes'
+  measured_by: rlhammer_arxiv2025
+  page: 6
+  attacker_budget: InjecAgent enhanced injection
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 5
+    sample_size: 5
+- id: ev_none_gcg
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: InjecAgent, 100 held-out test samples
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attacker's target tool call made (InjecAgent)
+  layout_same_as_defence: 'yes'
+  measured_by: rlhammer_arxiv2025
+  page: 6
+  attacker_budget: GCG run directly on each white-box target
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 5
+    sample_size: 5
+  baseline_kind: off_the_shelf
+- id: ev_msa_gcg
+  defence_id: msa8b
+  benchmark: InjecAgent, 100 held-out test samples
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attacker's target tool call made (InjecAgent)
+  layout_same_as_defence: 'yes'
+  measured_by: rlhammer_arxiv2025
+  page: 6
+  attacker_budget: GCG run directly on each white-box target
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 5
+    sample_size: 5
+- id: ev_none_rl
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: InjecAgent, 100 held-out test samples
+  attacker_type: rl
+  attacker_access: black_box
+  judge: attacker's target tool call made (InjecAgent)
+  layout_same_as_defence: 'yes'
+  measured_by: rlhammer_arxiv2025
+  page: 6
+  attacker_budget: attacker model trained by RL against this target (with Llama-3.1-8B-Instruct as the easy training target)
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 5
+    sample_size: 5
+  baseline_kind: off_the_shelf
+- id: ev_msa_rl
+  defence_id: msa8b
+  benchmark: InjecAgent, 100 held-out test samples
+  attacker_type: rl
+  attacker_access: black_box
+  judge: attacker's target tool call made (InjecAgent)
+  layout_same_as_defence: 'yes'
+  measured_by: rlhammer_arxiv2025
+  page: 6
+  attacker_budget: attacker model trained by RL against this target (with Llama-3.1-8B-Instruct as the easy training target)
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 5
+    sample_size: 5
+results:
+- id: r_none_default
+  evaluation_id: ev_none_default
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Default Prompt
+  value: '31.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_msa_default
+  evaluation_id: ev_msa_default
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Default Prompt
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_none_enh
+  evaluation_id: ev_none_enh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Enhanced
+  value: '46.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_msa_enh
+  evaluation_id: ev_msa_enh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Enhanced
+  value: '3.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_none_gcg
+  evaluation_id: ev_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '32.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_msa_gcg
+  evaluation_id: ev_msa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '21.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_none_rl
+  evaluation_id: ev_none_rl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, RL-Hammer
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_msa_rl
+  evaluation_id: ev_msa_rl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, RL-Hammer
+  value: '98.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+comparisons:
+- id: c_default
+  left: ev_msa_default
+  right: ev_none_default
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_enh
+  left: ev_msa_enh
+  right: ev_none_enh
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg
+  left: ev_msa_gcg
+  right: ev_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_rl
+  left: ev_msa_rl
+  right: ev_none_rl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+claims:
+- id: k1
+  text: RL-Hammer reaches 98% ASR against GPT-4o and 72% against GPT-5 with the Instruction Hierarchy defence
+  location: abstract
+  anchor: RL-Hammer reaches a 98% ASR against GPT-4o
+  jobs:
+  - R1
+  supported_by:
+  - c_rl
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1 (InjecAgent)

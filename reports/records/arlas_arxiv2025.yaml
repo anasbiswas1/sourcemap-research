@@ -1,0 +1,386 @@
+report:
+  id: arlas_arxiv2025
+  slug: '2510.05442'
+  title: Adversarial Reinforcement Learning for Large Language Model Agent Safety
+  first_author: Zizhao Wang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2510.05442'
+  version_read: arXiv v1
+  first_date: '2025-10-06'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Sections 3 and 4.2: Table 1 (AgentDojo, base model, ARLAS and the two ablations, both base models); the abstract claim (BrowserGym results in Figures 3 and 4, chart only, the SPAG and ART baselines and
+    the diversity analysis not coded)'
+defences:
+- id: arlas_g12
+  name: ARLAS
+  origin: this_report
+  base_checkpoint: Gemma3 12B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - adversarial_rl
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  components:
+  - an attacker LLM and the agent LLM co-trained by RL as a two-player zero-sum game
+  - 'population-based learning: the agent trains against all earlier attacker checkpoints'
+  - a supervised fine-tuning stage before RL
+  layout: agent loop with tool outputs carrying injections
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: ARLAS (ours)
+  pages:
+    components: 1
+- id: arlas_q14
+  name: ARLAS
+  origin: this_report
+  base_checkpoint: Qwen3 14B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - adversarial_rl
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  components:
+  - an attacker LLM and the agent LLM co-trained by RL as a two-player zero-sum game
+  - 'population-based learning: the agent trains against all earlier attacker checkpoints'
+  - a supervised fine-tuning stage before RL
+  layout: agent loop with tool outputs carrying injections
+  layout_compat: *id001
+  anchor: ARLAS (ours)
+  pages:
+    components: 1
+- id: arlas_nopbl_g12
+  name: ARLAS without population-based learning
+  origin: this_report
+  base_checkpoint: Gemma3 12B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - adversarial_rl
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  anchor: ARLAS w/o PBL
+- id: arlas_noal_g12
+  name: ARLAS without adversarial learning
+  origin: this_report
+  base_checkpoint: Gemma3 12B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  anchor: ARLAS w/o AL
+evaluations:
+- id: ev_g12_none
+  defence_id: none:Gemma3 12B
+  benchmark: AgentDojo (out-of-distribution tasks and attack patterns)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'AgentDojo checks: attack success and task success'
+  layout_same_as_defence: 'yes'
+  measured_by: arlas_arxiv2025
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_g12_arlas
+  defence_id: arlas_g12
+  benchmark: AgentDojo (out-of-distribution tasks and attack patterns)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'AgentDojo checks: attack success and task success'
+  layout_same_as_defence: 'yes'
+  measured_by: arlas_arxiv2025
+  page: 8
+  decoding: not reported
+  run: mean of 3 random seeds
+- id: ev_g12_nopbl
+  defence_id: arlas_nopbl_g12
+  benchmark: AgentDojo (out-of-distribution tasks and attack patterns)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'AgentDojo checks: attack success and task success'
+  layout_same_as_defence: 'yes'
+  measured_by: arlas_arxiv2025
+  page: 8
+  decoding: not reported
+  run: mean of 3 random seeds
+- id: ev_g12_noal
+  defence_id: arlas_noal_g12
+  benchmark: AgentDojo (out-of-distribution tasks and attack patterns)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'AgentDojo checks: attack success and task success'
+  layout_same_as_defence: 'yes'
+  measured_by: arlas_arxiv2025
+  page: 8
+  decoding: not reported
+  run: mean of 3 random seeds
+- id: ev_q14_none
+  defence_id: none:Qwen3 14B
+  benchmark: AgentDojo (out-of-distribution tasks and attack patterns)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'AgentDojo checks: attack success and task success'
+  layout_same_as_defence: 'yes'
+  measured_by: arlas_arxiv2025
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q14_arlas
+  defence_id: arlas_q14
+  benchmark: AgentDojo (out-of-distribution tasks and attack patterns)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'AgentDojo checks: attack success and task success'
+  layout_same_as_defence: 'yes'
+  measured_by: arlas_arxiv2025
+  page: 8
+  decoding: not reported
+  run: mean of 3 random seeds
+results:
+- id: r_g12_none_asr
+  evaluation_id: ev_g12_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate (%)
+  value: '6.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_g12_none_tsr
+  evaluation_id: ev_g12_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: Task Success Rate (%)
+  value: '24.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_g12_arlas_asr
+  evaluation_id: ev_g12_arlas
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate (%)
+  value: '5.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: standard error ±0.1, 3 seeds
+- id: r_g12_arlas_tsr
+  evaluation_id: ev_g12_arlas
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: Task Success Rate (%)
+  value: '25.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: standard error ±0.1, 3 seeds
+- id: r_g12_nopbl_asr
+  evaluation_id: ev_g12_nopbl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate (%)
+  value: '6.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: standard error ±0.1, 3 seeds
+- id: r_g12_nopbl_tsr
+  evaluation_id: ev_g12_nopbl
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: Task Success Rate (%)
+  value: '23.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: standard error ±1.5, 3 seeds
+- id: r_g12_noal_asr
+  evaluation_id: ev_g12_noal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate (%)
+  value: '8.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: standard error ±0.0, 3 seeds
+- id: r_g12_noal_tsr
+  evaluation_id: ev_g12_noal
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: Task Success Rate (%)
+  value: '21.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: standard error ±1.3, 3 seeds
+- id: r_q14_none_asr
+  evaluation_id: ev_q14_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate (%)
+  value: '1.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q14_none_tsr
+  evaluation_id: ev_q14_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: Task Success Rate (%)
+  value: '30.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q14_arlas_asr
+  evaluation_id: ev_q14_arlas
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Attack Success Rate (%)
+  value: '1.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: standard error ±0.1, 3 seeds
+- id: r_q14_arlas_tsr
+  evaluation_id: ev_q14_arlas
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: Task Success Rate (%)
+  value: '31.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: standard error ±0.8, 3 seeds
+comparisons:
+- id: c_g12
+  left: ev_g12_arlas
+  right: ev_g12_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q14
+  left: ev_q14_arlas
+  right: ev_q14_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_g12_pbl
+  left: ev_g12_arlas
+  right: ev_g12_nopbl
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: population-based learning (on against off)
+  page: 8
+- id: c_g12_al
+  left: ev_g12_arlas
+  right: ev_g12_noal
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial learning (on against task-only training)
+  page: 8
+claims:
+- id: k1
+  text: ARLAS lowers attack success and raises task success
+  location: abstract
+  anchor: agents fine-tuned with ARLAS achieve a sig- nificantly lower attack success rate
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_g12
+  - c_q14
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: unclear
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1 (AgentDojo)
+    R2attack: Table 1 task success rate; whether it is measured on attacked runs is not stated

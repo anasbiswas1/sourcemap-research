@@ -1,0 +1,3491 @@
+report:
+  id: secinfer_arxiv2025
+  slug: '2509.24967'
+  title: 'SecInfer: Preventing Prompt Injection via Inference-time Scaling'
+  first_author: Yupei Liu
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2509.24967'
+  version_read: arXiv (version not printed on the PDF)
+  first_date: '2025-09-29'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Sections 4 and 5.1 to 5.3: Table 2 rows No, Delimiters, Sandwich, Instructional, MetaSecAlign and SecInfer under the Combined Attack and rows MetaSecAlign and SecInfer under GCG, all six target tasks;
+    Tables 5 and 6 (agents); the abstract claim (paraphrasing, retokenization, DS+PL and PromptArmor, which act outside the model, Table 1, Table 3 and the adaptive attacks of Table 8 not coded)'
+defences:
+- id: secinfer_l31
+  name: SecInfer
+  origin: this_report
+  base_checkpoint: LLaMA3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  components:
+  - N = 5 candidate responses, each sampled with a chain-of-thought system prompt drawn from a set, temperature and top-k sampling
+  - 'closed-domain tasks: majority over responses mapped to the output space; open-domain: clustering of response embeddings and a judge LLM (Qwen3-8B) that picks the cluster aligned with the target task'
+  layout: system prompt, then the target instruction, then the data
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: '4.2 Step I: System-prompt-guided Sampling'
+  pages:
+    components: 13
+- id: delim_l31
+  name: Delimiters
+  origin: other_report
+  base_checkpoint: LLaMA3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 14
+  anchor: SecInfer is more effective than prevention-based defense baselines
+  layout: system prompt, then the target instruction, then the data
+- id: sandwich_l31
+  name: Sandwich
+  origin: other_report
+  base_checkpoint: LLaMA3.1-8B-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 14
+  anchor: SecInfer is more effective than prevention-based defense baselines
+  layout: system prompt, then the target instruction, then the data
+- id: instr_l31
+  name: Instructional
+  origin: other_report
+  base_checkpoint: LLaMA3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 14
+  anchor: SecInfer is more effective than prevention-based defense baselines
+  layout: system prompt, then the target instruction, then the data
+- id: msa_l31
+  name: MetaSecAlign
+  origin: other_report
+  base_checkpoint: LLaMA3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 14
+  anchor: SecInfer is more effective than prevention-based defense baselines
+  layout: system prompt, then the target instruction, then the data
+evaluations:
+- id: ev_none_agnews_clean
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: AG News target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_agnews_ca
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: AG News target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_mmlu_clean
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: MMLU target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_mmlu_ca
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: MMLU target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_gpqa_clean
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: GPQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_gpqa_ca
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: GPQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_narrqa_clean
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: NarrativeQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_narrqa_ca
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: NarrativeQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_squad_clean
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: SQuAD_v2 target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_squad_ca
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: SQuAD_v2 target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_simpleqa_clean
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: SimpleQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_none_simpleqa_ca
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: SimpleQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_delim_agnews_clean
+  defence_id: delim_l31
+  benchmark: AG News target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_delim_agnews_ca
+  defence_id: delim_l31
+  benchmark: AG News target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_delim_mmlu_clean
+  defence_id: delim_l31
+  benchmark: MMLU target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_delim_mmlu_ca
+  defence_id: delim_l31
+  benchmark: MMLU target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_delim_gpqa_clean
+  defence_id: delim_l31
+  benchmark: GPQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_delim_gpqa_ca
+  defence_id: delim_l31
+  benchmark: GPQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_delim_narrqa_clean
+  defence_id: delim_l31
+  benchmark: NarrativeQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_delim_narrqa_ca
+  defence_id: delim_l31
+  benchmark: NarrativeQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_delim_squad_clean
+  defence_id: delim_l31
+  benchmark: SQuAD_v2 target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_delim_squad_ca
+  defence_id: delim_l31
+  benchmark: SQuAD_v2 target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_delim_simpleqa_clean
+  defence_id: delim_l31
+  benchmark: SimpleQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_delim_simpleqa_ca
+  defence_id: delim_l31
+  benchmark: SimpleQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_sandwich_agnews_clean
+  defence_id: sandwich_l31
+  benchmark: AG News target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_sandwich_agnews_ca
+  defence_id: sandwich_l31
+  benchmark: AG News target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_sandwich_mmlu_clean
+  defence_id: sandwich_l31
+  benchmark: MMLU target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_sandwich_mmlu_ca
+  defence_id: sandwich_l31
+  benchmark: MMLU target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_sandwich_gpqa_clean
+  defence_id: sandwich_l31
+  benchmark: GPQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_sandwich_gpqa_ca
+  defence_id: sandwich_l31
+  benchmark: GPQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_sandwich_narrqa_clean
+  defence_id: sandwich_l31
+  benchmark: NarrativeQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_sandwich_narrqa_ca
+  defence_id: sandwich_l31
+  benchmark: NarrativeQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_sandwich_squad_clean
+  defence_id: sandwich_l31
+  benchmark: SQuAD_v2 target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_sandwich_squad_ca
+  defence_id: sandwich_l31
+  benchmark: SQuAD_v2 target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_sandwich_simpleqa_clean
+  defence_id: sandwich_l31
+  benchmark: SimpleQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_sandwich_simpleqa_ca
+  defence_id: sandwich_l31
+  benchmark: SimpleQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_instr_agnews_clean
+  defence_id: instr_l31
+  benchmark: AG News target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_instr_agnews_ca
+  defence_id: instr_l31
+  benchmark: AG News target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_instr_mmlu_clean
+  defence_id: instr_l31
+  benchmark: MMLU target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_instr_mmlu_ca
+  defence_id: instr_l31
+  benchmark: MMLU target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_instr_gpqa_clean
+  defence_id: instr_l31
+  benchmark: GPQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_instr_gpqa_ca
+  defence_id: instr_l31
+  benchmark: GPQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_instr_narrqa_clean
+  defence_id: instr_l31
+  benchmark: NarrativeQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_instr_narrqa_ca
+  defence_id: instr_l31
+  benchmark: NarrativeQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_instr_squad_clean
+  defence_id: instr_l31
+  benchmark: SQuAD_v2 target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_instr_squad_ca
+  defence_id: instr_l31
+  benchmark: SQuAD_v2 target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_instr_simpleqa_clean
+  defence_id: instr_l31
+  benchmark: SimpleQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_instr_simpleqa_ca
+  defence_id: instr_l31
+  benchmark: SimpleQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_msa_agnews_clean
+  defence_id: msa_l31
+  benchmark: AG News target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_msa_agnews_ca
+  defence_id: msa_l31
+  benchmark: AG News target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_msa_mmlu_clean
+  defence_id: msa_l31
+  benchmark: MMLU target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_msa_mmlu_ca
+  defence_id: msa_l31
+  benchmark: MMLU target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_msa_gpqa_clean
+  defence_id: msa_l31
+  benchmark: GPQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_msa_gpqa_ca
+  defence_id: msa_l31
+  benchmark: GPQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_msa_narrqa_clean
+  defence_id: msa_l31
+  benchmark: NarrativeQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_msa_narrqa_ca
+  defence_id: msa_l31
+  benchmark: NarrativeQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_msa_squad_clean
+  defence_id: msa_l31
+  benchmark: SQuAD_v2 target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_msa_squad_ca
+  defence_id: msa_l31
+  benchmark: SQuAD_v2 target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_msa_simpleqa_clean
+  defence_id: msa_l31
+  benchmark: SimpleQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_msa_simpleqa_ca
+  defence_id: msa_l31
+  benchmark: SimpleQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_secinfer_agnews_clean
+  defence_id: secinfer_l31
+  benchmark: AG News target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_secinfer_agnews_ca
+  defence_id: secinfer_l31
+  benchmark: AG News target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_secinfer_mmlu_clean
+  defence_id: secinfer_l31
+  benchmark: MMLU target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_secinfer_mmlu_ca
+  defence_id: secinfer_l31
+  benchmark: MMLU target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_secinfer_gpqa_clean
+  defence_id: secinfer_l31
+  benchmark: GPQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_secinfer_gpqa_ca
+  defence_id: secinfer_l31
+  benchmark: GPQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_secinfer_narrqa_clean
+  defence_id: secinfer_l31
+  benchmark: NarrativeQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_secinfer_narrqa_ca
+  defence_id: secinfer_l31
+  benchmark: NarrativeQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_secinfer_squad_clean
+  defence_id: secinfer_l31
+  benchmark: SQuAD_v2 target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_secinfer_squad_ca
+  defence_id: secinfer_l31
+  benchmark: SQuAD_v2 target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_secinfer_simpleqa_clean
+  defence_id: secinfer_l31
+  benchmark: SimpleQA target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: target-task metric without attack (per-task metrics, Appendix F)
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+- id: ev_secinfer_simpleqa_ca
+  defence_id: secinfer_l31
+  benchmark: SimpleQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: Combined Attack
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    benchmark: 13
+- id: ev_msa_agnews_gcg
+  defence_id: msa_l31
+  benchmark: AG News target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_msa_mmlu_gcg
+  defence_id: msa_l31
+  benchmark: MMLU target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_msa_gpqa_gcg
+  defence_id: msa_l31
+  benchmark: GPQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_msa_narrqa_gcg
+  defence_id: msa_l31
+  benchmark: NarrativeQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_msa_squad_gcg
+  defence_id: msa_l31
+  benchmark: SQuAD_v2 target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_msa_simpleqa_gcg
+  defence_id: msa_l31
+  benchmark: SimpleQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_secinfer_agnews_gcg
+  defence_id: secinfer_l31
+  benchmark: AG News target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_secinfer_mmlu_gcg
+  defence_id: secinfer_l31
+  benchmark: MMLU target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_secinfer_gpqa_gcg
+  defence_id: secinfer_l31
+  benchmark: GPQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_secinfer_narrqa_gcg
+  defence_id: secinfer_l31
+  benchmark: NarrativeQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_secinfer_squad_gcg
+  defence_id: secinfer_l31
+  benchmark: SQuAD_v2 target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_secinfer_simpleqa_gcg
+  defence_id: secinfer_l31
+  benchmark: SimpleQA target task, 8 injected tasks, 100 contaminated samples per pair
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: 'ASR: response completes the injected task; UA: target-task metric under attack (per-task metrics, Appendix F)'
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 15
+  attacker_budget: GCG-based attack on the target instruction and backend LLM
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  pages:
+    judge: 13
+    attacker_access: 12
+- id: ev_none_ia_dh_base
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: InjecAgent, Direct Harm, Base Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-desired action predicted
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  baseline_kind: off_the_shelf
+- id: ev_secinfer_ia_dh_base
+  defence_id: secinfer_l31
+  benchmark: InjecAgent, Direct Harm, Base Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-desired action predicted
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+- id: ev_none_ia_ds_base
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: InjecAgent, Data Stealing, Base Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-desired action predicted
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  baseline_kind: off_the_shelf
+- id: ev_secinfer_ia_ds_base
+  defence_id: secinfer_l31
+  benchmark: InjecAgent, Data Stealing, Base Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-desired action predicted
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+- id: ev_none_ia_dh_enh
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: InjecAgent, Direct Harm, Enhanced Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-desired action predicted
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  baseline_kind: off_the_shelf
+- id: ev_secinfer_ia_dh_enh
+  defence_id: secinfer_l31
+  benchmark: InjecAgent, Direct Harm, Enhanced Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-desired action predicted
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+- id: ev_none_ia_ds_enh
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: InjecAgent, Data Stealing, Enhanced Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-desired action predicted
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  baseline_kind: off_the_shelf
+- id: ev_secinfer_ia_ds_enh
+  defence_id: secinfer_l31
+  benchmark: InjecAgent, Data Stealing, Enhanced Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-desired action predicted
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+- id: ev_none_dojo_clean
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  baseline_kind: off_the_shelf
+- id: ev_none_dojo_atk
+  defence_id: none:LLaMA3.1-8B-Instruct
+  benchmark: AgentDojo with injections in tool results
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo utility and security checks
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+  baseline_kind: off_the_shelf
+- id: ev_secinfer_dojo_clean
+  defence_id: secinfer_l31
+  benchmark: AgentDojo user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo utility check
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+- id: ev_secinfer_dojo_atk
+  defence_id: secinfer_l31
+  benchmark: AgentDojo with injections in tool results
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo utility and security checks
+  layout_same_as_defence: 'yes'
+  measured_by: secinfer_arxiv2025
+  page: 16
+  decoding: not reported for the baselines; SecInfer samples with temperature and top-k
+results:
+- id: r_none_agnews_u
+  evaluation_id: ev_none_agnews_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, AG News
+  value: '0.79'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_agnews_ua
+  evaluation_id: ev_none_agnews_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, AG News
+  value: '0.09'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_agnews_asr
+  evaluation_id: ev_none_agnews_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, AG News
+  value: '0.64'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_mmlu_u
+  evaluation_id: ev_none_mmlu_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, MMLU
+  value: '0.41'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_mmlu_ua
+  evaluation_id: ev_none_mmlu_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, MMLU
+  value: '0.03'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_mmlu_asr
+  evaluation_id: ev_none_mmlu_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, MMLU
+  value: '0.54'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_gpqa_u
+  evaluation_id: ev_none_gpqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, GPQA
+  value: '0.26'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_gpqa_ua
+  evaluation_id: ev_none_gpqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, GPQA
+  value: '0.03'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_gpqa_asr
+  evaluation_id: ev_none_gpqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GPQA
+  value: '0.55'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_narrqa_u
+  evaluation_id: ev_none_narrqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, NarrativeQA
+  value: '0.50'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_narrqa_ua
+  evaluation_id: ev_none_narrqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, NarrativeQA
+  value: '0.05'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_narrqa_asr
+  evaluation_id: ev_none_narrqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NarrativeQA
+  value: '0.76'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_squad_u
+  evaluation_id: ev_none_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SQuAD_v2
+  value: '0.68'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_squad_ua
+  evaluation_id: ev_none_squad_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SQuAD_v2
+  value: '0.06'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_squad_asr
+  evaluation_id: ev_none_squad_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SQuAD_v2
+  value: '0.85'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_simpleqa_u
+  evaluation_id: ev_none_simpleqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SimpleQA
+  value: '0.62'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_simpleqa_ua
+  evaluation_id: ev_none_simpleqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SimpleQA
+  value: '0.15'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_simpleqa_asr
+  evaluation_id: ev_none_simpleqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SimpleQA
+  value: '0.87'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_agnews_u
+  evaluation_id: ev_delim_agnews_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, AG News
+  value: '0.78'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_agnews_ua
+  evaluation_id: ev_delim_agnews_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, AG News
+  value: '0.32'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_agnews_asr
+  evaluation_id: ev_delim_agnews_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, AG News
+  value: '0.54'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_mmlu_u
+  evaluation_id: ev_delim_mmlu_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, MMLU
+  value: '0.36'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_mmlu_ua
+  evaluation_id: ev_delim_mmlu_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, MMLU
+  value: '0.19'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_mmlu_asr
+  evaluation_id: ev_delim_mmlu_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, MMLU
+  value: '0.57'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_gpqa_u
+  evaluation_id: ev_delim_gpqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, GPQA
+  value: '0.22'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_gpqa_ua
+  evaluation_id: ev_delim_gpqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, GPQA
+  value: '0.10'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_gpqa_asr
+  evaluation_id: ev_delim_gpqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GPQA
+  value: '0.53'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_narrqa_u
+  evaluation_id: ev_delim_narrqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, NarrativeQA
+  value: '0.50'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_narrqa_ua
+  evaluation_id: ev_delim_narrqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, NarrativeQA
+  value: '0.07'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_narrqa_asr
+  evaluation_id: ev_delim_narrqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NarrativeQA
+  value: '0.72'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_squad_u
+  evaluation_id: ev_delim_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SQuAD_v2
+  value: '0.74'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_squad_ua
+  evaluation_id: ev_delim_squad_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SQuAD_v2
+  value: '0.18'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_squad_asr
+  evaluation_id: ev_delim_squad_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SQuAD_v2
+  value: '0.64'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_simpleqa_u
+  evaluation_id: ev_delim_simpleqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SimpleQA
+  value: '0.38'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_simpleqa_ua
+  evaluation_id: ev_delim_simpleqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SimpleQA
+  value: '0.50'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_delim_simpleqa_asr
+  evaluation_id: ev_delim_simpleqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SimpleQA
+  value: '0.71'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_agnews_u
+  evaluation_id: ev_sandwich_agnews_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, AG News
+  value: '0.88'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_agnews_ua
+  evaluation_id: ev_sandwich_agnews_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, AG News
+  value: '0.24'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_agnews_asr
+  evaluation_id: ev_sandwich_agnews_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, AG News
+  value: '0.85'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_mmlu_u
+  evaluation_id: ev_sandwich_mmlu_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, MMLU
+  value: '0.50'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_mmlu_ua
+  evaluation_id: ev_sandwich_mmlu_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, MMLU
+  value: '0.22'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_mmlu_asr
+  evaluation_id: ev_sandwich_mmlu_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, MMLU
+  value: '0.73'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_gpqa_u
+  evaluation_id: ev_sandwich_gpqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, GPQA
+  value: '0.22'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_gpqa_ua
+  evaluation_id: ev_sandwich_gpqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, GPQA
+  value: '0.05'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_gpqa_asr
+  evaluation_id: ev_sandwich_gpqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GPQA
+  value: '0.73'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_narrqa_u
+  evaluation_id: ev_sandwich_narrqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, NarrativeQA
+  value: '0.51'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_narrqa_ua
+  evaluation_id: ev_sandwich_narrqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, NarrativeQA
+  value: '0.06'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_narrqa_asr
+  evaluation_id: ev_sandwich_narrqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NarrativeQA
+  value: '0.82'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_squad_u
+  evaluation_id: ev_sandwich_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SQuAD_v2
+  value: '0.78'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_squad_ua
+  evaluation_id: ev_sandwich_squad_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SQuAD_v2
+  value: '0.04'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_squad_asr
+  evaluation_id: ev_sandwich_squad_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SQuAD_v2
+  value: '0.65'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_simpleqa_u
+  evaluation_id: ev_sandwich_simpleqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SimpleQA
+  value: '0.27'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_simpleqa_ua
+  evaluation_id: ev_sandwich_simpleqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SimpleQA
+  value: '0.57'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_sandwich_simpleqa_asr
+  evaluation_id: ev_sandwich_simpleqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SimpleQA
+  value: '0.85'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_agnews_u
+  evaluation_id: ev_instr_agnews_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, AG News
+  value: '0.83'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_agnews_ua
+  evaluation_id: ev_instr_agnews_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, AG News
+  value: '0.04'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_agnews_asr
+  evaluation_id: ev_instr_agnews_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, AG News
+  value: '0.57'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_mmlu_u
+  evaluation_id: ev_instr_mmlu_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, MMLU
+  value: '0.43'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_mmlu_ua
+  evaluation_id: ev_instr_mmlu_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, MMLU
+  value: '0.09'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_mmlu_asr
+  evaluation_id: ev_instr_mmlu_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, MMLU
+  value: '0.49'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_gpqa_u
+  evaluation_id: ev_instr_gpqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, GPQA
+  value: '0.25'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_gpqa_ua
+  evaluation_id: ev_instr_gpqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, GPQA
+  value: '0.02'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_gpqa_asr
+  evaluation_id: ev_instr_gpqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GPQA
+  value: '0.57'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_narrqa_u
+  evaluation_id: ev_instr_narrqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, NarrativeQA
+  value: '0.50'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_narrqa_ua
+  evaluation_id: ev_instr_narrqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, NarrativeQA
+  value: '0.03'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_narrqa_asr
+  evaluation_id: ev_instr_narrqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NarrativeQA
+  value: '0.73'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_squad_u
+  evaluation_id: ev_instr_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SQuAD_v2
+  value: '0.50'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_squad_ua
+  evaluation_id: ev_instr_squad_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SQuAD_v2
+  value: '0.03'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_squad_asr
+  evaluation_id: ev_instr_squad_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SQuAD_v2
+  value: '0.81'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_simpleqa_u
+  evaluation_id: ev_instr_simpleqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SimpleQA
+  value: '0.19'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_simpleqa_ua
+  evaluation_id: ev_instr_simpleqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SimpleQA
+  value: '0.21'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_instr_simpleqa_asr
+  evaluation_id: ev_instr_simpleqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SimpleQA
+  value: '0.80'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_agnews_u
+  evaluation_id: ev_msa_agnews_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, AG News
+  value: '0.85'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_agnews_ua
+  evaluation_id: ev_msa_agnews_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, AG News
+  value: '0.84'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_agnews_asr
+  evaluation_id: ev_msa_agnews_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, AG News
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_mmlu_u
+  evaluation_id: ev_msa_mmlu_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, MMLU
+  value: '0.50'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_mmlu_ua
+  evaluation_id: ev_msa_mmlu_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, MMLU
+  value: '0.49'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_mmlu_asr
+  evaluation_id: ev_msa_mmlu_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, MMLU
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_gpqa_u
+  evaluation_id: ev_msa_gpqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, GPQA
+  value: '0.29'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_gpqa_ua
+  evaluation_id: ev_msa_gpqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, GPQA
+  value: '0.29'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_gpqa_asr
+  evaluation_id: ev_msa_gpqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GPQA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_narrqa_u
+  evaluation_id: ev_msa_narrqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, NarrativeQA
+  value: '0.53'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_narrqa_ua
+  evaluation_id: ev_msa_narrqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, NarrativeQA
+  value: '0.52'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_narrqa_asr
+  evaluation_id: ev_msa_narrqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NarrativeQA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_squad_u
+  evaluation_id: ev_msa_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SQuAD_v2
+  value: '0.73'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_squad_ua
+  evaluation_id: ev_msa_squad_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SQuAD_v2
+  value: '0.67'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_squad_asr
+  evaluation_id: ev_msa_squad_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SQuAD_v2
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_simpleqa_u
+  evaluation_id: ev_msa_simpleqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SimpleQA
+  value: '0.64'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_simpleqa_ua
+  evaluation_id: ev_msa_simpleqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SimpleQA
+  value: '0.53'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_simpleqa_asr
+  evaluation_id: ev_msa_simpleqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SimpleQA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_agnews_u
+  evaluation_id: ev_secinfer_agnews_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, AG News
+  value: '0.86'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_agnews_ua
+  evaluation_id: ev_secinfer_agnews_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, AG News
+  value: '0.81'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_agnews_asr
+  evaluation_id: ev_secinfer_agnews_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, AG News
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_mmlu_u
+  evaluation_id: ev_secinfer_mmlu_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, MMLU
+  value: '0.49'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_mmlu_ua
+  evaluation_id: ev_secinfer_mmlu_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, MMLU
+  value: '0.49'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_mmlu_asr
+  evaluation_id: ev_secinfer_mmlu_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, MMLU
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_gpqa_u
+  evaluation_id: ev_secinfer_gpqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, GPQA
+  value: '0.29'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_gpqa_ua
+  evaluation_id: ev_secinfer_gpqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, GPQA
+  value: '0.29'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_gpqa_asr
+  evaluation_id: ev_secinfer_gpqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GPQA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_narrqa_u
+  evaluation_id: ev_secinfer_narrqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, NarrativeQA
+  value: '0.52'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_narrqa_ua
+  evaluation_id: ev_secinfer_narrqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, NarrativeQA
+  value: '0.48'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_narrqa_asr
+  evaluation_id: ev_secinfer_narrqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NarrativeQA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_squad_u
+  evaluation_id: ev_secinfer_squad_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SQuAD_v2
+  value: '0.72'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_squad_ua
+  evaluation_id: ev_secinfer_squad_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SQuAD_v2
+  value: '0.64'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_squad_asr
+  evaluation_id: ev_secinfer_squad_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SQuAD_v2
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_simpleqa_u
+  evaluation_id: ev_secinfer_simpleqa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U, SimpleQA
+  value: '0.59'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_simpleqa_ua
+  evaluation_id: ev_secinfer_simpleqa_ca
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SimpleQA
+  value: '0.53'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_simpleqa_asr
+  evaluation_id: ev_secinfer_simpleqa_ca
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SimpleQA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_agnews_ua_gcg
+  evaluation_id: ev_msa_agnews_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, AG News
+  value: '0.01'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_agnews_asr_gcg
+  evaluation_id: ev_msa_agnews_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, AG News
+  value: '0.63'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_mmlu_ua_gcg
+  evaluation_id: ev_msa_mmlu_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, MMLU
+  value: '0.01'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_mmlu_asr_gcg
+  evaluation_id: ev_msa_mmlu_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, MMLU
+  value: '0.54'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_gpqa_ua_gcg
+  evaluation_id: ev_msa_gpqa_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, GPQA
+  value: '0.12'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_gpqa_asr_gcg
+  evaluation_id: ev_msa_gpqa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GPQA
+  value: '0.57'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_narrqa_ua_gcg
+  evaluation_id: ev_msa_narrqa_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, NarrativeQA
+  value: '0.01'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_narrqa_asr_gcg
+  evaluation_id: ev_msa_narrqa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NarrativeQA
+  value: '0.47'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_squad_ua_gcg
+  evaluation_id: ev_msa_squad_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SQuAD_v2
+  value: '0.00'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_squad_asr_gcg
+  evaluation_id: ev_msa_squad_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SQuAD_v2
+  value: '0.25'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_simpleqa_ua_gcg
+  evaluation_id: ev_msa_simpleqa_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SimpleQA
+  value: '0.01'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_msa_simpleqa_asr_gcg
+  evaluation_id: ev_msa_simpleqa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SimpleQA
+  value: '0.37'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_agnews_ua_gcg
+  evaluation_id: ev_secinfer_agnews_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, AG News
+  value: '0.67'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_agnews_asr_gcg
+  evaluation_id: ev_secinfer_agnews_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, AG News
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_mmlu_ua_gcg
+  evaluation_id: ev_secinfer_mmlu_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, MMLU
+  value: '0.44'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_mmlu_asr_gcg
+  evaluation_id: ev_secinfer_mmlu_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, MMLU
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_gpqa_ua_gcg
+  evaluation_id: ev_secinfer_gpqa_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, GPQA
+  value: '0.25'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_gpqa_asr_gcg
+  evaluation_id: ev_secinfer_gpqa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GPQA
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_narrqa_ua_gcg
+  evaluation_id: ev_secinfer_narrqa_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, NarrativeQA
+  value: '0.42'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_narrqa_asr_gcg
+  evaluation_id: ev_secinfer_narrqa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, NarrativeQA
+  value: '0.02'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_squad_ua_gcg
+  evaluation_id: ev_secinfer_squad_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SQuAD_v2
+  value: '0.34'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_squad_asr_gcg
+  evaluation_id: ev_secinfer_squad_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SQuAD_v2
+  value: '0.01'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_simpleqa_ua_gcg
+  evaluation_id: ev_secinfer_simpleqa_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA, SimpleQA
+  value: '0.31'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_secinfer_simpleqa_asr_gcg
+  evaluation_id: ev_secinfer_simpleqa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, SimpleQA
+  value: '0.02'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 2
+- id: r_none_ia_dh_base
+  evaluation_id: ev_none_ia_dh_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Direct Harm, Base Attack
+  value: '0.37'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+- id: r_secinfer_ia_dh_base
+  evaluation_id: ev_secinfer_ia_dh_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Direct Harm, Base Attack
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+- id: r_none_ia_ds_base
+  evaluation_id: ev_none_ia_ds_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Data Stealing, Base Attack
+  value: '0.40'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+- id: r_secinfer_ia_ds_base
+  evaluation_id: ev_secinfer_ia_ds_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Data Stealing, Base Attack
+  value: '0.02'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+- id: r_none_ia_dh_enh
+  evaluation_id: ev_none_ia_dh_enh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Direct Harm, Enhanced Attack
+  value: '0.61'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+- id: r_secinfer_ia_dh_enh
+  evaluation_id: ev_secinfer_ia_dh_enh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Direct Harm, Enhanced Attack
+  value: '0.01'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+- id: r_none_ia_ds_enh
+  evaluation_id: ev_none_ia_ds_enh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Data Stealing, Enhanced Attack
+  value: '0.68'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+- id: r_secinfer_ia_ds_enh
+  evaluation_id: ev_secinfer_ia_ds_enh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Data Stealing, Enhanced Attack
+  value: '0.02'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+- id: r_none_dojo_u
+  evaluation_id: ev_none_dojo_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U
+  value: '0.40'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_none_dojo_ua
+  evaluation_id: ev_none_dojo_atk
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA
+  value: '0.34'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_none_dojo_asr
+  evaluation_id: ev_none_dojo_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.21'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_secinfer_dojo_u
+  evaluation_id: ev_secinfer_dojo_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: U
+  value: '0.39'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_secinfer_dojo_ua
+  evaluation_id: ev_secinfer_dojo_atk
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA
+  value: '0.36'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_secinfer_dojo_asr
+  evaluation_id: ev_secinfer_dojo_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.02'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+comparisons:
+- id: c_agnews_ca_si_none
+  left: ev_secinfer_agnews_ca
+  right: ev_none_agnews_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_agnews_clean_si_none
+  left: ev_secinfer_agnews_clean
+  right: ev_none_agnews_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_agnews_ca_si_msa
+  left: ev_secinfer_agnews_ca
+  right: ev_msa_agnews_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign
+  page: 15
+- id: c_agnews_gcg_si_msa
+  left: ev_secinfer_agnews_gcg
+  right: ev_msa_agnews_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign under GCG
+  page: 15
+- id: c_mmlu_ca_si_none
+  left: ev_secinfer_mmlu_ca
+  right: ev_none_mmlu_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_mmlu_clean_si_none
+  left: ev_secinfer_mmlu_clean
+  right: ev_none_mmlu_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_mmlu_ca_si_msa
+  left: ev_secinfer_mmlu_ca
+  right: ev_msa_mmlu_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign
+  page: 15
+- id: c_mmlu_gcg_si_msa
+  left: ev_secinfer_mmlu_gcg
+  right: ev_msa_mmlu_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign under GCG
+  page: 15
+- id: c_gpqa_ca_si_none
+  left: ev_secinfer_gpqa_ca
+  right: ev_none_gpqa_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_gpqa_clean_si_none
+  left: ev_secinfer_gpqa_clean
+  right: ev_none_gpqa_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_gpqa_ca_si_msa
+  left: ev_secinfer_gpqa_ca
+  right: ev_msa_gpqa_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign
+  page: 15
+- id: c_gpqa_gcg_si_msa
+  left: ev_secinfer_gpqa_gcg
+  right: ev_msa_gpqa_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign under GCG
+  page: 15
+- id: c_narrqa_ca_si_none
+  left: ev_secinfer_narrqa_ca
+  right: ev_none_narrqa_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_narrqa_clean_si_none
+  left: ev_secinfer_narrqa_clean
+  right: ev_none_narrqa_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_narrqa_ca_si_msa
+  left: ev_secinfer_narrqa_ca
+  right: ev_msa_narrqa_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign
+  page: 15
+- id: c_narrqa_gcg_si_msa
+  left: ev_secinfer_narrqa_gcg
+  right: ev_msa_narrqa_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign under GCG
+  page: 15
+- id: c_squad_ca_si_none
+  left: ev_secinfer_squad_ca
+  right: ev_none_squad_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_squad_clean_si_none
+  left: ev_secinfer_squad_clean
+  right: ev_none_squad_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_squad_ca_si_msa
+  left: ev_secinfer_squad_ca
+  right: ev_msa_squad_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign
+  page: 15
+- id: c_squad_gcg_si_msa
+  left: ev_secinfer_squad_gcg
+  right: ev_msa_squad_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign under GCG
+  page: 15
+- id: c_simpleqa_ca_si_none
+  left: ev_secinfer_simpleqa_ca
+  right: ev_none_simpleqa_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_simpleqa_clean_si_none
+  left: ev_secinfer_simpleqa_clean
+  right: ev_none_simpleqa_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (its sampling of several responses is part of SecInfer; the harness decoding is not stated)
+  page: 15
+- id: c_simpleqa_ca_si_msa
+  left: ev_secinfer_simpleqa_ca
+  right: ev_msa_simpleqa_ca
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign
+  page: 15
+- id: c_simpleqa_gcg_si_msa
+  left: ev_secinfer_simpleqa_gcg
+  right: ev_msa_simpleqa_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecInfer against MetaSecAlign under GCG
+  page: 15
+- id: c_ia_dh_base
+  left: ev_secinfer_ia_dh_base
+  right: ev_none_ia_dh_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_ia_ds_base
+  left: ev_secinfer_ia_ds_base
+  right: ev_none_ia_ds_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_ia_dh_enh
+  left: ev_secinfer_ia_dh_enh
+  right: ev_none_ia_dh_enh
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_ia_ds_enh
+  left: ev_secinfer_ia_ds_enh
+  right: ev_none_ia_ds_enh
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dojo_clean
+  left: ev_secinfer_dojo_clean
+  right: ev_none_dojo_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dojo_atk
+  left: ev_secinfer_dojo_atk
+  right: ev_none_dojo_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+claims:
+- id: k1
+  text: SecInfer mitigates existing and adaptive attacks and outperforms state-of-the-art defences
+  location: abstract
+  anchor: SecInfer effectively mitigates both existing and adap- tive prompt injection attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_agnews_ca_si_none
+  - c_mmlu_ca_si_none
+  - c_gpqa_ca_si_none
+  - c_narrqa_ca_si_none
+  - c_squad_ca_si_none
+  - c_simpleqa_ca_si_none
+  - c_agnews_gcg_si_msa
+  - c_mmlu_gcg_si_msa
+  - c_gpqa_gcg_si_msa
+  - c_narrqa_gcg_si_msa
+  - c_squad_gcg_si_msa
+  - c_simpleqa_gcg_si_msa
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 2, 5, 6
+    R2clean: Tables 2 and 6 (U)
+    R2attack: Tables 2 and 6 (UA)

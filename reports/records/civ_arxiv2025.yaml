@@ -1,0 +1,329 @@
+report:
+  id: civ_arxiv2025
+  slug: '2508.09288'
+  title: 'Can AI Keep a Secret? Contextual Integrity Verification: A Provable Security Architecture for LLMs'
+  first_author: Aayush Gupta
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2508.09288'
+  version_read: arXiv v2
+  first_date: '2025-08-12'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Sections 4 and 5: Table 2 rows None and CIV (Elite ASR, SoK ASR, Sim) and the Unsigned labels and Hard mask + gate rows of Table 3; the abstract claim (the guardrail comparators, which sit outside the
+    model, latency and the formal analysis not coded)'
+defences:
+- id: civ_l3
+  name: Contextual Integrity Verification (CIV)
+  origin: this_report
+  base_checkpoint: Llama-3-8B Instruct (frozen)
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 8
+  components:
+  - every token carries an HMAC-signed trust label (SYSTEM > USER > TOOL > DOC > WEB)
+  - attention from higher-trust to lower-trust tokens masked to minus infinity in 20 replaced decoder layers
+  - optional gate that damps feed-forward updates of tokens with inaccessible higher-trust context
+  layout: token provenance labels assigned by the serving stack; no prompt change
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  released_weights: not applicable (frozen model)
+  anchor: We deploy Llama-3-8B Instruct as our baseline, surgically replacing
+  signal_dependence_detail: 'Table 3: unsigned labels give 7.1% ASR and no trust propagation 3.2%, against 0% for the full system'
+  pages:
+    components: 7
+    signal_dependence: 9
+    isolation: 9
+- id: civ_unsigned_l3
+  name: CIV with unsigned labels (no HMAC), ablation
+  origin: this_report
+  base_checkpoint: Llama-3-8B Instruct (frozen)
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  anchor: Unsigned labels (no HMAC)
+evaluations:
+- id: ev_none_elite
+  defence_id: none:Llama-3-8B Instruct (frozen)
+  benchmark: 'Elite-Attack: 100 verified jailbreak and injection prompts in ten families (including indirect web injection)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success rate (criterion not stated)
+  layout_same_as_defence: 'yes'
+  measured_by: civ_arxiv2025
+  page: 9
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 8
+  baseline_kind: off_the_shelf
+- id: ev_none_sok
+  defence_id: none:Llama-3-8B Instruct (frozen)
+  benchmark: 'SoK-246: 246 prompts curated by Hu et al.'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success rate (criterion not stated)
+  layout_same_as_defence: 'yes'
+  measured_by: civ_arxiv2025
+  page: 9
+  sample_size: '246'
+  decoding: not reported
+  pages:
+    benchmark: 8
+  baseline_kind: off_the_shelf
+- id: ev_none_benign
+  defence_id: none:Llama-3-8B Instruct (frozen)
+  benchmark: 'Benign-10: ten legitimate task categories'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: token-level exact-match similarity to the undefended model's output
+  layout_same_as_defence: 'yes'
+  measured_by: civ_arxiv2025
+  page: 9
+  decoding: not reported
+  pages:
+    benchmark: 8
+    judge: 8
+  baseline_kind: off_the_shelf
+- id: ev_civ_elite
+  defence_id: civ_l3
+  benchmark: 'Elite-Attack: 100 verified jailbreak and injection prompts in ten families (including indirect web injection)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success rate (criterion not stated)
+  layout_same_as_defence: 'yes'
+  measured_by: civ_arxiv2025
+  page: 9
+  sample_size: '100'
+  decoding: not reported
+  pages:
+    benchmark: 8
+- id: ev_civ_sok
+  defence_id: civ_l3
+  benchmark: 'SoK-246: 246 prompts curated by Hu et al.'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success rate (criterion not stated)
+  layout_same_as_defence: 'yes'
+  measured_by: civ_arxiv2025
+  page: 9
+  sample_size: '246'
+  decoding: not reported
+  pages:
+    benchmark: 8
+- id: ev_civ_benign
+  defence_id: civ_l3
+  benchmark: 'Benign-10: ten legitimate task categories'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: token-level exact-match similarity to the undefended model's output
+  layout_same_as_defence: 'yes'
+  measured_by: civ_arxiv2025
+  page: 9
+  decoding: not reported
+  pages:
+    benchmark: 8
+    judge: 8
+- id: ev_abl_full
+  defence_id: civ_l3
+  benchmark: attack prompts (set not stated for the ablation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success rate (criterion not stated)
+  layout_same_as_defence: 'yes'
+  measured_by: civ_arxiv2025
+  page: 9
+  decoding: not reported
+- id: ev_abl_unsigned
+  defence_id: civ_unsigned_l3
+  benchmark: attack prompts (set not stated for the ablation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success rate (criterion not stated)
+  layout_same_as_defence: 'yes'
+  measured_by: civ_arxiv2025
+  page: 9
+  decoding: not reported
+results:
+- id: r_none_elite
+  evaluation_id: ev_none_elite
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Elite ASR
+  value: '54'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_none_sok
+  evaluation_id: ev_none_sok
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SoK ASR
+  value: '48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_none_sim
+  evaluation_id: ev_none_benign
+  quantity: general_utility
+  coverage: proxy
+  metric_as_printed: Sim
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_civ_elite
+  evaluation_id: ev_civ_elite
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Elite ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_civ_sok
+  evaluation_id: ev_civ_sok
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SoK ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_civ_sim
+  evaluation_id: ev_civ_benign
+  quantity: general_utility
+  coverage: proxy
+  metric_as_printed: Sim
+  value: '93.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_abl_full
+  evaluation_id: ev_abl_full
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 3
+- id: r_abl_unsigned
+  evaluation_id: ev_abl_unsigned
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '7.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 3
+comparisons:
+- id: c_elite
+  left: ev_civ_elite
+  right: ev_none_elite
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_sok
+  left: ev_civ_sok
+  right: ev_none_sok
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_benign
+  left: ev_civ_benign
+  right: ev_none_benign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_abl_hmac
+  left: ev_abl_full
+  right: ev_abl_unsigned
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unreported
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: HMAC-signed labels against unsigned labels
+  page: 9
+claims:
+- id: k1
+  text: deterministic, cryptographically verifiable non-interference at inference time on frozen models
+  location: abstract
+  anchor: deterministic, cryptographically verifiable non-interference guarantees at inference-time
+  jobs:
+  - R1
+  supported_by:
+  - c_elite
+  - c_sok
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2
+    general_utility: Table 2 (Sim, token match with the undefended output)

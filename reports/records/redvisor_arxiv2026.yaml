@@ -1,0 +1,4002 @@
+report:
+  id: redvisor_arxiv2026
+  slug: '2602.01795'
+  title: 'RedVisor: Reasoning-Aware Prompt Injection Defense via Zero-Copy KV Cache Reuse'
+  first_author: Mingrui Liu
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2602.01795'
+  version_read: arXiv v1
+  first_date: '2026-02-02'
+  read: F
+  role: proposes
+  code_release: anonymous repository linked in a footnote (p. 2); not checked
+  extraction_scope: 'whole report (23 pages): Table 3 (Alpaca-Farm ASR) for the undefended model, Sandwich, StruQ, SecAlign and RedVisor on all three backbones; the three win rates printed in the text of Section 7.6 with the
+    other Figure 3 bars as figure_only; the GCG-classifier rows of Table 4; the abstract and introduction claims. Left out: PromptArmor, PromptLocate and DataFilter, which detect or rewrite before an unchanged model; detection
+    scores (Tables 2, 5, 6); Table 7 (RedVisor guarding a GPT-4o agent); Table 8 (NQ-simplified); Table 9 (adapter ablation); latency'
+defences:
+- id: rv_l
+  name: RedVisor
+  origin: this_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - user query and context in <user query> and <reference context> tags, context split into indexed sentences (p. 3)
+  - gated self-attention adapter (about 70M parameters) on the top layer of the frozen backbone, trained to write a reasoning trace that locates injected sentences (templates filled by a spaCy intent extractor)
+  - 'phase 2: adapter muted, transition instruction appended, frozen backbone answers with the reasoning trace in context'
+  layout: inspection prefix as the first user message, then the tagged user query and context
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we position our adapter exclusively at the top layer
+  pages:
+    components: 3
+    layout: 4
+    layout_compat: 22
+- id: sw_l
+  name: Sandwich Defense
+  origin: other_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 19
+  components:
+  - the user instruction repeated at the end of the user context
+  anchor: repeats the user instruction at the end
+- id: sq_l
+  name: StruQ (trained by the authors with the official scripts)
+  origin: other_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 19
+  anchor: We utilize the official training scripts to fine-tune the backbone models
+- id: sa_l
+  name: SecAlign (reconstructed by the authors)
+  origin: other_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 19
+  anchor: we reconstruct the preference dataset following the data generation pipeline
+- id: rv_m
+  name: RedVisor
+  origin: this_report
+  base_checkpoint: Mistral-7B-v0.3-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - user query and context in <user query> and <reference context> tags, context split into indexed sentences (p. 3)
+  - gated self-attention adapter (about 70M parameters) on the top layer of the frozen backbone, trained to write a reasoning trace that locates injected sentences (templates filled by a spaCy intent extractor)
+  - 'phase 2: adapter muted, transition instruction appended, frozen backbone answers with the reasoning trace in context'
+  layout: inspection prefix as the first user message, then the tagged user query and context
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we position our adapter exclusively at the top layer
+  pages:
+    components: 3
+    layout: 4
+    layout_compat: 22
+- id: sw_m
+  name: Sandwich Defense
+  origin: other_report
+  base_checkpoint: Mistral-7B-v0.3-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 19
+  components:
+  - the user instruction repeated at the end of the user context
+  anchor: repeats the user instruction at the end
+- id: sq_m
+  name: StruQ (trained by the authors with the official scripts)
+  origin: other_report
+  base_checkpoint: Mistral-7B-v0.3-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 19
+  anchor: We utilize the official training scripts to fine-tune the backbone models
+- id: sa_m
+  name: SecAlign (reconstructed by the authors)
+  origin: other_report
+  base_checkpoint: Mistral-7B-v0.3-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 19
+  anchor: we reconstruct the preference dataset following the data generation pipeline
+- id: rv_q
+  name: RedVisor
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components:
+  - user query and context in <user query> and <reference context> tags, context split into indexed sentences (p. 3)
+  - gated self-attention adapter (about 70M parameters) on the top layer of the frozen backbone, trained to write a reasoning trace that locates injected sentences (templates filled by a spaCy intent extractor)
+  - 'phase 2: adapter muted, transition instruction appended, frozen backbone answers with the reasoning trace in context'
+  layout: inspection prefix as the first user message, then the tagged user query and context
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we position our adapter exclusively at the top layer
+  pages:
+    components: 3
+    layout: 4
+    layout_compat: 22
+- id: sw_q
+  name: Sandwich Defense
+  origin: other_report
+  base_checkpoint: Qwen-2.5-7B-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 19
+  components:
+  - the user instruction repeated at the end of the user context
+  anchor: repeats the user instruction at the end
+- id: sq_q
+  name: StruQ (trained by the authors with the official scripts)
+  origin: other_report
+  base_checkpoint: Qwen-2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 19
+  anchor: We utilize the official training scripts to fine-tune the backbone models
+- id: sa_q
+  name: SecAlign (reconstructed by the authors)
+  origin: other_report
+  base_checkpoint: Qwen-2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 19
+  anchor: we reconstruct the preference dataset following the data generation pipeline
+evaluations:
+- id: ev_l_none_naive
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_l_none_ignore
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_l_none_esc
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_l_none_comp
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_l_none_multi
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_l_none_gcg
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_l_sw_naive
+  defence_id: sw_l
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sw_ignore
+  defence_id: sw_l
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sw_esc
+  defence_id: sw_l
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sw_comp
+  defence_id: sw_l
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sw_multi
+  defence_id: sw_l
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sw_gcg
+  defence_id: sw_l
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sq_naive
+  defence_id: sq_l
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sq_ignore
+  defence_id: sq_l
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sq_esc
+  defence_id: sq_l
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sq_comp
+  defence_id: sq_l
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sq_multi
+  defence_id: sq_l
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sq_gcg
+  defence_id: sq_l
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sa_naive
+  defence_id: sa_l
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sa_ignore
+  defence_id: sa_l
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sa_esc
+  defence_id: sa_l
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sa_comp
+  defence_id: sa_l
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sa_multi
+  defence_id: sa_l
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_sa_gcg
+  defence_id: sa_l
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_rv_naive
+  defence_id: rv_l
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_rv_ignore
+  defence_id: rv_l
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_rv_esc
+  defence_id: rv_l
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_rv_comp
+  defence_id: rv_l
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_rv_multi
+  defence_id: rv_l
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_l_rv_gcg
+  defence_id: rv_l
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_none_naive
+  defence_id: none:Mistral-7B-v0.3-Instruct
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_m_none_ignore
+  defence_id: none:Mistral-7B-v0.3-Instruct
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_m_none_esc
+  defence_id: none:Mistral-7B-v0.3-Instruct
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_m_none_comp
+  defence_id: none:Mistral-7B-v0.3-Instruct
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_m_none_multi
+  defence_id: none:Mistral-7B-v0.3-Instruct
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_m_none_gcg
+  defence_id: none:Mistral-7B-v0.3-Instruct
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_m_sw_naive
+  defence_id: sw_m
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sw_ignore
+  defence_id: sw_m
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sw_esc
+  defence_id: sw_m
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sw_comp
+  defence_id: sw_m
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sw_multi
+  defence_id: sw_m
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sw_gcg
+  defence_id: sw_m
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sq_naive
+  defence_id: sq_m
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sq_ignore
+  defence_id: sq_m
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sq_esc
+  defence_id: sq_m
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sq_comp
+  defence_id: sq_m
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sq_multi
+  defence_id: sq_m
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sq_gcg
+  defence_id: sq_m
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sa_naive
+  defence_id: sa_m
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sa_ignore
+  defence_id: sa_m
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sa_esc
+  defence_id: sa_m
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sa_comp
+  defence_id: sa_m
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sa_multi
+  defence_id: sa_m
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_sa_gcg
+  defence_id: sa_m
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_rv_naive
+  defence_id: rv_m
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_rv_ignore
+  defence_id: rv_m
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_rv_esc
+  defence_id: rv_m
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_rv_comp
+  defence_id: rv_m
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_rv_multi
+  defence_id: rv_m
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_m_rv_gcg
+  defence_id: rv_m
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_none_naive
+  defence_id: none:Qwen-2.5-7B-Instruct
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_q_none_ignore
+  defence_id: none:Qwen-2.5-7B-Instruct
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_q_none_esc
+  defence_id: none:Qwen-2.5-7B-Instruct
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_q_none_comp
+  defence_id: none:Qwen-2.5-7B-Instruct
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_q_none_multi
+  defence_id: none:Qwen-2.5-7B-Instruct
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_q_none_gcg
+  defence_id: none:Qwen-2.5-7B-Instruct
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+  baseline_kind: off_the_shelf
+- id: ev_q_sw_naive
+  defence_id: sw_q
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sw_ignore
+  defence_id: sw_q
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sw_esc
+  defence_id: sw_q
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sw_comp
+  defence_id: sw_q
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sw_multi
+  defence_id: sw_q
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sw_gcg
+  defence_id: sw_q
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sq_naive
+  defence_id: sq_q
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sq_ignore
+  defence_id: sq_q
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sq_esc
+  defence_id: sq_q
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sq_comp
+  defence_id: sq_q
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sq_multi
+  defence_id: sq_q
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sq_gcg
+  defence_id: sq_q
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sa_naive
+  defence_id: sa_q
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sa_ignore
+  defence_id: sa_q
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sa_esc
+  defence_id: sa_q
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sa_comp
+  defence_id: sa_q
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sa_multi
+  defence_id: sa_q
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_sa_gcg
+  defence_id: sa_q
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_rv_naive
+  defence_id: rv_q
+  benchmark: Alpaca-Farm with Naive injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_rv_ignore
+  defence_id: rv_q
+  benchmark: Alpaca-Farm with Ignore injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_rv_esc
+  defence_id: rv_q
+  benchmark: Alpaca-Farm with Escape-character injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_rv_comp
+  defence_id: rv_q
+  benchmark: Alpaca-Farm with Completion injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_rv_multi
+  defence_id: rv_q
+  benchmark: Alpaca-Farm with Multi-round injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: static
+  attacker_access: black_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_q_rv_gcg
+  defence_id: rv_q
+  benchmark: Alpaca-Farm with GCG suffix optimised on the model (GCG-LLM) injection at a random position, payload 'Print exactly <UUID>'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 19
+    judge: 18
+- id: ev_util_l_none
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_util_l_sq
+  defence_id: sq_l
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_util_l_sa
+  defence_id: sa_l
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_util_l_rv
+  defence_id: rv_l
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_util_m_none
+  defence_id: none:Mistral-7B-v0.3-Instruct
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_util_m_sq
+  defence_id: sq_m
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_util_m_sa
+  defence_id: sa_m
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_util_m_rv
+  defence_id: rv_m
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_util_q_none
+  defence_id: none:Qwen-2.5-7B-Instruct
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_util_q_sq
+  defence_id: sq_q
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_util_q_sa
+  defence_id: sa_q
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_util_q_rv
+  defence_id: rv_q
+  benchmark: AlpacaEval 2.0, clean samples
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Qwen3-Max as judge (win rate)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_l_rv_gcgcls
+  defence_id: rv_l
+  benchmark: Alpaca-Farm with a GCG suffix optimised to make the adapter output 'No injection detected' (GCG-classifier)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 21
+  decoding: not reported
+  pages:
+    judge: 18
+- id: ev_m_rv_gcgcls
+  defence_id: rv_m
+  benchmark: Alpaca-Farm with a GCG suffix optimised to make the adapter output 'No injection detected' (GCG-classifier)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 21
+  decoding: not reported
+  pages:
+    judge: 18
+- id: ev_q_rv_gcgcls
+  defence_id: rv_q
+  benchmark: Alpaca-Farm with a GCG suffix optimised to make the adapter output 'No injection detected' (GCG-classifier)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: target payload printed (string match on a random UUID)
+  layout_same_as_defence: 'yes'
+  measured_by: redvisor_arxiv2026
+  page: 21
+  decoding: not reported
+  pages:
+    judge: 18
+results:
+- id: r_l_none_naive
+  evaluation_id: ev_l_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.58'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_none_ignore
+  evaluation_id: ev_l_none_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.71'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_none_esc
+  evaluation_id: ev_l_none_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.62'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_none_comp
+  evaluation_id: ev_l_none_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.71'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_none_multi
+  evaluation_id: ev_l_none_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.73'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_none_gcg
+  evaluation_id: ev_l_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.68'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sw_naive
+  evaluation_id: ev_l_sw_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.38'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sw_ignore
+  evaluation_id: ev_l_sw_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.51'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sw_esc
+  evaluation_id: ev_l_sw_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.36'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sw_comp
+  evaluation_id: ev_l_sw_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.45'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sw_multi
+  evaluation_id: ev_l_sw_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.42'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sw_gcg
+  evaluation_id: ev_l_sw_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.40'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sq_naive
+  evaluation_id: ev_l_sq_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.05'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sq_ignore
+  evaluation_id: ev_l_sq_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sq_esc
+  evaluation_id: ev_l_sq_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.05'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sq_comp
+  evaluation_id: ev_l_sq_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.10'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sq_multi
+  evaluation_id: ev_l_sq_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.14'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sq_gcg
+  evaluation_id: ev_l_sq_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.51'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sa_naive
+  evaluation_id: ev_l_sa_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sa_ignore
+  evaluation_id: ev_l_sa_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sa_esc
+  evaluation_id: ev_l_sa_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sa_comp
+  evaluation_id: ev_l_sa_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.09'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sa_multi
+  evaluation_id: ev_l_sa_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.11'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_sa_gcg
+  evaluation_id: ev_l_sa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.44'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_rv_naive
+  evaluation_id: ev_l_rv_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_rv_ignore
+  evaluation_id: ev_l_rv_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_rv_esc
+  evaluation_id: ev_l_rv_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_rv_comp
+  evaluation_id: ev_l_rv_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.02'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_rv_multi
+  evaluation_id: ev_l_rv_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l_rv_gcg
+  evaluation_id: ev_l_rv_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_none_naive
+  evaluation_id: ev_m_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.64'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_none_ignore
+  evaluation_id: ev_m_none_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.66'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_none_esc
+  evaluation_id: ev_m_none_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.65'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_none_comp
+  evaluation_id: ev_m_none_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.73'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_none_multi
+  evaluation_id: ev_m_none_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.77'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_none_gcg
+  evaluation_id: ev_m_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.78'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sw_naive
+  evaluation_id: ev_m_sw_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.42'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sw_ignore
+  evaluation_id: ev_m_sw_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.57'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sw_esc
+  evaluation_id: ev_m_sw_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.43'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sw_comp
+  evaluation_id: ev_m_sw_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.55'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sw_multi
+  evaluation_id: ev_m_sw_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.57'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sw_gcg
+  evaluation_id: ev_m_sw_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.48'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sq_naive
+  evaluation_id: ev_m_sq_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sq_ignore
+  evaluation_id: ev_m_sq_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.08'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sq_esc
+  evaluation_id: ev_m_sq_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.07'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sq_comp
+  evaluation_id: ev_m_sq_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.12'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sq_multi
+  evaluation_id: ev_m_sq_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.15'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sq_gcg
+  evaluation_id: ev_m_sq_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.58'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sa_naive
+  evaluation_id: ev_m_sa_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sa_ignore
+  evaluation_id: ev_m_sa_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sa_esc
+  evaluation_id: ev_m_sa_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sa_comp
+  evaluation_id: ev_m_sa_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.10'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sa_multi
+  evaluation_id: ev_m_sa_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.15'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_sa_gcg
+  evaluation_id: ev_m_sa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.50'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_rv_naive
+  evaluation_id: ev_m_rv_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_rv_ignore
+  evaluation_id: ev_m_rv_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_rv_esc
+  evaluation_id: ev_m_rv_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_rv_comp
+  evaluation_id: ev_m_rv_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_rv_multi
+  evaluation_id: ev_m_rv_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.07'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_m_rv_gcg
+  evaluation_id: ev_m_rv_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_none_naive
+  evaluation_id: ev_q_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.60'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_none_ignore
+  evaluation_id: ev_q_none_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.65'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_none_esc
+  evaluation_id: ev_q_none_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.58'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_none_comp
+  evaluation_id: ev_q_none_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.71'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_none_multi
+  evaluation_id: ev_q_none_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.71'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_none_gcg
+  evaluation_id: ev_q_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.65'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sw_naive
+  evaluation_id: ev_q_sw_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.36'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sw_ignore
+  evaluation_id: ev_q_sw_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.54'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sw_esc
+  evaluation_id: ev_q_sw_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.38'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sw_comp
+  evaluation_id: ev_q_sw_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.51'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sw_multi
+  evaluation_id: ev_q_sw_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.58'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sw_gcg
+  evaluation_id: ev_q_sw_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.46'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sq_naive
+  evaluation_id: ev_q_sq_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sq_ignore
+  evaluation_id: ev_q_sq_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sq_esc
+  evaluation_id: ev_q_sq_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sq_comp
+  evaluation_id: ev_q_sq_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.11'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sq_multi
+  evaluation_id: ev_q_sq_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.16'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sq_gcg
+  evaluation_id: ev_q_sq_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.47'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sa_naive
+  evaluation_id: ev_q_sa_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sa_ignore
+  evaluation_id: ev_q_sa_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.05'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sa_esc
+  evaluation_id: ev_q_sa_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.05'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sa_comp
+  evaluation_id: ev_q_sa_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.08'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sa_multi
+  evaluation_id: ev_q_sa_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.13'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_sa_gcg
+  evaluation_id: ev_q_sa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.42'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_rv_naive
+  evaluation_id: ev_q_rv_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Naive)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_rv_ignore
+  evaluation_id: ev_q_rv_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_rv_esc
+  evaluation_id: ev_q_rv_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Escape)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_rv_comp
+  evaluation_id: ev_q_rv_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Completion)
+  value: '0.02'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_rv_multi
+  evaluation_id: ev_q_rv_multi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Multi)
+  value: '0.05'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q_rv_gcg
+  evaluation_id: ev_q_rv_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGLLM)
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_util_l_none
+  evaluation_id: ev_util_l_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: win rate
+  value: '87.27'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 8
+  location: Section 7.6 text
+- id: r_util_l_sq
+  evaluation_id: ev_util_l_sq
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate (%)
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 8
+  location: Figure 3
+- id: r_util_l_sa
+  evaluation_id: ev_util_l_sa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate (%)
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 8
+  location: Figure 3
+- id: r_util_l_rv
+  evaluation_id: ev_util_l_rv
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: win rate
+  value: '85.78'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 8
+  location: Section 7.6 text
+- id: r_util_m_none
+  evaluation_id: ev_util_m_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate (%)
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 8
+  location: Figure 3
+- id: r_util_m_sq
+  evaluation_id: ev_util_m_sq
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate (%)
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 8
+  location: Figure 3
+- id: r_util_m_sa
+  evaluation_id: ev_util_m_sa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate (%)
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 8
+  location: Figure 3
+- id: r_util_m_rv
+  evaluation_id: ev_util_m_rv
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate (%)
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 8
+  location: Figure 3
+- id: r_util_q_none
+  evaluation_id: ev_util_q_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate (%)
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 8
+  location: Figure 3
+- id: r_util_q_sq
+  evaluation_id: ev_util_q_sq
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: win rate
+  value: '56.75'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 8
+  location: Section 7.6 text
+- id: r_util_q_sa
+  evaluation_id: ev_util_q_sa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate (%)
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 8
+  location: Figure 3
+- id: r_util_q_rv
+  evaluation_id: ev_util_q_rv
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: WinRate (%)
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 8
+  location: Figure 3
+- id: r_l_rv_gcgcls
+  evaluation_id: ev_l_rv_gcgcls
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGclassifier)
+  value: '0.05'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_m_rv_gcgcls
+  evaluation_id: ev_m_rv_gcgcls
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGclassifier)
+  value: '0.07'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_q_rv_gcgcls
+  evaluation_id: ev_q_rv_gcgcls
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCGclassifier)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+comparisons:
+- id: c_l_sw_naive
+  left: ev_l_sw_naive
+  right: ev_l_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sw_ignore
+  left: ev_l_sw_ignore
+  right: ev_l_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sw_esc
+  left: ev_l_sw_esc
+  right: ev_l_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sw_comp
+  left: ev_l_sw_comp
+  right: ev_l_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sw_multi
+  left: ev_l_sw_multi
+  right: ev_l_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sw_gcg
+  left: ev_l_sw_gcg
+  right: ev_l_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sq_naive
+  left: ev_l_sq_naive
+  right: ev_l_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sq_ignore
+  left: ev_l_sq_ignore
+  right: ev_l_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sq_esc
+  left: ev_l_sq_esc
+  right: ev_l_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sq_comp
+  left: ev_l_sq_comp
+  right: ev_l_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sq_multi
+  left: ev_l_sq_multi
+  right: ev_l_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sq_gcg
+  left: ev_l_sq_gcg
+  right: ev_l_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sa_naive
+  left: ev_l_sa_naive
+  right: ev_l_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sa_ignore
+  left: ev_l_sa_ignore
+  right: ev_l_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sa_esc
+  left: ev_l_sa_esc
+  right: ev_l_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sa_comp
+  left: ev_l_sa_comp
+  right: ev_l_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sa_multi
+  left: ev_l_sa_multi
+  right: ev_l_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_sa_gcg
+  left: ev_l_sa_gcg
+  right: ev_l_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_naive
+  left: ev_l_rv_naive
+  right: ev_l_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_ignore
+  left: ev_l_rv_ignore
+  right: ev_l_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_esc
+  left: ev_l_rv_esc
+  right: ev_l_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_comp
+  left: ev_l_rv_comp
+  right: ev_l_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_multi
+  left: ev_l_rv_multi
+  right: ev_l_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_gcg
+  left: ev_l_rv_gcg
+  right: ev_l_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_sa_naive
+  left: ev_l_rv_naive
+  right: ev_l_sa_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_sa_ignore
+  left: ev_l_rv_ignore
+  right: ev_l_sa_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_sa_esc
+  left: ev_l_rv_esc
+  right: ev_l_sa_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_sa_comp
+  left: ev_l_rv_comp
+  right: ev_l_sa_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_sa_multi
+  left: ev_l_rv_multi
+  right: ev_l_sa_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l_rv_sa_gcg
+  left: ev_l_rv_gcg
+  right: ev_l_sa_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sw_naive
+  left: ev_m_sw_naive
+  right: ev_m_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sw_ignore
+  left: ev_m_sw_ignore
+  right: ev_m_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sw_esc
+  left: ev_m_sw_esc
+  right: ev_m_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sw_comp
+  left: ev_m_sw_comp
+  right: ev_m_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sw_multi
+  left: ev_m_sw_multi
+  right: ev_m_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sw_gcg
+  left: ev_m_sw_gcg
+  right: ev_m_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sq_naive
+  left: ev_m_sq_naive
+  right: ev_m_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sq_ignore
+  left: ev_m_sq_ignore
+  right: ev_m_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sq_esc
+  left: ev_m_sq_esc
+  right: ev_m_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sq_comp
+  left: ev_m_sq_comp
+  right: ev_m_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sq_multi
+  left: ev_m_sq_multi
+  right: ev_m_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sq_gcg
+  left: ev_m_sq_gcg
+  right: ev_m_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sa_naive
+  left: ev_m_sa_naive
+  right: ev_m_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sa_ignore
+  left: ev_m_sa_ignore
+  right: ev_m_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sa_esc
+  left: ev_m_sa_esc
+  right: ev_m_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sa_comp
+  left: ev_m_sa_comp
+  right: ev_m_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sa_multi
+  left: ev_m_sa_multi
+  right: ev_m_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_sa_gcg
+  left: ev_m_sa_gcg
+  right: ev_m_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_naive
+  left: ev_m_rv_naive
+  right: ev_m_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_ignore
+  left: ev_m_rv_ignore
+  right: ev_m_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_esc
+  left: ev_m_rv_esc
+  right: ev_m_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_comp
+  left: ev_m_rv_comp
+  right: ev_m_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_multi
+  left: ev_m_rv_multi
+  right: ev_m_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_gcg
+  left: ev_m_rv_gcg
+  right: ev_m_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_sa_naive
+  left: ev_m_rv_naive
+  right: ev_m_sa_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_sa_ignore
+  left: ev_m_rv_ignore
+  right: ev_m_sa_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_sa_esc
+  left: ev_m_rv_esc
+  right: ev_m_sa_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_sa_comp
+  left: ev_m_rv_comp
+  right: ev_m_sa_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_sa_multi
+  left: ev_m_rv_multi
+  right: ev_m_sa_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m_rv_sa_gcg
+  left: ev_m_rv_gcg
+  right: ev_m_sa_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sw_naive
+  left: ev_q_sw_naive
+  right: ev_q_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sw_ignore
+  left: ev_q_sw_ignore
+  right: ev_q_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sw_esc
+  left: ev_q_sw_esc
+  right: ev_q_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sw_comp
+  left: ev_q_sw_comp
+  right: ev_q_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sw_multi
+  left: ev_q_sw_multi
+  right: ev_q_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sw_gcg
+  left: ev_q_sw_gcg
+  right: ev_q_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sq_naive
+  left: ev_q_sq_naive
+  right: ev_q_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sq_ignore
+  left: ev_q_sq_ignore
+  right: ev_q_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sq_esc
+  left: ev_q_sq_esc
+  right: ev_q_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sq_comp
+  left: ev_q_sq_comp
+  right: ev_q_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sq_multi
+  left: ev_q_sq_multi
+  right: ev_q_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sq_gcg
+  left: ev_q_sq_gcg
+  right: ev_q_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sa_naive
+  left: ev_q_sa_naive
+  right: ev_q_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sa_ignore
+  left: ev_q_sa_ignore
+  right: ev_q_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sa_esc
+  left: ev_q_sa_esc
+  right: ev_q_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sa_comp
+  left: ev_q_sa_comp
+  right: ev_q_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sa_multi
+  left: ev_q_sa_multi
+  right: ev_q_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_sa_gcg
+  left: ev_q_sa_gcg
+  right: ev_q_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_naive
+  left: ev_q_rv_naive
+  right: ev_q_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_ignore
+  left: ev_q_rv_ignore
+  right: ev_q_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_esc
+  left: ev_q_rv_esc
+  right: ev_q_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_comp
+  left: ev_q_rv_comp
+  right: ev_q_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_multi
+  left: ev_q_rv_multi
+  right: ev_q_none_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_gcg
+  left: ev_q_rv_gcg
+  right: ev_q_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_sa_naive
+  left: ev_q_rv_naive
+  right: ev_q_sa_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_sa_ignore
+  left: ev_q_rv_ignore
+  right: ev_q_sa_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_sa_esc
+  left: ev_q_rv_esc
+  right: ev_q_sa_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_sa_comp
+  left: ev_q_rv_comp
+  right: ev_q_sa_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_sa_multi
+  left: ev_q_rv_multi
+  right: ev_q_sa_multi
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q_rv_sa_gcg
+  left: ev_q_rv_gcg
+  right: ev_q_sa_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_util_l_rv
+  left: ev_util_l_rv
+  right: ev_util_l_none
+  purpose: W
+  c1_base: matched
+  c2_layout: unreported
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: RedVisor beats existing defences in detection accuracy and throughput with negligible utility loss
+  location: abstract
+  anchor: outperforms state-of-the-art defenses in detection accuracy and throughput
+  jobs:
+  - general_utility
+  supported_by:
+  - c_util_l_rv
+  page: 1
+- id: k2
+  text: RedVisor gives much lower attack success than existing methods while keeping utility
+  location: introduction
+  anchor: significantly lower attack success rates
+  jobs:
+  - R1
+  - general_utility
+  supported_by:
+  - c_l_rv_naive
+  - c_l_rv_ignore
+  - c_l_rv_esc
+  - c_l_rv_comp
+  - c_l_rv_multi
+  - c_l_rv_gcg
+  - c_l_rv_sa_naive
+  - c_l_rv_sa_ignore
+  - c_l_rv_sa_esc
+  - c_l_rv_sa_comp
+  - c_l_rv_sa_multi
+  - c_l_rv_sa_gcg
+  - c_m_rv_naive
+  - c_m_rv_ignore
+  - c_m_rv_esc
+  - c_m_rv_comp
+  - c_m_rv_multi
+  - c_m_rv_gcg
+  - c_m_rv_sa_naive
+  - c_m_rv_sa_ignore
+  - c_m_rv_sa_esc
+  - c_m_rv_sa_comp
+  - c_m_rv_sa_multi
+  - c_m_rv_sa_gcg
+  - c_q_rv_naive
+  - c_q_rv_ignore
+  - c_q_rv_esc
+  - c_q_rv_comp
+  - c_q_rv_multi
+  - c_q_rv_gcg
+  - c_q_rv_sa_naive
+  - c_q_rv_sa_ignore
+  - c_q_rv_sa_esc
+  - c_q_rv_sa_comp
+  - c_q_rv_sa_multi
+  - c_q_rv_sa_gcg
+  - c_util_l_rv
+  page: 2
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 3 (Alpaca-Farm), Table 4
+    general_utility: Figure 3 and Section 7.6
+schema_gaps:
+- where: evaluations ev_*_none_*, ev_*_rv_*
+  note: Section 6.1 says the five attack categories (Naive, Completion, Multi-round, Ignore, Escape) were used to build RedVisor's training data and are the same five used in Table 3; Section 7.3 says the tested patterns were
+    unseen in training, and Appendix E.1 says the payload is a random UUID unseen in training (pp. 6, 7, 19)
+- where: results r_util_*
+  note: Appendix D.2 says WinRate compares RedVisor's responses against the vanilla backbone, but Section 7.6 prints a win rate of 87.27% for the undefended Llama-3 backbone itself; the reference model of the win rate is not
+    clear (pp. 8, 19)
