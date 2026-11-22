@@ -1,0 +1,2760 @@
+report:
+  id: autodojo_arxiv2026
+  slug: '2606.15057'
+  title: 'AutoDojo: A Generative Benchmark for Evaluating Prompt Injection Defenses in LLM Agents'
+  first_author: Xinhang Ma
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2606.15057'
+  version_read: arXiv v3
+  first_date: '2026-06-13'
+  read: F
+  role: benchmark
+  code_release: https://github.com/xhOwenMa/AutoDojo (linked from the abstract)
+  extraction_scope: 'Section 4 and Appendices D and H: Table 5 (AgentDojo, five models) and Table 8 (AgentDyn, two models), rows No defense, Reminder and Spotlighting; the abstract claim (PromptGuard, PIGuard, ProtectAI and
+    DataFilter, which filter tool outputs, and Progent, DRIFT, CaMeL and ROPE, which are system-level designs, are left out; per-suite and per-bucket Tables 6, 7, 9 and 10 and the comparison with other adaptive attacks not
+    coded)'
+defences:
+- id: rem_g4m
+  name: Reminder
+  origin: other_report
+  base_checkpoint: GPT-4o-mini
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Reminder prepends to every tool output a sentence telling the agent not to
+- id: spot_g4m
+  name: Spotlighting (delimiters around tool output)
+  origin: other_report
+  base_checkpoint: GPT-4o-mini
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: wraps every tool output in delimiters
+- id: rem_g54m
+  name: Reminder
+  origin: other_report
+  base_checkpoint: GPT-5.4-mini
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Reminder prepends to every tool output a sentence telling the agent not to
+- id: spot_g54m
+  name: Spotlighting (delimiters around tool output)
+  origin: other_report
+  base_checkpoint: GPT-5.4-mini
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: wraps every tool output in delimiters
+- id: rem_gem
+  name: Reminder
+  origin: other_report
+  base_checkpoint: Gemini-2.5-Flash
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Reminder prepends to every tool output a sentence telling the agent not to
+- id: spot_gem
+  name: Spotlighting (delimiters around tool output)
+  origin: other_report
+  base_checkpoint: Gemini-2.5-Flash
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: wraps every tool output in delimiters
+- id: rem_ds
+  name: Reminder
+  origin: other_report
+  base_checkpoint: DeepSeek-v4-Flash
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Reminder prepends to every tool output a sentence telling the agent not to
+- id: spot_ds
+  name: Spotlighting (delimiters around tool output)
+  origin: other_report
+  base_checkpoint: DeepSeek-v4-Flash
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: wraps every tool output in delimiters
+- id: rem_hk
+  name: Reminder
+  origin: other_report
+  base_checkpoint: Claude-Haiku-4.5
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Reminder prepends to every tool output a sentence telling the agent not to
+- id: spot_hk
+  name: Spotlighting (delimiters around tool output)
+  origin: other_report
+  base_checkpoint: Claude-Haiku-4.5
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: AgentDojo or AgentDyn agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: wraps every tool output in delimiters
+evaluations:
+- id: ev_ad_none_g4m_clean
+  defence_id: none:GPT-4o-mini
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_g4m_static
+  defence_id: none:GPT-4o-mini
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_g4m_auto
+  defence_id: none:GPT-4o-mini
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_g54m_clean
+  defence_id: none:GPT-5.4-mini
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_g54m_static
+  defence_id: none:GPT-5.4-mini
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_g54m_auto
+  defence_id: none:GPT-5.4-mini
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_gem_clean
+  defence_id: none:Gemini-2.5-Flash
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_gem_static
+  defence_id: none:Gemini-2.5-Flash
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_gem_auto
+  defence_id: none:Gemini-2.5-Flash
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_ds_clean
+  defence_id: none:DeepSeek-v4-Flash
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_ds_static
+  defence_id: none:DeepSeek-v4-Flash
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_ds_auto
+  defence_id: none:DeepSeek-v4-Flash
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_hk_clean
+  defence_id: none:Claude-Haiku-4.5
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_hk_static
+  defence_id: none:Claude-Haiku-4.5
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_hk_auto
+  defence_id: none:Claude-Haiku-4.5
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_ad_rem_g4m_clean
+  defence_id: rem_g4m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_rem_g4m_static
+  defence_id: rem_g4m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_rem_g4m_auto
+  defence_id: rem_g4m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_ad_rem_g54m_clean
+  defence_id: rem_g54m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_rem_g54m_static
+  defence_id: rem_g54m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_rem_g54m_auto
+  defence_id: rem_g54m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_ad_rem_gem_clean
+  defence_id: rem_gem
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_rem_gem_static
+  defence_id: rem_gem
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_rem_gem_auto
+  defence_id: rem_gem
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_ad_rem_ds_clean
+  defence_id: rem_ds
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_rem_ds_static
+  defence_id: rem_ds
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_rem_ds_auto
+  defence_id: rem_ds
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_ad_rem_hk_clean
+  defence_id: rem_hk
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_rem_hk_static
+  defence_id: rem_hk
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_rem_hk_auto
+  defence_id: rem_hk
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_ad_spot_g4m_clean
+  defence_id: spot_g4m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_spot_g4m_static
+  defence_id: spot_g4m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_spot_g4m_auto
+  defence_id: spot_g4m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_ad_spot_g54m_clean
+  defence_id: spot_g54m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_spot_g54m_static
+  defence_id: spot_g54m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_spot_g54m_auto
+  defence_id: spot_g54m
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_ad_spot_gem_clean
+  defence_id: spot_gem
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_spot_gem_static
+  defence_id: spot_gem
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_spot_gem_auto
+  defence_id: spot_gem
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_ad_spot_ds_clean
+  defence_id: spot_ds
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_spot_ds_static
+  defence_id: spot_ds
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_spot_ds_auto
+  defence_id: spot_ds
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_ad_spot_hk_clean
+  defence_id: spot_hk
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+- id: ev_ad_spot_hk_static
+  defence_id: spot_hk
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_ad_spot_hk_auto
+  defence_id: spot_hk
+  benchmark: AgentDojo (banking, slack, travel), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 23
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_dy_none_g4m_clean
+  defence_id: none:GPT-4o-mini
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_dy_none_g4m_static
+  defence_id: none:GPT-4o-mini
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_dy_none_g4m_auto
+  defence_id: none:GPT-4o-mini
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_dy_none_gem_clean
+  defence_id: none:Gemini-2.5-Flash
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_dy_none_gem_static
+  defence_id: none:Gemini-2.5-Flash
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_dy_none_gem_auto
+  defence_id: none:Gemini-2.5-Flash
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_dy_rem_g4m_clean
+  defence_id: rem_g4m
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+- id: ev_dy_rem_g4m_static
+  defence_id: rem_g4m
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_dy_rem_g4m_auto
+  defence_id: rem_g4m
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_dy_rem_gem_clean
+  defence_id: rem_gem
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+- id: ev_dy_rem_gem_static
+  defence_id: rem_gem
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_dy_rem_gem_auto
+  defence_id: rem_gem
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_dy_spot_g4m_clean
+  defence_id: spot_g4m
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+- id: ev_dy_spot_g4m_static
+  defence_id: spot_g4m
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_dy_spot_g4m_auto
+  defence_id: spot_g4m
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+- id: ev_dy_spot_gem_clean
+  defence_id: spot_gem
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+- id: ev_dy_spot_gem_static
+  defence_id: spot_gem
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, important instructions attack (static)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_dy_spot_gem_auto
+  defence_id: spot_gem
+  benchmark: AgentDyn (github, shopping, dailylife), aggregated over the three suites, AutoDojo injections optimised against this agent and defence
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: autodojo_arxiv2026
+  page: 26
+  attacker_budget: Gemini-3.1-Pro optimiser, six iterations per injection target, success signal only
+  decoding: not reported
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+results:
+- id: r_ad_none_g4m_cu
+  evaluation_id: ev_ad_none_g4m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '66.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_g4m_sa
+  evaluation_id: ev_ad_none_g4m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '58.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_g4m_sua
+  evaluation_id: ev_ad_none_g4m_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '42.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_g4m_aa
+  evaluation_id: ev_ad_none_g4m_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '52.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_g4m_aua
+  evaluation_id: ev_ad_none_g4m_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '41.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_g54m_cu
+  evaluation_id: ev_ad_none_g54m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '77.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_g54m_sa
+  evaluation_id: ev_ad_none_g54m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '6.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_g54m_sua
+  evaluation_id: ev_ad_none_g54m_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '60.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_g54m_aa
+  evaluation_id: ev_ad_none_g54m_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '8.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_g54m_aua
+  evaluation_id: ev_ad_none_g54m_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '62.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_gem_cu
+  evaluation_id: ev_ad_none_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '63.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_gem_sa
+  evaluation_id: ev_ad_none_gem_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '50.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_gem_sua
+  evaluation_id: ev_ad_none_gem_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '40.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_gem_aa
+  evaluation_id: ev_ad_none_gem_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '34.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_gem_aua
+  evaluation_id: ev_ad_none_gem_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '44.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_ds_cu
+  evaluation_id: ev_ad_none_ds_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '89.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_ds_sa
+  evaluation_id: ev_ad_none_ds_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '22.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_ds_sua
+  evaluation_id: ev_ad_none_ds_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '77.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_ds_aa
+  evaluation_id: ev_ad_none_ds_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '16.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_ds_aua
+  evaluation_id: ev_ad_none_ds_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '77.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_hk_cu
+  evaluation_id: ev_ad_none_hk_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '70.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_hk_sa
+  evaluation_id: ev_ad_none_hk_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_hk_sua
+  evaluation_id: ev_ad_none_hk_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '61.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_hk_aa
+  evaluation_id: ev_ad_none_hk_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '1.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_none_hk_aua
+  evaluation_id: ev_ad_none_hk_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '64.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g4m_cu
+  evaluation_id: ev_ad_rem_g4m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '68.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g4m_sa
+  evaluation_id: ev_ad_rem_g4m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '39.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g4m_sua
+  evaluation_id: ev_ad_rem_g4m_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '46.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g4m_aa
+  evaluation_id: ev_ad_rem_g4m_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '40.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g4m_aua
+  evaluation_id: ev_ad_rem_g4m_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '42.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g54m_cu
+  evaluation_id: ev_ad_rem_g54m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '80.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g54m_sa
+  evaluation_id: ev_ad_rem_g54m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g54m_sua
+  evaluation_id: ev_ad_rem_g54m_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '66.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g54m_aa
+  evaluation_id: ev_ad_rem_g54m_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '2.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_g54m_aua
+  evaluation_id: ev_ad_rem_g54m_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '64.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_gem_cu
+  evaluation_id: ev_ad_rem_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '63.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_gem_sa
+  evaluation_id: ev_ad_rem_gem_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '45.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_gem_sua
+  evaluation_id: ev_ad_rem_gem_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '35.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_gem_aa
+  evaluation_id: ev_ad_rem_gem_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '29.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_gem_aua
+  evaluation_id: ev_ad_rem_gem_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '45.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_ds_cu
+  evaluation_id: ev_ad_rem_ds_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '89.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_ds_sa
+  evaluation_id: ev_ad_rem_ds_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '4.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_ds_sua
+  evaluation_id: ev_ad_rem_ds_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '81.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_ds_aa
+  evaluation_id: ev_ad_rem_ds_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '5.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_ds_aua
+  evaluation_id: ev_ad_rem_ds_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '83.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_hk_cu
+  evaluation_id: ev_ad_rem_hk_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '68.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_hk_sa
+  evaluation_id: ev_ad_rem_hk_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_hk_sua
+  evaluation_id: ev_ad_rem_hk_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '59.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_hk_aa
+  evaluation_id: ev_ad_rem_hk_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_rem_hk_aua
+  evaluation_id: ev_ad_rem_hk_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '60.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g4m_cu
+  evaluation_id: ev_ad_spot_g4m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '59.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g4m_sa
+  evaluation_id: ev_ad_spot_g4m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '51.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g4m_sua
+  evaluation_id: ev_ad_spot_g4m_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '43.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g4m_aa
+  evaluation_id: ev_ad_spot_g4m_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '46.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g4m_aua
+  evaluation_id: ev_ad_spot_g4m_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '42.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g54m_cu
+  evaluation_id: ev_ad_spot_g54m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '70.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g54m_sa
+  evaluation_id: ev_ad_spot_g54m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '3.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g54m_sua
+  evaluation_id: ev_ad_spot_g54m_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '61.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g54m_aa
+  evaluation_id: ev_ad_spot_g54m_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '5.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_g54m_aua
+  evaluation_id: ev_ad_spot_g54m_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '61.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_gem_cu
+  evaluation_id: ev_ad_spot_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '64.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_gem_sa
+  evaluation_id: ev_ad_spot_gem_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '54.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_gem_sua
+  evaluation_id: ev_ad_spot_gem_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '40.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_gem_aa
+  evaluation_id: ev_ad_spot_gem_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '36.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_gem_aua
+  evaluation_id: ev_ad_spot_gem_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '42.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_ds_cu
+  evaluation_id: ev_ad_spot_ds_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '75.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_ds_sa
+  evaluation_id: ev_ad_spot_ds_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '13.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_ds_sua
+  evaluation_id: ev_ad_spot_ds_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '80.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_ds_aa
+  evaluation_id: ev_ad_spot_ds_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '13.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_ds_aua
+  evaluation_id: ev_ad_spot_ds_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '80.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_hk_cu
+  evaluation_id: ev_ad_spot_hk_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '70.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_hk_sa
+  evaluation_id: ev_ad_spot_hk_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_hk_sua
+  evaluation_id: ev_ad_spot_hk_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '57.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_hk_aa
+  evaluation_id: ev_ad_spot_hk_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '1.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_ad_spot_hk_aua
+  evaluation_id: ev_ad_spot_hk_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '59.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 5
+- id: r_dy_none_g4m_cu
+  evaluation_id: ev_dy_none_g4m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '46.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_none_g4m_sa
+  evaluation_id: ev_dy_none_g4m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '51.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_none_g4m_sua
+  evaluation_id: ev_dy_none_g4m_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '35.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_none_g4m_aa
+  evaluation_id: ev_dy_none_g4m_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '59.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_none_g4m_aua
+  evaluation_id: ev_dy_none_g4m_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '37.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_none_gem_cu
+  evaluation_id: ev_dy_none_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '36.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_none_gem_sa
+  evaluation_id: ev_dy_none_gem_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '52.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_none_gem_sua
+  evaluation_id: ev_dy_none_gem_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '33.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_none_gem_aa
+  evaluation_id: ev_dy_none_gem_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '50.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_none_gem_aua
+  evaluation_id: ev_dy_none_gem_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '30.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_g4m_cu
+  evaluation_id: ev_dy_rem_g4m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '40.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_g4m_sa
+  evaluation_id: ev_dy_rem_g4m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '37.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_g4m_sua
+  evaluation_id: ev_dy_rem_g4m_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '32.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_g4m_aa
+  evaluation_id: ev_dy_rem_g4m_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '51.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_g4m_aua
+  evaluation_id: ev_dy_rem_g4m_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '31.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_gem_cu
+  evaluation_id: ev_dy_rem_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '36.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_gem_sa
+  evaluation_id: ev_dy_rem_gem_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '44.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_gem_sua
+  evaluation_id: ev_dy_rem_gem_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '38.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_gem_aa
+  evaluation_id: ev_dy_rem_gem_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '53.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_rem_gem_aua
+  evaluation_id: ev_dy_rem_gem_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '36.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_g4m_cu
+  evaluation_id: ev_dy_spot_g4m_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '36.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_g4m_sa
+  evaluation_id: ev_dy_spot_g4m_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '48.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_g4m_sua
+  evaluation_id: ev_dy_spot_g4m_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '35.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_g4m_aa
+  evaluation_id: ev_dy_spot_g4m_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '55.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_g4m_aua
+  evaluation_id: ev_dy_spot_g4m_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '35.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_gem_cu
+  evaluation_id: ev_dy_spot_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean util.
+  value: '38.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_gem_sa
+  evaluation_id: ev_dy_spot_gem_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR
+  value: '57.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_gem_sua
+  evaluation_id: ev_dy_spot_gem_static
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (in parentheses)
+  value: '40.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_gem_aa
+  evaluation_id: ev_dy_spot_gem_auto
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AutoDojo ASR
+  value: '52.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+- id: r_dy_spot_gem_aua
+  evaluation_id: ev_dy_spot_gem_auto
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AutoDojo UA (in parentheses)
+  value: '37.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 26
+  location: Table 8
+comparisons:
+- id: c_ad_rem_g4m_clean
+  left: ev_ad_rem_g4m_clean
+  right: ev_ad_none_g4m_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_g4m_static
+  left: ev_ad_rem_g4m_static
+  right: ev_ad_none_g4m_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_g4m_auto
+  left: ev_ad_rem_g4m_auto
+  right: ev_ad_none_g4m_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_g4m_clean
+  left: ev_ad_spot_g4m_clean
+  right: ev_ad_none_g4m_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_g4m_static
+  left: ev_ad_spot_g4m_static
+  right: ev_ad_none_g4m_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_g4m_auto
+  left: ev_ad_spot_g4m_auto
+  right: ev_ad_none_g4m_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_g54m_clean
+  left: ev_ad_rem_g54m_clean
+  right: ev_ad_none_g54m_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_g54m_static
+  left: ev_ad_rem_g54m_static
+  right: ev_ad_none_g54m_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_g54m_auto
+  left: ev_ad_rem_g54m_auto
+  right: ev_ad_none_g54m_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_g54m_clean
+  left: ev_ad_spot_g54m_clean
+  right: ev_ad_none_g54m_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_g54m_static
+  left: ev_ad_spot_g54m_static
+  right: ev_ad_none_g54m_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_g54m_auto
+  left: ev_ad_spot_g54m_auto
+  right: ev_ad_none_g54m_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_gem_clean
+  left: ev_ad_rem_gem_clean
+  right: ev_ad_none_gem_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_gem_static
+  left: ev_ad_rem_gem_static
+  right: ev_ad_none_gem_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_gem_auto
+  left: ev_ad_rem_gem_auto
+  right: ev_ad_none_gem_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_gem_clean
+  left: ev_ad_spot_gem_clean
+  right: ev_ad_none_gem_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_gem_static
+  left: ev_ad_spot_gem_static
+  right: ev_ad_none_gem_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_gem_auto
+  left: ev_ad_spot_gem_auto
+  right: ev_ad_none_gem_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_ds_clean
+  left: ev_ad_rem_ds_clean
+  right: ev_ad_none_ds_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_ds_static
+  left: ev_ad_rem_ds_static
+  right: ev_ad_none_ds_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_ds_auto
+  left: ev_ad_rem_ds_auto
+  right: ev_ad_none_ds_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_ds_clean
+  left: ev_ad_spot_ds_clean
+  right: ev_ad_none_ds_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_ds_static
+  left: ev_ad_spot_ds_static
+  right: ev_ad_none_ds_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_ds_auto
+  left: ev_ad_spot_ds_auto
+  right: ev_ad_none_ds_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_hk_clean
+  left: ev_ad_rem_hk_clean
+  right: ev_ad_none_hk_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_hk_static
+  left: ev_ad_rem_hk_static
+  right: ev_ad_none_hk_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_rem_hk_auto
+  left: ev_ad_rem_hk_auto
+  right: ev_ad_none_hk_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_hk_clean
+  left: ev_ad_spot_hk_clean
+  right: ev_ad_none_hk_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_hk_static
+  left: ev_ad_spot_hk_static
+  right: ev_ad_none_hk_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ad_spot_hk_auto
+  left: ev_ad_spot_hk_auto
+  right: ev_ad_none_hk_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_dy_rem_g4m_clean
+  left: ev_dy_rem_g4m_clean
+  right: ev_dy_none_g4m_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_rem_g4m_static
+  left: ev_dy_rem_g4m_static
+  right: ev_dy_none_g4m_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_rem_g4m_auto
+  left: ev_dy_rem_g4m_auto
+  right: ev_dy_none_g4m_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_spot_g4m_clean
+  left: ev_dy_spot_g4m_clean
+  right: ev_dy_none_g4m_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_spot_g4m_static
+  left: ev_dy_spot_g4m_static
+  right: ev_dy_none_g4m_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_spot_g4m_auto
+  left: ev_dy_spot_g4m_auto
+  right: ev_dy_none_g4m_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_rem_gem_clean
+  left: ev_dy_rem_gem_clean
+  right: ev_dy_none_gem_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_rem_gem_static
+  left: ev_dy_rem_gem_static
+  right: ev_dy_none_gem_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_rem_gem_auto
+  left: ev_dy_rem_gem_auto
+  right: ev_dy_none_gem_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_spot_gem_clean
+  left: ev_dy_spot_gem_clean
+  right: ev_dy_none_gem_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_spot_gem_static
+  left: ev_dy_spot_gem_static
+  right: ev_dy_none_gem_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+- id: c_dy_spot_gem_auto
+  left: ev_dy_spot_gem_auto
+  right: ev_dy_none_gem_auto
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 26
+claims:
+- id: k1
+  text: static benchmarks often overestimate defence efficacy, and most defences either lose utility or are insecure
+  location: abstract
+  anchor: standard static benchmarks often significantly overestimate de- fense efficacy
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_ad_rem_g4m_auto
+  - c_ad_spot_g4m_auto
+  - c_ad_rem_g54m_auto
+  - c_ad_spot_g54m_auto
+  - c_ad_rem_gem_auto
+  - c_ad_spot_gem_auto
+  - c_ad_rem_ds_auto
+  - c_ad_spot_ds_auto
+  - c_ad_rem_hk_auto
+  - c_ad_spot_hk_auto
+  - c_dy_rem_g4m_auto
+  - c_dy_spot_g4m_auto
+  - c_dy_rem_gem_auto
+  - c_dy_spot_gem_auto
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 5 and 8 (static and AutoDojo ASR)
+    R2clean: Tables 5 and 8 (clean utility)
+    R2attack: Tables 5 and 8 (utility under attack, in parentheses)

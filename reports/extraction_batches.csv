@@ -46,3 +46,15 @@ batch,report,slug,coded,status
 04d,localalign_ccs2026,2605.01462,2026-11-22,checked
 04d,piarena_arxiv2026,2604.08499,2026-11-22,checked
 04d,pismith_colm2026,2603.13026,2026-11-22,checked
+04e,astra_arxiv2025,2507.07417,2026-11-22,checked
+04e,autodojo_arxiv2026,2606.15057,2026-11-22,checked
+04e,codel_arxiv2026,2609.34463,2026-11-22,checked
+04e,coer_arxiv2026,2609.07529,2026-11-22,checked
+04e,copa_arxiv2026,2608.19982,2026-11-22,checked
+04e,ihdec_arxiv2026,2606.29960,2026-11-22,checked
+04e,overlays_arxiv2026,2608.23873,2026-11-22,checked
+04e,pictionary_arxiv2026,2609.36121,2026-11-22,checked
+04e,provtransformer_arxiv2026,2609.21088,2026-11-22,checked
+04e,reta_arxiv2026,2606.15441,2026-11-22,checked
+04e,secopd_emnlp2026,2608.21500,2026-11-22,checked
+04e,srft_arxiv2026,2610.04269,2026-11-22,checked

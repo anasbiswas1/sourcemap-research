@@ -1,0 +1,245 @@
+report:
+  id: ihdec_arxiv2026
+  slug: '2606.29960'
+  title: 'IHDec: Divergence-Steered Contrastive Decoding for Securing Multi-Turn Instruction Hierarchies'
+  first_author: Nicole Geumheon Liu
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  doi: 10.18653/2026.findings-emnlp.1751
+  arxiv: '2606.29960'
+  version_read: arXiv v2
+  first_date: '2026-06-29'
+  read: F
+  role: proposes
+  code_release: https://github.com/nxcolelxu/IHDec.git (linked under the title)
+  later_version: Findings of EMNLP 2026 (from the search record; not read)
+  extraction_scope: 'Section 5 and Appendix E: Table 4 tool-use subsets (instructions arriving in tool returns) and the MT-Bench-101 averages of Figure 4; the abstract claim (Table 1 and Table 2, whose conflicts are between
+    system and user messages, the Safety subsets of Table 4, Table 3 scaling and the ablations not coded)'
+defences:
+- id: ihdec_l31
+  name: IHDec
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - Jensen-Shannon divergence between output distributions with and without each role to find lower roles that dominate higher ones
+  - 'contrastive decoding: logits shifted by the difference between the distribution without the conflicting roles and without the higher role'
+  layout: model chat template; tool returns in the ipython role
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we employ a dynamic contrastive decoding mechanism
+  pages:
+    layout: 14
+    layout_compat: 14
+evaluations:
+- id: ev_webpage_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: IHEval get_webpage conflict subset extended to five turns (740 dialogues), conflicting instruction in the tool return
+  attacker_type: static
+  attacker_access: black_box
+  judge: IHEval compliance check (follows the higher-priority instruction)
+  layout_same_as_defence: 'yes'
+  measured_by: ihdec_arxiv2026
+  page: 14
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_webpage_ihdec
+  defence_id: ihdec_l31
+  benchmark: IHEval get_webpage conflict subset extended to five turns (740 dialogues), conflicting instruction in the tool return
+  attacker_type: static
+  attacker_access: black_box
+  judge: IHEval compliance check (follows the higher-priority instruction)
+  layout_same_as_defence: 'yes'
+  measured_by: ihdec_arxiv2026
+  page: 14
+  decoding: not reported
+- id: ev_slack_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: IHEval slack conflict subset, conflicting instruction in the tool return
+  attacker_type: static
+  attacker_access: black_box
+  judge: IHEval compliance check (follows the higher-priority instruction)
+  layout_same_as_defence: 'yes'
+  measured_by: ihdec_arxiv2026
+  page: 14
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_slack_ihdec
+  defence_id: ihdec_l31
+  benchmark: IHEval slack conflict subset, conflicting instruction in the tool return
+  attacker_type: static
+  attacker_access: black_box
+  judge: IHEval compliance check (follows the higher-priority instruction)
+  layout_same_as_defence: 'yes'
+  measured_by: ihdec_arxiv2026
+  page: 14
+  decoding: not reported
+- id: ev_mtb_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: MT-Bench-101
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o judge
+  layout_same_as_defence: 'yes'
+  measured_by: ihdec_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_mtb_ihdec
+  defence_id: ihdec_l31
+  benchmark: MT-Bench-101
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o judge
+  layout_same_as_defence: 'yes'
+  measured_by: ihdec_arxiv2026
+  page: 7
+  decoding: not reported
+results:
+- id: r_webpage_none
+  evaluation_id: ev_webpage_none
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: instruction compliance accuracy under conflict (webpage)
+  value: '1.95'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Table 4
+- id: r_webpage_ihdec
+  evaluation_id: ev_webpage_ihdec
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: instruction compliance accuracy under conflict (webpage)
+  value: '12.45'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Table 4
+- id: r_slack_none
+  evaluation_id: ev_slack_none
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: instruction compliance accuracy under conflict (slack)
+  value: '11.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Table 4
+- id: r_slack_ihdec
+  evaluation_id: ev_slack_ihdec
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: instruction compliance accuracy under conflict (slack)
+  value: '34.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Table 4
+- id: r_mtb_none
+  evaluation_id: ev_mtb_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench-101 overall average
+  value: '9.29'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Figure 4 and caption
+- id: r_mtb_ihdec
+  evaluation_id: ev_mtb_ihdec
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench-101 overall average
+  value: '9.21'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Figure 4 and caption
+comparisons:
+- id: c_webpage
+  left: ev_webpage_ihdec
+  right: ev_webpage_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_slack
+  left: ev_slack_ihdec
+  right: ev_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_mtb
+  left: ev_mtb_ihdec
+  right: ev_mtb_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+claims:
+- id: k1
+  text: IHDec strengthens safety against adversarial prompt injection while preserving general response quality
+  location: abstract
+  anchor: IHDec strengthens safety against adversarial prompt injections
+  jobs:
+  - R1
+  - general_utility
+  supported_by:
+  - c_webpage
+  - c_slack
+  - c_mtb
+  page: 1
+coverage:
+  R1: proxy
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 4 tool-use subsets (compliance with the user instruction when a tool return conflicts)
+    general_utility: Figure 4 (MT-Bench-101)
+schema_gaps:
+- where: evaluations ev_webpage_*, ev_slack_*
+  note: the tool-use subsets score compliance with the higher-priority instruction under conflict, not whether an injected goal was executed, so they are an R1 proxy; IHDec's beta was set separately for these subsets (800
+    for Tool-Use, p. 14)

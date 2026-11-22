@@ -1,0 +1,3345 @@
+report:
+  id: pictionary_arxiv2026
+  slug: '2609.36121'
+  title: 'Render Before Reading: Visual Rendering as a Prompt Injection Defense'
+  first_author: Jie Zhang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2609.36121'
+  version_read: arXiv v1
+  first_date: '2026-09-28'
+  read: F
+  role: proposes
+  code_release: https://github.com/zj-jayzhang/Pictionary (linked from the abstract)
+  extraction_scope: 'Sections 4 to 6: Table 1 (ten models, DirectInject and AgentDojo), Table 2 (union of adaptive attacks), Table 4 (SWE-bench and tau2-Bench), Table 5 (audio rendering) and the No defense and Ours rows of
+    Table 3; the abstract claim (PromptLocate and DataFilter, which rewrite the data, and DataSentinel, a detector, are left out; Table 6 and the appendices not coded)'
+defences:
+- id: pic_opus
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: Claude Opus 4.7
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_haiku
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: Claude Haiku 4.5
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_g55
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: GPT-5.5
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_nano
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: GPT-5.4 nano
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_mini
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: GPT-5.4 mini
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_qwen
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: Qwen3.6-plus
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_kimi
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: Kimi-K2.6
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_grok
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: Grok 4.3
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_gpro
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: Gemini 3.1 Pro
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_glite
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: Gemini 3.1 Flash Lite
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: pic_g54
+  name: Pictionary (untrusted content rendered as a typographic image)
+  origin: this_report
+  base_checkpoint: GPT-5.4
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - every tool return (or the user-supplied document) rendered as black text on a white image and sent in place of the text
+  - user prompt, system prompt and tool schemas left as text
+  layout: image attachment for documents; image content in tool messages
+  layout_compat: *id001
+  anchor: Pictionary converts untrusted text into a typographic image
+- id: aud_gaud
+  name: untrusted content synthesised as speech (audio rendering)
+  origin: this_report
+  base_checkpoint: GPT-Audio Mini
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 8
+  components:
+  - untrusted text synthesised with GPT-4o-mini-tts and supplied as audio, no transcript
+  anchor: synthesized as speech and supplied as a waveform
+- id: aud_qomni
+  name: untrusted content synthesised as speech (audio rendering)
+  origin: this_report
+  base_checkpoint: Qwen3.5 Omni-Plus
+  axis1:
+  - encodings
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 8
+  components:
+  - untrusted text synthesised with GPT-4o-mini-tts and supplied as audio, no transcript
+  anchor: synthesized as speech and supplied as a waveform
+evaluations:
+- id: ev_di_opus_txt
+  defence_id: none:Claude Opus 4.7
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_opus_img
+  defence_id: pic_opus
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_opus_txt
+  defence_id: none:Claude Opus 4.7
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_opus_img
+  defence_id: pic_opus
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_di_haiku_txt
+  defence_id: none:Claude Haiku 4.5
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_haiku_img
+  defence_id: pic_haiku
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_haiku_txt
+  defence_id: none:Claude Haiku 4.5
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_haiku_img
+  defence_id: pic_haiku
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_di_g55_txt
+  defence_id: none:GPT-5.5
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_g55_img
+  defence_id: pic_g55
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_g55_txt
+  defence_id: none:GPT-5.5
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_g55_img
+  defence_id: pic_g55
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_di_nano_txt
+  defence_id: none:GPT-5.4 nano
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_nano_img
+  defence_id: pic_nano
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_nano_txt
+  defence_id: none:GPT-5.4 nano
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_nano_img
+  defence_id: pic_nano
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_di_mini_txt
+  defence_id: none:GPT-5.4 mini
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_mini_img
+  defence_id: pic_mini
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_mini_txt
+  defence_id: none:GPT-5.4 mini
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_mini_img
+  defence_id: pic_mini
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_di_qwen_txt
+  defence_id: none:Qwen3.6-plus
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_qwen_img
+  defence_id: pic_qwen
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_qwen_txt
+  defence_id: none:Qwen3.6-plus
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_qwen_img
+  defence_id: pic_qwen
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_di_kimi_txt
+  defence_id: none:Kimi-K2.6
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_kimi_img
+  defence_id: pic_kimi
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_kimi_txt
+  defence_id: none:Kimi-K2.6
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_kimi_img
+  defence_id: pic_kimi
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_di_grok_txt
+  defence_id: none:Grok 4.3
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_grok_img
+  defence_id: pic_grok
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_grok_txt
+  defence_id: none:Grok 4.3
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_grok_img
+  defence_id: pic_grok
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_di_gpro_txt
+  defence_id: none:Gemini 3.1 Pro
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_gpro_img
+  defence_id: pic_gpro
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_gpro_txt
+  defence_id: none:Gemini 3.1 Pro
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_gpro_img
+  defence_id: pic_gpro
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_di_glite_txt
+  defence_id: none:Gemini 3.1 Flash Lite
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_di_glite_img
+  defence_id: pic_glite
+  benchmark: DirectInject, 56 task-goal pairs, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  sample_size: '56'
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_adj_glite_txt
+  defence_id: none:Gemini 3.1 Flash Lite
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_adj_glite_img
+  defence_id: pic_glite
+  benchmark: AgentDojo, seven fixed templates, strict attack criterion
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict)
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+    judge: 5
+- id: ev_union_opus_txt
+  defence_id: none:Claude Opus 4.7
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_union_opus_img
+  defence_id: pic_opus
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+- id: ev_union_haiku_txt
+  defence_id: none:Claude Haiku 4.5
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_union_haiku_img
+  defence_id: pic_haiku
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+- id: ev_union_g55_txt
+  defence_id: none:GPT-5.5
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_union_g55_img
+  defence_id: pic_g55
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+- id: ev_union_mini_txt
+  defence_id: none:GPT-5.4 mini
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_union_mini_img
+  defence_id: pic_mini
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+- id: ev_union_kimi_txt
+  defence_id: none:Kimi-K2.6
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_union_kimi_img
+  defence_id: pic_kimi
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+- id: ev_union_glite_txt
+  defence_id: none:Gemini 3.1 Flash Lite
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+  baseline_kind: off_the_shelf
+- id: ev_union_glite_img
+  defence_id: pic_glite
+  benchmark: AgentDojo banking, union of RL suffix optimisation, agentic auto red teaming and human red teaming payloads replayed on both channels
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo checkers (strict); any payload succeeds
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  attacker_budget: pooled payloads from three methods, including 144 expert hours
+  decoding: not reported
+  pages:
+    attacker_budget: 6
+- id: ev_art_mini_txt
+  defence_id: none:GPT-5.4 mini
+  benchmark: DirectInject, union of three ART-discovered templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  decoding: not reported
+  run: Table 3 comparison run
+  baseline_kind: off_the_shelf
+- id: ev_art_mini_img
+  defence_id: pic_mini
+  benchmark: DirectInject, union of three ART-discovered templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  decoding: not reported
+  run: Table 3 comparison run
+- id: ev_art_g54_txt
+  defence_id: none:GPT-5.4
+  benchmark: DirectInject, union of three ART-discovered templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  decoding: not reported
+  run: Table 3 comparison run
+  baseline_kind: off_the_shelf
+- id: ev_art_g54_img
+  defence_id: pic_g54
+  benchmark: DirectInject, union of three ART-discovered templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  decoding: not reported
+  run: Table 3 comparison run
+- id: ev_art_kimi_txt
+  defence_id: none:Kimi-K2.6
+  benchmark: DirectInject, union of three ART-discovered templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  decoding: not reported
+  run: Table 3 comparison run
+  baseline_kind: off_the_shelf
+- id: ev_art_kimi_img
+  defence_id: pic_kimi
+  benchmark: DirectInject, union of three ART-discovered templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 7
+  decoding: not reported
+  run: Table 3 comparison run
+- id: ev_swe_kimi_txt
+  defence_id: none:Kimi-K2.6
+  benchmark: SWE-bench Verified, 100 instances
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: repository tests
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: off_the_shelf
+- id: ev_swe_kimi_img
+  defence_id: pic_kimi
+  benchmark: SWE-bench Verified, 100 instances
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: repository tests
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '100'
+- id: ev_tau_kimi_txt
+  defence_id: none:Kimi-K2.6
+  benchmark: tau2-Bench telecom and airline, 164 tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: tau2-Bench checker
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '164'
+  baseline_kind: off_the_shelf
+- id: ev_tau_kimi_img
+  defence_id: pic_kimi
+  benchmark: tau2-Bench telecom and airline, 164 tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: tau2-Bench checker
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '164'
+- id: ev_swe_mini_txt
+  defence_id: none:GPT-5.4 mini
+  benchmark: SWE-bench Verified, 100 instances
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: repository tests
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: off_the_shelf
+- id: ev_swe_mini_img
+  defence_id: pic_mini
+  benchmark: SWE-bench Verified, 100 instances
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: repository tests
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '100'
+- id: ev_tau_mini_txt
+  defence_id: none:GPT-5.4 mini
+  benchmark: tau2-Bench telecom and airline, 164 tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: tau2-Bench checker
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '164'
+  baseline_kind: off_the_shelf
+- id: ev_tau_mini_img
+  defence_id: pic_mini
+  benchmark: tau2-Bench telecom and airline, 164 tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: tau2-Bench checker
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '164'
+- id: ev_swe_haiku_txt
+  defence_id: none:Claude Haiku 4.5
+  benchmark: SWE-bench Verified, 100 instances
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: repository tests
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: off_the_shelf
+- id: ev_swe_haiku_img
+  defence_id: pic_haiku
+  benchmark: SWE-bench Verified, 100 instances
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: repository tests
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '100'
+- id: ev_tau_haiku_txt
+  defence_id: none:Claude Haiku 4.5
+  benchmark: tau2-Bench telecom and airline, 164 tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: tau2-Bench checker
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '164'
+  baseline_kind: off_the_shelf
+- id: ev_tau_haiku_img
+  defence_id: pic_haiku
+  benchmark: tau2-Bench telecom and airline, 164 tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: tau2-Bench checker
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '164'
+- id: ev_audclean_gaud_txt
+  defence_id: none:GPT-Audio Mini
+  benchmark: DirectInject, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_audatt_gaud_txt
+  defence_id: none:GPT-Audio Mini
+  benchmark: DirectInject, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_audclean_gaud_aud
+  defence_id: aud_gaud
+  benchmark: DirectInject, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_audatt_gaud_aud
+  defence_id: aud_gaud
+  benchmark: DirectInject, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_audclean_qomni_txt
+  defence_id: none:Qwen3.5 Omni-Plus
+  benchmark: DirectInject, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_audatt_qomni_txt
+  defence_id: none:Qwen3.5 Omni-Plus
+  benchmark: DirectInject, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_audclean_qomni_aud
+  defence_id: aud_qomni
+  benchmark: DirectInject, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_audatt_qomni_aud
+  defence_id: aud_qomni
+  benchmark: DirectInject, seven fixed templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: executable call to the target function; GPT-5.4 mini judges the answers
+  layout_same_as_defence: 'yes'
+  measured_by: pictionary_arxiv2026
+  page: 8
+  decoding: not reported
+results:
+- id: r_di_opus_txt_asr
+  evaluation_id: ev_di_opus_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '5.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_opus_txt_u
+  evaluation_id: ev_di_opus_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '99.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_opus_img_asr
+  evaluation_id: ev_di_opus_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_opus_img_u
+  evaluation_id: ev_di_opus_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_opus_txt_asr
+  evaluation_id: ev_adj_opus_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_opus_txt_u
+  evaluation_id: ev_adj_opus_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '90.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_opus_img_asr
+  evaluation_id: ev_adj_opus_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_opus_img_u
+  evaluation_id: ev_adj_opus_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '90.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_haiku_txt_asr
+  evaluation_id: ev_di_haiku_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '17.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_haiku_txt_u
+  evaluation_id: ev_di_haiku_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '99.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_haiku_img_asr
+  evaluation_id: ev_di_haiku_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_haiku_img_u
+  evaluation_id: ev_di_haiku_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '98.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_haiku_txt_asr
+  evaluation_id: ev_adj_haiku_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '1.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_haiku_txt_u
+  evaluation_id: ev_adj_haiku_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '70.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_haiku_img_asr
+  evaluation_id: ev_adj_haiku_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_haiku_img_u
+  evaluation_id: ev_adj_haiku_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '62.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_g55_txt_asr
+  evaluation_id: ev_di_g55_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_g55_txt_u
+  evaluation_id: ev_di_g55_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_g55_img_asr
+  evaluation_id: ev_di_g55_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_g55_img_u
+  evaluation_id: ev_di_g55_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_g55_txt_asr
+  evaluation_id: ev_adj_g55_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_g55_txt_u
+  evaluation_id: ev_adj_g55_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '92.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_g55_img_asr
+  evaluation_id: ev_adj_g55_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_g55_img_u
+  evaluation_id: ev_adj_g55_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '92.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_nano_txt_asr
+  evaluation_id: ev_di_nano_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '14.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_nano_txt_u
+  evaluation_id: ev_di_nano_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_nano_img_asr
+  evaluation_id: ev_di_nano_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_nano_img_u
+  evaluation_id: ev_di_nano_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '98.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_nano_txt_asr
+  evaluation_id: ev_adj_nano_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '14.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_nano_txt_u
+  evaluation_id: ev_adj_nano_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '50.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_nano_img_asr
+  evaluation_id: ev_adj_nano_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_nano_img_u
+  evaluation_id: ev_adj_nano_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '43.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_mini_txt_asr
+  evaluation_id: ev_di_mini_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '75.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_mini_txt_u
+  evaluation_id: ev_di_mini_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '99.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_mini_img_asr
+  evaluation_id: ev_di_mini_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_mini_img_u
+  evaluation_id: ev_di_mini_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_mini_txt_asr
+  evaluation_id: ev_adj_mini_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '29.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_mini_txt_u
+  evaluation_id: ev_adj_mini_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '71.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_mini_img_asr
+  evaluation_id: ev_adj_mini_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '7.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_mini_img_u
+  evaluation_id: ev_adj_mini_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '64.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_qwen_txt_asr
+  evaluation_id: ev_di_qwen_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '96.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_qwen_txt_u
+  evaluation_id: ev_di_qwen_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '98.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_qwen_img_asr
+  evaluation_id: ev_di_qwen_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '58.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_qwen_img_u
+  evaluation_id: ev_di_qwen_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '99.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_qwen_txt_asr
+  evaluation_id: ev_adj_qwen_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '60.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_qwen_txt_u
+  evaluation_id: ev_adj_qwen_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '88.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_qwen_img_asr
+  evaluation_id: ev_adj_qwen_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '22.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_qwen_img_u
+  evaluation_id: ev_adj_qwen_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '90.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_kimi_txt_asr
+  evaluation_id: ev_di_kimi_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '80.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_kimi_txt_u
+  evaluation_id: ev_di_kimi_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '76.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_kimi_img_asr
+  evaluation_id: ev_di_kimi_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '7.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_kimi_img_u
+  evaluation_id: ev_di_kimi_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '83.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_kimi_txt_asr
+  evaluation_id: ev_adj_kimi_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '50.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_kimi_txt_u
+  evaluation_id: ev_adj_kimi_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '84.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_kimi_img_asr
+  evaluation_id: ev_adj_kimi_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '12.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_kimi_img_u
+  evaluation_id: ev_adj_kimi_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '84.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_grok_txt_asr
+  evaluation_id: ev_di_grok_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_grok_txt_u
+  evaluation_id: ev_di_grok_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '97.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_grok_img_asr
+  evaluation_id: ev_di_grok_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '64.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_grok_img_u
+  evaluation_id: ev_di_grok_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '99.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_grok_txt_asr
+  evaluation_id: ev_adj_grok_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '32.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_grok_txt_u
+  evaluation_id: ev_adj_grok_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '87.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_grok_img_asr
+  evaluation_id: ev_adj_grok_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '23.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_grok_img_u
+  evaluation_id: ev_adj_grok_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '72.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_gpro_txt_asr
+  evaluation_id: ev_di_gpro_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '98.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_gpro_txt_u
+  evaluation_id: ev_di_gpro_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '87.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_gpro_img_asr
+  evaluation_id: ev_di_gpro_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '55.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_gpro_img_u
+  evaluation_id: ev_di_gpro_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '96.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_gpro_txt_asr
+  evaluation_id: ev_adj_gpro_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '83.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_gpro_txt_u
+  evaluation_id: ev_adj_gpro_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '77.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_gpro_img_asr
+  evaluation_id: ev_adj_gpro_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '41.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_gpro_img_u
+  evaluation_id: ev_adj_gpro_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '87.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_glite_txt_asr
+  evaluation_id: ev_di_glite_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_glite_txt_u
+  evaluation_id: ev_di_glite_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_glite_img_asr
+  evaluation_id: ev_di_glite_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '46.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_di_glite_img_u
+  evaluation_id: ev_di_glite_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_glite_txt_asr
+  evaluation_id: ev_adj_glite_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '90.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_glite_txt_u
+  evaluation_id: ev_adj_glite_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '63.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_glite_img_asr
+  evaluation_id: ev_adj_glite_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '49.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_adj_glite_img_u
+  evaluation_id: ev_adj_glite_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (%) under attack
+  value: '52.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_union_opus_txt
+  evaluation_id: ev_union_opus_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '14.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_opus_img
+  evaluation_id: ev_union_opus_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '11.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_haiku_txt
+  evaluation_id: ev_union_haiku_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '97.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_haiku_img
+  evaluation_id: ev_union_haiku_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '9.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_g55_txt
+  evaluation_id: ev_union_g55_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '19.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_g55_img
+  evaluation_id: ev_union_g55_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '16.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_mini_txt
+  evaluation_id: ev_union_mini_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '83.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_mini_img
+  evaluation_id: ev_union_mini_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '31.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_kimi_txt
+  evaluation_id: ev_union_kimi_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '77.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_kimi_img
+  evaluation_id: ev_union_kimi_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '40.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_glite_txt
+  evaluation_id: ev_union_glite_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_union_glite_img
+  evaluation_id: ev_union_glite_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%) union
+  value: '97.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_art_mini_txt_asr
+  evaluation_id: ev_art_mini_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '82.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_mini_txt_u
+  evaluation_id: ev_art_mini_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility
+  value: '98'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_mini_img_asr
+  evaluation_id: ev_art_mini_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '3.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_mini_img_u
+  evaluation_id: ev_art_mini_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_g54_txt_asr
+  evaluation_id: ev_art_g54_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '87.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_g54_txt_u
+  evaluation_id: ev_art_g54_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility
+  value: '99'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_g54_img_asr
+  evaluation_id: ev_art_g54_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '3.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_g54_img_u
+  evaluation_id: ev_art_g54_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_kimi_txt_asr
+  evaluation_id: ev_art_kimi_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '71.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_kimi_txt_u
+  evaluation_id: ev_art_kimi_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility
+  value: '96'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_kimi_img_asr
+  evaluation_id: ev_art_kimi_img
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '3.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_art_kimi_img_u
+  evaluation_id: ev_art_kimi_img
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility
+  value: '99'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_swe_kimi_txt
+  evaluation_id: ev_swe_kimi_txt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '65.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_swe_kimi_img
+  evaluation_id: ev_swe_kimi_img
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '65.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_tau_kimi_txt
+  evaluation_id: ev_tau_kimi_txt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '87.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_tau_kimi_img
+  evaluation_id: ev_tau_kimi_img
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '85.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_swe_mini_txt
+  evaluation_id: ev_swe_mini_txt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '66.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_swe_mini_img
+  evaluation_id: ev_swe_mini_img
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '56.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_tau_mini_txt
+  evaluation_id: ev_tau_mini_txt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '44.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_tau_mini_img
+  evaluation_id: ev_tau_mini_img
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '43.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_swe_haiku_txt
+  evaluation_id: ev_swe_haiku_txt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '66.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_swe_haiku_img
+  evaluation_id: ev_swe_haiku_img
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '57.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_tau_haiku_txt
+  evaluation_id: ev_tau_haiku_txt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '50.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_tau_haiku_img
+  evaluation_id: ev_tau_haiku_img
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Task success (%)
+  value: '48.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_audclean_gaud_txt
+  evaluation_id: ev_audclean_gaud_txt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility, no attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+  spread: ± 0.0
+- id: r_audatt_gaud_txt_asr
+  evaluation_id: ev_audatt_gaud_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '27.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_audatt_gaud_txt_u
+  evaluation_id: ev_audatt_gaud_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility under attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_audclean_gaud_aud
+  evaluation_id: ev_audclean_gaud_aud
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility, no attack
+  value: '95.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+  spread: ± 22.4
+- id: r_audatt_gaud_aud_asr
+  evaluation_id: ev_audatt_gaud_aud
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_audatt_gaud_aud_u
+  evaluation_id: ev_audatt_gaud_aud
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility under attack
+  value: '91.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_audclean_qomni_txt
+  evaluation_id: ev_audclean_qomni_txt
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility, no attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+  spread: ± 0.0
+- id: r_audatt_qomni_txt_asr
+  evaluation_id: ev_audatt_qomni_txt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '50.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_audatt_qomni_txt_u
+  evaluation_id: ev_audatt_qomni_txt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility under attack
+  value: '82.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_audclean_qomni_aud
+  evaluation_id: ev_audclean_qomni_aud
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility, no attack
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+  spread: ± 0.0
+- id: r_audatt_qomni_aud_asr
+  evaluation_id: ev_audatt_qomni_aud
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '15.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_audatt_qomni_aud_u
+  evaluation_id: ev_audatt_qomni_aud
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility under attack
+  value: '93.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+comparisons:
+- id: c_di_opus
+  left: ev_di_opus_img
+  right: ev_di_opus_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_opus
+  left: ev_adj_opus_img
+  right: ev_adj_opus_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_di_haiku
+  left: ev_di_haiku_img
+  right: ev_di_haiku_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_haiku
+  left: ev_adj_haiku_img
+  right: ev_adj_haiku_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_di_g55
+  left: ev_di_g55_img
+  right: ev_di_g55_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_g55
+  left: ev_adj_g55_img
+  right: ev_adj_g55_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_di_nano
+  left: ev_di_nano_img
+  right: ev_di_nano_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_nano
+  left: ev_adj_nano_img
+  right: ev_adj_nano_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_di_mini
+  left: ev_di_mini_img
+  right: ev_di_mini_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_mini
+  left: ev_adj_mini_img
+  right: ev_adj_mini_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_di_qwen
+  left: ev_di_qwen_img
+  right: ev_di_qwen_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_qwen
+  left: ev_adj_qwen_img
+  right: ev_adj_qwen_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_di_kimi
+  left: ev_di_kimi_img
+  right: ev_di_kimi_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_kimi
+  left: ev_adj_kimi_img
+  right: ev_adj_kimi_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_di_grok
+  left: ev_di_grok_img
+  right: ev_di_grok_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_grok
+  left: ev_adj_grok_img
+  right: ev_adj_grok_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_di_gpro
+  left: ev_di_gpro_img
+  right: ev_di_gpro_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_gpro
+  left: ev_adj_gpro_img
+  right: ev_adj_gpro_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_di_glite
+  left: ev_di_glite_img
+  right: ev_di_glite_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_adj_glite
+  left: ev_adj_glite_img
+  right: ev_adj_glite_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_union_opus
+  left: ev_union_opus_img
+  right: ev_union_opus_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_union_haiku
+  left: ev_union_haiku_img
+  right: ev_union_haiku_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_union_g55
+  left: ev_union_g55_img
+  right: ev_union_g55_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_union_mini
+  left: ev_union_mini_img
+  right: ev_union_mini_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_union_kimi
+  left: ev_union_kimi_img
+  right: ev_union_kimi_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_union_glite
+  left: ev_union_glite_img
+  right: ev_union_glite_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_art_mini
+  left: ev_art_mini_img
+  right: ev_art_mini_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_art_g54
+  left: ev_art_g54_img
+  right: ev_art_g54_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_art_kimi
+  left: ev_art_kimi_img
+  right: ev_art_kimi_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_swe_kimi
+  left: ev_swe_kimi_img
+  right: ev_swe_kimi_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_tau_kimi
+  left: ev_tau_kimi_img
+  right: ev_tau_kimi_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_swe_mini
+  left: ev_swe_mini_img
+  right: ev_swe_mini_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_tau_mini
+  left: ev_tau_mini_img
+  right: ev_tau_mini_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_swe_haiku
+  left: ev_swe_haiku_img
+  right: ev_swe_haiku_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_tau_haiku
+  left: ev_tau_haiku_img
+  right: ev_tau_haiku_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_audclean_gaud
+  left: ev_audclean_gaud_aud
+  right: ev_audclean_gaud_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_audatt_gaud
+  left: ev_audatt_gaud_aud
+  right: ev_audatt_gaud_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_audclean_qomni
+  left: ev_audclean_qomni_aud
+  right: ev_audclean_qomni_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_audatt_qomni
+  left: ev_audatt_qomni_aud
+  right: ev_audatt_qomni_txt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: Pictionary consistently reduces attack success, even against the strongest adaptive attacks and human red teamers, while largely keeping utility
+  location: abstract
+  anchor: consistently reduces attack success rates even against the strongest adaptive attacks
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_di_opus
+  - c_adj_opus
+  - c_di_haiku
+  - c_adj_haiku
+  - c_di_g55
+  - c_adj_g55
+  - c_di_nano
+  - c_adj_nano
+  - c_di_mini
+  - c_adj_mini
+  - c_di_qwen
+  - c_adj_qwen
+  - c_di_kimi
+  - c_adj_kimi
+  - c_di_grok
+  - c_adj_grok
+  - c_di_gpro
+  - c_adj_gpro
+  - c_di_glite
+  - c_adj_glite
+  - c_union_opus
+  - c_union_haiku
+  - c_union_g55
+  - c_union_mini
+  - c_union_kimi
+  - c_union_glite
+  - c_swe_kimi
+  - c_tau_kimi
+  - c_swe_mini
+  - c_tau_mini
+  - c_swe_haiku
+  - c_tau_haiku
+  page: 1
+  contradicted_by:
+  - r_union_glite_img
+  - r_swe_mini_img
+  - r_adj_grok_img_u
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1, 2, 3 and 5
+    R2clean: Tables 4 and 5
+    R2attack: Tables 1, 3 and 5
+schema_gaps:
+- where: results r_audatt_qomni_txt_*
+  note: 'Table 5 marks the Qwen3.5 Omni-Plus text values with a dagger: one attack template was rejected by the API before reaching the model (p. 8)'

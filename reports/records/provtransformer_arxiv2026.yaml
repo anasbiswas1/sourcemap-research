@@ -1,0 +1,3941 @@
+report:
+  id: provtransformer_arxiv2026
+  slug: '2609.21088'
+  title: 'Origin Is All You Need: Provenance-Aware Transformers for Structural Trust-Boundary Separation'
+  first_author: Yuxuan Zhang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2609.21088'
+  version_read: arXiv v1
+  first_date: '2026-09-17'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Section 5: Table 3 rows for no defence, Instructional, Sandwich, Random Sequence, Delimiters, SecAlign, Baseline SFT and Provenance-Aware; Tables 4 to 6; the w/o Bias rows of Table 7; the abstract claim
+    (Known-Answer, PromptSleuth, DataSentinel, PromptGuard, PromptLocate and Rennervate, which detect injections, the w/o Stage 1 rows, Table 8 and the jailbreak Table 9 not coded)'
+defences:
+- id: pat_smol
+  name: Provenance-Aware Transformer
+  origin: this_report
+  base_checkpoint: SmolLM2-360M
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  - distillation
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - ring ID per token (0 system, 1 operator, 2 user and trusted data, 3 untrusted data) assigned by the application
+  - origin embeddings, a learnable origin attention bias indexed by query and key rings, and a learnable origin scale
+  - Stage 1 origin fine-tuning on general data; Stage 2 on 60,200 SEP-style examples whose reference answers were written by Claude
+  anchor: Each in- put token is assigned a ring ID encoding its origin
+  pages:
+    components: 9
+- id: sft_smol
+  name: Baseline SFT (same data, no ring components)
+  origin: this_report
+  base_checkpoint: SmolLM2-360M
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 11
+  anchor: same-data fine-tune without the ring components
+- id: nob_smol
+  name: Provenance-Aware Transformer with the origin attention bias zeroed at inference
+  origin: this_report
+  base_checkpoint: SmolLM2-360M
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 12
+  anchor: zeros the origin attention bias at inference
+- id: pat_l3
+  name: Provenance-Aware Transformer
+  origin: this_report
+  base_checkpoint: LLaMA-3-8B-Instruct
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  - distillation
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - ring ID per token (0 system, 1 operator, 2 user and trusted data, 3 untrusted data) assigned by the application
+  - origin embeddings, a learnable origin attention bias indexed by query and key rings, and a learnable origin scale
+  - Stage 1 origin fine-tuning on general data; Stage 2 on 60,200 SEP-style examples whose reference answers were written by Claude
+  anchor: Each in- put token is assigned a ring ID encoding its origin
+  pages:
+    components: 9
+- id: sft_l3
+  name: Baseline SFT (same data, no ring components)
+  origin: this_report
+  base_checkpoint: LLaMA-3-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 11
+  anchor: same-data fine-tune without the ring components
+- id: nob_l3
+  name: Provenance-Aware Transformer with the origin attention bias zeroed at inference
+  origin: this_report
+  base_checkpoint: LLaMA-3-8B-Instruct
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 12
+  anchor: zeros the origin attention bias at inference
+- id: pat_q25
+  name: Provenance-Aware Transformer
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  - distillation
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - ring ID per token (0 system, 1 operator, 2 user and trusted data, 3 untrusted data) assigned by the application
+  - origin embeddings, a learnable origin attention bias indexed by query and key rings, and a learnable origin scale
+  - Stage 1 origin fine-tuning on general data; Stage 2 on 60,200 SEP-style examples whose reference answers were written by Claude
+  anchor: Each in- put token is assigned a ring ID encoding its origin
+  pages:
+    components: 9
+- id: sft_q25
+  name: Baseline SFT (same data, no ring components)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 11
+  anchor: same-data fine-tune without the ring components
+- id: nob_q25
+  name: Provenance-Aware Transformer with the origin attention bias zeroed at inference
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 12
+  anchor: zeros the origin attention bias at inference
+- id: pat_mi
+  name: Provenance-Aware Transformer
+  origin: this_report
+  base_checkpoint: Mistral-7B
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  - distillation
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - ring ID per token (0 system, 1 operator, 2 user and trusted data, 3 untrusted data) assigned by the application
+  - origin embeddings, a learnable origin attention bias indexed by query and key rings, and a learnable origin scale
+  - Stage 1 origin fine-tuning on general data; Stage 2 on 60,200 SEP-style examples whose reference answers were written by Claude
+  anchor: Each in- put token is assigned a ring ID encoding its origin
+  pages:
+    components: 9
+- id: sft_mi
+  name: Baseline SFT (same data, no ring components)
+  origin: this_report
+  base_checkpoint: Mistral-7B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 11
+  anchor: same-data fine-tune without the ring components
+- id: nob_mi
+  name: Provenance-Aware Transformer with the origin attention bias zeroed at inference
+  origin: this_report
+  base_checkpoint: Mistral-7B
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 12
+  anchor: zeros the origin attention bias at inference
+- id: instr_l3
+  name: Instructional
+  origin: other_report
+  base_checkpoint: LLaMA-3-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 10
+  anchor: Instructional [52]
+- id: sand_l3
+  name: Sandwich
+  origin: other_report
+  base_checkpoint: LLaMA-3-8B-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 10
+  anchor: Sandwich [26]
+- id: rseq_l3
+  name: Random Sequence
+  origin: other_report
+  base_checkpoint: LLaMA-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 10
+  anchor: Random Sequence [1]
+- id: delim_l3
+  name: Delimiters
+  origin: other_report
+  base_checkpoint: LLaMA-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 10
+  anchor: Delimiters [55]
+- id: secalign_l3
+  name: SecAlign
+  origin: other_report
+  base_checkpoint: LLaMA-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 10
+  anchor: SecAlign [11]
+evaluations:
+- id: ev_smol_none_sep
+  defence_id: none:SmolLM2-360M
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_smol_none_pia
+  defence_id: none:SmolLM2-360M
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_smol_none_dsen
+  defence_id: none:SmolLM2-360M
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_smol_none_math
+  defence_id: none:SmolLM2-360M
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_smol_sft_sep
+  defence_id: sft_smol
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_smol_sft_pia
+  defence_id: sft_smol
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_smol_sft_dsen
+  defence_id: sft_smol
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_smol_sft_math
+  defence_id: sft_smol
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_smol_pat_sep
+  defence_id: pat_smol
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_smol_pat_pia
+  defence_id: pat_smol
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_smol_pat_dsen
+  defence_id: pat_smol
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_smol_pat_math
+  defence_id: pat_smol
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_l3_none_sep
+  defence_id: none:LLaMA-3-8B-Instruct
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_pia
+  defence_id: none:LLaMA-3-8B-Instruct
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_dsen
+  defence_id: none:LLaMA-3-8B-Instruct
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_math
+  defence_id: none:LLaMA-3-8B-Instruct
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_l3_sft_sep
+  defence_id: sft_l3
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_l3_sft_pia
+  defence_id: sft_l3
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_l3_sft_dsen
+  defence_id: sft_l3
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_l3_sft_math
+  defence_id: sft_l3
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_l3_pat_sep
+  defence_id: pat_l3
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_l3_pat_pia
+  defence_id: pat_l3
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_l3_pat_dsen
+  defence_id: pat_l3
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_l3_pat_math
+  defence_id: pat_l3
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_q25_none_sep
+  defence_id: none:Qwen2.5-7B
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_q25_none_pia
+  defence_id: none:Qwen2.5-7B
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_q25_none_dsen
+  defence_id: none:Qwen2.5-7B
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_q25_none_math
+  defence_id: none:Qwen2.5-7B
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_q25_sft_sep
+  defence_id: sft_q25
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_q25_sft_pia
+  defence_id: sft_q25
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_q25_sft_dsen
+  defence_id: sft_q25
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_q25_sft_math
+  defence_id: sft_q25
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_q25_pat_sep
+  defence_id: pat_q25
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_q25_pat_pia
+  defence_id: pat_q25
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_q25_pat_dsen
+  defence_id: pat_q25
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_q25_pat_math
+  defence_id: pat_q25
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_mi_none_sep
+  defence_id: none:Mistral-7B
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_mi_none_pia
+  defence_id: none:Mistral-7B
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_mi_none_dsen
+  defence_id: none:Mistral-7B
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_mi_none_math
+  defence_id: none:Mistral-7B
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+  baseline_kind: off_the_shelf
+- id: ev_mi_sft_sep
+  defence_id: sft_mi
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_mi_sft_pia
+  defence_id: sft_mi
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_mi_sft_dsen
+  defence_id: sft_mi
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_mi_sft_math
+  defence_id: sft_mi
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_mi_pat_sep
+  defence_id: pat_mi
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_mi_pat_pia
+  defence_id: pat_mi
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_mi_pat_dsen
+  defence_id: pat_mi
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_mi_pat_math
+  defence_id: pat_mi
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_t3_instr_l3_sep
+  defence_id: instr_l3
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_t3_instr_l3_pia
+  defence_id: instr_l3
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_t3_instr_l3_dsen
+  defence_id: instr_l3
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_t3_instr_l3_math
+  defence_id: instr_l3
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_t3_sand_l3_sep
+  defence_id: sand_l3
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_t3_sand_l3_pia
+  defence_id: sand_l3
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_t3_sand_l3_dsen
+  defence_id: sand_l3
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_t3_sand_l3_math
+  defence_id: sand_l3
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_t3_rseq_l3_sep
+  defence_id: rseq_l3
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_t3_rseq_l3_pia
+  defence_id: rseq_l3
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_t3_rseq_l3_dsen
+  defence_id: rseq_l3
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_t3_rseq_l3_math
+  defence_id: rseq_l3
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_t3_delim_l3_sep
+  defence_id: delim_l3
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_t3_delim_l3_pia
+  defence_id: delim_l3
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_t3_delim_l3_dsen
+  defence_id: delim_l3
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_t3_delim_l3_math
+  defence_id: delim_l3
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_t3_secalign_l3_sep
+  defence_id: secalign_l3
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_t3_secalign_l3_pia
+  defence_id: secalign_l3
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_t3_secalign_l3_dsen
+  defence_id: secalign_l3
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_t3_secalign_l3_math
+  defence_id: secalign_l3
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 10
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_smol_nob_sep
+  defence_id: nob_smol
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_smol_nob_pia
+  defence_id: nob_smol
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_smol_nob_dsen
+  defence_id: nob_smol
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_smol_nob_math
+  defence_id: nob_smol
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_l3_nob_sep
+  defence_id: nob_l3
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_l3_nob_pia
+  defence_id: nob_l3
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_l3_nob_dsen
+  defence_id: nob_l3
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_l3_nob_math
+  defence_id: nob_l3
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_q25_nob_sep
+  defence_id: nob_q25
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_q25_nob_pia
+  defence_id: nob_q25
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_q25_nob_dsen
+  defence_id: nob_q25
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_q25_nob_math
+  defence_id: nob_q25
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_mi_nob_sep
+  defence_id: nob_mi
+  benchmark: SEP test (IID), 4,375 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 4,375
+  pages:
+    benchmark: 9
+- id: ev_mi_nob_pia
+  defence_id: nob_mi
+  benchmark: PI-Attack (OOD classification), 8,256 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 8,256
+  pages:
+    benchmark: 9
+- id: ev_mi_nob_dsen
+  defence_id: nob_mi
+  benchmark: DataSentinel set (OOD classification), 178 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: '178'
+  pages:
+    benchmark: 9
+- id: ev_mi_nob_math
+  defence_id: nob_mi
+  benchmark: Math-Tutor (OOD free-form math), 3,800 examples
+  attacker_type: static
+  attacker_access: black_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 12
+  decoding: not reported
+  sample_size: 3,800
+  pages:
+    benchmark: 9
+- id: ev_ae_smol_sft
+  defence_id: sft_smol
+  benchmark: AlpacaEval 2.0, 805 prompts, pairwise against the base pretrained model
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude Sonnet 5 judge, length-controlled win rate
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '805'
+  pages:
+    judge: 9
+- id: ev_ae_smol_pat
+  defence_id: pat_smol
+  benchmark: AlpacaEval 2.0, 805 prompts, pairwise against the base pretrained model
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude Sonnet 5 judge, length-controlled win rate
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '805'
+  pages:
+    judge: 9
+- id: ev_ae_l3_sft
+  defence_id: sft_l3
+  benchmark: AlpacaEval 2.0, 805 prompts, pairwise against the base pretrained model
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude Sonnet 5 judge, length-controlled win rate
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '805'
+  pages:
+    judge: 9
+- id: ev_ae_l3_pat
+  defence_id: pat_l3
+  benchmark: AlpacaEval 2.0, 805 prompts, pairwise against the base pretrained model
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude Sonnet 5 judge, length-controlled win rate
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '805'
+  pages:
+    judge: 9
+- id: ev_ae_q25_sft
+  defence_id: sft_q25
+  benchmark: AlpacaEval 2.0, 805 prompts, pairwise against the base pretrained model
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude Sonnet 5 judge, length-controlled win rate
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '805'
+  pages:
+    judge: 9
+- id: ev_ae_q25_pat
+  defence_id: pat_q25
+  benchmark: AlpacaEval 2.0, 805 prompts, pairwise against the base pretrained model
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude Sonnet 5 judge, length-controlled win rate
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '805'
+  pages:
+    judge: 9
+- id: ev_ae_mi_sft
+  defence_id: sft_mi
+  benchmark: AlpacaEval 2.0, 805 prompts, pairwise against the base pretrained model
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude Sonnet 5 judge, length-controlled win rate
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '805'
+  pages:
+    judge: 9
+- id: ev_ae_mi_pat
+  defence_id: pat_mi
+  benchmark: AlpacaEval 2.0, 805 prompts, pairwise against the base pretrained model
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude Sonnet 5 judge, length-controlled win rate
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  decoding: not reported
+  sample_size: '805'
+  pages:
+    judge: 9
+- id: ev_ad_none_gcg
+  defence_id: none:LLaMA-3-8B-Instruct
+  benchmark: PI-Attack and DataSentinel, universal GCG suffix or trigger optimised against this model
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  attacker_budget: 2,000 optimisation steps, universal
+  decoding: not reported
+  pages:
+    attacker_budget: 12
+  baseline_kind: off_the_shelf
+- id: ev_ad_none_neu
+  defence_id: none:LLaMA-3-8B-Instruct
+  benchmark: PI-Attack and DataSentinel, universal NeuExe suffix or trigger optimised against this model
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  attacker_budget: 2,000 optimisation steps, universal
+  decoding: not reported
+  pages:
+    attacker_budget: 12
+  baseline_kind: off_the_shelf
+- id: ev_ad_sft_gcg
+  defence_id: sft_l3
+  benchmark: PI-Attack and DataSentinel, universal GCG suffix or trigger optimised against this model
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  attacker_budget: 2,000 optimisation steps, universal
+  decoding: not reported
+  pages:
+    attacker_budget: 12
+- id: ev_ad_sft_neu
+  defence_id: sft_l3
+  benchmark: PI-Attack and DataSentinel, universal NeuExe suffix or trigger optimised against this model
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  attacker_budget: 2,000 optimisation steps, universal
+  decoding: not reported
+  pages:
+    attacker_budget: 12
+- id: ev_ad_pat_gcg
+  defence_id: pat_l3
+  benchmark: PI-Attack and DataSentinel, universal GCG suffix or trigger optimised against this model
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  attacker_budget: 2,000 optimisation steps, universal
+  decoding: not reported
+  pages:
+    attacker_budget: 12
+- id: ev_ad_pat_neu
+  defence_id: pat_l3
+  benchmark: PI-Attack and DataSentinel, universal NeuExe suffix or trigger optimised against this model
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output matches the label implied by the injected instruction
+  layout_same_as_defence: 'yes'
+  measured_by: provtransformer_arxiv2026
+  page: 11
+  attacker_budget: 2,000 optimisation steps, universal
+  decoding: not reported
+  pages:
+    attacker_budget: 12
+results:
+- id: r_smol_none_sep
+  evaluation_id: ev_smol_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '40.19'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_none_pia
+  evaluation_id: ev_smol_none_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '33.79'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_none_dsen
+  evaluation_id: ev_smol_none_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '84.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_none_math
+  evaluation_id: ev_smol_none_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '3.33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_sft_sep
+  evaluation_id: ev_smol_sft_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.74'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_sft_pia
+  evaluation_id: ev_smol_sft_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '13.90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_sft_dsen
+  evaluation_id: ev_smol_sft_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '6.90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_sft_math
+  evaluation_id: ev_smol_sft_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.06'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_pat_sep
+  evaluation_id: ev_smol_pat_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.51'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_pat_pia
+  evaluation_id: ev_smol_pat_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_pat_dsen
+  evaluation_id: ev_smol_pat_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_smol_pat_math
+  evaluation_id: ev_smol_pat_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_none_sep
+  evaluation_id: ev_l3_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '32.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_none_pia
+  evaluation_id: ev_l3_none_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '21.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_none_dsen
+  evaluation_id: ev_l3_none_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '24.14'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_none_math
+  evaluation_id: ev_l3_none_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '17.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_sft_sep
+  evaluation_id: ev_l3_sft_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_sft_pia
+  evaluation_id: ev_l3_sft_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '2.32'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_sft_dsen
+  evaluation_id: ev_l3_sft_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '8.62'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_sft_math
+  evaluation_id: ev_l3_sft_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_pat_sep
+  evaluation_id: ev_l3_pat_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.69'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_pat_pia
+  evaluation_id: ev_l3_pat_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.03'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_pat_dsen
+  evaluation_id: ev_l3_pat_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_l3_pat_math
+  evaluation_id: ev_l3_pat_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_none_sep
+  evaluation_id: ev_q25_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '49.13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_none_pia
+  evaluation_id: ev_q25_none_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '34.83'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_none_dsen
+  evaluation_id: ev_q25_none_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '84.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_none_math
+  evaluation_id: ev_q25_none_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '10.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_sft_sep
+  evaluation_id: ev_q25_sft_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.66'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_sft_pia
+  evaluation_id: ev_q25_sft_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '3.74'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_sft_dsen
+  evaluation_id: ev_q25_sft_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '10.34'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_sft_math
+  evaluation_id: ev_q25_sft_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_pat_sep
+  evaluation_id: ev_q25_pat_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.63'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_pat_pia
+  evaluation_id: ev_q25_pat_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_pat_dsen
+  evaluation_id: ev_q25_pat_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_q25_pat_math
+  evaluation_id: ev_q25_pat_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_none_sep
+  evaluation_id: ev_mi_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '43.47'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_none_pia
+  evaluation_id: ev_mi_none_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '43.58'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_none_dsen
+  evaluation_id: ev_mi_none_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '51.72'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_none_math
+  evaluation_id: ev_mi_none_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '35.94'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_sft_sep
+  evaluation_id: ev_mi_sft_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.34'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_sft_pia
+  evaluation_id: ev_mi_sft_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '17.77'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_sft_dsen
+  evaluation_id: ev_mi_sft_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '5.17'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_sft_math
+  evaluation_id: ev_mi_sft_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '1.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_pat_sep
+  evaluation_id: ev_mi_pat_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.66'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_pat_pia
+  evaluation_id: ev_mi_pat_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.03'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_pat_dsen
+  evaluation_id: ev_mi_pat_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_mi_pat_math
+  evaluation_id: ev_mi_pat_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 4
+- id: r_t3_instr_l3_sep
+  evaluation_id: ev_t3_instr_l3_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '30.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_instr_l3_pia
+  evaluation_id: ev_t3_instr_l3_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '16.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_instr_l3_dsen
+  evaluation_id: ev_t3_instr_l3_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '20.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_instr_l3_math
+  evaluation_id: ev_t3_instr_l3_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '19.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_sand_l3_sep
+  evaluation_id: ev_t3_sand_l3_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '25.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_sand_l3_pia
+  evaluation_id: ev_t3_sand_l3_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '4.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_sand_l3_dsen
+  evaluation_id: ev_t3_sand_l3_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '13.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_sand_l3_math
+  evaluation_id: ev_t3_sand_l3_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '13.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_rseq_l3_sep
+  evaluation_id: ev_t3_rseq_l3_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '15.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_rseq_l3_pia
+  evaluation_id: ev_t3_rseq_l3_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '2.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_rseq_l3_dsen
+  evaluation_id: ev_t3_rseq_l3_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '12.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_rseq_l3_math
+  evaluation_id: ev_t3_rseq_l3_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '26.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_delim_l3_sep
+  evaluation_id: ev_t3_delim_l3_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '11.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_delim_l3_pia
+  evaluation_id: ev_t3_delim_l3_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '9.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_delim_l3_dsen
+  evaluation_id: ev_t3_delim_l3_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '22.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_delim_l3_math
+  evaluation_id: ev_t3_delim_l3_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '4.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_secalign_l3_sep
+  evaluation_id: ev_t3_secalign_l3_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '2.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_secalign_l3_pia
+  evaluation_id: ev_t3_secalign_l3_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_secalign_l3_dsen
+  evaluation_id: ev_t3_secalign_l3_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '6.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_t3_secalign_l3_math
+  evaluation_id: ev_t3_secalign_l3_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_smol_nob_sep
+  evaluation_id: ev_smol_nob_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '29.51'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_smol_nob_pia
+  evaluation_id: ev_smol_nob_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '45.77'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_smol_nob_dsen
+  evaluation_id: ev_smol_nob_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '96.55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_smol_nob_math
+  evaluation_id: ev_smol_nob_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '11.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_l3_nob_sep
+  evaluation_id: ev_l3_nob_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '72.04'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_l3_nob_pia
+  evaluation_id: ev_l3_nob_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '77.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_l3_nob_dsen
+  evaluation_id: ev_l3_nob_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '89.66'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_l3_nob_math
+  evaluation_id: ev_l3_nob_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '67.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_q25_nob_sep
+  evaluation_id: ev_q25_nob_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '69.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_q25_nob_pia
+  evaluation_id: ev_q25_nob_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '70.62'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_q25_nob_dsen
+  evaluation_id: ev_q25_nob_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '98.28'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_q25_nob_math
+  evaluation_id: ev_q25_nob_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '39.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_mi_nob_sep
+  evaluation_id: ev_mi_nob_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '8.08'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_mi_nob_pia
+  evaluation_id: ev_mi_nob_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '12.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_mi_nob_dsen
+  evaluation_id: ev_mi_nob_dsen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '94.83'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_mi_nob_math
+  evaluation_id: ev_mi_nob_math
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR%
+  value: '32.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 7 (w/o Bias)
+- id: r_ae_smol_sft
+  evaluation_id: ev_ae_smol_sft
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval 2.0 LC win rate
+  value: '57.1'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+  reference: base pretrained model (50% = parity)
+- id: r_ae_smol_pat
+  evaluation_id: ev_ae_smol_pat
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval 2.0 LC win rate
+  value: '49.5'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+  reference: base pretrained model (50% = parity)
+- id: r_ae_l3_sft
+  evaluation_id: ev_ae_l3_sft
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval 2.0 LC win rate
+  value: '58.1'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+  reference: base pretrained model (50% = parity)
+- id: r_ae_l3_pat
+  evaluation_id: ev_ae_l3_pat
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval 2.0 LC win rate
+  value: '48.8'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+  reference: base pretrained model (50% = parity)
+- id: r_ae_q25_sft
+  evaluation_id: ev_ae_q25_sft
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval 2.0 LC win rate
+  value: '60.7'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+  reference: base pretrained model (50% = parity)
+- id: r_ae_q25_pat
+  evaluation_id: ev_ae_q25_pat
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval 2.0 LC win rate
+  value: '60.9'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+  reference: base pretrained model (50% = parity)
+- id: r_ae_mi_sft
+  evaluation_id: ev_ae_mi_sft
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval 2.0 LC win rate
+  value: '28.0'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+  reference: base pretrained model (50% = parity)
+- id: r_ae_mi_pat
+  evaluation_id: ev_ae_mi_pat
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval 2.0 LC win rate
+  value: '42.7'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+  reference: base pretrained model (50% = parity)
+- id: r_ad_none_gcg
+  evaluation_id: ev_ad_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR%
+  value: '50.71'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 6
+- id: r_ad_none_neu
+  evaluation_id: ev_ad_none_neu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: NeuExe ASR%
+  value: '48.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 6
+- id: r_ad_sft_gcg
+  evaluation_id: ev_ad_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR%
+  value: '3.19'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 6
+- id: r_ad_sft_neu
+  evaluation_id: ev_ad_sft_neu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: NeuExe ASR%
+  value: '19.69'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 6
+- id: r_ad_pat_gcg
+  evaluation_id: ev_ad_pat_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR%
+  value: '1.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 6
+- id: r_ad_pat_neu
+  evaluation_id: ev_ad_pat_neu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: NeuExe ASR%
+  value: '1.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 6
+comparisons:
+- id: c_smol_pat_sep
+  left: ev_smol_pat_sep
+  right: ev_smol_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_smol_sft_sep
+  left: ev_smol_sft_sep
+  right: ev_smol_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_smol_pat_sft_sep
+  left: ev_smol_pat_sep
+  right: ev_smol_sft_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_smol_pat_pia
+  left: ev_smol_pat_pia
+  right: ev_smol_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_smol_sft_pia
+  left: ev_smol_sft_pia
+  right: ev_smol_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_smol_pat_sft_pia
+  left: ev_smol_pat_pia
+  right: ev_smol_sft_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_smol_pat_dsen
+  left: ev_smol_pat_dsen
+  right: ev_smol_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_smol_sft_dsen
+  left: ev_smol_sft_dsen
+  right: ev_smol_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_smol_pat_sft_dsen
+  left: ev_smol_pat_dsen
+  right: ev_smol_sft_dsen
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_smol_pat_math
+  left: ev_smol_pat_math
+  right: ev_smol_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_smol_sft_math
+  left: ev_smol_sft_math
+  right: ev_smol_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_smol_pat_sft_math
+  left: ev_smol_pat_math
+  right: ev_smol_sft_math
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_l3_pat_sep
+  left: ev_l3_pat_sep
+  right: ev_l3_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l3_sft_sep
+  left: ev_l3_sft_sep
+  right: ev_l3_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l3_pat_sft_sep
+  left: ev_l3_pat_sep
+  right: ev_l3_sft_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_l3_pat_pia
+  left: ev_l3_pat_pia
+  right: ev_l3_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l3_sft_pia
+  left: ev_l3_sft_pia
+  right: ev_l3_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l3_pat_sft_pia
+  left: ev_l3_pat_pia
+  right: ev_l3_sft_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_l3_pat_dsen
+  left: ev_l3_pat_dsen
+  right: ev_l3_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l3_sft_dsen
+  left: ev_l3_sft_dsen
+  right: ev_l3_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l3_pat_sft_dsen
+  left: ev_l3_pat_dsen
+  right: ev_l3_sft_dsen
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_l3_pat_math
+  left: ev_l3_pat_math
+  right: ev_l3_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l3_sft_math
+  left: ev_l3_sft_math
+  right: ev_l3_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l3_pat_sft_math
+  left: ev_l3_pat_math
+  right: ev_l3_sft_math
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_q25_pat_sep
+  left: ev_q25_pat_sep
+  right: ev_q25_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q25_sft_sep
+  left: ev_q25_sft_sep
+  right: ev_q25_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q25_pat_sft_sep
+  left: ev_q25_pat_sep
+  right: ev_q25_sft_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_q25_pat_pia
+  left: ev_q25_pat_pia
+  right: ev_q25_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q25_sft_pia
+  left: ev_q25_sft_pia
+  right: ev_q25_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q25_pat_sft_pia
+  left: ev_q25_pat_pia
+  right: ev_q25_sft_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_q25_pat_dsen
+  left: ev_q25_pat_dsen
+  right: ev_q25_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q25_sft_dsen
+  left: ev_q25_sft_dsen
+  right: ev_q25_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q25_pat_sft_dsen
+  left: ev_q25_pat_dsen
+  right: ev_q25_sft_dsen
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_q25_pat_math
+  left: ev_q25_pat_math
+  right: ev_q25_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q25_sft_math
+  left: ev_q25_sft_math
+  right: ev_q25_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q25_pat_sft_math
+  left: ev_q25_pat_math
+  right: ev_q25_sft_math
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_mi_pat_sep
+  left: ev_mi_pat_sep
+  right: ev_mi_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_mi_sft_sep
+  left: ev_mi_sft_sep
+  right: ev_mi_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_mi_pat_sft_sep
+  left: ev_mi_pat_sep
+  right: ev_mi_sft_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_mi_pat_pia
+  left: ev_mi_pat_pia
+  right: ev_mi_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_mi_sft_pia
+  left: ev_mi_sft_pia
+  right: ev_mi_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_mi_pat_sft_pia
+  left: ev_mi_pat_pia
+  right: ev_mi_sft_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_mi_pat_dsen
+  left: ev_mi_pat_dsen
+  right: ev_mi_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_mi_sft_dsen
+  left: ev_mi_sft_dsen
+  right: ev_mi_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_mi_pat_sft_dsen
+  left: ev_mi_pat_dsen
+  right: ev_mi_sft_dsen
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_mi_pat_math
+  left: ev_mi_pat_math
+  right: ev_mi_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_mi_sft_math
+  left: ev_mi_sft_math
+  right: ev_mi_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_mi_pat_sft_math
+  left: ev_mi_pat_math
+  right: ev_mi_sft_math
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components (origin embeddings, attention bias, scale) against the same data without them
+  page: 11
+- id: c_t3_instr_l3_sep
+  left: ev_t3_instr_l3_sep
+  right: ev_l3_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_instr_l3_pia
+  left: ev_t3_instr_l3_pia
+  right: ev_l3_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_instr_l3_dsen
+  left: ev_t3_instr_l3_dsen
+  right: ev_l3_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_instr_l3_math
+  left: ev_t3_instr_l3_math
+  right: ev_l3_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_sand_l3_sep
+  left: ev_t3_sand_l3_sep
+  right: ev_l3_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_sand_l3_pia
+  left: ev_t3_sand_l3_pia
+  right: ev_l3_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_sand_l3_dsen
+  left: ev_t3_sand_l3_dsen
+  right: ev_l3_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_sand_l3_math
+  left: ev_t3_sand_l3_math
+  right: ev_l3_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_rseq_l3_sep
+  left: ev_t3_rseq_l3_sep
+  right: ev_l3_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_rseq_l3_pia
+  left: ev_t3_rseq_l3_pia
+  right: ev_l3_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_rseq_l3_dsen
+  left: ev_t3_rseq_l3_dsen
+  right: ev_l3_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_rseq_l3_math
+  left: ev_t3_rseq_l3_math
+  right: ev_l3_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_delim_l3_sep
+  left: ev_t3_delim_l3_sep
+  right: ev_l3_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_delim_l3_pia
+  left: ev_t3_delim_l3_pia
+  right: ev_l3_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_delim_l3_dsen
+  left: ev_t3_delim_l3_dsen
+  right: ev_l3_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_delim_l3_math
+  left: ev_t3_delim_l3_math
+  right: ev_l3_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_secalign_l3_sep
+  left: ev_t3_secalign_l3_sep
+  right: ev_l3_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_secalign_l3_pia
+  left: ev_t3_secalign_l3_pia
+  right: ev_l3_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_secalign_l3_dsen
+  left: ev_t3_secalign_l3_dsen
+  right: ev_l3_none_dsen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_t3_secalign_l3_math
+  left: ev_t3_secalign_l3_math
+  right: ev_l3_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_smol_bias_sep
+  left: ev_smol_pat_sep
+  right: ev_smol_nob_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_smol_bias_pia
+  left: ev_smol_pat_pia
+  right: ev_smol_nob_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_smol_bias_dsen
+  left: ev_smol_pat_dsen
+  right: ev_smol_nob_dsen
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_smol_bias_math
+  left: ev_smol_pat_math
+  right: ev_smol_nob_math
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_l3_bias_sep
+  left: ev_l3_pat_sep
+  right: ev_l3_nob_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_l3_bias_pia
+  left: ev_l3_pat_pia
+  right: ev_l3_nob_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_l3_bias_dsen
+  left: ev_l3_pat_dsen
+  right: ev_l3_nob_dsen
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_l3_bias_math
+  left: ev_l3_pat_math
+  right: ev_l3_nob_math
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_q25_bias_sep
+  left: ev_q25_pat_sep
+  right: ev_q25_nob_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_q25_bias_pia
+  left: ev_q25_pat_pia
+  right: ev_q25_nob_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_q25_bias_dsen
+  left: ev_q25_pat_dsen
+  right: ev_q25_nob_dsen
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_q25_bias_math
+  left: ev_q25_pat_math
+  right: ev_q25_nob_math
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_mi_bias_sep
+  left: ev_mi_pat_sep
+  right: ev_mi_nob_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_mi_bias_pia
+  left: ev_mi_pat_pia
+  right: ev_mi_nob_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_mi_bias_dsen
+  left: ev_mi_pat_dsen
+  right: ev_mi_nob_dsen
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_mi_bias_math
+  left: ev_mi_pat_math
+  right: ev_mi_nob_math
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: origin attention bias kept against zeroed at inference, same trained checkpoint
+  page: 12
+- id: c_ae_smol
+  left: ev_ae_smol_pat
+  right: ev_ae_smol_sft
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components against the same data without them
+  page: 11
+- id: c_ae_l3
+  left: ev_ae_l3_pat
+  right: ev_ae_l3_sft
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components against the same data without them
+  page: 11
+- id: c_ae_q25
+  left: ev_ae_q25_pat
+  right: ev_ae_q25_sft
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components against the same data without them
+  page: 11
+- id: c_ae_mi
+  left: ev_ae_mi_pat
+  right: ev_ae_mi_sft
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ring components against the same data without them
+  page: 11
+- id: c_ad_sft_gcg
+  left: ev_ad_sft_gcg
+  right: ev_ad_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_ad_sft_neu
+  left: ev_ad_sft_neu
+  right: ev_ad_none_neu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_ad_pat_gcg
+  left: ev_ad_pat_gcg
+  right: ev_ad_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_ad_pat_neu
+  left: ev_ad_pat_neu
+  right: ev_ad_none_neu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+claims:
+- id: k1
+  text: Provenance-Aware Transformers resist indirect prompt injection in and out of distribution while keeping utility close to the base model
+  location: abstract
+  anchor: maintain robust resis- tance to IPI both in-distribution and out-of-distribution
+  jobs:
+  - R1
+  - general_utility
+  supported_by:
+  - c_smol_pat_sep
+  - c_smol_pat_sft_sep
+  - c_smol_pat_pia
+  - c_smol_pat_sft_pia
+  - c_smol_pat_dsen
+  - c_smol_pat_sft_dsen
+  - c_smol_pat_math
+  - c_smol_pat_sft_math
+  - c_l3_pat_sep
+  - c_l3_pat_sft_sep
+  - c_l3_pat_pia
+  - c_l3_pat_sft_pia
+  - c_l3_pat_dsen
+  - c_l3_pat_sft_dsen
+  - c_l3_pat_math
+  - c_l3_pat_sft_math
+  - c_q25_pat_sep
+  - c_q25_pat_sft_sep
+  - c_q25_pat_pia
+  - c_q25_pat_sft_pia
+  - c_q25_pat_dsen
+  - c_q25_pat_sft_dsen
+  - c_q25_pat_math
+  - c_q25_pat_sft_math
+  - c_mi_pat_sep
+  - c_mi_pat_sft_sep
+  - c_mi_pat_pia
+  - c_mi_pat_sft_pia
+  - c_mi_pat_dsen
+  - c_mi_pat_sft_dsen
+  - c_mi_pat_math
+  - c_mi_pat_sft_math
+  - c_ae_l3
+  - c_ae_mi
+  page: 1
+  contradicted_by:
+  - r_ae_mi_pat
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 3, 4, 6 and 7
+    general_utility: Table 5 (win rate against the base model)
+schema_gaps:
+- where: evaluations ev_*
+  note: Stage 2 training data tags only the inserted probe as Ring 3 inside a Ring 2 context (Step 4, p. 9); the paper does not say how rings were assigned on the OOD test sets, so whether the injected span is given to the
+    model at test time is not reported
+- where: results r_ad_*_neu
+  note: Table 6 prints NeuExe ASR 48.44 (no defence) and 1.56 (Provenance-Aware), while the text gives 47.81% and 0.87% (p. 12); the record codes the table
+- where: results r_ae_*
+  note: the win rate is measured against the undefended base model, so the undefended model has no value of its own and the only comparisons are Provenance-Aware against Baseline SFT

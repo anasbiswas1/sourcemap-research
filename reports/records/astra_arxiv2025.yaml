@@ -1,0 +1,1253 @@
+report:
+  id: astra_arxiv2025
+  slug: '2507.07417'
+  title: May I have your Attention? Breaking Fine-Tuning based Prompt Injection Defenses using Architecture-Aware Attacks
+  first_author: Nishit V. Pandya
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2507.07417'
+  version_read: arXiv v2
+  first_date: '2025-07-10'
+  read: F
+  role: re_measures
+  code_release: released (linked in the abstract); not checked
+  extraction_scope: 'Section 6: Table 1 (SecAlign, single-prompt attacks, all budgets), the StruQ counts stated in Section 6.1 and Table 2 (universal attacks on unseen prompts); the abstract claim (the weight ablation of Section
+    6.3 not coded)'
+defences:
+- id: secalign_l3
+  name: SecAlign (re-measured)
+  origin: other_report
+  base_checkpoint: Meta-Llama-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 11
+  anchor: we choose the SecAlign defended models of Llama-3-8B-Instruct
+- id: struq_l3
+  name: StruQ (re-measured)
+  origin: other_report
+  base_checkpoint: Meta-Llama-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 11
+  anchor: We choose the equivalent defended models for StruQ
+- id: secalign_mi
+  name: SecAlign (re-measured)
+  origin: other_report
+  base_checkpoint: Mistral-7B-Instruct-v0.1
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 11
+  anchor: we choose the SecAlign defended models of Llama-3-8B-Instruct
+- id: struq_mi
+  name: StruQ (re-measured)
+  origin: other_report
+  base_checkpoint: Mistral-7B-Instruct-v0.1
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 11
+  anchor: We choose the equivalent defended models for StruQ
+- id: secalignpp
+  name: SecAlign++ (re-measured; checkpoint not named)
+  origin: other_report
+  base_checkpoint: not stated
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 12
+  anchor: This is a production-grade Instruction Hi
+  layout_compat:
+    user_turn: supported
+    separate_role: supported
+    system_context: supported
+    agent_tool_result: untested
+evaluations:
+- id: ev_t1_l3_20_gcg
+  defence_id: secalign_l3
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 20 tokens, prefix and suffix (0, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_l3_20_astra
+  defence_id: secalign_l3
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 20 tokens, prefix and suffix (0, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_l3_25_gcg
+  defence_id: secalign_l3
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 25 tokens, prefix and suffix (5, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_l3_25_astra
+  defence_id: secalign_l3
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 25 tokens, prefix and suffix (5, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_l3_30_gcg
+  defence_id: secalign_l3
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 30 tokens, prefix and suffix (10, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_l3_30_astra
+  defence_id: secalign_l3
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 30 tokens, prefix and suffix (10, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_l3_35_gcg
+  defence_id: secalign_l3
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 35 tokens, prefix and suffix (15, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_l3_35_astra
+  defence_id: secalign_l3
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 35 tokens, prefix and suffix (15, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_mi_20_gcg
+  defence_id: secalign_mi
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 20 tokens, prefix and suffix (0, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_mi_20_astra
+  defence_id: secalign_mi
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 20 tokens, prefix and suffix (0, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_mi_25_gcg
+  defence_id: secalign_mi
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 25 tokens, prefix and suffix (5, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_mi_25_astra
+  defence_id: secalign_mi
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 25 tokens, prefix and suffix (5, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_mi_30_gcg
+  defence_id: secalign_mi
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 30 tokens, prefix and suffix (10, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_mi_30_astra
+  defence_id: secalign_mi
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 30 tokens, prefix and suffix (10, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_mi_35_gcg
+  defence_id: secalign_mi
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 35 tokens, prefix and suffix (15, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_t1_mi_35_astra
+  defence_id: secalign_mi
+  benchmark: 40 AlpacaFarm examples, 'Print exactly Hacked!' at the end of the data, per-prompt optimisation
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 35 tokens, prefix and suffix (15, 20), 500 iterations
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_sq_mi_gcg
+  defence_id: struq_mi
+  benchmark: 40 AlpacaFarm examples, GCG suffix of 20 tokens
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 20-token suffix
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_sq_mi_astra
+  defence_id: struq_mi
+  benchmark: the 12 examples GCG did not break, ASTRA with a 20-token suffix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 20-token suffix
+  decoding: temperature 0
+  sample_size: '12'
+  subset_of: 40 AlpacaFarm examples
+- id: ev_sq_l3_gcg
+  defence_id: struq_l3
+  benchmark: 40 AlpacaFarm examples, GCG suffix of 20 tokens
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 20-token suffix
+  decoding: temperature 0
+  sample_size: '40'
+- id: ev_sq_l3_astra
+  defence_id: struq_l3
+  benchmark: the 17 examples GCG did not break, ASTRA with a 20-token suffix
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 11
+  attacker_budget: 20-token suffix
+  decoding: temperature 0
+  sample_size: '17'
+  subset_of: 40 AlpacaFarm examples
+- id: ev_t2_sa_l3_30_ugcg
+  defence_id: secalign_l3
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; SecAlign prompt format
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 30 tokens (15, 15), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_sa_l3_30_astrapp
+  defence_id: secalign_l3
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; SecAlign prompt format
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 30 tokens (15, 15), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_sa_l3_35_ugcg
+  defence_id: secalign_l3
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; SecAlign prompt format
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 35 tokens (17, 18), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_sa_l3_35_astrapp
+  defence_id: secalign_l3
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; SecAlign prompt format
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 35 tokens (17, 18), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_sa_l3_40_ugcg
+  defence_id: secalign_l3
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; SecAlign prompt format
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 40 tokens (20, 20), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_sa_l3_40_astrapp
+  defence_id: secalign_l3
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; SecAlign prompt format
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 40 tokens (20, 20), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_sys_30_ugcg
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as system, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 30 tokens (15, 15), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_sys_30_astrapp
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as system, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 30 tokens (15, 15), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_sys_35_ugcg
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as system, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 35 tokens (17, 18), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_sys_35_astrapp
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as system, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 35 tokens (17, 18), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_sys_40_ugcg
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as system, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 40 tokens (20, 20), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_sys_40_astrapp
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as system, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 40 tokens (20, 20), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_user_30_ugcg
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as user, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 30 tokens (15, 15), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_user_30_astrapp
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as user, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 30 tokens (15, 15), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_user_35_ugcg
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as user, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 35 tokens (17, 18), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_user_35_astrapp
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as user, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 35 tokens (17, 18), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_user_40_ugcg
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as user, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 40 tokens (20, 20), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+- id: ev_t2_pp_user_40_astrapp
+  defence_id: secalignpp
+  benchmark: 198 unseen AlpacaFarm examples, universal suffix trained on 10 others; instruction as user, data as input
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: output starts with 'Hacked' or 'hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: astra_arxiv2025
+  page: 12
+  attacker_budget: 40 tokens (20, 20), 1000 iterations, universal
+  decoding: temperature 0
+  sample_size: '198'
+  pages:
+    decoding: 11
+results:
+- id: r_t1_l3_20_gcg
+  evaluation_id: ev_t1_l3_20_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR
+  value: '12.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_l3_20_astra
+  evaluation_id: ev_t1_l3_20_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA ASR
+  value: '20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_l3_25_gcg
+  evaluation_id: ev_t1_l3_25_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR
+  value: '32.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_l3_25_astra
+  evaluation_id: ev_t1_l3_25_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA ASR
+  value: '57.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_l3_30_gcg
+  evaluation_id: ev_t1_l3_30_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR
+  value: '35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_l3_30_astra
+  evaluation_id: ev_t1_l3_30_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA ASR
+  value: '60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_l3_35_gcg
+  evaluation_id: ev_t1_l3_35_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR
+  value: '45'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_l3_35_astra
+  evaluation_id: ev_t1_l3_35_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA ASR
+  value: '72.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_mi_20_gcg
+  evaluation_id: ev_t1_mi_20_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR
+  value: '32.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_mi_20_astra
+  evaluation_id: ev_t1_mi_20_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA ASR
+  value: '75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_mi_25_gcg
+  evaluation_id: ev_t1_mi_25_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR
+  value: '57.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_mi_25_astra
+  evaluation_id: ev_t1_mi_25_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA ASR
+  value: '77.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_mi_30_gcg
+  evaluation_id: ev_t1_mi_30_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR
+  value: '60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_mi_30_astra
+  evaluation_id: ev_t1_mi_30_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA ASR
+  value: '80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_mi_35_gcg
+  evaluation_id: ev_t1_mi_35_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: GCG ASR
+  value: '70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_t1_mi_35_astra
+  evaluation_id: ev_t1_mi_35_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA ASR
+  value: '82.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 1
+- id: r_sq_mi_gcg
+  evaluation_id: ev_sq_mi_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: examples broken by GCG (of 40)
+  value: '28'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 6.1 text
+- id: r_sq_mi_astra
+  evaluation_id: ev_sq_mi_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: examples broken by ASTRA (of the remaining 12)
+  value: '10'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 6.1 text
+- id: r_sq_l3_gcg
+  evaluation_id: ev_sq_l3_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: examples broken by GCG (of 40)
+  value: '23'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 6.1 text
+- id: r_sq_l3_astra
+  evaluation_id: ev_sq_l3_astra
+  quantity: R1
+  coverage: direct
+  metric_as_printed: examples broken by ASTRA (of the remaining 17)
+  value: '8'
+  unit: count
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 6.1 text
+- id: r_t2_sa_l3_30_ugcg
+  evaluation_id: ev_t2_sa_l3_30_ugcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Univ-GCG ASR, mean over 3 training runs
+  value: '11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 17% over 3 training runs
+- id: r_t2_sa_l3_30_astrapp
+  evaluation_id: ev_t2_sa_l3_30_astrapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA++ ASR, mean over 3 training runs
+  value: '28'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 48% over 3 training runs
+- id: r_t2_sa_l3_35_ugcg
+  evaluation_id: ev_t2_sa_l3_35_ugcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Univ-GCG ASR, mean over 3 training runs
+  value: '55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 48% over 3 training runs
+- id: r_t2_sa_l3_35_astrapp
+  evaluation_id: ev_t2_sa_l3_35_astrapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA++ ASR, mean over 3 training runs
+  value: '96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 5% over 3 training runs
+- id: r_t2_sa_l3_40_ugcg
+  evaluation_id: ev_t2_sa_l3_40_ugcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Univ-GCG ASR, mean over 3 training runs
+  value: '2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 2% over 3 training runs
+- id: r_t2_sa_l3_40_astrapp
+  evaluation_id: ev_t2_sa_l3_40_astrapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA++ ASR, mean over 3 training runs
+  value: '85'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 18% over 3 training runs
+- id: r_t2_pp_sys_30_ugcg
+  evaluation_id: ev_t2_pp_sys_30_ugcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Univ-GCG ASR, mean over 3 training runs
+  value: '19'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 16% over 3 training runs
+- id: r_t2_pp_sys_30_astrapp
+  evaluation_id: ev_t2_pp_sys_30_astrapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA++ ASR, mean over 3 training runs
+  value: '62'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 53% over 3 training runs
+- id: r_t2_pp_sys_35_ugcg
+  evaluation_id: ev_t2_pp_sys_35_ugcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Univ-GCG ASR, mean over 3 training runs
+  value: '22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 21% over 3 training runs
+- id: r_t2_pp_sys_35_astrapp
+  evaluation_id: ev_t2_pp_sys_35_astrapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA++ ASR, mean over 3 training runs
+  value: '87'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 12% over 3 training runs
+- id: r_t2_pp_sys_40_ugcg
+  evaluation_id: ev_t2_pp_sys_40_ugcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Univ-GCG ASR, mean over 3 training runs
+  value: '30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 33% over 3 training runs
+- id: r_t2_pp_sys_40_astrapp
+  evaluation_id: ev_t2_pp_sys_40_astrapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA++ ASR, mean over 3 training runs
+  value: '55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 20% over 3 training runs
+- id: r_t2_pp_user_30_ugcg
+  evaluation_id: ev_t2_pp_user_30_ugcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Univ-GCG ASR, mean over 3 training runs
+  value: '1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 11% over 3 training runs
+- id: r_t2_pp_user_30_astrapp
+  evaluation_id: ev_t2_pp_user_30_astrapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA++ ASR, mean over 3 training runs
+  value: '69'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 1% over 3 training runs
+- id: r_t2_pp_user_35_ugcg
+  evaluation_id: ev_t2_pp_user_35_ugcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Univ-GCG ASR, mean over 3 training runs
+  value: '31'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 24% over 3 training runs
+- id: r_t2_pp_user_35_astrapp
+  evaluation_id: ev_t2_pp_user_35_astrapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA++ ASR, mean over 3 training runs
+  value: '22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 54% over 3 training runs
+- id: r_t2_pp_user_40_ugcg
+  evaluation_id: ev_t2_pp_user_40_ugcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Univ-GCG ASR, mean over 3 training runs
+  value: '22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 53% over 3 training runs
+- id: r_t2_pp_user_40_astrapp
+  evaluation_id: ev_t2_pp_user_40_astrapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASTRA++ ASR, mean over 3 training runs
+  value: '37'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 2
+  spread: standard deviation 30% over 3 training runs
+comparisons:
+- id: c_t1_l3_20
+  left: ev_t1_l3_20_astra
+  right: ev_t1_l3_20_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: manipulated
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ASTRA attention-guided warm start against plain GCG, same budget and iterations
+  page: 11
+- id: c_t1_l3_25
+  left: ev_t1_l3_25_astra
+  right: ev_t1_l3_25_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: manipulated
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ASTRA attention-guided warm start against plain GCG, same budget and iterations
+  page: 11
+- id: c_t1_l3_30
+  left: ev_t1_l3_30_astra
+  right: ev_t1_l3_30_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: manipulated
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ASTRA attention-guided warm start against plain GCG, same budget and iterations
+  page: 11
+- id: c_t1_l3_35
+  left: ev_t1_l3_35_astra
+  right: ev_t1_l3_35_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: manipulated
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ASTRA attention-guided warm start against plain GCG, same budget and iterations
+  page: 11
+- id: c_t1_mi_20
+  left: ev_t1_mi_20_astra
+  right: ev_t1_mi_20_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: manipulated
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ASTRA attention-guided warm start against plain GCG, same budget and iterations
+  page: 11
+- id: c_t1_mi_25
+  left: ev_t1_mi_25_astra
+  right: ev_t1_mi_25_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: manipulated
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ASTRA attention-guided warm start against plain GCG, same budget and iterations
+  page: 11
+- id: c_t1_mi_30
+  left: ev_t1_mi_30_astra
+  right: ev_t1_mi_30_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: manipulated
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ASTRA attention-guided warm start against plain GCG, same budget and iterations
+  page: 11
+- id: c_t1_mi_35
+  left: ev_t1_mi_35_astra
+  right: ev_t1_mi_35_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: manipulated
+  c5_judge: matched
+  c6_decoding: matched
+  varies: ASTRA attention-guided warm start against plain GCG, same budget and iterations
+  page: 11
+- id: c_t2_role_30_ugcg
+  left: ev_t2_pp_sys_30_ugcg
+  right: ev_t2_pp_user_30_ugcg
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: user instruction in the system role against the user role, data in the input role
+  page: 12
+- id: c_t2_role_30_astrapp
+  left: ev_t2_pp_sys_30_astrapp
+  right: ev_t2_pp_user_30_astrapp
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: user instruction in the system role against the user role, data in the input role
+  page: 12
+- id: c_t2_role_35_ugcg
+  left: ev_t2_pp_sys_35_ugcg
+  right: ev_t2_pp_user_35_ugcg
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: user instruction in the system role against the user role, data in the input role
+  page: 12
+- id: c_t2_role_35_astrapp
+  left: ev_t2_pp_sys_35_astrapp
+  right: ev_t2_pp_user_35_astrapp
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: user instruction in the system role against the user role, data in the input role
+  page: 12
+- id: c_t2_role_40_ugcg
+  left: ev_t2_pp_sys_40_ugcg
+  right: ev_t2_pp_user_40_ugcg
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: user instruction in the system role against the user role, data in the input role
+  page: 12
+- id: c_t2_role_40_astrapp
+  left: ev_t2_pp_sys_40_astrapp
+  right: ev_t2_pp_user_40_astrapp
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: user instruction in the system role against the user role, data in the input role
+  page: 12
+claims:
+- id: k1
+  text: architecture-aware attacks reach 85 to 95% success on unseen prompts against fine-tuning defences
+  location: abstract
+  anchor: attacks with success rates of up to85-95%on unseen prompts
+  jobs:
+  - R1
+  supported_by: []
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1 and 2 and Section 6.1 (defended models only)
+schema_gaps:
+- where: evaluations ev_*
+  note: every result is for a defended model; there is no undefended model under the same attacks, so the only comparisons vary the attack or, for SecAlign++, the role holding the instruction
+- where: defence secalignpp
+  note: the paper calls SecAlign++ a production-grade instruction-hierarchy model and does not name the checkpoint or base model

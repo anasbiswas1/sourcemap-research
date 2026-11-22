@@ -1,0 +1,8 @@
+decision_04e: BATCH CHECKED
+this step: 2026-11-22
+reports: astra_arxiv2025, autodojo_arxiv2026, reta_arxiv2026, ihdec_arxiv2026, copa_arxiv2026, secopd_emnlp2026, overlays_arxiv2026, coer_arxiv2026, provtransformer_arxiv2026, codel_arxiv2026, pictionary_arxiv2026, srft_arxiv2026
+records: 93 defences, 608 evaluations, 789 results, 496 comparisons, 13 claims
+checked against the PDFs: 778 printed values (0 of them found only in the third extraction), 11 chart values (0 of them found only in the third extraction) and 106 anchors, each found on its page
+comparison grades: A 494, B 2, C 0, U 0
+residual notes: 17; full-text exclusions found while coding: 0
+next: batch 04f

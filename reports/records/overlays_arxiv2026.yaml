@@ -1,0 +1,3667 @@
+report:
+  id: overlays_arxiv2026
+  slug: '2608.23873'
+  title: 'Semantic Overlays: Mitigating Prompt Injection with Annotations Beyond Tokens and Steering Vectors'
+  first_author: Joshua Penman
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2608.23873'
+  version_read: arXiv v4
+  first_date: '2026-08-24'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Section 3 and Appendices C, F and O: Table 1, all rows and every column except TensorTrust (whose attacker writes the user''s own input); the abstract claim (the GCG and adversarial-training results of
+    Appendix K, the overlay experiments of Section 4 and Tables 2 to 4 not coded)'
+defences:
+- id: sand_q
+  name: Sandwich
+  origin: other_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  anchor: prompt-only defenses
+- id: spot_q
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  anchor: prompt-only defenses
+- id: ltok_q
+  name: LoRA control, span marked by two new special tokens (StruQ-style)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 17
+  anchor: The special-token LoRA follows StruQ
+- id: ltxt_q
+  name: LoRA control, span wrapped in text delimiters
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 17
+  anchor: The text-delimiter LoRA wraps the span in plain-text delimiters
+- id: lnone_q
+  name: LoRA control, no marker
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 17
+  anchor: the third LoRA marks nothing
+- id: dpo_q
+  name: SecAlign objective (DPO) on the special-token LoRA
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 17
+  anchor: trains the special-token LoRA with DPO
+- id: plv_q
+  name: learned per-layer vectors added on the marked span
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 17
+  anchor: The per-layer vectors add one learned vector per layer
+- id: loreft_q
+  name: LoReFT on the marked span (rank-8 edit)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: We also train LoReFT, a low-rank form of ReFT
+- id: ov_q
+  name: Semantic Overlays (do-not-execute overlay)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  anchor: small trained adapters that edit a frozen model
+  components:
+  - a bottleneck adapter (dimension 128) at every layer but the first adds an edit to the residual stream at token positions the serving stack marks as untrusted; the frozen model runs unchanged elsewhere
+  - targets are the frozen model's own completions (on clean items, and on attacked items with the planted instruction removed), plus copy items that quote the marked span
+  layout: untrusted span marked out of band (no tokens added)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  pages:
+    components: 5
+    layout_compat: 7
+- id: spot_l
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  anchor: prompt-only defenses
+- id: dt_l
+  name: DefensiveTokens
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: On Llama-3.1-8B we add DefensiveTokens
+- id: msa_l
+  name: Meta-SecAlign
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: On Llama-3.1-8B we add DefensiveTokens
+- id: ov_l
+  name: Semantic Overlays (do-not-execute overlay, earlier data mix)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  anchor: small trained adapters that edit a frozen model
+  components:
+  - a bottleneck adapter (dimension 128) at every layer but the first adds an edit to the residual stream at token positions the serving stack marks as untrusted; the frozen model runs unchanged elsewhere
+  - targets are the frozen model's own completions (on clean items, and on attacked items with the planted instruction removed), plus copy items that quote the marked span
+  layout: untrusted span marked out of band (no tokens added)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  pages:
+    components: 5
+    layout_compat: 7
+evaluations:
+- id: ev_q_none_sep
+  defence_id: none:Qwen3.5-9B (frozen)
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+  baseline_kind: off_the_shelf
+- id: ev_q_none_util
+  defence_id: none:Qwen3.5-9B (frozen)
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+  baseline_kind: off_the_shelf
+- id: ev_q_none_af
+  defence_id: none:Qwen3.5-9B (frozen)
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  baseline_kind: off_the_shelf
+- id: ev_q_none_qipi
+  defence_id: none:Qwen3.5-9B (frozen)
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  baseline_kind: off_the_shelf
+- id: ev_q_none_ad
+  defence_id: none:Qwen3.5-9B (frozen)
+  benchmark: AgentDojo, every tool output marked
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  baseline_kind: off_the_shelf
+- id: ev_q_none_pia
+  defence_id: none:Qwen3.5-9B (frozen)
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  baseline_kind: off_the_shelf
+- id: ev_q_none_piau
+  defence_id: none:Qwen3.5-9B (frozen)
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  baseline_kind: off_the_shelf
+- id: ev_q_none_sq
+  defence_id: none:Qwen3.5-9B (frozen)
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  baseline_kind: off_the_shelf
+- id: ev_q_sand_sep
+  defence_id: sand_q
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_sand_util
+  defence_id: sand_q
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_sand_af
+  defence_id: sand_q
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_sand_qipi
+  defence_id: sand_q
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_sand_pia
+  defence_id: sand_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_sand_piau
+  defence_id: sand_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_sand_sq
+  defence_id: sand_q
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_spot_sep
+  defence_id: spot_q
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_spot_util
+  defence_id: spot_q
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_spot_af
+  defence_id: spot_q
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_spot_qipi
+  defence_id: spot_q
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_spot_pia
+  defence_id: spot_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_spot_piau
+  defence_id: spot_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_spot_sq
+  defence_id: spot_q
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltok_sep
+  defence_id: ltok_q
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_ltok_util
+  defence_id: ltok_q
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_ltok_af
+  defence_id: ltok_q
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltok_qipi
+  defence_id: ltok_q
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltok_pia
+  defence_id: ltok_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltok_piau
+  defence_id: ltok_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltok_sq
+  defence_id: ltok_q
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltxt_sep
+  defence_id: ltxt_q
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_ltxt_util
+  defence_id: ltxt_q
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_ltxt_af
+  defence_id: ltxt_q
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltxt_qipi
+  defence_id: ltxt_q
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltxt_pia
+  defence_id: ltxt_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltxt_piau
+  defence_id: ltxt_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ltxt_sq
+  defence_id: ltxt_q
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_lnone_sep
+  defence_id: lnone_q
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_lnone_util
+  defence_id: lnone_q
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_lnone_af
+  defence_id: lnone_q
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_lnone_qipi
+  defence_id: lnone_q
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_lnone_pia
+  defence_id: lnone_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_lnone_piau
+  defence_id: lnone_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_lnone_sq
+  defence_id: lnone_q
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_dpo_sep
+  defence_id: dpo_q
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_dpo_util
+  defence_id: dpo_q
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_dpo_af
+  defence_id: dpo_q
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_dpo_qipi
+  defence_id: dpo_q
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_dpo_pia
+  defence_id: dpo_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_dpo_piau
+  defence_id: dpo_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_dpo_sq
+  defence_id: dpo_q
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_plv_sep
+  defence_id: plv_q
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_plv_util
+  defence_id: plv_q
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_plv_af
+  defence_id: plv_q
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_plv_qipi
+  defence_id: plv_q
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_plv_pia
+  defence_id: plv_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_plv_piau
+  defence_id: plv_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_plv_sq
+  defence_id: plv_q
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_loreft_sep
+  defence_id: loreft_q
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_loreft_util
+  defence_id: loreft_q
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_loreft_af
+  defence_id: loreft_q
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_loreft_qipi
+  defence_id: loreft_q
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_loreft_ad
+  defence_id: loreft_q
+  benchmark: AgentDojo, every tool output marked
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_loreft_pia
+  defence_id: loreft_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_loreft_piau
+  defence_id: loreft_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_loreft_sq
+  defence_id: loreft_q
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ov_sep
+  defence_id: ov_q
+  benchmark: SEP, 9,160 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_ov_util
+  defence_id: ov_q
+  benchmark: SEP, 9,160 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 9,160
+- id: ev_q_ov_af
+  defence_id: ov_q
+  benchmark: AlpacaFarm, StruQ's four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with the injected marker
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ov_qipi
+  defence_id: ov_q
+  benchmark: Quadrat-IPI, 2,000 documents, summarisation task
+  attacker_type: static
+  attacker_access: black_box
+  judge: injection compliance
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ov_ad
+  defence_id: ov_q
+  benchmark: AgentDojo, every tool output marked
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ov_pia
+  defence_id: ov_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ov_piau
+  defence_id: ov_q
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_q_ov_sq
+  defence_id: ov_q
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_none_sep
+  defence_id: none:Llama-3.1-8B-Instruct (frozen)
+  benchmark: SEP, 300 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_l_none_util
+  defence_id: none:Llama-3.1-8B-Instruct (frozen)
+  benchmark: SEP, 300 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_l_none_pia
+  defence_id: none:Llama-3.1-8B-Instruct (frozen)
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  baseline_kind: off_the_shelf
+- id: ev_l_none_piau
+  defence_id: none:Llama-3.1-8B-Instruct (frozen)
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  baseline_kind: off_the_shelf
+- id: ev_l_none_sq
+  defence_id: none:Llama-3.1-8B-Instruct (frozen)
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  baseline_kind: off_the_shelf
+- id: ev_l_spot_sep
+  defence_id: spot_l
+  benchmark: SEP, 300 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '300'
+- id: ev_l_spot_util
+  defence_id: spot_l
+  benchmark: SEP, 300 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '300'
+- id: ev_l_spot_pia
+  defence_id: spot_l
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_spot_piau
+  defence_id: spot_l
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_spot_sq
+  defence_id: spot_l
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_dt_sep
+  defence_id: dt_l
+  benchmark: SEP, 300 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '300'
+- id: ev_l_dt_util
+  defence_id: dt_l
+  benchmark: SEP, 300 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '300'
+- id: ev_l_dt_pia
+  defence_id: dt_l
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_dt_piau
+  defence_id: dt_l
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_dt_sq
+  defence_id: dt_l
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_msa_sep
+  defence_id: msa_l
+  benchmark: SEP, 300 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '300'
+- id: ev_l_msa_util
+  defence_id: msa_l
+  benchmark: SEP, 300 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '300'
+- id: ev_l_msa_pia
+  defence_id: msa_l
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_msa_piau
+  defence_id: msa_l
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_msa_sq
+  defence_id: msa_l
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_ov_sep
+  defence_id: ov_l
+  benchmark: SEP, 1,000 items
+  attacker_type: static
+  attacker_access: black_box
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 1,000
+- id: ev_l_ov_util
+  defence_id: ov_l
+  benchmark: SEP, 1,000 items
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: corrected SEP grader
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: 1,000
+- id: ev_l_ov_pia
+  defence_id: ov_l
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_ov_piau
+  defence_id: ov_l
+  benchmark: PIArena HotpotQA and NQ
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+- id: ev_l_ov_sq
+  defence_id: ov_l
+  benchmark: PIArena SQuAD v2
+  attacker_type: static
+  attacker_access: black_box
+  judge: behaviour-based PIArena scoring
+  layout_same_as_defence: 'yes'
+  measured_by: overlays_arxiv2026
+  page: 6
+  decoding: greedy decoding
+results:
+- id: r_q_none_sep
+  evaluation_id: ev_q_none_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '24.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_none_util
+  evaluation_id: ev_q_none_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '92.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_none_af
+  evaluation_id: ev_q_none_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '99.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_none_qipi
+  evaluation_id: ev_q_none_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '6.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_none_ad
+  evaluation_id: ev_q_none_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '12.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_none_pia
+  evaluation_id: ev_q_none_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '53.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_none_piau
+  evaluation_id: ev_q_none_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '68.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_none_sq
+  evaluation_id: ev_q_none_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '97.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_sand_sep
+  evaluation_id: ev_q_sand_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '40.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_sand_util
+  evaluation_id: ev_q_sand_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '93.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_sand_af
+  evaluation_id: ev_q_sand_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '97.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_sand_qipi
+  evaluation_id: ev_q_sand_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '5.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_sand_pia
+  evaluation_id: ev_q_sand_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '42.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_sand_piau
+  evaluation_id: ev_q_sand_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '69.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_sand_sq
+  evaluation_id: ev_q_sand_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '95.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_spot_sep
+  evaluation_id: ev_q_spot_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '47.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_spot_util
+  evaluation_id: ev_q_spot_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '93.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_spot_af
+  evaluation_id: ev_q_spot_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '84.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_spot_qipi
+  evaluation_id: ev_q_spot_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '3.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_spot_pia
+  evaluation_id: ev_q_spot_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '32.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_spot_piau
+  evaluation_id: ev_q_spot_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '71.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_spot_sq
+  evaluation_id: ev_q_spot_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '48.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltok_sep
+  evaluation_id: ev_q_ltok_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '98.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltok_util
+  evaluation_id: ev_q_ltok_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '68.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltok_af
+  evaluation_id: ev_q_ltok_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltok_qipi
+  evaluation_id: ev_q_ltok_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltok_pia
+  evaluation_id: ev_q_ltok_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltok_piau
+  evaluation_id: ev_q_ltok_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '73.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltok_sq
+  evaluation_id: ev_q_ltok_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '7.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltxt_sep
+  evaluation_id: ev_q_ltxt_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '97.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltxt_util
+  evaluation_id: ev_q_ltxt_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '80.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltxt_af
+  evaluation_id: ev_q_ltxt_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltxt_qipi
+  evaluation_id: ev_q_ltxt_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltxt_pia
+  evaluation_id: ev_q_ltxt_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltxt_piau
+  evaluation_id: ev_q_ltxt_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '74.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ltxt_sq
+  evaluation_id: ev_q_ltxt_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_lnone_sep
+  evaluation_id: ev_q_lnone_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '97.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_lnone_util
+  evaluation_id: ev_q_lnone_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '63.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_lnone_af
+  evaluation_id: ev_q_lnone_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '14.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_lnone_qipi
+  evaluation_id: ev_q_lnone_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_lnone_pia
+  evaluation_id: ev_q_lnone_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_lnone_piau
+  evaluation_id: ev_q_lnone_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '72.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_lnone_sq
+  evaluation_id: ev_q_lnone_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '3.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_dpo_sep
+  evaluation_id: ev_q_dpo_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '95.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_dpo_util
+  evaluation_id: ev_q_dpo_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '14.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_dpo_af
+  evaluation_id: ev_q_dpo_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_dpo_qipi
+  evaluation_id: ev_q_dpo_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_dpo_pia
+  evaluation_id: ev_q_dpo_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_dpo_piau
+  evaluation_id: ev_q_dpo_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '63.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_dpo_sq
+  evaluation_id: ev_q_dpo_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_plv_sep
+  evaluation_id: ev_q_plv_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '98.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_plv_util
+  evaluation_id: ev_q_plv_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '92.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_plv_af
+  evaluation_id: ev_q_plv_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '2.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_plv_qipi
+  evaluation_id: ev_q_plv_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_plv_pia
+  evaluation_id: ev_q_plv_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_plv_piau
+  evaluation_id: ev_q_plv_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '75.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_plv_sq
+  evaluation_id: ev_q_plv_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_loreft_sep
+  evaluation_id: ev_q_loreft_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '99.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_loreft_util
+  evaluation_id: ev_q_loreft_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '92.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_loreft_af
+  evaluation_id: ev_q_loreft_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_loreft_qipi
+  evaluation_id: ev_q_loreft_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_loreft_ad
+  evaluation_id: ev_q_loreft_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_loreft_pia
+  evaluation_id: ev_q_loreft_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_loreft_piau
+  evaluation_id: ev_q_loreft_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '70.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_loreft_sq
+  evaluation_id: ev_q_loreft_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ov_sep
+  evaluation_id: ev_q_ov_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '98.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ov_util
+  evaluation_id: ev_q_ov_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '93.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ov_af
+  evaluation_id: ev_q_ov_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ov_qipi
+  evaluation_id: ev_q_ov_qipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Quadrat-IPI injection compliance
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ov_ad
+  evaluation_id: ev_q_ov_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ov_pia
+  evaluation_id: ev_q_ov_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ov_piau
+  evaluation_id: ev_q_ov_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '74.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q_ov_sq
+  evaluation_id: ev_q_ov_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_none_sep
+  evaluation_id: ev_l_none_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '29.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_none_util
+  evaluation_id: ev_l_none_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '91.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_none_pia
+  evaluation_id: ev_l_none_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '59.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_none_piau
+  evaluation_id: ev_l_none_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '68.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_none_sq
+  evaluation_id: ev_l_none_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '95.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_spot_sep
+  evaluation_id: ev_l_spot_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '66.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_spot_util
+  evaluation_id: ev_l_spot_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '91.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_spot_pia
+  evaluation_id: ev_l_spot_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '30.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_spot_piau
+  evaluation_id: ev_l_spot_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '68.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_spot_sq
+  evaluation_id: ev_l_spot_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '39.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_dt_sep
+  evaluation_id: ev_l_dt_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '80.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_dt_util
+  evaluation_id: ev_l_dt_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '55.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_dt_pia
+  evaluation_id: ev_l_dt_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '3.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_dt_piau
+  evaluation_id: ev_l_dt_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '71.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_dt_sq
+  evaluation_id: ev_l_dt_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '17.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_msa_sep
+  evaluation_id: ev_l_msa_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '97.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_msa_util
+  evaluation_id: ev_l_msa_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '78.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_msa_pia
+  evaluation_id: ev_l_msa_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_msa_piau
+  evaluation_id: ev_l_msa_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '76.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_msa_sq
+  evaluation_id: ev_l_msa_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_ov_sep
+  evaluation_id: ev_l_ov_sep
+  quantity: other
+  coverage: direct
+  metric_as_printed: SEP separation (corrected grader)
+  value: '99.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_ov_util
+  evaluation_id: ev_l_ov_util
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '89.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_ov_pia
+  evaluation_id: ev_l_ov_pia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena Hot/NQ ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_ov_piau
+  evaluation_id: ev_l_ov_piau
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: PIArena utility (accuracy under attack)
+  value: '70.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l_ov_sq
+  evaluation_id: ev_l_ov_sq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: PIArena SQuAD ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+comparisons:
+- id: c_q_sand_sep
+  left: ev_q_sand_sep
+  right: ev_q_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_sand_util
+  left: ev_q_sand_util
+  right: ev_q_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_sand_af
+  left: ev_q_sand_af
+  right: ev_q_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_sand_qipi
+  left: ev_q_sand_qipi
+  right: ev_q_none_qipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_sand_pia
+  left: ev_q_sand_pia
+  right: ev_q_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_sand_piau
+  left: ev_q_sand_piau
+  right: ev_q_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_sand_sq
+  left: ev_q_sand_sq
+  right: ev_q_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_spot_sep
+  left: ev_q_spot_sep
+  right: ev_q_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_spot_util
+  left: ev_q_spot_util
+  right: ev_q_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_spot_af
+  left: ev_q_spot_af
+  right: ev_q_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_spot_qipi
+  left: ev_q_spot_qipi
+  right: ev_q_none_qipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_spot_pia
+  left: ev_q_spot_pia
+  right: ev_q_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_spot_piau
+  left: ev_q_spot_piau
+  right: ev_q_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_spot_sq
+  left: ev_q_spot_sq
+  right: ev_q_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltok_sep
+  left: ev_q_ltok_sep
+  right: ev_q_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltok_util
+  left: ev_q_ltok_util
+  right: ev_q_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltok_af
+  left: ev_q_ltok_af
+  right: ev_q_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltok_qipi
+  left: ev_q_ltok_qipi
+  right: ev_q_none_qipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltok_pia
+  left: ev_q_ltok_pia
+  right: ev_q_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltok_piau
+  left: ev_q_ltok_piau
+  right: ev_q_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltok_sq
+  left: ev_q_ltok_sq
+  right: ev_q_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltxt_sep
+  left: ev_q_ltxt_sep
+  right: ev_q_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltxt_util
+  left: ev_q_ltxt_util
+  right: ev_q_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltxt_af
+  left: ev_q_ltxt_af
+  right: ev_q_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltxt_qipi
+  left: ev_q_ltxt_qipi
+  right: ev_q_none_qipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltxt_pia
+  left: ev_q_ltxt_pia
+  right: ev_q_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltxt_piau
+  left: ev_q_ltxt_piau
+  right: ev_q_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ltxt_sq
+  left: ev_q_ltxt_sq
+  right: ev_q_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_lnone_sep
+  left: ev_q_lnone_sep
+  right: ev_q_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_lnone_util
+  left: ev_q_lnone_util
+  right: ev_q_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_lnone_af
+  left: ev_q_lnone_af
+  right: ev_q_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_lnone_qipi
+  left: ev_q_lnone_qipi
+  right: ev_q_none_qipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_lnone_pia
+  left: ev_q_lnone_pia
+  right: ev_q_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_lnone_piau
+  left: ev_q_lnone_piau
+  right: ev_q_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_lnone_sq
+  left: ev_q_lnone_sq
+  right: ev_q_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_dpo_sep
+  left: ev_q_dpo_sep
+  right: ev_q_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_dpo_util
+  left: ev_q_dpo_util
+  right: ev_q_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_dpo_af
+  left: ev_q_dpo_af
+  right: ev_q_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_dpo_qipi
+  left: ev_q_dpo_qipi
+  right: ev_q_none_qipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_dpo_pia
+  left: ev_q_dpo_pia
+  right: ev_q_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_dpo_piau
+  left: ev_q_dpo_piau
+  right: ev_q_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_dpo_sq
+  left: ev_q_dpo_sq
+  right: ev_q_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_plv_sep
+  left: ev_q_plv_sep
+  right: ev_q_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_plv_util
+  left: ev_q_plv_util
+  right: ev_q_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_plv_af
+  left: ev_q_plv_af
+  right: ev_q_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_plv_qipi
+  left: ev_q_plv_qipi
+  right: ev_q_none_qipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_plv_pia
+  left: ev_q_plv_pia
+  right: ev_q_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_plv_piau
+  left: ev_q_plv_piau
+  right: ev_q_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_plv_sq
+  left: ev_q_plv_sq
+  right: ev_q_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_loreft_sep
+  left: ev_q_loreft_sep
+  right: ev_q_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_loreft_util
+  left: ev_q_loreft_util
+  right: ev_q_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_loreft_af
+  left: ev_q_loreft_af
+  right: ev_q_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_loreft_qipi
+  left: ev_q_loreft_qipi
+  right: ev_q_none_qipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_loreft_ad
+  left: ev_q_loreft_ad
+  right: ev_q_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_loreft_pia
+  left: ev_q_loreft_pia
+  right: ev_q_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_loreft_piau
+  left: ev_q_loreft_piau
+  right: ev_q_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_loreft_sq
+  left: ev_q_loreft_sq
+  right: ev_q_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ov_sep
+  left: ev_q_ov_sep
+  right: ev_q_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ov_util
+  left: ev_q_ov_util
+  right: ev_q_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ov_af
+  left: ev_q_ov_af
+  right: ev_q_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ov_qipi
+  left: ev_q_ov_qipi
+  right: ev_q_none_qipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ov_ad
+  left: ev_q_ov_ad
+  right: ev_q_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ov_pia
+  left: ev_q_ov_pia
+  right: ev_q_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ov_piau
+  left: ev_q_ov_piau
+  right: ev_q_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ov_sq
+  left: ev_q_ov_sq
+  right: ev_q_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_spot_sep
+  left: ev_l_spot_sep
+  right: ev_l_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_spot_util
+  left: ev_l_spot_util
+  right: ev_l_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_spot_pia
+  left: ev_l_spot_pia
+  right: ev_l_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_spot_piau
+  left: ev_l_spot_piau
+  right: ev_l_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_spot_sq
+  left: ev_l_spot_sq
+  right: ev_l_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_dt_sep
+  left: ev_l_dt_sep
+  right: ev_l_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_dt_util
+  left: ev_l_dt_util
+  right: ev_l_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_dt_pia
+  left: ev_l_dt_pia
+  right: ev_l_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_dt_piau
+  left: ev_l_dt_piau
+  right: ev_l_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_dt_sq
+  left: ev_l_dt_sq
+  right: ev_l_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_msa_sep
+  left: ev_l_msa_sep
+  right: ev_l_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_msa_util
+  left: ev_l_msa_util
+  right: ev_l_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_msa_pia
+  left: ev_l_msa_pia
+  right: ev_l_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_msa_piau
+  left: ev_l_msa_piau
+  right: ev_l_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_msa_sq
+  left: ev_l_msa_sq
+  right: ev_l_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_ov_sep
+  left: ev_l_ov_sep
+  right: ev_l_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_ov_util
+  left: ev_l_ov_util
+  right: ev_l_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_ov_pia
+  left: ev_l_ov_pia
+  right: ev_l_none_pia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_ov_piau
+  left: ev_l_ov_piau
+  right: ev_l_none_piau
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l_ov_sq
+  left: ev_l_ov_sq
+  right: ev_l_none_sq
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q_ov_ltok_sep
+  left: ev_q_ov_sep
+  right: ev_q_ltok_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against an in-band special-token LoRA, same data
+  page: 6
+- id: c_q_ov_loreft_sep
+  left: ev_q_ov_sep
+  right: ev_q_loreft_sep
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against a LoReFT edit on the same span, same data
+  page: 6
+- id: c_q_ov_ltok_util
+  left: ev_q_ov_util
+  right: ev_q_ltok_util
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against an in-band special-token LoRA, same data
+  page: 6
+- id: c_q_ov_loreft_util
+  left: ev_q_ov_util
+  right: ev_q_loreft_util
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against a LoReFT edit on the same span, same data
+  page: 6
+- id: c_q_ov_ltok_af
+  left: ev_q_ov_af
+  right: ev_q_ltok_af
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against an in-band special-token LoRA, same data
+  page: 6
+- id: c_q_ov_loreft_af
+  left: ev_q_ov_af
+  right: ev_q_loreft_af
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against a LoReFT edit on the same span, same data
+  page: 6
+- id: c_q_ov_ltok_qipi
+  left: ev_q_ov_qipi
+  right: ev_q_ltok_qipi
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against an in-band special-token LoRA, same data
+  page: 6
+- id: c_q_ov_loreft_qipi
+  left: ev_q_ov_qipi
+  right: ev_q_loreft_qipi
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against a LoReFT edit on the same span, same data
+  page: 6
+- id: c_q_ov_loreft_ad
+  left: ev_q_ov_ad
+  right: ev_q_loreft_ad
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against a LoReFT edit on the same span, same data
+  page: 6
+- id: c_q_ov_ltok_pia
+  left: ev_q_ov_pia
+  right: ev_q_ltok_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against an in-band special-token LoRA, same data
+  page: 6
+- id: c_q_ov_loreft_pia
+  left: ev_q_ov_pia
+  right: ev_q_loreft_pia
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against a LoReFT edit on the same span, same data
+  page: 6
+- id: c_q_ov_ltok_piau
+  left: ev_q_ov_piau
+  right: ev_q_ltok_piau
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against an in-band special-token LoRA, same data
+  page: 6
+- id: c_q_ov_loreft_piau
+  left: ev_q_ov_piau
+  right: ev_q_loreft_piau
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against a LoReFT edit on the same span, same data
+  page: 6
+- id: c_q_ov_ltok_sq
+  left: ev_q_ov_sq
+  right: ev_q_ltok_sq
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against an in-band special-token LoRA, same data
+  page: 6
+- id: c_q_ov_loreft_sq
+  left: ev_q_ov_sq
+  right: ev_q_loreft_sq
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: out-of-band residual overlay against a LoReFT edit on the same span, same data
+  page: 6
+claims:
+- id: k1
+  text: against attacks written without knowledge of the defence the overlay matches the best published defences on a frozen model
+  location: abstract
+  anchor: AlpacaFarm attack success falls from 99.0% to 0.5%
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_q_ov_sep
+  - c_q_ov_af
+  - c_q_ov_ad
+  - c_q_ov_util
+  page: 1
+coverage:
+  R1: direct
+  R2clean: proxy
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1 (AlpacaFarm, Quadrat-IPI, AgentDojo, PIArena)
+    R2clean: Table 1 (SEP utility)
+    R2attack: Table 1 (PIArena accuracy under attack)
+schema_gaps:
+- where: comparisons c_l_ov_sep, c_l_ov_util
+  note: for Llama, SEP is scored on a fixed 300-item subset for every row except the overlay, which uses 1,000 items, and the Llama overlay was trained on an earlier data mix (p. 6)
+- where: defences ov_*
+  note: training includes copy items that quote the marked span; the paper does not say whether those spans carry instructions, so trains_carry_through is coded no
+- where: evaluations ev_*
+  note: TensorTrust hijacking is left out because its attacker writes the user's own input; the paper notes that SEP's items resemble the training data while the other benchmarks share no attack text with it (p. 5)

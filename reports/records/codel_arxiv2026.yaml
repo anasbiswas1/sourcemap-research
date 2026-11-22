@@ -1,0 +1,3670 @@
+report:
+  id: codel_arxiv2026
+  slug: '2609.34463'
+  title: 'CoDeL: Co-Evolutionary Defense against Indirect Prompt Injection in LLM-based Agents'
+  first_author: Xiao Yang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2609.34463'
+  version_read: arXiv v1
+  first_date: '2026-09-28'
+  read: F
+  role: proposes
+  code_release: stated as available in a footnote; not checked
+  extraction_scope: 'Section 5.2: Table 1 rows No defense, AgentAlign, DRIP, RETA, SecOPD, Meta-SecAlign and CoDeL on both models and all three benchmarks; the abstract claim (MELON and PromptArmor, which filter or rewrite
+    outside the model, PIGuard and TSGuard, which are detectors, Figure 3, the generalisation study of Section 5.4 and the ablations not coded)'
+defences:
+- id: codel_q
+  name: CoDeL
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - adversarial_rl
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - defender updated each round with LoRA-based GDPO under a decoupled reward for safety, task progress and format
+  - a co-evolving prober searches injection rounds, methods and payloads, rewarded for attack success and for late detection
+  - SFT stage before GDPO
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: The defender is updated each round via LoRA-based GDPO
+  pages:
+    components: 5
+- id: agentalign_q
+  name: AgentAlign (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+- id: drip_q
+  name: DRIP (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - chat_roles
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+- id: reta_q
+  name: RETA (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+- id: secopd_q
+  name: SecOPD (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+- id: msa_q
+  name: Meta-SecAlign (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+- id: codel_l
+  name: CoDeL
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - adversarial_rl
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - defender updated each round with LoRA-based GDPO under a decoupled reward for safety, task progress and format
+  - a co-evolving prober searches injection rounds, methods and payloads, rewarded for attack success and for late detection
+  - SFT stage before GDPO
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: The defender is updated each round via LoRA-based GDPO
+  pages:
+    components: 5
+- id: agentalign_l
+  name: AgentAlign (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+- id: drip_l
+  name: DRIP (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+- id: reta_l
+  name: RETA (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+- id: secopd_l
+  name: SecOPD (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+- id: msa_l
+  name: Meta-SecAlign (re-trained by the authors on their splits)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: agent loop with a shared tool schema and system prompt; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we retrain each method under our setup
+evaluations:
+- id: ev_q_ad_none_clean
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_ad_none_att
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_ia_none_clean
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_ia_none_att
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_asb_none_clean
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_asb_none_att
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_ad_none_clean
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_ad_none_att
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_ia_none_clean
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_ia_none_att
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_asb_none_clean
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_asb_none_att
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_ad_agentalign_clean
+  defence_id: agentalign_q
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_agentalign_att
+  defence_id: agentalign_q
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_agentalign_clean
+  defence_id: agentalign_q
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_agentalign_att
+  defence_id: agentalign_q
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_agentalign_clean
+  defence_id: agentalign_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_agentalign_att
+  defence_id: agentalign_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_agentalign_clean
+  defence_id: agentalign_l
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_agentalign_att
+  defence_id: agentalign_l
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_agentalign_clean
+  defence_id: agentalign_l
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_agentalign_att
+  defence_id: agentalign_l
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_agentalign_clean
+  defence_id: agentalign_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_agentalign_att
+  defence_id: agentalign_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_drip_clean
+  defence_id: drip_q
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_drip_att
+  defence_id: drip_q
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_drip_clean
+  defence_id: drip_q
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_drip_att
+  defence_id: drip_q
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_drip_clean
+  defence_id: drip_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_drip_att
+  defence_id: drip_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_drip_clean
+  defence_id: drip_l
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_drip_att
+  defence_id: drip_l
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_drip_clean
+  defence_id: drip_l
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_drip_att
+  defence_id: drip_l
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_drip_clean
+  defence_id: drip_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_drip_att
+  defence_id: drip_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_reta_clean
+  defence_id: reta_q
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_reta_att
+  defence_id: reta_q
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_reta_clean
+  defence_id: reta_q
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_reta_att
+  defence_id: reta_q
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_reta_clean
+  defence_id: reta_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_reta_att
+  defence_id: reta_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_reta_clean
+  defence_id: reta_l
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_reta_att
+  defence_id: reta_l
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_reta_clean
+  defence_id: reta_l
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_reta_att
+  defence_id: reta_l
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_reta_clean
+  defence_id: reta_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_reta_att
+  defence_id: reta_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_secopd_clean
+  defence_id: secopd_q
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_secopd_att
+  defence_id: secopd_q
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_secopd_clean
+  defence_id: secopd_q
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_secopd_att
+  defence_id: secopd_q
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_secopd_clean
+  defence_id: secopd_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_secopd_att
+  defence_id: secopd_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_secopd_clean
+  defence_id: secopd_l
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_secopd_att
+  defence_id: secopd_l
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_secopd_clean
+  defence_id: secopd_l
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_secopd_att
+  defence_id: secopd_l
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_secopd_clean
+  defence_id: secopd_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_secopd_att
+  defence_id: secopd_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_msa_clean
+  defence_id: msa_q
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_msa_att
+  defence_id: msa_q
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_msa_clean
+  defence_id: msa_q
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_msa_att
+  defence_id: msa_q
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_msa_clean
+  defence_id: msa_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_msa_att
+  defence_id: msa_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_msa_clean
+  defence_id: msa_l
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_msa_att
+  defence_id: msa_l
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_msa_clean
+  defence_id: msa_l
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_msa_att
+  defence_id: msa_l
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_msa_clean
+  defence_id: msa_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_msa_att
+  defence_id: msa_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_codel_clean
+  defence_id: codel_q
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ad_codel_att
+  defence_id: codel_q
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_codel_clean
+  defence_id: codel_q
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_ia_codel_att
+  defence_id: codel_q
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_codel_clean
+  defence_id: codel_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_asb_codel_att
+  defence_id: codel_q
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_codel_clean
+  defence_id: codel_l
+  benchmark: AgentDojo (step-level annotated release), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ad_codel_att
+  defence_id: codel_l
+  benchmark: AgentDojo (step-level annotated release), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_codel_clean
+  defence_id: codel_l
+  benchmark: InjecAgent (1,054 cases), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_ia_codel_att
+  defence_id: codel_l
+  benchmark: InjecAgent (1,054 cases), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_codel_clean
+  defence_id: codel_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_asb_codel_att
+  defence_id: codel_l
+  benchmark: Agent Security Bench, indirect prompt injection branch (ASB-OPI), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judges for attack execution and task completion
+  layout_same_as_defence: 'yes'
+  measured_by: codel_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+results:
+- id: r_q_ad_none_bu
+  evaluation_id: ev_q_ad_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.632'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_none_asr
+  evaluation_id: ev_q_ad_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.364'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_none_ua
+  evaluation_id: ev_q_ad_none_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.432'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_none_bu
+  evaluation_id: ev_q_ia_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.765'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_none_asr
+  evaluation_id: ev_q_ia_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.221'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_none_ua
+  evaluation_id: ev_q_ia_none_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.544'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_none_bu
+  evaluation_id: ev_q_asb_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.857'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_none_asr
+  evaluation_id: ev_q_asb_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.377'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_none_ua
+  evaluation_id: ev_q_asb_none_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.232'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_none_bu
+  evaluation_id: ev_l_ad_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.727'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_none_asr
+  evaluation_id: ev_l_ad_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.189'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_none_ua
+  evaluation_id: ev_l_ad_none_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.679'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_none_bu
+  evaluation_id: ev_l_ia_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.647'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_none_asr
+  evaluation_id: ev_l_ia_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.299'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_none_ua
+  evaluation_id: ev_l_ia_none_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.480'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_none_bu
+  evaluation_id: ev_l_asb_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.900'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_none_asr
+  evaluation_id: ev_l_asb_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.377'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_none_ua
+  evaluation_id: ev_l_asb_none_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.522'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_agentalign_bu
+  evaluation_id: ev_q_ad_agentalign_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.361'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_agentalign_asr
+  evaluation_id: ev_q_ad_agentalign_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.116'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_agentalign_ua
+  evaluation_id: ev_q_ad_agentalign_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.290'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_agentalign_bu
+  evaluation_id: ev_q_ia_agentalign_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.333'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_agentalign_asr
+  evaluation_id: ev_q_ia_agentalign_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.111'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_agentalign_ua
+  evaluation_id: ev_q_ia_agentalign_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.333'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_agentalign_bu
+  evaluation_id: ev_q_asb_agentalign_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.429'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_agentalign_asr
+  evaluation_id: ev_q_asb_agentalign_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.029'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_agentalign_ua
+  evaluation_id: ev_q_asb_agentalign_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.130'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_agentalign_bu
+  evaluation_id: ev_l_ad_agentalign_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.309'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_agentalign_asr
+  evaluation_id: ev_l_ad_agentalign_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.066'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_agentalign_ua
+  evaluation_id: ev_l_ad_agentalign_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.179'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_agentalign_bu
+  evaluation_id: ev_l_ia_agentalign_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.361'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_agentalign_asr
+  evaluation_id: ev_l_ia_agentalign_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.139'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_agentalign_ua
+  evaluation_id: ev_l_ia_agentalign_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.333'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_agentalign_bu
+  evaluation_id: ev_l_asb_agentalign_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.571'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_agentalign_asr
+  evaluation_id: ev_l_asb_agentalign_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.159'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_agentalign_ua
+  evaluation_id: ev_l_asb_agentalign_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.145'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_drip_bu
+  evaluation_id: ev_q_ad_drip_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.636'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_drip_asr
+  evaluation_id: ev_q_ad_drip_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.151'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_drip_ua
+  evaluation_id: ev_q_ad_drip_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.491'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_drip_bu
+  evaluation_id: ev_q_ia_drip_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.588'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_drip_asr
+  evaluation_id: ev_q_ia_drip_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.294'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_drip_ua
+  evaluation_id: ev_q_ia_drip_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.304'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_drip_bu
+  evaluation_id: ev_q_asb_drip_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.700'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_drip_asr
+  evaluation_id: ev_q_asb_drip_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.232'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_drip_ua
+  evaluation_id: ev_q_asb_drip_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.609'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_drip_bu
+  evaluation_id: ev_l_ad_drip_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.546'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_drip_asr
+  evaluation_id: ev_l_ad_drip_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.151'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_drip_ua
+  evaluation_id: ev_l_ad_drip_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.264'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_drip_bu
+  evaluation_id: ev_l_ia_drip_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.588'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_drip_asr
+  evaluation_id: ev_l_ia_drip_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.078'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_drip_ua
+  evaluation_id: ev_l_ia_drip_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.451'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_drip_bu
+  evaluation_id: ev_l_asb_drip_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.400'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_drip_asr
+  evaluation_id: ev_l_asb_drip_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.087'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_drip_ua
+  evaluation_id: ev_l_asb_drip_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.290'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_reta_bu
+  evaluation_id: ev_q_ad_reta_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.618'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_reta_asr
+  evaluation_id: ev_q_ad_reta_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.119'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_reta_ua
+  evaluation_id: ev_q_ad_reta_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.517'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_reta_bu
+  evaluation_id: ev_q_ia_reta_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.706'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_reta_asr
+  evaluation_id: ev_q_ia_reta_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.069'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_reta_ua
+  evaluation_id: ev_q_ia_reta_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.578'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_reta_bu
+  evaluation_id: ev_q_asb_reta_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.647'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_reta_asr
+  evaluation_id: ev_q_asb_reta_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.073'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_reta_ua
+  evaluation_id: ev_q_asb_reta_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.638'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_reta_bu
+  evaluation_id: ev_l_ad_reta_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.632'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_reta_asr
+  evaluation_id: ev_l_ad_reta_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.102'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_reta_ua
+  evaluation_id: ev_l_ad_reta_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.542'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_reta_bu
+  evaluation_id: ev_l_ia_reta_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.735'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_reta_asr
+  evaluation_id: ev_l_ia_reta_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.059'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_reta_ua
+  evaluation_id: ev_l_ia_reta_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.549'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_reta_bu
+  evaluation_id: ev_l_asb_reta_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.810'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_reta_asr
+  evaluation_id: ev_l_asb_reta_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.058'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_reta_ua
+  evaluation_id: ev_l_asb_reta_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.739'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_secopd_bu
+  evaluation_id: ev_q_ad_secopd_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.273'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_secopd_asr
+  evaluation_id: ev_q_ad_secopd_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.046'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_secopd_ua
+  evaluation_id: ev_q_ad_secopd_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.343'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_secopd_bu
+  evaluation_id: ev_q_ia_secopd_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.417'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_secopd_asr
+  evaluation_id: ev_q_ia_secopd_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.010'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_secopd_ua
+  evaluation_id: ev_q_ia_secopd_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.446'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_secopd_bu
+  evaluation_id: ev_q_asb_secopd_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.286'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_secopd_asr
+  evaluation_id: ev_q_asb_secopd_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.319'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_secopd_ua
+  evaluation_id: ev_q_asb_secopd_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.333'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_secopd_bu
+  evaluation_id: ev_l_ad_secopd_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.103'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_secopd_asr
+  evaluation_id: ev_l_ad_secopd_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.144'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_secopd_ua
+  evaluation_id: ev_l_ad_secopd_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.228'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_secopd_bu
+  evaluation_id: ev_l_ia_secopd_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.529'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_secopd_asr
+  evaluation_id: ev_l_ia_secopd_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.203'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_secopd_ua
+  evaluation_id: ev_l_ia_secopd_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.461'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_secopd_bu
+  evaluation_id: ev_l_asb_secopd_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.143'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_secopd_asr
+  evaluation_id: ev_l_asb_secopd_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_secopd_ua
+  evaluation_id: ev_l_asb_secopd_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.101'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_msa_bu
+  evaluation_id: ev_q_ad_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.456'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_msa_asr
+  evaluation_id: ev_q_ad_msa_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.068'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_msa_ua
+  evaluation_id: ev_q_ad_msa_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.602'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_msa_bu
+  evaluation_id: ev_q_ia_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.824'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_msa_asr
+  evaluation_id: ev_q_ia_msa_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.059'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_msa_ua
+  evaluation_id: ev_q_ia_msa_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.678'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_msa_bu
+  evaluation_id: ev_q_asb_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.714'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_msa_asr
+  evaluation_id: ev_q_asb_msa_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.073'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_msa_ua
+  evaluation_id: ev_q_asb_msa_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.279'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_msa_bu
+  evaluation_id: ev_l_ad_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.456'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_msa_asr
+  evaluation_id: ev_l_ad_msa_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.025'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_msa_ua
+  evaluation_id: ev_l_ad_msa_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.610'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_msa_bu
+  evaluation_id: ev_l_ia_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.765'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_msa_asr
+  evaluation_id: ev_l_ia_msa_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.059'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_msa_ua
+  evaluation_id: ev_l_ia_msa_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.466'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_msa_bu
+  evaluation_id: ev_l_asb_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.857'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_msa_asr
+  evaluation_id: ev_l_asb_msa_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.058'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_msa_ua
+  evaluation_id: ev_l_asb_msa_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.812'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_codel_bu
+  evaluation_id: ev_q_ad_codel_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.779'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_codel_asr
+  evaluation_id: ev_q_ad_codel_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.042'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ad_codel_ua
+  evaluation_id: ev_q_ad_codel_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.831'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_codel_bu
+  evaluation_id: ev_q_ia_codel_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.882'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_codel_asr
+  evaluation_id: ev_q_ia_codel_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.010'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_ia_codel_ua
+  evaluation_id: ev_q_ia_codel_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.843'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_codel_bu
+  evaluation_id: ev_q_asb_codel_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.857'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_codel_asr
+  evaluation_id: ev_q_asb_codel_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.043'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_asb_codel_ua
+  evaluation_id: ev_q_asb_codel_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.913'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_codel_bu
+  evaluation_id: ev_l_ad_codel_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.819'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_codel_asr
+  evaluation_id: ev_l_ad_codel_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.051'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ad_codel_ua
+  evaluation_id: ev_l_ad_codel_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.797'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_codel_bu
+  evaluation_id: ev_l_ia_codel_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '0.882'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_codel_asr
+  evaluation_id: ev_l_ia_codel_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.020'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_ia_codel_ua
+  evaluation_id: ev_l_ia_codel_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.809'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_codel_bu
+  evaluation_id: ev_l_asb_codel_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '1.000'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_codel_asr
+  evaluation_id: ev_l_asb_codel_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_asb_codel_ua
+  evaluation_id: ev_l_asb_codel_att
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: UA (task completed while the injection is not executed)
+  value: '0.942'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+comparisons:
+- id: c_q_ad_agentalign_clean
+  left: ev_q_ad_agentalign_clean
+  right: ev_q_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_agentalign_att
+  left: ev_q_ad_agentalign_att
+  right: ev_q_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_drip_clean
+  left: ev_q_ad_drip_clean
+  right: ev_q_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_drip_att
+  left: ev_q_ad_drip_att
+  right: ev_q_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_reta_clean
+  left: ev_q_ad_reta_clean
+  right: ev_q_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_reta_att
+  left: ev_q_ad_reta_att
+  right: ev_q_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_secopd_clean
+  left: ev_q_ad_secopd_clean
+  right: ev_q_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_secopd_att
+  left: ev_q_ad_secopd_att
+  right: ev_q_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_msa_clean
+  left: ev_q_ad_msa_clean
+  right: ev_q_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_msa_att
+  left: ev_q_ad_msa_att
+  right: ev_q_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_codel_clean
+  left: ev_q_ad_codel_clean
+  right: ev_q_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ad_codel_att
+  left: ev_q_ad_codel_att
+  right: ev_q_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_agentalign_clean
+  left: ev_q_ia_agentalign_clean
+  right: ev_q_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_agentalign_att
+  left: ev_q_ia_agentalign_att
+  right: ev_q_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_drip_clean
+  left: ev_q_ia_drip_clean
+  right: ev_q_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_drip_att
+  left: ev_q_ia_drip_att
+  right: ev_q_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_reta_clean
+  left: ev_q_ia_reta_clean
+  right: ev_q_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_reta_att
+  left: ev_q_ia_reta_att
+  right: ev_q_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_secopd_clean
+  left: ev_q_ia_secopd_clean
+  right: ev_q_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_secopd_att
+  left: ev_q_ia_secopd_att
+  right: ev_q_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_msa_clean
+  left: ev_q_ia_msa_clean
+  right: ev_q_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_msa_att
+  left: ev_q_ia_msa_att
+  right: ev_q_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_codel_clean
+  left: ev_q_ia_codel_clean
+  right: ev_q_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_ia_codel_att
+  left: ev_q_ia_codel_att
+  right: ev_q_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_agentalign_clean
+  left: ev_q_asb_agentalign_clean
+  right: ev_q_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_agentalign_att
+  left: ev_q_asb_agentalign_att
+  right: ev_q_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_drip_clean
+  left: ev_q_asb_drip_clean
+  right: ev_q_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_drip_att
+  left: ev_q_asb_drip_att
+  right: ev_q_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_reta_clean
+  left: ev_q_asb_reta_clean
+  right: ev_q_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_reta_att
+  left: ev_q_asb_reta_att
+  right: ev_q_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_secopd_clean
+  left: ev_q_asb_secopd_clean
+  right: ev_q_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_secopd_att
+  left: ev_q_asb_secopd_att
+  right: ev_q_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_msa_clean
+  left: ev_q_asb_msa_clean
+  right: ev_q_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_msa_att
+  left: ev_q_asb_msa_att
+  right: ev_q_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_codel_clean
+  left: ev_q_asb_codel_clean
+  right: ev_q_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_asb_codel_att
+  left: ev_q_asb_codel_att
+  right: ev_q_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_agentalign_clean
+  left: ev_l_ad_agentalign_clean
+  right: ev_l_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_agentalign_att
+  left: ev_l_ad_agentalign_att
+  right: ev_l_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_drip_clean
+  left: ev_l_ad_drip_clean
+  right: ev_l_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_drip_att
+  left: ev_l_ad_drip_att
+  right: ev_l_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_reta_clean
+  left: ev_l_ad_reta_clean
+  right: ev_l_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_reta_att
+  left: ev_l_ad_reta_att
+  right: ev_l_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_secopd_clean
+  left: ev_l_ad_secopd_clean
+  right: ev_l_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_secopd_att
+  left: ev_l_ad_secopd_att
+  right: ev_l_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_msa_clean
+  left: ev_l_ad_msa_clean
+  right: ev_l_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_msa_att
+  left: ev_l_ad_msa_att
+  right: ev_l_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_codel_clean
+  left: ev_l_ad_codel_clean
+  right: ev_l_ad_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ad_codel_att
+  left: ev_l_ad_codel_att
+  right: ev_l_ad_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_agentalign_clean
+  left: ev_l_ia_agentalign_clean
+  right: ev_l_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_agentalign_att
+  left: ev_l_ia_agentalign_att
+  right: ev_l_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_drip_clean
+  left: ev_l_ia_drip_clean
+  right: ev_l_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_drip_att
+  left: ev_l_ia_drip_att
+  right: ev_l_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_reta_clean
+  left: ev_l_ia_reta_clean
+  right: ev_l_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_reta_att
+  left: ev_l_ia_reta_att
+  right: ev_l_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_secopd_clean
+  left: ev_l_ia_secopd_clean
+  right: ev_l_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_secopd_att
+  left: ev_l_ia_secopd_att
+  right: ev_l_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_msa_clean
+  left: ev_l_ia_msa_clean
+  right: ev_l_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_msa_att
+  left: ev_l_ia_msa_att
+  right: ev_l_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_codel_clean
+  left: ev_l_ia_codel_clean
+  right: ev_l_ia_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_ia_codel_att
+  left: ev_l_ia_codel_att
+  right: ev_l_ia_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_agentalign_clean
+  left: ev_l_asb_agentalign_clean
+  right: ev_l_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_agentalign_att
+  left: ev_l_asb_agentalign_att
+  right: ev_l_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_drip_clean
+  left: ev_l_asb_drip_clean
+  right: ev_l_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_drip_att
+  left: ev_l_asb_drip_att
+  right: ev_l_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_reta_clean
+  left: ev_l_asb_reta_clean
+  right: ev_l_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_reta_att
+  left: ev_l_asb_reta_att
+  right: ev_l_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_secopd_clean
+  left: ev_l_asb_secopd_clean
+  right: ev_l_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_secopd_att
+  left: ev_l_asb_secopd_att
+  right: ev_l_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_msa_clean
+  left: ev_l_asb_msa_clean
+  right: ev_l_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_msa_att
+  left: ev_l_asb_msa_att
+  right: ev_l_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_codel_clean
+  left: ev_l_asb_codel_clean
+  right: ev_l_asb_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_asb_codel_att
+  left: ev_l_asb_codel_att
+  right: ev_l_asb_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: CoDeL cuts ASR by 88.5% and clearly outperforms the other baselines
+  location: abstract
+  anchor: CODEL reduces attack success rate (ASR) by 88.5%
+  jobs:
+  - R1
+  - R2
+  - R3
+  supported_by:
+  - c_q_ad_codel_clean
+  - c_q_ad_codel_att
+  - c_q_ia_codel_clean
+  - c_q_ia_codel_att
+  - c_q_asb_codel_clean
+  - c_q_asb_codel_att
+  - c_l_ad_codel_clean
+  - c_l_ad_codel_att
+  - c_l_ia_codel_clean
+  - c_l_ia_codel_att
+  - c_l_asb_codel_clean
+  - c_l_asb_codel_att
+  page: 1
+  contradicted_by:
+  - r_l_ad_codel_asr
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: direct
+  where:
+    R1: Table 1 (ASR)
+    R2clean: Table 1 (BU)
+    R3safe: Table 1 (UA, defined as completing the task while not executing the injection)
+schema_gaps:
+- where: results r_*_ua
+  note: the paper's UA counts a task as done only when the injection is not executed (p. 7), so it is coded R3safe rather than R2attack

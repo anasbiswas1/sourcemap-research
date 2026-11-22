@@ -1,0 +1,1728 @@
+report:
+  id: secopd_emnlp2026
+  slug: '2608.21500'
+  title: 'SecOPD: Mitigating Adaptive Prompt Injections by On-Policy Distillation'
+  first_author: Yibo Peng
+  venue: EMNLP 2026 (accepted, as printed on p. 1)
+  peer_reviewed: 'yes'
+  doi: 10.18653/2026.emnlp-main.1102
+  arxiv: '2608.21500'
+  version_read: arXiv v1 (carries an EMNLP 2026 acceptance note)
+  first_date: '2026-08-21'
+  read: F
+  role: proposes
+  code_release: https://github.com/pppyb/SecOPD and released weights (linked from the abstract)
+  extraction_scope: 'Section 5: Tables 1 and 2 (all four models, all columns); the abstract claims (the static attack breakdown of Table 7, the per-domain AgentDojo Table 6 and the judge audits not coded)'
+defences:
+- id: secopd
+  name: SecOPD (secure on-policy distillation)
+  origin: this_report
+  base_checkpoint: Qwen3.6-27B
+  axis1:
+  - chat_roles
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - trusted prompt in the user role, untrusted data in a separate input role
+  - on injected samples the model's own rollout is scored token by token by the initial model given the clean input (reverse KL)
+  - 19K samples built from Cleaned-Alpaca
+  layout: user role for the instruction, input role for the data
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we propose Secure On-Policy Distillation (SecOPD) that provides
+  pages:
+    components: 6
+    layout: 2
+- id: msa_q
+  name: Meta-SecAlign (trained by the authors on the same 19K data)
+  origin: other_report
+  base_checkpoint: Qwen3.6-27B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  anchor: all defended mod- els are fine-tuned using a 19K dataset
+- id: grpo_q
+  name: GRPO baseline (sequence-level judge reward on injected samples)
+  origin: this_report
+  base_checkpoint: Qwen3.6-27B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  anchor: We use GRPO as a baseline for sequence-level
+evaluations:
+- id: ev_sepst_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: SEP, 9.1K samples, six static attacks combined
+  attacker_type: static
+  attacker_access: black_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_sepba_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: SEP, basic adaptive attack with delimiter-like substitutes found in embedding space
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  attacker_budget: nearby-token substitutes for the official delimiters
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_seppi_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: SEP, 1,024 test examples, PISmith attacker trained against each model, pass@10
+  attacker_type: rl
+  attacker_access: black_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  attacker_budget: 10 attempts per example
+  decoding: not reported
+  sample_size: 1,024
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_adst_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: AgentDojo, 949 (user task, injection task) pairs, important instructions attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  sample_size: '949'
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_sepst_msa
+  defence_id: msa_q
+  benchmark: SEP, 9.1K samples, six static attacks combined
+  attacker_type: static
+  attacker_access: black_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sepba_msa
+  defence_id: msa_q
+  benchmark: SEP, basic adaptive attack with delimiter-like substitutes found in embedding space
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  attacker_budget: nearby-token substitutes for the official delimiters
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_seppi_msa
+  defence_id: msa_q
+  benchmark: SEP, 1,024 test examples, PISmith attacker trained against each model, pass@10
+  attacker_type: rl
+  attacker_access: black_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  attacker_budget: 10 attempts per example
+  decoding: not reported
+  sample_size: 1,024
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_adst_msa
+  defence_id: msa_q
+  benchmark: AgentDojo, 949 (user task, injection task) pairs, important instructions attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  sample_size: '949'
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sepst_grpo
+  defence_id: grpo_q
+  benchmark: SEP, 9.1K samples, six static attacks combined
+  attacker_type: static
+  attacker_access: black_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sepba_grpo
+  defence_id: grpo_q
+  benchmark: SEP, basic adaptive attack with delimiter-like substitutes found in embedding space
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  attacker_budget: nearby-token substitutes for the official delimiters
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_seppi_grpo
+  defence_id: grpo_q
+  benchmark: SEP, 1,024 test examples, PISmith attacker trained against each model, pass@10
+  attacker_type: rl
+  attacker_access: black_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  attacker_budget: 10 attempts per example
+  decoding: not reported
+  sample_size: 1,024
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_adst_grpo
+  defence_id: grpo_q
+  benchmark: AgentDojo, 949 (user task, injection task) pairs, important instructions attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  sample_size: '949'
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sepst_opd
+  defence_id: secopd
+  benchmark: SEP, 9.1K samples, six static attacks combined
+  attacker_type: static
+  attacker_access: black_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sepba_opd
+  defence_id: secopd
+  benchmark: SEP, basic adaptive attack with delimiter-like substitutes found in embedding space
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  attacker_budget: nearby-token substitutes for the official delimiters
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_seppi_opd
+  defence_id: secopd
+  benchmark: SEP, 1,024 test examples, PISmith attacker trained against each model, pass@10
+  attacker_type: rl
+  attacker_access: black_box
+  judge: two LLM judges, three calls each, all YES (after a witness filter)
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  attacker_budget: 10 attempts per example
+  decoding: not reported
+  sample_size: 1,024
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_adst_opd
+  defence_id: secopd
+  benchmark: AgentDojo, 949 (user task, injection task) pairs, important instructions attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  sample_size: '949'
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_alpaca_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_sepu_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: SEP (AlpacaEval2 judge)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adu_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: AgentDojo benign user tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_mmlupro_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: MMLU Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpqa_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gsm8k_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_minerva_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_alpaca_msa
+  defence_id: msa_q
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sepu_msa
+  defence_id: msa_q
+  benchmark: SEP (AlpacaEval2 judge)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_adu_msa
+  defence_id: msa_q
+  benchmark: AgentDojo benign user tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_mmlupro_msa
+  defence_id: msa_q
+  benchmark: MMLU Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_gpqa_msa
+  defence_id: msa_q
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_gsm8k_msa
+  defence_id: msa_q
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_minerva_msa
+  defence_id: msa_q
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_alpaca_grpo
+  defence_id: grpo_q
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sepu_grpo
+  defence_id: grpo_q
+  benchmark: SEP (AlpacaEval2 judge)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_adu_grpo
+  defence_id: grpo_q
+  benchmark: AgentDojo benign user tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_mmlupro_grpo
+  defence_id: grpo_q
+  benchmark: MMLU Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_gpqa_grpo
+  defence_id: grpo_q
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_gsm8k_grpo
+  defence_id: grpo_q
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_minerva_grpo
+  defence_id: grpo_q
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_alpaca_opd
+  defence_id: secopd
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sepu_opd
+  defence_id: secopd
+  benchmark: SEP (AlpacaEval2 judge)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_adu_opd
+  defence_id: secopd
+  benchmark: AgentDojo benign user tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_mmlupro_opd
+  defence_id: secopd
+  benchmark: MMLU Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_gpqa_opd
+  defence_id: secopd
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_gsm8k_opd
+  defence_id: secopd
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_minerva_opd
+  defence_id: secopd
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: secopd_emnlp2026
+  page: 7
+  decoding: not reported
+results:
+- id: r_sepst_none
+  evaluation_id: ev_sepst_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP Static)
+  value: '99.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_sepba_none
+  evaluation_id: ev_sepba_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP Basic Adaptive)
+  value: '99.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_seppi_none
+  evaluation_id: ev_seppi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP PISmith Adaptive)
+  value: '97.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adst_none
+  evaluation_id: ev_adst_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (AgentDojo Static)
+  value: '26.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_sepst_msa
+  evaluation_id: ev_sepst_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP Static)
+  value: '28.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_sepba_msa
+  evaluation_id: ev_sepba_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP Basic Adaptive)
+  value: '5.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_seppi_msa
+  evaluation_id: ev_seppi_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP PISmith Adaptive)
+  value: '94.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adst_msa
+  evaluation_id: ev_adst_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (AgentDojo Static)
+  value: '5.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_sepst_grpo
+  evaluation_id: ev_sepst_grpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP Static)
+  value: '15.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_sepba_grpo
+  evaluation_id: ev_sepba_grpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP Basic Adaptive)
+  value: '2.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_seppi_grpo
+  evaluation_id: ev_seppi_grpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP PISmith Adaptive)
+  value: '61.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adst_grpo
+  evaluation_id: ev_adst_grpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (AgentDojo Static)
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_sepst_opd
+  evaluation_id: ev_sepst_opd
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP Static)
+  value: '1.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_sepba_opd
+  evaluation_id: ev_sepba_opd
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP Basic Adaptive)
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_seppi_opd
+  evaluation_id: ev_seppi_opd
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (SEP PISmith Adaptive)
+  value: '9.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adst_opd
+  evaluation_id: ev_adst_opd
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (AgentDojo Static)
+  value: '4.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_alpaca_none
+  evaluation_id: ev_alpaca_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '81.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sepu_none
+  evaluation_id: ev_sepu_none
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP (AlpacaEval2 judge)
+  value: '88.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_adu_none
+  evaluation_id: ev_adu_none
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo benign user tasks
+  value: '92.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_mmlupro_none
+  evaluation_id: ev_mmlupro_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU Pro
+  value: '84.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gpqa_none
+  evaluation_id: ev_gpqa_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond
+  value: '79.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gsm8k_none
+  evaluation_id: ev_gsm8k_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K
+  value: '97.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_minerva_none
+  evaluation_id: ev_minerva_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math
+  value: '92.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_alpaca_msa
+  evaluation_id: ev_alpaca_msa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '82.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sepu_msa
+  evaluation_id: ev_sepu_msa
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP (AlpacaEval2 judge)
+  value: '89.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_adu_msa
+  evaluation_id: ev_adu_msa
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo benign user tasks
+  value: '92.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_mmlupro_msa
+  evaluation_id: ev_mmlupro_msa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU Pro
+  value: '83.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gpqa_msa
+  evaluation_id: ev_gpqa_msa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond
+  value: '78.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gsm8k_msa
+  evaluation_id: ev_gsm8k_msa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K
+  value: '97.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_minerva_msa
+  evaluation_id: ev_minerva_msa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math
+  value: '95.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_alpaca_grpo
+  evaluation_id: ev_alpaca_grpo
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '76.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sepu_grpo
+  evaluation_id: ev_sepu_grpo
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP (AlpacaEval2 judge)
+  value: '79.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_adu_grpo
+  evaluation_id: ev_adu_grpo
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo benign user tasks
+  value: '82.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_mmlupro_grpo
+  evaluation_id: ev_mmlupro_grpo
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU Pro
+  value: '83.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gpqa_grpo
+  evaluation_id: ev_gpqa_grpo
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond
+  value: '77.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gsm8k_grpo
+  evaluation_id: ev_gsm8k_grpo
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K
+  value: '97.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_minerva_grpo
+  evaluation_id: ev_minerva_grpo
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math
+  value: '85.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_alpaca_opd
+  evaluation_id: ev_alpaca_opd
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '80.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sepu_opd
+  evaluation_id: ev_sepu_opd
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP (AlpacaEval2 judge)
+  value: '88.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_adu_opd
+  evaluation_id: ev_adu_opd
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo benign user tasks
+  value: '90.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_mmlupro_opd
+  evaluation_id: ev_mmlupro_opd
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU Pro
+  value: '84.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gpqa_opd
+  evaluation_id: ev_gpqa_opd
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond
+  value: '81.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gsm8k_opd
+  evaluation_id: ev_gsm8k_opd
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K
+  value: '97.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_minerva_opd
+  evaluation_id: ev_minerva_opd
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math
+  value: '94.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+comparisons:
+- id: c_sepst_msa
+  left: ev_sepst_msa
+  right: ev_sepst_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepst_grpo
+  left: ev_sepst_grpo
+  right: ev_sepst_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepst_opd
+  left: ev_sepst_opd
+  right: ev_sepst_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepst_opd_grpo
+  left: ev_sepst_opd
+  right: ev_sepst_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_sepba_msa
+  left: ev_sepba_msa
+  right: ev_sepba_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepba_grpo
+  left: ev_sepba_grpo
+  right: ev_sepba_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepba_opd
+  left: ev_sepba_opd
+  right: ev_sepba_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepba_opd_grpo
+  left: ev_sepba_opd
+  right: ev_sepba_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_seppi_msa
+  left: ev_seppi_msa
+  right: ev_seppi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_seppi_grpo
+  left: ev_seppi_grpo
+  right: ev_seppi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_seppi_opd
+  left: ev_seppi_opd
+  right: ev_seppi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_seppi_opd_grpo
+  left: ev_seppi_opd
+  right: ev_seppi_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_adst_msa
+  left: ev_adst_msa
+  right: ev_adst_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adst_grpo
+  left: ev_adst_grpo
+  right: ev_adst_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adst_opd
+  left: ev_adst_opd
+  right: ev_adst_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adst_opd_grpo
+  left: ev_adst_opd
+  right: ev_adst_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_alpaca_msa
+  left: ev_alpaca_msa
+  right: ev_alpaca_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_alpaca_grpo
+  left: ev_alpaca_grpo
+  right: ev_alpaca_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_alpaca_opd
+  left: ev_alpaca_opd
+  right: ev_alpaca_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_alpaca_opd_grpo
+  left: ev_alpaca_opd
+  right: ev_alpaca_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_sepu_msa
+  left: ev_sepu_msa
+  right: ev_sepu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepu_grpo
+  left: ev_sepu_grpo
+  right: ev_sepu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepu_opd
+  left: ev_sepu_opd
+  right: ev_sepu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepu_opd_grpo
+  left: ev_sepu_opd
+  right: ev_sepu_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_adu_msa
+  left: ev_adu_msa
+  right: ev_adu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adu_grpo
+  left: ev_adu_grpo
+  right: ev_adu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adu_opd
+  left: ev_adu_opd
+  right: ev_adu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adu_opd_grpo
+  left: ev_adu_opd
+  right: ev_adu_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_mmlupro_msa
+  left: ev_mmlupro_msa
+  right: ev_mmlupro_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_mmlupro_grpo
+  left: ev_mmlupro_grpo
+  right: ev_mmlupro_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_mmlupro_opd
+  left: ev_mmlupro_opd
+  right: ev_mmlupro_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_mmlupro_opd_grpo
+  left: ev_mmlupro_opd
+  right: ev_mmlupro_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_gpqa_msa
+  left: ev_gpqa_msa
+  right: ev_gpqa_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_gpqa_grpo
+  left: ev_gpqa_grpo
+  right: ev_gpqa_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_gpqa_opd
+  left: ev_gpqa_opd
+  right: ev_gpqa_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_gpqa_opd_grpo
+  left: ev_gpqa_opd
+  right: ev_gpqa_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_gsm8k_msa
+  left: ev_gsm8k_msa
+  right: ev_gsm8k_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_gsm8k_grpo
+  left: ev_gsm8k_grpo
+  right: ev_gsm8k_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_gsm8k_opd
+  left: ev_gsm8k_opd
+  right: ev_gsm8k_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_gsm8k_opd_grpo
+  left: ev_gsm8k_opd
+  right: ev_gsm8k_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_minerva_msa
+  left: ev_minerva_msa
+  right: ev_minerva_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_minerva_grpo
+  left: ev_minerva_grpo
+  right: ev_minerva_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_minerva_opd
+  left: ev_minerva_opd
+  right: ev_minerva_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_minerva_opd_grpo
+  left: ev_minerva_opd
+  right: ev_minerva_grpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: token-level on-policy distillation against a sequence-level judge reward, same data
+  page: 7
+- id: c_sepst_opd_msa
+  left: ev_sepst_opd
+  right: ev_sepst_msa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sepba_opd_msa
+  left: ev_sepba_opd
+  right: ev_sepba_msa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_seppi_opd_msa
+  left: ev_seppi_opd
+  right: ev_seppi_msa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adst_opd_msa
+  left: ev_adst_opd
+  right: ev_adst_msa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+claims:
+- id: k1
+  text: SecOPD reaches 9.0% ASR against PISmith, against 94.0% for Meta-SecAlign
+  location: abstract
+  anchor: achieves a 9.0% ASR against the SoTA PISmith adaptive
+  jobs:
+  - R1
+  supported_by:
+  - c_seppi_opd_msa
+  - c_seppi_opd
+  page: 1
+- id: k2
+  text: SecOPD's security generalises to unseen agentic tool calling (4.7% against 5.5% ASR)
+  location: abstract
+  anchor: in agentic tool calling, SecOPD achieves a 4.7% ASR compared
+  jobs:
+  - R1
+  supported_by:
+  - c_adst_opd_msa
+  - c_adst_opd
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    R2clean: Table 2 (AgentDojo benign; SEP utility is a proxy)
+    general_utility: Table 2
+schema_gaps:
+- where: defence msa_q
+  note: Meta-SecAlign is re-trained by the authors on Qwen3.6-27B with the same 19K Cleaned-Alpaca data as SecOPD, not the released checkpoint (p. 6)

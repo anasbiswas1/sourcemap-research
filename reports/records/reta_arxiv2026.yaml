@@ -1,0 +1,1573 @@
+report:
+  id: reta_arxiv2026
+  slug: '2606.15441'
+  title: Defending against Adaptive Prompt Injection Attacks via Reasoning-enabled Task Alignment
+  first_author: Lipeng He
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2606.15441'
+  version_read: arXiv v1
+  first_date: '2026-06-13'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Section 5: Table 2 (AgentDojo averages over six adaptive attacks and five held-out static attacks, and clean BU) for None, Spotlighting, Sandwiching, MetaSecAlign and RETA on both models; the abstract
+    claim (PromptGuard, PIGuard and DataSentinel, which are detectors, and MELON, a tool filter, are left out; per-attack Tables 7 and 8, Table 3 transfer, the ablations of Tables 1 and 4 and the cost analysis not coded)'
+defences:
+- id: reta_q
+  name: RETA
+  origin: this_report
+  base_checkpoint: Qwen3-4B-Instruct-2507
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - at each tool-output step the defender reasons whether its next action serves the user task
+  - 'Stage I: an attacker model trained by RL with a dictionary-learning diversity reward writes injections against the undefended target'
+  - 'Stage II: format SFT, then multi-objective RL (GDPO) on the successful Stage I attacks with security, utility and reasoning rewards'
+  - training on AgentDyn suites only, disjoint from the AgentDojo test suites
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: the defender undertakes chain-of-thought reasoning verifying
+  pages:
+    components: 10
+- id: spot_q
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Qwen3-4B-Instruct-2507
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Spotlighting uses provenance-signaling transformations
+- id: sand_q
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: Qwen3-4B-Instruct-2507
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Prompt Sandwiching wraps the observation
+- id: msa_q
+  name: MetaSecAlign (how it was obtained for Qwen3-4B is not stated)
+  origin: other_report
+  base_checkpoint: Qwen3-4B-Instruct-2507
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  anchor: MetaSecAlign is the released successor in the SecAlign family
+- id: reta_l
+  name: RETA
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - at each tool-output step the defender reasons whether its next action serves the user task
+  - 'Stage I: an attacker model trained by RL with a dictionary-learning diversity reward writes injections against the undefended target'
+  - 'Stage II: format SFT, then multi-objective RL (GDPO) on the successful Stage I attacks with security, utility and reasoning rewards'
+  - training on AgentDyn suites only, disjoint from the AgentDojo test suites
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: the defender undertakes chain-of-thought reasoning verifying
+  pages:
+    components: 10
+- id: spot_l
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Spotlighting uses provenance-signaling transformations
+- id: sand_l
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo agent loop; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: Prompt Sandwiching wraps the observation
+- id: msa_l
+  name: MetaSecAlign
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  anchor: MetaSecAlign is the released successor in the SecAlign family
+evaluations:
+- id: ev_q_none_ad
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+  baseline_kind: off_the_shelf
+- id: ev_q_none_st
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+  baseline_kind: off_the_shelf
+- id: ev_q_none_bu
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+  baseline_kind: off_the_shelf
+- id: ev_q_spot_ad
+  defence_id: spot_q
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_q_spot_st
+  defence_id: spot_q
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_q_spot_bu
+  defence_id: spot_q
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+- id: ev_q_sand_ad
+  defence_id: sand_q
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_q_sand_st
+  defence_id: sand_q
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_q_sand_bu
+  defence_id: sand_q
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+- id: ev_q_msa_ad
+  defence_id: msa_q
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_q_msa_st
+  defence_id: msa_q
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_q_msa_bu
+  defence_id: msa_q
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+- id: ev_q_reta_ad
+  defence_id: reta_q
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_q_reta_st
+  defence_id: reta_q
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_q_reta_bu
+  defence_id: reta_q
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+- id: ev_l_none_ad
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+  baseline_kind: off_the_shelf
+- id: ev_l_none_st
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+  baseline_kind: off_the_shelf
+- id: ev_l_none_bu
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+  baseline_kind: off_the_shelf
+- id: ev_l_spot_ad
+  defence_id: spot_l
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_l_spot_st
+  defence_id: spot_l
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_l_spot_bu
+  defence_id: spot_l
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+- id: ev_l_sand_ad
+  defence_id: sand_l
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_l_sand_st
+  defence_id: sand_l
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_l_sand_bu
+  defence_id: sand_l
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+- id: ev_l_msa_ad
+  defence_id: msa_l
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_l_msa_st
+  defence_id: msa_l
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_l_msa_bu
+  defence_id: msa_l
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+- id: ev_l_reta_ad
+  defence_id: reta_l
+  benchmark: AgentDojo (Slack, Banking, Workspace, Travel), 40-case vulnerable subset per target; mean over TAP, Strategy, Genetic Search, AutoInject, RL-Hammer and PISmith
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '40'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_l_reta_st
+  defence_id: reta_l
+  benchmark: AgentDojo, 420 cases, mean over five held-out static attack families (IgnorePrev., InjecAgent, ImportantMsgs., ToolKnow., ChatInject)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '420'
+  pages:
+    benchmark: 10
+    decoding: 10
+- id: ev_l_reta_bu
+  defence_id: reta_l
+  benchmark: AgentDojo, 97 clean utility cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task and injection checkers
+  layout_same_as_defence: 'yes'
+  measured_by: reta_arxiv2026
+  page: 11
+  decoding: temperature 0
+  sample_size: '97'
+  pages:
+    decoding: 10
+results:
+- id: r_q_none_aa
+  evaluation_id: ev_q_none_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '32.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_none_aua
+  evaluation_id: ev_q_none_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '57.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_none_sa
+  evaluation_id: ev_q_none_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '33.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_none_sua
+  evaluation_id: ev_q_none_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '44.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_none_bu
+  evaluation_id: ev_q_none_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '61.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_spot_aa
+  evaluation_id: ev_q_spot_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '28.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_spot_aua
+  evaluation_id: ev_q_spot_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '62.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_spot_sa
+  evaluation_id: ev_q_spot_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '29.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_spot_sua
+  evaluation_id: ev_q_spot_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '43.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_spot_bu
+  evaluation_id: ev_q_spot_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '57.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_sand_aa
+  evaluation_id: ev_q_sand_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '16.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_sand_aua
+  evaluation_id: ev_q_sand_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '65.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_sand_sa
+  evaluation_id: ev_q_sand_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '17.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_sand_sua
+  evaluation_id: ev_q_sand_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '49.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_sand_bu
+  evaluation_id: ev_q_sand_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '60.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_msa_aa
+  evaluation_id: ev_q_msa_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '12.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_msa_aua
+  evaluation_id: ev_q_msa_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '69.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_msa_sa
+  evaluation_id: ev_q_msa_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '3.52'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_msa_sua
+  evaluation_id: ev_q_msa_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '58.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_msa_bu
+  evaluation_id: ev_q_msa_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '64.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_reta_aa
+  evaluation_id: ev_q_reta_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '2.92'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_reta_aua
+  evaluation_id: ev_q_reta_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '55.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_reta_sa
+  evaluation_id: ev_q_reta_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '2.90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_reta_sua
+  evaluation_id: ev_q_reta_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '59.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_q_reta_bu
+  evaluation_id: ev_q_reta_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '60.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_none_aa
+  evaluation_id: ev_l_none_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '14.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_none_aua
+  evaluation_id: ev_l_none_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '47.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_none_sa
+  evaluation_id: ev_l_none_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '13.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_none_sua
+  evaluation_id: ev_l_none_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '33.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_none_bu
+  evaluation_id: ev_l_none_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '48.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_spot_aa
+  evaluation_id: ev_l_spot_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '12.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_spot_aua
+  evaluation_id: ev_l_spot_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '39.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_spot_sa
+  evaluation_id: ev_l_spot_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '11.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_spot_sua
+  evaluation_id: ev_l_spot_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '28.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_spot_bu
+  evaluation_id: ev_l_spot_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '44.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_sand_aa
+  evaluation_id: ev_l_sand_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '7.08'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_sand_aua
+  evaluation_id: ev_l_sand_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '40.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_sand_sa
+  evaluation_id: ev_l_sand_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '6.57'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_sand_sua
+  evaluation_id: ev_l_sand_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '34.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_sand_bu
+  evaluation_id: ev_l_sand_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '46.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_msa_aa
+  evaluation_id: ev_l_msa_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '5.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_msa_aua
+  evaluation_id: ev_l_msa_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '47.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_msa_sa
+  evaluation_id: ev_l_msa_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '2.67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_msa_sua
+  evaluation_id: ev_l_msa_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '35.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_msa_bu
+  evaluation_id: ev_l_msa_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '46.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_reta_aa
+  evaluation_id: ev_l_reta_ad
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR (average of six attacks)
+  value: '3.75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_reta_aua
+  evaluation_id: ev_l_reta_ad
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive UA (average)
+  value: '49.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_reta_sa
+  evaluation_id: ev_l_reta_st
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Static ASR (average)
+  value: '1.76'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_reta_sua
+  evaluation_id: ev_l_reta_st
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Static UA (average)
+  value: '36.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+- id: r_l_reta_bu
+  evaluation_id: ev_l_reta_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '45.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 2
+comparisons:
+- id: c_q_spot_ad
+  left: ev_q_spot_ad
+  right: ev_q_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_spot_st
+  left: ev_q_spot_st
+  right: ev_q_none_st
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_spot_bu
+  left: ev_q_spot_bu
+  right: ev_q_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_sand_ad
+  left: ev_q_sand_ad
+  right: ev_q_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_sand_st
+  left: ev_q_sand_st
+  right: ev_q_none_st
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_sand_bu
+  left: ev_q_sand_bu
+  right: ev_q_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_msa_ad
+  left: ev_q_msa_ad
+  right: ev_q_none_ad
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_msa_st
+  left: ev_q_msa_st
+  right: ev_q_none_st
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_msa_bu
+  left: ev_q_msa_bu
+  right: ev_q_none_bu
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_reta_ad
+  left: ev_q_reta_ad
+  right: ev_q_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_reta_st
+  left: ev_q_reta_st
+  right: ev_q_none_st
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_reta_bu
+  left: ev_q_reta_bu
+  right: ev_q_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_reta_msa_ad
+  left: ev_q_reta_ad
+  right: ev_q_msa_ad
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_reta_msa_st
+  left: ev_q_reta_st
+  right: ev_q_msa_st
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_q_reta_msa_bu
+  left: ev_q_reta_bu
+  right: ev_q_msa_bu
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_spot_ad
+  left: ev_l_spot_ad
+  right: ev_l_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_spot_st
+  left: ev_l_spot_st
+  right: ev_l_none_st
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_spot_bu
+  left: ev_l_spot_bu
+  right: ev_l_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_sand_ad
+  left: ev_l_sand_ad
+  right: ev_l_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_sand_st
+  left: ev_l_sand_st
+  right: ev_l_none_st
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_sand_bu
+  left: ev_l_sand_bu
+  right: ev_l_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_msa_ad
+  left: ev_l_msa_ad
+  right: ev_l_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_msa_st
+  left: ev_l_msa_st
+  right: ev_l_none_st
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_msa_bu
+  left: ev_l_msa_bu
+  right: ev_l_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_reta_ad
+  left: ev_l_reta_ad
+  right: ev_l_none_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_reta_st
+  left: ev_l_reta_st
+  right: ev_l_none_st
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_reta_bu
+  left: ev_l_reta_bu
+  right: ev_l_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_reta_msa_ad
+  left: ev_l_reta_ad
+  right: ev_l_msa_ad
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_reta_msa_st
+  left: ev_l_reta_st
+  right: ev_l_msa_st
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_l_reta_msa_bu
+  left: ev_l_reta_bu
+  right: ev_l_msa_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+claims:
+- id: k1
+  text: RETA keeps every per-attack adaptive ASR below 10% and averages 2.92% and 3.75% while preserving most utility
+  location: abstract
+  anchor: keeps every per-attack ASR below10%, with average ASR of 2.92%
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_q_reta_ad
+  - c_l_reta_ad
+  - c_q_reta_msa_ad
+  - c_l_reta_msa_ad
+  - c_q_reta_bu
+  - c_l_reta_bu
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2 (averages; per-attack values in Tables 7 and 8)
+    R2clean: Table 2 (BU)
+    R2attack: Table 2 (UA)
+schema_gaps:
+- where: defences reta_*
+  note: RETA's defender is trained by RL on attacks found beforehand by a trained attacker, not co-evolved online, so axis 2 is preference_optimisation (reward-based RL, as for VerIH) rather than adversarial_rl
+- where: defences spot_*
+  note: the paper describes Spotlighting as provenance-signalling transformations without naming the variant; coded delimiters_markers as in the other records
+- where: defence msa_q
+  note: the paper does not say how MetaSecAlign was obtained for Qwen3-4B (the released models are Llama-based); the base condition is matched_unstated

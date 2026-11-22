@@ -1,0 +1,670 @@
+report:
+  id: copa_arxiv2026
+  slug: '2608.19982'
+  title: 'COPA: Continual Preference Optimization for Adaptive Prompt Injection Defense'
+  first_author: Roshan Sood
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2608.19982'
+  version_read: arXiv v1
+  first_date: '2026-08-20'
+  read: F
+  role: proposes
+  code_release: none found in the paper
+  extraction_scope: 'whole report (7 pages): Figure 1 (ASR in scenarios S1 to S3 for no defence, SecAlign and COPA), the ASR stated in Section IV-B for SecAlign and COPA over the lifelong sequence, and the GPQA and MMLU accuracies
+    of Figure 4 and Section IV-B; the abstract claim (LlamaGuard and DataSentinel, which are detectors, are left out; the other backbones of Figure 5, backward transfer and average performance for the baselines, and the ablations
+    of Tables I and II not coded)'
+defences:
+- id: copa_l31
+  name: COPA
+  origin: this_report
+  base_checkpoint: Meta-Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - 'Stage 1: LoRA adapter trained by GRPO with a binary safety judge on DeepTeam cybersecurity preference pairs'
+  - 'Stage 2: GRPO on nine CyberSecEval injection variants in sequence, with a replay buffer that favours pairs with a low preference margin'
+  anchor: Stage 1 mitigates this issue by aligning all backbones to a shared
+  pages:
+    components: 4
+- id: secalign_l31
+  name: SecAlign (run inside COPA's lifelong pipeline)
+  origin: other_report
+  base_checkpoint: Meta-Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: SecAlign [7] performs defensive
+evaluations:
+- id: ev_s1_none
+  defence_id: none:Meta-Llama-3.1-8B-Instruct
+  benchmark: 'S1: six held-out CyberSecEval variants'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 1
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: off_the_shelf
+- id: ev_s1_sa
+  defence_id: secalign_l31
+  benchmark: 'S1: six held-out CyberSecEval variants'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 1
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_s1_copa
+  defence_id: copa_l31
+  benchmark: 'S1: six held-out CyberSecEval variants'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 1
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_s2_none
+  defence_id: none:Meta-Llama-3.1-8B-Instruct
+  benchmark: 'S2: text-based injections (direct, ignore, completion, hybrid)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 1
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: off_the_shelf
+- id: ev_s2_sa
+  defence_id: secalign_l31
+  benchmark: 'S2: text-based injections (direct, ignore, completion, hybrid)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 1
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_s2_copa
+  defence_id: copa_l31
+  benchmark: 'S2: text-based injections (direct, ignore, completion, hybrid)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 1
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_s3_none
+  defence_id: none:Meta-Llama-3.1-8B-Instruct
+  benchmark: 'S3: optimisation-based injections (UAT, GCG)'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 1
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: off_the_shelf
+- id: ev_s3_sa
+  defence_id: secalign_l31
+  benchmark: 'S3: optimisation-based injections (UAT, GCG)'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 1
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_s3_copa
+  defence_id: copa_l31
+  benchmark: 'S3: optimisation-based injections (UAT, GCG)'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 1
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_life_sa
+  defence_id: secalign_l31
+  benchmark: lifelong CyberSecEval attack sequence, all variants
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 5
+  decoding: not reported
+- id: ev_life_copa
+  defence_id: copa_l31
+  benchmark: lifelong CyberSecEval attack sequence, all variants
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack bypasses the defence (safety judge)
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 5
+  decoding: not reported
+- id: ev_gpqa_none
+  defence_id: none:Meta-Llama-3.1-8B-Instruct
+  benchmark: GPQA
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: QA accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpqa_sa
+  defence_id: secalign_l31
+  benchmark: GPQA
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: QA accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 6
+  decoding: not reported
+- id: ev_gpqa_copa
+  defence_id: copa_l31
+  benchmark: GPQA
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: QA accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 6
+  decoding: not reported
+- id: ev_mmlu_none
+  defence_id: none:Meta-Llama-3.1-8B-Instruct
+  benchmark: MMLU (MMLU-Pro per Section IV-A)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: QA accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_mmlu_sa
+  defence_id: secalign_l31
+  benchmark: MMLU (MMLU-Pro per Section IV-A)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: QA accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 6
+  decoding: not reported
+- id: ev_mmlu_copa
+  defence_id: copa_l31
+  benchmark: MMLU (MMLU-Pro per Section IV-A)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: QA accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: copa_arxiv2026
+  page: 6
+  decoding: not reported
+results:
+- id: r_s1_none
+  evaluation_id: ev_s1_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.15'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 1
+  location: Figure 1 point labels
+- id: r_s1_sa
+  evaluation_id: ev_s1_sa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.12'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 1
+  location: Figure 1 point labels
+- id: r_s1_copa
+  evaluation_id: ev_s1_copa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.03'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 1
+  location: Figure 1 point labels
+- id: r_s2_none
+  evaluation_id: ev_s2_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.55'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 1
+  location: Figure 1 point labels
+- id: r_s2_sa
+  evaluation_id: ev_s2_sa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.15'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 1
+  location: Figure 1 point labels
+- id: r_s2_copa
+  evaluation_id: ev_s2_copa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.05'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 1
+  location: Figure 1 point labels
+- id: r_s3_none
+  evaluation_id: ev_s3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.74'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 1
+  location: Figure 1 point labels
+- id: r_s3_sa
+  evaluation_id: ev_s3_sa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.25'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 1
+  location: Figure 1 point labels
+- id: r_s3_copa
+  evaluation_id: ev_s3_copa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.06'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 1
+  location: Figure 1 point labels
+- id: r_life_sa
+  evaluation_id: ev_life_sa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.221'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 5
+  location: Section IV-B text and Figure 3
+- id: r_life_copa
+  evaluation_id: ev_life_copa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.035'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 5
+  location: Section IV-B text and Figure 3
+- id: r_life_copa_bwt
+  evaluation_id: ev_life_copa
+  quantity: other
+  coverage: direct
+  metric_as_printed: BWT (backward transfer)
+  value: '+0.028'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 5
+  location: Section IV-B text
+- id: r_life_copa_ap
+  evaluation_id: ev_life_copa
+  quantity: other
+  coverage: direct
+  metric_as_printed: AP (average performance)
+  value: '0.850'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 5
+  location: Section IV-B text
+- id: r_gpqa_none
+  evaluation_id: ev_gpqa_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '0.300'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Figure 4 and Section IV-B text
+- id: r_gpqa_sa
+  evaluation_id: ev_gpqa_sa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '0.187'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 4 bar labels
+- id: r_gpqa_copa
+  evaluation_id: ev_gpqa_copa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '0.310'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Figure 4 and Section IV-B text
+- id: r_mmlu_none
+  evaluation_id: ev_mmlu_none
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '0.332'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Figure 4 and Section IV-B text
+- id: r_mmlu_sa
+  evaluation_id: ev_mmlu_sa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '0.286'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 4 bar labels
+- id: r_mmlu_copa
+  evaluation_id: ev_mmlu_copa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '0.340'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Figure 4 and Section IV-B text
+comparisons:
+- id: c_s1_sa
+  left: ev_s1_sa
+  right: ev_s1_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 1
+- id: c_s1_copa
+  left: ev_s1_copa
+  right: ev_s1_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 1
+- id: c_s1_copa_sa
+  left: ev_s1_copa
+  right: ev_s1_sa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 1
+- id: c_s2_sa
+  left: ev_s2_sa
+  right: ev_s2_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 1
+- id: c_s2_copa
+  left: ev_s2_copa
+  right: ev_s2_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 1
+- id: c_s2_copa_sa
+  left: ev_s2_copa
+  right: ev_s2_sa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 1
+- id: c_s3_sa
+  left: ev_s3_sa
+  right: ev_s3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 1
+- id: c_s3_copa
+  left: ev_s3_copa
+  right: ev_s3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 1
+- id: c_s3_copa_sa
+  left: ev_s3_copa
+  right: ev_s3_sa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 1
+- id: c_life_copa_sa
+  left: ev_life_copa
+  right: ev_life_sa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_gpqa_sa
+  left: ev_gpqa_sa
+  right: ev_gpqa_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gpqa_copa
+  left: ev_gpqa_copa
+  right: ev_gpqa_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mmlu_sa
+  left: ev_mmlu_sa
+  right: ev_mmlu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mmlu_copa
+  left: ev_mmlu_copa
+  right: ev_mmlu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+claims:
+- id: k1
+  text: COPA cuts attack success up to 6.3 times and 4.4 times on average against state-of-the-art defences
+  location: abstract
+  anchor: COPA reduces attack success rate by up to 6.3
+  jobs:
+  - R1
+  supported_by:
+  - c_life_copa_sa
+  - c_s1_copa_sa
+  - c_s2_copa_sa
+  - c_s3_copa_sa
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Figure 1 and Section IV-B
+    general_utility: Figure 4 and Section IV-B
+schema_gaps:
+- where: results with value_source figure_only
+  note: Figure 1 and Figure 4 print their values as point and bar labels; they are coded figure_only with the printed value kept (checked against the page text by the batch notebook)
+- where: defence secalign_l31
+  note: SecAlign is re-trained inside COPA's lifelong pipeline (same backbone, the same Stage 1 data, the same chance to adapt), not the released checkpoint (p. 5)

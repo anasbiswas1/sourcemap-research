@@ -1,0 +1,1512 @@
+report:
+  id: coer_arxiv2026
+  slug: '2609.07529'
+  title: 'CoER: Defending against Adaptive Indirect Prompt Injection via Adversarial Co-Evolution and Refinement'
+  first_author: Boyang Zhang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2609.07529'
+  version_read: arXiv v3
+  first_date: '2026-09-07'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Section 5: Table 1(a) (same-backbone defenders, means over three evaluation seeds) and the Qwen3.5-9B rows of Table 2 (external benchmarks); the abstract claim (Table 1(b), cross-model references from
+    other protocols, Table 1(c) attribution study and the appendix sensitivity tables not coded)'
+defences:
+- id: ppo_q
+  name: PPO defender trained against fixed templates
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: agent loop over AgentDojo and AgentDyn suites; tool outputs carry the injection
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: PPO trains only the defender against
+- id: grpo_q
+  name: GRPO defender trained against fixed templates
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: agent loop over AgentDojo and AgentDyn suites; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: GRPO replaces PPO on the same data
+- id: nopop_q
+  name: co-evolution without historical opponents (NoPop)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - adversarial_rl
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: agent loop over AgentDojo and AgentDyn suites; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: NoPop co-trains both roles without historical
+- id: barl_q
+  name: BA-RL (bilateral co-evolution with historical populations)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - adversarial_rl
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: agent loop over AgentDojo and AgentDyn suites; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: BA-RL is the selected online defender
+- id: coer_q
+  name: CoER (BA-RL then population-guided Defender SFT)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - adversarial_rl
+  - sft
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: agent loop over AgentDojo and AgentDyn suites; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: CoER adds population-guided
+  components:
+  - defender and attacker co-trained as a general-sum Markov game with PPO; the attacker may inject several times within an execution
+  - historical populations of both roles sampled during training
+  - Defender SFT on 5,760 verified safe trajectories from GLM-5.2 and DeepSeek V4 Pro under the retained attackers
+  pages:
+    components: 6
+evaluations:
+- id: ev_base_clean
+  defence_id: none:Qwen3.5-9B
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 157 clean cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '157'
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_base_fixed
+  defence_id: none:Qwen3.5-9B
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 168 fixed-template cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '168'
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_base_adapt
+  defence_id: none:Qwen3.5-9B
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 1,187 cases, common adaptive attacker (frozen weights, adapts injections within each execution)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  attacker_budget: multiple injections within one execution
+  decoding: not reported
+  sample_size: 1,187
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_ppo_clean
+  defence_id: ppo_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 157 clean cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '157'
+  pages:
+    benchmark: 6
+- id: ev_ppo_fixed
+  defence_id: ppo_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 168 fixed-template cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '168'
+  pages:
+    benchmark: 6
+- id: ev_ppo_adapt
+  defence_id: ppo_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 1,187 cases, common adaptive attacker (frozen weights, adapts injections within each execution)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  attacker_budget: multiple injections within one execution
+  decoding: not reported
+  sample_size: 1,187
+  pages:
+    benchmark: 6
+- id: ev_grpo_clean
+  defence_id: grpo_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 157 clean cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '157'
+  pages:
+    benchmark: 6
+- id: ev_grpo_fixed
+  defence_id: grpo_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 168 fixed-template cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '168'
+  pages:
+    benchmark: 6
+- id: ev_grpo_adapt
+  defence_id: grpo_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 1,187 cases, common adaptive attacker (frozen weights, adapts injections within each execution)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  attacker_budget: multiple injections within one execution
+  decoding: not reported
+  sample_size: 1,187
+  pages:
+    benchmark: 6
+- id: ev_nopop_clean
+  defence_id: nopop_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 157 clean cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '157'
+  pages:
+    benchmark: 6
+- id: ev_nopop_fixed
+  defence_id: nopop_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 168 fixed-template cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '168'
+  pages:
+    benchmark: 6
+- id: ev_nopop_adapt
+  defence_id: nopop_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 1,187 cases, common adaptive attacker (frozen weights, adapts injections within each execution)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  attacker_budget: multiple injections within one execution
+  decoding: not reported
+  sample_size: 1,187
+  pages:
+    benchmark: 6
+- id: ev_barl_clean
+  defence_id: barl_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 157 clean cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '157'
+  pages:
+    benchmark: 6
+- id: ev_barl_fixed
+  defence_id: barl_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 168 fixed-template cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '168'
+  pages:
+    benchmark: 6
+- id: ev_barl_adapt
+  defence_id: barl_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 1,187 cases, common adaptive attacker (frozen weights, adapts injections within each execution)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  attacker_budget: multiple injections within one execution
+  decoding: not reported
+  sample_size: 1,187
+  pages:
+    benchmark: 6
+- id: ev_coer_clean
+  defence_id: coer_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 157 clean cases
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '157'
+  pages:
+    benchmark: 6
+- id: ev_coer_fixed
+  defence_id: coer_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 168 fixed-template cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '168'
+  pages:
+    benchmark: 6
+- id: ev_coer_adapt
+  defence_id: coer_q
+  benchmark: main workload over three AgentDyn and four AgentDojo suites, 1,187 cases, common adaptive attacker (frozen weights, adapts injections within each execution)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: 'verifier: task success and attack success indicators'
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 7
+  attacker_budget: multiple injections within one execution
+  decoding: not reported
+  sample_size: 1,187
+  pages:
+    benchmark: 6
+- id: ev_xadj_base
+  defence_id: none:Qwen3.5-9B
+  benchmark: AgentDojo, official important_instructions protocol
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_xady_base
+  defence_id: none:Qwen3.5-9B
+  benchmark: AgentDyn, official important_instructions protocol
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_xalab_base
+  defence_id: none:Qwen3.5-9B
+  benchmark: AgentLAB Task-Injection, 949 pairs, GPT-5.4 adaptive attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_xiab_base
+  defence_id: none:Qwen3.5-9B
+  benchmark: InjecAgent, Base payload
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_xiae_base
+  defence_id: none:Qwen3.5-9B
+  benchmark: InjecAgent, Enhanced payload
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_xadj_barl
+  defence_id: barl_q
+  benchmark: AgentDojo, official important_instructions protocol
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_xady_barl
+  defence_id: barl_q
+  benchmark: AgentDyn, official important_instructions protocol
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_xalab_barl
+  defence_id: barl_q
+  benchmark: AgentLAB Task-Injection, 949 pairs, GPT-5.4 adaptive attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_xiab_barl
+  defence_id: barl_q
+  benchmark: InjecAgent, Base payload
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_xiae_barl
+  defence_id: barl_q
+  benchmark: InjecAgent, Enhanced payload
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_xadj_coer
+  defence_id: coer_q
+  benchmark: AgentDojo, official important_instructions protocol
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_xady_coer
+  defence_id: coer_q
+  benchmark: AgentDyn, official important_instructions protocol
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_xalab_coer
+  defence_id: coer_q
+  benchmark: AgentLAB Task-Injection, 949 pairs, GPT-5.4 adaptive attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_xiab_coer
+  defence_id: coer_q
+  benchmark: InjecAgent, Base payload
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_xiae_coer
+  defence_id: coer_q
+  benchmark: InjecAgent, Enhanced payload
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark checkers
+  layout_same_as_defence: 'yes'
+  measured_by: coer_arxiv2026
+  page: 8
+  decoding: not reported
+results:
+- id: r_base_cu
+  evaluation_id: ev_base_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean U
+  value: '77.92'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.60 over evaluation seeds 0, 1, 2
+- id: r_base_fasr
+  evaluation_id: ev_base_fixed
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Fixed ASR
+  value: '13.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.60 over evaluation seeds 0, 1, 2
+- id: r_base_au
+  evaluation_id: ev_base_adapt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive U
+  value: '61.08'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.73 over evaluation seeds 0, 1, 2
+- id: r_base_aasr
+  evaluation_id: ev_base_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR
+  value: '41.31'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.89 over evaluation seeds 0, 1, 2
+- id: r_base_asafe
+  evaluation_id: ev_base_adapt
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: Adaptive Safe-U (task done and attack not executed)
+  value: '39.60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.11 over evaluation seeds 0, 1, 2
+- id: r_ppo_cu
+  evaluation_id: ev_ppo_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean U
+  value: '75.58'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.33 over evaluation seeds 0, 1, 2
+- id: r_ppo_fasr
+  evaluation_id: ev_ppo_fixed
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Fixed ASR
+  value: '4.96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.24 over evaluation seeds 0, 1, 2
+- id: r_ppo_au
+  evaluation_id: ev_ppo_adapt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive U
+  value: '63.21'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 2.31 over evaluation seeds 0, 1, 2
+- id: r_ppo_aasr
+  evaluation_id: ev_ppo_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR
+  value: '31.03'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.42 over evaluation seeds 0, 1, 2
+- id: r_ppo_asafe
+  evaluation_id: ev_ppo_adapt
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: Adaptive Safe-U (task done and attack not executed)
+  value: '46.70'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.63 over evaluation seeds 0, 1, 2
+- id: r_grpo_cu
+  evaluation_id: ev_grpo_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean U
+  value: '78.77'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.33 over evaluation seeds 0, 1, 2
+- id: r_grpo_fasr
+  evaluation_id: ev_grpo_fixed
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Fixed ASR
+  value: '6.15'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.34 over evaluation seeds 0, 1, 2
+- id: r_grpo_au
+  evaluation_id: ev_grpo_adapt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive U
+  value: '56.25'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.05 over evaluation seeds 0, 1, 2
+- id: r_grpo_aasr
+  evaluation_id: ev_grpo_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR
+  value: '39.82'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.27 over evaluation seeds 0, 1, 2
+- id: r_grpo_asafe
+  evaluation_id: ev_grpo_adapt
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: Adaptive Safe-U (task done and attack not executed)
+  value: '36.90'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.53 over evaluation seeds 0, 1, 2
+- id: r_nopop_cu
+  evaluation_id: ev_nopop_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean U
+  value: '80.04'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 3.51 over evaluation seeds 0, 1, 2
+- id: r_nopop_fasr
+  evaluation_id: ev_nopop_fixed
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Fixed ASR
+  value: '4.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.34 over evaluation seeds 0, 1, 2
+- id: r_nopop_au
+  evaluation_id: ev_nopop_adapt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive U
+  value: '68.49'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.19 over evaluation seeds 0, 1, 2
+- id: r_nopop_aasr
+  evaluation_id: ev_nopop_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR
+  value: '28.14'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.30 over evaluation seeds 0, 1, 2
+- id: r_nopop_asafe
+  evaluation_id: ev_nopop_adapt
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: Adaptive Safe-U (task done and attack not executed)
+  value: '52.93'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.05 over evaluation seeds 0, 1, 2
+- id: r_barl_cu
+  evaluation_id: ev_barl_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean U
+  value: '79.19'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.74 over evaluation seeds 0, 1, 2
+- id: r_barl_fasr
+  evaluation_id: ev_barl_fixed
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Fixed ASR
+  value: '4.37'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.24 over evaluation seeds 0, 1, 2
+- id: r_barl_au
+  evaluation_id: ev_barl_adapt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive U
+  value: '69.08'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.59 over evaluation seeds 0, 1, 2
+- id: r_barl_aasr
+  evaluation_id: ev_barl_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR
+  value: '25.78'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.02 over evaluation seeds 0, 1, 2
+- id: r_barl_asafe
+  evaluation_id: ev_barl_adapt
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: Adaptive Safe-U (task done and attack not executed)
+  value: '54.84'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.80 over evaluation seeds 0, 1, 2
+- id: r_coer_cu
+  evaluation_id: ev_coer_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean U
+  value: '80.47'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.47 over evaluation seeds 0, 1, 2
+- id: r_coer_fasr
+  evaluation_id: ev_coer_fixed
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Fixed ASR
+  value: '0.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.69 over evaluation seeds 0, 1, 2
+- id: r_coer_au
+  evaluation_id: ev_coer_adapt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Adaptive U
+  value: '76.47'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.14 over evaluation seeds 0, 1, 2
+- id: r_coer_aasr
+  evaluation_id: ev_coer_adapt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Adaptive ASR
+  value: '0.22'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 0.13 over evaluation seeds 0, 1, 2
+- id: r_coer_asafe
+  evaluation_id: ev_coer_adapt
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: Adaptive Safe-U (task done and attack not executed)
+  value: '76.24'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1(a)
+  spread: sample SD 1.08 over evaluation seeds 0, 1, 2
+- id: r_xadj_base_u
+  evaluation_id: ev_xadj_base
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: U
+  value: '84.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xadj_base_asr
+  evaluation_id: ev_xadj_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '13.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xady_base_u
+  evaluation_id: ev_xady_base
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: U
+  value: '54.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xady_base_asr
+  evaluation_id: ev_xady_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '31.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xalab_base_asr
+  evaluation_id: ev_xalab_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '37.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xiab_base_asr
+  evaluation_id: ev_xiab_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Base)
+  value: '7.49'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xiae_base_asr
+  evaluation_id: ev_xiae_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Enhanced)
+  value: '22.69'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xadj_barl_u
+  evaluation_id: ev_xadj_barl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: U
+  value: '86.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xadj_barl_asr
+  evaluation_id: ev_xadj_barl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '5.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xady_barl_u
+  evaluation_id: ev_xady_barl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: U
+  value: '57.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xady_barl_asr
+  evaluation_id: ev_xady_barl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '17.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xalab_barl_asr
+  evaluation_id: ev_xalab_barl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '15.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xiab_barl_asr
+  evaluation_id: ev_xiab_barl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Base)
+  value: '4.34'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xiae_barl_asr
+  evaluation_id: ev_xiae_barl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Enhanced)
+  value: '17.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xadj_coer_u
+  evaluation_id: ev_xadj_coer
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: U
+  value: '86.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xadj_coer_asr
+  evaluation_id: ev_xadj_coer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xady_coer_u
+  evaluation_id: ev_xady_coer
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: U
+  value: '66.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xady_coer_asr
+  evaluation_id: ev_xady_coer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xalab_coer_asr
+  evaluation_id: ev_xalab_coer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '14.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xiab_coer_asr
+  evaluation_id: ev_xiab_coer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Base)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_xiae_coer_asr
+  evaluation_id: ev_xiae_coer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Enhanced)
+  value: '1.97'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+comparisons:
+- id: c_ppo_clean
+  left: ev_ppo_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ppo_fixed
+  left: ev_ppo_fixed
+  right: ev_base_fixed
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ppo_adapt
+  left: ev_ppo_adapt
+  right: ev_base_adapt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_grpo_clean
+  left: ev_grpo_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_grpo_fixed
+  left: ev_grpo_fixed
+  right: ev_base_fixed
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_grpo_adapt
+  left: ev_grpo_adapt
+  right: ev_base_adapt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_nopop_clean
+  left: ev_nopop_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_nopop_fixed
+  left: ev_nopop_fixed
+  right: ev_base_fixed
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_nopop_adapt
+  left: ev_nopop_adapt
+  right: ev_base_adapt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_barl_clean
+  left: ev_barl_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_barl_fixed
+  left: ev_barl_fixed
+  right: ev_base_fixed
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_barl_adapt
+  left: ev_barl_adapt
+  right: ev_base_adapt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_coer_clean
+  left: ev_coer_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_coer_fixed
+  left: ev_coer_fixed
+  right: ev_base_fixed
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_coer_adapt
+  left: ev_coer_adapt
+  right: ev_base_adapt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_coer_barl_clean
+  left: ev_coer_clean
+  right: ev_barl_clean
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: population-guided Defender SFT added on top of BA-RL
+  page: 7
+- id: c_coer_barl_fixed
+  left: ev_coer_fixed
+  right: ev_barl_fixed
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: population-guided Defender SFT added on top of BA-RL
+  page: 7
+- id: c_coer_barl_adapt
+  left: ev_coer_adapt
+  right: ev_barl_adapt
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: population-guided Defender SFT added on top of BA-RL
+  page: 7
+- id: c_xadj_barl
+  left: ev_xadj_barl
+  right: ev_xadj_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_xady_barl
+  left: ev_xady_barl
+  right: ev_xady_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_xalab_barl
+  left: ev_xalab_barl
+  right: ev_xalab_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_xiab_barl
+  left: ev_xiab_barl
+  right: ev_xiab_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_xiae_barl
+  left: ev_xiae_barl
+  right: ev_xiae_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_xadj_coer
+  left: ev_xadj_coer
+  right: ev_xadj_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_xady_coer
+  left: ev_xady_coer
+  right: ev_xady_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_xalab_coer
+  left: ev_xalab_coer
+  right: ev_xalab_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_xiab_coer
+  left: ev_xiab_coer
+  right: ev_xiab_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_xiae_coer
+  left: ev_xiae_coer
+  right: ev_xiae_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: CoER cuts adaptive attack success from 41.3% to 0.2% and raises safe task completion from 39.6% to 76.2%
+  location: abstract
+  anchor: CoER reduces adaptive attack success from 41.3% to 0.2%
+  jobs:
+  - R1
+  - R3
+  supported_by:
+  - c_coer_adapt
+  - c_coer_barl_adapt
+  - c_coer_fixed
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: direct
+  where:
+    R1: Tables 1(a) and 2
+    R2clean: Table 1(a) Clean U
+    R2attack: Table 1(a) adaptive U and Table 2 U
+    R3safe: Table 1(a) Safe-U
