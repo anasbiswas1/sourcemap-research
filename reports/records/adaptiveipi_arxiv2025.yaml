@@ -1,0 +1,699 @@
+report:
+  id: adaptiveipi_arxiv2025
+  slug: '2503.00061'
+  title: Adaptive Attacks Break Defenses Against Indirect Prompt Injection Attacks on LLM Agents
+  first_author: Qiusi Zhan
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2503.00061'
+  version_read: arXiv v2
+  first_date: '2025-02-27'
+  read: F
+  role: re_measures
+  code_release: https://github.com/uiuc-kang-lab/AdaptiveAttackAgent
+  later_version: Findings of NAACL 2025, DOI 10.18653/v1/2025.findings-naacl.395 (from the search record; not read)
+  extraction_scope: 'Sections 3 to 6 and Appendices A and B: the instructional prevention, data prompt isolation, sandwich prevention and adversarial fine-tuning bars of Figure 2 (InjecAgent), the numbers stated in Section
+    5.2, and Table 6 (AgentDojo); the abstract claim (the three detectors and paraphrasing, which act before an unchanged model, Tables 2 to 4 and the target and valid rates not coded)'
+defences:
+- id: ip_v
+  name: Instructional prevention
+  origin: other_report
+  base_checkpoint: Vicuna-7B (prompted ReAct agent)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - prompt warns the model to ignore commands in external content
+  layout: ReAct agent prompt with the tool response in the context
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Instructional Prevention (IP)
+- id: ip_l
+  name: Instructional prevention
+  origin: other_report
+  base_checkpoint: Llama3-8B (fine-tuned agent)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - prompt warns the model to ignore commands in external content
+  layout: ReAct agent prompt with the tool response in the context
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Instructional Prevention (IP)
+- id: dpi_v
+  name: Data prompt isolation
+  origin: other_report
+  base_checkpoint: Vicuna-7B (prompted ReAct agent)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - tool response wrapped in ''' delimiters
+  layout: ReAct agent prompt with the tool response in the context
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Data Prompt Isolation (DPI)
+- id: sp_v
+  name: Sandwich prevention
+  origin: other_report
+  base_checkpoint: Vicuna-7B (prompted ReAct agent)
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - the user instruction repeated after the tool response
+  layout: ReAct agent prompt with the tool response in the context
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Sandwich Prevention (SP)
+- id: af_v
+  name: Adversarial fine-tuning
+  origin: other_report
+  base_checkpoint: Vicuna-7B (prompted ReAct agent)
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - LoRA fine-tuning on 215 unsuccessful attack cases of this agent
+  layout: ReAct agent prompt with the tool response in the context
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Adversarial Finetuning (AF)
+  pages:
+    components: 14
+- id: af_l
+  name: Adversarial fine-tuning
+  origin: other_report
+  base_checkpoint: Llama3-8B (fine-tuned agent)
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - LoRA fine-tuning on 816 unsuccessful attack cases of this agent
+  layout: ReAct agent prompt with the tool response in the context
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Adversarial Finetuning (AF)
+  pages:
+    components: 14
+evaluations:
+- id: ev_v_none_static
+  defence_id: none:Vicuna-7B (prompted ReAct agent)
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 6
+  attacker_budget: original InjecAgent attacks
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_l_none_static
+  defence_id: none:Llama3-8B (fine-tuned agent)
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 6
+  attacker_budget: original InjecAgent attacks
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+  baseline_kind: off_the_shelf
+- id: ev_ip_v_static
+  defence_id: ip_v
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: original InjecAgent attacks
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+- id: ev_ip_v_adaptive
+  defence_id: ip_v
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: adaptive GCG adversarial string against this defence (20 tokens, 500 steps for most defences)
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+    attacker_budget: 14
+- id: ev_dpi_v_static
+  defence_id: dpi_v
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: original InjecAgent attacks
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+- id: ev_dpi_v_adaptive
+  defence_id: dpi_v
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: adaptive GCG adversarial string against this defence (20 tokens, 500 steps for most defences)
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+    attacker_budget: 14
+- id: ev_sp_v_static
+  defence_id: sp_v
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: original InjecAgent attacks
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+- id: ev_sp_v_adaptive
+  defence_id: sp_v
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: adaptive GCG adversarial string against this defence (20 tokens, 500 steps for most defences)
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+    attacker_budget: 14
+- id: ev_af_v_static
+  defence_id: af_v
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: original InjecAgent attacks
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+- id: ev_af_v_adaptive
+  defence_id: af_v
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: adaptive GCG adversarial string against this defence (20 tokens, 500 steps for most defences)
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+    attacker_budget: 14
+- id: ev_ip_l_static
+  defence_id: ip_l
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: original InjecAgent attacks
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+- id: ev_ip_l_adaptive
+  defence_id: ip_l
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: adaptive GCG adversarial string against this defence (20 tokens, 500 steps for most defences)
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+    attacker_budget: 14
+- id: ev_af_l_static
+  defence_id: af_l
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: original InjecAgent attacks
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+- id: ev_af_l_adaptive
+  defence_id: af_l
+  benchmark: 'InjecAgent (1,054 test cases: direct harm and data stealing)'
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 5
+  attacker_budget: adaptive GCG adversarial string against this defence (20 tokens, 500 steps for most defences)
+  sample_size: 1,054
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 5
+    attacker_budget: 14
+- id: ev_dojo_none_static
+  defence_id: none:Llama3-8B (fine-tuned agent)
+  benchmark: AgentDojo, 16 cases (two user and two attacker tasks from each of four suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 15
+  attacker_budget: AgentDojo injections
+  sample_size: '16'
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_dojo_none_adaptive
+  defence_id: none:Llama3-8B (fine-tuned agent)
+  benchmark: AgentDojo, 16 cases (two user and two attacker tasks from each of four suites)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 15
+  attacker_budget: GCG adversarial string
+  sample_size: '16'
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_dojo_ip_static
+  defence_id: ip_l
+  benchmark: AgentDojo, 16 cases (two user and two attacker tasks from each of four suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 15
+  attacker_budget: AgentDojo injections
+  sample_size: '16'
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_dojo_ip_adaptive
+  defence_id: ip_l
+  benchmark: AgentDojo, 16 cases (two user and two attacker tasks from each of four suites)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: output executes the attacker tool (ASR-all, invalid outputs count as failures)
+  layout_same_as_defence: 'yes'
+  measured_by: adaptiveipi_arxiv2025
+  page: 15
+  attacker_budget: GCG adversarial string against this defence
+  sample_size: '16'
+  decoding: not reported
+  pages:
+    benchmark: 14
+results:
+- id: r_v_none_static
+  evaluation_id: ev_v_none_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Original ASR
+  value: '56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 5.2
+- id: r_l_none_static
+  evaluation_id: ev_l_none_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Original ASR
+  value: '9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 5.2
+- id: r_ip_v_static
+  evaluation_id: ev_ip_v_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-defense
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_ip_v_adaptive
+  evaluation_id: ev_ip_v_adaptive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-adaptive attack
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_dpi_v_static
+  evaluation_id: ev_dpi_v_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-defense
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_dpi_v_adaptive
+  evaluation_id: ev_dpi_v_adaptive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-adaptive attack
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_sp_v_static
+  evaluation_id: ev_sp_v_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-defense
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_sp_v_adaptive
+  evaluation_id: ev_sp_v_adaptive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-adaptive attack
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_af_v_static
+  evaluation_id: ev_af_v_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-defense
+  value: '12'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 5.2
+- id: r_af_v_adaptive
+  evaluation_id: ev_af_v_adaptive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-adaptive attack
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_ip_l_static
+  evaluation_id: ev_ip_l_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-defense
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_ip_l_adaptive
+  evaluation_id: ev_ip_l_adaptive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-adaptive attack
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_af_l_static
+  evaluation_id: ev_af_l_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-defense
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_af_l_adaptive
+  evaluation_id: ev_af_l_adaptive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-adaptive attack
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 5
+  location: Figure 2
+- id: r_dojo_none_static
+  evaluation_id: ev_dojo_none_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-defense
+  value: '6.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_dojo_none_adaptive
+  evaluation_id: ev_dojo_none_adaptive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-adaptive attack
+  value: '56.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_dojo_ip_static
+  evaluation_id: ev_dojo_ip_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-defense
+  value: '6.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+- id: r_dojo_ip_adaptive
+  evaluation_id: ev_dojo_ip_adaptive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR-adaptive attack
+  value: '43.75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 6
+comparisons:
+- id: c_af_v_static
+  left: ev_af_v_static
+  right: ev_v_none_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_dojo_ip_static
+  left: ev_dojo_ip_static
+  right: ev_dojo_none_static
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_dojo_ip_adaptive
+  left: ev_dojo_ip_adaptive
+  right: ev_dojo_none_adaptive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 15
+claims:
+- id: k1
+  text: adaptive attacks bypass all eight defences, each above 50% attack success
+  location: abstract
+  anchor: consistently achieving an attack success rate of over 50%
+  jobs:
+  - R1
+  supported_by:
+  - c_dojo_ip_adaptive
+  page: 1
+  contradicted_by:
+  - r_dojo_ip_adaptive
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Figure 2 (InjecAgent, chart image), Section 5.2 text, Table 6 (AgentDojo)
+schema_gaps:
+- where: results r_*_static and r_*_adaptive coded figure_only
+  note: 'Figure 2 prints each bar''s value as a label inside a raster image, so the values cannot be checked against the page text and are not coded. Read from the image (Vicuna-7B, ASR-defense then ASR-adaptive attack): instructional
+    prevention 53 and 91, data prompt isolation 50 and 94, sandwich prevention 15 and 68, adversarial fine-tuning 12 and 65; (Llama3-8B): instructional prevention 1 and 79, adversarial fine-tuning 4 and 85. Section 5.2 states
+    56% (Vicuna-7B original), 12% (adversarial fine-tuning) and 9% (Llama3-8B original)'

@@ -1,0 +1,1547 @@
+report:
+  id: ppa_arxiv2025
+  slug: '2506.05739'
+  title: To Protect the LLM Agent Against the Prompt Injection Attack with Polymorphic Prompt
+  first_author: Zhilong Wang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2506.05739'
+  version_read: arXiv v1
+  first_date: '2025-06-06'
+  read: F
+  role: proposes
+  code_release: https://github.com/zhilongwang/LLMAgentProtector
+  later_version: DSN 2025 supplemental volume, DOI 10.1109/dsn-s65789.2025.00037 (from the search record; not read)
+  extraction_scope: 'whole report (7 pages): Table II coded (overall ASR per model and the twelve attack rows); the abstract claim (Table I, a prompt-wording ablation on GPT-3.5, and the detector-benchmark accuracies of Tables
+    III and IV not coded)'
+defences:
+- id: ppa_g35
+  name: Polymorphic Prompt Assembling (PPA)
+  origin: this_report
+  base_checkpoint: GPT-3.5-Turbo
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - user input wrapped in a separator pair drawn at random per request from 84 separators refined by a genetic algorithm
+  - system prompt template drawn at random, naming the separators and telling the model to ignore instructions inside them
+  layout: system prompt naming the separators, then the user input between them
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The workflow of Polymorphic Prompt Assembling
+  pages:
+    components: 4
+- id: ppa_g4
+  name: Polymorphic Prompt Assembling (PPA)
+  origin: this_report
+  base_checkpoint: GPT-4-Turbo
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - user input wrapped in a separator pair drawn at random per request from 84 separators refined by a genetic algorithm
+  - system prompt template drawn at random, naming the separators and telling the model to ignore instructions inside them
+  layout: system prompt naming the separators, then the user input between them
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The workflow of Polymorphic Prompt Assembling
+  pages:
+    components: 4
+- id: ppa_l3
+  name: Polymorphic Prompt Assembling (PPA)
+  origin: this_report
+  base_checkpoint: Llama-3.3-70B-Instruct-Turbo
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - user input wrapped in a separator pair drawn at random per request from 84 separators refined by a genetic algorithm
+  - system prompt template drawn at random, naming the separators and telling the model to ignore instructions inside them
+  layout: system prompt naming the separators, then the user input between them
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The workflow of Polymorphic Prompt Assembling
+  pages:
+    components: 4
+- id: ppa_ds
+  name: Polymorphic Prompt Assembling (PPA)
+  origin: this_report
+  base_checkpoint: DeepSeek-V3
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - user input wrapped in a separator pair drawn at random per request from 84 separators refined by a genetic algorithm
+  - system prompt template drawn at random, naming the separators and telling the model to ignore instructions inside them
+  layout: system prompt naming the separators, then the user input between them
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The workflow of Polymorphic Prompt Assembling
+  pages:
+    components: 4
+evaluations:
+- id: ev_g35_roleplayin
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Role Playing
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Role Playing payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_roleplayin
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Role Playing
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Role Playing payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_roleplayin
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Role Playing
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Role Playing payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_roleplayin
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Role Playing
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Role Playing payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_naïveattac
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Naïve Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Naïve Attack payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_naïveattac
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Naïve Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Naïve Attack payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_naïveattac
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Naïve Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Naïve Attack payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_naïveattac
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Naïve Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Naïve Attack payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_instrmanip
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Instr. Manipulation
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Instr. Manipulation payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_instrmanip
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Instr. Manipulation
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Instr. Manipulation payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_instrmanip
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Instr. Manipulation
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Instr. Manipulation payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_instrmanip
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Instr. Manipulation
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Instr. Manipulation payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_contextign
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Context Ignoring
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Context Ignoring payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_contextign
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Context Ignoring
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Context Ignoring payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_contextign
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Context Ignoring
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Context Ignoring payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_contextign
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Context Ignoring
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Context Ignoring payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_combinedat
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Combined Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Combined Attack payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_combinedat
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Combined Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Combined Attack payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_combinedat
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Combined Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Combined Attack payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_combinedat
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Combined Attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Combined Attack payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_payloadspl
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Payload Splitting
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Payload Splitting payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_payloadspl
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Payload Splitting
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Payload Splitting payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_payloadspl
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Payload Splitting
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Payload Splitting payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_payloadspl
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Payload Splitting
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Payload Splitting payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_virtualiza
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Virtualization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Virtualization payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_virtualiza
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Virtualization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Virtualization payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_virtualiza
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Virtualization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Virtualization payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_virtualiza
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Virtualization
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Virtualization payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_doublechar
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Double Character
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Double Character payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_doublechar
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Double Character
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Double Character payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_doublechar
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Double Character
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Double Character payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_doublechar
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Double Character
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Double Character payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_fakecomple
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Fake Completion
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Fake Completion payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_fakecomple
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Fake Completion
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Fake Completion payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_fakecomple
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Fake Completion
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Fake Completion payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_fakecomple
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Fake Completion
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Fake Completion payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_obfuscatio
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Obfuscation
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Obfuscation payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_obfuscatio
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Obfuscation
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Obfuscation payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_obfuscatio
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Obfuscation
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Obfuscation payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_obfuscatio
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Obfuscation
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Obfuscation payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_adversaria
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Adversarial Suffix
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Adversarial Suffix payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_adversaria
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Adversarial Suffix
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Adversarial Suffix payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_adversaria
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Adversarial Suffix
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Adversarial Suffix payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_adversaria
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Adversarial Suffix
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Adversarial Suffix payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_escapechar
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Escape Characters
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Escape Characters payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_escapechar
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Escape Characters
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Escape Characters payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_escapechar
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Escape Characters
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Escape Characters payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_escapechar
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent, Escape Characters
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: Escape Characters payloads
+  sample_size: about 100 payloads x 5
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g35_overall
+  defence_id: ppa_g35
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: each payload sent five times (6,000 attempts per model)
+  sample_size: 6,000 attempts
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_g4_overall
+  defence_id: ppa_g4
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: each payload sent five times (6,000 attempts per model)
+  sample_size: 6,000 attempts
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_l3_overall
+  defence_id: ppa_l3
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: each payload sent five times (6,000 attempts per model)
+  sample_size: 6,000 attempts
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+- id: ev_ds_overall
+  defence_id: ppa_ds
+  benchmark: 1,200 attack payloads from 12 attack categories, summarisation agent
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Llama-based judge with few-shot examples: the model answers instead of refusing and addresses the embedded instruction'
+  layout_same_as_defence: 'yes'
+  measured_by: ppa_arxiv2025
+  page: 5
+  attacker_budget: each payload sent five times (6,000 attempts per model)
+  sample_size: 6,000 attempts
+  decoding: not reported
+  pages:
+    benchmark: 4
+    judge: 4
+results:
+- id: r_g35_roleplayin
+  evaluation_id: ev_g35_roleplayin
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Role Playing
+  value: '3.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_roleplayin
+  evaluation_id: ev_g4_roleplayin
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Role Playing
+  value: '2.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_roleplayin
+  evaluation_id: ev_l3_roleplayin
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Role Playing
+  value: '33.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_roleplayin
+  evaluation_id: ev_ds_roleplayin
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Role Playing
+  value: '10.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_naïveattac
+  evaluation_id: ev_g35_naïveattac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naïve Attack
+  value: '0.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_naïveattac
+  evaluation_id: ev_g4_naïveattac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naïve Attack
+  value: '0.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_naïveattac
+  evaluation_id: ev_l3_naïveattac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naïve Attack
+  value: '2.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_naïveattac
+  evaluation_id: ev_ds_naïveattac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naïve Attack
+  value: '1.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_instrmanip
+  evaluation_id: ev_g35_instrmanip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Instr. Manipulation
+  value: '2.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_instrmanip
+  evaluation_id: ev_g4_instrmanip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Instr. Manipulation
+  value: '2.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_instrmanip
+  evaluation_id: ev_l3_instrmanip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Instr. Manipulation
+  value: '6.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_instrmanip
+  evaluation_id: ev_ds_instrmanip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Instr. Manipulation
+  value: '3.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_contextign
+  evaluation_id: ev_g35_contextign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Context Ignoring
+  value: '2.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_contextign
+  evaluation_id: ev_g4_contextign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Context Ignoring
+  value: '4.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_contextign
+  evaluation_id: ev_l3_contextign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Context Ignoring
+  value: '25.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_contextign
+  evaluation_id: ev_ds_contextign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Context Ignoring
+  value: '5.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_combinedat
+  evaluation_id: ev_g35_combinedat
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined Attack
+  value: '3.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_combinedat
+  evaluation_id: ev_g4_combinedat
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined Attack
+  value: '1.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_combinedat
+  evaluation_id: ev_l3_combinedat
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined Attack
+  value: '12.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_combinedat
+  evaluation_id: ev_ds_combinedat
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined Attack
+  value: '7.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_payloadspl
+  evaluation_id: ev_g35_payloadspl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Payload Splitting
+  value: '0.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_payloadspl
+  evaluation_id: ev_g4_payloadspl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Payload Splitting
+  value: '0.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_payloadspl
+  evaluation_id: ev_l3_payloadspl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Payload Splitting
+  value: '1.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_payloadspl
+  evaluation_id: ev_ds_payloadspl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Payload Splitting
+  value: '2.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_virtualiza
+  evaluation_id: ev_g35_virtualiza
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Virtualization
+  value: '1.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_virtualiza
+  evaluation_id: ev_g4_virtualiza
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Virtualization
+  value: '2.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_virtualiza
+  evaluation_id: ev_l3_virtualiza
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Virtualization
+  value: '4.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_virtualiza
+  evaluation_id: ev_ds_virtualiza
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Virtualization
+  value: '3.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_doublechar
+  evaluation_id: ev_g35_doublechar
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Double Character
+  value: '0.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_doublechar
+  evaluation_id: ev_g4_doublechar
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Double Character
+  value: '1.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_doublechar
+  evaluation_id: ev_l3_doublechar
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Double Character
+  value: '10.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_doublechar
+  evaluation_id: ev_ds_doublechar
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Double Character
+  value: '3.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_fakecomple
+  evaluation_id: ev_g35_fakecomple
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fake Completion
+  value: '4.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_fakecomple
+  evaluation_id: ev_g4_fakecomple
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fake Completion
+  value: '5.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_fakecomple
+  evaluation_id: ev_l3_fakecomple
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fake Completion
+  value: '1.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_fakecomple
+  evaluation_id: ev_ds_fakecomple
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fake Completion
+  value: '4.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_obfuscatio
+  evaluation_id: ev_g35_obfuscatio
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Obfuscation
+  value: '2.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_obfuscatio
+  evaluation_id: ev_g4_obfuscatio
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Obfuscation
+  value: '0.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_obfuscatio
+  evaluation_id: ev_l3_obfuscatio
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Obfuscation
+  value: '0.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_obfuscatio
+  evaluation_id: ev_ds_obfuscatio
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Obfuscation
+  value: '7.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_adversaria
+  evaluation_id: ev_g35_adversaria
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Adversarial Suffix
+  value: '0.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_adversaria
+  evaluation_id: ev_g4_adversaria
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Adversarial Suffix
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_adversaria
+  evaluation_id: ev_l3_adversaria
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Adversarial Suffix
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_adversaria
+  evaluation_id: ev_ds_adversaria
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Adversarial Suffix
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_escapechar
+  evaluation_id: ev_g35_escapechar
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Characters
+  value: '0.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_escapechar
+  evaluation_id: ev_g4_escapechar
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Characters
+  value: '1.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_escapechar
+  evaluation_id: ev_l3_escapechar
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Characters
+  value: '0.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_escapechar
+  evaluation_id: ev_ds_escapechar
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Characters
+  value: '1.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g35_overall
+  evaluation_id: ev_g35_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '1.83'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_g4_overall
+  evaluation_id: ev_g4_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '1.92'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_l3_overall
+  evaluation_id: ev_l3_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '8.17'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+- id: r_ds_overall
+  evaluation_id: ev_ds_overall
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Overall ASR
+  value: '4.28'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table II
+claims:
+- id: k1
+  text: PPA improves security without loss of performance
+  location: abstract
+  anchor: thereby enhancing security without compromising performance
+  jobs:
+  - R1
+  - R2
+  supported_by: []
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table II (defended models only; no undefended run reported)
+    R2clean: the conclusion says benign prompts showed no degradation; no numbers

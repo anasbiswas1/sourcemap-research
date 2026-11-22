@@ -1,0 +1,1091 @@
+report:
+  id: gemini_arxiv2025
+  slug: '2505.14534'
+  title: Lessons from Defending Gemini Against Indirect Prompt Injections
+  first_author: Chongyang Shi
+  venue: arXiv preprint (technical report)
+  peer_reviewed: 'no'
+  arxiv: '2505.14534'
+  version_read: arXiv v1
+  first_date: '2025-05-20'
+  read: F
+  role: mixed
+  code_release: none (closed model)
+  extraction_scope: 'Sections 5.3, 7 to 9.2 and Appendices D and E: the ICL, Spotlighting and Warning rows of Tables 3 and 4 (Gemini 2.0), Table 1 (Gemini 2.5 against 2.0), the non-adaptive Gemini 2.5 result and the Warning
+    plus Gemini 2.5 result in Sections 9.1 and 9.2; the abstract claim (paraphrasing and the classification defences, Table 2''s undefended runs, Appendices F to H not coded)'
+defences:
+- id: aft_g25
+  name: Adversarial fine-tuning of Gemini (SFT on corrected responses, with RL adversarial training)
+  origin: this_report
+  base_checkpoint: Gemini 2.5 (Gemini-2.5-Flash-Preview-04-17 named for the leaderboard score)
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - adversarial_rl
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 20
+  components:
+  - conversations with tool calls and private data, injected with triggers from the automated red-teaming attacks
+  - corrective responses produced with the Warning defence and filtered by the user instruction classifier
+  - supervised fine-tuning, with reinforcement learning adversarial training applied alongside
+  layout: conversation history with tool calls; the retrieved tool output carries the trigger
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  released_weights: no (closed model)
+  anchor: Synthesizing Corrective Responses
+- id: icl_g20
+  name: In-context learning defence
+  origin: other_report
+  base_checkpoint: Gemini 2.0
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  components:
+  - a description of indirect prompt injection with examples, before the retrieved trigger
+  layout: conversation history with tool calls; the retrieved tool output carries the trigger
+  layout_compat: *id001
+  anchor: In-context learning (ICL)
+- id: spot_g20
+  name: Spotlighting (control tokens interleaved in the trigger)
+  origin: other_report
+  base_checkpoint: Gemini 2.0
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  components:
+  - control tokens interleaved through the retrieved data and an instruction not to trust text between them
+  layout: conversation history with tool calls; the retrieved tool output carries the trigger
+  layout_compat: *id001
+  anchor: We interleave control tokens throughout the retrieved trigger
+- id: warn_g20
+  name: Warning
+  origin: other_report
+  base_checkpoint: Gemini 2.0
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  components:
+  - a warning not to expose private information, placed after the retrieved content
+  layout: conversation history with tool calls; the retrieved tool output carries the trigger
+  layout_compat: *id001
+  anchor: insert a warning message instructing the model
+- id: warn_g25
+  name: Warning (on the adversarially fine-tuned Gemini 2.5)
+  origin: this_report
+  base_checkpoint: Gemini 2.5 (Gemini-2.5-Flash-Preview-04-17 named for the leaderboard score)
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 22
+  components:
+  - the same warning, on Gemini 2.5
+  layout: conversation history with tool calls; the retrieved tool output carries the trigger
+  layout_compat: *id001
+  anchor: combining the Warning defense with Gemini 2.5
+evaluations:
+- id: ev_t3_icl_g20_ac
+  defence_id: icl_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Actor Critic triggers optimised against undefended Gemini 2.0
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t3_icl_g20_bs
+  defence_id: icl_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Beam Search triggers optimised against undefended Gemini 2.0
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t3_icl_g20_tap
+  defence_id: icl_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: TAP triggers optimised against undefended Gemini 2.0
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t3_spot_g20_ac
+  defence_id: spot_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Actor Critic triggers optimised against undefended Gemini 2.0
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t3_spot_g20_bs
+  defence_id: spot_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Beam Search triggers optimised against undefended Gemini 2.0
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t3_spot_g20_tap
+  defence_id: spot_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: TAP triggers optimised against undefended Gemini 2.0
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t3_warn_g20_ac
+  defence_id: warn_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Actor Critic triggers optimised against undefended Gemini 2.0
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t3_warn_g20_bs
+  defence_id: warn_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Beam Search triggers optimised against undefended Gemini 2.0
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t3_warn_g20_tap
+  defence_id: warn_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: TAP triggers optimised against undefended Gemini 2.0
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t4_icl_g20_ac
+  defence_id: icl_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Actor Critic triggers optimised against the defended model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t4_icl_g20_bs
+  defence_id: icl_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Beam Search triggers optimised against the defended model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t4_icl_g20_tap
+  defence_id: icl_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: TAP triggers optimised against the defended model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t4_spot_g20_ac
+  defence_id: spot_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Actor Critic triggers optimised against the defended model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t4_spot_g20_bs
+  defence_id: spot_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Beam Search triggers optimised against the defended model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t4_spot_g20_tap
+  defence_id: spot_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: TAP triggers optimised against the defended model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t4_warn_g20_ac
+  defence_id: warn_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Actor Critic triggers optimised against the defended model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t4_warn_g20_bs
+  defence_id: warn_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: Beam Search triggers optimised against the defended model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t4_warn_g20_tap
+  defence_id: warn_g20
+  benchmark: synthetic conversation histories with tool calls (held-out test set), Gemini 2.0
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 36
+  attacker_budget: TAP triggers optimised against the defended model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t1_email_g25_tap
+  defence_id: aft_g25
+  benchmark: Email function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: TAP triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t1_email_g25_ac
+  defence_id: aft_g25
+  benchmark: Email function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: Actor-Critic triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t1_email_g25_bs
+  defence_id: aft_g25
+  benchmark: Email function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: Beam Search triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t1_email_g20_tap
+  defence_id: none:Gemini 2.0
+  benchmark: Email function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: TAP triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+  baseline_kind: off_the_shelf
+- id: ev_t1_email_g20_ac
+  defence_id: none:Gemini 2.0
+  benchmark: Email function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: Actor-Critic triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+  baseline_kind: off_the_shelf
+- id: ev_t1_email_g20_bs
+  defence_id: none:Gemini 2.0
+  benchmark: Email function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: Beam Search triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+  baseline_kind: off_the_shelf
+- id: ev_t1_cal_g25_tap
+  defence_id: aft_g25
+  benchmark: Calendar Event function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: TAP triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t1_cal_g25_ac
+  defence_id: aft_g25
+  benchmark: Calendar Event function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: Actor-Critic triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t1_cal_g25_bs
+  defence_id: aft_g25
+  benchmark: Calendar Event function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: Beam Search triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_t1_cal_g20_tap
+  defence_id: none:Gemini 2.0
+  benchmark: Calendar Event function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: TAP triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+  baseline_kind: off_the_shelf
+- id: ev_t1_cal_g20_ac
+  defence_id: none:Gemini 2.0
+  benchmark: Calendar Event function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: Actor-Critic triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+  baseline_kind: off_the_shelf
+- id: ev_t1_cal_g20_bs
+  defence_id: none:Gemini 2.0
+  benchmark: Calendar Event function, non-JSON trigger, passport number
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: Beam Search triggers optimised against this model
+  decoding: not reported
+  pages:
+    judge: 14
+  baseline_kind: off_the_shelf
+- id: ev_na_g20
+  defence_id: none:Gemini 2.0
+  benchmark: 1,799 prompts with triggers optimised against Gemini 2.0, five tools not used in adversarial training, all three private data types
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: triggers optimised against Gemini 2.0
+  sample_size: 1,799
+  decoding: not reported
+  pages:
+    judge: 14
+  baseline_kind: off_the_shelf
+- id: ev_na_g25
+  defence_id: aft_g25
+  benchmark: 1,799 prompts with triggers optimised against Gemini 2.0, five tools not used in adversarial training, all three private data types
+  attacker_type: static
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 21
+  attacker_budget: triggers optimised against Gemini 2.0
+  sample_size: 1,799
+  decoding: not reported
+  pages:
+    judge: 14
+- id: ev_combo_warn_g25
+  defence_id: warn_g25
+  benchmark: Calendar Event scenario
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: fraction of simulated private information exfiltrated to the attacker; best trigger of the attack class on the held-out test set
+  layout_same_as_defence: 'yes'
+  measured_by: gemini_arxiv2025
+  page: 22
+  attacker_budget: TAP
+  decoding: not reported
+  pages:
+    judge: 14
+results:
+- id: r_t3_icl_g20_ac
+  evaluation_id: ev_t3_icl_g20_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Actor Critic
+  value: '0.462'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 3
+- id: r_t3_icl_g20_bs
+  evaluation_id: ev_t3_icl_g20_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.344'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 3
+- id: r_t3_icl_g20_tap
+  evaluation_id: ev_t3_icl_g20_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, TAP
+  value: '0.676'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 3
+- id: r_t3_spot_g20_ac
+  evaluation_id: ev_t3_spot_g20_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Actor Critic
+  value: '0.180'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 3
+- id: r_t3_spot_g20_bs
+  evaluation_id: ev_t3_spot_g20_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.130'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 3
+- id: r_t3_spot_g20_tap
+  evaluation_id: ev_t3_spot_g20_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, TAP
+  value: '0.752'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 3
+- id: r_t3_warn_g20_ac
+  evaluation_id: ev_t3_warn_g20_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Actor Critic
+  value: '0.058'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 3
+- id: r_t3_warn_g20_bs
+  evaluation_id: ev_t3_warn_g20_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.002'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 3
+- id: r_t3_warn_g20_tap
+  evaluation_id: ev_t3_warn_g20_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, TAP
+  value: '0.012'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 3
+- id: r_t4_icl_g20_ac
+  evaluation_id: ev_t4_icl_g20_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Actor Critic
+  value: '0.598'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 4
+- id: r_t4_icl_g20_bs
+  evaluation_id: ev_t4_icl_g20_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.666'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 4
+- id: r_t4_icl_g20_tap
+  evaluation_id: ev_t4_icl_g20_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, TAP
+  value: '0.984'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 4
+- id: r_t4_spot_g20_ac
+  evaluation_id: ev_t4_spot_g20_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Actor Critic
+  value: '0.824'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 4
+- id: r_t4_spot_g20_bs
+  evaluation_id: ev_t4_spot_g20_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.648'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 4
+- id: r_t4_spot_g20_tap
+  evaluation_id: ev_t4_spot_g20_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, TAP
+  value: '0.822'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 4
+- id: r_t4_warn_g20_ac
+  evaluation_id: ev_t4_warn_g20_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Actor Critic
+  value: '0.084'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 4
+- id: r_t4_warn_g20_bs
+  evaluation_id: ev_t4_warn_g20_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 4
+- id: r_t4_warn_g20_tap
+  evaluation_id: ev_t4_warn_g20_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, TAP
+  value: '0.108'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 36
+  location: Table 4
+- id: r_t1_email_g25_tap
+  evaluation_id: ev_t1_email_g25_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), TAP
+  value: '53.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_email_g25_ac
+  evaluation_id: ev_t1_email_g25_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), Actor-Critic
+  value: '40.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_email_g25_bs
+  evaluation_id: ev_t1_email_g25_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), Beam Search
+  value: '4.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_email_g20_tap
+  evaluation_id: ev_t1_email_g20_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), TAP
+  value: '99.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_email_g20_ac
+  evaluation_id: ev_t1_email_g20_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), Actor-Critic
+  value: '66.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_email_g20_bs
+  evaluation_id: ev_t1_email_g20_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), Beam Search
+  value: '74.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_cal_g25_tap
+  evaluation_id: ev_t1_cal_g25_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), TAP
+  value: '94.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_cal_g25_ac
+  evaluation_id: ev_t1_cal_g25_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), Actor-Critic
+  value: '59.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_cal_g25_bs
+  evaluation_id: ev_t1_cal_g25_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), Beam Search
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_cal_g20_tap
+  evaluation_id: ev_t1_cal_g20_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), TAP
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_cal_g20_ac
+  evaluation_id: ev_t1_cal_g20_ac
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), Actor-Critic
+  value: '96.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_t1_cal_g20_bs
+  evaluation_id: ev_t1_cal_g20_bs
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%), Beam Search
+  value: '98.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 1
+- id: r_na_g20
+  evaluation_id: ev_na_g20
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '92'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 21
+  location: Section 9.1
+- id: r_na_g25
+  evaluation_id: ev_na_g25
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 21
+  location: Section 9.1
+- id: r_combo_warn_g25
+  evaluation_id: ev_combo_warn_g25
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '6.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 22
+  location: Section 9.2
+comparisons:
+- id: c_t1_email_tap
+  left: ev_t1_email_g25_tap
+  right: ev_t1_email_g20_tap
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adversarially trained Gemini 2.5 against Gemini 2.0 (a different and newer model)
+  page: 21
+- id: c_t1_email_ac
+  left: ev_t1_email_g25_ac
+  right: ev_t1_email_g20_ac
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adversarially trained Gemini 2.5 against Gemini 2.0 (a different and newer model)
+  page: 21
+- id: c_t1_email_bs
+  left: ev_t1_email_g25_bs
+  right: ev_t1_email_g20_bs
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adversarially trained Gemini 2.5 against Gemini 2.0 (a different and newer model)
+  page: 21
+- id: c_t1_cal_tap
+  left: ev_t1_cal_g25_tap
+  right: ev_t1_cal_g20_tap
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adversarially trained Gemini 2.5 against Gemini 2.0 (a different and newer model)
+  page: 21
+- id: c_t1_cal_ac
+  left: ev_t1_cal_g25_ac
+  right: ev_t1_cal_g20_ac
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adversarially trained Gemini 2.5 against Gemini 2.0 (a different and newer model)
+  page: 21
+- id: c_t1_cal_bs
+  left: ev_t1_cal_g25_bs
+  right: ev_t1_cal_g20_bs
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adversarially trained Gemini 2.5 against Gemini 2.0 (a different and newer model)
+  page: 21
+- id: c_na
+  left: ev_na_g25
+  right: ev_na_g20
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adversarially trained Gemini 2.5 against Gemini 2.0 on triggers built against Gemini 2.0
+  page: 21
+- id: c_combo_warn_on_g25
+  left: ev_combo_warn_g25
+  right: ev_t1_cal_g25_tap
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the Warning defence added to Gemini 2.5 (against Gemini 2.5 alone, Table 1)
+  page: 22
+- id: c_combo_g25_vs_g20_warn
+  left: ev_combo_warn_g25
+  right: ev_t4_warn_g20_tap
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: Warning on Gemini 2.5 against Warning on Gemini 2.0 (Table 4)
+  page: 22
+claims:
+- id: k1
+  text: ongoing adaptive evaluations directly help make Gemini more resilient
+  location: abstract
+  anchor: these ongoing evaluations directly help make Gemini more resilient against manipulation
+  jobs:
+  - R1
+  supported_by:
+  - c_t1_email_tap
+  - c_t1_email_ac
+  - c_t1_email_bs
+  - c_t1_cal_tap
+  - c_t1_cal_ac
+  - c_t1_cal_bs
+  - c_na
+  page: 1
+  contradicted_by:
+  - r_t1_cal_g25_tap
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1, 3 and 4; Sections 9.1 and 9.2
+    general_utility: Section 9.1 (leaderboard score only); Appendix H not coded
+schema_gaps:
+- where: comparisons c_combo_*
+  note: Section 9.2 compares Warning on Gemini 2.5 (6.2%) with Warning on Gemini 2.0 against adaptive TAP in the Calendar Event scenario (10.8%, the TAP cell of Table 4) and with Gemini 2.5 alone (94.6%, Table 1); the scenario's
+    data type and trigger format for 6.2% are not stated

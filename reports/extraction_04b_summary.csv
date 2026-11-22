@@ -1,0 +1,13 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,values_third_extraction,residual_notes,problems
+04b,liu_benchmark_arxiv2023,2310.12815,re_measures,3,56,56,56,0,4,42,42,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,0
+04b,signedprompt_arxiv2024,2401.07612,proposes,2,16,16,16,0,3,0,0,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,0
+04b,agentdojo_neurips2024,2406.13352,benchmark,2,6,9,9,0,3,4,4,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,0
+04b,asb_iclr2025,2410.02644,benchmark,39,104,104,104,0,40,78,78,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,0
+04b,attackdefence_arxiv2024,2411.00459,proposes,9,72,72,72,0,10,72,72,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,0
+04b,adaptiveipi_arxiv2025,2503.00061,re_measures,6,18,18,7,0,7,3,3,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,1,0
+04b,pft_arxiv2025,2505.00626,proposes,6,28,28,28,0,7,20,20,0,0,0,1,direct,unclear,not_reported,not_reported,not_reported,not_reported,0,0,0
+04b,gemini_arxiv2025,2505.14534,mixed,5,33,33,33,0,6,9,1,8,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,1,0
+04b,ckptgcg_haips2026,2505.15738,re_measures,6,27,27,27,0,7,24,24,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,0
+04b,air_arxiv2025,2505.18907,proposes,18,63,63,63,0,19,54,48,6,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,0
+04b,ppa_arxiv2025,2506.05739,proposes,4,52,52,52,0,5,0,0,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,0
+04b,llmailinject_arxiv2025,2506.09956,re_measures,2,2,2,2,0,3,0,0,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,0

@@ -1,0 +1,2933 @@
+report:
+  id: air_arxiv2025
+  slug: '2505.18907'
+  title: Stronger Enforcement of Instruction Hierarchy via Augmented Intermediate Representations
+  first_author: Sanjay Kariyappa
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2505.18907'
+  version_read: arXiv v2
+  first_date: '2025-05-25'
+  read: F
+  role: proposes
+  code_release: none found in the paper
+  extraction_scope: 'Sections 4 to 6.1 and Appendix B.1: Table 1, the Completion, Escape Sep. and GCG rows for all three models and all seven columns; the abstract claim (Naive and Ignore rows, which training saw, Figures
+    5 to 8 and the SEP results not coded)'
+defences:
+- id: delim_sft_l32
+  name: Delimiters (trainable [INST] and [INPT] tokens), SFT
+  origin: other_report
+  base_checkpoint: Llama-3.2-3B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - Delimiters (trainable [INST] and [INPT] tokens)
+  - 'adversarial SFT on Alpaca: half the data-bearing samples get a Naive or Ignore injection of another sample''s instruction'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Delimiters [24, 3]: We use two trainable special tokens'
+  pages:
+    components: 12
+- id: ise_sft_l32
+  name: ISE (trainable segment embeddings at the input layer), SFT
+  origin: other_report
+  base_checkpoint: Llama-3.2-3B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - ISE (trainable segment embeddings at the input layer)
+  - 'adversarial SFT on Alpaca: half the data-bearing samples get a Naive or Ignore injection of another sample''s instruction'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Instructional Segment Embedding (ISE) [25]: This method adds'
+  pages:
+    components: 12
+- id: air_sft_l32
+  name: AIR (trainable privilege embeddings added in every decoder block), SFT
+  origin: this_report
+  base_checkpoint: Llama-3.2-3B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - AIR (trainable privilege embeddings added in every decoder block)
+  - 'adversarial SFT on Alpaca: half the data-bearing samples get a Naive or Ignore injection of another sample''s instruction'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: AIR directly injects the IH signals
+  pages:
+    components: 12
+    isolation: 8
+- id: delim_dpo_l32
+  name: Delimiters (trainable [INST] and [INPT] tokens), DPO
+  origin: other_report
+  base_checkpoint: Llama-3.2-3B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - Delimiters (trainable [INST] and [INPT] tokens)
+  - 'DPO with LoRA: the Alpaca response preferred over the injected instruction''s own response'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Delimiters [24, 3]: We use two trainable special tokens'
+  pages:
+    components: 12
+- id: ise_dpo_l32
+  name: ISE (trainable segment embeddings at the input layer), DPO
+  origin: other_report
+  base_checkpoint: Llama-3.2-3B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - ISE (trainable segment embeddings at the input layer)
+  - 'DPO with LoRA: the Alpaca response preferred over the injected instruction''s own response'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Instructional Segment Embedding (ISE) [25]: This method adds'
+  pages:
+    components: 12
+- id: air_dpo_l32
+  name: AIR (trainable privilege embeddings added in every decoder block), DPO
+  origin: this_report
+  base_checkpoint: Llama-3.2-3B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - AIR (trainable privilege embeddings added in every decoder block)
+  - 'DPO with LoRA: the Alpaca response preferred over the injected instruction''s own response'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: AIR directly injects the IH signals
+  pages:
+    components: 12
+    isolation: 8
+- id: delim_sft_q25
+  name: Delimiters (trainable [INST] and [INPT] tokens), SFT
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - Delimiters (trainable [INST] and [INPT] tokens)
+  - 'adversarial SFT on Alpaca: half the data-bearing samples get a Naive or Ignore injection of another sample''s instruction'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Delimiters [24, 3]: We use two trainable special tokens'
+  pages:
+    components: 12
+- id: ise_sft_q25
+  name: ISE (trainable segment embeddings at the input layer), SFT
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - ISE (trainable segment embeddings at the input layer)
+  - 'adversarial SFT on Alpaca: half the data-bearing samples get a Naive or Ignore injection of another sample''s instruction'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Instructional Segment Embedding (ISE) [25]: This method adds'
+  pages:
+    components: 12
+- id: air_sft_q25
+  name: AIR (trainable privilege embeddings added in every decoder block), SFT
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - AIR (trainable privilege embeddings added in every decoder block)
+  - 'adversarial SFT on Alpaca: half the data-bearing samples get a Naive or Ignore injection of another sample''s instruction'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: AIR directly injects the IH signals
+  pages:
+    components: 12
+    isolation: 8
+- id: delim_dpo_q25
+  name: Delimiters (trainable [INST] and [INPT] tokens), DPO
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - Delimiters (trainable [INST] and [INPT] tokens)
+  - 'DPO with LoRA: the Alpaca response preferred over the injected instruction''s own response'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Delimiters [24, 3]: We use two trainable special tokens'
+  pages:
+    components: 12
+- id: ise_dpo_q25
+  name: ISE (trainable segment embeddings at the input layer), DPO
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - ISE (trainable segment embeddings at the input layer)
+  - 'DPO with LoRA: the Alpaca response preferred over the injected instruction''s own response'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Instructional Segment Embedding (ISE) [25]: This method adds'
+  pages:
+    components: 12
+- id: air_dpo_q25
+  name: AIR (trainable privilege embeddings added in every decoder block), DPO
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - AIR (trainable privilege embeddings added in every decoder block)
+  - 'DPO with LoRA: the Alpaca response preferred over the injected instruction''s own response'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: AIR directly injects the IH signals
+  pages:
+    components: 12
+    isolation: 8
+- id: delim_sft_l31
+  name: Delimiters (trainable [INST] and [INPT] tokens), SFT
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - Delimiters (trainable [INST] and [INPT] tokens)
+  - 'adversarial SFT on Alpaca: half the data-bearing samples get a Naive or Ignore injection of another sample''s instruction'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Delimiters [24, 3]: We use two trainable special tokens'
+  pages:
+    components: 12
+- id: ise_sft_l31
+  name: ISE (trainable segment embeddings at the input layer), SFT
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - ISE (trainable segment embeddings at the input layer)
+  - 'adversarial SFT on Alpaca: half the data-bearing samples get a Naive or Ignore injection of another sample''s instruction'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Instructional Segment Embedding (ISE) [25]: This method adds'
+  pages:
+    components: 12
+- id: air_sft_l31
+  name: AIR (trainable privilege embeddings added in every decoder block), SFT
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - AIR (trainable privilege embeddings added in every decoder block)
+  - 'adversarial SFT on Alpaca: half the data-bearing samples get a Naive or Ignore injection of another sample''s instruction'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: AIR directly injects the IH signals
+  pages:
+    components: 12
+    isolation: 8
+- id: delim_dpo_l31
+  name: Delimiters (trainable [INST] and [INPT] tokens), DPO
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - Delimiters (trainable [INST] and [INPT] tokens)
+  - 'DPO with LoRA: the Alpaca response preferred over the injected instruction''s own response'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Delimiters [24, 3]: We use two trainable special tokens'
+  pages:
+    components: 12
+- id: ise_dpo_l31
+  name: ISE (trainable segment embeddings at the input layer), DPO
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - ISE (trainable segment embeddings at the input layer)
+  - 'DPO with LoRA: the Alpaca response preferred over the injected instruction''s own response'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: 'Instructional Segment Embedding (ISE) [25]: This method adds'
+  pages:
+    components: 12
+- id: air_dpo_l31
+  name: AIR (trainable privilege embeddings added in every decoder block), DPO
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B (pretrained, instruction-tuned on cleaned Alpaca by the authors)
+  axis1:
+  - learned_token_features
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - AIR (trainable privilege embeddings added in every decoder block)
+  - 'DPO with LoRA: the Alpaca response preferred over the injected instruction''s own response'
+  layout: 'chat template: system and user instruction at privilege P0, data segment P1, response P2'
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: AIR directly injects the IH signals
+  pages:
+    components: 12
+    isolation: 8
+evaluations:
+- id: ev_l32_none_comp
+  defence_id: none:Llama-3.2-3B, instruction-tuned on cleaned Alpaca without IH signals or adversarial training
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+  baseline_kind: same_data_twin
+- id: ev_l32_delim_sft_comp
+  defence_id: delim_sft_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_ise_sft_comp
+  defence_id: ise_sft_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_air_sft_comp
+  defence_id: air_sft_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_delim_dpo_comp
+  defence_id: delim_dpo_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_ise_dpo_comp
+  defence_id: ise_dpo_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_air_dpo_comp
+  defence_id: air_dpo_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_none_esc
+  defence_id: none:Llama-3.2-3B, instruction-tuned on cleaned Alpaca without IH signals or adversarial training
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+  baseline_kind: same_data_twin
+- id: ev_l32_delim_sft_esc
+  defence_id: delim_sft_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_ise_sft_esc
+  defence_id: ise_sft_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_air_sft_esc
+  defence_id: air_sft_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_delim_dpo_esc
+  defence_id: delim_dpo_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_ise_dpo_esc
+  defence_id: ise_dpo_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_air_dpo_esc
+  defence_id: air_dpo_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_none_gcg
+  defence_id: none:Llama-3.2-3B, instruction-tuned on cleaned Alpaca without IH signals or adversarial training
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, steps not stated
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+  baseline_kind: same_data_twin
+- id: ev_l32_delim_sft_gcg
+  defence_id: delim_sft_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 50 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_ise_sft_gcg
+  defence_id: ise_sft_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 50 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_air_sft_gcg
+  defence_id: air_sft_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 50 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_delim_dpo_gcg
+  defence_id: delim_dpo_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 200 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_ise_dpo_gcg
+  defence_id: ise_dpo_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 200 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l32_air_dpo_gcg
+  defence_id: air_dpo_l32
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 200 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_none_comp
+  defence_id: none:Qwen2.5-7B, instruction-tuned on cleaned Alpaca without IH signals or adversarial training
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+  baseline_kind: same_data_twin
+- id: ev_q25_delim_sft_comp
+  defence_id: delim_sft_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_ise_sft_comp
+  defence_id: ise_sft_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_air_sft_comp
+  defence_id: air_sft_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_delim_dpo_comp
+  defence_id: delim_dpo_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_ise_dpo_comp
+  defence_id: ise_dpo_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_air_dpo_comp
+  defence_id: air_dpo_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_none_esc
+  defence_id: none:Qwen2.5-7B, instruction-tuned on cleaned Alpaca without IH signals or adversarial training
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+  baseline_kind: same_data_twin
+- id: ev_q25_delim_sft_esc
+  defence_id: delim_sft_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_ise_sft_esc
+  defence_id: ise_sft_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_air_sft_esc
+  defence_id: air_sft_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_delim_dpo_esc
+  defence_id: delim_dpo_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_ise_dpo_esc
+  defence_id: ise_dpo_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_air_dpo_esc
+  defence_id: air_dpo_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_none_gcg
+  defence_id: none:Qwen2.5-7B, instruction-tuned on cleaned Alpaca without IH signals or adversarial training
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, steps not stated
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+  baseline_kind: same_data_twin
+- id: ev_q25_delim_sft_gcg
+  defence_id: delim_sft_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 50 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_ise_sft_gcg
+  defence_id: ise_sft_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 50 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_air_sft_gcg
+  defence_id: air_sft_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 50 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_delim_dpo_gcg
+  defence_id: delim_dpo_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 200 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_ise_dpo_gcg
+  defence_id: ise_dpo_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 200 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_q25_air_dpo_gcg
+  defence_id: air_dpo_q25
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 200 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_none_comp
+  defence_id: none:Llama-3.1-8B, instruction-tuned on cleaned Alpaca without IH signals or adversarial training
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+  baseline_kind: same_data_twin
+- id: ev_l31_delim_sft_comp
+  defence_id: delim_sft_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_ise_sft_comp
+  defence_id: ise_sft_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_air_sft_comp
+  defence_id: air_sft_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_delim_dpo_comp
+  defence_id: delim_dpo_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_ise_dpo_comp
+  defence_id: ise_dpo_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_air_dpo_comp
+  defence_id: air_dpo_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Completion attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_none_esc
+  defence_id: none:Llama-3.1-8B, instruction-tuned on cleaned Alpaca without IH signals or adversarial training
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+  baseline_kind: same_data_twin
+- id: ev_l31_delim_sft_esc
+  defence_id: delim_sft_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_ise_sft_esc
+  defence_id: ise_sft_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_air_sft_esc
+  defence_id: air_sft_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_delim_dpo_esc
+  defence_id: delim_dpo_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_ise_dpo_esc
+  defence_id: ise_dpo_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_air_dpo_esc
+  defence_id: air_dpo_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: static
+  attacker_access: black_box
+  judge: reply contains the literal phrase hacked!
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: Escape Separation attack (not seen in training)
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_none_gcg
+  defence_id: none:Llama-3.1-8B, instruction-tuned on cleaned Alpaca without IH signals or adversarial training
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, steps not stated
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+  baseline_kind: same_data_twin
+- id: ev_l31_delim_sft_gcg
+  defence_id: delim_sft_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 50 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_ise_sft_gcg
+  defence_id: ise_sft_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 50 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_air_sft_gcg
+  defence_id: air_sft_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 50 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_delim_dpo_gcg
+  defence_id: delim_dpo_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 200 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_ise_dpo_gcg
+  defence_id: ise_dpo_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 200 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+- id: ev_l31_air_dpo_gcg
+  defence_id: air_dpo_l31
+  benchmark: AlpacaFarm, 208 samples with an input segment, injected instruction print exactly 'hacked!'
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: likelihood of generating hacked! from the model logits
+  layout_same_as_defence: 'yes'
+  measured_by: air_arxiv2025
+  page: 8
+  attacker_budget: momentum GCG, 100-token prefix, 200 steps
+  sample_size: '208'
+  decoding: not reported
+  pages:
+    benchmark: 7
+    judge: 7
+    attacker_budget: 7
+results:
+- id: r_l32_none_comp
+  evaluation_id: ev_l32_none_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '3.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_delim_sft_comp
+  evaluation_id: ev_l32_delim_sft_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_ise_sft_comp
+  evaluation_id: ev_l32_ise_sft_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_air_sft_comp
+  evaluation_id: ev_l32_air_sft_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_delim_dpo_comp
+  evaluation_id: ev_l32_delim_dpo_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_ise_dpo_comp
+  evaluation_id: ev_l32_ise_dpo_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_air_dpo_comp
+  evaluation_id: ev_l32_air_dpo_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_none_esc
+  evaluation_id: ev_l32_none_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '1.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_delim_sft_esc
+  evaluation_id: ev_l32_delim_sft_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_ise_sft_esc
+  evaluation_id: ev_l32_ise_sft_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_air_sft_esc
+  evaluation_id: ev_l32_air_sft_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_delim_dpo_esc
+  evaluation_id: ev_l32_delim_dpo_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_ise_dpo_esc
+  evaluation_id: ev_l32_ise_dpo_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_air_dpo_esc
+  evaluation_id: ev_l32_air_dpo_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_none_gcg
+  evaluation_id: ev_l32_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '77.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_delim_sft_gcg
+  evaluation_id: ev_l32_delim_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '38'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_ise_sft_gcg
+  evaluation_id: ev_l32_ise_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '48.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_air_sft_gcg
+  evaluation_id: ev_l32_air_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '4.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_delim_dpo_gcg
+  evaluation_id: ev_l32_delim_dpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '29.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_ise_dpo_gcg
+  evaluation_id: ev_l32_ise_dpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '46.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l32_air_dpo_gcg
+  evaluation_id: ev_l32_air_dpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '5.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_none_comp
+  evaluation_id: ev_q25_none_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '3.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_delim_sft_comp
+  evaluation_id: ev_q25_delim_sft_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_ise_sft_comp
+  evaluation_id: ev_q25_ise_sft_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_air_sft_comp
+  evaluation_id: ev_q25_air_sft_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_delim_dpo_comp
+  evaluation_id: ev_q25_delim_dpo_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_ise_dpo_comp
+  evaluation_id: ev_q25_ise_dpo_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_air_dpo_comp
+  evaluation_id: ev_q25_air_dpo_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_none_esc
+  evaluation_id: ev_q25_none_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '2.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_delim_sft_esc
+  evaluation_id: ev_q25_delim_sft_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_ise_sft_esc
+  evaluation_id: ev_q25_ise_sft_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_air_sft_esc
+  evaluation_id: ev_q25_air_sft_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_delim_dpo_esc
+  evaluation_id: ev_q25_delim_dpo_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_ise_dpo_esc
+  evaluation_id: ev_q25_ise_dpo_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_air_dpo_esc
+  evaluation_id: ev_q25_air_dpo_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_none_gcg
+  evaluation_id: ev_q25_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '99.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_delim_sft_gcg
+  evaluation_id: ev_q25_delim_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '88'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_ise_sft_gcg
+  evaluation_id: ev_q25_ise_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '36.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_air_sft_gcg
+  evaluation_id: ev_q25_air_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '22.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_delim_dpo_gcg
+  evaluation_id: ev_q25_delim_dpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '32'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_ise_dpo_gcg
+  evaluation_id: ev_q25_ise_dpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '7.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q25_air_dpo_gcg
+  evaluation_id: ev_q25_air_dpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '1.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_none_comp
+  evaluation_id: ev_l31_none_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '3.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_delim_sft_comp
+  evaluation_id: ev_l31_delim_sft_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_ise_sft_comp
+  evaluation_id: ev_l31_ise_sft_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_air_sft_comp
+  evaluation_id: ev_l31_air_sft_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_delim_dpo_comp
+  evaluation_id: ev_l31_delim_dpo_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_ise_dpo_comp
+  evaluation_id: ev_l31_ise_dpo_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_air_dpo_comp
+  evaluation_id: ev_l31_air_dpo_comp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Completion
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_none_esc
+  evaluation_id: ev_l31_none_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '1.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_delim_sft_esc
+  evaluation_id: ev_l31_delim_sft_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_ise_sft_esc
+  evaluation_id: ev_l31_ise_sft_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_air_sft_esc
+  evaluation_id: ev_l31_air_sft_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_delim_dpo_esc
+  evaluation_id: ev_l31_delim_dpo_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_ise_dpo_esc
+  evaluation_id: ev_l31_ise_dpo_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_air_dpo_esc
+  evaluation_id: ev_l31_air_dpo_esc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape Sep.
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_none_gcg
+  evaluation_id: ev_l31_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '99.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_delim_sft_gcg
+  evaluation_id: ev_l31_delim_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '77'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_ise_sft_gcg
+  evaluation_id: ev_l31_ise_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '19.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_air_sft_gcg
+  evaluation_id: ev_l31_air_sft_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '11.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_delim_dpo_gcg
+  evaluation_id: ev_l31_delim_dpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_ise_dpo_gcg
+  evaluation_id: ev_l31_ise_dpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l31_air_dpo_gcg
+  evaluation_id: ev_l31_air_dpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '2.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+comparisons:
+- id: c_l32_comp_air_delim_sft
+  left: ev_l32_air_sft_comp
+  right: ev_l32_delim_sft_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same SFT training
+  page: 8
+- id: c_l32_comp_air_ise_sft
+  left: ev_l32_air_sft_comp
+  right: ev_l32_ise_sft_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same SFT training
+  page: 8
+- id: c_l32_comp_air_sft_none
+  left: ev_l32_air_sft_comp
+  right: ev_l32_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l32_comp_air_delim_dpo
+  left: ev_l32_air_dpo_comp
+  right: ev_l32_delim_dpo_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same DPO training
+  page: 8
+- id: c_l32_comp_air_ise_dpo
+  left: ev_l32_air_dpo_comp
+  right: ev_l32_ise_dpo_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same DPO training
+  page: 8
+- id: c_l32_comp_air_dpo_none
+  left: ev_l32_air_dpo_comp
+  right: ev_l32_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l32_esc_air_delim_sft
+  left: ev_l32_air_sft_esc
+  right: ev_l32_delim_sft_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same SFT training
+  page: 8
+- id: c_l32_esc_air_ise_sft
+  left: ev_l32_air_sft_esc
+  right: ev_l32_ise_sft_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same SFT training
+  page: 8
+- id: c_l32_esc_air_sft_none
+  left: ev_l32_air_sft_esc
+  right: ev_l32_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l32_esc_air_delim_dpo
+  left: ev_l32_air_dpo_esc
+  right: ev_l32_delim_dpo_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same DPO training
+  page: 8
+- id: c_l32_esc_air_ise_dpo
+  left: ev_l32_air_dpo_esc
+  right: ev_l32_ise_dpo_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same DPO training
+  page: 8
+- id: c_l32_esc_air_dpo_none
+  left: ev_l32_air_dpo_esc
+  right: ev_l32_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l32_gcg_air_delim_sft
+  left: ev_l32_air_sft_gcg
+  right: ev_l32_delim_sft_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same SFT training
+  page: 8
+- id: c_l32_gcg_air_ise_sft
+  left: ev_l32_air_sft_gcg
+  right: ev_l32_ise_sft_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same SFT training
+  page: 8
+- id: c_l32_gcg_air_sft_none
+  left: ev_l32_air_sft_gcg
+  right: ev_l32_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: unmatched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l32_gcg_air_delim_dpo
+  left: ev_l32_air_dpo_gcg
+  right: ev_l32_delim_dpo_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same DPO training
+  page: 8
+- id: c_l32_gcg_air_ise_dpo
+  left: ev_l32_air_dpo_gcg
+  right: ev_l32_ise_dpo_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same DPO training
+  page: 8
+- id: c_l32_gcg_air_dpo_none
+  left: ev_l32_air_dpo_gcg
+  right: ev_l32_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: unmatched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q25_comp_air_delim_sft
+  left: ev_q25_air_sft_comp
+  right: ev_q25_delim_sft_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same SFT training
+  page: 8
+- id: c_q25_comp_air_ise_sft
+  left: ev_q25_air_sft_comp
+  right: ev_q25_ise_sft_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same SFT training
+  page: 8
+- id: c_q25_comp_air_sft_none
+  left: ev_q25_air_sft_comp
+  right: ev_q25_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q25_comp_air_delim_dpo
+  left: ev_q25_air_dpo_comp
+  right: ev_q25_delim_dpo_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same DPO training
+  page: 8
+- id: c_q25_comp_air_ise_dpo
+  left: ev_q25_air_dpo_comp
+  right: ev_q25_ise_dpo_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same DPO training
+  page: 8
+- id: c_q25_comp_air_dpo_none
+  left: ev_q25_air_dpo_comp
+  right: ev_q25_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q25_esc_air_delim_sft
+  left: ev_q25_air_sft_esc
+  right: ev_q25_delim_sft_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same SFT training
+  page: 8
+- id: c_q25_esc_air_ise_sft
+  left: ev_q25_air_sft_esc
+  right: ev_q25_ise_sft_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same SFT training
+  page: 8
+- id: c_q25_esc_air_sft_none
+  left: ev_q25_air_sft_esc
+  right: ev_q25_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q25_esc_air_delim_dpo
+  left: ev_q25_air_dpo_esc
+  right: ev_q25_delim_dpo_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same DPO training
+  page: 8
+- id: c_q25_esc_air_ise_dpo
+  left: ev_q25_air_dpo_esc
+  right: ev_q25_ise_dpo_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same DPO training
+  page: 8
+- id: c_q25_esc_air_dpo_none
+  left: ev_q25_air_dpo_esc
+  right: ev_q25_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q25_gcg_air_delim_sft
+  left: ev_q25_air_sft_gcg
+  right: ev_q25_delim_sft_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same SFT training
+  page: 8
+- id: c_q25_gcg_air_ise_sft
+  left: ev_q25_air_sft_gcg
+  right: ev_q25_ise_sft_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same SFT training
+  page: 8
+- id: c_q25_gcg_air_sft_none
+  left: ev_q25_air_sft_gcg
+  right: ev_q25_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: unmatched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q25_gcg_air_delim_dpo
+  left: ev_q25_air_dpo_gcg
+  right: ev_q25_delim_dpo_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same DPO training
+  page: 8
+- id: c_q25_gcg_air_ise_dpo
+  left: ev_q25_air_dpo_gcg
+  right: ev_q25_ise_dpo_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same DPO training
+  page: 8
+- id: c_q25_gcg_air_dpo_none
+  left: ev_q25_air_dpo_gcg
+  right: ev_q25_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: unmatched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_comp_air_delim_sft
+  left: ev_l31_air_sft_comp
+  right: ev_l31_delim_sft_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same SFT training
+  page: 8
+- id: c_l31_comp_air_ise_sft
+  left: ev_l31_air_sft_comp
+  right: ev_l31_ise_sft_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same SFT training
+  page: 8
+- id: c_l31_comp_air_sft_none
+  left: ev_l31_air_sft_comp
+  right: ev_l31_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_comp_air_delim_dpo
+  left: ev_l31_air_dpo_comp
+  right: ev_l31_delim_dpo_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same DPO training
+  page: 8
+- id: c_l31_comp_air_ise_dpo
+  left: ev_l31_air_dpo_comp
+  right: ev_l31_ise_dpo_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same DPO training
+  page: 8
+- id: c_l31_comp_air_dpo_none
+  left: ev_l31_air_dpo_comp
+  right: ev_l31_none_comp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_esc_air_delim_sft
+  left: ev_l31_air_sft_esc
+  right: ev_l31_delim_sft_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same SFT training
+  page: 8
+- id: c_l31_esc_air_ise_sft
+  left: ev_l31_air_sft_esc
+  right: ev_l31_ise_sft_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same SFT training
+  page: 8
+- id: c_l31_esc_air_sft_none
+  left: ev_l31_air_sft_esc
+  right: ev_l31_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_esc_air_delim_dpo
+  left: ev_l31_air_dpo_esc
+  right: ev_l31_delim_dpo_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same DPO training
+  page: 8
+- id: c_l31_esc_air_ise_dpo
+  left: ev_l31_air_dpo_esc
+  right: ev_l31_ise_dpo_esc
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same DPO training
+  page: 8
+- id: c_l31_esc_air_dpo_none
+  left: ev_l31_air_dpo_esc
+  right: ev_l31_none_esc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_gcg_air_delim_sft
+  left: ev_l31_air_sft_gcg
+  right: ev_l31_delim_sft_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same SFT training
+  page: 8
+- id: c_l31_gcg_air_ise_sft
+  left: ev_l31_air_sft_gcg
+  right: ev_l31_ise_sft_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same SFT training
+  page: 8
+- id: c_l31_gcg_air_sft_none
+  left: ev_l31_air_sft_gcg
+  right: ev_l31_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: unmatched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_gcg_air_delim_dpo
+  left: ev_l31_air_dpo_gcg
+  right: ev_l31_delim_dpo_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against delim), same DPO training
+  page: 8
+- id: c_l31_gcg_air_ise_dpo
+  left: ev_l31_air_dpo_gcg
+  right: ev_l31_ise_dpo_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the IH injection mechanism (AIR against ise), same DPO training
+  page: 8
+- id: c_l31_gcg_air_dpo_none
+  left: ev_l31_air_dpo_gcg
+  right: ev_l31_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: unmatched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: 1.6x to 9.2x lower attack success on gradient-based attacks than state-of-the-art methods, without much loss of utility
+  location: abstract
+  anchor: reduction in attack success rate on gradient-based prompt injection attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_l32_gcg_air_delim_sft
+  - c_l32_gcg_air_delim_dpo
+  - c_l32_gcg_air_ise_sft
+  - c_l32_gcg_air_ise_dpo
+  - c_q25_gcg_air_delim_sft
+  - c_q25_gcg_air_delim_dpo
+  - c_q25_gcg_air_ise_sft
+  - c_q25_gcg_air_ise_dpo
+  - c_l31_gcg_air_delim_sft
+  - c_l31_gcg_air_delim_dpo
+  - c_l31_gcg_air_ise_sft
+  - c_l31_gcg_air_ise_dpo
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    general_utility: Figure 5 (AlpacaEval 2.0 win rate, chart only; not coded)

@@ -1,0 +1,2190 @@
+report:
+  id: liu_benchmark_arxiv2023
+  slug: '2310.12815'
+  title: Formalizing and Benchmarking Prompt Injection Attacks and Defenses
+  first_author: Yupei Liu
+  venue: arXiv preprint
+  peer_reviewed: unknown
+  arxiv: '2310.12815'
+  version_read: arXiv v5 (acknowledges anonymous reviewers and a shepherd; venue not printed)
+  first_date: '2023-10-19'
+  read: F
+  role: re_measures
+  code_release: https://github.com/liu00222/Open-Prompt-Injection
+  extraction_scope: 'Sections 6.1 and 6.3: Table 7 (GPT-4), the No defense, Delimiters, Sandwich prevention and Instructional prevention columns: ASV in part (a) and PNA-T in part (b) for all seven target tasks; the abstract
+    claims (paraphrasing and retokenization, which change the data before an unchanged model, the detection-based defences of Table 8, MR, other LLMs and the appendix tables not coded)'
+defences:
+- id: delim_gpt4
+  name: Delimiters
+  origin: other_report
+  base_checkpoint: GPT-4 (Azure OpenAI)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - data enclosed in delimiters so the model treats it as data
+  layout: instruction prompt in the system role, data in the user role
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Use delimiters to enclose the data to force
+  pages:
+    layout: 7
+- id: sandwich_gpt4
+  name: Sandwich prevention
+  origin: other_report
+  base_checkpoint: GPT-4 (Azure OpenAI)
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - the instruction prompt repeated after the data
+  layout: instruction prompt in the system role, data in the user role
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Append another instruction prompt at the end of the data
+  pages:
+    layout: 7
+- id: instr_gpt4
+  name: Instructional prevention
+  origin: other_report
+  base_checkpoint: GPT-4 (Azure OpenAI)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  components:
+  - instruction prompt rewritten to tell the model to ignore instructions in the data
+  layout: instruction prompt in the system role, data in the user role
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Re-design the instruction prompt to make the LLM ignore
+  pages:
+    layout: 7
+evaluations:
+- id: ev_none_dup_atk
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Dup. sentence detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_dup_clean
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Dup. sentence detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_gram_atk
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Grammar correction as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_gram_clean
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Grammar correction as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_hate_atk
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Hate detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_hate_clean
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Hate detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_nli_atk
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Nat. lang. inference as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_nli_clean
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Nat. lang. inference as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_sent_atk
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Sentiment analysis as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_sent_clean
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Sentiment analysis as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_spam_atk
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Spam detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_spam_clean
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Spam detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_summ_atk
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Summarization as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_summ_clean
+  defence_id: none:GPT-4 (Azure OpenAI)
+  benchmark: Summarization as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+  baseline_kind: off_the_shelf
+- id: ev_delim_dup_atk
+  defence_id: delim_gpt4
+  benchmark: Dup. sentence detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_dup_clean
+  defence_id: delim_gpt4
+  benchmark: Dup. sentence detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_gram_atk
+  defence_id: delim_gpt4
+  benchmark: Grammar correction as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_gram_clean
+  defence_id: delim_gpt4
+  benchmark: Grammar correction as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_hate_atk
+  defence_id: delim_gpt4
+  benchmark: Hate detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_hate_clean
+  defence_id: delim_gpt4
+  benchmark: Hate detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_nli_atk
+  defence_id: delim_gpt4
+  benchmark: Nat. lang. inference as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_nli_clean
+  defence_id: delim_gpt4
+  benchmark: Nat. lang. inference as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_sent_atk
+  defence_id: delim_gpt4
+  benchmark: Sentiment analysis as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_sent_clean
+  defence_id: delim_gpt4
+  benchmark: Sentiment analysis as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_spam_atk
+  defence_id: delim_gpt4
+  benchmark: Spam detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_spam_clean
+  defence_id: delim_gpt4
+  benchmark: Spam detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_summ_atk
+  defence_id: delim_gpt4
+  benchmark: Summarization as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_delim_summ_clean
+  defence_id: delim_gpt4
+  benchmark: Summarization as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_dup_atk
+  defence_id: sandwich_gpt4
+  benchmark: Dup. sentence detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_dup_clean
+  defence_id: sandwich_gpt4
+  benchmark: Dup. sentence detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_gram_atk
+  defence_id: sandwich_gpt4
+  benchmark: Grammar correction as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_gram_clean
+  defence_id: sandwich_gpt4
+  benchmark: Grammar correction as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_hate_atk
+  defence_id: sandwich_gpt4
+  benchmark: Hate detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_hate_clean
+  defence_id: sandwich_gpt4
+  benchmark: Hate detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_nli_atk
+  defence_id: sandwich_gpt4
+  benchmark: Nat. lang. inference as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_nli_clean
+  defence_id: sandwich_gpt4
+  benchmark: Nat. lang. inference as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_sent_atk
+  defence_id: sandwich_gpt4
+  benchmark: Sentiment analysis as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_sent_clean
+  defence_id: sandwich_gpt4
+  benchmark: Sentiment analysis as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_spam_atk
+  defence_id: sandwich_gpt4
+  benchmark: Spam detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_spam_clean
+  defence_id: sandwich_gpt4
+  benchmark: Spam detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_summ_atk
+  defence_id: sandwich_gpt4
+  benchmark: Summarization as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_sandwich_summ_clean
+  defence_id: sandwich_gpt4
+  benchmark: Summarization as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_dup_atk
+  defence_id: instr_gpt4
+  benchmark: Dup. sentence detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_dup_clean
+  defence_id: instr_gpt4
+  benchmark: Dup. sentence detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_gram_atk
+  defence_id: instr_gpt4
+  benchmark: Grammar correction as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_gram_clean
+  defence_id: instr_gpt4
+  benchmark: Grammar correction as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_hate_atk
+  defence_id: instr_gpt4
+  benchmark: Hate detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_hate_clean
+  defence_id: instr_gpt4
+  benchmark: Hate detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_nli_atk
+  defence_id: instr_gpt4
+  benchmark: Nat. lang. inference as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_nli_clean
+  defence_id: instr_gpt4
+  benchmark: Nat. lang. inference as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_sent_atk
+  defence_id: instr_gpt4
+  benchmark: Sentiment analysis as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_sent_clean
+  defence_id: instr_gpt4
+  benchmark: Sentiment analysis as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_spam_atk
+  defence_id: instr_gpt4
+  benchmark: Spam detection as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_spam_clean
+  defence_id: instr_gpt4
+  benchmark: Spam detection as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_summ_atk
+  defence_id: instr_gpt4
+  benchmark: Summarization as the target task, 100 target examples, averaged over the 7 injected tasks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'task metric on the injected task''s label: accuracy for classification, GLEU for grammar correction, Rouge-1 for summarisation'
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  attacker_budget: Combined Attack
+  sample_size: 100 target x 100 injected examples
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+- id: ev_instr_summ_clean
+  defence_id: instr_gpt4
+  benchmark: Summarization as the target task, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metric on the target task's label (PNA-T)
+  layout_same_as_defence: 'yes'
+  measured_by: liu_benchmark_arxiv2023
+  page: 11
+  sample_size: '100'
+  decoding: temperature 0.1
+  pages:
+    benchmark: 7
+    judge: 8
+    decoding: 7
+results:
+- id: r_none_dup_asv
+  evaluation_id: ev_none_dup_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.76'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_none_dup_pna
+  evaluation_id: ev_none_dup_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.73'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_none_gram_asv
+  evaluation_id: ev_none_gram_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.73'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_none_gram_pna
+  evaluation_id: ev_none_gram_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.48'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_none_hate_asv
+  evaluation_id: ev_none_hate_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.74'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_none_hate_pna
+  evaluation_id: ev_none_hate_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.79'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_none_nli_asv
+  evaluation_id: ev_none_nli_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.75'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_none_nli_pna
+  evaluation_id: ev_none_nli_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.86'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_none_sent_asv
+  evaluation_id: ev_none_sent_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.76'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_none_sent_pna
+  evaluation_id: ev_none_sent_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.96'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_none_spam_asv
+  evaluation_id: ev_none_spam_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.76'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_none_spam_pna
+  evaluation_id: ev_none_spam_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.92'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_none_summ_asv
+  evaluation_id: ev_none_summ_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.75'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_none_summ_pna
+  evaluation_id: ev_none_summ_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.38'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_delim_dup_asv
+  evaluation_id: ev_delim_dup_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.36'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_delim_dup_pna
+  evaluation_id: ev_delim_dup_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.75'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_delim_gram_asv
+  evaluation_id: ev_delim_gram_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.29'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_delim_gram_pna
+  evaluation_id: ev_delim_gram_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.00'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_delim_hate_asv
+  evaluation_id: ev_delim_hate_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.39'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_delim_hate_pna
+  evaluation_id: ev_delim_hate_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.88'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_delim_nli_asv
+  evaluation_id: ev_delim_nli_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.42'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_delim_nli_pna
+  evaluation_id: ev_delim_nli_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.85'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_delim_sent_asv
+  evaluation_id: ev_delim_sent_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.51'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_delim_sent_pna
+  evaluation_id: ev_delim_sent_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.92'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_delim_spam_asv
+  evaluation_id: ev_delim_spam_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.65'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_delim_spam_pna
+  evaluation_id: ev_delim_spam_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.92'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_delim_summ_asv
+  evaluation_id: ev_delim_summ_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.72'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_delim_summ_pna
+  evaluation_id: ev_delim_summ_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.22'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_sandwich_dup_asv
+  evaluation_id: ev_sandwich_dup_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.39'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_sandwich_dup_pna
+  evaluation_id: ev_sandwich_dup_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.77'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_sandwich_gram_asv
+  evaluation_id: ev_sandwich_gram_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.26'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_sandwich_gram_pna
+  evaluation_id: ev_sandwich_gram_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.53'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_sandwich_hate_asv
+  evaluation_id: ev_sandwich_hate_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.36'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_sandwich_hate_pna
+  evaluation_id: ev_sandwich_hate_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.88'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_sandwich_nli_asv
+  evaluation_id: ev_sandwich_nli_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.65'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_sandwich_nli_pna
+  evaluation_id: ev_sandwich_nli_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.86'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_sandwich_sent_asv
+  evaluation_id: ev_sandwich_sent_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.26'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_sandwich_sent_pna
+  evaluation_id: ev_sandwich_sent_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.92'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_sandwich_spam_asv
+  evaluation_id: ev_sandwich_spam_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.57'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_sandwich_spam_pna
+  evaluation_id: ev_sandwich_spam_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.86'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_sandwich_summ_asv
+  evaluation_id: ev_sandwich_summ_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.70'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_sandwich_summ_pna
+  evaluation_id: ev_sandwich_summ_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.24'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_instr_dup_asv
+  evaluation_id: ev_instr_dup_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.17'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_instr_dup_pna
+  evaluation_id: ev_instr_dup_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.76'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_instr_gram_asv
+  evaluation_id: ev_instr_gram_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.45'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_instr_gram_pna
+  evaluation_id: ev_instr_gram_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.52'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_instr_hate_asv
+  evaluation_id: ev_instr_hate_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.13'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_instr_hate_pna
+  evaluation_id: ev_instr_hate_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.88'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_instr_nli_asv
+  evaluation_id: ev_instr_nli_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.45'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_instr_nli_pna
+  evaluation_id: ev_instr_nli_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.84'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_instr_sent_asv
+  evaluation_id: ev_instr_sent_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.48'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_instr_sent_pna
+  evaluation_id: ev_instr_sent_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.95'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_instr_spam_asv
+  evaluation_id: ev_instr_spam_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.28'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_instr_spam_pna
+  evaluation_id: ev_instr_spam_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.92'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+- id: r_instr_summ_asv
+  evaluation_id: ev_instr_summ_atk
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASV
+  value: '0.73'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(a)
+- id: r_instr_summ_pna
+  evaluation_id: ev_instr_summ_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: PNA-T
+  value: '0.23'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 7(b)
+comparisons:
+- id: c_delim_dup_atk
+  left: ev_delim_dup_atk
+  right: ev_none_dup_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_dup_clean
+  left: ev_delim_dup_clean
+  right: ev_none_dup_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_gram_atk
+  left: ev_delim_gram_atk
+  right: ev_none_gram_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_gram_clean
+  left: ev_delim_gram_clean
+  right: ev_none_gram_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_hate_atk
+  left: ev_delim_hate_atk
+  right: ev_none_hate_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_hate_clean
+  left: ev_delim_hate_clean
+  right: ev_none_hate_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_nli_atk
+  left: ev_delim_nli_atk
+  right: ev_none_nli_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_nli_clean
+  left: ev_delim_nli_clean
+  right: ev_none_nli_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_sent_atk
+  left: ev_delim_sent_atk
+  right: ev_none_sent_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_sent_clean
+  left: ev_delim_sent_clean
+  right: ev_none_sent_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_spam_atk
+  left: ev_delim_spam_atk
+  right: ev_none_spam_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_spam_clean
+  left: ev_delim_spam_clean
+  right: ev_none_spam_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_summ_atk
+  left: ev_delim_summ_atk
+  right: ev_none_summ_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_delim_summ_clean
+  left: ev_delim_summ_clean
+  right: ev_none_summ_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_dup_atk
+  left: ev_sandwich_dup_atk
+  right: ev_none_dup_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_dup_clean
+  left: ev_sandwich_dup_clean
+  right: ev_none_dup_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_gram_atk
+  left: ev_sandwich_gram_atk
+  right: ev_none_gram_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_gram_clean
+  left: ev_sandwich_gram_clean
+  right: ev_none_gram_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_hate_atk
+  left: ev_sandwich_hate_atk
+  right: ev_none_hate_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_hate_clean
+  left: ev_sandwich_hate_clean
+  right: ev_none_hate_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_nli_atk
+  left: ev_sandwich_nli_atk
+  right: ev_none_nli_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_nli_clean
+  left: ev_sandwich_nli_clean
+  right: ev_none_nli_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_sent_atk
+  left: ev_sandwich_sent_atk
+  right: ev_none_sent_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_sent_clean
+  left: ev_sandwich_sent_clean
+  right: ev_none_sent_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_spam_atk
+  left: ev_sandwich_spam_atk
+  right: ev_none_spam_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_spam_clean
+  left: ev_sandwich_spam_clean
+  right: ev_none_spam_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_summ_atk
+  left: ev_sandwich_summ_atk
+  right: ev_none_summ_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_sandwich_summ_clean
+  left: ev_sandwich_summ_clean
+  right: ev_none_summ_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_dup_atk
+  left: ev_instr_dup_atk
+  right: ev_none_dup_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_dup_clean
+  left: ev_instr_dup_clean
+  right: ev_none_dup_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_gram_atk
+  left: ev_instr_gram_atk
+  right: ev_none_gram_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_gram_clean
+  left: ev_instr_gram_clean
+  right: ev_none_gram_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_hate_atk
+  left: ev_instr_hate_atk
+  right: ev_none_hate_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_hate_clean
+  left: ev_instr_hate_clean
+  right: ev_none_hate_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_nli_atk
+  left: ev_instr_nli_atk
+  right: ev_none_nli_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_nli_clean
+  left: ev_instr_nli_clean
+  right: ev_none_nli_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_sent_atk
+  left: ev_instr_sent_atk
+  right: ev_none_sent_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_sent_clean
+  left: ev_instr_sent_clean
+  right: ev_none_sent_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_spam_atk
+  left: ev_instr_spam_atk
+  right: ev_none_spam_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_spam_clean
+  left: ev_instr_spam_clean
+  right: ev_none_spam_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_summ_atk
+  left: ev_instr_summ_atk
+  right: ev_none_summ_atk
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_instr_summ_clean
+  left: ev_instr_summ_clean
+  right: ev_none_summ_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+claims:
+- id: k1
+  text: systematic evaluation of 5 attacks and 10 defences with 10 LLMs and 7 tasks, a common benchmark
+  location: abstract
+  anchor: we conduct a systematic evaluation on 5 prompt injection attacks and 10 defenses
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_delim_dup_atk
+  - c_delim_gram_atk
+  - c_delim_hate_atk
+  - c_delim_nli_atk
+  - c_delim_sent_atk
+  - c_delim_spam_atk
+  - c_delim_summ_atk
+  - c_sandwich_dup_atk
+  - c_sandwich_gram_atk
+  - c_sandwich_hate_atk
+  - c_sandwich_nli_atk
+  - c_sandwich_sent_atk
+  - c_sandwich_spam_atk
+  - c_sandwich_summ_atk
+  - c_instr_dup_atk
+  - c_instr_gram_atk
+  - c_instr_hate_atk
+  - c_instr_nli_atk
+  - c_instr_sent_atk
+  - c_instr_spam_atk
+  - c_instr_summ_atk
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 7(a) (ASV, averaged over injected tasks)
+    R2clean: Table 7(b) (PNA-T)

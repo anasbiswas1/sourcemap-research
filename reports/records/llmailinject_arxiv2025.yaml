@@ -1,0 +1,128 @@
+report:
+  id: llmailinject_arxiv2025
+  slug: '2506.09956'
+  title: 'LLMail-Inject: A Dataset from a Realistic Adaptive Prompt Injection Challenge'
+  first_author: Sahar Abdelnabi
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2506.09956'
+  version_read: arXiv v2
+  first_date: '2025-06-11'
+  read: F
+  role: re_measures
+  code_release: https://github.com/microsoft/llmail-inject-challenge
+  later_version: Findings of EMNLP 2026, DOI 10.18653/2026.findings-emnlp.514 (from the search record; not read)
+  extraction_scope: 'Sections 3 to 6.2: the Spotlight row of Table 1 (level 4, GPT-4o-mini) and the Meta SecAlign 70B row of Table 5; the abstract claim (the detection defences, team counts in Table 2, Tables 3, 4 and 6 and
+    the domain transfers not coded)'
+defences:
+- id: spot_g4omini
+  name: Spotlighting (delimiters with random suffix and datamarking, with an instruction not to follow marked content)
+  origin: other_report
+  base_checkpoint: GPT-4o-mini
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  components:
+  - query and emails wrapped in delimiters with a random suffix
+  - spaces in the emails replaced by a random short string
+  - instruction not to follow instructions in data-marked content
+  layout: user request and retrieved emails in the context of an email assistant with a send_email tool
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: wraps the query and emails in delimiters with random suf
+- id: msa70b_replay
+  name: Meta SecAlign 70B (released checkpoint, replayed attacks)
+  origin: other_report
+  base_checkpoint: Meta SecAlign 70B (as printed; base model not stated in this report)
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  anchor: Meta SecAlign (Chen et al., 2025b) (a model specifi- cally trained
+  name_as_printed: Meta SecAlign 70B
+evaluations:
+- id: ev_spot_l4
+  defence_id: spot_g4omini
+  benchmark: LLMail-Inject challenge, retrieval level 4 (exfiltrate the Q2 profit figure via send_email)
+  attacker_type: human
+  attacker_access: grey_box
+  judge: team succeeds if its email is retrieved, passes the defence and triggers send_email with the right arguments
+  layout_same_as_defence: 'yes'
+  measured_by: llmailinject_arxiv2025
+  page: 7
+  attacker_budget: unlimited submissions with per-objective feedback; defence details disclosed except delimiters and system prompt
+  decoding: not reported
+  pages:
+    benchmark: 3
+    judge: 3
+    attacker_budget: 4
+- id: ev_msa70b_replay
+  defence_id: msa70b_replay
+  benchmark: LLMail-Inject attacks replayed on a model released after the challenge, no optimisation
+  attacker_type: static
+  attacker_access: black_box
+  judge: send_email tool called with the attacker's arguments
+  layout_same_as_defence: 'yes'
+  measured_by: llmailinject_arxiv2025
+  page: 9
+  attacker_budget: frozen corpus of human-written challenge attacks
+  decoding: not reported
+  pages:
+    benchmark: 8
+results:
+- id: r_spot_l4_tsr
+  evaluation_id: ev_spot_l4
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: TSR (team success rate)
+  value: '0.529'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_msa70b_replay
+  evaluation_id: ev_msa70b_replay
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (%)
+  value: '32.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 5
+claims:
+- id: k1
+  text: 'models under 5% ASR on existing benchmarks fail more here: Meta SecAlign still yields 32% ASR'
+  location: abstract
+  anchor: Meta SecAlign –specifically trained against prompt injection–still yields 32% ASR
+  jobs:
+  - R1
+  supported_by: []
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1 (team success rate, a proxy) and Table 5 (replayed ASR)

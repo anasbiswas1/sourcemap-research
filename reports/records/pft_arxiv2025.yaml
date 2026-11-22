@@ -1,0 +1,1164 @@
+report:
+  id: pft_arxiv2025
+  slug: '2505.00626'
+  title: 'The Illusion of Role Separation: Hidden Shortcuts in LLM Role Learning (and How to Fix Them)'
+  first_author: Zihao Wang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2505.00626'
+  version_read: arXiv v2
+  first_date: '2025-05-01'
+  read: F
+  role: proposes
+  code_release: none found in the paper
+  extraction_scope: 'Sections 3 to 6.2 and Appendix B: Table 1 (base and dataset-initial columns) and Table 2 (dataset-initial, both models); the abstract claim (the dataset-symm column of Table 1, Figures 2 to 8 and Figure
+    6''s utility panel, whose training set is not stated, not coded)'
+defences:
+- id: pft_llama
+  name: Position-enhanced fine-tuning (PFT, d = 512)
+  origin: this_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - chat_roles
+  - position
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  components:
+  - position IDs of user tokens shifted by a gap d = 512 after the last system token, order kept within each role
+  - LoRA on query and key projections, about 2,300 samples (dataset-initial), user input treated as data for the system task
+  layout: key instruction in the system message, the attacker's text in the user message
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We call this method Position-enhanced fine-tuning (PFT)
+  pages:
+    components: 3
+    isolation: 8
+- id: sft_llama
+  name: Vanilla SFT on dataset-initial (no position gap)
+  origin: this_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: 'Vanilla SFT: Standard supervised fine-tuning without any modifications'
+  layout: key instruction in the system message, the attacker's text in the user message
+- id: delim_llama
+  name: Delimiter-enhanced SFT (delimiter embeddings tuned)
+  origin: this_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - chat_roles
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: Delimiter-enhanced SFT
+  layout: key instruction in the system message, the attacker's text in the user message
+- id: pft_gemma
+  name: Position-enhanced fine-tuning (PFT, d = 256)
+  origin: this_report
+  base_checkpoint: Gemma-2-9b-it
+  axis1:
+  - chat_roles
+  - position
+  axis2:
+  - sft
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  components:
+  - position IDs of user tokens shifted by a gap d = 256 after the last system token, order kept within each role
+  - LoRA on query and key projections, about 2,300 samples (dataset-initial), user input treated as data for the system task
+  layout: key instruction in the system message, the attacker's text in the user message
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We call this method Position-enhanced fine-tuning (PFT)
+  pages:
+    components: 3
+    isolation: 8
+- id: sft_gemma
+  name: Vanilla SFT on dataset-initial (no position gap)
+  origin: this_report
+  base_checkpoint: Gemma-2-9b-it
+  axis1:
+  - chat_roles
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: 'Vanilla SFT: Standard supervised fine-tuning without any modifications'
+  layout: key instruction in the system message, the attacker's text in the user message
+- id: delim_gemma
+  name: Delimiter-enhanced SFT (delimiter embeddings tuned)
+  origin: this_report
+  base_checkpoint: Gemma-2-9b-it
+  axis1:
+  - chat_roles
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: Delimiter-enhanced SFT
+  layout: key instruction in the system message, the attacker's text in the user message
+evaluations:
+- id: ev_llama_sft_gsum
+  defence_id: sft_llama
+  benchmark: Gandalf Summarization against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Summarization samples from online games
+  sample_size: '114'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_sft_gign
+  defence_id: sft_llama
+  benchmark: Gandalf Ignore against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Ignore samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_sft_ttext
+  defence_id: sft_llama
+  benchmark: TensorTrust Extraction against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Extraction samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_sft_tthij
+  defence_id: sft_llama
+  benchmark: TensorTrust Hijacking against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Hijacking samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_delim_gsum
+  defence_id: delim_llama
+  benchmark: Gandalf Summarization against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Summarization samples from online games
+  sample_size: '114'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_delim_gign
+  defence_id: delim_llama
+  benchmark: Gandalf Ignore against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Ignore samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_delim_ttext
+  defence_id: delim_llama
+  benchmark: TensorTrust Extraction against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Extraction samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_delim_tthij
+  defence_id: delim_llama
+  benchmark: TensorTrust Hijacking against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Hijacking samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_pft_gsum
+  defence_id: pft_llama
+  benchmark: Gandalf Summarization against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Summarization samples from online games
+  sample_size: '114'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_pft_gign
+  defence_id: pft_llama
+  benchmark: Gandalf Ignore against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Ignore samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_pft_ttext
+  defence_id: pft_llama
+  benchmark: TensorTrust Extraction against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Extraction samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_pft_tthij
+  defence_id: pft_llama
+  benchmark: TensorTrust Hijacking against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Hijacking samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_sft_gsum
+  defence_id: sft_gemma
+  benchmark: Gandalf Summarization against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Summarization samples from online games
+  sample_size: '114'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_sft_gign
+  defence_id: sft_gemma
+  benchmark: Gandalf Ignore against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Ignore samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_sft_ttext
+  defence_id: sft_gemma
+  benchmark: TensorTrust Extraction against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Extraction samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_sft_tthij
+  defence_id: sft_gemma
+  benchmark: TensorTrust Hijacking against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Hijacking samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_delim_gsum
+  defence_id: delim_gemma
+  benchmark: Gandalf Summarization against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Summarization samples from online games
+  sample_size: '114'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_delim_gign
+  defence_id: delim_gemma
+  benchmark: Gandalf Ignore against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Ignore samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_delim_ttext
+  defence_id: delim_gemma
+  benchmark: TensorTrust Extraction against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Extraction samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_delim_tthij
+  defence_id: delim_gemma
+  benchmark: TensorTrust Hijacking against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Hijacking samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_pft_gsum
+  defence_id: pft_gemma
+  benchmark: Gandalf Summarization against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Summarization samples from online games
+  sample_size: '114'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_pft_gign
+  defence_id: pft_gemma
+  benchmark: Gandalf Ignore against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: Gandalf Ignore samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_pft_ttext
+  defence_id: pft_gemma
+  benchmark: TensorTrust Extraction against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Extraction samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_gemma_pft_tthij
+  defence_id: pft_gemma
+  benchmark: TensorTrust Hijacking against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 8
+  attacker_budget: TensorTrust Hijacking samples from online games
+  sample_size: '500'
+  decoding: greedy
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_base_gsum
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Gandalf Summarization against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 3
+  attacker_budget: Gandalf Summarization samples from online games
+  sample_size: '114'
+  decoding: greedy
+  baseline_kind: off_the_shelf
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_base_gign
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Gandalf Ignore against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 3
+  attacker_budget: Gandalf Ignore samples from online games
+  sample_size: '500'
+  decoding: greedy
+  baseline_kind: off_the_shelf
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_base_ttext
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: TensorTrust Extraction against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 3
+  attacker_budget: TensorTrust Extraction samples from online games
+  sample_size: '500'
+  decoding: greedy
+  baseline_kind: off_the_shelf
+  pages:
+    sample_size: 10
+    decoding: 10
+- id: ev_llama_base_tthij
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: TensorTrust Hijacking against a password-manager system prompt
+  attacker_type: human
+  attacker_access: black_box
+  judge: accuracy of the response to the key task (attack resisted)
+  layout_same_as_defence: 'yes'
+  measured_by: pft_arxiv2025
+  page: 3
+  attacker_budget: TensorTrust Hijacking samples from online games
+  sample_size: '500'
+  decoding: greedy
+  baseline_kind: off_the_shelf
+  pages:
+    sample_size: 10
+    decoding: 10
+results:
+- id: r_llama_sft_gsum
+  evaluation_id: ev_llama_sft_gsum
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Summarization
+  value: '90'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_sft_gign
+  evaluation_id: ev_llama_sft_gign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Ignore
+  value: '86'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_sft_ttext
+  evaluation_id: ev_llama_sft_ttext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Extraction
+  value: '33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_sft_tthij
+  evaluation_id: ev_llama_sft_tthij
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Hijacking
+  value: '33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_delim_gsum
+  evaluation_id: ev_llama_delim_gsum
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Summarization
+  value: '93'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_delim_gign
+  evaluation_id: ev_llama_delim_gign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Ignore
+  value: '89'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_delim_ttext
+  evaluation_id: ev_llama_delim_ttext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Extraction
+  value: '35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_delim_tthij
+  evaluation_id: ev_llama_delim_tthij
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Hijacking
+  value: '32'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_pft_gsum
+  evaluation_id: ev_llama_pft_gsum
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Summarization
+  value: '85'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_pft_gign
+  evaluation_id: ev_llama_pft_gign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Ignore
+  value: '94'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_pft_ttext
+  evaluation_id: ev_llama_pft_ttext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Extraction
+  value: '62'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_pft_tthij
+  evaluation_id: ev_llama_pft_tthij
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Hijacking
+  value: '37'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_sft_gsum
+  evaluation_id: ev_gemma_sft_gsum
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Summarization
+  value: '99'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_sft_gign
+  evaluation_id: ev_gemma_sft_gign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Ignore
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_sft_ttext
+  evaluation_id: ev_gemma_sft_ttext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Extraction
+  value: '70'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_sft_tthij
+  evaluation_id: ev_gemma_sft_tthij
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Hijacking
+  value: '37'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_delim_gsum
+  evaluation_id: ev_gemma_delim_gsum
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Summarization
+  value: '99'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_delim_gign
+  evaluation_id: ev_gemma_delim_gign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Ignore
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_delim_ttext
+  evaluation_id: ev_gemma_delim_ttext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Extraction
+  value: '75'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_delim_tthij
+  evaluation_id: ev_gemma_delim_tthij
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Hijacking
+  value: '37'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_pft_gsum
+  evaluation_id: ev_gemma_pft_gsum
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Summarization
+  value: '99'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_pft_gign
+  evaluation_id: ev_gemma_pft_gign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Ignore
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_pft_ttext
+  evaluation_id: ev_gemma_pft_ttext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Extraction
+  value: '92'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gemma_pft_tthij
+  evaluation_id: ev_gemma_pft_tthij
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Hijacking
+  value: '50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_llama_base_gsum
+  evaluation_id: ev_llama_base_gsum
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Summarization
+  value: '10'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_llama_base_gign
+  evaluation_id: ev_llama_base_gign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, Gandalf Ignore
+  value: '0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_llama_base_ttext
+  evaluation_id: ev_llama_base_ttext
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Extraction
+  value: '4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_llama_base_tthij
+  evaluation_id: ev_llama_base_tthij
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Accuracy, TensorTrust Hijacking
+  value: '4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+comparisons:
+- id: c_llama_gsum_pft_sft
+  left: ev_llama_pft_gsum
+  right: ev_llama_sft_gsum
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the position-ID gap (PFT) against the same fine-tuning without it
+  page: 8
+- id: c_llama_gsum_pft_delim
+  left: ev_llama_pft_gsum
+  right: ev_llama_delim_gsum
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: position-ID gap against tuned delimiter embeddings'
+  page: 8
+- id: c_llama_gign_pft_sft
+  left: ev_llama_pft_gign
+  right: ev_llama_sft_gign
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the position-ID gap (PFT) against the same fine-tuning without it
+  page: 8
+- id: c_llama_gign_pft_delim
+  left: ev_llama_pft_gign
+  right: ev_llama_delim_gign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: position-ID gap against tuned delimiter embeddings'
+  page: 8
+- id: c_llama_ttext_pft_sft
+  left: ev_llama_pft_ttext
+  right: ev_llama_sft_ttext
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the position-ID gap (PFT) against the same fine-tuning without it
+  page: 8
+- id: c_llama_ttext_pft_delim
+  left: ev_llama_pft_ttext
+  right: ev_llama_delim_ttext
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: position-ID gap against tuned delimiter embeddings'
+  page: 8
+- id: c_llama_tthij_pft_sft
+  left: ev_llama_pft_tthij
+  right: ev_llama_sft_tthij
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the position-ID gap (PFT) against the same fine-tuning without it
+  page: 8
+- id: c_llama_tthij_pft_delim
+  left: ev_llama_pft_tthij
+  right: ev_llama_delim_tthij
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: position-ID gap against tuned delimiter embeddings'
+  page: 8
+- id: c_gemma_gsum_pft_sft
+  left: ev_gemma_pft_gsum
+  right: ev_gemma_sft_gsum
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the position-ID gap (PFT) against the same fine-tuning without it
+  page: 8
+- id: c_gemma_gsum_pft_delim
+  left: ev_gemma_pft_gsum
+  right: ev_gemma_delim_gsum
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: position-ID gap against tuned delimiter embeddings'
+  page: 8
+- id: c_gemma_gign_pft_sft
+  left: ev_gemma_pft_gign
+  right: ev_gemma_sft_gign
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the position-ID gap (PFT) against the same fine-tuning without it
+  page: 8
+- id: c_gemma_gign_pft_delim
+  left: ev_gemma_pft_gign
+  right: ev_gemma_delim_gign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: position-ID gap against tuned delimiter embeddings'
+  page: 8
+- id: c_gemma_ttext_pft_sft
+  left: ev_gemma_pft_ttext
+  right: ev_gemma_sft_ttext
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the position-ID gap (PFT) against the same fine-tuning without it
+  page: 8
+- id: c_gemma_ttext_pft_delim
+  left: ev_gemma_pft_ttext
+  right: ev_gemma_delim_ttext
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: position-ID gap against tuned delimiter embeddings'
+  page: 8
+- id: c_gemma_tthij_pft_sft
+  left: ev_gemma_pft_tthij
+  right: ev_gemma_sft_tthij
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the position-ID gap (PFT) against the same fine-tuning without it
+  page: 8
+- id: c_gemma_tthij_pft_delim
+  left: ev_gemma_pft_tthij
+  right: ev_gemma_delim_tthij
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: position-ID gap against tuned delimiter embeddings'
+  page: 8
+- id: c_llama_gsum_sft_base
+  left: ev_llama_sft_gsum
+  right: ev_llama_base_gsum
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: role-separation fine-tuning (dataset-initial) against the base model
+  page: 3
+- id: c_llama_gign_sft_base
+  left: ev_llama_sft_gign
+  right: ev_llama_base_gign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: role-separation fine-tuning (dataset-initial) against the base model
+  page: 3
+- id: c_llama_ttext_sft_base
+  left: ev_llama_sft_ttext
+  right: ev_llama_base_ttext
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: role-separation fine-tuning (dataset-initial) against the base model
+  page: 3
+- id: c_llama_tthij_sft_base
+  left: ev_llama_sft_tthij
+  right: ev_llama_base_tthij
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: role-separation fine-tuning (dataset-initial) against the base model
+  page: 3
+claims:
+- id: k1
+  text: manipulating position IDs gives clearer role distinctions and less reliance on shortcuts
+  location: abstract
+  anchor: manipulating position IDs helps the model learn clearer distinctions
+  jobs:
+  - R1
+  supported_by:
+  - c_llama_gsum_pft_sft
+  - c_llama_gign_pft_sft
+  - c_llama_ttext_pft_sft
+  - c_llama_tthij_pft_sft
+  - c_gemma_gsum_pft_sft
+  - c_gemma_gign_pft_sft
+  - c_gemma_ttext_pft_sft
+  - c_gemma_tthij_pft_sft
+  page: 1
+  contradicted_by:
+  - r_llama_pft_gsum
+coverage:
+  R1: direct
+  R2clean: unclear
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1 and 2 (accuracy under attack)
+    R2clean: Figure 6(a) password-dataset accuracy; which training set those models used is not stated

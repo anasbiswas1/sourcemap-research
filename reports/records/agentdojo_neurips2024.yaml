@@ -1,0 +1,344 @@
+report:
+  id: agentdojo_neurips2024
+  slug: '2406.13352'
+  title: 'AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents'
+  first_author: Edoardo Debenedetti
+  venue: NeurIPS 2024 Datasets and Benchmarks Track
+  peer_reviewed: 'yes'
+  arxiv: '2406.13352'
+  version_read: arXiv v3 (carries the NeurIPS 2024 Datasets and Benchmarks footer)
+  first_date: '2024-06-19'
+  read: F
+  role: benchmark
+  code_release: https://agentdojo.spylab.ai
+  extraction_scope: 'Sections 3, 4.1 and 4.3 and Appendix C: the No defense, Delimiting and Repeat prompt columns of Table 5 (GPT-4o); the abstract claim (the PI detector, a detector, and the tool filter, a system-level isolation,
+    are not coded; Tables 3 and 4 and the attack ablations are attack measurements, not coded)'
+defences:
+- id: delim_gpt4o
+  name: Data delimiters (following spotlighting)
+  origin: other_report
+  base_checkpoint: GPT-4o
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 8
+  components:
+  - every tool output wrapped in special delimiters
+  - system prompt tells the model to ignore instructions inside them
+  layout: user task in the user turn, tool outputs as tool messages in the agent loop
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we format all tool outputs with special delimiters
+- id: repeat_gpt4o
+  name: Prompt sandwiching (repeat the user prompt)
+  origin: other_report
+  base_checkpoint: GPT-4o
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 8
+  components:
+  - the user instruction repeated after each function call
+  layout: user task in the user turn, tool outputs as tool messages in the agent loop
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: which repeats the user instructions after each function call
+evaluations:
+- id: ev_none_clean
+  defence_id: none:GPT-4o
+  benchmark: AgentDojo, 97 user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: deterministic utility function over the model output and environment state
+  layout_same_as_defence: 'yes'
+  measured_by: agentdojo_neurips2024
+  page: 20
+  sample_size: '97'
+  decoding: not reported
+  pages:
+    judge: 4
+    sample_size: 7
+  baseline_kind: off_the_shelf
+- id: ev_none_attack
+  defence_id: none:GPT-4o
+  benchmark: AgentDojo, 629 security test cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: utility function (user task) and security function (attacker goal met)
+  layout_same_as_defence: 'yes'
+  measured_by: agentdojo_neurips2024
+  page: 20
+  attacker_budget: Important message prompt injection addressing the model and the user by name
+  sample_size: '629'
+  decoding: not reported
+  pages:
+    judge: 5
+    sample_size: 7
+    attacker_budget: 8
+  baseline_kind: off_the_shelf
+- id: ev_delim_clean
+  defence_id: delim_gpt4o
+  benchmark: AgentDojo, 97 user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: deterministic utility function over the model output and environment state
+  layout_same_as_defence: 'yes'
+  measured_by: agentdojo_neurips2024
+  page: 20
+  sample_size: '97'
+  decoding: not reported
+  pages:
+    judge: 4
+    sample_size: 7
+- id: ev_delim_attack
+  defence_id: delim_gpt4o
+  benchmark: AgentDojo, 629 security test cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: utility function (user task) and security function (attacker goal met)
+  layout_same_as_defence: 'yes'
+  measured_by: agentdojo_neurips2024
+  page: 20
+  attacker_budget: Important message prompt injection addressing the model and the user by name
+  sample_size: '629'
+  decoding: not reported
+  pages:
+    judge: 5
+    sample_size: 7
+    attacker_budget: 8
+- id: ev_repeat_clean
+  defence_id: repeat_gpt4o
+  benchmark: AgentDojo, 97 user tasks without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: deterministic utility function over the model output and environment state
+  layout_same_as_defence: 'yes'
+  measured_by: agentdojo_neurips2024
+  page: 20
+  sample_size: '97'
+  decoding: not reported
+  pages:
+    judge: 4
+    sample_size: 7
+- id: ev_repeat_attack
+  defence_id: repeat_gpt4o
+  benchmark: AgentDojo, 629 security test cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: utility function (user task) and security function (attacker goal met)
+  layout_same_as_defence: 'yes'
+  measured_by: agentdojo_neurips2024
+  page: 20
+  attacker_budget: Important message prompt injection addressing the model and the user by name
+  sample_size: '629'
+  decoding: not reported
+  pages:
+    judge: 5
+    sample_size: 7
+    attacker_budget: 8
+results:
+- id: r_none_util
+  evaluation_id: ev_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Benign utility
+  value: '69.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 5
+  spread: 95% CI ±3.6
+- id: r_none_util_atk
+  evaluation_id: ev_none_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility w. attack
+  value: '50.01'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 5
+  spread: 95% CI ±3.9
+- id: r_none_asr
+  evaluation_id: ev_none_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Targeted ASR
+  value: '57.69'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 5
+  spread: 95% CI ±3.9
+- id: r_delim_util
+  evaluation_id: ev_delim_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Benign utility
+  value: '72.66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 5
+  spread: 95% CI ±3.5
+- id: r_delim_util_atk
+  evaluation_id: ev_delim_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility w. attack
+  value: '55.64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 5
+  spread: 95% CI ±3.9
+- id: r_delim_asr
+  evaluation_id: ev_delim_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Targeted ASR
+  value: '41.65'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 5
+  spread: 95% CI ±3.9
+- id: r_repeat_util
+  evaluation_id: ev_repeat_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Benign utility
+  value: '85.53'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 5
+  spread: 95% CI ±2.8
+- id: r_repeat_util_atk
+  evaluation_id: ev_repeat_attack
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility w. attack
+  value: '67.25'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 5
+  spread: 95% CI ±3.7
+- id: r_repeat_asr
+  evaluation_id: ev_repeat_attack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Targeted ASR
+  value: '27.82'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 20
+  location: Table 5
+  spread: 95% CI ±3.5
+comparisons:
+- id: c_delim_clean
+  left: ev_delim_clean
+  right: ev_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_delim_attack
+  left: ev_delim_attack
+  right: ev_none_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_repeat_clean
+  left: ev_repeat_clean
+  right: ev_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 20
+- id: c_repeat_attack
+  left: ev_repeat_attack
+  right: ev_none_attack
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 20
+claims:
+- id: k1
+  text: existing attacks break some security properties but not all; state-of-the-art LLMs fail many tasks even without attacks
+  location: abstract
+  anchor: existing prompt injection attacks break some security properties but not all
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_delim_attack
+  - c_repeat_attack
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 5 (targeted ASR)
+    R2clean: Table 5 (benign utility)
+    R2attack: Table 5 (utility with attack)

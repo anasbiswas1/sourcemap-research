@@ -1,0 +1,8 @@
+decision_04b: BATCH CHECKED
+this step: 2026-11-22
+reports: liu_benchmark_arxiv2023, signedprompt_arxiv2024, agentdojo_neurips2024, asb_iclr2025, attackdefence_arxiv2024, adaptiveipi_arxiv2025, pft_arxiv2025, gemini_arxiv2025, ckptgcg_haips2026, air_arxiv2025, ppa_arxiv2025, llmailinject_arxiv2025
+records: 102 defences, 477 evaluations, 480 results, 306 comparisons, 12 claims
+checked against the PDFs: 469 printed values (0 of them found only in the third extraction), 0 chart values and 114 anchors, each found on its page
+comparison grades: A 292, B 14, C 0, U 0
+residual notes: 2; full-text exclusions found while coding: 0
+next: batch 04c

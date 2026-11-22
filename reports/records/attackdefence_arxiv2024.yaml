@@ -1,0 +1,3126 @@
+report:
+  id: attackdefence_arxiv2024
+  slug: '2411.00459'
+  title: Defense Against Prompt Injection Attack by Leveraging Attack Techniques
+  first_author: Yulin Chen
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2411.00459'
+  version_read: arXiv v6
+  first_date: '2024-11-01'
+  read: F
+  role: proposes
+  code_release: stated in a footnote; not checked
+  later_version: ACL 2025, DOI 10.18653/v1/2025.acl-long.897 (from the search record; not read)
+  extraction_scope: 'Sections 4 and 5.1 to 5.3: Table 2 (indirect scenario) rows None, Sandwich, Ours-Ignore and Ours-Fakecom-t for the three models and five attacks, and the same rows of Table 3 (QA utility); the abstract
+    claim (direct scenario of Table 1, other baselines and variants, Tables 4 to 7 not coded)'
+defences:
+- id: ign_l3
+  name: Ignore defence (ignore-attack wording turned into a shield prompt)
+  origin: this_report
+  base_checkpoint: Llama3-8b-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  components:
+  - after the data, a shield prompt telling the model to disregard all previous instructions
+  - the original instruction repeated after it
+  layout: system prompt; user turn with <Instruction> and <Data> sections; the shield prompt and the repeated instruction after the data
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The ignore defense is inspired by the ignore attack
+- id: fct_l3
+  name: Fake completion defence with template
+  origin: this_report
+  base_checkpoint: Llama3-8b-Instruct
+  axis1:
+  - chat_roles
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  components:
+  - after the data, a fabricated assistant turn reporting an injection and distrusting earlier instructions
+  - a fabricated user turn confirming the original instruction
+  layout: system prompt; user turn with <Instruction> and <Data> sections; the shield prompt and the repeated instruction after the data
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Fake Completion Defense with Template
+- id: sand_l3
+  name: Sandwich (baseline)
+  origin: other_report
+  base_checkpoint: Llama3-8b-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  anchor: we select Sandwich (san, 2023), Instructional
+- id: ign_q2
+  name: Ignore defence (ignore-attack wording turned into a shield prompt)
+  origin: this_report
+  base_checkpoint: Qwen2-7b-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  components:
+  - after the data, a shield prompt telling the model to disregard all previous instructions
+  - the original instruction repeated after it
+  layout: system prompt; user turn with <Instruction> and <Data> sections; the shield prompt and the repeated instruction after the data
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The ignore defense is inspired by the ignore attack
+- id: fct_q2
+  name: Fake completion defence with template
+  origin: this_report
+  base_checkpoint: Qwen2-7b-Instruct
+  axis1:
+  - chat_roles
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  components:
+  - after the data, a fabricated assistant turn reporting an injection and distrusting earlier instructions
+  - a fabricated user turn confirming the original instruction
+  layout: system prompt; user turn with <Instruction> and <Data> sections; the shield prompt and the repeated instruction after the data
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Fake Completion Defense with Template
+- id: sand_q2
+  name: Sandwich (baseline)
+  origin: other_report
+  base_checkpoint: Qwen2-7b-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  anchor: we select Sandwich (san, 2023), Instructional
+- id: ign_l31
+  name: Ignore defence (ignore-attack wording turned into a shield prompt)
+  origin: this_report
+  base_checkpoint: Llama3.1-8b-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  components:
+  - after the data, a shield prompt telling the model to disregard all previous instructions
+  - the original instruction repeated after it
+  layout: system prompt; user turn with <Instruction> and <Data> sections; the shield prompt and the repeated instruction after the data
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The ignore defense is inspired by the ignore attack
+- id: fct_l31
+  name: Fake completion defence with template
+  origin: this_report
+  base_checkpoint: Llama3.1-8b-Instruct
+  axis1:
+  - chat_roles
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  components:
+  - after the data, a fabricated assistant turn reporting an injection and distrusting earlier instructions
+  - a fabricated user turn confirming the original instruction
+  layout: system prompt; user turn with <Instruction> and <Data> sections; the shield prompt and the repeated instruction after the data
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Fake Completion Defense with Template
+- id: sand_l31
+  name: Sandwich (baseline)
+  origin: other_report
+  base_checkpoint: Llama3.1-8b-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  anchor: we select Sandwich (san, 2023), Instructional
+evaluations:
+- id: ev_l3_none_naive
+  defence_id: none:Llama3-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_ignore
+  defence_id: none:Llama3-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_escape
+  defence_id: none:Llama3-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_fakecom
+  defence_id: none:Llama3-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_combined
+  defence_id: none:Llama3-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_naive
+  defence_id: none:Qwen2-7b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_ignore
+  defence_id: none:Qwen2-7b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_escape
+  defence_id: none:Qwen2-7b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_fakecom
+  defence_id: none:Qwen2-7b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_combined
+  defence_id: none:Qwen2-7b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_naive
+  defence_id: none:Llama3.1-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_ignore
+  defence_id: none:Llama3.1-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_escape
+  defence_id: none:Llama3.1-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_fakecom
+  defence_id: none:Llama3.1-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_combined
+  defence_id: none:Llama3.1-8b-Instruct
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l3_sand_naive
+  defence_id: sand_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_sand_ignore
+  defence_id: sand_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_sand_escape
+  defence_id: sand_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_sand_fakecom
+  defence_id: sand_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_sand_combined
+  defence_id: sand_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_sand_naive
+  defence_id: sand_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_sand_ignore
+  defence_id: sand_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_sand_escape
+  defence_id: sand_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_sand_fakecom
+  defence_id: sand_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_sand_combined
+  defence_id: sand_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_sand_naive
+  defence_id: sand_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_sand_ignore
+  defence_id: sand_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_sand_escape
+  defence_id: sand_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_sand_fakecom
+  defence_id: sand_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_sand_combined
+  defence_id: sand_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_ign_naive
+  defence_id: ign_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_ign_ignore
+  defence_id: ign_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_ign_escape
+  defence_id: ign_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_ign_fakecom
+  defence_id: ign_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_ign_combined
+  defence_id: ign_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_ign_naive
+  defence_id: ign_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_ign_ignore
+  defence_id: ign_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_ign_escape
+  defence_id: ign_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_ign_fakecom
+  defence_id: ign_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_ign_combined
+  defence_id: ign_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_ign_naive
+  defence_id: ign_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_ign_ignore
+  defence_id: ign_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_ign_escape
+  defence_id: ign_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_ign_fakecom
+  defence_id: ign_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_ign_combined
+  defence_id: ign_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_fct_naive
+  defence_id: fct_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_fct_ignore
+  defence_id: fct_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_fct_escape
+  defence_id: fct_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_fct_fakecom
+  defence_id: fct_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_fct_combined
+  defence_id: fct_l3
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_fct_naive
+  defence_id: fct_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_fct_ignore
+  defence_id: fct_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_fct_escape
+  defence_id: fct_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_fct_fakecom
+  defence_id: fct_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_fct_combined
+  defence_id: fct_q2
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_fct_naive
+  defence_id: fct_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Naive attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_fct_ignore
+  defence_id: fct_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Ignore attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_fct_escape
+  defence_id: fct_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Escape attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_fct_fakecom
+  defence_id: fct_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Fakecom attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_fct_combined
+  defence_id: fct_l31
+  benchmark: QA dataset filtered by Li et al. (2023b), instructions injected into retrieved content (2000 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer to the injected instruction appears in the response
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 6
+  attacker_budget: Combined attack
+  sample_size: '2000'
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_none_util
+  defence_id: none:Llama3-8b-Instruct
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_util
+  defence_id: none:Llama3.1-8b-Instruct
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_q2_none_util
+  defence_id: none:Qwen2-7b-Instruct
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+  baseline_kind: off_the_shelf
+- id: ev_l3_sand_util
+  defence_id: sand_l3
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_sand_util
+  defence_id: sand_l31
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_sand_util
+  defence_id: sand_q2
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_ign_util
+  defence_id: ign_l3
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_ign_util
+  defence_id: ign_l31
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_ign_util
+  defence_id: ign_q2
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l3_fct_util
+  defence_id: fct_l3
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_l31_fct_util
+  defence_id: fct_l31
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+- id: ev_q2_fct_util
+  defence_id: fct_q2
+  benchmark: filtered QA dataset without attacks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: golden answer appears in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: attackdefence_arxiv2024
+  page: 7
+  decoding: do_sample false, max_new_tokens 256
+  pages:
+    benchmark: 5
+    judge: 5
+    decoding: 12
+results:
+- id: r_l3_none_naive
+  evaluation_id: ev_l3_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '10.55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_ignore
+  evaluation_id: ev_l3_none_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '53.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_escape
+  evaluation_id: ev_l3_none_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '88.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_fakecom
+  evaluation_id: ev_l3_none_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '75.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_combined
+  evaluation_id: ev_l3_none_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '86.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_naive
+  evaluation_id: ev_q2_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '92.45'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_ignore
+  evaluation_id: ev_q2_none_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '95.90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_escape
+  evaluation_id: ev_q2_none_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_fakecom
+  evaluation_id: ev_q2_none_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_none_combined
+  evaluation_id: ev_q2_none_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_naive
+  evaluation_id: ev_l31_none_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '85.90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_ignore
+  evaluation_id: ev_l31_none_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '91.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_escape
+  evaluation_id: ev_l31_none_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '81.70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_fakecom
+  evaluation_id: ev_l31_none_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '95.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_combined
+  evaluation_id: ev_l31_none_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '92.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_sand_naive
+  evaluation_id: ev_l3_sand_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.45'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_sand_ignore
+  evaluation_id: ev_l3_sand_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '9.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_sand_escape
+  evaluation_id: ev_l3_sand_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '49.55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_sand_fakecom
+  evaluation_id: ev_l3_sand_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '7.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_sand_combined
+  evaluation_id: ev_l3_sand_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '21.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_sand_naive
+  evaluation_id: ev_q2_sand_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '4.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_sand_ignore
+  evaluation_id: ev_q2_sand_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '6.15'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_sand_escape
+  evaluation_id: ev_q2_sand_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '14.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_sand_fakecom
+  evaluation_id: ev_q2_sand_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '34.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_sand_combined
+  evaluation_id: ev_q2_sand_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '34.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_sand_naive
+  evaluation_id: ev_l31_sand_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '2.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_sand_ignore
+  evaluation_id: ev_l31_sand_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '3.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_sand_escape
+  evaluation_id: ev_l31_sand_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '22.90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_sand_fakecom
+  evaluation_id: ev_l31_sand_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '3.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_sand_combined
+  evaluation_id: ev_l31_sand_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '9.55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_ign_naive
+  evaluation_id: ev_l3_ign_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_ign_ignore
+  evaluation_id: ev_l3_ign_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '0.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_ign_escape
+  evaluation_id: ev_l3_ign_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '0.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_ign_fakecom
+  evaluation_id: ev_l3_ign_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '0.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_ign_combined
+  evaluation_id: ev_l3_ign_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '1.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_ign_naive
+  evaluation_id: ev_q2_ign_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.85'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_ign_ignore
+  evaluation_id: ev_q2_ign_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '0.70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_ign_escape
+  evaluation_id: ev_q2_ign_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '0.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_ign_fakecom
+  evaluation_id: ev_q2_ign_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '0.95'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_ign_combined
+  evaluation_id: ev_q2_ign_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '4.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_ign_naive
+  evaluation_id: ev_l31_ign_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_ign_ignore
+  evaluation_id: ev_l31_ign_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '0.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_ign_escape
+  evaluation_id: ev_l31_ign_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '0.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_ign_fakecom
+  evaluation_id: ev_l31_ign_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '0.45'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_ign_combined
+  evaluation_id: ev_l31_ign_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '1.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_fct_naive
+  evaluation_id: ev_l3_fct_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_fct_ignore
+  evaluation_id: ev_l3_fct_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_fct_escape
+  evaluation_id: ev_l3_fct_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '0.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_fct_fakecom
+  evaluation_id: ev_l3_fct_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_fct_combined
+  evaluation_id: ev_l3_fct_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_fct_naive
+  evaluation_id: ev_q2_fct_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_fct_ignore
+  evaluation_id: ev_q2_fct_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '0.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_fct_escape
+  evaluation_id: ev_q2_fct_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '0.15'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_fct_fakecom
+  evaluation_id: ev_q2_fct_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q2_fct_combined
+  evaluation_id: ev_q2_fct_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_fct_naive
+  evaluation_id: ev_l31_fct_naive
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Naive
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_fct_ignore
+  evaluation_id: ev_l31_fct_ignore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Ignore
+  value: '0.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_fct_escape
+  evaluation_id: ev_l31_fct_escape
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Escape
+  value: '0.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_fct_fakecom
+  evaluation_id: ev_l31_fct_fakecom
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Fakecom
+  value: '0.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_fct_combined
+  evaluation_id: ev_l31_fct_combined
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Combined
+  value: '0.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_none_util
+  evaluation_id: ev_l3_none_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '78.05'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l31_none_util
+  evaluation_id: ev_l31_none_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '77.10'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q2_none_util
+  evaluation_id: ev_q2_none_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '76.60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l3_sand_util
+  evaluation_id: ev_l3_sand_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '80.80'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l31_sand_util
+  evaluation_id: ev_l31_sand_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '79.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q2_sand_util
+  evaluation_id: ev_q2_sand_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '77.35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l3_ign_util
+  evaluation_id: ev_l3_ign_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '78.55'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l31_ign_util
+  evaluation_id: ev_l31_ign_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '79.60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q2_ign_util
+  evaluation_id: ev_q2_ign_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '77.60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l3_fct_util
+  evaluation_id: ev_l3_fct_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '79.40'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_l31_fct_util
+  evaluation_id: ev_l31_fct_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '80.45'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q2_fct_util
+  evaluation_id: ev_q2_fct_util
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: QA accuracy
+  value: '77.40'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+comparisons:
+- id: c_l3_ign_naive_none
+  left: ev_l3_ign_naive
+  right: ev_l3_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_ign_naive_sand
+  left: ev_l3_ign_naive
+  right: ev_l3_sand_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_ign_ignore_none
+  left: ev_l3_ign_ignore
+  right: ev_l3_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_ign_ignore_sand
+  left: ev_l3_ign_ignore
+  right: ev_l3_sand_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_ign_escape_none
+  left: ev_l3_ign_escape
+  right: ev_l3_none_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_ign_escape_sand
+  left: ev_l3_ign_escape
+  right: ev_l3_sand_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_ign_fakecom_none
+  left: ev_l3_ign_fakecom
+  right: ev_l3_none_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_ign_fakecom_sand
+  left: ev_l3_ign_fakecom
+  right: ev_l3_sand_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_ign_combined_none
+  left: ev_l3_ign_combined
+  right: ev_l3_none_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_ign_combined_sand
+  left: ev_l3_ign_combined
+  right: ev_l3_sand_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_ign_util_none
+  left: ev_l3_ign_util
+  right: ev_l3_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l3_ign_util_sand
+  left: ev_l3_ign_util
+  right: ev_l3_sand_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 7
+- id: c_l3_fct_naive_none
+  left: ev_l3_fct_naive
+  right: ev_l3_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_fct_naive_sand
+  left: ev_l3_fct_naive
+  right: ev_l3_sand_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_fct_ignore_none
+  left: ev_l3_fct_ignore
+  right: ev_l3_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_fct_ignore_sand
+  left: ev_l3_fct_ignore
+  right: ev_l3_sand_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_fct_escape_none
+  left: ev_l3_fct_escape
+  right: ev_l3_none_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_fct_escape_sand
+  left: ev_l3_fct_escape
+  right: ev_l3_sand_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_fct_fakecom_none
+  left: ev_l3_fct_fakecom
+  right: ev_l3_none_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_fct_fakecom_sand
+  left: ev_l3_fct_fakecom
+  right: ev_l3_sand_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_fct_combined_none
+  left: ev_l3_fct_combined
+  right: ev_l3_none_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_fct_combined_sand
+  left: ev_l3_fct_combined
+  right: ev_l3_sand_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l3_fct_util_none
+  left: ev_l3_fct_util
+  right: ev_l3_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l3_fct_util_sand
+  left: ev_l3_fct_util
+  right: ev_l3_sand_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 7
+- id: c_q2_ign_naive_none
+  left: ev_q2_ign_naive
+  right: ev_q2_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_ign_naive_sand
+  left: ev_q2_ign_naive
+  right: ev_q2_sand_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_ign_ignore_none
+  left: ev_q2_ign_ignore
+  right: ev_q2_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_ign_ignore_sand
+  left: ev_q2_ign_ignore
+  right: ev_q2_sand_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_ign_escape_none
+  left: ev_q2_ign_escape
+  right: ev_q2_none_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_ign_escape_sand
+  left: ev_q2_ign_escape
+  right: ev_q2_sand_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_ign_fakecom_none
+  left: ev_q2_ign_fakecom
+  right: ev_q2_none_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_ign_fakecom_sand
+  left: ev_q2_ign_fakecom
+  right: ev_q2_sand_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_ign_combined_none
+  left: ev_q2_ign_combined
+  right: ev_q2_none_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_ign_combined_sand
+  left: ev_q2_ign_combined
+  right: ev_q2_sand_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_ign_util_none
+  left: ev_q2_ign_util
+  right: ev_q2_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q2_ign_util_sand
+  left: ev_q2_ign_util
+  right: ev_q2_sand_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 7
+- id: c_q2_fct_naive_none
+  left: ev_q2_fct_naive
+  right: ev_q2_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_fct_naive_sand
+  left: ev_q2_fct_naive
+  right: ev_q2_sand_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_fct_ignore_none
+  left: ev_q2_fct_ignore
+  right: ev_q2_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_fct_ignore_sand
+  left: ev_q2_fct_ignore
+  right: ev_q2_sand_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_fct_escape_none
+  left: ev_q2_fct_escape
+  right: ev_q2_none_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_fct_escape_sand
+  left: ev_q2_fct_escape
+  right: ev_q2_sand_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_fct_fakecom_none
+  left: ev_q2_fct_fakecom
+  right: ev_q2_none_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_fct_fakecom_sand
+  left: ev_q2_fct_fakecom
+  right: ev_q2_sand_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_fct_combined_none
+  left: ev_q2_fct_combined
+  right: ev_q2_none_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q2_fct_combined_sand
+  left: ev_q2_fct_combined
+  right: ev_q2_sand_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_q2_fct_util_none
+  left: ev_q2_fct_util
+  right: ev_q2_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q2_fct_util_sand
+  left: ev_q2_fct_util
+  right: ev_q2_sand_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 7
+- id: c_l31_ign_naive_none
+  left: ev_l31_ign_naive
+  right: ev_l31_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_ign_naive_sand
+  left: ev_l31_ign_naive
+  right: ev_l31_sand_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_ign_ignore_none
+  left: ev_l31_ign_ignore
+  right: ev_l31_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_ign_ignore_sand
+  left: ev_l31_ign_ignore
+  right: ev_l31_sand_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_ign_escape_none
+  left: ev_l31_ign_escape
+  right: ev_l31_none_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_ign_escape_sand
+  left: ev_l31_ign_escape
+  right: ev_l31_sand_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_ign_fakecom_none
+  left: ev_l31_ign_fakecom
+  right: ev_l31_none_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_ign_fakecom_sand
+  left: ev_l31_ign_fakecom
+  right: ev_l31_sand_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_ign_combined_none
+  left: ev_l31_ign_combined
+  right: ev_l31_none_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_ign_combined_sand
+  left: ev_l31_ign_combined
+  right: ev_l31_sand_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_ign_util_none
+  left: ev_l31_ign_util
+  right: ev_l31_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_ign_util_sand
+  left: ev_l31_ign_util
+  right: ev_l31_sand_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 7
+- id: c_l31_fct_naive_none
+  left: ev_l31_fct_naive
+  right: ev_l31_none_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_fct_naive_sand
+  left: ev_l31_fct_naive
+  right: ev_l31_sand_naive
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_fct_ignore_none
+  left: ev_l31_fct_ignore
+  right: ev_l31_none_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_fct_ignore_sand
+  left: ev_l31_fct_ignore
+  right: ev_l31_sand_ignore
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_fct_escape_none
+  left: ev_l31_fct_escape
+  right: ev_l31_none_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_fct_escape_sand
+  left: ev_l31_fct_escape
+  right: ev_l31_sand_escape
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_fct_fakecom_none
+  left: ev_l31_fct_fakecom
+  right: ev_l31_none_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_fct_fakecom_sand
+  left: ev_l31_fct_fakecom
+  right: ev_l31_sand_fakecom
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_fct_combined_none
+  left: ev_l31_fct_combined
+  right: ev_l31_none_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_fct_combined_sand
+  left: ev_l31_fct_combined
+  right: ev_l31_sand_combined
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 6
+- id: c_l31_fct_util_none
+  left: ev_l31_fct_util
+  right: ev_l31_none_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_fct_util_sand
+  left: ev_l31_fct_util
+  right: ev_l31_sand_util
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: the attack-derived shield prompt against the sandwich prompt on the same base'
+  page: 7
+claims:
+- id: k1
+  text: the attack-derived defences outperform existing defences, state of the art
+  location: abstract
+  anchor: our defense techniques outperform existing defense approaches, achieving state-of-the-art results
+  jobs:
+  - R1
+  supported_by:
+  - c_l3_ign_naive_sand
+  - c_l3_ign_ignore_sand
+  - c_l3_ign_escape_sand
+  - c_l3_ign_fakecom_sand
+  - c_l3_ign_combined_sand
+  - c_l3_fct_naive_sand
+  - c_l3_fct_ignore_sand
+  - c_l3_fct_escape_sand
+  - c_l3_fct_fakecom_sand
+  - c_l3_fct_combined_sand
+  - c_q2_ign_naive_sand
+  - c_q2_ign_ignore_sand
+  - c_q2_ign_escape_sand
+  - c_q2_ign_fakecom_sand
+  - c_q2_ign_combined_sand
+  - c_q2_fct_naive_sand
+  - c_q2_fct_ignore_sand
+  - c_q2_fct_escape_sand
+  - c_q2_fct_fakecom_sand
+  - c_q2_fct_combined_sand
+  - c_l31_ign_naive_sand
+  - c_l31_ign_ignore_sand
+  - c_l31_ign_escape_sand
+  - c_l31_ign_fakecom_sand
+  - c_l31_ign_combined_sand
+  - c_l31_fct_naive_sand
+  - c_l31_fct_ignore_sand
+  - c_l31_fct_escape_sand
+  - c_l31_fct_fakecom_sand
+  - c_l31_fct_combined_sand
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2 (indirect scenario)
+    R2clean: Table 3 (QA accuracy without attacks)
