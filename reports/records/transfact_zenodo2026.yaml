@@ -1,0 +1,2516 @@
+report:
+  id: transfact_zenodo2026
+  slug: doi_10_5281_zenodo_21120124
+  title: 'Prompt Transformation Effects Do Not Transfer Across Benchmarks or Model Families: A Factorial Study of Defense Evaluation in LLM Agents'
+  first_author: Munish Singh
+  venue: Zenodo preprint
+  peer_reviewed: 'no'
+  doi: 10.5281/zenodo.21120124
+  version_read: Zenodo version (2 July 2026)
+  first_date: '2026-07-02'
+  read: F
+  role: re_measures
+  code_release: not stated
+  extraction_scope: 'Appendix A: Table 1 (all 65 cells: three AgentDojo suites and BIPIA email, five models, undefended, SRP, Spotlighting and the neutral-preamble control); the abstract claims (Table 2 per-injection-task
+    breakdown and Figure 1 not coded separately)'
+defences:
+- id: srp_haiku
+  name: Self-Reflective Prompting (structured verification block prepended to each input)
+  origin: other_report
+  base_checkpoint: Claude Haiku 4.5
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: prepends a structured verification block to each
+- id: spot_haiku
+  name: Spotlighting by datamarking (spaces replaced with U+02C8, system preamble)
+  origin: other_report
+  base_checkpoint: Claude Haiku 4.5
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: The datamarking variant used here substitutes every space character
+- id: srp_sonnet
+  name: Self-Reflective Prompting (structured verification block prepended to each input)
+  origin: other_report
+  base_checkpoint: Claude Sonnet 4.6
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: prepends a structured verification block to each
+- id: spot_sonnet
+  name: Spotlighting by datamarking (spaces replaced with U+02C8, system preamble)
+  origin: other_report
+  base_checkpoint: Claude Sonnet 4.6
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: The datamarking variant used here substitutes every space character
+- id: srp_llama
+  name: Self-Reflective Prompting (structured verification block prepended to each input)
+  origin: other_report
+  base_checkpoint: Llama 4 Scout
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: prepends a structured verification block to each
+- id: spot_llama
+  name: Spotlighting by datamarking (spaces replaced with U+02C8, system preamble)
+  origin: other_report
+  base_checkpoint: Llama 4 Scout
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: The datamarking variant used here substitutes every space character
+- id: neut_llama
+  name: length-matched neutral preamble (placebo control with the structure of SRP and unrelated content)
+  origin: this_report
+  base_checkpoint: Llama 4 Scout
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: The neutral preamble matches SRP in length
+- id: srp_ds
+  name: Self-Reflective Prompting (structured verification block prepended to each input)
+  origin: other_report
+  base_checkpoint: DeepSeek V3.2
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: prepends a structured verification block to each
+- id: spot_ds
+  name: Spotlighting by datamarking (spaces replaced with U+02C8, system preamble)
+  origin: other_report
+  base_checkpoint: DeepSeek V3.2
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: The datamarking variant used here substitutes every space character
+- id: neut_ds
+  name: length-matched neutral preamble (placebo control with the structure of SRP and unrelated content)
+  origin: this_report
+  base_checkpoint: DeepSeek V3.2
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: The neutral preamble matches SRP in length
+- id: srp_qwen
+  name: Self-Reflective Prompting (structured verification block prepended to each input)
+  origin: other_report
+  base_checkpoint: Qwen 3 32B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: prepends a structured verification block to each
+- id: spot_qwen
+  name: Spotlighting by datamarking (spaces replaced with U+02C8, system preamble)
+  origin: other_report
+  base_checkpoint: Qwen 3 32B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: The datamarking variant used here substitutes every space character
+- id: neut_qwen
+  name: length-matched neutral preamble (placebo control with the structure of SRP and unrelated content)
+  origin: this_report
+  base_checkpoint: Qwen 3 32B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: AgentDojo tool-calling agent (injection in tool outputs) or BIPIA email question answering (injection in the email)
+  layout_compat: *id001
+  anchor: The neutral preamble matches SRP in length
+evaluations:
+- id: ev_haiku_banking_none
+  defence_id: none:Claude Haiku 4.5
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_haiku_banking_srp
+  defence_id: srp_haiku
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_haiku_banking_spot
+  defence_id: spot_haiku
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_sonnet_banking_none
+  defence_id: none:Claude Sonnet 4.6
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_sonnet_banking_srp
+  defence_id: srp_sonnet
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_sonnet_banking_spot
+  defence_id: spot_sonnet
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_llama_banking_none
+  defence_id: none:Llama 4 Scout
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_llama_banking_srp
+  defence_id: srp_llama
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_llama_banking_spot
+  defence_id: spot_llama
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_llama_banking_neut
+  defence_id: neut_llama
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_ds_banking_none
+  defence_id: none:DeepSeek V3.2
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_ds_banking_srp
+  defence_id: srp_ds
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_ds_banking_spot
+  defence_id: spot_ds
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_ds_banking_neut
+  defence_id: neut_ds
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_qwen_banking_none
+  defence_id: none:Qwen 3 32B
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_qwen_banking_srp
+  defence_id: srp_qwen
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_qwen_banking_spot
+  defence_id: spot_qwen
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_qwen_banking_neut
+  defence_id: neut_qwen
+  benchmark: AgentDojo v1.2 banking suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '144'
+  pages:
+    benchmark: 3
+- id: ev_haiku_slack_none
+  defence_id: none:Claude Haiku 4.5
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_haiku_slack_srp
+  defence_id: srp_haiku
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_haiku_slack_spot
+  defence_id: spot_haiku
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_sonnet_slack_none
+  defence_id: none:Claude Sonnet 4.6
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_sonnet_slack_srp
+  defence_id: srp_sonnet
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 12
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_sonnet_slack_spot
+  defence_id: spot_sonnet
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_llama_slack_none
+  defence_id: none:Llama 4 Scout
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_llama_slack_srp
+  defence_id: srp_llama
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_llama_slack_spot
+  defence_id: spot_llama
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_llama_slack_neut
+  defence_id: neut_llama
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_ds_slack_none
+  defence_id: none:DeepSeek V3.2
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_ds_slack_srp
+  defence_id: srp_ds
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_ds_slack_spot
+  defence_id: spot_ds
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_qwen_slack_none
+  defence_id: none:Qwen 3 32B
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_qwen_slack_srp
+  defence_id: srp_qwen
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_qwen_slack_spot
+  defence_id: spot_qwen
+  benchmark: AgentDojo v1.2 slack suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '105'
+  pages:
+    benchmark: 3
+- id: ev_haiku_travel_none
+  defence_id: none:Claude Haiku 4.5
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_haiku_travel_srp
+  defence_id: srp_haiku
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_haiku_travel_spot
+  defence_id: spot_haiku
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_sonnet_travel_none
+  defence_id: none:Claude Sonnet 4.6
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_sonnet_travel_srp
+  defence_id: srp_sonnet
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_sonnet_travel_spot
+  defence_id: spot_sonnet
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_llama_travel_none
+  defence_id: none:Llama 4 Scout
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_llama_travel_srp
+  defence_id: srp_llama
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_llama_travel_spot
+  defence_id: spot_llama
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_llama_travel_neut
+  defence_id: neut_llama
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_ds_travel_none
+  defence_id: none:DeepSeek V3.2
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_ds_travel_srp
+  defence_id: srp_ds
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_ds_travel_spot
+  defence_id: spot_ds
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_qwen_travel_none
+  defence_id: none:Qwen 3 32B
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_qwen_travel_srp
+  defence_id: srp_qwen
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_qwen_travel_spot
+  defence_id: spot_qwen
+  benchmark: AgentDojo v1.2 travel suite
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo operational injection check
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '140'
+  pages:
+    benchmark: 3
+- id: ev_haiku_email_none
+  defence_id: none:Claude Haiku 4.5
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_haiku_email_srp
+  defence_id: srp_haiku
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+- id: ev_haiku_email_spot
+  defence_id: spot_haiku
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+- id: ev_sonnet_email_none
+  defence_id: none:Claude Sonnet 4.6
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_sonnet_email_srp
+  defence_id: srp_sonnet
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+- id: ev_sonnet_email_spot
+  defence_id: spot_sonnet
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+- id: ev_llama_email_none
+  defence_id: none:Llama 4 Scout
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_llama_email_srp
+  defence_id: srp_llama
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+- id: ev_llama_email_spot
+  defence_id: spot_llama
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+- id: ev_ds_email_none
+  defence_id: none:DeepSeek V3.2
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_ds_email_srp
+  defence_id: srp_ds
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+- id: ev_ds_email_spot
+  defence_id: spot_ds
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+- id: ev_qwen_email_none
+  defence_id: none:Qwen 3 32B
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_qwen_email_srp
+  defence_id: srp_qwen
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+- id: ev_qwen_email_spot
+  defence_id: spot_qwen
+  benchmark: BIPIA email subset (3,750 attack scenarios)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge (not named)
+  layout_same_as_defence: 'yes'
+  measured_by: transfact_zenodo2026
+  page: 13
+  decoding: not reported
+  sample_size: '3750'
+  pages:
+    benchmark: 3
+results:
+- id: r_haiku_banking_none
+  evaluation_id: ev_haiku_banking_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_haiku_banking_srp
+  evaluation_id: ev_haiku_banking_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_haiku_banking_spot
+  evaluation_id: ev_haiku_banking_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_sonnet_banking_none
+  evaluation_id: ev_sonnet_banking_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_sonnet_banking_srp
+  evaluation_id: ev_sonnet_banking_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_sonnet_banking_spot
+  evaluation_id: ev_sonnet_banking_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_llama_banking_none
+  evaluation_id: ev_llama_banking_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '30.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_llama_banking_srp
+  evaluation_id: ev_llama_banking_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '71.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_llama_banking_spot
+  evaluation_id: ev_llama_banking_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '22.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_llama_banking_neut
+  evaluation_id: ev_llama_banking_neut
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '41.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_ds_banking_none
+  evaluation_id: ev_ds_banking_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '71.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_ds_banking_srp
+  evaluation_id: ev_ds_banking_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_ds_banking_spot
+  evaluation_id: ev_ds_banking_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '72.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_ds_banking_neut
+  evaluation_id: ev_ds_banking_neut
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '60.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_qwen_banking_none
+  evaluation_id: ev_qwen_banking_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '37.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_qwen_banking_srp
+  evaluation_id: ev_qwen_banking_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '38.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_qwen_banking_spot
+  evaluation_id: ev_qwen_banking_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '41.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_qwen_banking_neut
+  evaluation_id: ev_qwen_banking_neut
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '43.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_haiku_slack_none
+  evaluation_id: ev_haiku_slack_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_haiku_slack_srp
+  evaluation_id: ev_haiku_slack_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_haiku_slack_spot
+  evaluation_id: ev_haiku_slack_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_sonnet_slack_none
+  evaluation_id: ev_sonnet_slack_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_sonnet_slack_srp
+  evaluation_id: ev_sonnet_slack_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 1
+- id: r_sonnet_slack_spot
+  evaluation_id: ev_sonnet_slack_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_slack_none
+  evaluation_id: ev_llama_slack_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '31.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_slack_srp
+  evaluation_id: ev_llama_slack_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '59.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_slack_spot
+  evaluation_id: ev_llama_slack_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '24.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_slack_neut
+  evaluation_id: ev_llama_slack_neut
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '35.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_ds_slack_none
+  evaluation_id: ev_ds_slack_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '96.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_ds_slack_srp
+  evaluation_id: ev_ds_slack_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '8.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_ds_slack_spot
+  evaluation_id: ev_ds_slack_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '94.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_qwen_slack_none
+  evaluation_id: ev_qwen_slack_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '66.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_qwen_slack_srp
+  evaluation_id: ev_qwen_slack_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '67.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_qwen_slack_spot
+  evaluation_id: ev_qwen_slack_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '64.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_haiku_travel_none
+  evaluation_id: ev_haiku_travel_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_haiku_travel_srp
+  evaluation_id: ev_haiku_travel_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_haiku_travel_spot
+  evaluation_id: ev_haiku_travel_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_sonnet_travel_none
+  evaluation_id: ev_sonnet_travel_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_sonnet_travel_srp
+  evaluation_id: ev_sonnet_travel_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_sonnet_travel_spot
+  evaluation_id: ev_sonnet_travel_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_travel_none
+  evaluation_id: ev_llama_travel_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '15.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_travel_srp
+  evaluation_id: ev_llama_travel_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '21.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_travel_spot
+  evaluation_id: ev_llama_travel_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '7.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_travel_neut
+  evaluation_id: ev_llama_travel_neut
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '16.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_ds_travel_none
+  evaluation_id: ev_ds_travel_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '75.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_ds_travel_srp
+  evaluation_id: ev_ds_travel_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_ds_travel_spot
+  evaluation_id: ev_ds_travel_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '72.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_qwen_travel_none
+  evaluation_id: ev_qwen_travel_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '51.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_qwen_travel_srp
+  evaluation_id: ev_qwen_travel_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '43.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_qwen_travel_spot
+  evaluation_id: ev_qwen_travel_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '34.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_haiku_email_none
+  evaluation_id: ev_haiku_email_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '43.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_haiku_email_srp
+  evaluation_id: ev_haiku_email_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '22.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_haiku_email_spot
+  evaluation_id: ev_haiku_email_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '13.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_sonnet_email_none
+  evaluation_id: ev_sonnet_email_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '25.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_sonnet_email_srp
+  evaluation_id: ev_sonnet_email_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '13.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_sonnet_email_spot
+  evaluation_id: ev_sonnet_email_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '3.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_email_none
+  evaluation_id: ev_llama_email_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '42.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_email_srp
+  evaluation_id: ev_llama_email_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '40.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_llama_email_spot
+  evaluation_id: ev_llama_email_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '20.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_ds_email_none
+  evaluation_id: ev_ds_email_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '34.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_ds_email_srp
+  evaluation_id: ev_ds_email_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '31.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_ds_email_spot
+  evaluation_id: ev_ds_email_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '17.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_qwen_email_none
+  evaluation_id: ev_qwen_email_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '26.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_qwen_email_srp
+  evaluation_id: ev_qwen_email_srp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '22.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+- id: r_qwen_email_spot
+  evaluation_id: ev_qwen_email_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '10.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 1
+comparisons:
+- id: c_haiku_banking_srp
+  left: ev_haiku_banking_srp
+  right: ev_haiku_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_haiku_banking_spot
+  left: ev_haiku_banking_spot
+  right: ev_haiku_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_sonnet_banking_srp
+  left: ev_sonnet_banking_srp
+  right: ev_sonnet_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_sonnet_banking_spot
+  left: ev_sonnet_banking_spot
+  right: ev_sonnet_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_banking_srp
+  left: ev_llama_banking_srp
+  right: ev_llama_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_banking_spot
+  left: ev_llama_banking_spot
+  right: ev_llama_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_banking_neut
+  left: ev_llama_banking_neut
+  right: ev_llama_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_banking_srpneut
+  left: ev_llama_banking_srp
+  right: ev_llama_banking_neut
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: SRP's security content against a placebo block of the same length and structure
+  page: 13
+- id: c_ds_banking_srp
+  left: ev_ds_banking_srp
+  right: ev_ds_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_ds_banking_spot
+  left: ev_ds_banking_spot
+  right: ev_ds_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_ds_banking_neut
+  left: ev_ds_banking_neut
+  right: ev_ds_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_ds_banking_srpneut
+  left: ev_ds_banking_srp
+  right: ev_ds_banking_neut
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: SRP's security content against a placebo block of the same length and structure
+  page: 13
+- id: c_qwen_banking_srp
+  left: ev_qwen_banking_srp
+  right: ev_qwen_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_qwen_banking_spot
+  left: ev_qwen_banking_spot
+  right: ev_qwen_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_qwen_banking_neut
+  left: ev_qwen_banking_neut
+  right: ev_qwen_banking_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_qwen_banking_srpneut
+  left: ev_qwen_banking_srp
+  right: ev_qwen_banking_neut
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: SRP's security content against a placebo block of the same length and structure
+  page: 13
+- id: c_haiku_slack_srp
+  left: ev_haiku_slack_srp
+  right: ev_haiku_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_haiku_slack_spot
+  left: ev_haiku_slack_spot
+  right: ev_haiku_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_sonnet_slack_srp
+  left: ev_sonnet_slack_srp
+  right: ev_sonnet_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_sonnet_slack_spot
+  left: ev_sonnet_slack_spot
+  right: ev_sonnet_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_slack_srp
+  left: ev_llama_slack_srp
+  right: ev_llama_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_slack_spot
+  left: ev_llama_slack_spot
+  right: ev_llama_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_slack_neut
+  left: ev_llama_slack_neut
+  right: ev_llama_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_slack_srpneut
+  left: ev_llama_slack_srp
+  right: ev_llama_slack_neut
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: SRP's security content against a placebo block of the same length and structure
+  page: 13
+- id: c_ds_slack_srp
+  left: ev_ds_slack_srp
+  right: ev_ds_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_ds_slack_spot
+  left: ev_ds_slack_spot
+  right: ev_ds_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_qwen_slack_srp
+  left: ev_qwen_slack_srp
+  right: ev_qwen_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_qwen_slack_spot
+  left: ev_qwen_slack_spot
+  right: ev_qwen_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_haiku_travel_srp
+  left: ev_haiku_travel_srp
+  right: ev_haiku_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_haiku_travel_spot
+  left: ev_haiku_travel_spot
+  right: ev_haiku_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_sonnet_travel_srp
+  left: ev_sonnet_travel_srp
+  right: ev_sonnet_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_sonnet_travel_spot
+  left: ev_sonnet_travel_spot
+  right: ev_sonnet_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_travel_srp
+  left: ev_llama_travel_srp
+  right: ev_llama_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_travel_spot
+  left: ev_llama_travel_spot
+  right: ev_llama_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_travel_neut
+  left: ev_llama_travel_neut
+  right: ev_llama_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_travel_srpneut
+  left: ev_llama_travel_srp
+  right: ev_llama_travel_neut
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: SRP's security content against a placebo block of the same length and structure
+  page: 13
+- id: c_ds_travel_srp
+  left: ev_ds_travel_srp
+  right: ev_ds_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_ds_travel_spot
+  left: ev_ds_travel_spot
+  right: ev_ds_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_qwen_travel_srp
+  left: ev_qwen_travel_srp
+  right: ev_qwen_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_qwen_travel_spot
+  left: ev_qwen_travel_spot
+  right: ev_qwen_travel_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_haiku_email_srp
+  left: ev_haiku_email_srp
+  right: ev_haiku_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_haiku_email_spot
+  left: ev_haiku_email_spot
+  right: ev_haiku_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_sonnet_email_srp
+  left: ev_sonnet_email_srp
+  right: ev_sonnet_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_sonnet_email_spot
+  left: ev_sonnet_email_spot
+  right: ev_sonnet_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_email_srp
+  left: ev_llama_email_srp
+  right: ev_llama_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_llama_email_spot
+  left: ev_llama_email_spot
+  right: ev_llama_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_ds_email_srp
+  left: ev_ds_email_srp
+  right: ev_ds_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_ds_email_spot
+  left: ev_ds_email_spot
+  right: ev_ds_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_qwen_email_srp
+  left: ev_qwen_email_srp
+  right: ev_qwen_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_qwen_email_spot
+  left: ev_qwen_email_spot
+  right: ev_qwen_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 13
+claims:
+- id: k1
+  text: SRP cuts DeepSeek V3.2's ASR by 69.5 points on AgentDojo Banking while raising Llama 4 Scout's by 41.0 points
+  location: abstract
+  anchor: Self-Reflective Prompting reduces DeepSeek V3.2’s attack success rate by 69.5
+  jobs:
+  - R1
+  supported_by:
+  - c_ds_banking_srp
+  - c_llama_banking_srp
+  - c_ds_slack_srp
+  - c_llama_slack_srp
+  page: 1
+- id: k2
+  text: the same defence behaves differently on agentic and document benchmarks
+  location: abstract
+  anchor: the same defense behaves qualitatively differently on agentic and document benchmarks
+  jobs:
+  - R1
+  supported_by:
+  - c_llama_email_srp
+  - c_llama_banking_srp
+  - c_haiku_email_srp
+  - c_sonnet_email_srp
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    R2clean: not reported
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: same authors as the defence-backfire study (zenodo.20735483) with overlapping models, suites and defences; the AgentDojo cells here differ from that report's (Llama Scout banking undefended 30.6 against 31.9), so they
+    are separate runs; the two Claude models are near zero on AgentDojo throughout; model names are as printed

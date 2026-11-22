@@ -1,0 +1,1745 @@
+report:
+  id: whosaidthis_zenodo2026
+  slug: doi_10_5281_zenodo_23758886
+  title: Who said this? Most chat models weigh a text's source differently for each behaviour, and a steering lever against injected instructions
+  first_author: Sam Ramdan
+  venue: Zenodo preprint
+  peer_reviewed: 'no'
+  doi: 10.5281/zenodo.23758886
+  version_read: Zenodo v2 (30 October 2026)
+  first_date: '2026-10-29'
+  read: F
+  role: proposes
+  code_release: https://github.com/Somebodyhere101/whose-words-count
+  extraction_scope: 'Sections 3.7 and 3.8: the steering lever against no defence on SEP and InjecAgent for twelve models (the two result tables); the abstract claim (the source-ranking and patching analyses test no defence;
+    the prompt-defence and random-direction comparisons are described in the text without per-model numbers and are not coded)'
+defences:
+- id: lever_q8
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_q17
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: Qwen3-1.7B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_smol
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: SmolLM3-3B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_gran
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: Granite-3.3-8B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_olmo7
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: OLMo-2-7B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_phi4
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: Phi-4
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_q14
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: Qwen3-14B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_q32
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: Qwen3-32B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_fal
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: Falcon3-10B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_yi
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: Yi-1.5-9B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_olmo13
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: OLMo-2-13B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+- id: lever_olmo32
+  name: 'steering lever: amplified user-minus-tool direction added to tool-output tokens at about 0.45 depth (found by search on synthetic items)'
+  origin: this_report
+  base_checkpoint: OLMo-2-32B
+  axis1:
+  - chat_roles
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 12
+  layout: task in the system turn; data in a 'Tool output:' user turn (SEP); InjecAgent's own ReAct prompt in one user turn
+  layout_compat: *id001
+  anchor: 'Result: LEVER_FOUND (the winner passes in 3 of 4 models)'
+evaluations:
+- id: ev_q8_none_sep
+  defence_id: none:Qwen3-8B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_q8_lever_sep
+  defence_id: lever_q8
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+- id: ev_q8_none_ia
+  defence_id: none:Qwen3-8B
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+  baseline_kind: off_the_shelf
+- id: ev_q8_lever_ia
+  defence_id: lever_q8
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+- id: ev_q17_none_sep
+  defence_id: none:Qwen3-1.7B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_q17_lever_sep
+  defence_id: lever_q17
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+- id: ev_q17_none_ia
+  defence_id: none:Qwen3-1.7B
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+  baseline_kind: off_the_shelf
+- id: ev_q17_lever_ia
+  defence_id: lever_q17
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+- id: ev_smol_none_sep
+  defence_id: none:SmolLM3-3B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_smol_lever_sep
+  defence_id: lever_smol
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+- id: ev_smol_none_ia
+  defence_id: none:SmolLM3-3B
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+  baseline_kind: off_the_shelf
+- id: ev_smol_lever_ia
+  defence_id: lever_smol
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+- id: ev_gran_none_sep
+  defence_id: none:Granite-3.3-8B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_gran_lever_sep
+  defence_id: lever_gran
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+- id: ev_gran_none_ia
+  defence_id: none:Granite-3.3-8B
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+  baseline_kind: off_the_shelf
+- id: ev_gran_lever_ia
+  defence_id: lever_gran
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+- id: ev_olmo7_none_sep
+  defence_id: none:OLMo-2-7B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_olmo7_lever_sep
+  defence_id: lever_olmo7
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+- id: ev_olmo7_none_ia
+  defence_id: none:OLMo-2-7B
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+  baseline_kind: off_the_shelf
+- id: ev_olmo7_lever_ia
+  defence_id: lever_olmo7
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+- id: ev_phi4_none_sep
+  defence_id: none:Phi-4
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_phi4_lever_sep
+  defence_id: lever_phi4
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: '300'
+- id: ev_phi4_none_ia
+  defence_id: none:Phi-4
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+  baseline_kind: off_the_shelf
+- id: ev_phi4_lever_ia
+  defence_id: lever_phi4
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 14
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+- id: ev_q14_none_sep
+  defence_id: none:Qwen3-14B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_q14_lever_sep
+  defence_id: lever_q14
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+- id: ev_q14_none_ia
+  defence_id: none:Qwen3-14B
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+  baseline_kind: off_the_shelf
+- id: ev_q14_lever_ia
+  defence_id: lever_q14
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+- id: ev_q32_none_sep
+  defence_id: none:Qwen3-32B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_q32_lever_sep
+  defence_id: lever_q32
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+- id: ev_q32_none_ia
+  defence_id: none:Qwen3-32B
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+  baseline_kind: off_the_shelf
+- id: ev_q32_lever_ia
+  defence_id: lever_q32
+  benchmark: InjecAgent, 300 cases, repository ReAct prompt
+  attacker_type: static
+  attacker_access: black_box
+  judge: repository rules, valid replies only
+  layout_same_as_defence: 'no'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: 300 (valid replies vary by condition)
+- id: ev_fal_none_sep
+  defence_id: none:Falcon3-10B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_fal_lever_sep
+  defence_id: lever_fal
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+- id: ev_yi_none_sep
+  defence_id: none:Yi-1.5-9B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_yi_lever_sep
+  defence_id: lever_yi
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+- id: ev_olmo13_none_sep
+  defence_id: none:OLMo-2-13B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_olmo13_lever_sep
+  defence_id: lever_olmo13
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+- id: ev_olmo32_none_sep
+  defence_id: none:OLMo-2-32B
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+  baseline_kind: off_the_shelf
+- id: ev_olmo32_lever_sep
+  defence_id: lever_olmo32
+  benchmark: SEP, 300 items, data in a 'Tool output:' user turn
+  attacker_type: static
+  attacker_access: black_box
+  judge: probe executed (attack) or task probe executed (utility)
+  layout_same_as_defence: 'yes'
+  measured_by: whosaidthis_zenodo2026
+  page: 16
+  decoding: not reported
+  sample_size: '300'
+results:
+- id: r_q8_none_sepasr
+  evaluation_id: ev_q8_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '30.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q8_none_seputil
+  evaluation_id: ev_q8_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '64.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q8_lever_sepasr
+  evaluation_id: ev_q8_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '13.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q8_lever_seputil
+  evaluation_id: ev_q8_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '67.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q8_none_ia
+  evaluation_id: ev_q8_none_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '39.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q8_lever_ia
+  evaluation_id: ev_q8_lever_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '11.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q17_none_sepasr
+  evaluation_id: ev_q17_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '28.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q17_none_seputil
+  evaluation_id: ev_q17_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '45.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q17_lever_sepasr
+  evaluation_id: ev_q17_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '5.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q17_lever_seputil
+  evaluation_id: ev_q17_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '47.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q17_none_ia
+  evaluation_id: ev_q17_none_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '56.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q17_lever_ia
+  evaluation_id: ev_q17_lever_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '3.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_smol_none_sepasr
+  evaluation_id: ev_smol_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '41.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_smol_none_seputil
+  evaluation_id: ev_smol_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '48.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_smol_lever_sepasr
+  evaluation_id: ev_smol_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '24.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_smol_lever_seputil
+  evaluation_id: ev_smol_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '54.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_smol_none_ia
+  evaluation_id: ev_smol_none_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '3.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_smol_lever_ia
+  evaluation_id: ev_smol_lever_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_gran_none_sepasr
+  evaluation_id: ev_gran_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '44.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_gran_none_seputil
+  evaluation_id: ev_gran_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '66.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_gran_lever_sepasr
+  evaluation_id: ev_gran_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '35.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_gran_lever_seputil
+  evaluation_id: ev_gran_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '68.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_gran_none_ia
+  evaluation_id: ev_gran_none_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '46.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_gran_lever_ia
+  evaluation_id: ev_gran_lever_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '40.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_olmo7_none_sepasr
+  evaluation_id: ev_olmo7_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '56.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_olmo7_none_seputil
+  evaluation_id: ev_olmo7_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '61.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_olmo7_lever_sepasr
+  evaluation_id: ev_olmo7_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '44.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_olmo7_lever_seputil
+  evaluation_id: ev_olmo7_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '73.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_olmo7_none_ia
+  evaluation_id: ev_olmo7_none_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '89.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_olmo7_lever_ia
+  evaluation_id: ev_olmo7_lever_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '87.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_phi4_none_sepasr
+  evaluation_id: ev_phi4_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '24.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_phi4_none_seputil
+  evaluation_id: ev_phi4_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '63.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_phi4_lever_sepasr
+  evaluation_id: ev_phi4_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '22.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_phi4_lever_seputil
+  evaluation_id: ev_phi4_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '65.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_phi4_none_ia
+  evaluation_id: ev_phi4_none_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '21.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_phi4_lever_ia
+  evaluation_id: ev_phi4_lever_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '11.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 14
+  location: Section 3.7 or 3.8 table
+- id: r_q14_none_sepasr
+  evaluation_id: ev_q14_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '37.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q14_none_seputil
+  evaluation_id: ev_q14_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '71.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q14_lever_sepasr
+  evaluation_id: ev_q14_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '18.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q14_lever_seputil
+  evaluation_id: ev_q14_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '72.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q14_none_ia
+  evaluation_id: ev_q14_none_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '29.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q14_lever_ia
+  evaluation_id: ev_q14_lever_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '4.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q32_none_sepasr
+  evaluation_id: ev_q32_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '40.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q32_none_seputil
+  evaluation_id: ev_q32_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '73.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q32_lever_sepasr
+  evaluation_id: ev_q32_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '30.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q32_lever_seputil
+  evaluation_id: ev_q32_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '72.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q32_none_ia
+  evaluation_id: ev_q32_none_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '27.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_q32_lever_ia
+  evaluation_id: ev_q32_lever_ia
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent attack success (valid replies)
+  value: '8.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_fal_none_sepasr
+  evaluation_id: ev_fal_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '48.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_fal_none_seputil
+  evaluation_id: ev_fal_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '67.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_fal_lever_sepasr
+  evaluation_id: ev_fal_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '33.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_fal_lever_seputil
+  evaluation_id: ev_fal_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '68.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_yi_none_sepasr
+  evaluation_id: ev_yi_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '47.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_yi_none_seputil
+  evaluation_id: ev_yi_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '66.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_yi_lever_sepasr
+  evaluation_id: ev_yi_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '30.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_yi_lever_seputil
+  evaluation_id: ev_yi_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '66.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_olmo13_none_sepasr
+  evaluation_id: ev_olmo13_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '43.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_olmo13_none_seputil
+  evaluation_id: ev_olmo13_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '69.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_olmo13_lever_sepasr
+  evaluation_id: ev_olmo13_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '38.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_olmo13_lever_seputil
+  evaluation_id: ev_olmo13_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '70.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_olmo32_none_sepasr
+  evaluation_id: ev_olmo32_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '58.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_olmo32_none_seputil
+  evaluation_id: ev_olmo32_none_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '88.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_olmo32_lever_sepasr
+  evaluation_id: ev_olmo32_lever_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '47.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+- id: r_olmo32_lever_seputil
+  evaluation_id: ev_olmo32_lever_sep
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: SEP utility (task probe executed)
+  value: '89.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Section 3.7 or 3.8 table
+comparisons:
+- id: c_q8_sep
+  left: ev_q8_lever_sep
+  right: ev_q8_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_q8_ia
+  left: ev_q8_lever_ia
+  right: ev_q8_none_ia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_q17_sep
+  left: ev_q17_lever_sep
+  right: ev_q17_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_q17_ia
+  left: ev_q17_lever_ia
+  right: ev_q17_none_ia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_smol_sep
+  left: ev_smol_lever_sep
+  right: ev_smol_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_smol_ia
+  left: ev_smol_lever_ia
+  right: ev_smol_none_ia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_gran_sep
+  left: ev_gran_lever_sep
+  right: ev_gran_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_gran_ia
+  left: ev_gran_lever_ia
+  right: ev_gran_none_ia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_olmo7_sep
+  left: ev_olmo7_lever_sep
+  right: ev_olmo7_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_olmo7_ia
+  left: ev_olmo7_lever_ia
+  right: ev_olmo7_none_ia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_phi4_sep
+  left: ev_phi4_lever_sep
+  right: ev_phi4_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_phi4_ia
+  left: ev_phi4_lever_ia
+  right: ev_phi4_none_ia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 14
+- id: c_q14_sep
+  left: ev_q14_lever_sep
+  right: ev_q14_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_q14_ia
+  left: ev_q14_lever_ia
+  right: ev_q14_none_ia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_q32_sep
+  left: ev_q32_lever_sep
+  right: ev_q32_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_q32_ia
+  left: ev_q32_lever_ia
+  right: ev_q32_none_ia
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_fal_sep
+  left: ev_fal_lever_sep
+  right: ev_fal_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_yi_sep
+  left: ev_yi_lever_sep
+  right: ev_yi_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_olmo13_sep
+  left: ev_olmo13_lever_sep
+  right: ev_olmo13_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_olmo32_sep
+  left: ev_olmo32_lever_sep
+  right: ev_olmo32_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+claims:
+- id: k1
+  text: a steering lever lowers obedience to instructions in tool output while the content stays usable; in Qwen3 it is strong but the sealed overall verdict is none
+  location: abstract
+  anchor: A steering lever, found by search
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_q8_sep
+  - c_q17_sep
+  - c_smol_sep
+  - c_gran_sep
+  - c_olmo7_sep
+  - c_phi4_sep
+  - c_q14_sep
+  - c_q32_sep
+  - c_fal_sep
+  - c_yi_sep
+  - c_olmo13_sep
+  - c_olmo32_sep
+  - c_q8_ia
+  - c_q17_ia
+  - c_smol_ia
+  - c_gran_ia
+  - c_olmo7_ia
+  - c_phi4_ia
+  - c_q14_ia
+  - c_q32_ia
+  page: 1
+  contradicted_by:
+  - r_olmo7_lever_ia
+  - r_gran_lever_ia
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: proxy
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Sections 3.7 and 3.8 tables
+    R2attack: SEP utility probe under attack
+    R2clean: not reported
+schema_gaps:
+- where: comparisons c_*_ia
+  note: InjecAgent attack success is computed on each condition's valid replies, whose number changes with the lever (for example 81 to 93 of 300 for Qwen3-1.7B), so c3 is unmatched
+- where: report
+  note: the lever was chosen by search on Qwen3-8B, Qwen3-1.7B and two other models; the paper's sealed overall verdict is NONE (two of six models), and held-out families mostly fail the random-direction control; the study
+    is described by its author as AI-run, and its number rechecks name a commercial assistant

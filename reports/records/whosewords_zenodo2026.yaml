@@ -1,0 +1,184 @@
+report:
+  id: whosewords_zenodo2026
+  slug: doi_10_5281_zenodo_23758884
+  title: Whose words count? Chat role and partial control of goal adherence
+  first_author: Sam Ramdan
+  venue: Zenodo preprint
+  peer_reviewed: 'no'
+  doi: 10.5281/zenodo.23758884
+  version_read: Zenodo v2 (30 October 2026)
+  first_date: '2026-10-29'
+  read: F
+  role: mixed
+  code_release: https://github.com/Somebodyhere101/whose-words-count
+  extraction_scope: 'Section 8: the role-direction steering test against an injected instruction in a document (Qwen3-4B, 4-bit), with its random-direction control; (the goal-adherence experiments, which concern trusted goal
+    reminders rather than injected data, and the fine-tuning pilots are not coded)'
+defences:
+- id: rolesteer
+  name: role-direction steering (assistant-minus-system/user activation direction added to the injected instruction)
+  origin: this_report
+  base_checkpoint: Qwen3-4B (4-bit)
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: summarisation of a document that carries an injected instruction; the steering vector is added to the injected instruction's tokens
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: The direction is added to an injected instruction inside a document
+- id: randdir
+  name: a random direction of the same norm (control)
+  origin: this_report
+  base_checkpoint: Qwen3-4B (4-bit)
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: summarisation of a document that carries an injected instruction; the steering vector is added to the injected instruction's tokens
+  anchor: The single random control gave 0.642
+evaluations:
+- id: ev_none
+  defence_id: none:Qwen3-4B (4-bit)
+  benchmark: author-built summarisation task with an instruction injected into the document (INJ2_PREREG)
+  attacker_type: static
+  attacker_access: black_box
+  judge: compliance with the injected instruction (rule logged before data)
+  layout_same_as_defence: 'yes'
+  measured_by: whosewords_zenodo2026
+  page: 16
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_steer
+  defence_id: rolesteer
+  benchmark: author-built summarisation task with an instruction injected into the document (INJ2_PREREG)
+  attacker_type: static
+  attacker_access: black_box
+  judge: compliance with the injected instruction (rule logged before data)
+  layout_same_as_defence: 'yes'
+  measured_by: whosewords_zenodo2026
+  page: 16
+  decoding: not reported
+- id: ev_rand
+  defence_id: randdir
+  benchmark: author-built summarisation task with an instruction injected into the document (INJ2_PREREG)
+  attacker_type: static
+  attacker_access: black_box
+  judge: compliance with the injected instruction (rule logged before data)
+  layout_same_as_defence: 'yes'
+  measured_by: whosewords_zenodo2026
+  page: 16
+  decoding: not reported
+results:
+- id: r_none
+  evaluation_id: ev_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: compliance with the injected instruction
+  value: '0.209'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 16
+  location: Section 8
+- id: r_steer
+  evaluation_id: ev_steer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: compliance with the injected instruction
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 16
+  location: Section 8
+- id: r_rand
+  evaluation_id: ev_rand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: compliance with the injected instruction
+  value: '0.642'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 16
+  location: Section 8
+- id: r_none_legit
+  evaluation_id: ev_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: legitimate instruction followed
+  value: '0.79'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 16
+  location: Section 8
+- id: r_steer_legit
+  evaluation_id: ev_steer
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: legitimate instruction followed
+  value: '1.00'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 16
+  location: Section 8
+comparisons:
+- id: c_steer
+  left: ev_steer
+  right: ev_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_steer_rand
+  left: ev_steer
+  right: ev_rand
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the role direction against a random direction of the same norm
+  page: 16
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: proxy
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Section 8
+    R2attack: legitimate instruction followed (Section 8)
+    R2clean: not reported
+schema_gaps:
+- where: report
+  note: the injection test is one model in 4-bit (in bf16 the model ignores the injection at baseline) and is presented by the author as a replication of prior steering work, not a contribution; the exploratory random-direction
+    check places the single control draw at the 91st percentile; the study is described as AI-run

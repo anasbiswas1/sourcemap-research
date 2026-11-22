@@ -1,0 +1,418 @@
+report:
+  id: smallagentsq_zenodo2026
+  slug: doi_10_5281_zenodo_21343930
+  title: What Determines the Vulnerability of Small LLM Agents to Indirect Prompt Injection? A Systematic Study of Quantization, Model Size, Architecture, and Attack Style
+  first_author: Aleksandr Kuleshov
+  venue: Zenodo preprint
+  peer_reviewed: 'no'
+  doi: 10.5281/zenodo.21343930
+  version_read: Zenodo version
+  first_date: '2026-07-13'
+  read: F
+  role: re_measures
+  code_release: code, scenarios and raw rollouts stated as released
+  extraction_scope: 'Section 5.3: the spotlighting comparison against the weak inline instruction for Llama-3.2-1B and Qwen2.5-1.5B at Q4 and Q8 (text values); the abstract claim (the quantization, size and style analyses
+    test no defence and are not coded)'
+defences:
+- id: inline_l1q4
+  name: one-line inline instruction not to obey commands inside tool results (the harness default)
+  origin: this_report
+  base_checkpoint: Llama-3.2-1B (Q4)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: 'single-turn tool-use harness: JSON actions, injection in a tool result'
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: supported
+  anchor: includes one line of inline defense
+- id: spot_l1q4
+  name: hardened spotlighting (tool output wrapped in untrusted-data delimiters with a security preamble)
+  origin: this_report
+  base_checkpoint: Llama-3.2-1B (Q4)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 11
+  layout: 'single-turn tool-use harness: JSON actions, injection in a tool result; tool output delimited'
+  layout_compat: *id001
+  anchor: wrapping tool output in explicit untrusted-data delimiters
+- id: inline_l1q8
+  name: one-line inline instruction not to obey commands inside tool results (the harness default)
+  origin: this_report
+  base_checkpoint: Llama-3.2-1B (Q8)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: 'single-turn tool-use harness: JSON actions, injection in a tool result'
+  layout_compat: *id001
+  anchor: includes one line of inline defense
+- id: spot_l1q8
+  name: hardened spotlighting (tool output wrapped in untrusted-data delimiters with a security preamble)
+  origin: this_report
+  base_checkpoint: Llama-3.2-1B (Q8)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 11
+  layout: 'single-turn tool-use harness: JSON actions, injection in a tool result; tool output delimited'
+  layout_compat: *id001
+  anchor: wrapping tool output in explicit untrusted-data delimiters
+- id: inline_q15q4
+  name: one-line inline instruction not to obey commands inside tool results (the harness default)
+  origin: this_report
+  base_checkpoint: Qwen2.5-1.5B (Q4)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: 'single-turn tool-use harness: JSON actions, injection in a tool result'
+  layout_compat: *id001
+  anchor: includes one line of inline defense
+- id: spot_q15q4
+  name: hardened spotlighting (tool output wrapped in untrusted-data delimiters with a security preamble)
+  origin: this_report
+  base_checkpoint: Qwen2.5-1.5B (Q4)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 11
+  layout: 'single-turn tool-use harness: JSON actions, injection in a tool result; tool output delimited'
+  layout_compat: *id001
+  anchor: wrapping tool output in explicit untrusted-data delimiters
+- id: inline_q15q8
+  name: one-line inline instruction not to obey commands inside tool results (the harness default)
+  origin: this_report
+  base_checkpoint: Qwen2.5-1.5B (Q8)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: 'single-turn tool-use harness: JSON actions, injection in a tool result'
+  layout_compat: *id001
+  anchor: includes one line of inline defense
+- id: spot_q15q8
+  name: hardened spotlighting (tool output wrapped in untrusted-data delimiters with a security preamble)
+  origin: this_report
+  base_checkpoint: Qwen2.5-1.5B (Q8)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 11
+  layout: 'single-turn tool-use harness: JSON actions, injection in a tool result; tool output delimited'
+  layout_compat: *id001
+  anchor: wrapping tool output in explicit untrusted-data delimiters
+evaluations:
+- id: ev_l1q4_inline
+  defence_id: inline_l1q4
+  benchmark: author-built indirect injection suite (eight styles, six tool domains), ten seeds
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'four-outcome scorer: the malicious action was emitted'
+  layout_same_as_defence: 'yes'
+  measured_by: smallagentsq_zenodo2026
+  page: 11
+  decoding: temperature 0.7, ten seeds
+  pages:
+    decoding: 9
+- id: ev_l1q4_spot
+  defence_id: spot_l1q4
+  benchmark: author-built indirect injection suite (eight styles, six tool domains), ten seeds
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'four-outcome scorer: the malicious action was emitted'
+  layout_same_as_defence: 'yes'
+  measured_by: smallagentsq_zenodo2026
+  page: 11
+  decoding: temperature 0.7, ten seeds
+  pages:
+    decoding: 9
+- id: ev_l1q8_inline
+  defence_id: inline_l1q8
+  benchmark: author-built indirect injection suite (eight styles, six tool domains), ten seeds
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'four-outcome scorer: the malicious action was emitted'
+  layout_same_as_defence: 'yes'
+  measured_by: smallagentsq_zenodo2026
+  page: 11
+  decoding: temperature 0.7, ten seeds
+  pages:
+    decoding: 9
+- id: ev_l1q8_spot
+  defence_id: spot_l1q8
+  benchmark: author-built indirect injection suite (eight styles, six tool domains), ten seeds
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'four-outcome scorer: the malicious action was emitted'
+  layout_same_as_defence: 'yes'
+  measured_by: smallagentsq_zenodo2026
+  page: 11
+  decoding: temperature 0.7, ten seeds
+  pages:
+    decoding: 9
+- id: ev_q15q4_inline
+  defence_id: inline_q15q4
+  benchmark: author-built indirect injection suite (eight styles, six tool domains), ten seeds
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'four-outcome scorer: the malicious action was emitted'
+  layout_same_as_defence: 'yes'
+  measured_by: smallagentsq_zenodo2026
+  page: 11
+  decoding: temperature 0.7, ten seeds
+  pages:
+    decoding: 9
+- id: ev_q15q4_spot
+  defence_id: spot_q15q4
+  benchmark: author-built indirect injection suite (eight styles, six tool domains), ten seeds
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'four-outcome scorer: the malicious action was emitted'
+  layout_same_as_defence: 'yes'
+  measured_by: smallagentsq_zenodo2026
+  page: 11
+  decoding: temperature 0.7, ten seeds
+  pages:
+    decoding: 9
+- id: ev_q15q8_inline
+  defence_id: inline_q15q8
+  benchmark: author-built indirect injection suite (eight styles, six tool domains), ten seeds
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'four-outcome scorer: the malicious action was emitted'
+  layout_same_as_defence: 'yes'
+  measured_by: smallagentsq_zenodo2026
+  page: 11
+  decoding: temperature 0.7, ten seeds
+  pages:
+    decoding: 9
+- id: ev_q15q8_spot
+  defence_id: spot_q15q8
+  benchmark: author-built indirect injection suite (eight styles, six tool domains), ten seeds
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'four-outcome scorer: the malicious action was emitted'
+  layout_same_as_defence: 'yes'
+  measured_by: smallagentsq_zenodo2026
+  page: 11
+  decoding: temperature 0.7, ten seeds
+  pages:
+    decoding: 9
+results:
+- id: r_l1q4_inline
+  evaluation_id: ev_l1q4_inline
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 5.3
+- id: r_l1q4_spot
+  evaluation_id: ev_l1q4_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '29'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 5.3
+- id: r_l1q8_inline
+  evaluation_id: ev_l1q8_inline
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 5.3
+- id: r_l1q8_spot
+  evaluation_id: ev_l1q8_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '24'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 5.3
+- id: r_q15q4_inline
+  evaluation_id: ev_q15q4_inline
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '42'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 5.3
+- id: r_q15q4_spot
+  evaluation_id: ev_q15q4_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 5.3
+- id: r_q15q8_inline
+  evaluation_id: ev_q15q8_inline
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 5.3
+- id: r_q15q8_spot
+  evaluation_id: ev_q15q8_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '53'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 11
+  location: Section 5.3
+comparisons:
+- id: c_l1q4
+  left: ev_l1q4_spot
+  right: ev_l1q4_inline
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: hardened spotlighting in place of the one-line inline instruction
+  page: 11
+- id: c_l1q8
+  left: ev_l1q8_spot
+  right: ev_l1q8_inline
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: hardened spotlighting in place of the one-line inline instruction
+  page: 11
+- id: c_q15q4
+  left: ev_q15q4_spot
+  right: ev_q15q4_inline
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: hardened spotlighting in place of the one-line inline instruction
+  page: 11
+- id: c_q15q8
+  left: ev_q15q8_spot
+  right: ev_q15q8_inline
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: hardened spotlighting in place of the one-line inline instruction
+  page: 11
+claims:
+- id: k1
+  text: spotlighting with delimiters reduces attack success for one architecture while increasing it for another
+  location: abstract
+  anchor: it reduces attack success for one architecture while increasing it for another
+  jobs:
+  - R1
+  supported_by:
+  - c_l1q4
+  - c_l1q8
+  - c_q15q4
+  - c_q15q8
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Section 5.3 and Figure 5
+    R2clean: benign-baseline completion is reported only for the default prompt
+    R2attack: not reported
+schema_gaps:
+- where: evaluations ev_*_inline
+  note: 'there is no undefended arm: the reference is the harness''s one-line inline instruction, so the comparison is between two prompting defences'

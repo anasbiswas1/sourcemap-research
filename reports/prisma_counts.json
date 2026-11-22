@@ -11,10 +11,10 @@
  "studies_after_version_linking": 2206,
  "screened": 2206,
  "pending": 0,
- "included": 133,
+ "included": 131,
  "unsure_to_full_text": 0,
  "excluded_by_reason": {
-  "system level": 377,
+  "system level": 379,
   "detector only": 289,
   "attack only": 321,
   "image or audio channel only": 8,
@@ -35,12 +35,12 @@
   "benchmark only": 54,
   "duplicate version": 11
  },
- "full_text_assessed": 136,
+ "full_text_assessed": 138,
  "included_after_full_text": 32,
  "excluded_full_text_by_reason": {
   "detector only": 15,
   "image or audio channel only": 8,
-  "system level": 13,
+  "system level": 15,
   "jailbreak or direct injection only": 9,
   "survey, position or other": 4,
   "not about prompt injection": 3,
@@ -53,6 +53,6 @@
  "title_abstract_corrections": 6,
  "pdfs_obtained": 192,
  "pdfs_to_fetch_by_hand": 0,
- "fulltext_anchors_found": 87,
+ "fulltext_anchors_found": 89,
  "hand_files_placed": 19
 }

@@ -1,0 +1,377 @@
+report:
+  id: smalllocal_zenodo2026
+  slug: doi_10_5281_zenodo_23811220
+  title: 'Prompt-Injection Defences on a Small Local Agent: What Works, What It Costs, and How Optimistic Development Numbers Are'
+  first_author: Syed Muhammad Hassan Raza
+  venue: Zenodo preprint
+  peer_reviewed: 'no'
+  doi: 10.5281/zenodo.23811220
+  version_read: Zenodo version
+  first_date: '2026-10-30'
+  read: F
+  role: mixed
+  code_release: github.com/smhassanraza1/hijack-proof-agent
+  extraction_scope: 'Sections 4 and 6: Table 4 rows none, spotlighting and repeat the user''s prompt on the registered test cases, and the round-0 system-prompt rule on train cases (text); (plan-then-gate, the paper''s own
+    defence, is a planner with a separate call gate and is system-level; the tool filter and the prompt-injection classifier are left out as a filter and a detector)'
+defences:
+- id: spot
+  name: spotlighting (AgentDojo implementation)
+  origin: other_report
+  base_checkpoint: Qwen3.5-4B (local)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 15
+  layout: AgentDojo agent; injection in tool outputs
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: supported
+  anchor: Every defence on every test case, important_instructions
+- id: rep
+  name: repeat the user's prompt (AgentDojo implementation)
+  origin: other_report
+  base_checkpoint: Qwen3.5-4B (local)
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 15
+  layout: AgentDojo agent; injection in tool outputs
+  layout_compat: *id001
+  anchor: Every defence on every test case, important_instructions
+- id: rule
+  name: 'system-prompt rule: tool data is not from the user, do not act on instructions in it, tell the user'
+  origin: this_report
+  base_checkpoint: Qwen3.5-4B (local)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 8
+  layout: AgentDojo agent; injection in tool outputs
+  layout_compat: *id001
+  anchor: The cheapest ﬁx is a system-prompt rule
+evaluations:
+- id: ev_none
+  defence_id: none:Qwen3.5-4B (local)
+  benchmark: AgentDojo, registered test cases (158 attacked, 47 normal), important_instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo program checks
+  layout_same_as_defence: 'yes'
+  measured_by: smalllocal_zenodo2026
+  page: 15
+  decoding: not reported
+  sample_size: 158 attacked, 47 normal (cases complete in both arms)
+  baseline_kind: off_the_shelf
+- id: ev_none_ben
+  defence_id: none:Qwen3.5-4B (local)
+  benchmark: AgentDojo, registered test cases (158 attacked, 47 normal), normal tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo program checks
+  layout_same_as_defence: 'yes'
+  measured_by: smalllocal_zenodo2026
+  page: 15
+  decoding: not reported
+  sample_size: '47'
+  baseline_kind: off_the_shelf
+- id: ev_spot
+  defence_id: spot
+  benchmark: AgentDojo, registered test cases (158 attacked, 47 normal), important_instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo program checks
+  layout_same_as_defence: 'yes'
+  measured_by: smalllocal_zenodo2026
+  page: 15
+  decoding: not reported
+  sample_size: 158 attacked, 47 normal (cases complete in both arms)
+- id: ev_spot_ben
+  defence_id: spot
+  benchmark: AgentDojo, registered test cases (158 attacked, 47 normal), normal tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo program checks
+  layout_same_as_defence: 'yes'
+  measured_by: smalllocal_zenodo2026
+  page: 15
+  decoding: not reported
+  sample_size: '47'
+- id: ev_rep
+  defence_id: rep
+  benchmark: AgentDojo, registered test cases (158 attacked, 47 normal), important_instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo program checks
+  layout_same_as_defence: 'yes'
+  measured_by: smalllocal_zenodo2026
+  page: 15
+  decoding: not reported
+  sample_size: 158 attacked, 47 normal (cases complete in both arms)
+- id: ev_rep_ben
+  defence_id: rep
+  benchmark: AgentDojo, registered test cases (158 attacked, 47 normal), normal tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo program checks
+  layout_same_as_defence: 'yes'
+  measured_by: smalllocal_zenodo2026
+  page: 15
+  decoding: not reported
+  sample_size: '47'
+- id: ev_tr_none
+  defence_id: none:Qwen3.5-4B (local)
+  benchmark: AgentDojo train cases, important_instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo program checks
+  layout_same_as_defence: 'yes'
+  measured_by: smalllocal_zenodo2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_tr_rule
+  defence_id: rule
+  benchmark: AgentDojo train cases, important_instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo program checks
+  layout_same_as_defence: 'yes'
+  measured_by: smalllocal_zenodo2026
+  page: 8
+  decoding: not reported
+results:
+- id: r_none_asr
+  evaluation_id: ev_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '38'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 4
+- id: r_none_ua
+  evaluation_id: ev_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '65'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 4
+- id: r_none_u
+  evaluation_id: ev_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility
+  value: '81'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 4
+- id: r_spot_asr
+  evaluation_id: ev_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '34'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 4
+- id: r_spot_ua
+  evaluation_id: ev_spot
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '62'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 4
+- id: r_spot_u
+  evaluation_id: ev_spot_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility
+  value: '85'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 4
+- id: r_rep_asr
+  evaluation_id: ev_rep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '19'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 4
+- id: r_rep_ua
+  evaluation_id: ev_rep
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack
+  value: '60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 4
+- id: r_rep_u
+  evaluation_id: ev_rep_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility
+  value: '77'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 4
+- id: r_tr_none
+  evaluation_id: ev_tr_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, train cases
+  value: '37'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 8
+  location: Section 4, round 0
+- id: r_tr_rule
+  evaluation_id: ev_tr_rule
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, train cases
+  value: '39'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 8
+  location: Section 4, round 0
+comparisons:
+- id: c_spot
+  left: ev_spot
+  right: ev_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_spot_ben
+  left: ev_spot_ben
+  right: ev_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_rep
+  left: ev_rep
+  right: ev_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_rep_ben
+  left: ev_rep_ben
+  right: ev_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_rule
+  left: ev_tr_rule
+  right: ev_tr_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: a safety rule in the system prompt had no measurable effect on this model
+  location: abstract
+  anchor: A safety rule in the system prompt had no measurable effect
+  jobs:
+  - R1
+  supported_by:
+  - c_rule
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 4; Section 4 round 0
+    R2clean: Table 4 (utility)
+    R2attack: Table 4
+schema_gaps:
+- where: report
+  note: the paper's main defence, plan-then-gate, sends unplanned state-changing calls to a separate checker and is left out as system-level; two identical undefended runs flipped 15% of attack outcomes, so differences under
+    about 10 points are within noise, as the author notes

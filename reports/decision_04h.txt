@@ -1,0 +1,8 @@
+decision_04h: BATCH CHECKED
+this step: 2026-11-22
+reports: backfire_zenodo2026, socportab_zenodo2026, transfact_zenodo2026, smallagentsq_zenodo2026, poisonedtools_zenodo2026, msacore_zenodo2026, whosewords_zenodo2026, whosaidthis_zenodo2026, smalllocal_zenodo2026, crossdt_sbseg2026
+records: 73 defences, 247 evaluations, 336 results, 162 comparisons, 10 claims
+checked against the PDFs: 336 printed values (0 of them found only in the third extraction), 0 chart values (0 of them found only in the third extraction) and 83 anchors, each found on its page
+comparison grades: A 154, B 8, C 0, U 0
+residual notes: 12; full-text exclusions found while coding: 2
+next: batch 04i

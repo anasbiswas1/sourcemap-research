@@ -1,0 +1,995 @@
+report:
+  id: crossdt_sbseg2026
+  slug: doi_10_5753_sbseg_estendido_2026_33794
+  title: A Cross-Lingual Security Evaluation of Prompt Injection Defenses in Small Language Models
+  first_author: Pedro Fuziwara Filho
+  venue: SBSeg 2026 Extended Proceedings (Workshop de Cibersegurança em IA)
+  peer_reviewed: 'yes'
+  doi: 10.5753/sbseg_estendido.2026.33794
+  version_read: published workshop paper
+  first_date: '2026-09-01'
+  read: F
+  role: re_measures
+  extraction_scope: 'Table 1: DefensiveTokens trained by the authors in Portuguese, with and without, on three small models and five test languages (attack success only); (Table 2 breaks the undefended rate down by attack
+    type and is not coded)'
+defences:
+- id: dt_llama
+  name: DefensiveTokens (five soft tokens, prompt-tuned by the authors on Portuguese MedPT with injected prompts)
+  origin: other_report
+  base_checkpoint: Llama 3.2 3B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - soft_tokens_frozen
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: '[INST] instruction, [DATA] patient question with the injection appended, [RESP]; five soft tokens prepended'
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: in prompt-tuning mode, defining five soft tokens
+- id: dt_qwen
+  name: DefensiveTokens (five soft tokens, prompt-tuned by the authors on Portuguese MedPT with injected prompts)
+  origin: other_report
+  base_checkpoint: Qwen 2.5 7B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - soft_tokens_frozen
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: '[INST] instruction, [DATA] patient question with the injection appended, [RESP]; five soft tokens prepended'
+  layout_compat: *id001
+  anchor: in prompt-tuning mode, defining five soft tokens
+- id: dt_phi
+  name: DefensiveTokens (five soft tokens, prompt-tuned by the authors on Portuguese MedPT with injected prompts)
+  origin: other_report
+  base_checkpoint: Phi-4 Mini
+  axis1:
+  - delimiters_markers
+  axis2:
+  - soft_tokens_frozen
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: '[INST] instruction, [DATA] patient question with the injection appended, [RESP]; five soft tokens prepended'
+  layout_compat: *id001
+  anchor: in prompt-tuning mode, defining five soft tokens
+evaluations:
+- id: ev_pt_llama_none
+  defence_id: none:Llama 3.2 3B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Portuguese (training language) (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_pt_llama_dt
+  defence_id: dt_llama
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Portuguese (training language) (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_pt_qwen_none
+  defence_id: none:Qwen 2.5 7B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Portuguese (training language) (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_pt_qwen_dt
+  defence_id: dt_qwen
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Portuguese (training language) (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_pt_phi_none
+  defence_id: none:Phi-4 Mini
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Portuguese (training language) (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_pt_phi_dt
+  defence_id: dt_phi
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Portuguese (training language) (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_es_llama_none
+  defence_id: none:Llama 3.2 3B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Spanish (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_es_llama_dt
+  defence_id: dt_llama
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Spanish (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_es_qwen_none
+  defence_id: none:Qwen 2.5 7B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Spanish (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_es_qwen_dt
+  defence_id: dt_qwen
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Spanish (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_es_phi_none
+  defence_id: none:Phi-4 Mini
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Spanish (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_es_phi_dt
+  defence_id: dt_phi
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in Spanish (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_fr_llama_none
+  defence_id: none:Llama 3.2 3B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in French (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_fr_llama_dt
+  defence_id: dt_llama
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in French (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_fr_qwen_none
+  defence_id: none:Qwen 2.5 7B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in French (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_fr_qwen_dt
+  defence_id: dt_qwen
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in French (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_fr_phi_none
+  defence_id: none:Phi-4 Mini
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in French (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_fr_phi_dt
+  defence_id: dt_phi
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in French (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_en_llama_none
+  defence_id: none:Llama 3.2 3B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in English (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_en_llama_dt
+  defence_id: dt_llama
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in English (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_en_qwen_none
+  defence_id: none:Qwen 2.5 7B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in English (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_en_qwen_dt
+  defence_id: dt_qwen
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in English (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_en_phi_none
+  defence_id: none:Phi-4 Mini
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in English (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_en_phi_dt
+  defence_id: dt_phi
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in English (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_de_llama_none
+  defence_id: none:Llama 3.2 3B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in German (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_de_llama_dt
+  defence_id: dt_llama
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in German (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_de_qwen_none
+  defence_id: none:Qwen 2.5 7B
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in German (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_de_qwen_dt
+  defence_id: dt_qwen
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in German (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+- id: ev_de_phi_none
+  defence_id: none:Phi-4 Mini
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in German (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+  baseline_kind: off_the_shelf
+- id: ev_de_phi_dt
+  defence_id: dt_phi
+  benchmark: MedPT test set (4,375 questions), seven static injection types, injection in German (NLLB translation)
+  attacker_type: static
+  attacker_access: black_box
+  judge: language-specific substring (hack, pirat, gehackt) in the answer
+  layout_same_as_defence: 'yes'
+  measured_by: crossdt_sbseg2026
+  page: 5
+  decoding: greedy, max 256 new tokens
+  sample_size: '4375'
+results:
+- id: r_pt_llama_none
+  evaluation_id: ev_pt_llama_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '18.38'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_pt_llama_dt
+  evaluation_id: ev_pt_llama_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '3.86'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_pt_qwen_none
+  evaluation_id: ev_pt_qwen_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '99.63'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_pt_qwen_dt
+  evaluation_id: ev_pt_qwen_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '3.54'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_pt_phi_none
+  evaluation_id: ev_pt_phi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '53.55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_pt_phi_dt
+  evaluation_id: ev_pt_phi_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '18.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_es_llama_none
+  evaluation_id: ev_es_llama_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '4.47'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_es_llama_dt
+  evaluation_id: ev_es_llama_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '0.46'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_es_qwen_none
+  evaluation_id: ev_es_qwen_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '44.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_es_qwen_dt
+  evaluation_id: ev_es_qwen_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '0.23'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_es_phi_none
+  evaluation_id: ev_es_phi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '61.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_es_phi_dt
+  evaluation_id: ev_es_phi_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '25.96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_fr_llama_none
+  evaluation_id: ev_fr_llama_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '5.68'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_fr_llama_dt
+  evaluation_id: ev_fr_llama_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '3.34'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_fr_qwen_none
+  evaluation_id: ev_fr_qwen_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '48.18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_fr_qwen_dt
+  evaluation_id: ev_fr_qwen_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '3.36'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_fr_phi_none
+  evaluation_id: ev_fr_phi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '47.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_fr_phi_dt
+  evaluation_id: ev_fr_phi_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '16.31'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_en_llama_none
+  evaluation_id: ev_en_llama_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '9.85'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_en_llama_dt
+  evaluation_id: ev_en_llama_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '1.23'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_en_qwen_none
+  evaluation_id: ev_en_qwen_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '99.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_en_qwen_dt
+  evaluation_id: ev_en_qwen_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '1.65'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_en_phi_none
+  evaluation_id: ev_en_phi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '66.95'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_en_phi_dt
+  evaluation_id: ev_en_phi_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '15.42'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_de_llama_none
+  evaluation_id: ev_de_llama_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '1.18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_de_llama_dt
+  evaluation_id: ev_de_llama_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '0.09'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_de_qwen_none
+  evaluation_id: ev_de_qwen_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '47.09'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_de_qwen_dt
+  evaluation_id: ev_de_qwen_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '0.41'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_de_phi_none
+  evaluation_id: ev_de_phi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '44.69'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_de_phi_dt
+  evaluation_id: ev_de_phi_dt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate
+  value: '18.41'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+comparisons:
+- id: c_pt_llama
+  left: ev_pt_llama_dt
+  right: ev_pt_llama_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_pt_qwen
+  left: ev_pt_qwen_dt
+  right: ev_pt_qwen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_pt_phi
+  left: ev_pt_phi_dt
+  right: ev_pt_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_es_llama
+  left: ev_es_llama_dt
+  right: ev_es_llama_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_es_qwen
+  left: ev_es_qwen_dt
+  right: ev_es_qwen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_es_phi
+  left: ev_es_phi_dt
+  right: ev_es_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_fr_llama
+  left: ev_fr_llama_dt
+  right: ev_fr_llama_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_fr_qwen
+  left: ev_fr_qwen_dt
+  right: ev_fr_qwen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_fr_phi
+  left: ev_fr_phi_dt
+  right: ev_fr_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_en_llama
+  left: ev_en_llama_dt
+  right: ev_en_llama_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_en_qwen
+  left: ev_en_qwen_dt
+  right: ev_en_qwen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_en_phi
+  left: ev_en_phi_dt
+  right: ev_en_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_de_llama
+  left: ev_de_llama_dt
+  right: ev_de_llama_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_de_qwen
+  left: ev_de_qwen_dt
+  right: ev_de_qwen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_de_phi
+  left: ev_de_phi_dt
+  right: ev_de_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+claims:
+- id: k1
+  text: DefensiveTokens trained only in Portuguese give a robust defence against prompt injection in other languages
+  location: abstract
+  anchor: DefensiveTokens provide a robust defense against prompt injection attacks in multilingual applications
+  jobs:
+  - R1
+  supported_by:
+  - c_pt_llama
+  - c_pt_qwen
+  - c_pt_phi
+  - c_es_llama
+  - c_es_qwen
+  - c_es_phi
+  - c_fr_llama
+  - c_fr_qwen
+  - c_fr_phi
+  - c_en_llama
+  - c_en_qwen
+  - c_en_phi
+  - c_de_llama
+  - c_de_qwen
+  - c_de_phi
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    R2clean: not reported
+    R2attack: not reported
+schema_gaps:
+- where: defences dt_*
+  note: the authors' DefensiveTokens run on base models with plain-text [INST]/[DATA]/[RESP] markers, not the chat-role format of the original release, so axis 1 is coded as delimiters for this report
+- where: report
+  note: no utility or answer-quality measure is reported for the defended models, so the claim of a robust defence rests on attack success alone

@@ -1,0 +1,11 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,values_third_extraction,chart_values_third_extraction,residual_notes,problems
+04h,backfire_zenodo2026,doi_10_5281_zenodo_20735483,re_measures,10,60,120,120,0,11,40,40,0,0,0,1,direct,not_reported,direct,not_reported,not_reported,not_reported,0,0,1,0
+04h,socportab_zenodo2026,doi_10_5281_zenodo_20772702,re_measures,15,20,20,20,0,16,15,15,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04h,transfact_zenodo2026,doi_10_5281_zenodo_21120124,re_measures,13,65,65,65,0,15,50,50,0,0,0,2,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04h,smallagentsq_zenodo2026,doi_10_5281_zenodo_21343930,re_measures,8,8,8,8,0,9,4,4,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04h,poisonedtools_zenodo2026,doi_10_5281_zenodo_21349713,re_measures,3,8,6,6,0,4,6,6,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04h,msacore_zenodo2026,doi_10_5281_zenodo_23506227,re_measures,4,5,7,7,0,5,5,5,0,0,0,1,direct,not_reported,proxy,not_reported,not_reported,not_reported,0,0,1,0
+04h,whosewords_zenodo2026,doi_10_5281_zenodo_23758884,mixed,2,3,5,5,0,2,2,2,0,0,0,0,direct,not_reported,proxy,not_reported,not_reported,not_reported,0,0,1,0
+04h,whosaidthis_zenodo2026,doi_10_5281_zenodo_23758886,proposes,12,40,64,64,0,13,20,12,8,0,0,1,direct,not_reported,proxy,not_reported,not_reported,not_reported,0,0,2,0
+04h,smalllocal_zenodo2026,doi_10_5281_zenodo_23811220,mixed,3,8,11,11,0,4,5,5,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,1,0
+04h,crossdt_sbseg2026,doi_10_5753_sbseg_estendido_2026_33794,re_measures,3,30,30,30,0,4,15,15,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,2,0

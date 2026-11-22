@@ -1,0 +1,987 @@
+report:
+  id: socportab_zenodo2026
+  slug: doi_10_5281_zenodo_20772702
+  title: 'Same Attack, Different Fates: Cross-Family Portability Failure of Prompt-Injection Defenses in LLM-Powered SOC Triage'
+  first_author: Ankit Singh
+  venue: Zenodo preprint (formatted for AISec 2026 with a placeholder DOI)
+  peer_reviewed: 'no'
+  doi: 10.5281/zenodo.20772702
+  version_read: Zenodo version (20 June 2026)
+  first_date: '2026-06-20'
+  read: F
+  role: re_measures
+  code_release: analysis scripts named (stats_to_9.py); not checked
+  extraction_scope: 'Section 7: Table 8 rows Unprotected, System Warning, XML Delimiters and Spotlighting for the five scorable open-weight models; the abstract claim (Allowlist Sanitization, a sanitiser, Dynamic Canary and
+    the LLM Classifier, which detect, and the Stacked combination are left out; the frontier validation tests no defence)'
+defences:
+- id: warn_gemma
+  name: System Warning (prompt-level warning wrapper)
+  origin: other_report
+  base_checkpoint: Gemma 2 9B (q4_0)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: xml_gemma
+  name: XML Delimiters around the telemetry
+  origin: other_report
+  base_checkpoint: Gemma 2 9B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: spot_gemma
+  name: Spotlighting (variant not named)
+  origin: other_report
+  base_checkpoint: Gemma 2 9B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: warn_llama
+  name: System Warning (prompt-level warning wrapper)
+  origin: other_report
+  base_checkpoint: Llama 3 8B (q4_0)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: xml_llama
+  name: XML Delimiters around the telemetry
+  origin: other_report
+  base_checkpoint: Llama 3 8B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: spot_llama
+  name: Spotlighting (variant not named)
+  origin: other_report
+  base_checkpoint: Llama 3 8B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: warn_phi
+  name: System Warning (prompt-level warning wrapper)
+  origin: other_report
+  base_checkpoint: Phi-3 3.8B (q4_0)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: xml_phi
+  name: XML Delimiters around the telemetry
+  origin: other_report
+  base_checkpoint: Phi-3 3.8B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: spot_phi
+  name: Spotlighting (variant not named)
+  origin: other_report
+  base_checkpoint: Phi-3 3.8B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: warn_mistral
+  name: System Warning (prompt-level warning wrapper)
+  origin: other_report
+  base_checkpoint: Mistral 7B (q4_0)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: xml_mistral
+  name: XML Delimiters around the telemetry
+  origin: other_report
+  base_checkpoint: Mistral 7B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: spot_mistral
+  name: Spotlighting (variant not named)
+  origin: other_report
+  base_checkpoint: Mistral 7B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: warn_qwen
+  name: System Warning (prompt-level warning wrapper)
+  origin: other_report
+  base_checkpoint: Qwen 2.5 7B (q4_0)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: xml_qwen
+  name: XML Delimiters around the telemetry
+  origin: other_report
+  base_checkpoint: Qwen 2.5 7B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+- id: spot_qwen
+  name: Spotlighting (variant not named)
+  origin: other_report
+  base_checkpoint: Qwen 2.5 7B (q4_0)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: 'SOC triage prompt: alert telemetry with attacker-controlled fields, structured JSON decision (escalate or close)'
+  layout_compat: *id001
+  anchor: We evaluate seven lightweight defenses applied as prompt-level wrappers
+evaluations:
+- id: ev_gemma_none
+  defence_id: none:Gemma 2 9B (q4_0)
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_llama_none
+  defence_id: none:Llama 3 8B (q4_0)
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_phi_none
+  defence_id: none:Phi-3 3.8B (q4_0)
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_mistral_none
+  defence_id: none:Mistral 7B (q4_0)
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_qwen_none
+  defence_id: none:Qwen 2.5 7B (q4_0)
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+  baseline_kind: off_the_shelf
+- id: ev_gemma_warn
+  defence_id: warn_gemma
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_llama_warn
+  defence_id: warn_llama
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_phi_warn
+  defence_id: warn_phi
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_mistral_warn
+  defence_id: warn_mistral
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_qwen_warn
+  defence_id: warn_qwen
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_gemma_xml
+  defence_id: xml_gemma
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_llama_xml
+  defence_id: xml_llama
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_phi_xml
+  defence_id: xml_phi
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_mistral_xml
+  defence_id: xml_mistral
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_qwen_xml
+  defence_id: xml_qwen
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_gemma_spot
+  defence_id: spot_gemma
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_llama_spot
+  defence_id: spot_llama
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_phi_spot
+  defence_id: spot_phi
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_mistral_spot
+  defence_id: spot_mistral
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+- id: ev_qwen_spot
+  defence_id: spot_qwen
+  benchmark: 73 SOC alerts (28 malicious), 364 injected payloads in attacker-controlled telemetry fields
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'adversarial false closure: a malicious alert with an injected payload is closed or suppressed; unparseable outputs are not counted'
+  layout_same_as_defence: 'yes'
+  measured_by: socportab_zenodo2026
+  page: 6
+  decoding: not fully specified (Appendix D)
+  sample_size: '364'
+  pages:
+    benchmark: 3
+results:
+- id: r_gemma_none
+  evaluation_id: ev_gemma_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '37.64'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_llama_none
+  evaluation_id: ev_llama_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '53.57'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_phi_none
+  evaluation_id: ev_phi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '68.96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_mistral_none
+  evaluation_id: ev_mistral_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '39.01'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_qwen_none
+  evaluation_id: ev_qwen_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_gemma_warn
+  evaluation_id: ev_gemma_warn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '30.49'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_llama_warn
+  evaluation_id: ev_llama_warn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '85.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_phi_warn
+  evaluation_id: ev_phi_warn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '70.33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_mistral_warn
+  evaluation_id: ev_mistral_warn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '35.71'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_qwen_warn
+  evaluation_id: ev_qwen_warn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_gemma_xml
+  evaluation_id: ev_gemma_xml
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '26.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_llama_xml
+  evaluation_id: ev_llama_xml
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '45.05'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_phi_xml
+  evaluation_id: ev_phi_xml
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '63.74'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_mistral_xml
+  evaluation_id: ev_mistral_xml
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '27.47'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_qwen_xml
+  evaluation_id: ev_qwen_xml
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_gemma_spot
+  evaluation_id: ev_gemma_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '34.62'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_llama_spot
+  evaluation_id: ev_llama_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '48.08'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_phi_spot
+  evaluation_id: ev_phi_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '68.96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_mistral_spot
+  evaluation_id: ev_mistral_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '39.01'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+- id: r_qwen_spot
+  evaluation_id: ev_qwen_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: adversarial false-closure rate (AFCR)
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 8
+comparisons:
+- id: c_gemma_warn
+  left: ev_gemma_warn
+  right: ev_gemma_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gemma_xml
+  left: ev_gemma_xml
+  right: ev_gemma_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gemma_spot
+  left: ev_gemma_spot
+  right: ev_gemma_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_llama_warn
+  left: ev_llama_warn
+  right: ev_llama_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_llama_xml
+  left: ev_llama_xml
+  right: ev_llama_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_llama_spot
+  left: ev_llama_spot
+  right: ev_llama_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_phi_warn
+  left: ev_phi_warn
+  right: ev_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_phi_xml
+  left: ev_phi_xml
+  right: ev_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_phi_spot
+  left: ev_phi_spot
+  right: ev_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mistral_warn
+  left: ev_mistral_warn
+  right: ev_mistral_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mistral_xml
+  left: ev_mistral_xml
+  right: ev_mistral_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_mistral_spot
+  left: ev_mistral_spot
+  right: ev_mistral_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qwen_warn
+  left: ev_qwen_warn
+  right: ev_qwen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qwen_xml
+  left: ev_qwen_xml
+  right: ev_qwen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_qwen_spot
+  left: ev_qwen_spot
+  right: ev_qwen_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+claims:
+- id: k1
+  text: 'defences are not portable across model families: one that lowers AFCR on one model can leave another unchanged or make it substantially worse'
+  location: abstract
+  anchor: defenses are not portable across families
+  jobs:
+  - R1
+  supported_by:
+  - c_gemma_warn
+  - c_gemma_xml
+  - c_gemma_spot
+  - c_llama_warn
+  - c_llama_xml
+  - c_llama_spot
+  - c_phi_warn
+  - c_phi_xml
+  - c_phi_spot
+  - c_mistral_warn
+  - c_mistral_xml
+  - c_mistral_spot
+  - c_qwen_warn
+  - c_qwen_xml
+  - c_qwen_spot
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 8 (AFCR)
+    R2clean: benign action accuracy is reported only without defences (Table 6)
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: AFCR is the attack-success measure here (false closure of malicious alerts); Qwen 2.5 never escalates any alert (0% intervention, 0% action accuracy), so its AFCR is 100% under every condition and its comparisons are
+    uninformative; decoding settings are not fully specified, as the paper states

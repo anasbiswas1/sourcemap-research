@@ -1,0 +1,316 @@
+report:
+  id: msacore_zenodo2026
+  slug: doi_10_5281_zenodo_23506227
+  title: 'The MLPs of Layers 8-15 of Meta-SecAlign-8B and Its Scaling Knob: An Unresolved Registered Test'
+  first_author: Kazuki Nakayashiki
+  venue: Zenodo preprint
+  peer_reviewed: 'no'
+  doi: 10.5281/zenodo.23506227
+  version_read: Zenodo version
+  first_date: '2026-10-20'
+  read: F
+  role: re_measures
+  code_release: frozen packages with manifests (Table 7)
+  extraction_scope: 'Section 4 (second, registered study on 3,000 fresh SEP items): undefended, full adapter, CORE only, adapter without CORE and the window four layers earlier; the abstract claim (the knob curve of Table
+    3, the first study''s mask screen of Table 6 and the trusted-memory contrast, which concerns memory following rather than injection, not coded)'
+defences:
+- id: msa8
+  name: Meta-SecAlign-8B (released LoRA adapter, full knob)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: Meta-SecAlign input role for SEP data
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: against 2.9% with the whole adapter and 72.5% without it
+- id: core
+  name: Meta-SecAlign-8B restricted to CORE (gate, up and down projections of layers 8-15; 20.1% of the adapter's parameters)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: Meta-SecAlign input role for SEP data
+  layout_compat: *id001
+  anchor: We call CORE the gate, up and down projections of layers 8–15
+- id: nocore
+  name: Meta-SecAlign-8B with CORE removed
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: Meta-SecAlign input role for SEP data
+  layout_compat: *id001
+  anchor: We call CORE the gate, up and down projections of layers 8–15
+- id: shift
+  name: Meta-SecAlign-8B restricted to the same MLP projections of layers 4-11
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: Meta-SecAlign input role for SEP data
+  layout_compat: *id001
+  anchor: We call CORE the gate, up and down projections of layers 8–15
+evaluations:
+- id: ev_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: SEP, 3,000 items not served under attack in any earlier run (non-adaptive SEP attacks)
+  attacker_type: static
+  attacker_access: black_box
+  judge: SEP witness judged on responses up to 512 tokens
+  layout_same_as_defence: 'yes'
+  measured_by: msacore_zenodo2026
+  page: 6
+  decoding: 512 response tokens; sampling not stated
+  sample_size: 3,000
+  baseline_kind: off_the_shelf
+- id: ev_msa8
+  defence_id: msa8
+  benchmark: SEP, 3,000 items not served under attack in any earlier run (non-adaptive SEP attacks)
+  attacker_type: static
+  attacker_access: black_box
+  judge: SEP witness judged on responses up to 512 tokens
+  layout_same_as_defence: 'yes'
+  measured_by: msacore_zenodo2026
+  page: 6
+  decoding: 512 response tokens; sampling not stated
+  sample_size: 3,000
+- id: ev_core
+  defence_id: core
+  benchmark: SEP, 3,000 items not served under attack in any earlier run (non-adaptive SEP attacks)
+  attacker_type: static
+  attacker_access: black_box
+  judge: SEP witness judged on responses up to 512 tokens
+  layout_same_as_defence: 'yes'
+  measured_by: msacore_zenodo2026
+  page: 6
+  decoding: 512 response tokens; sampling not stated
+  sample_size: 3,000
+- id: ev_nocore
+  defence_id: nocore
+  benchmark: SEP, 3,000 items not served under attack in any earlier run (non-adaptive SEP attacks)
+  attacker_type: static
+  attacker_access: black_box
+  judge: SEP witness judged on responses up to 512 tokens
+  layout_same_as_defence: 'yes'
+  measured_by: msacore_zenodo2026
+  page: 6
+  decoding: 512 response tokens; sampling not stated
+  sample_size: 3,000
+- id: ev_shift
+  defence_id: shift
+  benchmark: SEP, 3,000 items not served under attack in any earlier run (non-adaptive SEP attacks)
+  attacker_type: static
+  attacker_access: black_box
+  judge: SEP witness judged on responses up to 512 tokens
+  layout_same_as_defence: 'yes'
+  measured_by: msacore_zenodo2026
+  page: 6
+  decoding: 512 response tokens; sampling not stated
+  sample_size: 3,000
+results:
+- id: r_none
+  evaluation_id: ev_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '72.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 4
+- id: r_msa8
+  evaluation_id: ev_msa8
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '2.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 4
+- id: r_core
+  evaluation_id: ev_core
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '16.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 4
+- id: r_nocore
+  evaluation_id: ev_nocore
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '27.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 4
+- id: r_shift
+  evaluation_id: ev_shift
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP attack success
+  value: '10.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 4
+- id: r_core_task
+  evaluation_id: ev_core
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: main-task proxy held under attack
+  value: '73.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 4
+- id: r_msa8_task
+  evaluation_id: ev_msa8
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: main-task proxy held under attack
+  value: '73.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 6
+  location: Section 4
+comparisons:
+- id: c_msa8
+  left: ev_msa8
+  right: ev_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_core_none
+  left: ev_core
+  right: ev_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_core_msa8
+  left: ev_core
+  right: ev_msa8
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adapter with only CORE kept, against the whole adapter
+  page: 6
+- id: c_nocore_msa8
+  left: ev_nocore
+  right: ev_msa8
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adapter with CORE removed, against the whole adapter
+  page: 6
+- id: c_shift_msa8
+  left: ev_shift
+  right: ev_msa8
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the adapter with only the layers 4-11 projections kept, against the whole adapter
+  page: 6
+claims:
+- id: k1
+  text: keeping only the MLPs of layers 8-15 kept 80.7% of the adapter's protection (16.3% attack success against 2.9% with the whole adapter)
+  location: abstract
+  anchor: Keeping only the part kept 80.7%
+  jobs:
+  - R1
+  supported_by:
+  - c_core_msa8
+  - c_core_none
+  - c_msa8
+  page: 1
+  contradicted_by:
+  - r_shift
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: proxy
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Section 4
+    R2attack: main-task proxy under attack (Section 4)
+    R2clean: not reported
+schema_gaps:
+- where: report
+  note: 'a component study of one released adapter: the restricted adapters are cut from Meta-SecAlign-8B, not retrained; the paper''s side effect of interest is a trusted-memory following contrast, which the schema has no
+    field for'

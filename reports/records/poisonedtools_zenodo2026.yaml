@@ -1,0 +1,326 @@
+report:
+  id: poisonedtools_zenodo2026
+  slug: doi_10_5281_zenodo_21349713
+  title: 'Poisoned Tools: Prompt-Injection Robustness and Failure Anatomy of Small Open-Weight Tool Agents'
+  first_author: Dhruvil Shah
+  venue: Zenodo preprint
+  peer_reviewed: 'no'
+  doi: 10.5281/zenodo.21349713
+  version_read: Zenodo version (July 2026)
+  first_date: '2026-07-14'
+  read: F
+  role: re_measures
+  code_release: https://github.com/DhruvilShah22/poisoned-tools (p. 1)
+  extraction_scope: 'Section 5.4: Table 2 rows D1 (spotlighting), D2 (goal reminder) and D4 (instruction hierarchy), as changes against D0 pooled over five models; the abstract claim (D3 quarantine strips fields and is a sanitiser;
+    the composition of D5 is not stated precisely; the attack-surface screen tests no defence)'
+defences:
+- id: d1
+  name: D1 spotlighting (tool results wrapped in typed markers with a standing data instruction)
+  origin: other_report
+  base_checkpoint: five models pooled (Qwen2.5-Instruct 1.5B, 3B, 7B and Llama-3.2 1B, 3B; 8-bit)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: small ReAct loop over native tool calling; one payload written into one tool-output field per episode
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: supported
+  anchor: The defenses are six training-free, inference-time wrappers
+- id: d2
+  name: D2 goal reminder (the user's request restated after every tool observation)
+  origin: other_report
+  base_checkpoint: five models pooled (Qwen2.5-Instruct 1.5B, 3B, 7B and Llama-3.2 1B, 3B; 8-bit)
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: small ReAct loop over native tool calling; one payload written into one tool-output field per episode
+  layout_compat: *id001
+  anchor: The defenses are six training-free, inference-time wrappers
+- id: d4
+  name: D4 explicit instruction hierarchy in the system prompt
+  origin: other_report
+  base_checkpoint: five models pooled (Qwen2.5-Instruct 1.5B, 3B, 7B and Llama-3.2 1B, 3B; 8-bit)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: small ReAct loop over native tool calling; one payload written into one tool-output field per episode
+  layout_compat: *id001
+  anchor: The defenses are six training-free, inference-time wrappers
+evaluations:
+- id: ev_d0_att
+  defence_id: none:five models pooled (Qwen2.5-Instruct 1.5B, 3B, 7B and Llama-3.2 1B, 3B; 8-bit)
+  benchmark: 'focused matrix: unauthorised tool call and data-leak goals, two strongest framings, five placements'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic log-based detection of the planted token or unauthorised call
+  layout_same_as_defence: 'yes'
+  measured_by: poisonedtools_zenodo2026
+  page: 4
+  decoding: temperature 0.7, eight seeds (four for 7B)
+  baseline_kind: off_the_shelf
+- id: ev_d0_ben
+  defence_id: none:five models pooled (Qwen2.5-Instruct 1.5B, 3B, 7B and Llama-3.2 1B, 3B; 8-bit)
+  benchmark: 'benign control: host tasks without injection'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: deterministic grading of the benign answer
+  layout_same_as_defence: 'yes'
+  measured_by: poisonedtools_zenodo2026
+  page: 4
+  decoding: temperature 0.7
+  baseline_kind: off_the_shelf
+- id: ev_d1_att
+  defence_id: d1
+  benchmark: 'focused matrix: unauthorised tool call and data-leak goals, two strongest framings, five placements'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic log-based detection of the planted token or unauthorised call
+  layout_same_as_defence: 'yes'
+  measured_by: poisonedtools_zenodo2026
+  page: 9
+  decoding: temperature 0.7, eight seeds (four for 7B)
+- id: ev_d1_ben
+  defence_id: d1
+  benchmark: 'benign control: host tasks without injection'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: deterministic grading of the benign answer
+  layout_same_as_defence: 'yes'
+  measured_by: poisonedtools_zenodo2026
+  page: 9
+  decoding: temperature 0.7
+- id: ev_d2_att
+  defence_id: d2
+  benchmark: 'focused matrix: unauthorised tool call and data-leak goals, two strongest framings, five placements'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic log-based detection of the planted token or unauthorised call
+  layout_same_as_defence: 'yes'
+  measured_by: poisonedtools_zenodo2026
+  page: 9
+  decoding: temperature 0.7, eight seeds (four for 7B)
+- id: ev_d2_ben
+  defence_id: d2
+  benchmark: 'benign control: host tasks without injection'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: deterministic grading of the benign answer
+  layout_same_as_defence: 'yes'
+  measured_by: poisonedtools_zenodo2026
+  page: 9
+  decoding: temperature 0.7
+- id: ev_d4_att
+  defence_id: d4
+  benchmark: 'focused matrix: unauthorised tool call and data-leak goals, two strongest framings, five placements'
+  attacker_type: static
+  attacker_access: black_box
+  judge: deterministic log-based detection of the planted token or unauthorised call
+  layout_same_as_defence: 'yes'
+  measured_by: poisonedtools_zenodo2026
+  page: 9
+  decoding: temperature 0.7, eight seeds (four for 7B)
+- id: ev_d4_ben
+  defence_id: d4
+  benchmark: 'benign control: host tasks without injection'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: deterministic grading of the benign answer
+  layout_same_as_defence: 'yes'
+  measured_by: poisonedtools_zenodo2026
+  page: 9
+  decoding: temperature 0.7
+results:
+- id: r_d1_att
+  evaluation_id: ev_d1_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: change in attack success against D0 (pooled, given exposure)
+  value: '+0.024'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_d1_ben
+  evaluation_id: ev_d1_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: change in benign task success against D0
+  value: '-0.051'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_d2_att
+  evaluation_id: ev_d2_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: change in attack success against D0 (pooled, given exposure)
+  value: '-0.056'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_d2_ben
+  evaluation_id: ev_d2_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: change in benign task success against D0
+  value: '-0.194'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_d4_att
+  evaluation_id: ev_d4_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: change in attack success against D0 (pooled, given exposure)
+  value: '-0.038'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+- id: r_d4_ben
+  evaluation_id: ev_d4_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: change in benign task success against D0
+  value: '-0.028'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 2
+comparisons:
+- id: c_d1_att
+  left: ev_d1_att
+  right: ev_d0_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_d1_ben
+  left: ev_d1_ben
+  right: ev_d0_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_d2_att
+  left: ev_d2_att
+  right: ev_d0_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_d2_ben
+  left: ev_d2_ben
+  right: ev_d0_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_d4_att
+  left: ev_d4_att
+  right: ev_d0_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_d4_ben
+  left: ev_d4_ben
+  right: ev_d0_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 9
+claims:
+- id: k1
+  text: none of the cheap training-free defences significantly reduces attack success, and the goal reminder costs nineteen points of benign utility
+  location: abstract
+  anchor: none of the cheap training-free defenses we tested significantly reduces
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_d1_att
+  - c_d2_att
+  - c_d4_att
+  - c_d2_ben
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2 (changes against D0, pooled)
+    R2clean: Table 2 (changes in benign success)
+    R2attack: not reported
+schema_gaps:
+- where: results r_*
+  note: Table 2 gives only paired changes against the undefended baseline, pooled over five models; the defended results carry those changes and the undefended evaluations carry no value; Holm-corrected p-values are 0.10 or
+    above for every attack-success change
