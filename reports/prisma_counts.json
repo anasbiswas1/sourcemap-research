@@ -11,12 +11,12 @@
  "studies_after_version_linking": 2206,
  "screened": 2206,
  "pending": 0,
- "included": 137,
+ "included": 136,
  "unsure_to_full_text": 0,
  "excluded_by_reason": {
   "system level": 375,
   "detector only": 289,
-  "attack only": 320,
+  "attack only": 321,
   "image or audio channel only": 8,
   "not about prompt injection": 552,
   "survey, position or other": 343,
@@ -35,7 +35,7 @@
   "benchmark only": 54,
   "duplicate version": 11
  },
- "full_text_assessed": 133,
+ "full_text_assessed": 134,
  "included_after_full_text": 33,
  "excluded_full_text_by_reason": {
   "detector only": 15,
@@ -45,13 +45,13 @@
   "survey, position or other": 4,
   "not about prompt injection": 3,
   "no full text obtainable": 49,
-  "attack only": 1
+  "attack only": 2
  },
  "reports_sought_for_full_text": 237,
  "search_date": "2026-11-20",
  "title_abstract_corrections": 6,
  "pdfs_obtained": 192,
  "pdfs_to_fetch_by_hand": 0,
- "fulltext_anchors_found": 84,
+ "fulltext_anchors_found": 85,
  "hand_files_placed": 19
 }

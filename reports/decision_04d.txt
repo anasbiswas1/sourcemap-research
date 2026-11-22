@@ -1,0 +1,8 @@
+decision_04d: BATCH CHECKED
+this step: 2026-11-22
+reports: agentdyn_arxiv2026, icon_arxiv2026, ihchallenge_arxiv2026, pismith_colm2026, autonomytax_arxiv2026, piarena_arxiv2026, localalign_ccs2026, alwaysfall_arxiv2026, actconsistency_arxiv2026, dynppa_arxiv2026, gwdpo_arxiv2026
+records: 55 defences, 446 evaluations, 562 results, 307 comparisons, 12 claims
+checked against the PDFs: 558 printed values (0 of them found only in the third extraction), 4 chart values (0 of them found only in the third extraction) and 67 anchors, each found on its page
+comparison grades: A 298, B 1, C 0, U 8
+residual notes: 23; full-text exclusions found while coding: 1
+next: batch 04e

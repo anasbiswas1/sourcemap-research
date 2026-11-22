@@ -1,0 +1,582 @@
+report:
+  id: piarena_arxiv2026
+  slug: '2604.08499'
+  title: 'PIArena: A Platform for Prompt Injection Evaluation'
+  first_author: Runpeng Geng
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  doi: 10.18653/v1/2026.acl-long.1533
+  arxiv: '2604.08499'
+  version_read: arXiv v1
+  first_date: '2026-04-09'
+  read: F
+  role: benchmark
+  code_release: https://github.com/sleeepeer/PIArena (linked from the abstract)
+  later_version: ACL 2026 (from the search record; not read)
+  extraction_scope: 'Sections 4 and 5 and Appendix B: the Average rows of Table 2 and Table 7 (GCG on MultiNews) for No Defense and SecAlign++; the abstract claim (PISanitizer, DataFilter and PromptArmor, which rewrite the
+    context, and DataSentinel, PromptGuard, AttentionTracker and PIGuard, which are detectors, are left out; per-dataset rows, Tables 3 to 6 and 9 to 11 not coded)'
+defences:
+- id: secalignpp
+  name: SecAlign++
+  origin: other_report
+  base_checkpoint: not stated (the checkpoint used is not named; the default backend is Qwen3-4B-Instruct)
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  anchor: All defenses use their default settings and open-source implementations
+evaluations:
+- id: ev_noatt_none
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: PIArena, 13 datasets (QA, RAG, long-context, code), mean over datasets, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_noatt_sapp
+  defence_id: secalignpp
+  benchmark: PIArena, 13 datasets (QA, RAG, long-context, code), mean over datasets, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_comb_none
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: PIArena, 13 datasets (QA, RAG, long-context, code), mean over datasets, Combined attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_comb_sapp
+  defence_id: secalignpp
+  benchmark: PIArena, 13 datasets (QA, RAG, long-context, code), mean over datasets, Combined attack
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_direct_none
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: PIArena, 13 datasets (QA, RAG, long-context, code), mean over datasets, Direct attack (the injected task itself)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_direct_sapp
+  defence_id: secalignpp
+  benchmark: PIArena, 13 datasets (QA, RAG, long-context, code), mean over datasets, Direct attack (the injected task itself)
+  attacker_type: static
+  attacker_access: black_box
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_strat_none
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: PIArena, 13 datasets (QA, RAG, long-context, code), mean over datasets, Strategy attack (Qwen3-4B attacker refining on defence feedback)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 7
+  attacker_budget: iterative refinement on defence feedback
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_strat_sapp
+  defence_id: secalignpp
+  benchmark: PIArena, 13 datasets (QA, RAG, long-context, code), mean over datasets, Strategy attack (Qwen3-4B attacker refining on defence feedback)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 7
+  attacker_budget: iterative refinement on defence feedback
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_noatt7_none
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: MultiNews, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 16
+  decoding: not reported
+  pages:
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_noatt7_sapp
+  defence_id: secalignpp
+  benchmark: MultiNews, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 16
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_gcg_none
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: MultiNews, GCG optimisation attack
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 16
+  decoding: not reported
+  pages:
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_gcg_sapp
+  defence_id: secalignpp
+  benchmark: MultiNews, GCG optimisation attack
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: LLM judge of the injected task; task-specific utility (LLM judge or LongBench metrics)
+  layout_same_as_defence: 'yes'
+  measured_by: piarena_arxiv2026
+  page: 16
+  decoding: not reported
+  pages:
+    judge: 6
+results:
+- id: r_noatt_none_u
+  evaluation_id: ev_noatt_none
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (Average row)
+  value: '0.74'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_noatt_none_asr
+  evaluation_id: ev_noatt_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Average row)
+  value: '0.01'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_noatt_sapp_u
+  evaluation_id: ev_noatt_sapp
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (Average row)
+  value: '0.58'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_noatt_sapp_asr
+  evaluation_id: ev_noatt_sapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Average row)
+  value: '0.01'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_comb_none_u
+  evaluation_id: ev_comb_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (Average row)
+  value: '0.50'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_comb_none_asr
+  evaluation_id: ev_comb_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Average row)
+  value: '0.72'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_comb_sapp_u
+  evaluation_id: ev_comb_sapp
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (Average row)
+  value: '0.58'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_comb_sapp_asr
+  evaluation_id: ev_comb_sapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Average row)
+  value: '0.07'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_direct_none_u
+  evaluation_id: ev_direct_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (Average row)
+  value: '0.57'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_direct_none_asr
+  evaluation_id: ev_direct_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Average row)
+  value: '0.56'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_direct_sapp_u
+  evaluation_id: ev_direct_sapp
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (Average row)
+  value: '0.59'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_direct_sapp_asr
+  evaluation_id: ev_direct_sapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Average row)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_strat_none_u
+  evaluation_id: ev_strat_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (Average row)
+  value: '0.19'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_strat_none_asr
+  evaluation_id: ev_strat_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Average row)
+  value: '0.99'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_strat_sapp_u
+  evaluation_id: ev_strat_sapp
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (Average row)
+  value: '0.45'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_strat_sapp_asr
+  evaluation_id: ev_strat_sapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Average row)
+  value: '0.21'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_noatt7_none_u
+  evaluation_id: ev_noatt7_none
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '0.19'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 7
+- id: r_noatt7_none_asr
+  evaluation_id: ev_noatt7_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 7
+- id: r_noatt7_sapp_u
+  evaluation_id: ev_noatt7_sapp
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '0.20'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 7
+- id: r_noatt7_sapp_asr
+  evaluation_id: ev_noatt7_sapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.02'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 7
+- id: r_gcg_none_u
+  evaluation_id: ev_gcg_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility
+  value: '0.11'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 7
+- id: r_gcg_none_asr
+  evaluation_id: ev_gcg_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.63'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 7
+- id: r_gcg_sapp_u
+  evaluation_id: ev_gcg_sapp
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility
+  value: '0.20'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 7
+- id: r_gcg_sapp_asr
+  evaluation_id: ev_gcg_sapp
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.86'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 7
+comparisons:
+- id: c_noatt
+  left: ev_noatt_sapp
+  right: ev_noatt_none
+  purpose: W
+  c1_base: unreported
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_comb
+  left: ev_comb_sapp
+  right: ev_comb_none
+  purpose: W
+  c1_base: unreported
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_direct
+  left: ev_direct_sapp
+  right: ev_direct_none
+  purpose: W
+  c1_base: unreported
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_strat
+  left: ev_strat_sapp
+  right: ev_strat_none
+  purpose: W
+  c1_base: unreported
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_noatt7
+  left: ev_noatt7_sapp
+  right: ev_noatt7_none
+  purpose: W
+  c1_base: unreported
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_gcg
+  left: ev_gcg_sapp
+  right: ev_gcg_none
+  purpose: W
+  c1_base: unreported
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+claims:
+- id: k1
+  text: state-of-the-art defences generalise poorly across tasks and are vulnerable to adaptive attacks
+  location: abstract
+  anchor: limited generalizability across tasks, vulnerability to adaptive attacks
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_strat
+  - c_gcg
+  - c_noatt
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2 (Average rows) and Table 7
+    R2clean: Table 2 and Table 7, no attack
+    R2attack: Table 2 and Table 7, under attack
+schema_gaps:
+- where: defence secalignpp
+  note: the paper does not name the SecAlign++ checkpoint or say whether it was trained on the default Qwen3-4B-Instruct backend, so the base condition of its comparisons is unreported

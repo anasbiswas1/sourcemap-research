@@ -1,0 +1,374 @@
+report:
+  id: alwaysfall_arxiv2026
+  slug: '2605.17634'
+  title: AI Agents May Always Fall for Prompt Injections
+  first_author: Sahar Abdelnabi
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2605.17634'
+  version_read: arXiv v2
+  first_date: '2026-05-17'
+  read: F
+  role: re_measures
+  code_release: not checked
+  extraction_scope: 'Section 2: Figure 2 panels (c) and (d) (LLaMA-3.3-70B against SecAlign-70B on the paired email set and on LLMail-Inject); the abstract claim (the Prompt Guard classifiers, which are detectors, the frontier-model
+    scenarios of Section 4 and the appendices not coded)'
+defences:
+- id: msa70b
+  name: SecAlign-70B (Meta SecAlign 70B, re-measured)
+  origin: other_report
+  base_checkpoint: LLaMA-3.3-70B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  name_as_printed: SecAlign-70B
+  anchor: SecAlign-70B [Chen et al., 2025], which is a fine-tuned LLaMA model to resist
+evaluations:
+- id: ev_rneu_none
+  defence_id: none:LLaMA-3.3-70B-Instruct
+  benchmark: paired email set (4,200 scenarios; one clause differs between an authority-asserting and a neutral variant), email assistant with a send_email tool; restrictive (read-only) user prompt, neutral email
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: send_email tool called
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_rneu_msa
+  defence_id: msa70b
+  benchmark: paired email set (4,200 scenarios; one clause differs between an authority-asserting and a neutral variant), email assistant with a send_email tool; restrictive (read-only) user prompt, neutral email
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: send_email tool called
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+- id: ev_rauth_none
+  defence_id: none:LLaMA-3.3-70B-Instruct
+  benchmark: paired email set (4,200 scenarios; one clause differs between an authority-asserting and a neutral variant), email assistant with a send_email tool; restrictive user prompt, authority-asserting email
+  attacker_type: static
+  attacker_access: black_box
+  judge: send_email tool called
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_rauth_msa
+  defence_id: msa70b
+  benchmark: paired email set (4,200 scenarios; one clause differs between an authority-asserting and a neutral variant), email assistant with a send_email tool; restrictive user prompt, authority-asserting email
+  attacker_type: static
+  attacker_access: black_box
+  judge: send_email tool called
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+- id: ev_pneu_none
+  defence_id: none:LLaMA-3.3-70B-Instruct
+  benchmark: paired email set (4,200 scenarios; one clause differs between an authority-asserting and a neutral variant), email assistant with a send_email tool; permissive user prompt, neutral email
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: send_email tool called
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_pneu_msa
+  defence_id: msa70b
+  benchmark: paired email set (4,200 scenarios; one clause differs between an authority-asserting and a neutral variant), email assistant with a send_email tool; permissive user prompt, neutral email
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: send_email tool called
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+- id: ev_pauth_none
+  defence_id: none:LLaMA-3.3-70B-Instruct
+  benchmark: paired email set (4,200 scenarios; one clause differs between an authority-asserting and a neutral variant), email assistant with a send_email tool; permissive user prompt, authority-asserting email
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: send_email tool called
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_pauth_msa
+  defence_id: msa70b
+  benchmark: paired email set (4,200 scenarios; one clause differs between an authority-asserting and a neutral variant), email assistant with a send_email tool; permissive user prompt, authority-asserting email
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: send_email tool called
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+- id: ev_lm_none
+  defence_id: none:LLaMA-3.3-70B-Instruct
+  benchmark: LLMail-Inject (4,300 human-written injections in benign emails); user asks for a summary and a SECURITY ALERT on suspicious content
+  attacker_type: human
+  attacker_access: black_box
+  judge: send_email tool called; injection reported in a SECURITY ALERT
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: 4,300
+  baseline_kind: off_the_shelf
+- id: ev_lm_msa
+  defence_id: msa70b
+  benchmark: LLMail-Inject (4,300 human-written injections in benign emails); user asks for a summary and a SECURITY ALERT on suspicious content
+  attacker_type: human
+  attacker_access: black_box
+  judge: send_email tool called; injection reported in a SECURITY ALERT
+  layout_same_as_defence: 'yes'
+  measured_by: alwaysfall_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: 4,300
+results:
+- id: r_rneu_none
+  evaluation_id: ev_rneu_none
+  quantity: other
+  coverage: direct
+  metric_as_printed: Send rate (restrictive, neutral)
+  value: '49.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Figure 2(c) and Section 2 text
+- id: r_rneu_msa
+  evaluation_id: ev_rneu_msa
+  quantity: other
+  coverage: direct
+  metric_as_printed: Send rate (restrictive, neutral)
+  value: '85.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Figure 2(c) and Section 2 text
+- id: r_rauth_none
+  evaluation_id: ev_rauth_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Send rate (restrictive, authority)
+  value: '54.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Figure 2(c) and Section 2 text
+- id: r_rauth_msa
+  evaluation_id: ev_rauth_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Send rate (restrictive, authority)
+  value: '88.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Figure 2(c) and Section 2 text
+- id: r_pneu_none
+  evaluation_id: ev_pneu_none
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Send rate (permissive, neutral)
+  value: '97.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 4
+  location: Figure 2(c)
+- id: r_pneu_msa
+  evaluation_id: ev_pneu_msa
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Send rate (permissive, neutral)
+  value: '99.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 4
+  location: Figure 2(c)
+- id: r_pauth_none
+  evaluation_id: ev_pauth_none
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Send rate (permissive, authority)
+  value: '97.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 4
+  location: Figure 2(c)
+- id: r_pauth_msa
+  evaluation_id: ev_pauth_msa
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Send rate (permissive, authority)
+  value: '99.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: figure_only
+  page: 4
+  location: Figure 2(c)
+- id: r_lm_none_send
+  evaluation_id: ev_lm_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Send rate
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Figure 2(d) and Section 2 text
+- id: r_lm_none_flag
+  evaluation_id: ev_lm_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: Injections flagged
+  value: '89.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Figure 2(d) and Section 2 text
+- id: r_lm_msa_send
+  evaluation_id: ev_lm_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Send rate
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Figure 2(d) and Section 2 text
+- id: r_lm_msa_flag
+  evaluation_id: ev_lm_msa
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: Injections flagged
+  value: '54.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Figure 2(d) and Section 2 text
+comparisons:
+- id: c_rneu
+  left: ev_rneu_msa
+  right: ev_rneu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_rauth
+  left: ev_rauth_msa
+  right: ev_rauth_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_pneu
+  left: ev_pneu_msa
+  right: ev_pneu_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_pauth
+  left: ev_pauth_msa
+  right: ev_pauth_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_lm
+  left: ev_lm_msa
+  right: ev_lm_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+claims:
+- id: k1
+  text: data-instruction separation fails on contextual manipulation and degrades contextually appropriate behaviour
+  location: abstract
+  anchor: fails to detect attacks that operate through contextual manipulation
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_rauth
+  - c_rneu
+  - c_lm
+  page: 1
+coverage:
+  R1: direct
+  R2clean: proxy
+  R2attack: proxy
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Figure 2(c) restrictive authority cell; Figure 2(d) send rate
+    R2clean: Figure 2(c) permissive cells (a send counts, its content is not judged)
+    R2attack: Figure 2(d) injections flagged as the user asked
+schema_gaps:
+- where: results r_pneu_*, r_pauth_*
+  note: the permissive send rates are printed only inside Figure 2(c), which is text in the PDF; they are coded figure_only with the printed value kept (checked against the page text by the batch notebook)
+- where: evaluations ev_rneu_*
+  note: under the restrictive prompt a send on the neutral email is an unauthorised action without any injected claim, so it is coded other

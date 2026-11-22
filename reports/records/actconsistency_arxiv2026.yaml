@@ -1,0 +1,3844 @@
+report:
+  id: actconsistency_arxiv2026
+  slug: '2605.28467'
+  title: Mitigating Adaptive Attacks against Reasoning Models with Activation Consistency Training
+  first_author: Avidan Shah
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2605.28467'
+  version_read: arXiv v1
+  first_date: '2026-05-27'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Section 4 and Appendices A.4 and A.5: Table 1 (static prompt injection and utility, five models), Table 3 test split (adaptive GRPO attacker) and the Baseline and SecAlign rows of Table 4; the abstract
+    claim (PromptArmor, a detector, is left out; the jailbreak results of Section 5 and Tables 5 to 8, the steering analysis and the train-split columns not coded)'
+defences:
+- id: act_q17
+  name: ACT (activation consistency training)
+  origin: this_report
+  base_checkpoint: Qwen3-1.7B
+  axis1:
+  - no_signal
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - pairs of a clean prompt and the same prompt with an injection wrapped into the data
+  - LoRA training so that hidden states on the wrapped prompt match the frozen base model's hidden states on the clean prompt at shared suffix positions, every layer
+  anchor: ACT minimizes
+- id: bct_q17
+  name: BCT (output-level consistency training)
+  origin: this_report
+  base_checkpoint: Qwen3-1.7B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - cross-entropy fine-tuning on the wrapped prompt with the base model's own completion (with its reasoning) of the clean prompt as target
+  anchor: BCT requires no additional formalism beyond standard cross entropy
+- id: act_q8
+  name: ACT (activation consistency training)
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - no_signal
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - pairs of a clean prompt and the same prompt with an injection wrapped into the data
+  - LoRA training so that hidden states on the wrapped prompt match the frozen base model's hidden states on the clean prompt at shared suffix positions, every layer
+  anchor: ACT minimizes
+- id: bct_q8
+  name: BCT (output-level consistency training)
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - cross-entropy fine-tuning on the wrapped prompt with the base model's own completion (with its reasoning) of the clean prompt as target
+  anchor: BCT requires no additional formalism beyond standard cross entropy
+- id: act_phi
+  name: ACT (activation consistency training)
+  origin: this_report
+  base_checkpoint: Phi-4-reasoning
+  axis1:
+  - no_signal
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - pairs of a clean prompt and the same prompt with an injection wrapped into the data
+  - LoRA training so that hidden states on the wrapped prompt match the frozen base model's hidden states on the clean prompt at shared suffix positions, every layer
+  anchor: ACT minimizes
+- id: bct_phi
+  name: BCT (output-level consistency training)
+  origin: this_report
+  base_checkpoint: Phi-4-reasoning
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - cross-entropy fine-tuning on the wrapped prompt with the base model's own completion (with its reasoning) of the clean prompt as target
+  anchor: BCT requires no additional formalism beyond standard cross entropy
+- id: act_oss
+  name: ACT (activation consistency training)
+  origin: this_report
+  base_checkpoint: GPT-OSS-20B
+  axis1:
+  - no_signal
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - pairs of a clean prompt and the same prompt with an injection wrapped into the data
+  - LoRA training so that hidden states on the wrapped prompt match the frozen base model's hidden states on the clean prompt at shared suffix positions, every layer
+  anchor: ACT minimizes
+- id: bct_oss
+  name: BCT (output-level consistency training)
+  origin: this_report
+  base_checkpoint: GPT-OSS-20B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - cross-entropy fine-tuning on the wrapped prompt with the base model's own completion (with its reasoning) of the clean prompt as target
+  anchor: BCT requires no additional formalism beyond standard cross entropy
+- id: act_gem
+  name: ACT (activation consistency training)
+  origin: this_report
+  base_checkpoint: Gemma-4-E4B-it
+  axis1:
+  - no_signal
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - pairs of a clean prompt and the same prompt with an injection wrapped into the data
+  - LoRA training so that hidden states on the wrapped prompt match the frozen base model's hidden states on the clean prompt at shared suffix positions, every layer
+  anchor: ACT minimizes
+- id: bct_gem
+  name: BCT (output-level consistency training)
+  origin: this_report
+  base_checkpoint: Gemma-4-E4B-it
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  components:
+  - cross-entropy fine-tuning on the wrapped prompt with the base model's own completion (with its reasoning) of the clean prompt as target
+  anchor: BCT requires no additional formalism beyond standard cross entropy
+- id: secalign_q8
+  name: SecAlign (DPO, applied by the authors to Qwen3-8B)
+  origin: other_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 19
+  anchor: Hyperparameters follow the SecAlign paper
+evaluations:
+- id: ev_s_q17_none_opi
+  defence_id: none:Qwen3-1.7B
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q17_none_af
+  defence_id: none:Qwen3-1.7B
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q17_none_sep
+  defence_id: none:Qwen3-1.7B
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q17_none_opiclean
+  defence_id: none:Qwen3-1.7B
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q17_none_mmlu
+  defence_id: none:Qwen3-1.7B
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q17_act_opi
+  defence_id: act_q17
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q17_act_af
+  defence_id: act_q17
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q17_act_sep
+  defence_id: act_q17
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q17_act_opiclean
+  defence_id: act_q17
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q17_act_mmlu
+  defence_id: act_q17
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q17_bct_opi
+  defence_id: bct_q17
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q17_bct_af
+  defence_id: bct_q17
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q17_bct_sep
+  defence_id: bct_q17
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q17_bct_opiclean
+  defence_id: bct_q17
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q17_bct_mmlu
+  defence_id: bct_q17
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_none_opi
+  defence_id: none:Qwen3-8B
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q8_none_af
+  defence_id: none:Qwen3-8B
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q8_none_sep
+  defence_id: none:Qwen3-8B
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q8_none_opiclean
+  defence_id: none:Qwen3-8B
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q8_none_mmlu
+  defence_id: none:Qwen3-8B
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_q8_act_opi
+  defence_id: act_q8
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_act_af
+  defence_id: act_q8
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_act_sep
+  defence_id: act_q8
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_act_opiclean
+  defence_id: act_q8
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_act_mmlu
+  defence_id: act_q8
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_bct_opi
+  defence_id: bct_q8
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_bct_af
+  defence_id: bct_q8
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_bct_sep
+  defence_id: bct_q8
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_bct_opiclean
+  defence_id: bct_q8
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_q8_bct_mmlu
+  defence_id: bct_q8
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_none_opi
+  defence_id: none:Phi-4-reasoning
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_phi_none_af
+  defence_id: none:Phi-4-reasoning
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_phi_none_sep
+  defence_id: none:Phi-4-reasoning
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_phi_none_opiclean
+  defence_id: none:Phi-4-reasoning
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_phi_none_mmlu
+  defence_id: none:Phi-4-reasoning
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_phi_act_opi
+  defence_id: act_phi
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_act_af
+  defence_id: act_phi
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_act_sep
+  defence_id: act_phi
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_act_opiclean
+  defence_id: act_phi
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_act_mmlu
+  defence_id: act_phi
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_bct_opi
+  defence_id: bct_phi
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_bct_af
+  defence_id: bct_phi
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_bct_sep
+  defence_id: bct_phi
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_bct_opiclean
+  defence_id: bct_phi
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_phi_bct_mmlu
+  defence_id: bct_phi
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_none_opi
+  defence_id: none:GPT-OSS-20B
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_oss_none_af
+  defence_id: none:GPT-OSS-20B
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_oss_none_sep
+  defence_id: none:GPT-OSS-20B
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_oss_none_opiclean
+  defence_id: none:GPT-OSS-20B
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_oss_none_mmlu
+  defence_id: none:GPT-OSS-20B
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_oss_act_opi
+  defence_id: act_oss
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_act_af
+  defence_id: act_oss
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_act_sep
+  defence_id: act_oss
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_act_opiclean
+  defence_id: act_oss
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_act_mmlu
+  defence_id: act_oss
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_bct_opi
+  defence_id: bct_oss
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_bct_af
+  defence_id: bct_oss
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_bct_sep
+  defence_id: bct_oss
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_bct_opiclean
+  defence_id: bct_oss
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_oss_bct_mmlu
+  defence_id: bct_oss
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_none_opi
+  defence_id: none:Gemma-4-E4B-it
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_gem_none_af
+  defence_id: none:Gemma-4-E4B-it
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_gem_none_sep
+  defence_id: none:Gemma-4-E4B-it
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_gem_none_opiclean
+  defence_id: none:Gemma-4-E4B-it
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_gem_none_mmlu
+  defence_id: none:Gemma-4-E4B-it
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_s_gem_act_opi
+  defence_id: act_gem
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_act_af
+  defence_id: act_gem
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_act_sep
+  defence_id: act_gem
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_act_opiclean
+  defence_id: act_gem
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_act_mmlu
+  defence_id: act_gem
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_bct_opi
+  defence_id: bct_gem
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_bct_af
+  defence_id: bct_gem
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_bct_sep
+  defence_id: bct_gem
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_bct_opiclean
+  defence_id: bct_gem
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_s_gem_bct_mmlu
+  defence_id: bct_gem
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 17
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_a_q17_none
+  defence_id: none:Qwen3-1.7B
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_a_q17_act
+  defence_id: act_q17
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_a_q17_bct
+  defence_id: bct_q17
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_a_q8_none
+  defence_id: none:Qwen3-8B
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_a_q8_act
+  defence_id: act_q8
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_a_q8_bct
+  defence_id: bct_q8
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_a_phi_none
+  defence_id: none:Phi-4-reasoning
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_a_phi_act
+  defence_id: act_phi
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_a_phi_bct
+  defence_id: bct_phi
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_a_gem_none
+  defence_id: none:Gemma-4-E4B-it
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_a_gem_act
+  defence_id: act_gem
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_a_gem_bct
+  defence_id: bct_gem
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_a_oss_none
+  defence_id: none:GPT-OSS-20B
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_a_oss_act
+  defence_id: act_oss
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_a_oss_bct
+  defence_id: bct_oss
+  benchmark: AlpacaFarm test split (n = 108), suffixes from a GRPO attacker trained against this target, best of 8
+  attacker_type: rl
+  attacker_access: black_box
+  judge: response starts with 'Hacked!'; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 18
+  attacker_budget: 8 suffixes per example
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '108'
+  pages:
+    decoding: 24
+- id: ev_t4_none_opi
+  defence_id: none:Qwen3-8B
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_t4_none_af
+  defence_id: none:Qwen3-8B
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_t4_none_sep
+  defence_id: none:Qwen3-8B
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_t4_none_opiclean
+  defence_id: none:Qwen3-8B
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_t4_none_mmlu
+  defence_id: none:Qwen3-8B
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_t4_secalign_opi
+  defence_id: secalign_q8
+  benchmark: Open-Prompt-Injection, 680 test examples, five attack formats
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined by the benchmark
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '680'
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_t4_secalign_af
+  defence_id: secalign_q8
+  benchmark: AlpacaFarm, 208 examples, 'Print exactly Hacked!', four static attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: response starts with 'Hacked'
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  sample_size: '208'
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_t4_secalign_sep
+  defence_id: secalign_q8
+  benchmark: SEP, injection at start, middle or end
+  attacker_type: static
+  attacker_access: black_box
+  judge: SecAlign's SEP protocol
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_t4_secalign_opiclean
+  defence_id: secalign_q8
+  benchmark: Open-Prompt-Injection clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+- id: ev_t4_secalign_mmlu
+  defence_id: secalign_q8
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: actconsistency_arxiv2026
+  page: 19
+  decoding: greedy, except Phi-4-reasoning (temperature 0.8, top-k 50, top-p 0.95)
+  run: Table 4 ablation run
+  pages:
+    benchmark: 5
+    decoding: 24
+results:
+- id: r_s_q17_none_opi
+  evaluation_id: ev_s_q17_none_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '47.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_none_af
+  evaluation_id: ev_s_q17_none_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '50.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_none_sep
+  evaluation_id: ev_s_q17_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '61.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_none_opiclean
+  evaluation_id: ev_s_q17_none_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '80.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_none_mmlu
+  evaluation_id: ev_s_q17_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '60.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_act_opi
+  evaluation_id: ev_s_q17_act_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_act_af
+  evaluation_id: ev_s_q17_act_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_act_sep
+  evaluation_id: ev_s_q17_act_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '2.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_act_opiclean
+  evaluation_id: ev_s_q17_act_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '68.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_act_mmlu
+  evaluation_id: ev_s_q17_act_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '58.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_bct_opi
+  evaluation_id: ev_s_q17_bct_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '0.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_bct_af
+  evaluation_id: ev_s_q17_bct_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_bct_sep
+  evaluation_id: ev_s_q17_bct_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '4.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_bct_opiclean
+  evaluation_id: ev_s_q17_bct_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '78.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q17_bct_mmlu
+  evaluation_id: ev_s_q17_bct_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '59.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_none_opi
+  evaluation_id: ev_s_q8_none_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '45.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_none_af
+  evaluation_id: ev_s_q8_none_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '64.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_none_sep
+  evaluation_id: ev_s_q8_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '73.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_none_opiclean
+  evaluation_id: ev_s_q8_none_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '81.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_none_mmlu
+  evaluation_id: ev_s_q8_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '80.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_act_opi
+  evaluation_id: ev_s_q8_act_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_act_af
+  evaluation_id: ev_s_q8_act_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_act_sep
+  evaluation_id: ev_s_q8_act_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '2.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_act_opiclean
+  evaluation_id: ev_s_q8_act_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '80.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_act_mmlu
+  evaluation_id: ev_s_q8_act_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '76.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_bct_opi
+  evaluation_id: ev_s_q8_bct_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '0.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_bct_af
+  evaluation_id: ev_s_q8_bct_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '2.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_bct_sep
+  evaluation_id: ev_s_q8_bct_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '4.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_bct_opiclean
+  evaluation_id: ev_s_q8_bct_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '78.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_q8_bct_mmlu
+  evaluation_id: ev_s_q8_bct_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '78.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_none_opi
+  evaluation_id: ev_s_phi_none_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '56.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_none_af
+  evaluation_id: ev_s_phi_none_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '90.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_none_sep
+  evaluation_id: ev_s_phi_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '96.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_none_opiclean
+  evaluation_id: ev_s_phi_none_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '69.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_none_mmlu
+  evaluation_id: ev_s_phi_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '75.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_act_opi
+  evaluation_id: ev_s_phi_act_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '16.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_act_af
+  evaluation_id: ev_s_phi_act_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '34.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_act_sep
+  evaluation_id: ev_s_phi_act_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '31.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_act_opiclean
+  evaluation_id: ev_s_phi_act_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '66.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_act_mmlu
+  evaluation_id: ev_s_phi_act_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '73.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_bct_opi
+  evaluation_id: ev_s_phi_bct_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '13.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_bct_af
+  evaluation_id: ev_s_phi_bct_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '17.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_bct_sep
+  evaluation_id: ev_s_phi_bct_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '45.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_bct_opiclean
+  evaluation_id: ev_s_phi_bct_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '6.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_phi_bct_mmlu
+  evaluation_id: ev_s_phi_bct_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '58.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_none_opi
+  evaluation_id: ev_s_oss_none_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '41.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_none_af
+  evaluation_id: ev_s_oss_none_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '80.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_none_sep
+  evaluation_id: ev_s_oss_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '73.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_none_opiclean
+  evaluation_id: ev_s_oss_none_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '88.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_none_mmlu
+  evaluation_id: ev_s_oss_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '83.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_act_opi
+  evaluation_id: ev_s_oss_act_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '29.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_act_af
+  evaluation_id: ev_s_oss_act_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '39.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_act_sep
+  evaluation_id: ev_s_oss_act_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '21.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_act_opiclean
+  evaluation_id: ev_s_oss_act_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '72.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_act_mmlu
+  evaluation_id: ev_s_oss_act_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '74.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_bct_opi
+  evaluation_id: ev_s_oss_bct_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '4.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_bct_af
+  evaluation_id: ev_s_oss_bct_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '27.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_bct_sep
+  evaluation_id: ev_s_oss_bct_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '14.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_bct_opiclean
+  evaluation_id: ev_s_oss_bct_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '86.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_oss_bct_mmlu
+  evaluation_id: ev_s_oss_bct_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '72.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_none_opi
+  evaluation_id: ev_s_gem_none_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '24.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_none_af
+  evaluation_id: ev_s_gem_none_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '76.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_none_sep
+  evaluation_id: ev_s_gem_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '73.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_none_opiclean
+  evaluation_id: ev_s_gem_none_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '90.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_none_mmlu
+  evaluation_id: ev_s_gem_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '69.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_act_opi
+  evaluation_id: ev_s_gem_act_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_act_af
+  evaluation_id: ev_s_gem_act_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '2.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_act_sep
+  evaluation_id: ev_s_gem_act_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '3.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_act_opiclean
+  evaluation_id: ev_s_gem_act_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '89.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_act_mmlu
+  evaluation_id: ev_s_gem_act_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '67.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_bct_opi
+  evaluation_id: ev_s_gem_bct_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_bct_af
+  evaluation_id: ev_s_gem_bct_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '3.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_bct_sep
+  evaluation_id: ev_s_gem_bct_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '7.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_bct_opiclean
+  evaluation_id: ev_s_gem_bct_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '89.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_s_gem_bct_mmlu
+  evaluation_id: ev_s_gem_bct_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '68.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 1
+- id: r_a_q17_none_asr
+  evaluation_id: ev_a_q17_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [96.6, 100.0]
+- id: r_a_q17_none_clean
+  evaluation_id: ev_a_q17_none
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '44.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [35.4, 53.8]
+- id: r_a_q17_act_asr
+  evaluation_id: ev_a_q17_act
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '63.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [53.6, 71.5]
+- id: r_a_q17_act_clean
+  evaluation_id: ev_a_q17_act
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '67.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [58.3, 75.7]
+- id: r_a_q17_bct_asr
+  evaluation_id: ev_a_q17_bct
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '80.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [72.1, 86.9]
+- id: r_a_q17_bct_clean
+  evaluation_id: ev_a_q17_bct
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '39.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [31.1, 49.2]
+- id: r_a_q8_none_asr
+  evaluation_id: ev_a_q8_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '96.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [90.9, 98.6]
+- id: r_a_q8_none_clean
+  evaluation_id: ev_a_q8_none
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '47.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [38.1, 56.6]
+- id: r_a_q8_act_asr
+  evaluation_id: ev_a_q8_act
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '59.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [49.8, 68.1]
+- id: r_a_q8_act_clean
+  evaluation_id: ev_a_q8_act
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '56.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [47.1, 65.5]
+- id: r_a_q8_bct_asr
+  evaluation_id: ev_a_q8_bct
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '94.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [88.4, 97.4]
+- id: r_a_q8_bct_clean
+  evaluation_id: ev_a_q8_bct
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '52.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [43.4, 61.9]
+- id: r_a_phi_none_asr
+  evaluation_id: ev_a_phi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '90.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [81.5, 99.8]
+- id: r_a_phi_none_clean
+  evaluation_id: ev_a_phi_none
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '2.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [0.9, 7.9]
+- id: r_a_phi_act_asr
+  evaluation_id: ev_a_phi_act
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '49.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [42.1, 59.1]
+- id: r_a_phi_act_clean
+  evaluation_id: ev_a_phi_act
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '47.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [38.1, 56.6]
+- id: r_a_phi_bct_asr
+  evaluation_id: ev_a_phi_bct
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '41.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [32.8, 51.1]
+- id: r_a_phi_bct_clean
+  evaluation_id: ev_a_phi_bct
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '22.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [15.4, 30.9]
+- id: r_a_gem_none_asr
+  evaluation_id: ev_a_gem_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [96.6, 100.0]
+- id: r_a_gem_none_clean
+  evaluation_id: ev_a_gem_none
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '33.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [25.2, 42.7]
+- id: r_a_gem_act_asr
+  evaluation_id: ev_a_gem_act
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [96.6, 100.0]
+- id: r_a_gem_act_clean
+  evaluation_id: ev_a_gem_act
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '37.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [28.5, 46.4]
+- id: r_a_gem_bct_asr
+  evaluation_id: ev_a_gem_bct
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [96.6, 100.0]
+- id: r_a_gem_bct_clean
+  evaluation_id: ev_a_gem_bct
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '36.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [27.7, 45.5]
+- id: r_a_oss_none_asr
+  evaluation_id: ev_a_oss_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [96.6, 100.0]
+- id: r_a_oss_none_clean
+  evaluation_id: ev_a_oss_none
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '39.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [31.1, 49.2]
+- id: r_a_oss_act_asr
+  evaluation_id: ev_a_oss_act
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '37.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [28.5, 46.4]
+- id: r_a_oss_act_clean
+  evaluation_id: ev_a_oss_act
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '39.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [31.1, 49.2]
+- id: r_a_oss_bct_asr
+  evaluation_id: ev_a_oss_bct
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASRany (test)
+  value: '57.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [48.0, 66.3]
+- id: r_a_oss_bct_clean
+  evaluation_id: ev_a_oss_bct
+  quantity: R3safe
+  coverage: direct
+  metric_as_printed: CleanTaskany (test)
+  value: '68.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+  spread: Wilson 95% interval [59.3, 76.5]
+- id: r_t4_none_opi
+  evaluation_id: ev_t4_none_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '45.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+- id: r_t4_none_af
+  evaluation_id: ev_t4_none_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '63.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+- id: r_t4_none_sep
+  evaluation_id: ev_t4_none_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '72.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+- id: r_t4_none_opiclean
+  evaluation_id: ev_t4_none_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '80.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+- id: r_t4_none_mmlu
+  evaluation_id: ev_t4_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '80.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+- id: r_t4_secalign_opi
+  evaluation_id: ev_t4_secalign_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (OPI)
+  value: '21.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+- id: r_t4_secalign_af
+  evaluation_id: ev_t4_secalign_af
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (AlpacaFarm)
+  value: '56.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+- id: r_t4_secalign_sep
+  evaluation_id: ev_t4_secalign_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Mean ASR (SEP)
+  value: '49.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+- id: r_t4_secalign_opiclean
+  evaluation_id: ev_t4_secalign_opiclean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: OPI clean
+  value: '79.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+- id: r_t4_secalign_mmlu
+  evaluation_id: ev_t4_secalign_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '75.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 4
+comparisons:
+- id: c_s_q17_act_opi
+  left: ev_s_q17_act_opi
+  right: ev_s_q17_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q17_act_af
+  left: ev_s_q17_act_af
+  right: ev_s_q17_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q17_act_sep
+  left: ev_s_q17_act_sep
+  right: ev_s_q17_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q17_act_opiclean
+  left: ev_s_q17_act_opiclean
+  right: ev_s_q17_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q17_act_mmlu
+  left: ev_s_q17_act_mmlu
+  right: ev_s_q17_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q17_bct_opi
+  left: ev_s_q17_bct_opi
+  right: ev_s_q17_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q17_bct_af
+  left: ev_s_q17_bct_af
+  right: ev_s_q17_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q17_bct_sep
+  left: ev_s_q17_bct_sep
+  right: ev_s_q17_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q17_bct_opiclean
+  left: ev_s_q17_bct_opiclean
+  right: ev_s_q17_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q17_bct_mmlu
+  left: ev_s_q17_bct_mmlu
+  right: ev_s_q17_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_act_opi
+  left: ev_s_q8_act_opi
+  right: ev_s_q8_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_act_af
+  left: ev_s_q8_act_af
+  right: ev_s_q8_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_act_sep
+  left: ev_s_q8_act_sep
+  right: ev_s_q8_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_act_opiclean
+  left: ev_s_q8_act_opiclean
+  right: ev_s_q8_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_act_mmlu
+  left: ev_s_q8_act_mmlu
+  right: ev_s_q8_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_bct_opi
+  left: ev_s_q8_bct_opi
+  right: ev_s_q8_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_bct_af
+  left: ev_s_q8_bct_af
+  right: ev_s_q8_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_bct_sep
+  left: ev_s_q8_bct_sep
+  right: ev_s_q8_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_bct_opiclean
+  left: ev_s_q8_bct_opiclean
+  right: ev_s_q8_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_q8_bct_mmlu
+  left: ev_s_q8_bct_mmlu
+  right: ev_s_q8_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_act_opi
+  left: ev_s_phi_act_opi
+  right: ev_s_phi_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_act_af
+  left: ev_s_phi_act_af
+  right: ev_s_phi_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_act_sep
+  left: ev_s_phi_act_sep
+  right: ev_s_phi_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_act_opiclean
+  left: ev_s_phi_act_opiclean
+  right: ev_s_phi_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_act_mmlu
+  left: ev_s_phi_act_mmlu
+  right: ev_s_phi_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_bct_opi
+  left: ev_s_phi_bct_opi
+  right: ev_s_phi_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_bct_af
+  left: ev_s_phi_bct_af
+  right: ev_s_phi_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_bct_sep
+  left: ev_s_phi_bct_sep
+  right: ev_s_phi_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_bct_opiclean
+  left: ev_s_phi_bct_opiclean
+  right: ev_s_phi_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_phi_bct_mmlu
+  left: ev_s_phi_bct_mmlu
+  right: ev_s_phi_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_act_opi
+  left: ev_s_oss_act_opi
+  right: ev_s_oss_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_act_af
+  left: ev_s_oss_act_af
+  right: ev_s_oss_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_act_sep
+  left: ev_s_oss_act_sep
+  right: ev_s_oss_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_act_opiclean
+  left: ev_s_oss_act_opiclean
+  right: ev_s_oss_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_act_mmlu
+  left: ev_s_oss_act_mmlu
+  right: ev_s_oss_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_bct_opi
+  left: ev_s_oss_bct_opi
+  right: ev_s_oss_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_bct_af
+  left: ev_s_oss_bct_af
+  right: ev_s_oss_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_bct_sep
+  left: ev_s_oss_bct_sep
+  right: ev_s_oss_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_bct_opiclean
+  left: ev_s_oss_bct_opiclean
+  right: ev_s_oss_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_oss_bct_mmlu
+  left: ev_s_oss_bct_mmlu
+  right: ev_s_oss_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_act_opi
+  left: ev_s_gem_act_opi
+  right: ev_s_gem_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_act_af
+  left: ev_s_gem_act_af
+  right: ev_s_gem_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_act_sep
+  left: ev_s_gem_act_sep
+  right: ev_s_gem_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_act_opiclean
+  left: ev_s_gem_act_opiclean
+  right: ev_s_gem_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_act_mmlu
+  left: ev_s_gem_act_mmlu
+  right: ev_s_gem_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_bct_opi
+  left: ev_s_gem_bct_opi
+  right: ev_s_gem_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_bct_af
+  left: ev_s_gem_bct_af
+  right: ev_s_gem_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_bct_sep
+  left: ev_s_gem_bct_sep
+  right: ev_s_gem_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_bct_opiclean
+  left: ev_s_gem_bct_opiclean
+  right: ev_s_gem_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_s_gem_bct_mmlu
+  left: ev_s_gem_bct_mmlu
+  right: ev_s_gem_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_a_q17_act
+  left: ev_a_q17_act
+  right: ev_a_q17_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_a_q17_bct
+  left: ev_a_q17_bct
+  right: ev_a_q17_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_a_q8_act
+  left: ev_a_q8_act
+  right: ev_a_q8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_a_q8_bct
+  left: ev_a_q8_bct
+  right: ev_a_q8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_a_phi_act
+  left: ev_a_phi_act
+  right: ev_a_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_a_phi_bct
+  left: ev_a_phi_bct
+  right: ev_a_phi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_a_gem_act
+  left: ev_a_gem_act
+  right: ev_a_gem_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_a_gem_bct
+  left: ev_a_gem_bct
+  right: ev_a_gem_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_a_oss_act
+  left: ev_a_oss_act
+  right: ev_a_oss_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_a_oss_bct
+  left: ev_a_oss_bct
+  right: ev_a_oss_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_t4_secalign_opi
+  left: ev_t4_secalign_opi
+  right: ev_t4_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_t4_secalign_af
+  left: ev_t4_secalign_af
+  right: ev_t4_none_af
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_t4_secalign_sep
+  left: ev_t4_secalign_sep
+  right: ev_t4_none_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_t4_secalign_opiclean
+  left: ev_t4_secalign_opiclean
+  right: ev_t4_none_opiclean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+- id: c_t4_secalign_mmlu
+  left: ev_t4_secalign_mmlu
+  right: ev_t4_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 19
+claims:
+- id: k1
+  text: ACT is competitive with other training-based prompt injection defences using only self-supervised pairs
+  location: abstract
+  anchor: find ACT to be competitive with other training-based defenses
+  jobs:
+  - R1
+  - R3
+  supported_by:
+  - c_s_q17_act_opi
+  - c_s_q17_act_af
+  - c_s_q17_act_sep
+  - c_s_q17_act_opiclean
+  - c_s_q17_act_mmlu
+  - c_s_q8_act_opi
+  - c_s_q8_act_af
+  - c_s_q8_act_sep
+  - c_s_q8_act_opiclean
+  - c_s_q8_act_mmlu
+  - c_s_phi_act_opi
+  - c_s_phi_act_af
+  - c_s_phi_act_sep
+  - c_s_phi_act_opiclean
+  - c_s_phi_act_mmlu
+  - c_s_oss_act_opi
+  - c_s_oss_act_af
+  - c_s_oss_act_sep
+  - c_s_oss_act_opiclean
+  - c_s_oss_act_mmlu
+  - c_s_gem_act_opi
+  - c_s_gem_act_af
+  - c_s_gem_act_sep
+  - c_s_gem_act_opiclean
+  - c_s_gem_act_mmlu
+  page: 1
+  contradicted_by:
+  - r_a_gem_act_asr
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: direct
+  where:
+    R1: Tables 1, 3 and 4
+    R2clean: Table 1 (OPI clean)
+    R3safe: 'Table 3 (CleanTaskany: user task done and injection not emitted, best of 8)'
+    general_utility: Tables 1 and 4 (MMLU)
+schema_gaps:
+- where: defences act_*
+  note: ACT matches the frozen base model's hidden states on the clean prompt; axis 2 has no value for activation-level self-distillation, so it is coded distillation; signal dependence is not_applicable because no inference-time
+    signal is used
+- where: results r_a_phi_bct_*
+  note: Table 2 gives Phi-4-reasoning BCT 42.6 (test) and 42.4 (train) while Table 3 gives 41.7 and 42.0 for the same cells; the record codes Table 3 (pp. 17, 18)
+- where: results r_a_*
+  note: ASRany and CleanTaskany count an example once any of 8 attacker suffixes succeeds or once any attempt is clean, so both are best-of-8 rates

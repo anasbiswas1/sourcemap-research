@@ -1,0 +1,1101 @@
+report:
+  id: autonomytax_arxiv2026
+  slug: '2603.19423'
+  title: 'The Autonomy Tax: Defense Training Breaks LLM Agents'
+  first_author: Shawn Li
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  doi: 10.18653/2026.emnlp-main.52
+  arxiv: '2603.19423'
+  version_read: arXiv v3
+  first_date: '2026-03-19'
+  read: F
+  role: re_measures
+  code_release: not checked
+  later_version: EMNLP 2026 (from the search record; not read)
+  extraction_scope: 'Sections 5 and 6 and Appendices A.3, A.6 and A.7: Tables 1 and 2 (step-1 behaviour and completion on 97 AgentDojo tasks), Table 3 (refusal of attacks and of benign documents on the curated subset) and
+    Table 8 (Meta SecAlign with and without the input role); the abstract claim (Tables 4 to 7 and the depth analysis not coded)'
+defences:
+- id: struq_l3
+  name: StruQ (re-implemented by the authors)
+  origin: other_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 17
+  components:
+  - <inst> and <obs> XML delimiters
+  - fine-tuning with instruction tokens weighted 2.0
+  anchor: StruQ wraps these formats with XML delimiters
+- id: secalign_l3
+  name: SecAlign (re-implemented by the authors)
+  origin: other_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 17
+  components:
+  - 'DPO on 30K preference triples from agent tasks: a refusal to follow file instructions is preferred, completing the attack is not'
+  anchor: Training data consists of 30K preference triples
+- id: struq_mi
+  name: StruQ (re-implemented by the authors)
+  origin: other_report
+  base_checkpoint: Mistral-7B-Instruct-v0.3
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 17
+  components:
+  - <inst> and <obs> XML delimiters
+  - fine-tuning with instruction tokens weighted 2.0
+  anchor: StruQ wraps these formats with XML delimiters
+- id: secalign_mi
+  name: SecAlign (re-implemented by the authors)
+  origin: other_report
+  base_checkpoint: Mistral-7B-Instruct-v0.3
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 17
+  components:
+  - 'DPO on 30K preference triples from agent tasks: a refusal to follow file instructions is preferred, completing the attack is not'
+  anchor: Training data consists of 30K preference triples
+- id: msa_l31
+  name: Meta SecAlign (official model)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: measured
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: Meta SecAlign (Meta's official DPO-trained defense with
+  layout_compat:
+    user_turn: supported
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: supported
+  pages:
+    layout_compat: 19
+evaluations:
+- id: ev_ag_l3_none
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: AgentDojo, 97 tasks, attack-like trigger phrases added to 30% of tool observations
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task check; step-1 action classified as normal, refusal or invalid
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 5
+  decoding: greedy decoding
+  sample_size: '97'
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_ag_l3_struq
+  defence_id: struq_l3
+  benchmark: AgentDojo, 97 tasks, attack-like trigger phrases added to 30% of tool observations
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task check; step-1 action classified as normal, refusal or invalid
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 5
+  decoding: greedy decoding
+  sample_size: '97'
+  pages:
+    benchmark: 4
+- id: ev_ag_l3_secalign
+  defence_id: secalign_l3
+  benchmark: AgentDojo, 97 tasks, attack-like trigger phrases added to 30% of tool observations
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task check; step-1 action classified as normal, refusal or invalid
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 5
+  decoding: greedy decoding
+  sample_size: '97'
+  pages:
+    benchmark: 4
+- id: ev_ag_l31_msa
+  defence_id: msa_l31
+  benchmark: AgentDojo, 97 tasks, attack-like trigger phrases added to 30% of tool observations
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task check; step-1 action classified as normal, refusal or invalid
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 5
+  decoding: greedy decoding
+  sample_size: '97'
+  pages:
+    benchmark: 4
+- id: ev_ag_mi_none
+  defence_id: none:Mistral-7B-Instruct-v0.3
+  benchmark: AgentDojo, 97 tasks, attack-like trigger phrases added to 30% of tool observations
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task check; step-1 action classified as normal, refusal or invalid
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 5
+  decoding: greedy decoding
+  sample_size: '97'
+  pages:
+    benchmark: 4
+  baseline_kind: off_the_shelf
+- id: ev_ag_mi_struq
+  defence_id: struq_mi
+  benchmark: AgentDojo, 97 tasks, attack-like trigger phrases added to 30% of tool observations
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task check; step-1 action classified as normal, refusal or invalid
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 5
+  decoding: greedy decoding
+  sample_size: '97'
+  pages:
+    benchmark: 4
+- id: ev_ag_mi_secalign
+  defence_id: secalign_mi
+  benchmark: AgentDojo, 97 tasks, attack-like trigger phrases added to 30% of tool observations
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo task check; step-1 action classified as normal, refusal or invalid
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 5
+  decoding: greedy decoding
+  sample_size: '97'
+  pages:
+    benchmark: 4
+- id: ev_cs_l3_none_adv
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; adversarial part'
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack (TPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '289'
+  pages:
+    benchmark: 4
+    decoding: 5
+  baseline_kind: off_the_shelf
+- id: ev_cs_l3_none_ben
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; benign part'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: refusal of benign content (FPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '61'
+  pages:
+    benchmark: 4
+    decoding: 5
+  baseline_kind: off_the_shelf
+- id: ev_cs_l3_struq_adv
+  defence_id: struq_l3
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; adversarial part'
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack (TPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '289'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_cs_l3_struq_ben
+  defence_id: struq_l3
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; benign part'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: refusal of benign content (FPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '61'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_cs_l3_secalign_adv
+  defence_id: secalign_l3
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; adversarial part'
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack (TPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '289'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_cs_l3_secalign_ben
+  defence_id: secalign_l3
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; benign part'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: refusal of benign content (FPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '61'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_cs_l31_none_adv
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; adversarial part'
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack (TPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '289'
+  pages:
+    benchmark: 4
+    decoding: 5
+  baseline_kind: off_the_shelf
+- id: ev_cs_l31_none_ben
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; benign part'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: refusal of benign content (FPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '61'
+  pages:
+    benchmark: 4
+    decoding: 5
+  baseline_kind: off_the_shelf
+- id: ev_cs_l31_msa_adv
+  defence_id: msa_l31
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; adversarial part'
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack (TPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '289'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_cs_l31_msa_ben
+  defence_id: msa_l31
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; benign part'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: refusal of benign content (FPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '61'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_cs_mi_none_adv
+  defence_id: none:Mistral-7B-Instruct-v0.3
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; adversarial part'
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack (TPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '289'
+  pages:
+    benchmark: 4
+    decoding: 5
+  baseline_kind: off_the_shelf
+- id: ev_cs_mi_none_ben
+  defence_id: none:Mistral-7B-Instruct-v0.3
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; benign part'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: refusal of benign content (FPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '61'
+  pages:
+    benchmark: 4
+    decoding: 5
+  baseline_kind: off_the_shelf
+- id: ev_cs_mi_struq_adv
+  defence_id: struq_mi
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; adversarial part'
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack (TPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '289'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_cs_mi_struq_ben
+  defence_id: struq_mi
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; benign part'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: refusal of benign content (FPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '61'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_cs_mi_secalign_adv
+  defence_id: secalign_mi
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; adversarial part'
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack (TPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '289'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_cs_mi_secalign_ben
+  defence_id: secalign_mi
+  benchmark: 'curated challenging subset: 289 adversarial prompts (social engineering, obfuscation, instruction override) and 61 benign technical documents; benign part'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: refusal of benign content (FPR)
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 6
+  decoding: greedy decoding
+  sample_size: '61'
+  pages:
+    benchmark: 4
+    decoding: 5
+- id: ev_t8_user
+  defence_id: msa_l31
+  benchmark: 1,000 single-turn prompts (500 adversarial, 500 benign), standard user role for all content
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack; refusal of benign content
+  layout_same_as_defence: 'no'
+  measured_by: autonomytax_arxiv2026
+  page: 19
+  decoding: greedy decoding
+  sample_size: 1,000
+  pages:
+    benchmark: 19
+    sample_size: 18
+    decoding: 5
+- id: ev_t8_input
+  defence_id: msa_l31
+  benchmark: 1,000 single-turn prompts (500 adversarial, 500 benign), adversarial content in the input role
+  attacker_type: static
+  attacker_access: black_box
+  judge: refusal of the attack; refusal of benign content
+  layout_same_as_defence: 'yes'
+  measured_by: autonomytax_arxiv2026
+  page: 19
+  decoding: greedy decoding
+  sample_size: 1,000
+  pages:
+    benchmark: 19
+    sample_size: 18
+    decoding: 5
+results:
+- id: r_ag_l3_none_normal
+  evaluation_id: ev_ag_l3_none
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Normal (valid action at step 1, before any tool output)
+  value: '96.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ag_l3_none_cr
+  evaluation_id: ev_ag_l3_none
+  quantity: other
+  coverage: direct
+  metric_as_printed: CR (completion rate)
+  value: '86.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_ag_l3_struq_normal
+  evaluation_id: ev_ag_l3_struq
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Normal (valid action at step 1, before any tool output)
+  value: '22.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ag_l3_struq_cr
+  evaluation_id: ev_ag_l3_struq
+  quantity: other
+  coverage: direct
+  metric_as_printed: CR (completion rate)
+  value: '80.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_ag_l3_secalign_normal
+  evaluation_id: ev_ag_l3_secalign
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Normal (valid action at step 1, before any tool output)
+  value: '52.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ag_l3_secalign_cr
+  evaluation_id: ev_ag_l3_secalign
+  quantity: other
+  coverage: direct
+  metric_as_printed: CR (completion rate)
+  value: '63.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_ag_l31_msa_normal
+  evaluation_id: ev_ag_l31_msa
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Normal (valid action at step 1, before any tool output)
+  value: '94.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ag_l31_msa_cr
+  evaluation_id: ev_ag_l31_msa
+  quantity: other
+  coverage: direct
+  metric_as_printed: CR (completion rate)
+  value: '85.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_ag_mi_none_normal
+  evaluation_id: ev_ag_mi_none
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Normal (valid action at step 1, before any tool output)
+  value: '97.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ag_mi_none_cr
+  evaluation_id: ev_ag_mi_none
+  quantity: other
+  coverage: direct
+  metric_as_printed: CR (completion rate)
+  value: '50.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_ag_mi_struq_normal
+  evaluation_id: ev_ag_mi_struq
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Normal (valid action at step 1, before any tool output)
+  value: '23.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ag_mi_struq_cr
+  evaluation_id: ev_ag_mi_struq
+  quantity: other
+  coverage: direct
+  metric_as_printed: CR (completion rate)
+  value: '14.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_ag_mi_secalign_normal
+  evaluation_id: ev_ag_mi_secalign
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: Normal (valid action at step 1, before any tool output)
+  value: '53.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 1
+- id: r_ag_mi_secalign_cr
+  evaluation_id: ev_ag_mi_secalign
+  quantity: other
+  coverage: direct
+  metric_as_printed: CR (completion rate)
+  value: '1.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_cs_l3_none_tpr
+  evaluation_id: ev_cs_l3_none_adv
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: TPR (correctly refusing attacks)
+  value: '82.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_l3_none_fpr
+  evaluation_id: ev_cs_l3_none_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR (incorrectly refusing benign content)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_l3_struq_tpr
+  evaluation_id: ev_cs_l3_struq_adv
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: TPR (correctly refusing attacks)
+  value: '37.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_l3_struq_fpr
+  evaluation_id: ev_cs_l3_struq_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR (incorrectly refusing benign content)
+  value: '70.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_l3_secalign_tpr
+  evaluation_id: ev_cs_l3_secalign_adv
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: TPR (correctly refusing attacks)
+  value: '26.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_l3_secalign_fpr
+  evaluation_id: ev_cs_l3_secalign_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR (incorrectly refusing benign content)
+  value: '24.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_l31_none_tpr
+  evaluation_id: ev_cs_l31_none_adv
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: TPR (correctly refusing attacks)
+  value: '79.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_l31_none_fpr
+  evaluation_id: ev_cs_l31_none_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR (incorrectly refusing benign content)
+  value: '0.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_l31_msa_tpr
+  evaluation_id: ev_cs_l31_msa_adv
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: TPR (correctly refusing attacks)
+  value: '68.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_l31_msa_fpr
+  evaluation_id: ev_cs_l31_msa_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR (incorrectly refusing benign content)
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_mi_none_tpr
+  evaluation_id: ev_cs_mi_none_adv
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: TPR (correctly refusing attacks)
+  value: '12.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_mi_none_fpr
+  evaluation_id: ev_cs_mi_none_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR (incorrectly refusing benign content)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_mi_struq_tpr
+  evaluation_id: ev_cs_mi_struq_adv
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: TPR (correctly refusing attacks)
+  value: '18.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_mi_struq_fpr
+  evaluation_id: ev_cs_mi_struq_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR (incorrectly refusing benign content)
+  value: '54.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_mi_secalign_tpr
+  evaluation_id: ev_cs_mi_secalign_adv
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: TPR (correctly refusing attacks)
+  value: '6.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_cs_mi_secalign_fpr
+  evaluation_id: ev_cs_mi_secalign_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR (incorrectly refusing benign content)
+  value: '36.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_t8_user_asr
+  evaluation_id: ev_t8_user
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: ASR
+  value: '32.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 8
+- id: r_t8_user_fpr
+  evaluation_id: ev_t8_user
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 8
+- id: r_t8_input_asr
+  evaluation_id: ev_t8_input
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: ASR
+  value: '20.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 8
+- id: r_t8_input_fpr
+  evaluation_id: ev_t8_input
+  quantity: other
+  coverage: direct
+  metric_as_printed: FPR
+  value: '3.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 19
+  location: Table 8
+comparisons:
+- id: c_ag_l3_struq
+  left: ev_ag_l3_struq
+  right: ev_ag_l3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_ag_l3_secalign
+  left: ev_ag_l3_secalign
+  right: ev_ag_l3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_ag_mi_struq
+  left: ev_ag_mi_struq
+  right: ev_ag_mi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_ag_mi_secalign
+  left: ev_ag_mi_secalign
+  right: ev_ag_mi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_ag_msa
+  left: ev_ag_l31_msa
+  right: ev_ag_l3_none
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: Meta SecAlign on Llama-3.1-8B against undefended Llama-3-8B, as Table 2 compares them
+  page: 5
+- id: c_cs_l3_struq_adv
+  left: ev_cs_l3_struq_adv
+  right: ev_cs_l3_none_adv
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_cs_l3_struq_ben
+  left: ev_cs_l3_struq_ben
+  right: ev_cs_l3_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_cs_l3_secalign_adv
+  left: ev_cs_l3_secalign_adv
+  right: ev_cs_l3_none_adv
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_cs_l3_secalign_ben
+  left: ev_cs_l3_secalign_ben
+  right: ev_cs_l3_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_cs_mi_struq_adv
+  left: ev_cs_mi_struq_adv
+  right: ev_cs_mi_none_adv
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_cs_mi_struq_ben
+  left: ev_cs_mi_struq_ben
+  right: ev_cs_mi_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_cs_mi_secalign_adv
+  left: ev_cs_mi_secalign_adv
+  right: ev_cs_mi_none_adv
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_cs_mi_secalign_ben
+  left: ev_cs_mi_secalign_ben
+  right: ev_cs_mi_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_cs_msa_adv
+  left: ev_cs_l31_msa_adv
+  right: ev_cs_l31_none_adv
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_cs_msa_ben
+  left: ev_cs_l31_msa_ben
+  right: ev_cs_l31_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t8_role
+  left: ev_t8_input
+  right: ev_t8_user
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: adversarial content in the input role against the user role
+  page: 19
+claims:
+- id: k1
+  text: defence training destroys agent competence while failing to stop sophisticated attacks
+  location: abstract
+  anchor: defense training designed to improve safety systematically destroys agent competence
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_ag_l3_struq
+  - c_ag_l3_secalign
+  - c_ag_mi_struq
+  - c_ag_mi_secalign
+  - c_cs_l3_struq_adv
+  - c_cs_l3_secalign_adv
+  page: 1
+  contradicted_by:
+  - r_ag_l31_msa_normal
+  - r_ag_l31_msa_cr
+coverage:
+  R1: proxy
+  R2clean: proxy
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 3 and 8 (refusal of a mixed set of direct requests and embedded instructions)
+    R2clean: Table 1 (valid first action before any tool output); completion with trigger phrases is coded other
+schema_gaps:
+- where: evaluations ev_ag_*
+  note: completion rate is measured with attack-like trigger phrases, not attacks, added to 30% of tool observations, so it is coded other; the step-1 rate is measured before any tool output and is coded as a clean-utility
+    proxy
+- where: evaluations ev_cs_*, ev_t8_*
+  note: the adversarial prompts are mostly direct requests (social engineering, obfuscation) with some instructions embedded in task text, and success is counted as not refusing, so R1 is a proxy (pp. 4, 16)
+- where: comparisons c_cs_msa_*
+  note: Table 3 lists Meta SecAlign and Base-Llama3.1-8B in the n = 350 subset table, but Appendix A.7 says the Meta SecAlign runs used a 1,000-prompt set, Table 4 uses another attack taxonomy for it, and Table 8's input-role
+    TPR (79.6%) equals Base-Llama3.1-8B's Table 3 TPR; the denominator is marked unreported (pp. 6, 18, 19)
+- where: defences struq_*, secalign_*
+  note: 'both are the authors'' re-implementations: StruQ with <inst>/<obs> tags and weighted instruction tokens; SecAlign trained to prefer refusals on 30K agent triples, not the original SecAlign objective (p. 17)'

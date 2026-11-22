@@ -1,0 +1,4232 @@
+report:
+  id: localalign_ccs2026
+  slug: '2605.01462'
+  title: 'LocalAlign: Enabling Generalizable Prompt Injection Defense via Generation of Near-Target Adversarial Examples for Alignment Training'
+  first_author: Yuyang Gong
+  venue: CCS 2026
+  peer_reviewed: 'yes'
+  doi: 10.1145/3830454.3846553
+  arxiv: '2605.01462'
+  version_read: arXiv v2 (carries the CCS 2026 header)
+  first_date: '2026-05-02'
+  read: F
+  role: proposes
+  code_release: GitHub repository mentioned in Appendix B; not checked
+  extraction_scope: 'Sections 4 and 5 and Appendix B: Table 1 (out-of-distribution ASR, both models), Table 2 (AlpacaFarm ASR) and Table 3 (utility); the abstract claims (the ablations of Tables 4 to 6, Figure 3 and the PISmith
+    averages in Appendix B not coded)'
+defences:
+- id: la_l
+  name: LocalAlign
+  origin: this_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  components:
+  - warm-up with Meta-SecAlign-style preference data from Cleaned Alpaca
+  - near-target injected commands written by the defended model itself with one prompt (same task family, same data, a different answer)
+  - 'margin-aware DPO: per-batch DPO coefficient raised for samples whose wrong answer is close to the correct one'
+  - LoRA rank 64
+  anchor: we fine-tune the model on the generated adversarial examples
+  pages:
+    components: 14
+- id: la_q
+  name: LocalAlign
+  origin: this_report
+  base_checkpoint: Qwen3-4B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  components:
+  - warm-up with Meta-SecAlign-style preference data from Cleaned Alpaca
+  - near-target injected commands written by the defended model itself with one prompt (same task family, same data, a different answer)
+  - 'margin-aware DPO: per-batch DPO coefficient raised for samples whose wrong answer is close to the correct one'
+  - LoRA rank 64
+  anchor: we fine-tune the model on the generated adversarial examples
+  pages:
+    components: 14
+- id: msa_l
+  name: Meta-SecAlign (released Llama3.1 checkpoint)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 14
+  anchor: we use the authors’ released Llama3.1 check
+- id: msa_q
+  name: Meta-SecAlign (reproduced by the authors with the released recipe)
+  origin: other_report
+  base_checkpoint: Qwen3-4B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 14
+  anchor: reproduce the Qwen3-4B baseline using their training
+- id: struq_l
+  name: StruQ (reproduced with the authors' released code)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 14
+  anchor: We reproduce StruQ using the authors’ released code
+evaluations:
+- id: ev_af_none_of
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; maximum over five optimization-free attacks (direct, ignore, fake completion, escape, combined)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+  baseline_kind: off_the_shelf
+- id: ev_af_none_gcg
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; GCG suffix, 20 tokens, 500 steps
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: 20-token suffix, 500 steps, batch 512
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+  baseline_kind: off_the_shelf
+- id: ev_af_none_agcg
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; adaptive GCG with fake delimiters searched in embedding space
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones plus GCG
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+  baseline_kind: off_the_shelf
+- id: ev_af_struq_of
+  defence_id: struq_l
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; maximum over five optimization-free attacks (direct, ignore, fake completion, escape, combined)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+- id: ev_af_struq_gcg
+  defence_id: struq_l
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; GCG suffix, 20 tokens, 500 steps
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: 20-token suffix, 500 steps, batch 512
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+- id: ev_af_struq_agcg
+  defence_id: struq_l
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; adaptive GCG with fake delimiters searched in embedding space
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones plus GCG
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+- id: ev_af_msa_of
+  defence_id: msa_l
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; maximum over five optimization-free attacks (direct, ignore, fake completion, escape, combined)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+- id: ev_af_msa_gcg
+  defence_id: msa_l
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; GCG suffix, 20 tokens, 500 steps
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: 20-token suffix, 500 steps, batch 512
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+- id: ev_af_msa_agcg
+  defence_id: msa_l
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; adaptive GCG with fake delimiters searched in embedding space
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones plus GCG
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+- id: ev_af_la_of
+  defence_id: la_l
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; maximum over five optimization-free attacks (direct, ignore, fake completion, escape, combined)
+  attacker_type: static
+  attacker_access: black_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+- id: ev_af_la_gcg
+  defence_id: la_l
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; GCG suffix, 20 tokens, 500 steps
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: 20-token suffix, 500 steps, batch 512
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+- id: ev_af_la_agcg
+  defence_id: la_l
+  benchmark: AlpacaFarm (i.i.d.), 'Print exactly Hacked!' at the end of the data; adaptive GCG with fake delimiters searched in embedding space
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: response begins with 'Hacked' (string match)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones plus GCG
+  decoding: not reported
+  pages:
+    benchmark: 14
+    judge: 14
+    attacker_budget: 14
+- id: ev_ood_l_none_of_hotpotqa
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: HotpotQA (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_of_qasper
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: Qasper (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_of_injecagent
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: InjecAgent (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_of_sep
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: SEP (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_of_mmlu
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: MMLU (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_of_openprompt
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: Open-Prompt (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_msa_of_hotpotqa
+  defence_id: msa_l
+  benchmark: HotpotQA (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_of_qasper
+  defence_id: msa_l
+  benchmark: Qasper (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_of_injecagent
+  defence_id: msa_l
+  benchmark: InjecAgent (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_of_sep
+  defence_id: msa_l
+  benchmark: SEP (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_of_mmlu
+  defence_id: msa_l
+  benchmark: MMLU (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_of_openprompt
+  defence_id: msa_l
+  benchmark: Open-Prompt (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_of_hotpotqa
+  defence_id: la_l
+  benchmark: HotpotQA (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_of_qasper
+  defence_id: la_l
+  benchmark: Qasper (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_of_injecagent
+  defence_id: la_l
+  benchmark: InjecAgent (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_of_sep
+  defence_id: la_l
+  benchmark: SEP (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_of_mmlu
+  defence_id: la_l
+  benchmark: MMLU (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_of_openprompt
+  defence_id: la_l
+  benchmark: Open-Prompt (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_none_aof_hotpotqa
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: HotpotQA (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_aof_qasper
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: Qasper (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_aof_injecagent
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: InjecAgent (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_aof_sep
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: SEP (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_aof_mmlu
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: MMLU (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_none_aof_openprompt
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: Open-Prompt (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_l_msa_aof_hotpotqa
+  defence_id: msa_l
+  benchmark: HotpotQA (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_aof_qasper
+  defence_id: msa_l
+  benchmark: Qasper (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_aof_injecagent
+  defence_id: msa_l
+  benchmark: InjecAgent (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_aof_sep
+  defence_id: msa_l
+  benchmark: SEP (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_aof_mmlu
+  defence_id: msa_l
+  benchmark: MMLU (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_msa_aof_openprompt
+  defence_id: msa_l
+  benchmark: Open-Prompt (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_aof_hotpotqa
+  defence_id: la_l
+  benchmark: HotpotQA (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_aof_qasper
+  defence_id: la_l
+  benchmark: Qasper (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_aof_injecagent
+  defence_id: la_l
+  benchmark: InjecAgent (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_aof_sep
+  defence_id: la_l
+  benchmark: SEP (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_aof_mmlu
+  defence_id: la_l
+  benchmark: MMLU (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_l_la_aof_openprompt
+  defence_id: la_l
+  benchmark: Open-Prompt (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_none_of_hotpotqa
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: HotpotQA (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_of_qasper
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: Qasper (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_of_injecagent
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: InjecAgent (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_of_sep
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: SEP (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_of_mmlu
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: MMLU (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_of_openprompt
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: Open-Prompt (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_msa_of_hotpotqa
+  defence_id: msa_q
+  benchmark: HotpotQA (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_of_qasper
+  defence_id: msa_q
+  benchmark: Qasper (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_of_injecagent
+  defence_id: msa_q
+  benchmark: InjecAgent (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_of_sep
+  defence_id: msa_q
+  benchmark: SEP (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_of_mmlu
+  defence_id: msa_q
+  benchmark: MMLU (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_of_openprompt
+  defence_id: msa_q
+  benchmark: Open-Prompt (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_of_hotpotqa
+  defence_id: la_q
+  benchmark: HotpotQA (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_of_qasper
+  defence_id: la_q
+  benchmark: Qasper (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_of_injecagent
+  defence_id: la_q
+  benchmark: InjecAgent (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_of_sep
+  defence_id: la_q
+  benchmark: SEP (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_of_mmlu
+  defence_id: la_q
+  benchmark: MMLU (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_of_openprompt
+  defence_id: la_q
+  benchmark: Open-Prompt (out of distribution); maximum over the optimization-free attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_none_aof_hotpotqa
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: HotpotQA (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_aof_qasper
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: Qasper (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_aof_injecagent
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: InjecAgent (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_aof_sep
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: SEP (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_aof_mmlu
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: MMLU (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_none_aof_openprompt
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: Open-Prompt (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+  baseline_kind: off_the_shelf
+- id: ev_ood_q_msa_aof_hotpotqa
+  defence_id: msa_q
+  benchmark: HotpotQA (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_aof_qasper
+  defence_id: msa_q
+  benchmark: Qasper (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_aof_injecagent
+  defence_id: msa_q
+  benchmark: InjecAgent (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_aof_sep
+  defence_id: msa_q
+  benchmark: SEP (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_aof_mmlu
+  defence_id: msa_q
+  benchmark: MMLU (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_msa_aof_openprompt
+  defence_id: msa_q
+  benchmark: Open-Prompt (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_aof_hotpotqa
+  defence_id: la_q
+  benchmark: HotpotQA (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_aof_qasper
+  defence_id: la_q
+  benchmark: Qasper (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_aof_injecagent
+  defence_id: la_q
+  benchmark: InjecAgent (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_aof_sep
+  defence_id: la_q
+  benchmark: SEP (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_aof_mmlu
+  defence_id: la_q
+  benchmark: MMLU (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_ood_q_la_aof_openprompt
+  defence_id: la_q
+  benchmark: Open-Prompt (out of distribution); adaptive optimization-free attacks with fake delimiters
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: attack success as defined for each dataset (README of the authors' repository)
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 10
+  attacker_budget: fake delimiters near the official ones
+  decoding: not reported
+  pages:
+    benchmark: 14
+- id: ev_u_l_none_bbh
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: BBH
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_l_none_ifeval
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: IFEval
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_l_none_mmlupro
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_l_none_mmlu
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_l_none_alpaca
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_l_msa_bbh
+  defence_id: msa_l
+  benchmark: BBH
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_l_msa_ifeval
+  defence_id: msa_l
+  benchmark: IFEval
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_l_msa_mmlupro
+  defence_id: msa_l
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_l_msa_mmlu
+  defence_id: msa_l
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_l_msa_alpaca
+  defence_id: msa_l
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_l_la_bbh
+  defence_id: la_l
+  benchmark: BBH
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_l_la_ifeval
+  defence_id: la_l
+  benchmark: IFEval
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_l_la_mmlupro
+  defence_id: la_l
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_l_la_mmlu
+  defence_id: la_l
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_l_la_alpaca
+  defence_id: la_l
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_none_bbh
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: BBH
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_q_none_ifeval
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: IFEval
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_q_none_mmlupro
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_q_none_mmlu
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_q_none_alpaca
+  defence_id: none:Qwen3-4B-Instruct
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_u_q_msa_bbh
+  defence_id: msa_q
+  benchmark: BBH
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_msa_ifeval
+  defence_id: msa_q
+  benchmark: IFEval
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_msa_mmlupro
+  defence_id: msa_q
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_msa_mmlu
+  defence_id: msa_q
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_msa_alpaca
+  defence_id: msa_q
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_la_bbh
+  defence_id: la_q
+  benchmark: BBH
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_la_ifeval
+  defence_id: la_q
+  benchmark: IFEval
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_la_mmlupro
+  defence_id: la_q
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_la_mmlu
+  defence_id: la_q
+  benchmark: MMLU
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+- id: ev_u_q_la_alpaca
+  defence_id: la_q
+  benchmark: AlpacaEval2
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scorer
+  layout_same_as_defence: 'yes'
+  measured_by: localalign_ccs2026
+  page: 11
+  decoding: not reported
+results:
+- id: r_af_none_of
+  evaluation_id: ev_af_none_of
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '89.42'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_none_gcg
+  evaluation_id: ev_af_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCG)
+  value: '26.92'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_none_agcg
+  evaluation_id: ev_af_none_agcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive GCG)
+  value: '92.31'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_struq_of
+  evaluation_id: ev_af_struq_of
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '9.13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_struq_gcg
+  evaluation_id: ev_af_struq_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCG)
+  value: '16.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_struq_agcg
+  evaluation_id: ev_af_struq_agcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive GCG)
+  value: '11.54'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_msa_of
+  evaluation_id: ev_af_msa_of
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '1.44'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_msa_gcg
+  evaluation_id: ev_af_msa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCG)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_msa_agcg
+  evaluation_id: ev_af_msa_agcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive GCG)
+  value: '2.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_la_of
+  evaluation_id: ev_af_la_of
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_la_gcg
+  evaluation_id: ev_af_la_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (GCG)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_af_la_agcg
+  evaluation_id: ev_af_la_agcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive GCG)
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 2
+- id: r_ood_l_none_of_hotpotqa
+  evaluation_id: ev_ood_l_none_of_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '74.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_of_qasper
+  evaluation_id: ev_ood_l_none_of_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '83.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_of_injecagent
+  evaluation_id: ev_ood_l_none_of_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '81.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_of_sep
+  evaluation_id: ev_ood_l_none_of_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '91.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_of_mmlu
+  evaluation_id: ev_ood_l_none_of_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '90.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_of_openprompt
+  evaluation_id: ev_ood_l_none_of_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '87.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_of_hotpotqa
+  evaluation_id: ev_ood_l_msa_of_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '44.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_of_qasper
+  evaluation_id: ev_ood_l_msa_of_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '45.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_of_injecagent
+  evaluation_id: ev_ood_l_msa_of_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '13.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_of_sep
+  evaluation_id: ev_ood_l_msa_of_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_of_mmlu
+  evaluation_id: ev_ood_l_msa_of_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '8.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_of_openprompt
+  evaluation_id: ev_ood_l_msa_of_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_of_hotpotqa
+  evaluation_id: ev_ood_l_la_of_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '8.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_of_qasper
+  evaluation_id: ev_ood_l_la_of_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '7.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_of_injecagent
+  evaluation_id: ev_ood_l_la_of_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_of_sep
+  evaluation_id: ev_ood_l_la_of_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_of_mmlu
+  evaluation_id: ev_ood_l_la_of_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_of_openprompt
+  evaluation_id: ev_ood_l_la_of_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_aof_hotpotqa
+  evaluation_id: ev_ood_l_none_aof_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '78.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_aof_qasper
+  evaluation_id: ev_ood_l_none_aof_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '87.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_aof_injecagent
+  evaluation_id: ev_ood_l_none_aof_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '73.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_aof_sep
+  evaluation_id: ev_ood_l_none_aof_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '85.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_aof_mmlu
+  evaluation_id: ev_ood_l_none_aof_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '92.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_none_aof_openprompt
+  evaluation_id: ev_ood_l_none_aof_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '98.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_aof_hotpotqa
+  evaluation_id: ev_ood_l_msa_aof_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '55.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_aof_qasper
+  evaluation_id: ev_ood_l_msa_aof_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '56.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_aof_injecagent
+  evaluation_id: ev_ood_l_msa_aof_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '6.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_aof_sep
+  evaluation_id: ev_ood_l_msa_aof_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '2.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_aof_mmlu
+  evaluation_id: ev_ood_l_msa_aof_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '24.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_msa_aof_openprompt
+  evaluation_id: ev_ood_l_msa_aof_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '8.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_aof_hotpotqa
+  evaluation_id: ev_ood_l_la_aof_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '23.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_aof_qasper
+  evaluation_id: ev_ood_l_la_aof_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '9.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_aof_injecagent
+  evaluation_id: ev_ood_l_la_aof_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_aof_sep
+  evaluation_id: ev_ood_l_la_aof_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_aof_mmlu
+  evaluation_id: ev_ood_l_la_aof_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_l_la_aof_openprompt
+  evaluation_id: ev_ood_l_la_aof_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_of_hotpotqa
+  evaluation_id: ev_ood_q_none_of_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '22.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_of_qasper
+  evaluation_id: ev_ood_q_none_of_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '11.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_of_injecagent
+  evaluation_id: ev_ood_q_none_of_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '76.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_of_sep
+  evaluation_id: ev_ood_q_none_of_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '94.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_of_mmlu
+  evaluation_id: ev_ood_q_none_of_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '99.90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_of_openprompt
+  evaluation_id: ev_ood_q_none_of_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '99.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_of_hotpotqa
+  evaluation_id: ev_ood_q_msa_of_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '16.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_of_qasper
+  evaluation_id: ev_ood_q_msa_of_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '4.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_of_injecagent
+  evaluation_id: ev_ood_q_msa_of_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '43.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_of_sep
+  evaluation_id: ev_ood_q_msa_of_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.90'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_of_mmlu
+  evaluation_id: ev_ood_q_msa_of_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '11.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_of_openprompt
+  evaluation_id: ev_ood_q_msa_of_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '3.84'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_of_hotpotqa
+  evaluation_id: ev_ood_q_la_of_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '2.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_of_qasper
+  evaluation_id: ev_ood_q_la_of_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '2.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_of_injecagent
+  evaluation_id: ev_ood_q_la_of_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '4.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_of_sep
+  evaluation_id: ev_ood_q_la_of_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_of_mmlu
+  evaluation_id: ev_ood_q_la_of_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_of_openprompt
+  evaluation_id: ev_ood_q_la_of_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_aof_hotpotqa
+  evaluation_id: ev_ood_q_none_aof_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '30.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_aof_qasper
+  evaluation_id: ev_ood_q_none_aof_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '44.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_aof_injecagent
+  evaluation_id: ev_ood_q_none_aof_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '80.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_aof_sep
+  evaluation_id: ev_ood_q_none_aof_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '96.39'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_aof_mmlu
+  evaluation_id: ev_ood_q_none_aof_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '99.70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_none_aof_openprompt
+  evaluation_id: ev_ood_q_none_aof_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '99.76'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_aof_hotpotqa
+  evaluation_id: ev_ood_q_msa_aof_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '14.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_aof_qasper
+  evaluation_id: ev_ood_q_msa_aof_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '14.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_aof_injecagent
+  evaluation_id: ev_ood_q_msa_aof_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '68.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_aof_sep
+  evaluation_id: ev_ood_q_msa_aof_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '20.70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_aof_mmlu
+  evaluation_id: ev_ood_q_msa_aof_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '89.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_msa_aof_openprompt
+  evaluation_id: ev_ood_q_msa_aof_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '1.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_aof_hotpotqa
+  evaluation_id: ev_ood_q_la_aof_hotpotqa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '4.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_aof_qasper
+  evaluation_id: ev_ood_q_la_aof_qasper
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '6.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_aof_injecagent
+  evaluation_id: ev_ood_q_la_aof_injecagent
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '15.70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_aof_sep
+  evaluation_id: ev_ood_q_la_aof_sep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '2.15'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_aof_mmlu
+  evaluation_id: ev_ood_q_la_aof_mmlu
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '9.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_ood_q_la_aof_openprompt
+  evaluation_id: ev_ood_q_la_aof_openprompt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Adaptive Optimization-Free)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 1
+- id: r_u_l_none_bbh
+  evaluation_id: ev_u_l_none_bbh
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BBH
+  value: '71.63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_none_ifeval
+  evaluation_id: ev_u_l_none_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval
+  value: '80.34'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_none_mmlupro
+  evaluation_id: ev_u_l_none_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro
+  value: '42.25'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_none_mmlu
+  evaluation_id: ev_u_l_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '68.23'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_none_alpaca
+  evaluation_id: ev_u_l_none_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '85.90'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_msa_bbh
+  evaluation_id: ev_u_l_msa_bbh
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BBH
+  value: '71.03'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_msa_ifeval
+  evaluation_id: ev_u_l_msa_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval
+  value: '75.23'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_msa_mmlupro
+  evaluation_id: ev_u_l_msa_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro
+  value: '42.24'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_msa_mmlu
+  evaluation_id: ev_u_l_msa_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '67.48'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_msa_alpaca
+  evaluation_id: ev_u_l_msa_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '85.59'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_la_bbh
+  evaluation_id: ev_u_l_la_bbh
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BBH
+  value: '71.37'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_la_ifeval
+  evaluation_id: ev_u_l_la_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval
+  value: '73.93'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_la_mmlupro
+  evaluation_id: ev_u_l_la_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro
+  value: '44.12'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_la_mmlu
+  evaluation_id: ev_u_l_la_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '65.66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_l_la_alpaca
+  evaluation_id: ev_u_l_la_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '84.16'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_none_bbh
+  evaluation_id: ev_u_q_none_bbh
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BBH
+  value: '76.64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_none_ifeval
+  evaluation_id: ev_u_q_none_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval
+  value: '86.75'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_none_mmlupro
+  evaluation_id: ev_u_q_none_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro
+  value: '56.74'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_none_mmlu
+  evaluation_id: ev_u_q_none_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '72.58'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_none_alpaca
+  evaluation_id: ev_u_q_none_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '90.19'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_msa_bbh
+  evaluation_id: ev_u_q_msa_bbh
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BBH
+  value: '77.66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_msa_ifeval
+  evaluation_id: ev_u_q_msa_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval
+  value: '85.74'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_msa_mmlupro
+  evaluation_id: ev_u_q_msa_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro
+  value: '50.19'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_msa_mmlu
+  evaluation_id: ev_u_q_msa_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '72.11'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_msa_alpaca
+  evaluation_id: ev_u_q_msa_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '90.34'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_la_bbh
+  evaluation_id: ev_u_q_la_bbh
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BBH
+  value: '75.66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_la_ifeval
+  evaluation_id: ev_u_q_la_ifeval
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: IFEval
+  value: '83.75'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_la_mmlupro
+  evaluation_id: ev_u_q_la_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro
+  value: '49.35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_la_mmlu
+  evaluation_id: ev_u_q_la_mmlu
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU
+  value: '72.12'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+- id: r_u_q_la_alpaca
+  evaluation_id: ev_u_q_la_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2
+  value: '89.63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 3
+comparisons:
+- id: c_af_struq_of
+  left: ev_af_struq_of
+  right: ev_af_none_of
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_struq_gcg
+  left: ev_af_struq_gcg
+  right: ev_af_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_struq_agcg
+  left: ev_af_struq_agcg
+  right: ev_af_none_agcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_msa_of
+  left: ev_af_msa_of
+  right: ev_af_none_of
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_msa_gcg
+  left: ev_af_msa_gcg
+  right: ev_af_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_msa_agcg
+  left: ev_af_msa_agcg
+  right: ev_af_none_agcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_la_of
+  left: ev_af_la_of
+  right: ev_af_none_of
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_la_gcg
+  left: ev_af_la_gcg
+  right: ev_af_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_la_agcg
+  left: ev_af_la_agcg
+  right: ev_af_none_agcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_la_msa_of
+  left: ev_af_la_of
+  right: ev_af_msa_of
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_la_msa_gcg
+  left: ev_af_la_gcg
+  right: ev_af_msa_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_af_la_msa_agcg
+  left: ev_af_la_agcg
+  right: ev_af_msa_agcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_of_hotpotqa
+  left: ev_ood_l_msa_of_hotpotqa
+  right: ev_ood_l_none_of_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_of_hotpotqa
+  left: ev_ood_l_la_of_hotpotqa
+  right: ev_ood_l_none_of_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_of_hotpotqa
+  left: ev_ood_l_la_of_hotpotqa
+  right: ev_ood_l_msa_of_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_of_qasper
+  left: ev_ood_l_msa_of_qasper
+  right: ev_ood_l_none_of_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_of_qasper
+  left: ev_ood_l_la_of_qasper
+  right: ev_ood_l_none_of_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_of_qasper
+  left: ev_ood_l_la_of_qasper
+  right: ev_ood_l_msa_of_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_of_injecagent
+  left: ev_ood_l_msa_of_injecagent
+  right: ev_ood_l_none_of_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_of_injecagent
+  left: ev_ood_l_la_of_injecagent
+  right: ev_ood_l_none_of_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_of_injecagent
+  left: ev_ood_l_la_of_injecagent
+  right: ev_ood_l_msa_of_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_of_sep
+  left: ev_ood_l_msa_of_sep
+  right: ev_ood_l_none_of_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_of_sep
+  left: ev_ood_l_la_of_sep
+  right: ev_ood_l_none_of_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_of_sep
+  left: ev_ood_l_la_of_sep
+  right: ev_ood_l_msa_of_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_of_mmlu
+  left: ev_ood_l_msa_of_mmlu
+  right: ev_ood_l_none_of_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_of_mmlu
+  left: ev_ood_l_la_of_mmlu
+  right: ev_ood_l_none_of_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_of_mmlu
+  left: ev_ood_l_la_of_mmlu
+  right: ev_ood_l_msa_of_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_of_openprompt
+  left: ev_ood_l_msa_of_openprompt
+  right: ev_ood_l_none_of_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_of_openprompt
+  left: ev_ood_l_la_of_openprompt
+  right: ev_ood_l_none_of_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_of_openprompt
+  left: ev_ood_l_la_of_openprompt
+  right: ev_ood_l_msa_of_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_aof_hotpotqa
+  left: ev_ood_l_msa_aof_hotpotqa
+  right: ev_ood_l_none_aof_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_aof_hotpotqa
+  left: ev_ood_l_la_aof_hotpotqa
+  right: ev_ood_l_none_aof_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_aof_hotpotqa
+  left: ev_ood_l_la_aof_hotpotqa
+  right: ev_ood_l_msa_aof_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_aof_qasper
+  left: ev_ood_l_msa_aof_qasper
+  right: ev_ood_l_none_aof_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_aof_qasper
+  left: ev_ood_l_la_aof_qasper
+  right: ev_ood_l_none_aof_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_aof_qasper
+  left: ev_ood_l_la_aof_qasper
+  right: ev_ood_l_msa_aof_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_aof_injecagent
+  left: ev_ood_l_msa_aof_injecagent
+  right: ev_ood_l_none_aof_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_aof_injecagent
+  left: ev_ood_l_la_aof_injecagent
+  right: ev_ood_l_none_aof_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_aof_injecagent
+  left: ev_ood_l_la_aof_injecagent
+  right: ev_ood_l_msa_aof_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_aof_sep
+  left: ev_ood_l_msa_aof_sep
+  right: ev_ood_l_none_aof_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_aof_sep
+  left: ev_ood_l_la_aof_sep
+  right: ev_ood_l_none_aof_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_aof_sep
+  left: ev_ood_l_la_aof_sep
+  right: ev_ood_l_msa_aof_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_aof_mmlu
+  left: ev_ood_l_msa_aof_mmlu
+  right: ev_ood_l_none_aof_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_aof_mmlu
+  left: ev_ood_l_la_aof_mmlu
+  right: ev_ood_l_none_aof_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_aof_mmlu
+  left: ev_ood_l_la_aof_mmlu
+  right: ev_ood_l_msa_aof_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_msa_aof_openprompt
+  left: ev_ood_l_msa_aof_openprompt
+  right: ev_ood_l_none_aof_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_aof_openprompt
+  left: ev_ood_l_la_aof_openprompt
+  right: ev_ood_l_none_aof_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_l_la_msa_aof_openprompt
+  left: ev_ood_l_la_aof_openprompt
+  right: ev_ood_l_msa_aof_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_of_hotpotqa
+  left: ev_ood_q_msa_of_hotpotqa
+  right: ev_ood_q_none_of_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_of_hotpotqa
+  left: ev_ood_q_la_of_hotpotqa
+  right: ev_ood_q_none_of_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_of_hotpotqa
+  left: ev_ood_q_la_of_hotpotqa
+  right: ev_ood_q_msa_of_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_of_qasper
+  left: ev_ood_q_msa_of_qasper
+  right: ev_ood_q_none_of_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_of_qasper
+  left: ev_ood_q_la_of_qasper
+  right: ev_ood_q_none_of_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_of_qasper
+  left: ev_ood_q_la_of_qasper
+  right: ev_ood_q_msa_of_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_of_injecagent
+  left: ev_ood_q_msa_of_injecagent
+  right: ev_ood_q_none_of_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_of_injecagent
+  left: ev_ood_q_la_of_injecagent
+  right: ev_ood_q_none_of_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_of_injecagent
+  left: ev_ood_q_la_of_injecagent
+  right: ev_ood_q_msa_of_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_of_sep
+  left: ev_ood_q_msa_of_sep
+  right: ev_ood_q_none_of_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_of_sep
+  left: ev_ood_q_la_of_sep
+  right: ev_ood_q_none_of_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_of_sep
+  left: ev_ood_q_la_of_sep
+  right: ev_ood_q_msa_of_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_of_mmlu
+  left: ev_ood_q_msa_of_mmlu
+  right: ev_ood_q_none_of_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_of_mmlu
+  left: ev_ood_q_la_of_mmlu
+  right: ev_ood_q_none_of_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_of_mmlu
+  left: ev_ood_q_la_of_mmlu
+  right: ev_ood_q_msa_of_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_of_openprompt
+  left: ev_ood_q_msa_of_openprompt
+  right: ev_ood_q_none_of_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_of_openprompt
+  left: ev_ood_q_la_of_openprompt
+  right: ev_ood_q_none_of_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_of_openprompt
+  left: ev_ood_q_la_of_openprompt
+  right: ev_ood_q_msa_of_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_aof_hotpotqa
+  left: ev_ood_q_msa_aof_hotpotqa
+  right: ev_ood_q_none_aof_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_aof_hotpotqa
+  left: ev_ood_q_la_aof_hotpotqa
+  right: ev_ood_q_none_aof_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_aof_hotpotqa
+  left: ev_ood_q_la_aof_hotpotqa
+  right: ev_ood_q_msa_aof_hotpotqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_aof_qasper
+  left: ev_ood_q_msa_aof_qasper
+  right: ev_ood_q_none_aof_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_aof_qasper
+  left: ev_ood_q_la_aof_qasper
+  right: ev_ood_q_none_aof_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_aof_qasper
+  left: ev_ood_q_la_aof_qasper
+  right: ev_ood_q_msa_aof_qasper
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_aof_injecagent
+  left: ev_ood_q_msa_aof_injecagent
+  right: ev_ood_q_none_aof_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_aof_injecagent
+  left: ev_ood_q_la_aof_injecagent
+  right: ev_ood_q_none_aof_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_aof_injecagent
+  left: ev_ood_q_la_aof_injecagent
+  right: ev_ood_q_msa_aof_injecagent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_aof_sep
+  left: ev_ood_q_msa_aof_sep
+  right: ev_ood_q_none_aof_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_aof_sep
+  left: ev_ood_q_la_aof_sep
+  right: ev_ood_q_none_aof_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_aof_sep
+  left: ev_ood_q_la_aof_sep
+  right: ev_ood_q_msa_aof_sep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_aof_mmlu
+  left: ev_ood_q_msa_aof_mmlu
+  right: ev_ood_q_none_aof_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_aof_mmlu
+  left: ev_ood_q_la_aof_mmlu
+  right: ev_ood_q_none_aof_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_aof_mmlu
+  left: ev_ood_q_la_aof_mmlu
+  right: ev_ood_q_msa_aof_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_msa_aof_openprompt
+  left: ev_ood_q_msa_aof_openprompt
+  right: ev_ood_q_none_aof_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_aof_openprompt
+  left: ev_ood_q_la_aof_openprompt
+  right: ev_ood_q_none_aof_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ood_q_la_msa_aof_openprompt
+  left: ev_ood_q_la_aof_openprompt
+  right: ev_ood_q_msa_aof_openprompt
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_u_l_msa_bbh
+  left: ev_u_l_msa_bbh
+  right: ev_u_l_none_bbh
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_l_la_bbh
+  left: ev_u_l_la_bbh
+  right: ev_u_l_none_bbh
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_l_msa_ifeval
+  left: ev_u_l_msa_ifeval
+  right: ev_u_l_none_ifeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_l_la_ifeval
+  left: ev_u_l_la_ifeval
+  right: ev_u_l_none_ifeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_l_msa_mmlupro
+  left: ev_u_l_msa_mmlupro
+  right: ev_u_l_none_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_l_la_mmlupro
+  left: ev_u_l_la_mmlupro
+  right: ev_u_l_none_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_l_msa_mmlu
+  left: ev_u_l_msa_mmlu
+  right: ev_u_l_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_l_la_mmlu
+  left: ev_u_l_la_mmlu
+  right: ev_u_l_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_l_msa_alpaca
+  left: ev_u_l_msa_alpaca
+  right: ev_u_l_none_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_l_la_alpaca
+  left: ev_u_l_la_alpaca
+  right: ev_u_l_none_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_msa_bbh
+  left: ev_u_q_msa_bbh
+  right: ev_u_q_none_bbh
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_la_bbh
+  left: ev_u_q_la_bbh
+  right: ev_u_q_none_bbh
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_msa_ifeval
+  left: ev_u_q_msa_ifeval
+  right: ev_u_q_none_ifeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_la_ifeval
+  left: ev_u_q_la_ifeval
+  right: ev_u_q_none_ifeval
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_msa_mmlupro
+  left: ev_u_q_msa_mmlupro
+  right: ev_u_q_none_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_la_mmlupro
+  left: ev_u_q_la_mmlupro
+  right: ev_u_q_none_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_msa_mmlu
+  left: ev_u_q_msa_mmlu
+  right: ev_u_q_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_la_mmlu
+  left: ev_u_q_la_mmlu
+  right: ev_u_q_none_mmlu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_msa_alpaca
+  left: ev_u_q_msa_alpaca
+  right: ev_u_q_none_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_u_q_la_alpaca
+  left: ev_u_q_la_alpaca
+  right: ev_u_q_none_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 11
+claims:
+- id: k1
+  text: LocalAlign is the first method to keep attack success below 10% in most settings, including stronger attacks
+  location: abstract
+  anchor: reduces the attack success rates of prompt injections to below 10%
+  jobs:
+  - R1
+  supported_by:
+  - c_af_la_of
+  - c_af_la_gcg
+  - c_af_la_agcg
+  - c_af_la_msa_of
+  - c_af_la_msa_gcg
+  - c_af_la_msa_agcg
+  - c_ood_l_la_of_hotpotqa
+  - c_ood_l_la_msa_of_hotpotqa
+  - c_ood_l_la_of_qasper
+  - c_ood_l_la_msa_of_qasper
+  - c_ood_l_la_of_injecagent
+  - c_ood_l_la_msa_of_injecagent
+  - c_ood_l_la_of_sep
+  - c_ood_l_la_msa_of_sep
+  - c_ood_l_la_of_mmlu
+  - c_ood_l_la_msa_of_mmlu
+  - c_ood_l_la_of_openprompt
+  - c_ood_l_la_msa_of_openprompt
+  - c_ood_l_la_aof_hotpotqa
+  - c_ood_l_la_msa_aof_hotpotqa
+  - c_ood_l_la_aof_qasper
+  - c_ood_l_la_msa_aof_qasper
+  - c_ood_l_la_aof_injecagent
+  - c_ood_l_la_msa_aof_injecagent
+  - c_ood_l_la_aof_sep
+  - c_ood_l_la_msa_aof_sep
+  - c_ood_l_la_aof_mmlu
+  - c_ood_l_la_msa_aof_mmlu
+  - c_ood_l_la_aof_openprompt
+  - c_ood_l_la_msa_aof_openprompt
+  - c_ood_q_la_of_hotpotqa
+  - c_ood_q_la_msa_of_hotpotqa
+  - c_ood_q_la_of_qasper
+  - c_ood_q_la_msa_of_qasper
+  - c_ood_q_la_of_injecagent
+  - c_ood_q_la_msa_of_injecagent
+  - c_ood_q_la_of_sep
+  - c_ood_q_la_msa_of_sep
+  - c_ood_q_la_of_mmlu
+  - c_ood_q_la_msa_of_mmlu
+  - c_ood_q_la_of_openprompt
+  - c_ood_q_la_msa_of_openprompt
+  - c_ood_q_la_aof_hotpotqa
+  - c_ood_q_la_msa_aof_hotpotqa
+  - c_ood_q_la_aof_qasper
+  - c_ood_q_la_msa_aof_qasper
+  - c_ood_q_la_aof_injecagent
+  - c_ood_q_la_msa_aof_injecagent
+  - c_ood_q_la_aof_sep
+  - c_ood_q_la_msa_aof_sep
+  - c_ood_q_la_aof_mmlu
+  - c_ood_q_la_msa_aof_mmlu
+  - c_ood_q_la_aof_openprompt
+  - c_ood_q_la_msa_aof_openprompt
+  page: 1
+- id: k2
+  text: LocalAlign keeps utility comparable to the model before defence fine-tuning
+  location: abstract
+  anchor: maintains utility comparable to the model before fine-tuning for defense
+  jobs:
+  - general_utility
+  supported_by:
+  - c_u_l_la_bbh
+  - c_u_l_la_ifeval
+  - c_u_l_la_mmlupro
+  - c_u_l_la_mmlu
+  - c_u_l_la_alpaca
+  - c_u_q_la_bbh
+  - c_u_q_la_ifeval
+  - c_u_q_la_mmlupro
+  - c_u_q_la_mmlu
+  - c_u_q_la_alpaca
+  page: 1
+  contradicted_by:
+  - r_u_l_la_ifeval
+  - r_u_q_la_mmlupro
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1 and 2
+    general_utility: Table 3
+schema_gaps:
+- where: defences la_*
+  note: the input format of LocalAlign is not restated; it warms up with the Meta-SecAlign recipe and is attacked with fake delimiters aimed at structured separation, so it is coded with Meta-SecAlign's separate data role
+- where: results r_af_*, r_ood_*
+  note: Optimization-Free is the maximum ASR over five attack templates, taken per dataset after evaluation (p. 14)

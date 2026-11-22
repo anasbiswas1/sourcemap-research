@@ -516,7 +516,7 @@ arxiv:2603.11619,exclude,system level,title_abstract,,,Taming OpenClaw: Security
 arxiv:2603.11853,exclude,system level,title_abstract,,,"OpenClaw PRISM: A Zero-Fork, Defense-in-Depth Runtime Security Layer for Tool-Augmented LLM Agents"
 arxiv:2603.11875,exclude,detector only,title_abstract,,,The Mirror Design Pattern: Strict Data Geometry over Model Scale for Prompt Injection Detection
 arxiv:2603.12230,exclude,"survey, position or other",title_abstract,,,Security Considerations for Artificial Intelligence Agents
-arxiv:2603.12277,include,,title_abstract,,role confusion; check whether a training fix is proposed and measured,Prompt Injection as Role Confusion
+arxiv:2603.12277,exclude,attack only,full_text,,"full text: CoT Forgery attack and role probes on frontier models; no defence is added, trained or measured, and Section 7 argues for role perception without experiments",Prompt Injection as Role Confusion
 arxiv:2603.12644,exclude,system level,title_abstract,,,Uncovering Security Threats and Architecting Defenses in Autonomous Agents: A Case Study of OpenClaw
 arxiv:2603.13026,include,,title_abstract,,role: re-measurement; PISmith RL red teaming of defences,PISmith: Reinforcement Learning-based Red Teaming for Prompt Injection Defenses
 arxiv:2603.13424,exclude,system level,title_abstract,,,Agent Privilege Separation in OpenClaw: A Structural Defense Against Prompt Injection

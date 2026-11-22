@@ -1,0 +1,1452 @@
+report:
+  id: dynppa_arxiv2026
+  slug: '2605.30534'
+  title: 'Strengthening Polymorphic Prompt Assembling: Dynamic Separator Generation Against Emerging Prompt Injection Attacks'
+  first_author: Nima Dorzhiev
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2605.30534'
+  version_read: arXiv v1
+  first_date: '2026-05-28'
+  read: F
+  role: proposes
+  code_release: extends the open-source PPA SDK; not checked
+  extraction_scope: 'whole report (5 pages): Tables I and II (static against dynamic separators) and the benign-quality scores in Section IV-E; the abstract claim (Table III, which scores detectors, and the latency figures
+    not coded)'
+defences:
+- id: ppa_l33
+  name: Polymorphic Prompt Assembling, static separator pool
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct-Turbo (Together AI)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  components:
+  - separator pair drawn from a fixed pool of 84 separators, EIBD system prompt format
+  anchor: randomly selecting separator pairs from a fixed pool
+  pages:
+    components: 2
+- id: dyn_l33
+  name: Polymorphic Prompt Assembling with dynamic separators
+  origin: this_report
+  base_checkpoint: Llama-3.3-70B-Instruct-Turbo (Together AI)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 2
+  components:
+  - a new BEGIN/END separator pair for every request from SHA-256 digests of timestamp, session id and nonce
+  - EIBD system prompt format, as in PPA
+  anchor: Each request generates an independent (BEGIN, END)
+- id: ppa_ds
+  name: Polymorphic Prompt Assembling, static separator pool
+  origin: other_report
+  base_checkpoint: DeepSeek-V4-Flash
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  components:
+  - separator pair drawn from a fixed pool of 84 separators, EIBD system prompt format
+  anchor: randomly selecting separator pairs from a fixed pool
+  pages:
+    components: 2
+- id: dyn_ds
+  name: Polymorphic Prompt Assembling with dynamic separators
+  origin: this_report
+  base_checkpoint: DeepSeek-V4-Flash
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 2
+  components:
+  - a new BEGIN/END separator pair for every request from SHA-256 digests of timestamp, session id and nonce
+  - EIBD system prompt format, as in PPA
+  anchor: Each request generates an independent (BEGIN, END)
+evaluations:
+- id: ev_l33_m1_static
+  defence_id: ppa_l33
+  benchmark: M1_injection (leetspeak with urgency, from Lupinacci et al.), 100 runs, seed 1337
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 3
+  decoding: not reported
+  sample_size: '100'
+- id: ev_l33_m1_dyn
+  defence_id: dyn_l33
+  benchmark: M1_injection (leetspeak with urgency, from Lupinacci et al.), 100 runs, seed 1337
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 3
+  decoding: not reported
+  sample_size: '100'
+- id: ev_l33_m2_static
+  defence_id: ppa_l33
+  benchmark: M2_injection (cognitive override, from Lupinacci et al.), 100 runs, seed 1337
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 3
+  decoding: not reported
+  sample_size: '100'
+- id: ev_l33_m2_dyn
+  defence_id: dyn_l33
+  benchmark: M2_injection (cognitive override, from Lupinacci et al.), 100 runs, seed 1337
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 3
+  decoding: not reported
+  sample_size: '100'
+- id: ev_ds_m1_static
+  defence_id: ppa_ds
+  benchmark: M1_injection (leetspeak with urgency, from Lupinacci et al.), 100 runs, seed 1337
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 3
+  decoding: not reported
+  sample_size: '100'
+- id: ev_ds_m1_dyn
+  defence_id: dyn_ds
+  benchmark: M1_injection (leetspeak with urgency, from Lupinacci et al.), 100 runs, seed 1337
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 3
+  decoding: not reported
+  sample_size: '100'
+- id: ev_l33_naive_injection_static
+  defence_id: ppa_l33
+  benchmark: payload naive_injection from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_naive_injection_dyn
+  defence_id: dyn_l33
+  benchmark: payload naive_injection from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_fake_completion_static
+  defence_id: ppa_l33
+  benchmark: payload fake_completion from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_fake_completion_dyn
+  defence_id: dyn_l33
+  benchmark: payload fake_completion from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_double_character_static
+  defence_id: ppa_l33
+  benchmark: payload double_character from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_double_character_dyn
+  defence_id: dyn_l33
+  benchmark: payload double_character from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_virtualization_static
+  defence_id: ppa_l33
+  benchmark: payload virtualization from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_virtualization_dyn
+  defence_id: dyn_l33
+  benchmark: payload virtualization from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_role_playing_static
+  defence_id: ppa_l33
+  benchmark: payload role_playing from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_role_playing_dyn
+  defence_id: dyn_l33
+  benchmark: payload role_playing from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_payload_splitting_static
+  defence_id: ppa_l33
+  benchmark: payload payload_splitting from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_payload_splitting_dyn
+  defence_id: dyn_l33
+  benchmark: payload payload_splitting from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_adversarial_suffix_static
+  defence_id: ppa_l33
+  benchmark: payload adversarial_suffix from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_adversarial_suffix_dyn
+  defence_id: dyn_l33
+  benchmark: payload adversarial_suffix from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_combined_attack_static
+  defence_id: ppa_l33
+  benchmark: payload combined_attack from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_combined_attack_dyn
+  defence_id: dyn_l33
+  benchmark: payload combined_attack from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: success-marker string match
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_baseline_salad_static
+  defence_id: ppa_l33
+  benchmark: payload baseline_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_baseline_salad_dyn
+  defence_id: dyn_l33
+  benchmark: payload baseline_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_direct_override_salad_static
+  defence_id: ppa_l33
+  benchmark: payload direct_override_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_direct_override_salad_dyn
+  defence_id: dyn_l33
+  benchmark: payload direct_override_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_role_confusion_salad_static
+  defence_id: ppa_l33
+  benchmark: payload role_confusion_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_role_confusion_salad_dyn
+  defence_id: dyn_l33
+  benchmark: payload role_confusion_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_format_breakout_salad_static
+  defence_id: ppa_l33
+  benchmark: payload format_breakout_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_format_breakout_salad_dyn
+  defence_id: dyn_l33
+  benchmark: payload format_breakout_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_separator_echo_salad_static
+  defence_id: ppa_l33
+  benchmark: payload separator_echo_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_l33_separator_echo_salad_dyn
+  defence_id: dyn_l33
+  benchmark: payload separator_echo_salad from the PPA attack registry, 30 runs
+  attacker_type: static
+  attacker_access: black_box
+  judge: Llama-3.1-8B-Instruct-Turbo rubric (task derailment)
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '30'
+- id: ev_ben_none
+  defence_id: none:Llama-3.3-70B-Instruct-Turbo (Together AI)
+  benchmark: 100 benign requests (summarisation, Q&A, translation, math, code explanation)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Llama-3.3-70B-Instruct-Turbo judge, 1 to 5
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: off_the_shelf
+- id: ev_ben_static
+  defence_id: ppa_l33
+  benchmark: 100 benign requests (summarisation, Q&A, translation, math, code explanation)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Llama-3.3-70B-Instruct-Turbo judge, 1 to 5
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_ben_dyn
+  defence_id: dyn_l33
+  benchmark: 100 benign requests (summarisation, Q&A, translation, math, code explanation)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Llama-3.3-70B-Instruct-Turbo judge, 1 to 5
+  layout_same_as_defence: 'yes'
+  measured_by: dynppa_arxiv2026
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+results:
+- id: r_l33_m1_static
+  evaluation_id: ev_l33_m1_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.88'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table I
+- id: r_l33_m1_dyn
+  evaluation_id: ev_l33_m1_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.38'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table I
+- id: r_l33_m2_static
+  evaluation_id: ev_l33_m2_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.09'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table I
+- id: r_l33_m2_dyn
+  evaluation_id: ev_l33_m2_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table I
+- id: r_ds_m1_static
+  evaluation_id: ev_ds_m1_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.45'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table I
+- id: r_ds_m1_dyn
+  evaluation_id: ev_ds_m1_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.38'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table I
+- id: r_l33_naive_injection_static_asr
+  evaluation_id: ev_l33_naive_injection_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.100'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_naive_injection_static_lk
+  evaluation_id: ev_l33_naive_injection_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_naive_injection_dyn_asr
+  evaluation_id: ev_l33_naive_injection_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.067'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_naive_injection_dyn_lk
+  evaluation_id: ev_l33_naive_injection_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_fake_completion_static_asr
+  evaluation_id: ev_l33_fake_completion_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_fake_completion_static_lk
+  evaluation_id: ev_l33_fake_completion_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_fake_completion_dyn_asr
+  evaluation_id: ev_l33_fake_completion_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_fake_completion_dyn_lk
+  evaluation_id: ev_l33_fake_completion_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_double_character_static_asr
+  evaluation_id: ev_l33_double_character_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.133'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_double_character_static_lk
+  evaluation_id: ev_l33_double_character_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_double_character_dyn_asr
+  evaluation_id: ev_l33_double_character_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_double_character_dyn_lk
+  evaluation_id: ev_l33_double_character_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_virtualization_static_asr
+  evaluation_id: ev_l33_virtualization_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_virtualization_static_lk
+  evaluation_id: ev_l33_virtualization_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_virtualization_dyn_asr
+  evaluation_id: ev_l33_virtualization_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_virtualization_dyn_lk
+  evaluation_id: ev_l33_virtualization_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_role_playing_static_asr
+  evaluation_id: ev_l33_role_playing_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.100'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_role_playing_static_lk
+  evaluation_id: ev_l33_role_playing_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_role_playing_dyn_asr
+  evaluation_id: ev_l33_role_playing_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_role_playing_dyn_lk
+  evaluation_id: ev_l33_role_playing_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_payload_splitting_static_asr
+  evaluation_id: ev_l33_payload_splitting_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.867'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_payload_splitting_static_lk
+  evaluation_id: ev_l33_payload_splitting_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_payload_splitting_dyn_asr
+  evaluation_id: ev_l33_payload_splitting_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.133'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_payload_splitting_dyn_lk
+  evaluation_id: ev_l33_payload_splitting_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_adversarial_suffix_static_asr
+  evaluation_id: ev_l33_adversarial_suffix_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_adversarial_suffix_static_lk
+  evaluation_id: ev_l33_adversarial_suffix_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_adversarial_suffix_dyn_asr
+  evaluation_id: ev_l33_adversarial_suffix_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_adversarial_suffix_dyn_lk
+  evaluation_id: ev_l33_adversarial_suffix_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_combined_attack_static_asr
+  evaluation_id: ev_l33_combined_attack_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.400'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_combined_attack_static_lk
+  evaluation_id: ev_l33_combined_attack_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_combined_attack_dyn_asr
+  evaluation_id: ev_l33_combined_attack_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.200'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_combined_attack_dyn_lk
+  evaluation_id: ev_l33_combined_attack_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_baseline_salad_static_asr
+  evaluation_id: ev_l33_baseline_salad_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_baseline_salad_static_lk
+  evaluation_id: ev_l33_baseline_salad_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_baseline_salad_dyn_asr
+  evaluation_id: ev_l33_baseline_salad_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_baseline_salad_dyn_lk
+  evaluation_id: ev_l33_baseline_salad_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_direct_override_salad_static_asr
+  evaluation_id: ev_l33_direct_override_salad_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_direct_override_salad_static_lk
+  evaluation_id: ev_l33_direct_override_salad_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_direct_override_salad_dyn_asr
+  evaluation_id: ev_l33_direct_override_salad_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_direct_override_salad_dyn_lk
+  evaluation_id: ev_l33_direct_override_salad_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_role_confusion_salad_static_asr
+  evaluation_id: ev_l33_role_confusion_salad_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_role_confusion_salad_static_lk
+  evaluation_id: ev_l33_role_confusion_salad_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_role_confusion_salad_dyn_asr
+  evaluation_id: ev_l33_role_confusion_salad_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_role_confusion_salad_dyn_lk
+  evaluation_id: ev_l33_role_confusion_salad_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_format_breakout_salad_static_asr
+  evaluation_id: ev_l33_format_breakout_salad_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_format_breakout_salad_static_lk
+  evaluation_id: ev_l33_format_breakout_salad_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.467'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_format_breakout_salad_dyn_asr
+  evaluation_id: ev_l33_format_breakout_salad_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_format_breakout_salad_dyn_lk
+  evaluation_id: ev_l33_format_breakout_salad_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_separator_echo_salad_static_asr
+  evaluation_id: ev_l33_separator_echo_salad_static
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.067'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_separator_echo_salad_static_lk
+  evaluation_id: ev_l33_separator_echo_salad_static
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '1.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_separator_echo_salad_dyn_asr
+  evaluation_id: ev_l33_separator_echo_salad_dyn
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (S-ASR or D-ASR)
+  value: '0.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_l33_separator_echo_salad_dyn_lk
+  evaluation_id: ev_l33_separator_echo_salad_dyn
+  quantity: other
+  coverage: direct
+  metric_as_printed: separator leak rate (S-Lk or D-Lk)
+  value: '1.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table II
+- id: r_ben_none
+  evaluation_id: ev_ben_none
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: mean judge score
+  value: '4.96'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Section IV-E text
+- id: r_ben_static
+  evaluation_id: ev_ben_static
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: mean judge score
+  value: '4.98'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Section IV-E text
+- id: r_ben_dyn
+  evaluation_id: ev_ben_dyn
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: mean judge score
+  value: '5.00'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 4
+  location: Section IV-E text
+comparisons:
+- id: c_l33_m1
+  left: ev_l33_m1_dyn
+  right: ev_l33_m1_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 3
+- id: c_l33_m2
+  left: ev_l33_m2_dyn
+  right: ev_l33_m2_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 3
+- id: c_ds_m1
+  left: ev_ds_m1_dyn
+  right: ev_ds_m1_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 3
+- id: c_l33_naive_injection
+  left: ev_l33_naive_injection_dyn
+  right: ev_l33_naive_injection_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_fake_completion
+  left: ev_l33_fake_completion_dyn
+  right: ev_l33_fake_completion_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_double_character
+  left: ev_l33_double_character_dyn
+  right: ev_l33_double_character_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_virtualization
+  left: ev_l33_virtualization_dyn
+  right: ev_l33_virtualization_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_role_playing
+  left: ev_l33_role_playing_dyn
+  right: ev_l33_role_playing_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_payload_splitting
+  left: ev_l33_payload_splitting_dyn
+  right: ev_l33_payload_splitting_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_adversarial_suffix
+  left: ev_l33_adversarial_suffix_dyn
+  right: ev_l33_adversarial_suffix_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_combined_attack
+  left: ev_l33_combined_attack_dyn
+  right: ev_l33_combined_attack_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_baseline_salad
+  left: ev_l33_baseline_salad_dyn
+  right: ev_l33_baseline_salad_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_direct_override_salad
+  left: ev_l33_direct_override_salad_dyn
+  right: ev_l33_direct_override_salad_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_role_confusion_salad
+  left: ev_l33_role_confusion_salad_dyn
+  right: ev_l33_role_confusion_salad_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_format_breakout_salad
+  left: ev_l33_format_breakout_salad_dyn
+  right: ev_l33_format_breakout_salad_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_l33_separator_echo_salad
+  left: ev_l33_separator_echo_salad_dyn
+  right: ev_l33_separator_echo_salad_static
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: separators generated per request against a fixed pool
+  page: 4
+- id: c_ben_static
+  left: ev_ben_static
+  right: ev_ben_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_ben_dyn
+  left: ev_ben_dyn
+  right: ev_ben_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 4
+claims:
+- id: k1
+  text: dynamic separators cut M1 attack success from 0.88 to 0.38
+  location: abstract
+  anchor: dynamic mode reduces the Attack Success Rate (ASR) from 0.88 to 0.38
+  jobs:
+  - R1
+  supported_by:
+  - c_l33_m1
+  page: 1
+  contradicted_by:
+  - r_ds_m1_dyn
+coverage:
+  R1: direct
+  R2clean: proxy
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables I and II (static and dynamic separators only; no undefended arm under attack)
+    R2clean: Section IV-E (judge score on 100 benign requests)
+schema_gaps:
+- where: evaluations ev_*_static, ev_*_dyn
+  note: attack results are reported for static and dynamic PPA only; there is no undefended model under the same attacks, so the comparisons vary only the separator generation

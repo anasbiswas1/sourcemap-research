@@ -1,0 +1,1881 @@
+report:
+  id: icon_arxiv2026
+  slug: '2602.20708'
+  title: 'ICON: Indirect Prompt Injection Defense for Agents based on Inference-Time Correction'
+  first_author: Che Wang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2602.20708'
+  version_read: arXiv v1
+  first_date: '2026-02-24'
+  read: F
+  role: proposes
+  code_release: none found in the paper
+  extraction_scope: 'whole report (11 pages): Table 2 columns No Defense, Repeat Prompt, Delimiting and ICON for the three attacks on the three models (the Avg rows, which pool the attacks, not coded) and the BU column; the
+    abstract claim (MELON, a tool filter, and the LLM-Detector Qwen3Guard, a detector, are left out; Table 3 detection rates, Table 4 cost and the multimodal results not coded)'
+defences:
+- id: icon_q3
+  name: ICON
+  origin: this_report
+  base_checkpoint: Qwen-3-8B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  components:
+  - 'Latent Space Trace Prober: a small CNN and MLP classifier on attention focus features from selected layers and heads, trained on 255 TrojanTools samples; the LLM is not trained'
+  - 'Mitigating Rectifier: on detection, the top attention weights of flagged heads are scaled down before the softmax'
+  layout: ReAct agent; tool outputs carry the injection
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: a Mitigating Rectifier performs surgical attention steering
+  pages:
+    components: 6
+- id: rep_q3
+  name: Repeat Prompt
+  origin: other_report
+  base_checkpoint: Qwen-3-8B
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: ReAct agent; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: which reiterates system instructions
+- id: del_q3
+  name: Delimiting
+  origin: other_report
+  base_checkpoint: Qwen-3-8B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: ReAct agent; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: which uses special tokens to isolate untrusted content
+- id: icon_l31
+  name: ICON
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  components:
+  - 'Latent Space Trace Prober: a small CNN and MLP classifier on attention focus features from selected layers and heads, trained on 255 TrojanTools samples; the LLM is not trained'
+  - 'Mitigating Rectifier: on detection, the top attention weights of flagged heads are scaled down before the softmax'
+  layout: ReAct agent; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: a Mitigating Rectifier performs surgical attention steering
+  pages:
+    components: 6
+- id: rep_l31
+  name: Repeat Prompt
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: ReAct agent; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: which reiterates system instructions
+- id: del_l31
+  name: Delimiting
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: ReAct agent; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: which uses special tokens to isolate untrusted content
+- id: icon_m8
+  name: ICON
+  origin: this_report
+  base_checkpoint: Mistral-8B (Ministral)
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 1
+  components:
+  - 'Latent Space Trace Prober: a small CNN and MLP classifier on attention focus features from selected layers and heads, trained on 255 TrojanTools samples; the LLM is not trained'
+  - 'Mitigating Rectifier: on detection, the top attention weights of flagged heads are scaled down before the softmax'
+  layout: ReAct agent; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: a Mitigating Rectifier performs surgical attention steering
+  pages:
+    components: 6
+- id: rep_m8
+  name: Repeat Prompt
+  origin: other_report
+  base_checkpoint: Mistral-8B (Ministral)
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: ReAct agent; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: which reiterates system instructions
+- id: del_m8
+  name: Delimiting
+  origin: other_report
+  base_checkpoint: Mistral-8B (Ministral)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: ReAct agent; tool outputs carry the injection
+  layout_compat: *id001
+  anchor: which uses special tokens to isolate untrusted content
+evaluations:
+- id: ev_q3_none_clean
+  defence_id: none:Qwen-3-8B
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q3_none_ign
+  defence_id: none:Qwen-3-8B
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q3_rep_ign
+  defence_id: rep_q3
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+- id: ev_q3_del_ign
+  defence_id: del_q3
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+- id: ev_q3_icon_ign
+  defence_id: icon_q3
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+- id: ev_q3_none_comb
+  defence_id: none:Qwen-3-8B
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q3_rep_comb
+  defence_id: rep_q3
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+- id: ev_q3_del_comb
+  defence_id: del_q3
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+- id: ev_q3_icon_comb
+  defence_id: icon_q3
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+- id: ev_q3_none_troj
+  defence_id: none:Qwen-3-8B
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q3_rep_troj
+  defence_id: rep_q3
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+- id: ev_q3_del_troj
+  defence_id: del_q3
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+- id: ev_q3_icon_troj
+  defence_id: icon_q3
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+- id: ev_l31_none_clean
+  defence_id: none:Llama-3.1-8B
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_ign
+  defence_id: none:Llama-3.1-8B
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l31_rep_ign
+  defence_id: rep_l31
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+- id: ev_l31_del_ign
+  defence_id: del_l31
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+- id: ev_l31_icon_ign
+  defence_id: icon_l31
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+- id: ev_l31_none_comb
+  defence_id: none:Llama-3.1-8B
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l31_rep_comb
+  defence_id: rep_l31
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+- id: ev_l31_del_comb
+  defence_id: del_l31
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+- id: ev_l31_icon_comb
+  defence_id: icon_l31
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+- id: ev_l31_none_troj
+  defence_id: none:Llama-3.1-8B
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l31_rep_troj
+  defence_id: rep_l31
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+- id: ev_l31_del_troj
+  defence_id: del_l31
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+- id: ev_l31_icon_troj
+  defence_id: icon_l31
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+- id: ev_m8_none_clean
+  defence_id: none:Mistral-8B (Ministral)
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m8_none_ign
+  defence_id: none:Mistral-8B (Ministral)
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m8_rep_ign
+  defence_id: rep_m8
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+- id: ev_m8_del_ign
+  defence_id: del_m8
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+- id: ev_m8_icon_ign
+  defence_id: icon_m8
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Ignore Instruction injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Ignore Instruction attack prompts
+  decoding: not reported
+- id: ev_m8_none_comb
+  defence_id: none:Mistral-8B (Ministral)
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m8_rep_comb
+  defence_id: rep_m8
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+- id: ev_m8_del_comb
+  defence_id: del_m8
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+- id: ev_m8_icon_comb
+  defence_id: icon_m8
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), Combined Attacks injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: Combined Attacks attack prompts
+  decoding: not reported
+- id: ev_m8_none_troj
+  defence_id: none:Mistral-8B (Ministral)
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m8_rep_troj
+  defence_id: rep_m8
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+- id: ev_m8_del_troj
+  defence_id: del_m8
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+- id: ev_m8_icon_troj
+  defence_id: icon_m8
+  benchmark: agent tool-use tasks (the paper evaluates on InjecAgent and AgentDojo; Table 2 does not say which), TrojanTools injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker goal met; user task completed
+  layout_same_as_defence: 'yes'
+  measured_by: icon_arxiv2026
+  page: 7
+  attacker_budget: TrojanTools attack prompts
+  decoding: not reported
+results:
+- id: r_q3_bu
+  evaluation_id: ev_q3_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '69.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_none_ign_asr
+  evaluation_id: ev_q3_none_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '25.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_none_ign_ua
+  evaluation_id: ev_q3_none_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '49.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_rep_ign_asr
+  evaluation_id: ev_q3_rep_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '11.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_rep_ign_ua
+  evaluation_id: ev_q3_rep_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '54.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_del_ign_asr
+  evaluation_id: ev_q3_del_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '15.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_del_ign_ua
+  evaluation_id: ev_q3_del_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '52.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_icon_ign_asr
+  evaluation_id: ev_q3_icon_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_icon_ign_ua
+  evaluation_id: ev_q3_icon_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '58.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_none_comb_asr
+  evaluation_id: ev_q3_none_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '30.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_none_comb_ua
+  evaluation_id: ev_q3_none_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '44.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_rep_comb_asr
+  evaluation_id: ev_q3_rep_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '13.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_rep_comb_ua
+  evaluation_id: ev_q3_rep_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '53.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_del_comb_asr
+  evaluation_id: ev_q3_del_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '18.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_del_comb_ua
+  evaluation_id: ev_q3_del_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '50.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_icon_comb_asr
+  evaluation_id: ev_q3_icon_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_icon_comb_ua
+  evaluation_id: ev_q3_icon_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '52.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_none_troj_asr
+  evaluation_id: ev_q3_none_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '42.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_none_troj_ua
+  evaluation_id: ev_q3_none_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '35.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_rep_troj_asr
+  evaluation_id: ev_q3_rep_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '25.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_rep_troj_ua
+  evaluation_id: ev_q3_rep_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '45.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_del_troj_asr
+  evaluation_id: ev_q3_del_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '31.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_del_troj_ua
+  evaluation_id: ev_q3_del_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '43.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_icon_troj_asr
+  evaluation_id: ev_q3_icon_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '1.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_q3_icon_troj_ua
+  evaluation_id: ev_q3_icon_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '50.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_bu
+  evaluation_id: ev_l31_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '34.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_none_ign_asr
+  evaluation_id: ev_l31_none_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '23.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_none_ign_ua
+  evaluation_id: ev_l31_none_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '25.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_rep_ign_asr
+  evaluation_id: ev_l31_rep_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '14.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_rep_ign_ua
+  evaluation_id: ev_l31_rep_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '30.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_del_ign_asr
+  evaluation_id: ev_l31_del_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '16.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_del_ign_ua
+  evaluation_id: ev_l31_del_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '28.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_icon_ign_asr
+  evaluation_id: ev_l31_icon_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_icon_ign_ua
+  evaluation_id: ev_l31_icon_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '32.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_none_comb_asr
+  evaluation_id: ev_l31_none_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '36.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_none_comb_ua
+  evaluation_id: ev_l31_none_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '22.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_rep_comb_asr
+  evaluation_id: ev_l31_rep_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '20.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_rep_comb_ua
+  evaluation_id: ev_l31_rep_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '28.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_del_comb_asr
+  evaluation_id: ev_l31_del_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '22.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_del_comb_ua
+  evaluation_id: ev_l31_del_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '25.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_icon_comb_asr
+  evaluation_id: ev_l31_icon_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_icon_comb_ua
+  evaluation_id: ev_l31_icon_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '29.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_none_troj_asr
+  evaluation_id: ev_l31_none_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '47.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_none_troj_ua
+  evaluation_id: ev_l31_none_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '14.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_rep_troj_asr
+  evaluation_id: ev_l31_rep_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '28.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_rep_troj_ua
+  evaluation_id: ev_l31_rep_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '25.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_del_troj_asr
+  evaluation_id: ev_l31_del_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '30.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_del_troj_ua
+  evaluation_id: ev_l31_del_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '24.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_icon_troj_asr
+  evaluation_id: ev_l31_icon_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_icon_troj_ua
+  evaluation_id: ev_l31_icon_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '27.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_bu
+  evaluation_id: ev_m8_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: BU
+  value: '20.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_none_ign_asr
+  evaluation_id: ev_m8_none_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '16.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_none_ign_ua
+  evaluation_id: ev_m8_none_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '12.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_rep_ign_asr
+  evaluation_id: ev_m8_rep_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '10.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_rep_ign_ua
+  evaluation_id: ev_m8_rep_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '17.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_del_ign_asr
+  evaluation_id: ev_m8_del_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '12.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_del_ign_ua
+  evaluation_id: ev_m8_del_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '16.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_icon_ign_asr
+  evaluation_id: ev_m8_icon_ign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Ignore Instruction)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_icon_ign_ua
+  evaluation_id: ev_m8_icon_ign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Ignore Instruction)
+  value: '17.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_none_comb_asr
+  evaluation_id: ev_m8_none_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '33.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_none_comb_ua
+  evaluation_id: ev_m8_none_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '11.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_rep_comb_asr
+  evaluation_id: ev_m8_rep_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '19.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_rep_comb_ua
+  evaluation_id: ev_m8_rep_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '15.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_del_comb_asr
+  evaluation_id: ev_m8_del_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '23.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_del_comb_ua
+  evaluation_id: ev_m8_del_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '14.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_icon_comb_asr
+  evaluation_id: ev_m8_icon_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (Combined Attacks)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_icon_comb_ua
+  evaluation_id: ev_m8_icon_comb
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (Combined Attacks)
+  value: '16.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_none_troj_asr
+  evaluation_id: ev_m8_none_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '42.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_none_troj_ua
+  evaluation_id: ev_m8_none_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '8.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_rep_troj_asr
+  evaluation_id: ev_m8_rep_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '23.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_rep_troj_ua
+  evaluation_id: ev_m8_rep_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '12.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_del_troj_asr
+  evaluation_id: ev_m8_del_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '27.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_del_troj_ua
+  evaluation_id: ev_m8_del_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '10.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_icon_troj_asr
+  evaluation_id: ev_m8_icon_troj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR (TrojanTools)
+  value: '0.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m8_icon_troj_ua
+  evaluation_id: ev_m8_icon_troj
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: UA (TrojanTools)
+  value: '13.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+comparisons:
+- id: c_q3_rep_ign
+  left: ev_q3_rep_ign
+  right: ev_q3_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q3_del_ign
+  left: ev_q3_del_ign
+  right: ev_q3_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q3_icon_ign
+  left: ev_q3_icon_ign
+  right: ev_q3_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q3_rep_comb
+  left: ev_q3_rep_comb
+  right: ev_q3_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q3_del_comb
+  left: ev_q3_del_comb
+  right: ev_q3_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q3_icon_comb
+  left: ev_q3_icon_comb
+  right: ev_q3_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q3_rep_troj
+  left: ev_q3_rep_troj
+  right: ev_q3_none_troj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q3_del_troj
+  left: ev_q3_del_troj
+  right: ev_q3_none_troj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_q3_icon_troj
+  left: ev_q3_icon_troj
+  right: ev_q3_none_troj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_rep_ign
+  left: ev_l31_rep_ign
+  right: ev_l31_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_del_ign
+  left: ev_l31_del_ign
+  right: ev_l31_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_icon_ign
+  left: ev_l31_icon_ign
+  right: ev_l31_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_rep_comb
+  left: ev_l31_rep_comb
+  right: ev_l31_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_del_comb
+  left: ev_l31_del_comb
+  right: ev_l31_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_icon_comb
+  left: ev_l31_icon_comb
+  right: ev_l31_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_rep_troj
+  left: ev_l31_rep_troj
+  right: ev_l31_none_troj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_del_troj
+  left: ev_l31_del_troj
+  right: ev_l31_none_troj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31_icon_troj
+  left: ev_l31_icon_troj
+  right: ev_l31_none_troj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m8_rep_ign
+  left: ev_m8_rep_ign
+  right: ev_m8_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m8_del_ign
+  left: ev_m8_del_ign
+  right: ev_m8_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m8_icon_ign
+  left: ev_m8_icon_ign
+  right: ev_m8_none_ign
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m8_rep_comb
+  left: ev_m8_rep_comb
+  right: ev_m8_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m8_del_comb
+  left: ev_m8_del_comb
+  right: ev_m8_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m8_icon_comb
+  left: ev_m8_icon_comb
+  right: ev_m8_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m8_rep_troj
+  left: ev_m8_rep_troj
+  right: ev_m8_none_troj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m8_del_troj
+  left: ev_m8_del_troj
+  right: ev_m8_none_troj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m8_icon_troj
+  left: ev_m8_icon_troj
+  right: ev_m8_none_troj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+claims:
+- id: k1
+  text: ICON reaches 0.4% attack success, matching commercial detectors, with a large gain in task utility
+  location: abstract
+  anchor: ICON achieves a competitive 0.4% ASR, matching commercial grade detectors
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_q3_icon_ign
+  - c_q3_icon_comb
+  - c_q3_icon_troj
+  - c_l31_icon_ign
+  - c_l31_icon_comb
+  - c_l31_icon_troj
+  - c_m8_icon_ign
+  - c_m8_icon_comb
+  - c_m8_icon_troj
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2 (ASR)
+    R2clean: Table 2 gives BU for the undefended model only; not reported for any defence
+    R2attack: Table 2 (UA)
+schema_gaps:
+- where: defences icon_*
+  note: the prober is a small classifier fitted on 255 samples and the LLM is not trained, so axis 2 is fixed_inference_rule and both training fields are not_applicable, as coding rule 11 treats a direction fitted from examples
+- where: evaluations ev_*_troj
+  note: ICON's prober is trained on TrojanTools (p. 6), and TrojanTools is also one of the three attacks in Table 2, so that row is not out of distribution for ICON
+- where: evaluations ev_*
+  note: Table 2 gives benign utility (BU) for the undefended model only, so the defences' clean utility is not reported

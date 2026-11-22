@@ -1,0 +1,479 @@
+report:
+  id: ihchallenge_arxiv2026
+  slug: '2603.10521'
+  title: 'IH-Challenge: A Training Dataset to Improve Instruction Hierarchy on Frontier LLMs'
+  first_author: Chuan Guo
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2603.10521'
+  version_read: arXiv v1
+  first_date: '2026-03-11'
+  read: F
+  role: proposes
+  code_release: dataset released (huggingface.co/datasets/openai/ih-challenge, linked from the abstract); training code not released
+  extraction_scope: 'Sections 3 and 4: Table 5 (prompt injection) and Table 2 (overrefusal and capability); the abstract claim (Tables 3 and 4, which test conflicts between system, developer and user messages rather than injected
+    data, Figures 4 to 6, Table 6 and Table 7 not coded)'
+defences:
+- id: ihc_g5m
+  name: GPT-5-Mini-R (RL on IH-Challenge with online adversarial attacks)
+  origin: this_report
+  base_checkpoint: GPT-5-Mini
+  axis1:
+  - chat_roles
+  axis2:
+  - adversarial_rl
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - task skeletons with higher-priority instructions and Python graders (Single-Constraint, Multi-Constraint, Input-Conditioned, Anti-Overrefusal)
+  - a frozen attacker model writes the lower-priority conflicting message online against the current defender, under a tool-call budget
+  - policy-gradient updates on grader rewards, mixed with capability tasks
+  layout: priority order system, developer, user, tool
+  released_weights: no (closed model)
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: supported
+  anchor: We train the defender using RL, where at each step we synthesize
+  pages:
+    layout: 4
+    layout_compat: 10
+evaluations:
+- id: ev_int_base
+  defence_id: none:GPT-5-Mini
+  benchmark: 'Internal PI Benchmark: static adversarially generated agentic injections'
+  attacker_type: static
+  attacker_access: black_box
+  judge: not described
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 10
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_int_r
+  defence_id: ihc_g5m
+  benchmark: 'Internal PI Benchmark: static adversarially generated agentic injections'
+  attacker_type: static
+  attacker_access: black_box
+  judge: not described
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 10
+  decoding: not reported
+- id: ev_cse_base
+  defence_id: none:GPT-5-Mini
+  benchmark: CyberSecEval 2 (instructions in tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not described
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 10
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_cse_r
+  defence_id: ihc_g5m
+  benchmark: CyberSecEval 2 (instructions in tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: not described
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 10
+  decoding: not reported
+- id: ev_ihor_base
+  defence_id: none:GPT-5-Mini
+  benchmark: 'IH-Challenge (overrefusal): higher-tier instruction changed so the request is allowed'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: python grader
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ihor_r
+  defence_id: ihc_g5m
+  benchmark: 'IH-Challenge (overrefusal): higher-tier instruction changed so the request is allowed'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: python grader
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_ttor_base
+  defence_id: none:GPT-5-Mini
+  benchmark: TensorTrust (overrefusal)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: not described
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ttor_r
+  defence_id: ihc_g5m
+  benchmark: TensorTrust (overrefusal)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: not described
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_gpqa_base
+  defence_id: none:GPT-5-Mini
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gpqa_r
+  defence_id: ihc_g5m
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_aime_base
+  defence_id: none:GPT-5-Mini
+  benchmark: AIME 2024
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_aime_r
+  defence_id: ihc_g5m
+  benchmark: AIME 2024
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer key
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_win_base
+  defence_id: none:GPT-5-Mini
+  benchmark: private chat questions, win rate against o1
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: not described
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_win_r
+  defence_id: ihc_g5m
+  benchmark: private chat questions, win rate against o1
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: not described
+  layout_same_as_defence: 'yes'
+  measured_by: ihchallenge_arxiv2026
+  page: 8
+  decoding: not reported
+results:
+- id: r_int_base
+  evaluation_id: ev_int_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: robustness (Table 5)
+  value: '0.44'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 5
+- id: r_int_r
+  evaluation_id: ev_int_r
+  quantity: R1
+  coverage: direct
+  metric_as_printed: robustness (Table 5)
+  value: '1.00'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 5
+- id: r_cse_base
+  evaluation_id: ev_cse_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: robustness (Table 5)
+  value: '0.88'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 5
+- id: r_cse_r
+  evaluation_id: ev_cse_r
+  quantity: R1
+  coverage: direct
+  metric_as_printed: robustness (Table 5)
+  value: '0.91'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 5
+- id: r_ihor_base
+  evaluation_id: ev_ihor_base
+  quantity: other
+  coverage: direct
+  metric_as_printed: IH-Challenge (overrefusal)
+  value: '0.79'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_ihor_r
+  evaluation_id: ev_ihor_r
+  quantity: other
+  coverage: direct
+  metric_as_printed: IH-Challenge (overrefusal)
+  value: '1.00'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_ttor_base
+  evaluation_id: ev_ttor_base
+  quantity: other
+  coverage: direct
+  metric_as_printed: TensorTrust (overrefusal)
+  value: '0.91'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_ttor_r
+  evaluation_id: ev_ttor_r
+  quantity: other
+  coverage: direct
+  metric_as_printed: TensorTrust (overrefusal)
+  value: '0.90'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gpqa_base
+  evaluation_id: ev_gpqa_base
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond
+  value: '0.83'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_gpqa_r
+  evaluation_id: ev_gpqa_r
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond
+  value: '0.83'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_aime_base
+  evaluation_id: ev_aime_base
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AIME 2024
+  value: '0.93'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_aime_r
+  evaluation_id: ev_aime_r
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AIME 2024
+  value: '0.94'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_win_base
+  evaluation_id: ev_win_base
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Chat WinRate vs. o1
+  value: '0.71'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_win_r
+  evaluation_id: ev_win_r
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Chat WinRate vs. o1
+  value: '0.66'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+comparisons:
+- id: c_int
+  left: ev_int_r
+  right: ev_int_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_cse
+  left: ev_cse_r
+  right: ev_cse_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 10
+- id: c_ihor
+  left: ev_ihor_r
+  right: ev_ihor_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ttor
+  left: ev_ttor_r
+  right: ev_ttor_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gpqa
+  left: ev_gpqa_r
+  right: ev_gpqa_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_aime
+  left: ev_aime_r
+  right: ev_aime_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_win
+  left: ev_win_r
+  right: ev_win_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: training on IH-Challenge saturates an internal agentic prompt injection test with minimal capability loss
+  location: abstract
+  anchor: saturates an internal static agentic prompt injection evaluation
+  jobs:
+  - R1
+  - general_utility
+  supported_by:
+  - c_int
+  - c_cse
+  - c_gpqa
+  - c_aime
+  - c_win
+  page: 1
+  contradicted_by:
+  - r_win_r
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 5 (robustness on prompt injection evaluations)
+    general_utility: Table 2
+schema_gaps:
+- where: defence ihc_g5m
+  note: the Anti-Overrefusal split trains the model to follow lower-tier requests that only look forbidden; the paper does not show the same strings used both as attacks and as allowed requests, so trains_instruction_pair
+    is no
+- where: results r_int_*
+  note: the internal prompt injection set is not public and its grading is not described

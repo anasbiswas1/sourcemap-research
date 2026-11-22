@@ -1,0 +1,1574 @@
+report:
+  id: gwdpo_arxiv2026
+  slug: '2606.10860'
+  title: Training LLMs to Enforce Multi-Level Instruction Hierarchies via Gravity-Weighted Direct Preference Optimization
+  first_author: Lena S. Bolliger
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2606.10860'
+  version_read: arXiv v1
+  first_date: '2026-06-09'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Sections 4 to 6 and Appendix D: Table 15 rows for the four pairs where the lower level is data or tool output (L0 to L3 against L4), the ORR row of Table 1 and the probe-execution row of Table 24 (SEP);
+    the abstract claim (pairs without L4, the reference split, XSTest, MT-Bench, TensorTrust and the hyperparameter sweeps not coded)'
+defences:
+- id: gwbi_l31
+  name: GW-DPO, bilateral schedule
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  - learned_token_features
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - 12 delimiter tokens marking levels L0 (platform) to L4 (data and tool output) and the response
+  - 'Instructional Segment Embeddings: a learned embedding per level added to each token'
+  - 'phase 1: LoRA SFT on hierarchy-formatted data'
+  - 'phase 2: DPO on conflict pairs, preferred answers partly written by Claude Sonnet 4 or GPT-4o-mini, per-sample margin growing with the level gap'
+  layout: each level wrapped in its own delimiter tokens; L4 holds data and tool output
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We optimize the GW-DPO loss
+  pages: &id001
+    components: 5
+- id: gwlin_l31
+  name: GW-DPO, linear schedule
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  - learned_token_features
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - 12 delimiter tokens marking levels L0 (platform) to L4 (data and tool output) and the response
+  - 'Instructional Segment Embeddings: a learned embedding per level added to each token'
+  - 'phase 1: LoRA SFT on hierarchy-formatted data'
+  - 'phase 2: DPO on conflict pairs, preferred answers partly written by Claude Sonnet 4 or GPT-4o-mini, per-sample margin growing with the level gap'
+  layout: each level wrapped in its own delimiter tokens; L4 holds data and tool output
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We optimize the GW-DPO loss
+  pages: *id001
+- id: dpo_l31
+  name: standard DPO (GW-DPO with alpha = 0)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  - learned_token_features
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - 12 delimiter tokens marking levels L0 (platform) to L4 (data and tool output) and the response
+  - 'Instructional Segment Embeddings: a learned embedding per level added to each token'
+  - 'phase 1: LoRA SFT on hierarchy-formatted data'
+  - 'phase 2: DPO on conflict pairs, preferred answers partly written by Claude Sonnet 4 or GPT-4o-mini, per-sample margin growing with the level gap'
+  layout: each level wrapped in its own delimiter tokens; L4 holds data and tool output
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We optimize the GW-DPO loss
+  pages: *id001
+- id: noise_l31
+  name: GW-DPO, linear schedule, without ISE (No-ISE)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - 12 delimiter tokens marking levels L0 (platform) to L4 (data and tool output) and the response
+  - no segment embeddings
+  - 'phase 1: LoRA SFT on hierarchy-formatted data'
+  - 'phase 2: DPO on conflict pairs, preferred answers partly written by Claude Sonnet 4 or GPT-4o-mini, per-sample margin growing with the level gap'
+  layout: each level wrapped in its own delimiter tokens; L4 holds data and tool output
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We optimize the GW-DPO loss
+  pages: *id001
+- id: lvl3_l31
+  name: GW-DPO, linear schedule, three levels (3-level)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  - learned_token_features
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - 12 delimiter tokens marking levels L0 (platform) to L4 (data and tool output) and the response
+  - 'Instructional Segment Embeddings: a learned embedding per level added to each token'
+  - 'phase 1: LoRA SFT on hierarchy-formatted data'
+  - 'phase 2: DPO on conflict pairs, preferred answers partly written by Claude Sonnet 4 or GPT-4o-mini, per-sample margin growing with the level gap'
+  layout: each level wrapped in its own delimiter tokens; L4 holds data and tool output
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We optimize the GW-DPO loss
+  pages: *id001
+- id: sft_l31
+  name: phase-1 SFT only (delimiter tokens and ISE, no DPO)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  - learned_token_features
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components:
+  - 12 delimiter tokens marking levels L0 (platform) to L4 (data and tool output) and the response
+  - 'Instructional Segment Embeddings: a learned embedding per level added to each token'
+  - 'phase 1: LoRA SFT on hierarchy-formatted data'
+  - no phase 2
+  layout: each level wrapped in its own delimiter tokens; L4 holds data and tool output
+  layout_compat:
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We fine-tune Llama-3.1-8B-Instruct on DSFT
+  pages: *id001
+evaluations:
+- id: ev_l0l4_base
+  defence_id: none:Llama-3.1-8B-Instruct (12 delimiter tokens added to the tokenizer, untrained)
+  benchmark: 5-level evaluation suite, conflict split, pair L0 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_l0l4_sft
+  defence_id: sft_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L0 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l0l4_gwbi
+  defence_id: gwbi_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L0 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l0l4_gwlin
+  defence_id: gwlin_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L0 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l0l4_dpo
+  defence_id: dpo_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L0 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l0l4_noise
+  defence_id: noise_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L0 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l0l4_lvl3
+  defence_id: lvl3_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L0 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l1l4_base
+  defence_id: none:Llama-3.1-8B-Instruct (12 delimiter tokens added to the tokenizer, untrained)
+  benchmark: 5-level evaluation suite, conflict split, pair L1 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_l1l4_sft
+  defence_id: sft_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L1 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l1l4_gwbi
+  defence_id: gwbi_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L1 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l1l4_gwlin
+  defence_id: gwlin_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L1 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l1l4_dpo
+  defence_id: dpo_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L1 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l1l4_noise
+  defence_id: noise_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L1 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l1l4_lvl3
+  defence_id: lvl3_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L1 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l2l4_base
+  defence_id: none:Llama-3.1-8B-Instruct (12 delimiter tokens added to the tokenizer, untrained)
+  benchmark: 5-level evaluation suite, conflict split, pair L2 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_l2l4_sft
+  defence_id: sft_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L2 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l2l4_gwbi
+  defence_id: gwbi_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L2 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l2l4_gwlin
+  defence_id: gwlin_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L2 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l2l4_dpo
+  defence_id: dpo_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L2 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l2l4_noise
+  defence_id: noise_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L2 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l2l4_lvl3
+  defence_id: lvl3_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L2 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l3l4_base
+  defence_id: none:Llama-3.1-8B-Instruct (12 delimiter tokens added to the tokenizer, untrained)
+  benchmark: 5-level evaluation suite, conflict split, pair L3 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_l3l4_sft
+  defence_id: sft_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L3 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l3l4_gwbi
+  defence_id: gwbi_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L3 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l3l4_gwlin
+  defence_id: gwlin_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L3 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l3l4_dpo
+  defence_id: dpo_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L3 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l3l4_noise
+  defence_id: noise_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L3 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_l3l4_lvl3
+  defence_id: lvl3_l31
+  benchmark: 5-level evaluation suite, conflict split, pair L3 against L4 (instruction in data or tool output)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'GPT-4o judge: satisfies the higher level without following the lower'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 29
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_orr_base
+  defence_id: none:Llama-3.1-8B-Instruct (12 delimiter tokens added to the tokenizer, untrained)
+  benchmark: 5-level evaluation suite, aligned-control split (benign prompts that resemble conflicts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'GPT-4o judge: refusal'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_orr_sft
+  defence_id: sft_l31
+  benchmark: 5-level evaluation suite, aligned-control split (benign prompts that resemble conflicts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'GPT-4o judge: refusal'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_orr_gwbi
+  defence_id: gwbi_l31
+  benchmark: 5-level evaluation suite, aligned-control split (benign prompts that resemble conflicts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'GPT-4o judge: refusal'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_orr_gwlin
+  defence_id: gwlin_l31
+  benchmark: 5-level evaluation suite, aligned-control split (benign prompts that resemble conflicts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'GPT-4o judge: refusal'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_orr_dpo
+  defence_id: dpo_l31
+  benchmark: 5-level evaluation suite, aligned-control split (benign prompts that resemble conflicts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'GPT-4o judge: refusal'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_orr_noise
+  defence_id: noise_l31
+  benchmark: 5-level evaluation suite, aligned-control split (benign prompts that resemble conflicts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'GPT-4o judge: refusal'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_orr_lvl3
+  defence_id: lvl3_l31
+  benchmark: 5-level evaluation suite, aligned-control split (benign prompts that resemble conflicts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: 'GPT-4o judge: refusal'
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    judge: 6
+- id: ev_sep_anchor
+  defence_id: none:Llama-3.1-8B-Instruct (off-the-shelf, native chat template)
+  benchmark: SEP, 1,500 probes (never used in training)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string found in a non-trivial response
+  layout_same_as_defence: 'no'
+  measured_by: gwdpo_arxiv2026
+  page: 33
+  decoding: not reported
+  sample_size: 1,500
+  baseline_kind: off_the_shelf
+- id: ev_sep_base
+  defence_id: none:Llama-3.1-8B-Instruct (12 delimiter tokens added to the tokenizer, untrained)
+  benchmark: SEP, 1,500 probes (never used in training)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string found in a non-trivial response
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 33
+  decoding: not reported
+  sample_size: 1,500
+  baseline_kind: off_the_shelf
+- id: ev_sep_sft
+  defence_id: sft_l31
+  benchmark: SEP, 1,500 probes (never used in training)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string found in a non-trivial response
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 33
+  decoding: not reported
+  sample_size: 1,500
+- id: ev_sep_gwbi
+  defence_id: gwbi_l31
+  benchmark: SEP, 1,500 probes (never used in training)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string found in a non-trivial response
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 33
+  decoding: not reported
+  sample_size: 1,500
+- id: ev_sep_gwlin
+  defence_id: gwlin_l31
+  benchmark: SEP, 1,500 probes (never used in training)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string found in a non-trivial response
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 33
+  decoding: not reported
+  sample_size: 1,500
+- id: ev_sep_dpo
+  defence_id: dpo_l31
+  benchmark: SEP, 1,500 probes (never used in training)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string found in a non-trivial response
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 33
+  decoding: not reported
+  sample_size: 1,500
+- id: ev_sep_noise
+  defence_id: noise_l31
+  benchmark: SEP, 1,500 probes (never used in training)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string found in a non-trivial response
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 33
+  decoding: not reported
+  sample_size: 1,500
+- id: ev_sep_lvl3
+  defence_id: lvl3_l31
+  benchmark: SEP, 1,500 probes (never used in training)
+  attacker_type: static
+  attacker_access: black_box
+  judge: witness string found in a non-trivial response
+  layout_same_as_defence: 'yes'
+  measured_by: gwdpo_arxiv2026
+  page: 33
+  decoding: not reported
+  sample_size: 1,500
+results:
+- id: r_l0l4_base
+  evaluation_id: ev_l0l4_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L0 vs. L4 (1 - PPA)
+  value: '0.650'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l0l4_sft
+  evaluation_id: ev_l0l4_sft
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L0 vs. L4 (1 - PPA)
+  value: '0.425'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l0l4_gwbi
+  evaluation_id: ev_l0l4_gwbi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L0 vs. L4 (1 - PPA)
+  value: '0.025'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l0l4_gwlin
+  evaluation_id: ev_l0l4_gwlin
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L0 vs. L4 (1 - PPA)
+  value: '0.250'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l0l4_dpo
+  evaluation_id: ev_l0l4_dpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L0 vs. L4 (1 - PPA)
+  value: '0.100'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l0l4_noise
+  evaluation_id: ev_l0l4_noise
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L0 vs. L4 (1 - PPA)
+  value: '0.125'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l0l4_lvl3
+  evaluation_id: ev_l0l4_lvl3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L0 vs. L4 (1 - PPA)
+  value: '0.025'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l1l4_base
+  evaluation_id: ev_l1l4_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L1 vs. L4 (1 - PPA)
+  value: '0.769'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l1l4_sft
+  evaluation_id: ev_l1l4_sft
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L1 vs. L4 (1 - PPA)
+  value: '0.596'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l1l4_gwbi
+  evaluation_id: ev_l1l4_gwbi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L1 vs. L4 (1 - PPA)
+  value: '0.096'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l1l4_gwlin
+  evaluation_id: ev_l1l4_gwlin
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L1 vs. L4 (1 - PPA)
+  value: '0.308'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l1l4_dpo
+  evaluation_id: ev_l1l4_dpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L1 vs. L4 (1 - PPA)
+  value: '0.173'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l1l4_noise
+  evaluation_id: ev_l1l4_noise
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L1 vs. L4 (1 - PPA)
+  value: '0.404'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l1l4_lvl3
+  evaluation_id: ev_l1l4_lvl3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L1 vs. L4 (1 - PPA)
+  value: '0.212'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l2l4_base
+  evaluation_id: ev_l2l4_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L2 vs. L4 (1 - PPA)
+  value: '0.784'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l2l4_sft
+  evaluation_id: ev_l2l4_sft
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L2 vs. L4 (1 - PPA)
+  value: '0.568'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l2l4_gwbi
+  evaluation_id: ev_l2l4_gwbi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L2 vs. L4 (1 - PPA)
+  value: '0.162'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l2l4_gwlin
+  evaluation_id: ev_l2l4_gwlin
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L2 vs. L4 (1 - PPA)
+  value: '0.243'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l2l4_dpo
+  evaluation_id: ev_l2l4_dpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L2 vs. L4 (1 - PPA)
+  value: '0.189'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l2l4_noise
+  evaluation_id: ev_l2l4_noise
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L2 vs. L4 (1 - PPA)
+  value: '0.595'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l2l4_lvl3
+  evaluation_id: ev_l2l4_lvl3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L2 vs. L4 (1 - PPA)
+  value: '0.189'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l3l4_base
+  evaluation_id: ev_l3l4_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L3 vs. L4 (1 - PPA)
+  value: '0.792'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l3l4_sft
+  evaluation_id: ev_l3l4_sft
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L3 vs. L4 (1 - PPA)
+  value: '0.642'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l3l4_gwbi
+  evaluation_id: ev_l3l4_gwbi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L3 vs. L4 (1 - PPA)
+  value: '0.264'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l3l4_gwlin
+  evaluation_id: ev_l3l4_gwlin
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L3 vs. L4 (1 - PPA)
+  value: '0.340'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l3l4_dpo
+  evaluation_id: ev_l3l4_dpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L3 vs. L4 (1 - PPA)
+  value: '0.264'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l3l4_noise
+  evaluation_id: ev_l3l4_noise
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L3 vs. L4 (1 - PPA)
+  value: '0.774'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_l3l4_lvl3
+  evaluation_id: ev_l3l4_lvl3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR L3 vs. L4 (1 - PPA)
+  value: '0.113'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 29
+  location: Table 15
+- id: r_orr_base
+  evaluation_id: ev_orr_base
+  quantity: other
+  coverage: direct
+  metric_as_printed: ORR (over-refusal rate)
+  value: '0.044'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_orr_sft
+  evaluation_id: ev_orr_sft
+  quantity: other
+  coverage: direct
+  metric_as_printed: ORR (over-refusal rate)
+  value: '0.092'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_orr_gwbi
+  evaluation_id: ev_orr_gwbi
+  quantity: other
+  coverage: direct
+  metric_as_printed: ORR (over-refusal rate)
+  value: '0.057'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_orr_gwlin
+  evaluation_id: ev_orr_gwlin
+  quantity: other
+  coverage: direct
+  metric_as_printed: ORR (over-refusal rate)
+  value: '0.024'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_orr_dpo
+  evaluation_id: ev_orr_dpo
+  quantity: other
+  coverage: direct
+  metric_as_printed: ORR (over-refusal rate)
+  value: '0.120'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_orr_noise
+  evaluation_id: ev_orr_noise
+  quantity: other
+  coverage: direct
+  metric_as_printed: ORR (over-refusal rate)
+  value: '0.576'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_orr_lvl3
+  evaluation_id: ev_orr_lvl3
+  quantity: other
+  coverage: direct
+  metric_as_printed: ORR (over-refusal rate)
+  value: '0.074'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_sep_anchor
+  evaluation_id: ev_sep_anchor
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Probe-execution rate
+  value: '0.693'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 33
+  location: Table 24
+- id: r_sep_base
+  evaluation_id: ev_sep_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Probe-execution rate
+  value: '0.476'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 33
+  location: Table 24
+- id: r_sep_sft
+  evaluation_id: ev_sep_sft
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Probe-execution rate
+  value: '0.850'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 33
+  location: Table 24
+- id: r_sep_gwbi
+  evaluation_id: ev_sep_gwbi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Probe-execution rate
+  value: '0.118'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 33
+  location: Table 24
+- id: r_sep_gwlin
+  evaluation_id: ev_sep_gwlin
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Probe-execution rate
+  value: '0.139'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 33
+  location: Table 24
+- id: r_sep_dpo
+  evaluation_id: ev_sep_dpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Probe-execution rate
+  value: '0.133'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 33
+  location: Table 24
+- id: r_sep_noise
+  evaluation_id: ev_sep_noise
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Probe-execution rate
+  value: '0.047'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 33
+  location: Table 24
+- id: r_sep_lvl3
+  evaluation_id: ev_sep_lvl3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: Probe-execution rate
+  value: '0.472'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 33
+  location: Table 24
+comparisons:
+- id: c_l0l4_sft
+  left: ev_l0l4_sft
+  right: ev_l0l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l0l4_gwbi
+  left: ev_l0l4_gwbi
+  right: ev_l0l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l0l4_dpo
+  left: ev_l0l4_dpo
+  right: ev_l0l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l0l4_sched
+  left: ev_l0l4_gwbi
+  right: ev_l0l4_dpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: bilateral gravity margin against standard DPO
+  page: 29
+- id: c_l0l4_ise
+  left: ev_l0l4_gwlin
+  right: ev_l0l4_noise
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: with against without segment embeddings
+  page: 29
+- id: c_l1l4_sft
+  left: ev_l1l4_sft
+  right: ev_l1l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l1l4_gwbi
+  left: ev_l1l4_gwbi
+  right: ev_l1l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l1l4_dpo
+  left: ev_l1l4_dpo
+  right: ev_l1l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l1l4_sched
+  left: ev_l1l4_gwbi
+  right: ev_l1l4_dpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: bilateral gravity margin against standard DPO
+  page: 29
+- id: c_l1l4_ise
+  left: ev_l1l4_gwlin
+  right: ev_l1l4_noise
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: with against without segment embeddings
+  page: 29
+- id: c_l2l4_sft
+  left: ev_l2l4_sft
+  right: ev_l2l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l2l4_gwbi
+  left: ev_l2l4_gwbi
+  right: ev_l2l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l2l4_dpo
+  left: ev_l2l4_dpo
+  right: ev_l2l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l2l4_sched
+  left: ev_l2l4_gwbi
+  right: ev_l2l4_dpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: bilateral gravity margin against standard DPO
+  page: 29
+- id: c_l2l4_ise
+  left: ev_l2l4_gwlin
+  right: ev_l2l4_noise
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: with against without segment embeddings
+  page: 29
+- id: c_l3l4_sft
+  left: ev_l3l4_sft
+  right: ev_l3l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l3l4_gwbi
+  left: ev_l3l4_gwbi
+  right: ev_l3l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l3l4_dpo
+  left: ev_l3l4_dpo
+  right: ev_l3l4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 29
+- id: c_l3l4_sched
+  left: ev_l3l4_gwbi
+  right: ev_l3l4_dpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: bilateral gravity margin against standard DPO
+  page: 29
+- id: c_l3l4_ise
+  left: ev_l3l4_gwlin
+  right: ev_l3l4_noise
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: with against without segment embeddings
+  page: 29
+- id: c_orr_sft
+  left: ev_orr_sft
+  right: ev_orr_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_orr_gwbi
+  left: ev_orr_gwbi
+  right: ev_orr_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_orr_dpo
+  left: ev_orr_dpo
+  right: ev_orr_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_sft
+  left: ev_sep_sft
+  right: ev_sep_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 33
+- id: c_sep_gwbi
+  left: ev_sep_gwbi
+  right: ev_sep_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 33
+- id: c_sep_dpo
+  left: ev_sep_dpo
+  right: ev_sep_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 33
+- id: c_sep_ise
+  left: ev_sep_gwlin
+  right: ev_sep_noise
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: with against without segment embeddings
+  page: 33
+claims:
+- id: k1
+  text: GW-DPO with the bilateral schedule Pareto-improves over standard DPO and the linear schedule
+  location: abstract
+  anchor: Pareto-improves over standard DPO and the linear variant
+  jobs:
+  - R1
+  supported_by:
+  - c_l0l4_sched
+  - c_l1l4_sched
+  - c_l2l4_sched
+  - c_l3l4_sched
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 15 (L4 pairs) and Table 24 (SEP)
+    R2clean: reference split and MT-Bench are outside the coded scope
+schema_gaps:
+- where: evaluations ev_sep_*
+  note: Table 24 notes that the No-ISE rate (0.047) comes from refusing 814 of 1,500 probes, and the off-the-shelf anchor uses the native chat template, so neither is a like-for-like reading (p. 33)
+- where: results r_l3l4_*
+  note: on the L3 against L4 pair (user against tool output) GW-DPO (bi.) ties standard DPO (0.264) and 3-level (lin.) is lower (0.113)

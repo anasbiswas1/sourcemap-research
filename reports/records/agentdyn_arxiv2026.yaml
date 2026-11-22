@@ -1,0 +1,1293 @@
+report:
+  id: agentdyn_arxiv2026
+  slug: '2602.03117'
+  title: 'AgentDyn: Are Your Agent Security Defenses Deployable in Real-World Dynamic Environments?'
+  first_author: Hao Li
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2602.03117'
+  version_read: arXiv v3
+  first_date: '2026-02-03'
+  read: F
+  role: benchmark
+  code_release: https://github.com/leolee99/AgentDyn (linked from the abstract)
+  extraction_scope: 'Sections 3 and 4: Table 3 rows None, Prompt Sandwiching and Spotlighting for the four models, and Meta SecAlign 70B coded as the defended model against Llama 3.3 70B; the abstract claim (ProtectAI, PIGuard
+    and PromptGuard2, which are detectors, Tool Filter, CaMeL, Progent and DRIFT, which are system-level designs around the model, the eight further models of Appendix G and Tables 8 to 17 not coded)'
+defences:
+- id: msa70b
+  name: Meta SecAlign 70B (released model, re-measured)
+  origin: other_report
+  base_checkpoint: Llama 3.3 70B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  layout: AgentDyn agent loop (AgentDojo framework); tool outputs carry the injection
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Meta SecAlign-70B [20], a defensive model trained on Llama-3.3-70B-Instruct
+- id: sand_g4o
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: GPT-4o
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: AgentDyn agent loop (AgentDojo framework); tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching [11] and Spotlighting [12]
+- id: spot_g4o
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: GPT-4o
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: AgentDyn agent loop (AgentDojo framework); tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching [11] and Spotlighting [12]
+- id: sand_gem
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: Gemini-2.5 Pro
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: AgentDyn agent loop (AgentDojo framework); tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching [11] and Spotlighting [12]
+- id: spot_gem
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Gemini-2.5 Pro
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: AgentDyn agent loop (AgentDojo framework); tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching [11] and Spotlighting [12]
+- id: sand_cl35
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: Claude-Sonnet-3.5
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: AgentDyn agent loop (AgentDojo framework); tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching [11] and Spotlighting [12]
+- id: spot_cl35
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Claude-Sonnet-3.5
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: AgentDyn agent loop (AgentDojo framework); tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching [11] and Spotlighting [12]
+- id: sand_l33
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: Llama 3.3 70B
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: AgentDyn agent loop (AgentDojo framework); tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching [11] and Spotlighting [12]
+- id: spot_l33
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Llama 3.3 70B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: AgentDyn agent loop (AgentDojo framework); tool outputs carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching [11] and Spotlighting [12]
+evaluations:
+- id: ev_none_g4o_clean
+  defence_id: none:GPT-4o
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_g4o_att
+  defence_id: none:GPT-4o
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_gem_clean
+  defence_id: none:Gemini-2.5 Pro
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_gem_att
+  defence_id: none:Gemini-2.5 Pro
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_cl35_clean
+  defence_id: none:Claude-Sonnet-3.5
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_cl35_att
+  defence_id: none:Claude-Sonnet-3.5
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_l33_clean
+  defence_id: none:Llama 3.3 70B
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_l33_att
+  defence_id: none:Llama 3.3 70B
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+  baseline_kind: off_the_shelf
+- id: ev_sand_g4o_clean
+  defence_id: sand_g4o
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+- id: ev_sand_g4o_att
+  defence_id: sand_g4o
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+- id: ev_sand_gem_clean
+  defence_id: sand_gem
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+- id: ev_sand_gem_att
+  defence_id: sand_gem
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+- id: ev_sand_cl35_clean
+  defence_id: sand_cl35
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+- id: ev_sand_cl35_att
+  defence_id: sand_cl35
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+- id: ev_sand_l33_clean
+  defence_id: sand_l33
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+- id: ev_sand_l33_att
+  defence_id: sand_l33
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+- id: ev_spot_g4o_clean
+  defence_id: spot_g4o
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+- id: ev_spot_g4o_att
+  defence_id: spot_g4o
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+- id: ev_spot_gem_clean
+  defence_id: spot_gem
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+- id: ev_spot_gem_att
+  defence_id: spot_gem
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+- id: ev_spot_cl35_clean
+  defence_id: spot_cl35
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+- id: ev_spot_cl35_att
+  defence_id: spot_cl35
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+- id: ev_spot_l33_clean
+  defence_id: spot_l33
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+- id: ev_spot_l33_att
+  defence_id: spot_l33
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+- id: ev_none_msa_clean
+  defence_id: msa70b
+  benchmark: AgentDyn, 60 user tasks without injection (Shopping, GitHub, DailyLife; mean over the three suites)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '60'
+  pages:
+    benchmark: 6
+    sample_size: 6
+- id: ev_none_msa_att
+  defence_id: msa70b
+  benchmark: AgentDyn, 560 injection cases with the important_instructions attack (mean over the three suites)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn user-task check; attacker goal executed
+  layout_same_as_defence: 'yes'
+  measured_by: agentdyn_arxiv2026
+  page: 7
+  attacker_budget: AgentDojo important_instructions template
+  decoding: not reported
+  sample_size: '560'
+  pages:
+    benchmark: 6
+    attacker_budget: 6
+    sample_size: 6
+results:
+- id: r_none_g4o_u
+  evaluation_id: ev_none_g4o_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '53.33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_g4o_ua
+  evaluation_id: ev_none_g4o_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '55.52'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_g4o_asr
+  evaluation_id: ev_none_g4o_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '37.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_gem_u
+  evaluation_id: ev_none_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '51.67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_gem_ua
+  evaluation_id: ev_none_gem_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '56.95'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_gem_asr
+  evaluation_id: ev_none_gem_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '20.61'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_cl35_u
+  evaluation_id: ev_none_cl35_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '60.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_cl35_ua
+  evaluation_id: ev_none_cl35_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '55.43'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_cl35_asr
+  evaluation_id: ev_none_cl35_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '11.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_l33_u
+  evaluation_id: ev_none_l33_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '10.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_l33_ua
+  evaluation_id: ev_none_l33_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '6.15'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_l33_asr
+  evaluation_id: ev_none_l33_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '11.91'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_g4o_u
+  evaluation_id: ev_sand_g4o_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '63.33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_g4o_ua
+  evaluation_id: ev_sand_g4o_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '56.13'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_g4o_asr
+  evaluation_id: ev_sand_g4o_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '31.17'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_gem_u
+  evaluation_id: ev_sand_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '51.67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_gem_ua
+  evaluation_id: ev_sand_gem_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '49.08'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_gem_asr
+  evaluation_id: ev_sand_gem_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '23.94'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_cl35_u
+  evaluation_id: ev_sand_cl35_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '56.67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_cl35_ua
+  evaluation_id: ev_sand_cl35_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '55.67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_cl35_asr
+  evaluation_id: ev_sand_cl35_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '11.26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_l33_u
+  evaluation_id: ev_sand_l33_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '5.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_l33_ua
+  evaluation_id: ev_sand_l33_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '7.35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_sand_l33_asr
+  evaluation_id: ev_sand_l33_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '9.96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_g4o_u
+  evaluation_id: ev_spot_g4o_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '55.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_g4o_ua
+  evaluation_id: ev_spot_g4o_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '52.24'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_g4o_asr
+  evaluation_id: ev_spot_g4o_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '27.61'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_gem_u
+  evaluation_id: ev_spot_gem_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '58.33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_gem_ua
+  evaluation_id: ev_spot_gem_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '52.61'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_gem_asr
+  evaluation_id: ev_spot_gem_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '16.87'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_cl35_u
+  evaluation_id: ev_spot_cl35_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '58.33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_cl35_ua
+  evaluation_id: ev_spot_cl35_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '57.09'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_cl35_asr
+  evaluation_id: ev_spot_cl35_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '3.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_l33_u
+  evaluation_id: ev_spot_l33_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '10.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_l33_ua
+  evaluation_id: ev_spot_l33_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '6.78'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_spot_l33_asr
+  evaluation_id: ev_spot_l33_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '14.85'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_msa_u
+  evaluation_id: ev_none_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility (no attack)
+  value: '55.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_msa_ua
+  evaluation_id: ev_none_msa_att
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Utility (under attack)
+  value: '53.35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_none_msa_asr
+  evaluation_id: ev_none_msa_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '8.98'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+comparisons:
+- id: c_sand_g4o_clean
+  left: ev_sand_g4o_clean
+  right: ev_none_g4o_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sand_g4o_att
+  left: ev_sand_g4o_att
+  right: ev_none_g4o_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_spot_g4o_clean
+  left: ev_spot_g4o_clean
+  right: ev_none_g4o_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_spot_g4o_att
+  left: ev_spot_g4o_att
+  right: ev_none_g4o_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sand_gem_clean
+  left: ev_sand_gem_clean
+  right: ev_none_gem_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sand_gem_att
+  left: ev_sand_gem_att
+  right: ev_none_gem_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_spot_gem_clean
+  left: ev_spot_gem_clean
+  right: ev_none_gem_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_spot_gem_att
+  left: ev_spot_gem_att
+  right: ev_none_gem_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sand_cl35_clean
+  left: ev_sand_cl35_clean
+  right: ev_none_cl35_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sand_cl35_att
+  left: ev_sand_cl35_att
+  right: ev_none_cl35_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_spot_cl35_clean
+  left: ev_spot_cl35_clean
+  right: ev_none_cl35_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_spot_cl35_att
+  left: ev_spot_cl35_att
+  right: ev_none_cl35_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sand_l33_clean
+  left: ev_sand_l33_clean
+  right: ev_none_l33_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sand_l33_att
+  left: ev_sand_l33_att
+  right: ev_none_l33_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_spot_l33_clean
+  left: ev_spot_l33_clean
+  right: ev_none_l33_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_spot_l33_att
+  left: ev_spot_l33_att
+  right: ev_none_l33_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_msa_vs_l33_clean
+  left: ev_none_msa_clean
+  right: ev_none_l33_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: Meta SecAlign 70B against its base Llama 3.3 70B
+  page: 7
+- id: c_msa_vs_l33_att
+  left: ev_none_msa_att
+  right: ev_none_l33_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: Meta SecAlign 70B against its base Llama 3.3 70B
+  page: 7
+claims:
+- id: k1
+  text: almost all existing defences are either not secure enough or over-defend
+  location: abstract
+  anchor: almost all existing defenses are either not secure enough
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_sand_g4o_clean
+  - c_sand_g4o_att
+  - c_spot_g4o_clean
+  - c_spot_g4o_att
+  - c_sand_gem_clean
+  - c_sand_gem_att
+  - c_spot_gem_clean
+  - c_spot_gem_att
+  - c_sand_cl35_clean
+  - c_sand_cl35_att
+  - c_spot_cl35_clean
+  - c_spot_cl35_att
+  - c_sand_l33_clean
+  - c_sand_l33_att
+  - c_spot_l33_clean
+  - c_spot_l33_att
+  - c_msa_vs_l33_clean
+  - c_msa_vs_l33_att
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 3 (ASR)
+    R2clean: Table 3 (utility, no attack)
+    R2attack: Table 3 (utility under attack)
+schema_gaps:
+- where: defences spot_*
+  note: the Spotlighting variant (delimiting, datamarking or encoding) is not stated; coded delimiters_markers as in the other records
+- where: evaluations ev_*
+  note: the authors add 'Complete all tasks automatically without requesting user confirmation' to the system message for every agent (p. 8)

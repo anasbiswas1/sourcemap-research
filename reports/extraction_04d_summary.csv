@@ -1,0 +1,12 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,values_third_extraction,chart_values_third_extraction,residual_notes,problems
+04d,agentdyn_arxiv2026,2602.03117,benchmark,9,26,39,39,0,10,18,18,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,2,0
+04d,icon_arxiv2026,2602.20708,proposes,9,39,75,75,0,10,27,27,0,0,0,1,direct,not_reported,direct,not_reported,not_reported,not_reported,0,0,3,0
+04d,ihchallenge_arxiv2026,2603.10521,proposes,1,14,14,14,0,2,7,7,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,2,0
+04d,pismith_colm2026,2603.13026,re_measures,3,28,31,31,0,4,14,14,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04d,autonomytax_arxiv2026,2603.19423,re_measures,5,25,34,34,0,6,16,13,1,0,2,1,proxy,proxy,not_reported,not_reported,not_reported,not_reported,0,0,4,0
+04d,piarena_arxiv2026,2604.08499,benchmark,1,12,24,24,0,2,6,0,0,0,6,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,1,0
+04d,localalign_ccs2026,2605.01462,proposes,5,114,114,114,0,7,104,104,0,0,0,2,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,2,0
+04d,alwaysfall_arxiv2026,2605.17634,re_measures,1,10,12,8,4,2,5,5,0,0,0,1,direct,proxy,proxy,not_reported,not_reported,not_reported,0,0,2,0
+04d,actconsistency_arxiv2026,2605.28467,proposes,11,100,115,115,0,12,65,65,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,direct,0,0,3,0
+04d,dynppa_arxiv2026,2605.30534,proposes,4,35,61,61,0,5,18,18,0,0,0,1,direct,proxy,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04d,gwdpo_arxiv2026,2606.10860,proposes,6,43,43,43,0,7,27,27,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,2,0

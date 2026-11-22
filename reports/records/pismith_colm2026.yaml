@@ -1,0 +1,1013 @@
+report:
+  id: pismith_colm2026
+  slug: '2603.13026'
+  title: 'PISmith: Reinforcement Learning-based Red Teaming for Prompt Injection Defenses'
+  first_author: Chenlong Yin
+  venue: COLM 2026
+  peer_reviewed: 'yes'
+  arxiv: '2603.13026'
+  version_read: arXiv v2 (carries the COLM 2026 header)
+  first_date: '2026-03-13'
+  read: F
+  role: re_measures
+  code_release: https://github.com/albert-y1n/PISmith (linked from the abstract)
+  extraction_scope: 'Sections 4.1 to 4.3 and Appendix E: Table 7 rows No Defense, Sandwich and Instructional (Qwen3-4B-Instruct-2507, means over the 13 PIArena benchmarks) and the Average row of Table 1 (Meta-SecAlign-8B,
+    which has no undefended arm in the paper); the abstract claim (PromptArmor and DataFilter, which rewrite the data, and PIGuard, PromptGuard and DataSentinel, which are detectors, are left out; per-benchmark Tables 8 to
+    15, the agent results of Tables 2, 3 and 5 and the ablations not coded)'
+defences:
+- id: sand_q
+  name: Sandwich
+  origin: other_report
+  base_checkpoint: Qwen3-4B-Instruct-2507
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 23
+  anchor: appends a reminder of the original instruction after the data
+- id: instr_q
+  name: Instructional
+  origin: other_report
+  base_checkpoint: Qwen3-4B-Instruct-2507
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 23
+  anchor: prepends an explicit instruction warning the LLM to ignore
+- id: msa8b
+  name: Meta-SecAlign-8B (released model, re-measured)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct (base of Meta-SecAlign-8B; not run here)
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: We first evaluate Meta-SecAlign-8B (Chen et al., 2025c), a state-of-the-art
+evaluations:
+- id: ev_none_clean
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_direct
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Direct (naive) injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_comb
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Combined attack templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_tap
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, TAP search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_pair
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, PAIR search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_strat
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Strategy search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_none_pismith
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, PISmith RL attacker (Qwen3-4B, trained on 100 Dolly Closed QA samples against the target)
+  attacker_type: rl
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: 10 injected prompts per instance
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+  baseline_kind: off_the_shelf
+- id: ev_sand_clean
+  defence_id: sand_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_sand_direct
+  defence_id: sand_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Direct (naive) injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sand_comb
+  defence_id: sand_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Combined attack templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sand_tap
+  defence_id: sand_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, TAP search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sand_pair
+  defence_id: sand_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, PAIR search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sand_strat
+  defence_id: sand_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Strategy search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_sand_pismith
+  defence_id: sand_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, PISmith RL attacker (Qwen3-4B, trained on 100 Dolly Closed QA samples against the target)
+  attacker_type: rl
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: 10 injected prompts per instance
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_instr_clean
+  defence_id: instr_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task accuracy against the reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+- id: ev_instr_direct
+  defence_id: instr_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Direct (naive) injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_instr_comb
+  defence_id: instr_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Combined attack templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_instr_tap
+  defence_id: instr_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, TAP search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_instr_pair
+  defence_id: instr_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, PAIR search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_instr_strat
+  defence_id: instr_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Strategy search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_instr_pismith
+  defence_id: instr_q
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, PISmith RL attacker (Qwen3-4B, trained on 100 Dolly Closed QA samples against the target)
+  attacker_type: rl
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 23
+  attacker_budget: 10 injected prompts per instance
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_msa_direct
+  defence_id: msa8b
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Direct (naive) injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_msa_comb
+  defence_id: msa8b
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Combined attack templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_msa_tap
+  defence_id: msa8b
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, TAP search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 7
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_msa_pair
+  defence_id: msa8b
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, PAIR search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 7
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_msa_strat
+  defence_id: msa8b
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, Strategy search per instance
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 7
+  attacker_budget: per-instance search budget
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_msa_rlh
+  defence_id: msa8b
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, RL-Hammer attacker (same base, data and protocol as PISmith)
+  attacker_type: rl
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 7
+  attacker_budget: 10 injected prompts per instance
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+- id: ev_msa_pismith
+  defence_id: msa8b
+  benchmark: PIArena benchmarks (13 QA, RAG and long-context datasets), mean over benchmarks, PISmith RL attacker (Qwen3-4B, trained on 100 Dolly Closed QA samples against the target)
+  attacker_type: rl
+  attacker_access: black_box
+  judge: GPT-4o-mini as judge of attack success
+  layout_same_as_defence: 'yes'
+  measured_by: pismith_colm2026
+  page: 7
+  attacker_budget: 10 injected prompts per instance
+  decoding: not reported
+  pages:
+    benchmark: 6
+    judge: 6
+results:
+- id: r_none_u
+  evaluation_id: ev_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '0.74'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_none_direct
+  evaluation_id: ev_none_direct
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Direct)
+  value: '0.63'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_none_comb
+  evaluation_id: ev_none_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Combined)
+  value: '0.85'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_none_tap
+  evaluation_id: ev_none_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (TAP)
+  value: '0.68'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_none_pair
+  evaluation_id: ev_none_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (PAIR)
+  value: '0.68'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_none_strat
+  evaluation_id: ev_none_strat
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Strategy)
+  value: '0.99'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_none_pismith_at10
+  evaluation_id: ev_none_pismith
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@10 (PISmith)
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_none_pismith
+  evaluation_id: ev_none_pismith
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (PISmith)
+  value: '0.92'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_sand_u
+  evaluation_id: ev_sand_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '0.74'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_sand_direct
+  evaluation_id: ev_sand_direct
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Direct)
+  value: '0.56'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_sand_comb
+  evaluation_id: ev_sand_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Combined)
+  value: '0.76'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_sand_tap
+  evaluation_id: ev_sand_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (TAP)
+  value: '0.61'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_sand_pair
+  evaluation_id: ev_sand_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (PAIR)
+  value: '0.62'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_sand_strat
+  evaluation_id: ev_sand_strat
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Strategy)
+  value: '0.97'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_sand_pismith_at10
+  evaluation_id: ev_sand_pismith
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@10 (PISmith)
+  value: '0.99'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_sand_pismith
+  evaluation_id: ev_sand_pismith
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (PISmith)
+  value: '0.91'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_instr_u
+  evaluation_id: ev_instr_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Utility
+  value: '0.73'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_instr_direct
+  evaluation_id: ev_instr_direct
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Direct)
+  value: '0.61'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_instr_comb
+  evaluation_id: ev_instr_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Combined)
+  value: '0.83'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_instr_tap
+  evaluation_id: ev_instr_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (TAP)
+  value: '0.65'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_instr_pair
+  evaluation_id: ev_instr_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (PAIR)
+  value: '0.67'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_instr_strat
+  evaluation_id: ev_instr_strat
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Strategy)
+  value: '0.98'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_instr_pismith_at10
+  evaluation_id: ev_instr_pismith
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@10 (PISmith)
+  value: '0.99'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_instr_pismith
+  evaluation_id: ev_instr_pismith
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (PISmith)
+  value: '0.92'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 7
+- id: r_msa_direct
+  evaluation_id: ev_msa_direct
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Average)
+  value: '0.04'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1, Average row
+- id: r_msa_comb
+  evaluation_id: ev_msa_comb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Average)
+  value: '0.07'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1, Average row
+- id: r_msa_tap
+  evaluation_id: ev_msa_tap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Average)
+  value: '0.11'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1, Average row
+- id: r_msa_pair
+  evaluation_id: ev_msa_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Average)
+  value: '0.16'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1, Average row
+- id: r_msa_strat
+  evaluation_id: ev_msa_strat
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Average)
+  value: '0.21'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1, Average row
+- id: r_msa_rlh
+  evaluation_id: ev_msa_rlh
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Average)
+  value: '0.48'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1, Average row
+- id: r_msa_pismith
+  evaluation_id: ev_msa_pismith
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR@1 (Average)
+  value: '0.87'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1, Average row
+comparisons:
+- id: c_sand_clean
+  left: ev_sand_clean
+  right: ev_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_sand_direct
+  left: ev_sand_direct
+  right: ev_none_direct
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_sand_comb
+  left: ev_sand_comb
+  right: ev_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_sand_tap
+  left: ev_sand_tap
+  right: ev_none_tap
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_sand_pair
+  left: ev_sand_pair
+  right: ev_none_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_sand_strat
+  left: ev_sand_strat
+  right: ev_none_strat
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_sand_pismith
+  left: ev_sand_pismith
+  right: ev_none_pismith
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_instr_clean
+  left: ev_instr_clean
+  right: ev_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_instr_direct
+  left: ev_instr_direct
+  right: ev_none_direct
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_instr_comb
+  left: ev_instr_comb
+  right: ev_none_comb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_instr_tap
+  left: ev_instr_tap
+  right: ev_none_tap
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_instr_pair
+  left: ev_instr_pair
+  right: ev_none_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_instr_strat
+  left: ev_instr_strat
+  right: ev_none_strat
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_instr_pismith
+  left: ev_instr_pismith
+  right: ev_none_pismith
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+claims:
+- id: k1
+  text: state-of-the-art defences remain vulnerable to adaptive attacks
+  location: abstract
+  anchor: state-of-the-art prompt injection defenses remain vulnerable to adaptive attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_sand_pismith
+  - c_instr_pismith
+  - c_sand_tap
+  - c_instr_tap
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 7 (means over 13 benchmarks; per-benchmark values in Tables 8 to 10) and Table 1
+    R2clean: Table 7 (utility without attack)
+schema_gaps:
+- where: results r_msa_*
+  note: Meta-SecAlign-8B is measured without its base model in the same protocol, so its results carry no comparison
