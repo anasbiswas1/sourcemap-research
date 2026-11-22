@@ -1,0 +1,8 @@
+decision_04i: BATCH CHECKED
+this step: 2026-11-22
+reports: pidefthesis_upv2026, codt_arxiv2025, intentguard_arxiv2025, jatmohouyi_arxiv2025, securecai_arxiv2026, safereview_arxiv2026, tab_arxiv2026, loginject_arxiv2026, gptred_arxiv2026
+records: 63 defences, 349 evaluations, 498 results, 235 comparisons, 9 claims
+checked against the PDFs: 493 printed values (0 of them found only in the third extraction), 3 chart values (0 of them found only in the third extraction) and 72 anchors, each found on its page
+comparison grades: A 224, B 10, C 0, U 1
+residual notes: 14; full-text exclusions found while coding: 3
+next: batch 04j

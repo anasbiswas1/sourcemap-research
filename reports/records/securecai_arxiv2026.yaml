@@ -1,0 +1,570 @@
+report:
+  id: securecai_arxiv2026
+  slug: '2601.07835'
+  title: 'SecureCAI: Injection-Resilient LLM Assistants for Cybersecurity Operations'
+  first_author: Mohammed Himayath Ali
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2601.07835'
+  version_read: arXiv v1
+  first_date: '2026-01-12'
+  read: F
+  role: proposes
+  extraction_scope: Table 2 columns Log, Email and Malware (injections carried in security artifacts) for the base model, Standard CAI and Instruction Hierarchy; Table 3 clean averages; Table 4 row 'w/o Input Sanit.' (SecureCAI
+    without its sanitiser); the abstract claim (full SecureCAI includes input sanitisation and Input Filtering is a detector, both left out; the Direct, Overflow and Backdoor columns are direct injection, context truncation
+    and trigger backdoors)
+defences:
+- id: secai_nosan
+  name: SecureCAI without input sanitisation (constitutional SL on critique-revision pairs, security DPO on 51,750 preference pairs, unsafe-pattern unlearning, security principles and guardrails, adaptive constitution)
+  origin: this_report
+  base_checkpoint: a 7B pre-trained model (not named in the paper)
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: security artifact (log, email or malware sample) with an embedded payload, analysed under an analyst prompt
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: input sanitization, constitutional principle enforcement,
+  components:
+  - constitutional SL
+  - security DPO
+  - unlearning
+  - security principles
+  - security-aware guardrails
+  - adaptive constitution evolution
+- id: cai
+  name: Standard CAI (Constitutional AI without security adaptations)
+  origin: other_report
+  base_checkpoint: a 7B pre-trained model (not named in the paper)
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  layout: security artifact (log, email or malware sample) with an embedded payload, analysed under an analyst prompt
+  layout_compat: *id001
+  anchor: 'Standard CAI: Constitutional AI without security adaptations'
+- id: ih
+  name: Instruction Hierarchy (priority-based prompt processing)
+  origin: other_report
+  base_checkpoint: a 7B pre-trained model (not named in the paper)
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: security artifact (log, email or malware sample) with an embedded payload, analysed under an analyst prompt
+  layout_compat: *id001
+  anchor: Priority-based prompt processing
+evaluations:
+- id: ev_base_log
+  defence_id: none:a 7B pre-trained model (not named in the paper)
+  benchmark: SecureCAI adversarial set, Log Poisoning (12,450 samples, SIEM logs)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_base_email
+  defence_id: none:a 7B pre-trained model (not named in the paper)
+  benchmark: SecureCAI adversarial set, Malicious Email (8,320 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_base_mal
+  defence_id: none:a 7B pre-trained model (not named in the paper)
+  benchmark: SecureCAI adversarial set, Malware Injection (5,180 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_base_clean
+  defence_id: none:a 7B pre-trained model (not named in the paper)
+  benchmark: 15,000 benign security samples (log F1, phishing accuracy, malware human evaluation)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metrics
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '15000'
+  baseline_kind: off_the_shelf
+- id: ev_cai_log
+  defence_id: cai
+  benchmark: SecureCAI adversarial set, Log Poisoning (12,450 samples, SIEM logs)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_cai_email
+  defence_id: cai
+  benchmark: SecureCAI adversarial set, Malicious Email (8,320 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_cai_mal
+  defence_id: cai
+  benchmark: SecureCAI adversarial set, Malware Injection (5,180 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_cai_clean
+  defence_id: cai
+  benchmark: 15,000 benign security samples (log F1, phishing accuracy, malware human evaluation)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metrics
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '15000'
+- id: ev_ih_log
+  defence_id: ih
+  benchmark: SecureCAI adversarial set, Log Poisoning (12,450 samples, SIEM logs)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_ih_email
+  defence_id: ih
+  benchmark: SecureCAI adversarial set, Malicious Email (8,320 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_ih_mal
+  defence_id: ih
+  benchmark: SecureCAI adversarial set, Malware Injection (5,180 samples)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_ih_clean
+  defence_id: ih
+  benchmark: 15,000 benign security samples (log F1, phishing accuracy, malware human evaluation)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metrics
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '15000'
+- id: ev_base_pool
+  defence_id: none:a 7B pre-trained model (not named in the paper)
+  benchmark: SecureCAI adversarial set, all 51,750 samples (six attack categories pooled, including direct injection and backdoor triggers)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: '51750'
+  baseline_kind: off_the_shelf
+- id: ev_nosan_pool
+  defence_id: secai_nosan
+  benchmark: SecureCAI adversarial set, all 51,750 samples (six attack categories pooled, including direct injection and backdoor triggers)
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target behaviour elicited (criterion not detailed)
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 9
+  decoding: not reported
+  sample_size: '51750'
+- id: ev_nosan_clean
+  defence_id: secai_nosan
+  benchmark: 15,000 benign security samples (log F1, phishing accuracy, malware human evaluation)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task metrics
+  layout_same_as_defence: 'yes'
+  measured_by: securecai_arxiv2026
+  page: 9
+  decoding: not reported
+  sample_size: '15000'
+results:
+- id: r_base_log
+  evaluation_id: ev_base_log
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, log
+  value: '87.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_base_email
+  evaluation_id: ev_base_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, email
+  value: '82.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_base_mal
+  evaluation_id: ev_base_mal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, mal
+  value: '79.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_base_clean
+  evaluation_id: ev_base_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean performance, average of the three task metrics
+  value: '91.5'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_cai_log
+  evaluation_id: ev_cai_log
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, log
+  value: '42.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_cai_email
+  evaluation_id: ev_cai_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, email
+  value: '38.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_cai_mal
+  evaluation_id: ev_cai_mal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, mal
+  value: '35.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_cai_clean
+  evaluation_id: ev_cai_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean performance, average of the three task metrics
+  value: '89.7'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_ih_log
+  evaluation_id: ev_ih_log
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, log
+  value: '38.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_ih_email
+  evaluation_id: ev_ih_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, email
+  value: '35.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_ih_mal
+  evaluation_id: ev_ih_mal
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, mal
+  value: '32.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_ih_clean
+  evaluation_id: ev_ih_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean performance, average of the three task metrics
+  value: '86.7'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+- id: r_base_pool
+  evaluation_id: ev_base_pool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: ASR, average over all categories
+  value: '80.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Tables 2 and 3
+- id: r_nosan_pool
+  evaluation_id: ev_nosan_pool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: ASR, average over all categories
+  value: '9.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+- id: r_nosan_clean
+  evaluation_id: ev_nosan_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '95.0'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 9
+  location: Table 4
+comparisons:
+- id: c_cai_log
+  left: ev_cai_log
+  right: ev_base_log
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_cai_email
+  left: ev_cai_email
+  right: ev_base_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_cai_mal
+  left: ev_cai_mal
+  right: ev_base_mal
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_cai_clean
+  left: ev_cai_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ih_log
+  left: ev_ih_log
+  right: ev_base_log
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ih_email
+  left: ev_ih_email
+  right: ev_base_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ih_mal
+  left: ev_ih_mal
+  right: ev_base_mal
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ih_clean
+  left: ev_ih_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nosan_pool
+  left: ev_nosan_pool
+  right: ev_base_pool
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 9
+- id: c_nosan_clean
+  left: ev_nosan_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 9
+claims:
+- id: k1
+  text: SecureCAI lowers attack success by 94.7% against the base model while keeping clean accuracy
+  location: abstract
+  anchor: reduces attack success rates by 94.7% compared
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_nosan_pool
+  - c_nosan_clean
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2 (Log, Email, Malware); Table 4 pooled (proxy)
+    R2clean: Tables 3 and 4
+    R2attack: not reported
+schema_gaps:
+- where: claim k1
+  note: the 94.7% figure is for the full system, which includes input sanitisation; the in-scope comparison is the ablation without the sanitiser, whose attack success is only given pooled over all six categories, including
+    direct injection
+- where: report
+  note: the base model is described only as a 7B pre-trained model and the training and test data as collected from operational environments; which model the Instruction Hierarchy prompt runs on is not stated and is taken
+    to be the same base

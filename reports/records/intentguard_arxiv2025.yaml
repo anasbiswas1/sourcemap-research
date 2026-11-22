@@ -1,0 +1,2819 @@
+report:
+  id: intentguard_arxiv2025
+  slug: '2512.00966'
+  title: Mitigating Indirect Prompt Injection via Instruction-Following Intent Analysis
+  first_author: Mintong Kang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2512.00966'
+  version_read: arXiv v1
+  first_date: '2025-11-30'
+  read: F
+  role: proposes
+  extraction_scope: 'Tables 1 and 2: Vanilla, SEP Defense and IntentGuard (recovery mode) for Qwen3-32B and gpt-oss-20B on AgentDojo and Mind2Web, benign utility, and utility and attack success under the four attacks; the
+    abstract claim (PromptArmor, an external LLM detector, is left out; the ablations of Figure 3 are shown only as bars; Tables 3 and 4 concern origin tracing settings)'
+defences:
+- id: ig_qwen
+  name: IntentGuard (thinking prefill, end-of-thinking refinement and an adversarial demonstration list the instructions the model intends to follow; those traced to untrusted segments are masked and inference is rerun)
+  origin: this_report
+  base_checkpoint: Qwen3-32B
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: agent loop; system and user prompts trusted, tool responses and web content untrusted
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: masks out the suspicious content and reruns inference
+- id: sep_qwen
+  name: SEP Defense (prompt telling the model which part of the input to execute and which to process)
+  origin: other_report
+  base_checkpoint: Qwen3-32B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: agent loop; system and user prompts trusted, tool responses and web content untrusted
+  layout_compat: *id001
+  anchor: which utilizes prompt engineering to tell the model
+- id: ig_oss
+  name: IntentGuard (thinking prefill, end-of-thinking refinement and an adversarial demonstration list the instructions the model intends to follow; those traced to untrusted segments are masked and inference is rerun)
+  origin: this_report
+  base_checkpoint: gpt-oss-20B
+  axis1:
+  - chat_roles
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: agent loop; system and user prompts trusted, tool responses and web content untrusted
+  layout_compat: *id001
+  anchor: masks out the suspicious content and reruns inference
+- id: sep_oss
+  name: SEP Defense (prompt telling the model which part of the input to execute and which to process)
+  origin: other_report
+  base_checkpoint: gpt-oss-20B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: agent loop; system and user prompts trusted, tool responses and web content untrusted
+  layout_compat: *id001
+  anchor: which utilizes prompt engineering to tell the model
+evaluations:
+- id: ev_adj_qwen_van_ben
+  defence_id: none:Qwen3-32B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_qwen_van_tmpl
+  defence_id: none:Qwen3-32B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_qwen_van_beam
+  defence_id: none:Qwen3-32B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_qwen_van_gcg
+  defence_id: none:Qwen3-32B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_qwen_van_pair
+  defence_id: none:Qwen3-32B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_qwen_sep_ben
+  defence_id: sep_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_adj_qwen_sep_tmpl
+  defence_id: sep_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+- id: ev_adj_qwen_sep_beam
+  defence_id: sep_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_adj_qwen_sep_gcg
+  defence_id: sep_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_adj_qwen_sep_pair
+  defence_id: sep_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+- id: ev_adj_qwen_ig_ben
+  defence_id: ig_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_adj_qwen_ig_tmpl
+  defence_id: ig_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+- id: ev_adj_qwen_ig_beam
+  defence_id: ig_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_adj_qwen_ig_gcg
+  defence_id: ig_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_adj_qwen_ig_pair
+  defence_id: ig_qwen
+  benchmark: AgentDojo (97 tasks, 629 injection cases), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+- id: ev_adj_oss_van_ben
+  defence_id: none:gpt-oss-20B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_oss_van_tmpl
+  defence_id: none:gpt-oss-20B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_oss_van_beam
+  defence_id: none:gpt-oss-20B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_oss_van_gcg
+  defence_id: none:gpt-oss-20B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_oss_van_pair
+  defence_id: none:gpt-oss-20B
+  benchmark: AgentDojo (97 tasks, 629 injection cases), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_adj_oss_sep_ben
+  defence_id: sep_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_adj_oss_sep_tmpl
+  defence_id: sep_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+- id: ev_adj_oss_sep_beam
+  defence_id: sep_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_adj_oss_sep_gcg
+  defence_id: sep_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_adj_oss_sep_pair
+  defence_id: sep_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+- id: ev_adj_oss_ig_ben
+  defence_id: ig_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_adj_oss_ig_tmpl
+  defence_id: ig_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+- id: ev_adj_oss_ig_beam
+  defence_id: ig_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_adj_oss_ig_gcg
+  defence_id: ig_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_adj_oss_ig_pair
+  defence_id: ig_oss
+  benchmark: AgentDojo (97 tasks, 629 injection cases), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+- id: ev_m2w_qwen_van_ben
+  defence_id: none:Qwen3-32B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_qwen_van_tmpl
+  defence_id: none:Qwen3-32B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_qwen_van_beam
+  defence_id: none:Qwen3-32B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_qwen_van_gcg
+  defence_id: none:Qwen3-32B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_qwen_van_pair
+  defence_id: none:Qwen3-32B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_qwen_sep_ben
+  defence_id: sep_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_m2w_qwen_sep_tmpl
+  defence_id: sep_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+- id: ev_m2w_qwen_sep_beam
+  defence_id: sep_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_m2w_qwen_sep_gcg
+  defence_id: sep_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_m2w_qwen_sep_pair
+  defence_id: sep_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+- id: ev_m2w_qwen_ig_ben
+  defence_id: ig_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_m2w_qwen_ig_tmpl
+  defence_id: ig_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+- id: ev_m2w_qwen_ig_beam
+  defence_id: ig_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_m2w_qwen_ig_gcg
+  defence_id: ig_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_m2w_qwen_ig_pair
+  defence_id: ig_qwen
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+- id: ev_m2w_oss_van_ben
+  defence_id: none:gpt-oss-20B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_oss_van_tmpl
+  defence_id: none:gpt-oss-20B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_oss_van_beam
+  defence_id: none:gpt-oss-20B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_oss_van_gcg
+  defence_id: none:gpt-oss-20B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_oss_van_pair
+  defence_id: none:gpt-oss-20B
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_m2w_oss_sep_ben
+  defence_id: sep_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_m2w_oss_sep_tmpl
+  defence_id: sep_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+- id: ev_m2w_oss_sep_beam
+  defence_id: sep_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_m2w_oss_sep_gcg
+  defence_id: sep_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_m2w_oss_sep_pair
+  defence_id: sep_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+- id: ev_m2w_oss_ig_ben
+  defence_id: ig_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), benign
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark utility check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  decoding: not reported
+- id: ev_m2w_oss_ig_tmpl
+  defence_id: ig_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Template injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: AgentDojo fixed templates
+  decoding: not reported
+- id: ev_m2w_oss_ig_beam
+  defence_id: ig_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), Beam Search injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: beam search optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_m2w_oss_ig_gcg
+  defence_id: ig_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), GCG injections
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: GCG suffixes optimised against each defence (and the undefended model)
+  decoding: not reported
+- id: ev_m2w_oss_ig_pair
+  defence_id: ig_oss
+  benchmark: Mind2Web with AdvAgent injections (440 tasks), PAIR injections
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark attack check
+  layout_same_as_defence: 'yes'
+  measured_by: intentguard_arxiv2025
+  page: 7
+  attacker_budget: PAIR-adaptive refinement against each defence, reading the model's reasoning
+  decoding: not reported
+results:
+- id: r_adj_qwen_van_ben
+  evaluation_id: ev_adj_qwen_van_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.773'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_van_tmpl_asr
+  evaluation_id: ev_adj_qwen_van_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.468'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_van_tmpl_util
+  evaluation_id: ev_adj_qwen_van_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.515'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_van_beam_asr
+  evaluation_id: ev_adj_qwen_van_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.482'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_van_beam_util
+  evaluation_id: ev_adj_qwen_van_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.503'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_van_gcg_asr
+  evaluation_id: ev_adj_qwen_van_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.624'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_van_gcg_util
+  evaluation_id: ev_adj_qwen_van_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.693'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_van_pair_asr
+  evaluation_id: ev_adj_qwen_van_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.723'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_van_pair_util
+  evaluation_id: ev_adj_qwen_van_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.464'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_sep_ben
+  evaluation_id: ev_adj_qwen_sep_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.773'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_sep_tmpl_asr
+  evaluation_id: ev_adj_qwen_sep_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.452'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_sep_tmpl_util
+  evaluation_id: ev_adj_qwen_sep_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.535'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_sep_beam_asr
+  evaluation_id: ev_adj_qwen_sep_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.489'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_sep_beam_util
+  evaluation_id: ev_adj_qwen_sep_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.557'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_sep_gcg_asr
+  evaluation_id: ev_adj_qwen_sep_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.542'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_sep_gcg_util
+  evaluation_id: ev_adj_qwen_sep_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.503'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_sep_pair_asr
+  evaluation_id: ev_adj_qwen_sep_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.689'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_sep_pair_util
+  evaluation_id: ev_adj_qwen_sep_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.476'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_ig_ben
+  evaluation_id: ev_adj_qwen_ig_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.773'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_ig_tmpl_asr
+  evaluation_id: ev_adj_qwen_ig_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.043'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_ig_tmpl_util
+  evaluation_id: ev_adj_qwen_ig_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.716'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_ig_beam_asr
+  evaluation_id: ev_adj_qwen_ig_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.039'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_ig_beam_util
+  evaluation_id: ev_adj_qwen_ig_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.723'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_ig_gcg_asr
+  evaluation_id: ev_adj_qwen_ig_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.039'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_ig_gcg_util
+  evaluation_id: ev_adj_qwen_ig_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.710'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_ig_pair_asr
+  evaluation_id: ev_adj_qwen_ig_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.092'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_qwen_ig_pair_util
+  evaluation_id: ev_adj_qwen_ig_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.687'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_van_ben
+  evaluation_id: ev_adj_oss_van_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.649'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_van_tmpl_asr
+  evaluation_id: ev_adj_oss_van_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.491'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_van_tmpl_util
+  evaluation_id: ev_adj_oss_van_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.452'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_van_beam_asr
+  evaluation_id: ev_adj_oss_van_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.507'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_van_beam_util
+  evaluation_id: ev_adj_oss_van_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.463'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_van_gcg_asr
+  evaluation_id: ev_adj_oss_van_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.642'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_van_gcg_util
+  evaluation_id: ev_adj_oss_van_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.582'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_van_pair_asr
+  evaluation_id: ev_adj_oss_van_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.731'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_van_pair_util
+  evaluation_id: ev_adj_oss_van_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.389'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_sep_ben
+  evaluation_id: ev_adj_oss_sep_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.649'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_sep_tmpl_asr
+  evaluation_id: ev_adj_oss_sep_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.474'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_sep_tmpl_util
+  evaluation_id: ev_adj_oss_sep_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.479'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_sep_beam_asr
+  evaluation_id: ev_adj_oss_sep_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.496'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_sep_beam_util
+  evaluation_id: ev_adj_oss_sep_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.493'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_sep_gcg_asr
+  evaluation_id: ev_adj_oss_sep_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.551'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_sep_gcg_util
+  evaluation_id: ev_adj_oss_sep_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.471'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_sep_pair_asr
+  evaluation_id: ev_adj_oss_sep_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.695'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_sep_pair_util
+  evaluation_id: ev_adj_oss_sep_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.402'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_ig_ben
+  evaluation_id: ev_adj_oss_ig_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.649'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_ig_tmpl_asr
+  evaluation_id: ev_adj_oss_ig_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.051'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_ig_tmpl_util
+  evaluation_id: ev_adj_oss_ig_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.673'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_ig_beam_asr
+  evaluation_id: ev_adj_oss_ig_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.047'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_ig_beam_util
+  evaluation_id: ev_adj_oss_ig_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.678'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_ig_gcg_asr
+  evaluation_id: ev_adj_oss_ig_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.049'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_ig_gcg_util
+  evaluation_id: ev_adj_oss_ig_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.664'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_ig_pair_asr
+  evaluation_id: ev_adj_oss_ig_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.104'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_adj_oss_ig_pair_util
+  evaluation_id: ev_adj_oss_ig_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.643'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_m2w_qwen_van_ben
+  evaluation_id: ev_m2w_qwen_van_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.840'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_van_tmpl_asr
+  evaluation_id: ev_m2w_qwen_van_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.462'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_van_tmpl_util
+  evaluation_id: ev_m2w_qwen_van_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.612'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_van_beam_asr
+  evaluation_id: ev_m2w_qwen_van_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.488'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_van_beam_util
+  evaluation_id: ev_m2w_qwen_van_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.598'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_van_gcg_asr
+  evaluation_id: ev_m2w_qwen_van_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.635'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_van_gcg_util
+  evaluation_id: ev_m2w_qwen_van_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.543'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_van_pair_asr
+  evaluation_id: ev_m2w_qwen_van_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '1.000'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_van_pair_util
+  evaluation_id: ev_m2w_qwen_van_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.000'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_sep_ben
+  evaluation_id: ev_m2w_qwen_sep_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.840'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_sep_tmpl_asr
+  evaluation_id: ev_m2w_qwen_sep_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.447'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_sep_tmpl_util
+  evaluation_id: ev_m2w_qwen_sep_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.631'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_sep_beam_asr
+  evaluation_id: ev_m2w_qwen_sep_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.465'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_sep_beam_util
+  evaluation_id: ev_m2w_qwen_sep_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.612'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_sep_gcg_asr
+  evaluation_id: ev_m2w_qwen_sep_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.589'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_sep_gcg_util
+  evaluation_id: ev_m2w_qwen_sep_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.558'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_sep_pair_asr
+  evaluation_id: ev_m2w_qwen_sep_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.715'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_sep_pair_util
+  evaluation_id: ev_m2w_qwen_sep_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.317'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_ig_ben
+  evaluation_id: ev_m2w_qwen_ig_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.810'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_ig_tmpl_asr
+  evaluation_id: ev_m2w_qwen_ig_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.052'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_ig_tmpl_util
+  evaluation_id: ev_m2w_qwen_ig_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.756'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_ig_beam_asr
+  evaluation_id: ev_m2w_qwen_ig_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.047'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_ig_beam_util
+  evaluation_id: ev_m2w_qwen_ig_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.749'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_ig_gcg_asr
+  evaluation_id: ev_m2w_qwen_ig_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.056'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_ig_gcg_util
+  evaluation_id: ev_m2w_qwen_ig_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.733'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_ig_pair_asr
+  evaluation_id: ev_m2w_qwen_ig_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.085'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_qwen_ig_pair_util
+  evaluation_id: ev_m2w_qwen_ig_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.695'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_van_ben
+  evaluation_id: ev_m2w_oss_van_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.740'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_van_tmpl_asr
+  evaluation_id: ev_m2w_oss_van_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.483'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_van_tmpl_util
+  evaluation_id: ev_m2w_oss_van_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.534'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_van_beam_asr
+  evaluation_id: ev_m2w_oss_van_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.497'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_van_beam_util
+  evaluation_id: ev_m2w_oss_van_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.528'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_van_gcg_asr
+  evaluation_id: ev_m2w_oss_van_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.621'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_van_gcg_util
+  evaluation_id: ev_m2w_oss_van_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.489'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_van_pair_asr
+  evaluation_id: ev_m2w_oss_van_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.726'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_van_pair_util
+  evaluation_id: ev_m2w_oss_van_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.312'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_sep_ben
+  evaluation_id: ev_m2w_oss_sep_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.740'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_sep_tmpl_asr
+  evaluation_id: ev_m2w_oss_sep_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.462'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_sep_tmpl_util
+  evaluation_id: ev_m2w_oss_sep_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.558'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_sep_beam_asr
+  evaluation_id: ev_m2w_oss_sep_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.479'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_sep_beam_util
+  evaluation_id: ev_m2w_oss_sep_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.541'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_sep_gcg_asr
+  evaluation_id: ev_m2w_oss_sep_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.574'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_sep_gcg_util
+  evaluation_id: ev_m2w_oss_sep_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.503'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_sep_pair_asr
+  evaluation_id: ev_m2w_oss_sep_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.689'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_sep_pair_util
+  evaluation_id: ev_m2w_oss_sep_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.328'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_ig_ben
+  evaluation_id: ev_m2w_oss_ig_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility
+  value: '0.745'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_ig_tmpl_asr
+  evaluation_id: ev_m2w_oss_ig_tmpl
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Template
+  value: '0.061'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_ig_tmpl_util
+  evaluation_id: ev_m2w_oss_ig_tmpl
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Template
+  value: '0.692'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_ig_beam_asr
+  evaluation_id: ev_m2w_oss_ig_beam
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Beam Search
+  value: '0.058'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_ig_beam_util
+  evaluation_id: ev_m2w_oss_ig_beam
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, Beam Search
+  value: '0.681'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_ig_gcg_asr
+  evaluation_id: ev_m2w_oss_ig_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG
+  value: '0.064'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_ig_gcg_util
+  evaluation_id: ev_m2w_oss_ig_gcg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, GCG
+  value: '0.667'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_ig_pair_asr
+  evaluation_id: ev_m2w_oss_ig_pair
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, PAIR
+  value: '0.109'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_m2w_oss_ig_pair_util
+  evaluation_id: ev_m2w_oss_ig_pair
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack, PAIR
+  value: '0.649'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+comparisons:
+- id: c_adj_qwen_ig_ben
+  left: ev_adj_qwen_ig_ben
+  right: ev_adj_qwen_van_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_sep_ben
+  left: ev_adj_qwen_sep_ben
+  right: ev_adj_qwen_van_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_igsep_ben
+  left: ev_adj_qwen_ig_ben
+  right: ev_adj_qwen_sep_ben
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_adj_qwen_ig_tmpl
+  left: ev_adj_qwen_ig_tmpl
+  right: ev_adj_qwen_van_tmpl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_sep_tmpl
+  left: ev_adj_qwen_sep_tmpl
+  right: ev_adj_qwen_van_tmpl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_igsep_tmpl
+  left: ev_adj_qwen_ig_tmpl
+  right: ev_adj_qwen_sep_tmpl
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_adj_qwen_ig_beam
+  left: ev_adj_qwen_ig_beam
+  right: ev_adj_qwen_van_beam
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_sep_beam
+  left: ev_adj_qwen_sep_beam
+  right: ev_adj_qwen_van_beam
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_igsep_beam
+  left: ev_adj_qwen_ig_beam
+  right: ev_adj_qwen_sep_beam
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_adj_qwen_ig_gcg
+  left: ev_adj_qwen_ig_gcg
+  right: ev_adj_qwen_van_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_sep_gcg
+  left: ev_adj_qwen_sep_gcg
+  right: ev_adj_qwen_van_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_igsep_gcg
+  left: ev_adj_qwen_ig_gcg
+  right: ev_adj_qwen_sep_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_adj_qwen_ig_pair
+  left: ev_adj_qwen_ig_pair
+  right: ev_adj_qwen_van_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_sep_pair
+  left: ev_adj_qwen_sep_pair
+  right: ev_adj_qwen_van_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_qwen_igsep_pair
+  left: ev_adj_qwen_ig_pair
+  right: ev_adj_qwen_sep_pair
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_adj_oss_ig_ben
+  left: ev_adj_oss_ig_ben
+  right: ev_adj_oss_van_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_sep_ben
+  left: ev_adj_oss_sep_ben
+  right: ev_adj_oss_van_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_igsep_ben
+  left: ev_adj_oss_ig_ben
+  right: ev_adj_oss_sep_ben
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_adj_oss_ig_tmpl
+  left: ev_adj_oss_ig_tmpl
+  right: ev_adj_oss_van_tmpl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_sep_tmpl
+  left: ev_adj_oss_sep_tmpl
+  right: ev_adj_oss_van_tmpl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_igsep_tmpl
+  left: ev_adj_oss_ig_tmpl
+  right: ev_adj_oss_sep_tmpl
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_adj_oss_ig_beam
+  left: ev_adj_oss_ig_beam
+  right: ev_adj_oss_van_beam
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_sep_beam
+  left: ev_adj_oss_sep_beam
+  right: ev_adj_oss_van_beam
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_igsep_beam
+  left: ev_adj_oss_ig_beam
+  right: ev_adj_oss_sep_beam
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_adj_oss_ig_gcg
+  left: ev_adj_oss_ig_gcg
+  right: ev_adj_oss_van_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_sep_gcg
+  left: ev_adj_oss_sep_gcg
+  right: ev_adj_oss_van_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_igsep_gcg
+  left: ev_adj_oss_ig_gcg
+  right: ev_adj_oss_sep_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_adj_oss_ig_pair
+  left: ev_adj_oss_ig_pair
+  right: ev_adj_oss_van_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_sep_pair
+  left: ev_adj_oss_sep_pair
+  right: ev_adj_oss_van_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_adj_oss_igsep_pair
+  left: ev_adj_oss_ig_pair
+  right: ev_adj_oss_sep_pair
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_qwen_ig_ben
+  left: ev_m2w_qwen_ig_ben
+  right: ev_m2w_qwen_van_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_sep_ben
+  left: ev_m2w_qwen_sep_ben
+  right: ev_m2w_qwen_van_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_igsep_ben
+  left: ev_m2w_qwen_ig_ben
+  right: ev_m2w_qwen_sep_ben
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_qwen_ig_tmpl
+  left: ev_m2w_qwen_ig_tmpl
+  right: ev_m2w_qwen_van_tmpl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_sep_tmpl
+  left: ev_m2w_qwen_sep_tmpl
+  right: ev_m2w_qwen_van_tmpl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_igsep_tmpl
+  left: ev_m2w_qwen_ig_tmpl
+  right: ev_m2w_qwen_sep_tmpl
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_qwen_ig_beam
+  left: ev_m2w_qwen_ig_beam
+  right: ev_m2w_qwen_van_beam
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_sep_beam
+  left: ev_m2w_qwen_sep_beam
+  right: ev_m2w_qwen_van_beam
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_igsep_beam
+  left: ev_m2w_qwen_ig_beam
+  right: ev_m2w_qwen_sep_beam
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_qwen_ig_gcg
+  left: ev_m2w_qwen_ig_gcg
+  right: ev_m2w_qwen_van_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_sep_gcg
+  left: ev_m2w_qwen_sep_gcg
+  right: ev_m2w_qwen_van_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_igsep_gcg
+  left: ev_m2w_qwen_ig_gcg
+  right: ev_m2w_qwen_sep_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_qwen_ig_pair
+  left: ev_m2w_qwen_ig_pair
+  right: ev_m2w_qwen_van_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_sep_pair
+  left: ev_m2w_qwen_sep_pair
+  right: ev_m2w_qwen_van_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_qwen_igsep_pair
+  left: ev_m2w_qwen_ig_pair
+  right: ev_m2w_qwen_sep_pair
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_oss_ig_ben
+  left: ev_m2w_oss_ig_ben
+  right: ev_m2w_oss_van_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_sep_ben
+  left: ev_m2w_oss_sep_ben
+  right: ev_m2w_oss_van_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_igsep_ben
+  left: ev_m2w_oss_ig_ben
+  right: ev_m2w_oss_sep_ben
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_oss_ig_tmpl
+  left: ev_m2w_oss_ig_tmpl
+  right: ev_m2w_oss_van_tmpl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_sep_tmpl
+  left: ev_m2w_oss_sep_tmpl
+  right: ev_m2w_oss_van_tmpl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_igsep_tmpl
+  left: ev_m2w_oss_ig_tmpl
+  right: ev_m2w_oss_sep_tmpl
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_oss_ig_beam
+  left: ev_m2w_oss_ig_beam
+  right: ev_m2w_oss_van_beam
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_sep_beam
+  left: ev_m2w_oss_sep_beam
+  right: ev_m2w_oss_van_beam
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_igsep_beam
+  left: ev_m2w_oss_ig_beam
+  right: ev_m2w_oss_sep_beam
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_oss_ig_gcg
+  left: ev_m2w_oss_ig_gcg
+  right: ev_m2w_oss_van_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_sep_gcg
+  left: ev_m2w_oss_sep_gcg
+  right: ev_m2w_oss_van_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_igsep_gcg
+  left: ev_m2w_oss_ig_gcg
+  right: ev_m2w_oss_sep_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+- id: c_m2w_oss_ig_pair
+  left: ev_m2w_oss_ig_pair
+  right: ev_m2w_oss_van_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_sep_pair
+  left: ev_m2w_oss_sep_pair
+  right: ev_m2w_oss_van_pair
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_m2w_oss_igsep_pair
+  left: ev_m2w_oss_ig_pair
+  right: ev_m2w_oss_sep_pair
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: IntentGuard against SEP Defense on the same model
+  page: 7
+claims:
+- id: k1
+  text: IntentGuard causes no utility loss in all but one setting and strongly lowers attack success against adaptive attacks
+  location: abstract
+  anchor: no utility degradation in all but one setting
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_adj_qwen_ig_ben
+  - c_adj_qwen_ig_tmpl
+  - c_adj_qwen_ig_beam
+  - c_adj_qwen_ig_gcg
+  - c_adj_qwen_ig_pair
+  - c_adj_oss_ig_ben
+  - c_adj_oss_ig_tmpl
+  - c_adj_oss_ig_beam
+  - c_adj_oss_ig_gcg
+  - c_adj_oss_ig_pair
+  - c_m2w_qwen_ig_ben
+  - c_m2w_qwen_ig_tmpl
+  - c_m2w_qwen_ig_beam
+  - c_m2w_qwen_ig_gcg
+  - c_m2w_qwen_ig_pair
+  - c_m2w_oss_ig_ben
+  - c_m2w_oss_ig_tmpl
+  - c_m2w_oss_ig_beam
+  - c_m2w_oss_ig_gcg
+  - c_m2w_oss_ig_pair
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1 and 2
+    R2clean: Tables 1 and 2 (benign utility)
+    R2attack: Tables 1 and 2 (utility under attack)
+schema_gaps:
+- where: defences ig_*
+  note: IntentGuard's trust labels come from the agent's message segments (tool responses untrusted), which is coded as chat roles; the masking step uses the model's own listed intent, not a separate classifier, which is why
+    it is kept under amendment 4
+- where: report
+  note: each attack is optimised separately against each defence and the undefended model, so attacker matching is by procedure and budget, not by identical injections

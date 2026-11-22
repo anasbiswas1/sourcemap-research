@@ -1,0 +1,510 @@
+report:
+  id: jatmohouyi_arxiv2025
+  slug: '2512.01326'
+  title: Securing Large Language Models (LLMs) from Prompt Injection Attacks
+  first_author: Omar Farooq Khan Suri
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2512.01326'
+  version_read: arXiv v1
+  first_date: '2025-12-01'
+  read: F
+  role: re_measures
+  extraction_scope: 'Table 1: three Jatmo models trained by the authors (LoRA) and the fine-tuned GPT-3.5-Turbo reference under HOUYI attacks, content manipulation and information gathering success and ROUGE-L; the abstract
+    claim (Figure 1 repeats Table 1)'
+defences:
+- id: jatmo_q05
+  name: Jatmo (task-specific LoRA fine-tuning of a non-instruction-tuned base model on GPT-3.5 summaries of Amazon All-Beauty reviews)
+  origin: other_report
+  base_checkpoint: Qwen1.5-0.5B base
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: three product reviews to summarise, HOUYI separator and disruptor appended; no instruction in the prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: fine-tuning non–instruction-tuned base models so they perform only a
+- id: jatmo_q4
+  name: Jatmo (task-specific LoRA fine-tuning of a non-instruction-tuned base model on GPT-3.5 summaries of Amazon All-Beauty reviews)
+  origin: other_report
+  base_checkpoint: Qwen1.5-4B base
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: three product reviews to summarise, HOUYI separator and disruptor appended; no instruction in the prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: fine-tuning non–instruction-tuned base models so they perform only a
+- id: jatmo_l7
+  name: Jatmo (task-specific LoRA fine-tuning of a non-instruction-tuned base model on GPT-3.5 summaries of Amazon All-Beauty reviews)
+  origin: other_report
+  base_checkpoint: LLaMA-2-7B base
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  isolation: no_ablation
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  layout: three product reviews to summarise, HOUYI separator and disruptor appended; no instruction in the prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: fine-tuning non–instruction-tuned base models so they perform only a
+evaluations:
+- id: ev_q05_cm
+  defence_id: jatmo_q05
+  benchmark: Amazon All-Beauty review summarisation, HOUYI content-manipulation injections (append 'pwned'), 72 prompts
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: '''pwned'' at the end of the response'
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+- id: ev_q05_ig
+  defence_id: jatmo_q05
+  benchmark: Amazon All-Beauty review summarisation, HOUYI information-gathering injections (reveal the current date), 72 prompts
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: date-like format or 'current date' keywords in the response
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+- id: ev_q05_rg
+  defence_id: jatmo_q05
+  benchmark: Amazon All-Beauty review summarisation under HOUYI injections, summary quality
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: ROUGE-L against GPT-3.5 reference summaries
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+- id: ev_q4_cm
+  defence_id: jatmo_q4
+  benchmark: Amazon All-Beauty review summarisation, HOUYI content-manipulation injections (append 'pwned'), 72 prompts
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: '''pwned'' at the end of the response'
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+- id: ev_q4_ig
+  defence_id: jatmo_q4
+  benchmark: Amazon All-Beauty review summarisation, HOUYI information-gathering injections (reveal the current date), 72 prompts
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: date-like format or 'current date' keywords in the response
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+- id: ev_q4_rg
+  defence_id: jatmo_q4
+  benchmark: Amazon All-Beauty review summarisation under HOUYI injections, summary quality
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: ROUGE-L against GPT-3.5 reference summaries
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+- id: ev_l7_cm
+  defence_id: jatmo_l7
+  benchmark: Amazon All-Beauty review summarisation, HOUYI content-manipulation injections (append 'pwned'), 72 prompts
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: '''pwned'' at the end of the response'
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+- id: ev_l7_ig
+  defence_id: jatmo_l7
+  benchmark: Amazon All-Beauty review summarisation, HOUYI information-gathering injections (reveal the current date), 72 prompts
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: date-like format or 'current date' keywords in the response
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+- id: ev_l7_rg
+  defence_id: jatmo_l7
+  benchmark: Amazon All-Beauty review summarisation under HOUYI injections, summary quality
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: ROUGE-L against GPT-3.5 reference summaries
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+- id: ev_gpt_cm
+  defence_id: none:GPT-3.5-Turbo, fine-tuned by the authors on the same summaries (instruction-tuned reference)
+  benchmark: Amazon All-Beauty review summarisation, HOUYI content-manipulation injections (append 'pwned'), 72 prompts
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: '''pwned'' at the end of the response'
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+  baseline_kind: same_data_twin
+- id: ev_gpt_ig
+  defence_id: none:GPT-3.5-Turbo, fine-tuned by the authors on the same summaries (instruction-tuned reference)
+  benchmark: Amazon All-Beauty review summarisation, HOUYI information-gathering injections (reveal the current date), 72 prompts
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: date-like format or 'current date' keywords in the response
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+  baseline_kind: same_data_twin
+- id: ev_gpt_rg
+  defence_id: none:GPT-3.5-Turbo, fine-tuned by the authors on the same summaries (instruction-tuned reference)
+  benchmark: Amazon All-Beauty review summarisation under HOUYI injections, summary quality
+  attacker_type: optimisation
+  attacker_access: black_box
+  judge: ROUGE-L against GPT-3.5 reference summaries
+  layout_same_as_defence: 'yes'
+  measured_by: jatmohouyi_arxiv2025
+  page: 6
+  attacker_budget: HOUYI genetic mutation and crossover; 72 unique prompts per intent
+  decoding: not reported
+  sample_size: '72'
+  baseline_kind: same_data_twin
+results:
+- id: r_q05_cm
+  evaluation_id: ev_q05_cm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, content manipulation
+  value: '13.80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q05_ig
+  evaluation_id: ev_q05_ig
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, information gathering
+  value: '5.55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q05_rg
+  evaluation_id: ev_q05_rg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: ROUGE-L
+  value: '0.29'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q4_cm
+  evaluation_id: ev_q4_cm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, content manipulation
+  value: '26.38'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q4_ig
+  evaluation_id: ev_q4_ig
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, information gathering
+  value: '23.61'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q4_rg
+  evaluation_id: ev_q4_rg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: ROUGE-L
+  value: '0.43'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l7_cm
+  evaluation_id: ev_l7_cm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, content manipulation
+  value: '16.66'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l7_ig
+  evaluation_id: ev_l7_ig
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, information gathering
+  value: '5.55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l7_rg
+  evaluation_id: ev_l7_rg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: ROUGE-L
+  value: '0.33'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gpt_cm
+  evaluation_id: ev_gpt_cm
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, content manipulation
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gpt_ig
+  evaluation_id: ev_gpt_ig
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, information gathering
+  value: '100.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gpt_rg
+  evaluation_id: ev_gpt_rg
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: ROUGE-L
+  value: '0.88'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+comparisons:
+- id: c_q05_cm
+  left: ev_q05_cm
+  right: ev_gpt_cm
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: a Jatmo model against the fine-tuned instruction-tuned GPT-3.5-Turbo'
+  page: 6
+- id: c_q05_ig
+  left: ev_q05_ig
+  right: ev_gpt_ig
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: a Jatmo model against the fine-tuned instruction-tuned GPT-3.5-Turbo'
+  page: 6
+- id: c_q05_rg
+  left: ev_q05_rg
+  right: ev_gpt_rg
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: a Jatmo model against the fine-tuned instruction-tuned GPT-3.5-Turbo'
+  page: 6
+- id: c_q4_cm
+  left: ev_q4_cm
+  right: ev_gpt_cm
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: a Jatmo model against the fine-tuned instruction-tuned GPT-3.5-Turbo'
+  page: 6
+- id: c_q4_ig
+  left: ev_q4_ig
+  right: ev_gpt_ig
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: a Jatmo model against the fine-tuned instruction-tuned GPT-3.5-Turbo'
+  page: 6
+- id: c_q4_rg
+  left: ev_q4_rg
+  right: ev_gpt_rg
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: a Jatmo model against the fine-tuned instruction-tuned GPT-3.5-Turbo'
+  page: 6
+- id: c_l7_cm
+  left: ev_l7_cm
+  right: ev_gpt_cm
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: a Jatmo model against the fine-tuned instruction-tuned GPT-3.5-Turbo'
+  page: 6
+- id: c_l7_ig
+  left: ev_l7_ig
+  right: ev_gpt_ig
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: a Jatmo model against the fine-tuned instruction-tuned GPT-3.5-Turbo'
+  page: 6
+- id: c_l7_rg
+  left: ev_l7_rg
+  right: ev_gpt_rg
+  purpose: W
+  c1_base: unmatched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: a Jatmo model against the fine-tuned instruction-tuned GPT-3.5-Turbo'
+  page: 6
+claims:
+- id: k1
+  text: Jatmo lowers attack success relative to an instruction-tuned model but does not fully prevent injections
+  location: abstract
+  anchor: JATMO reduces attack success rates relative to instruction-tuned models
+  jobs:
+  - R1
+  supported_by:
+  - c_q05_cm
+  - c_q05_ig
+  - c_q4_cm
+  - c_q4_ig
+  - c_l7_cm
+  - c_l7_ig
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    R2attack: Table 1 (ROUGE-L)
+    R2clean: not reported
+schema_gaps:
+- where: comparisons
+  note: the only reference is GPT-3.5-Turbo fine-tuned on the same summaries, a different and far larger base, so every comparison has an unmatched base; whether the 72 HOUYI prompts were the same for every model is not stated;
+    13.80% does not correspond to a whole number of 72 prompts

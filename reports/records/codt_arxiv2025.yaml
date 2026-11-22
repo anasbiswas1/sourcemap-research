@@ -1,0 +1,5523 @@
+report:
+  id: codt_arxiv2025
+  slug: '2504.20769'
+  title: 'Chain-of-Defensive-Thought: Structured Reasoning Elicits Robustness in Large Language Models against Reference Corruption'
+  first_author: Wenxiao Wang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2504.20769'
+  version_read: arXiv v1
+  first_date: '2025-04-29'
+  read: F
+  role: proposes
+  extraction_scope: 'Tables 1 and 2: standard prompting against chain-of-defensive-thought for all 18 models on Natural Questions and RealTime QA, clean accuracy and the prompt-injection column (accuracy and attack success);
+    the abstract claim (the knowledge-corruption column, PoisonedRAG-style fake passages, is not prompt injection and is not coded; the minimum and maximum columns mix both attacks)'
+defences:
+- id: codt_0
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: GPT-4o
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Number the references (if they are not already).
+- id: codt_1
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: GPT-3.5-turbo
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_2
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Claude 3.5 Sonnet
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_3
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Claude 3.5 Haiku
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_4
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Claude 3 Sonnet
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_5
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Claude 3 Haiku
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_6
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_7
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Llama-3-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_8
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Mistral-7B-Instruct-v0.3
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_9
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Gemma-2-9b-it
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_10
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_11
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Deepseek-llm-7b-chat
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_12
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: OLMo-7B-0724-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_13
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Phi-3.5-mini-instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_14
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Yi-1.5-9B-Chat
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_15
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Llama-2-7b-chat
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_16
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Mistral-7B-Instruct-v0.2
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+- id: codt_17
+  name: chain-of-defensive-thought (numbered references, instruction to identify relevant and reliable contexts, exemplars with a reasoning line)
+  origin: this_report
+  base_checkpoint: Qwen2-7B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 3
+  layout: ten retrieved passages in one context block before the query; the last passage is corrupted; four exemplars
+  layout_compat: *id001
+  anchor: Number the references (if they are not already).
+evaluations:
+- id: ev_nq_0_std
+  defence_id: none:GPT-4o
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_0_std_clean
+  defence_id: none:GPT-4o
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_0_codt
+  defence_id: codt_0
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_0_codt_clean
+  defence_id: codt_0
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_1_std
+  defence_id: none:GPT-3.5-turbo
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_1_std_clean
+  defence_id: none:GPT-3.5-turbo
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_1_codt
+  defence_id: codt_1
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_1_codt_clean
+  defence_id: codt_1
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_2_std
+  defence_id: none:Claude 3.5 Sonnet
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_2_std_clean
+  defence_id: none:Claude 3.5 Sonnet
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_2_codt
+  defence_id: codt_2
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_2_codt_clean
+  defence_id: codt_2
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_3_std
+  defence_id: none:Claude 3.5 Haiku
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_3_std_clean
+  defence_id: none:Claude 3.5 Haiku
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_3_codt
+  defence_id: codt_3
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_3_codt_clean
+  defence_id: codt_3
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_4_std
+  defence_id: none:Claude 3 Sonnet
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_4_std_clean
+  defence_id: none:Claude 3 Sonnet
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_4_codt
+  defence_id: codt_4
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_4_codt_clean
+  defence_id: codt_4
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_5_std
+  defence_id: none:Claude 3 Haiku
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_5_std_clean
+  defence_id: none:Claude 3 Haiku
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_5_codt
+  defence_id: codt_5
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_5_codt_clean
+  defence_id: codt_5
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_6_std
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_6_std_clean
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_6_codt
+  defence_id: codt_6
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_6_codt_clean
+  defence_id: codt_6
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_7_std
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_7_std_clean
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_7_codt
+  defence_id: codt_7
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_7_codt_clean
+  defence_id: codt_7
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_8_std
+  defence_id: none:Mistral-7B-Instruct-v0.3
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_8_std_clean
+  defence_id: none:Mistral-7B-Instruct-v0.3
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_8_codt
+  defence_id: codt_8
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_8_codt_clean
+  defence_id: codt_8
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_9_std
+  defence_id: none:Gemma-2-9b-it
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_9_std_clean
+  defence_id: none:Gemma-2-9b-it
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_9_codt
+  defence_id: codt_9
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_9_codt_clean
+  defence_id: codt_9
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_10_std
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_10_std_clean
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_10_codt
+  defence_id: codt_10
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_10_codt_clean
+  defence_id: codt_10
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_11_std
+  defence_id: none:Deepseek-llm-7b-chat
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_11_std_clean
+  defence_id: none:Deepseek-llm-7b-chat
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_11_codt
+  defence_id: codt_11
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_11_codt_clean
+  defence_id: codt_11
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_12_std
+  defence_id: none:OLMo-7B-0724-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_12_std_clean
+  defence_id: none:OLMo-7B-0724-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_12_codt
+  defence_id: codt_12
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_12_codt_clean
+  defence_id: codt_12
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_13_std
+  defence_id: none:Phi-3.5-mini-instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_13_std_clean
+  defence_id: none:Phi-3.5-mini-instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_13_codt
+  defence_id: codt_13
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_13_codt_clean
+  defence_id: codt_13
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_14_std
+  defence_id: none:Yi-1.5-9B-Chat
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_14_std_clean
+  defence_id: none:Yi-1.5-9B-Chat
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_14_codt
+  defence_id: codt_14
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_14_codt_clean
+  defence_id: codt_14
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_15_std
+  defence_id: none:Llama-2-7b-chat
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_15_std_clean
+  defence_id: none:Llama-2-7b-chat
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_15_codt
+  defence_id: codt_15
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_15_codt_clean
+  defence_id: codt_15
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_16_std
+  defence_id: none:Mistral-7B-Instruct-v0.2
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_16_std_clean
+  defence_id: none:Mistral-7B-Instruct-v0.2
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_16_codt
+  defence_id: codt_16
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_16_codt_clean
+  defence_id: codt_16
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_17_std
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_17_std_clean
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_nq_17_codt
+  defence_id: codt_17
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_nq_17_codt_clean
+  defence_id: codt_17
+  benchmark: Natural Questions, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 4
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_0_std
+  defence_id: none:GPT-4o
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_0_std_clean
+  defence_id: none:GPT-4o
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_0_codt
+  defence_id: codt_0
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_0_codt_clean
+  defence_id: codt_0
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_1_std
+  defence_id: none:GPT-3.5-turbo
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_1_std_clean
+  defence_id: none:GPT-3.5-turbo
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_1_codt
+  defence_id: codt_1
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_1_codt_clean
+  defence_id: codt_1
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_2_std
+  defence_id: none:Claude 3.5 Sonnet
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_2_std_clean
+  defence_id: none:Claude 3.5 Sonnet
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_2_codt
+  defence_id: codt_2
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_2_codt_clean
+  defence_id: codt_2
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_3_std
+  defence_id: none:Claude 3.5 Haiku
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_3_std_clean
+  defence_id: none:Claude 3.5 Haiku
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_3_codt
+  defence_id: codt_3
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_3_codt_clean
+  defence_id: codt_3
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_4_std
+  defence_id: none:Claude 3 Sonnet
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_4_std_clean
+  defence_id: none:Claude 3 Sonnet
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_4_codt
+  defence_id: codt_4
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_4_codt_clean
+  defence_id: codt_4
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_5_std
+  defence_id: none:Claude 3 Haiku
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_5_std_clean
+  defence_id: none:Claude 3 Haiku
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_5_codt
+  defence_id: codt_5
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_5_codt_clean
+  defence_id: codt_5
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_6_std
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_6_std_clean
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_6_codt
+  defence_id: codt_6
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_6_codt_clean
+  defence_id: codt_6
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_7_std
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_7_std_clean
+  defence_id: none:Llama-3-8B-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_7_codt
+  defence_id: codt_7
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_7_codt_clean
+  defence_id: codt_7
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_8_std
+  defence_id: none:Mistral-7B-Instruct-v0.3
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_8_std_clean
+  defence_id: none:Mistral-7B-Instruct-v0.3
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_8_codt
+  defence_id: codt_8
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_8_codt_clean
+  defence_id: codt_8
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_9_std
+  defence_id: none:Gemma-2-9b-it
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_9_std_clean
+  defence_id: none:Gemma-2-9b-it
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_9_codt
+  defence_id: codt_9
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_9_codt_clean
+  defence_id: codt_9
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_10_std
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_10_std_clean
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_10_codt
+  defence_id: codt_10
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_10_codt_clean
+  defence_id: codt_10
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_11_std
+  defence_id: none:Deepseek-llm-7b-chat
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_11_std_clean
+  defence_id: none:Deepseek-llm-7b-chat
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_11_codt
+  defence_id: codt_11
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_11_codt_clean
+  defence_id: codt_11
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_12_std
+  defence_id: none:OLMo-7B-0724-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_12_std_clean
+  defence_id: none:OLMo-7B-0724-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_12_codt
+  defence_id: codt_12
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_12_codt_clean
+  defence_id: codt_12
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_13_std
+  defence_id: none:Phi-3.5-mini-instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_13_std_clean
+  defence_id: none:Phi-3.5-mini-instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_13_codt
+  defence_id: codt_13
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_13_codt_clean
+  defence_id: codt_13
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_14_std
+  defence_id: none:Yi-1.5-9B-Chat
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_14_std_clean
+  defence_id: none:Yi-1.5-9B-Chat
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_14_codt
+  defence_id: codt_14
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_14_codt_clean
+  defence_id: codt_14
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_15_std
+  defence_id: none:Llama-2-7b-chat
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_15_std_clean
+  defence_id: none:Llama-2-7b-chat
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_15_codt
+  defence_id: codt_15
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_15_codt_clean
+  defence_id: codt_15
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_16_std
+  defence_id: none:Mistral-7B-Instruct-v0.2
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_16_std_clean
+  defence_id: none:Mistral-7B-Instruct-v0.2
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_16_codt
+  defence_id: codt_16
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_16_codt_clean
+  defence_id: codt_16
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_17_std
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_17_std_clean
+  defence_id: none:Qwen2-7B-Instruct
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: instruction_prompt_only
+- id: ev_rt_17_codt
+  defence_id: codt_17
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), last passage carries a prompt injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker target phrase in the response (attack); gold answer phrase in the response (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+- id: ev_rt_17_codt_clean
+  defence_id: codt_17
+  benchmark: RealTime QA, first 100 queries, top 10 Google passages (Xiang et al. 2024), no corrupted passage
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: gold answer phrase in the response
+  layout_same_as_defence: 'yes'
+  measured_by: codt_arxiv2025
+  page: 5
+  decoding: not reported
+  sample_size: '100'
+results:
+- id: r_nq_0_std_asr
+  evaluation_id: ev_nq_0_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '91'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_0_std_acc
+  evaluation_id: ev_nq_0_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_0_std_clean
+  evaluation_id: ev_nq_0_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_0_codt_asr
+  evaluation_id: ev_nq_0_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_0_codt_acc
+  evaluation_id: ev_nq_0_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_0_codt_clean
+  evaluation_id: ev_nq_0_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_1_std_asr
+  evaluation_id: ev_nq_1_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '83'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_1_std_acc
+  evaluation_id: ev_nq_1_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '13'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_1_std_clean
+  evaluation_id: ev_nq_1_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_1_codt_asr
+  evaluation_id: ev_nq_1_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '36'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_1_codt_acc
+  evaluation_id: ev_nq_1_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '37'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_1_codt_clean
+  evaluation_id: ev_nq_1_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '59'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_2_std_asr
+  evaluation_id: ev_nq_2_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '45'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_2_std_acc
+  evaluation_id: ev_nq_2_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_2_std_clean
+  evaluation_id: ev_nq_2_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_2_codt_asr
+  evaluation_id: ev_nq_2_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_2_codt_acc
+  evaluation_id: ev_nq_2_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_2_codt_clean
+  evaluation_id: ev_nq_2_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '59'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_3_std_asr
+  evaluation_id: ev_nq_3_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '12'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_3_std_acc
+  evaluation_id: ev_nq_3_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_3_std_clean
+  evaluation_id: ev_nq_3_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_3_codt_asr
+  evaluation_id: ev_nq_3_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '34'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_3_codt_acc
+  evaluation_id: ev_nq_3_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_3_codt_clean
+  evaluation_id: ev_nq_3_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '71'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_4_std_asr
+  evaluation_id: ev_nq_4_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_4_std_acc
+  evaluation_id: ev_nq_4_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '61'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_4_std_clean
+  evaluation_id: ev_nq_4_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '72'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_4_codt_asr
+  evaluation_id: ev_nq_4_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '28'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_4_codt_acc
+  evaluation_id: ev_nq_4_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '65'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_4_codt_clean
+  evaluation_id: ev_nq_4_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_5_std_asr
+  evaluation_id: ev_nq_5_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_5_std_acc
+  evaluation_id: ev_nq_5_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '45'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_5_std_clean
+  evaluation_id: ev_nq_5_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '62'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_5_codt_asr
+  evaluation_id: ev_nq_5_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '42'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_5_codt_acc
+  evaluation_id: ev_nq_5_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '55'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_5_codt_clean
+  evaluation_id: ev_nq_5_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '69'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_6_std_asr
+  evaluation_id: ev_nq_6_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_6_std_acc
+  evaluation_id: ev_nq_6_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '16'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_6_std_clean
+  evaluation_id: ev_nq_6_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '62'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_6_codt_asr
+  evaluation_id: ev_nq_6_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '43'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_6_codt_acc
+  evaluation_id: ev_nq_6_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '51'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_6_codt_clean
+  evaluation_id: ev_nq_6_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_7_std_asr
+  evaluation_id: ev_nq_7_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '73'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_7_std_acc
+  evaluation_id: ev_nq_7_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '20'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_7_std_clean
+  evaluation_id: ev_nq_7_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '61'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_7_codt_asr
+  evaluation_id: ev_nq_7_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '43'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_7_codt_acc
+  evaluation_id: ev_nq_7_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '58'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_7_codt_clean
+  evaluation_id: ev_nq_7_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '61'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_8_std_asr
+  evaluation_id: ev_nq_8_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '84'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_8_std_acc
+  evaluation_id: ev_nq_8_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '16'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_8_std_clean
+  evaluation_id: ev_nq_8_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_8_codt_asr
+  evaluation_id: ev_nq_8_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '41'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_8_codt_acc
+  evaluation_id: ev_nq_8_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '55'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_8_codt_clean
+  evaluation_id: ev_nq_8_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_9_std_asr
+  evaluation_id: ev_nq_9_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '93'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_9_std_acc
+  evaluation_id: ev_nq_9_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_9_std_clean
+  evaluation_id: ev_nq_9_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '59'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_9_codt_asr
+  evaluation_id: ev_nq_9_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '15'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_9_codt_acc
+  evaluation_id: ev_nq_9_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '56'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_9_codt_clean
+  evaluation_id: ev_nq_9_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '61'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_10_std_asr
+  evaluation_id: ev_nq_10_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_10_std_acc
+  evaluation_id: ev_nq_10_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_10_std_clean
+  evaluation_id: ev_nq_10_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '54'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_10_codt_asr
+  evaluation_id: ev_nq_10_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '66'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_10_codt_acc
+  evaluation_id: ev_nq_10_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_10_codt_clean
+  evaluation_id: ev_nq_10_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '54'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_11_std_asr
+  evaluation_id: ev_nq_11_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '98'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_11_std_acc
+  evaluation_id: ev_nq_11_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_11_std_clean
+  evaluation_id: ev_nq_11_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '56'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_11_codt_asr
+  evaluation_id: ev_nq_11_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '61'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_11_codt_acc
+  evaluation_id: ev_nq_11_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '39'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_11_codt_clean
+  evaluation_id: ev_nq_11_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_12_std_asr
+  evaluation_id: ev_nq_12_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '94'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_12_std_acc
+  evaluation_id: ev_nq_12_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '29'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_12_std_clean
+  evaluation_id: ev_nq_12_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '71'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_12_codt_asr
+  evaluation_id: ev_nq_12_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '59'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_12_codt_acc
+  evaluation_id: ev_nq_12_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '45'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_12_codt_clean
+  evaluation_id: ev_nq_12_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '69'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_13_std_asr
+  evaluation_id: ev_nq_13_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '95'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_13_std_acc
+  evaluation_id: ev_nq_13_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_13_std_clean
+  evaluation_id: ev_nq_13_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '58'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_13_codt_asr
+  evaluation_id: ev_nq_13_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '53'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_13_codt_acc
+  evaluation_id: ev_nq_13_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '42'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_13_codt_clean
+  evaluation_id: ev_nq_13_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '68'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_14_std_asr
+  evaluation_id: ev_nq_14_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '42'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_14_std_acc
+  evaluation_id: ev_nq_14_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '19'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_14_std_clean
+  evaluation_id: ev_nq_14_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '59'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_14_codt_asr
+  evaluation_id: ev_nq_14_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '12'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_14_codt_acc
+  evaluation_id: ev_nq_14_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '54'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_14_codt_clean
+  evaluation_id: ev_nq_14_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_15_std_asr
+  evaluation_id: ev_nq_15_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '28'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_15_std_acc
+  evaluation_id: ev_nq_15_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_15_std_clean
+  evaluation_id: ev_nq_15_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '57'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_15_codt_asr
+  evaluation_id: ev_nq_15_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '61'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_15_codt_acc
+  evaluation_id: ev_nq_15_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '47'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_15_codt_clean
+  evaluation_id: ev_nq_15_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_16_std_asr
+  evaluation_id: ev_nq_16_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '86'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_16_std_acc
+  evaluation_id: ev_nq_16_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '31'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_16_std_clean
+  evaluation_id: ev_nq_16_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_16_codt_asr
+  evaluation_id: ev_nq_16_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '49'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_16_codt_acc
+  evaluation_id: ev_nq_16_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '49'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_16_codt_clean
+  evaluation_id: ev_nq_16_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_17_std_asr
+  evaluation_id: ev_nq_17_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '62'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_17_std_acc
+  evaluation_id: ev_nq_17_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '24'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_17_std_clean
+  evaluation_id: ev_nq_17_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '62'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_17_codt_asr
+  evaluation_id: ev_nq_17_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '17'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_17_codt_acc
+  evaluation_id: ev_nq_17_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '58'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_nq_17_codt_clean
+  evaluation_id: ev_nq_17_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '62'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_rt_0_std_asr
+  evaluation_id: ev_rt_0_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '87'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_0_std_acc
+  evaluation_id: ev_rt_0_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '10'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_0_std_clean
+  evaluation_id: ev_rt_0_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_0_codt_asr
+  evaluation_id: ev_rt_0_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_0_codt_acc
+  evaluation_id: ev_rt_0_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '52'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_0_codt_clean
+  evaluation_id: ev_rt_0_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '69'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_1_std_asr
+  evaluation_id: ev_rt_1_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '82'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_1_std_acc
+  evaluation_id: ev_rt_1_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '15'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_1_std_clean
+  evaluation_id: ev_rt_1_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '68'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_1_codt_asr
+  evaluation_id: ev_rt_1_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '34'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_1_codt_acc
+  evaluation_id: ev_rt_1_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '38'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_1_codt_clean
+  evaluation_id: ev_rt_1_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_2_std_asr
+  evaluation_id: ev_rt_2_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '33'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_2_std_acc
+  evaluation_id: ev_rt_2_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_2_std_clean
+  evaluation_id: ev_rt_2_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '69'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_2_codt_asr
+  evaluation_id: ev_rt_2_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_2_codt_acc
+  evaluation_id: ev_rt_2_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '68'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_2_codt_clean
+  evaluation_id: ev_rt_2_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_3_std_asr
+  evaluation_id: ev_rt_3_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_3_std_acc
+  evaluation_id: ev_rt_3_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '70'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_3_std_clean
+  evaluation_id: ev_rt_3_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '68'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_3_codt_asr
+  evaluation_id: ev_rt_3_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '27'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_3_codt_acc
+  evaluation_id: ev_rt_3_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '71'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_3_codt_clean
+  evaluation_id: ev_rt_3_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '76'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_4_std_asr
+  evaluation_id: ev_rt_4_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_4_std_acc
+  evaluation_id: ev_rt_4_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '65'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_4_std_clean
+  evaluation_id: ev_rt_4_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_4_codt_asr
+  evaluation_id: ev_rt_4_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_4_codt_acc
+  evaluation_id: ev_rt_4_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_4_codt_clean
+  evaluation_id: ev_rt_4_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_5_std_asr
+  evaluation_id: ev_rt_5_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '31'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_5_std_acc
+  evaluation_id: ev_rt_5_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '52'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_5_std_clean
+  evaluation_id: ev_rt_5_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_5_codt_asr
+  evaluation_id: ev_rt_5_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '17'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_5_codt_acc
+  evaluation_id: ev_rt_5_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '58'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_5_codt_clean
+  evaluation_id: ev_rt_5_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_6_std_asr
+  evaluation_id: ev_rt_6_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_6_std_acc
+  evaluation_id: ev_rt_6_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_6_std_clean
+  evaluation_id: ev_rt_6_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_6_codt_asr
+  evaluation_id: ev_rt_6_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_6_codt_acc
+  evaluation_id: ev_rt_6_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_6_codt_clean
+  evaluation_id: ev_rt_6_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '68'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_7_std_asr
+  evaluation_id: ev_rt_7_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_7_std_acc
+  evaluation_id: ev_rt_7_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_7_std_clean
+  evaluation_id: ev_rt_7_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_7_codt_asr
+  evaluation_id: ev_rt_7_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '21'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_7_codt_acc
+  evaluation_id: ev_rt_7_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_7_codt_clean
+  evaluation_id: ev_rt_7_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '68'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_8_std_asr
+  evaluation_id: ev_rt_8_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '80'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_8_std_acc
+  evaluation_id: ev_rt_8_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '24'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_8_std_clean
+  evaluation_id: ev_rt_8_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_8_codt_asr
+  evaluation_id: ev_rt_8_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_8_codt_acc
+  evaluation_id: ev_rt_8_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '55'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_8_codt_clean
+  evaluation_id: ev_rt_8_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '71'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_9_std_asr
+  evaluation_id: ev_rt_9_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '68'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_9_std_acc
+  evaluation_id: ev_rt_9_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '26'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_9_std_clean
+  evaluation_id: ev_rt_9_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '68'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_9_codt_asr
+  evaluation_id: ev_rt_9_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '17'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_9_codt_acc
+  evaluation_id: ev_rt_9_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '65'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_9_codt_clean
+  evaluation_id: ev_rt_9_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '71'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_10_std_asr
+  evaluation_id: ev_rt_10_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '59'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_10_std_acc
+  evaluation_id: ev_rt_10_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '14'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_10_std_clean
+  evaluation_id: ev_rt_10_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '65'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_10_codt_asr
+  evaluation_id: ev_rt_10_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '32'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_10_codt_acc
+  evaluation_id: ev_rt_10_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '42'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_10_codt_clean
+  evaluation_id: ev_rt_10_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_11_std_asr
+  evaluation_id: ev_rt_11_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '100'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_11_std_acc
+  evaluation_id: ev_rt_11_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_11_std_clean
+  evaluation_id: ev_rt_11_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '58'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_11_codt_asr
+  evaluation_id: ev_rt_11_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '66'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_11_codt_acc
+  evaluation_id: ev_rt_11_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_11_codt_clean
+  evaluation_id: ev_rt_11_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_12_std_asr
+  evaluation_id: ev_rt_12_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '91'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_12_std_acc
+  evaluation_id: ev_rt_12_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '10'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_12_std_clean
+  evaluation_id: ev_rt_12_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '69'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_12_codt_asr
+  evaluation_id: ev_rt_12_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_12_codt_acc
+  evaluation_id: ev_rt_12_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '44'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_12_codt_clean
+  evaluation_id: ev_rt_12_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '69'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_13_std_asr
+  evaluation_id: ev_rt_13_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_13_std_acc
+  evaluation_id: ev_rt_13_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_13_std_clean
+  evaluation_id: ev_rt_13_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_13_codt_asr
+  evaluation_id: ev_rt_13_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '72'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_13_codt_acc
+  evaluation_id: ev_rt_13_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_13_codt_clean
+  evaluation_id: ev_rt_13_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '70'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_14_std_asr
+  evaluation_id: ev_rt_14_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '37'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_14_std_acc
+  evaluation_id: ev_rt_14_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '25'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_14_std_clean
+  evaluation_id: ev_rt_14_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_14_codt_asr
+  evaluation_id: ev_rt_14_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_14_codt_acc
+  evaluation_id: ev_rt_14_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '59'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_14_codt_clean
+  evaluation_id: ev_rt_14_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_15_std_asr
+  evaluation_id: ev_rt_15_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '46'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_15_std_acc
+  evaluation_id: ev_rt_15_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_15_std_clean
+  evaluation_id: ev_rt_15_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '65'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_15_codt_asr
+  evaluation_id: ev_rt_15_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_15_codt_acc
+  evaluation_id: ev_rt_15_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '18'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_15_codt_clean
+  evaluation_id: ev_rt_15_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_16_std_asr
+  evaluation_id: ev_rt_16_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '84'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_16_std_acc
+  evaluation_id: ev_rt_16_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_16_std_clean
+  evaluation_id: ev_rt_16_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '72'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_16_codt_asr
+  evaluation_id: ev_rt_16_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '43'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_16_codt_acc
+  evaluation_id: ev_rt_16_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '40'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_16_codt_clean
+  evaluation_id: ev_rt_16_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_17_std_asr
+  evaluation_id: ev_rt_17_std
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_17_std_acc
+  evaluation_id: ev_rt_17_std
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '38'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_17_std_clean
+  evaluation_id: ev_rt_17_std_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '68'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_17_codt_asr
+  evaluation_id: ev_rt_17_codt
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success rate (prompt injection)
+  value: '16'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_17_codt_acc
+  evaluation_id: ev_rt_17_codt
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: accuracy under prompt injection
+  value: '66'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+- id: r_rt_17_codt_clean
+  evaluation_id: ev_rt_17_codt_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 5
+  location: Table 2
+comparisons:
+- id: c_nq_0
+  left: ev_nq_0_codt
+  right: ev_nq_0_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_0_clean
+  left: ev_nq_0_codt_clean
+  right: ev_nq_0_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_1
+  left: ev_nq_1_codt
+  right: ev_nq_1_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_1_clean
+  left: ev_nq_1_codt_clean
+  right: ev_nq_1_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_2
+  left: ev_nq_2_codt
+  right: ev_nq_2_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_2_clean
+  left: ev_nq_2_codt_clean
+  right: ev_nq_2_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_3
+  left: ev_nq_3_codt
+  right: ev_nq_3_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_3_clean
+  left: ev_nq_3_codt_clean
+  right: ev_nq_3_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_4
+  left: ev_nq_4_codt
+  right: ev_nq_4_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_4_clean
+  left: ev_nq_4_codt_clean
+  right: ev_nq_4_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_5
+  left: ev_nq_5_codt
+  right: ev_nq_5_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_5_clean
+  left: ev_nq_5_codt_clean
+  right: ev_nq_5_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_6
+  left: ev_nq_6_codt
+  right: ev_nq_6_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_6_clean
+  left: ev_nq_6_codt_clean
+  right: ev_nq_6_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_7
+  left: ev_nq_7_codt
+  right: ev_nq_7_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_7_clean
+  left: ev_nq_7_codt_clean
+  right: ev_nq_7_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_8
+  left: ev_nq_8_codt
+  right: ev_nq_8_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_8_clean
+  left: ev_nq_8_codt_clean
+  right: ev_nq_8_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_9
+  left: ev_nq_9_codt
+  right: ev_nq_9_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_9_clean
+  left: ev_nq_9_codt_clean
+  right: ev_nq_9_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_10
+  left: ev_nq_10_codt
+  right: ev_nq_10_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_10_clean
+  left: ev_nq_10_codt_clean
+  right: ev_nq_10_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_11
+  left: ev_nq_11_codt
+  right: ev_nq_11_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_11_clean
+  left: ev_nq_11_codt_clean
+  right: ev_nq_11_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_12
+  left: ev_nq_12_codt
+  right: ev_nq_12_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_12_clean
+  left: ev_nq_12_codt_clean
+  right: ev_nq_12_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_13
+  left: ev_nq_13_codt
+  right: ev_nq_13_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_13_clean
+  left: ev_nq_13_codt_clean
+  right: ev_nq_13_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_14
+  left: ev_nq_14_codt
+  right: ev_nq_14_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_14_clean
+  left: ev_nq_14_codt_clean
+  right: ev_nq_14_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_15
+  left: ev_nq_15_codt
+  right: ev_nq_15_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_15_clean
+  left: ev_nq_15_codt_clean
+  right: ev_nq_15_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_16
+  left: ev_nq_16_codt
+  right: ev_nq_16_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_16_clean
+  left: ev_nq_16_codt_clean
+  right: ev_nq_16_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_17
+  left: ev_nq_17_codt
+  right: ev_nq_17_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_nq_17_clean
+  left: ev_nq_17_codt_clean
+  right: ev_nq_17_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_rt_0
+  left: ev_rt_0_codt
+  right: ev_rt_0_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_0_clean
+  left: ev_rt_0_codt_clean
+  right: ev_rt_0_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_1
+  left: ev_rt_1_codt
+  right: ev_rt_1_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_1_clean
+  left: ev_rt_1_codt_clean
+  right: ev_rt_1_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_2
+  left: ev_rt_2_codt
+  right: ev_rt_2_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_2_clean
+  left: ev_rt_2_codt_clean
+  right: ev_rt_2_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_3
+  left: ev_rt_3_codt
+  right: ev_rt_3_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_3_clean
+  left: ev_rt_3_codt_clean
+  right: ev_rt_3_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_4
+  left: ev_rt_4_codt
+  right: ev_rt_4_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_4_clean
+  left: ev_rt_4_codt_clean
+  right: ev_rt_4_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_5
+  left: ev_rt_5_codt
+  right: ev_rt_5_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_5_clean
+  left: ev_rt_5_codt_clean
+  right: ev_rt_5_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_6
+  left: ev_rt_6_codt
+  right: ev_rt_6_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_6_clean
+  left: ev_rt_6_codt_clean
+  right: ev_rt_6_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_7
+  left: ev_rt_7_codt
+  right: ev_rt_7_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_7_clean
+  left: ev_rt_7_codt_clean
+  right: ev_rt_7_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_8
+  left: ev_rt_8_codt
+  right: ev_rt_8_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_8_clean
+  left: ev_rt_8_codt_clean
+  right: ev_rt_8_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_9
+  left: ev_rt_9_codt
+  right: ev_rt_9_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_9_clean
+  left: ev_rt_9_codt_clean
+  right: ev_rt_9_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_10
+  left: ev_rt_10_codt
+  right: ev_rt_10_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_10_clean
+  left: ev_rt_10_codt_clean
+  right: ev_rt_10_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_11
+  left: ev_rt_11_codt
+  right: ev_rt_11_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_11_clean
+  left: ev_rt_11_codt_clean
+  right: ev_rt_11_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_12
+  left: ev_rt_12_codt
+  right: ev_rt_12_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_12_clean
+  left: ev_rt_12_codt_clean
+  right: ev_rt_12_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_13
+  left: ev_rt_13_codt
+  right: ev_rt_13_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_13_clean
+  left: ev_rt_13_codt_clean
+  right: ev_rt_13_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_14
+  left: ev_rt_14_codt
+  right: ev_rt_14_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_14_clean
+  left: ev_rt_14_codt_clean
+  right: ev_rt_14_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_15
+  left: ev_rt_15_codt
+  right: ev_rt_15_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_15_clean
+  left: ev_rt_15_codt_clean
+  right: ev_rt_15_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_16
+  left: ev_rt_16_codt
+  right: ev_rt_16_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_16_clean
+  left: ev_rt_16_codt_clean
+  right: ev_rt_16_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_17
+  left: ev_rt_17_codt
+  right: ev_rt_17_std
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+- id: c_rt_17_clean
+  left: ev_rt_17_codt_clean
+  right: ev_rt_17_std_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 5
+claims:
+- id: k1
+  text: a wide range of models gain robustness against prompt injection in references from chain-of-defensive-thought, without losing clean accuracy
+  location: abstract
+  anchor: large language models exhibit significantly improved robustness against reference corruption
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_nq_0
+  - c_nq_1
+  - c_nq_2
+  - c_nq_3
+  - c_nq_4
+  - c_nq_5
+  - c_nq_6
+  - c_nq_7
+  - c_nq_8
+  - c_nq_9
+  - c_nq_10
+  - c_nq_11
+  - c_nq_12
+  - c_nq_13
+  - c_nq_14
+  - c_nq_15
+  - c_nq_16
+  - c_nq_17
+  - c_rt_0
+  - c_rt_1
+  - c_rt_2
+  - c_rt_3
+  - c_rt_4
+  - c_rt_5
+  - c_rt_6
+  - c_rt_7
+  - c_rt_8
+  - c_rt_9
+  - c_rt_10
+  - c_rt_11
+  - c_rt_12
+  - c_rt_13
+  - c_rt_14
+  - c_rt_15
+  - c_rt_16
+  - c_rt_17
+  - c_nq_0_clean
+  - c_nq_1_clean
+  - c_nq_2_clean
+  - c_nq_3_clean
+  - c_nq_4_clean
+  - c_nq_5_clean
+  - c_nq_6_clean
+  - c_nq_7_clean
+  - c_nq_8_clean
+  - c_nq_9_clean
+  - c_nq_10_clean
+  - c_nq_11_clean
+  - c_nq_12_clean
+  - c_nq_13_clean
+  - c_nq_14_clean
+  - c_nq_15_clean
+  - c_nq_16_clean
+  - c_nq_17_clean
+  - c_rt_0_clean
+  - c_rt_1_clean
+  - c_rt_2_clean
+  - c_rt_3_clean
+  - c_rt_4_clean
+  - c_rt_5_clean
+  - c_rt_6_clean
+  - c_rt_7_clean
+  - c_rt_8_clean
+  - c_rt_9_clean
+  - c_rt_10_clean
+  - c_rt_11_clean
+  - c_rt_12_clean
+  - c_rt_13_clean
+  - c_rt_14_clean
+  - c_rt_15_clean
+  - c_rt_16_clean
+  - c_rt_17_clean
+  page: 1
+  contradicted_by:
+  - r_nq_3_codt_asr
+  - r_nq_15_codt_asr
+  - r_rt_3_codt_asr
+  - r_rt_4_codt_asr
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1 and 2
+    R2clean: Tables 1 and 2 (clean accuracy)
+    R2attack: Tables 1 and 2 (accuracy under prompt injection)
+schema_gaps:
+- where: report
+  note: 100 queries per dataset; the defence changes the prompt's exemplars as well as adding the reasoning line, so the reference arm is the paper's standard four-exemplar prompt (instruction_prompt_only)

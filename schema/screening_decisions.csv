@@ -78,7 +78,7 @@ arxiv:2402.00898,exclude,"survey, position or other",title_abstract,,,An Early C
 arxiv:2402.05723,exclude,jailbreak or direct injection only,title_abstract,,,In-Context Learning Can Re-learn Forbidden Tasks
 arxiv:2402.06363,include,,title_abstract,,StruQ,StruQ: Defending Against Prompt Injection with Structured Queries
 arxiv:2402.06664,exclude,not about prompt injection,title_abstract,,,LLM Agents can Autonomously Hack Websites
-arxiv:2402.06922,include,,full_text,,"full text: role: re-measurement; prompt hardening and external filters against confidentiality attacks through tool content, results averaged over five defences (Fig. 7)",Whispers in the Machine: Confidentiality in Agentic Systems
+arxiv:2402.06922,exclude,system level,full_text,,"full text: Whispers in the Machine: the only defended result (Figure 7) averages two prompt-hardening defences with three input filters (an LLM evaluator, a perplexity threshold and PromptGuard); no defence is reported on its own",Whispers in the Machine: Confidentiality in Agentic Systems
 arxiv:2402.07867,exclude,not about prompt injection,title_abstract,,"knowledge poisoning, not instruction injection",PoisonedRAG: Knowledge Corruption Attacks to Retrieval-Augmented Generation of Large Language Models
 arxiv:2402.08983,exclude,jailbreak or direct injection only,title_abstract,,,SafeDecoding: Defending against Jailbreak Attacks via Safety-Aware Decoding
 arxiv:2402.10601,exclude,jailbreak or direct injection only,title_abstract,,,"When ""Competency"" in Reasoning Opens the Door to Vulnerability: Jailbreaking LLMs via Novel Complex "
@@ -411,7 +411,7 @@ arxiv:2511.05867,exclude,not about prompt injection,title_abstract,,,Can LLM Inf
 arxiv:2511.05919,exclude,attack only,title_abstract,,,Injecting Falsehoods: Adversarial Man-in-the-Middle Attacks Undermining Factual Recall in LLMs
 arxiv:2511.10720,exclude,detector only,title_abstract,,sanitiser,PISanitizer: Preventing Prompt Injection to Long-Context LLMs via Prompt Sanitization
 arxiv:2511.15203,exclude,"survey, position or other",title_abstract,,,"Taxonomy, Evaluation and Exploitation of IPI-Centric LLM Agent Defense Frameworks"
-arxiv:2511.15759,include,,full_text,,full text: layered defence; hierarchical system-prompt guardrails measured as an added layer over content filtering (Table 2),Securing AI Agents Against Prompt Injection Attacks
+arxiv:2511.15759,exclude,system level,full_text,,"full text: the hierarchical prompt guardrails are measured only on top of the embedding content filter (Table 2), never against no defence; results are pooled over seven models",Securing AI Agents Against Prompt Injection Attacks
 arxiv:2511.16347,exclude,attack only,title_abstract,,,The Shawshank Redemption of Embodied AI: Understanding and Benchmarking Indirect Environmental Jailb
 arxiv:2511.17671,exclude,attack only,title_abstract,,,Cross-User Poisoning: User-Task Boundary Failures in Multi-User Collaborative Language Agents
 arxiv:2511.19483,exclude,not about prompt injection,title_abstract,,,Z-Space: A Multi-Agent Tool Orchestration Framework for Enterprise-Grade LLM Automation
@@ -434,7 +434,7 @@ arxiv:2512.08417,exclude,detector only,title_abstract,,corrected on rereading th
 arxiv:2512.12921,exclude,"survey, position or other",title_abstract,,,Cisco Integrated AI Security and Safety Framework Report
 arxiv:2512.14860,exclude,attack only,title_abstract,,,Penetration Testing of Agentic AI: A Comparative Security Analysis Across Models and Frameworks
 arxiv:2512.15081,exclude,not about prompt injection,title_abstract,,,Quantifying Return on Security Controls in LLM Systems
-arxiv:2512.16307,include,,full_text,,full text: role: re-measurement; delimiter and instructional-prompt defences re-tested on small LLaMA models (own method is detection),Beyond the Benchmark: Innovative Defenses Against Prompt Injection Attacks
+arxiv:2512.16307,exclude,detector only,full_text,,full text: the generated defence prompts ask the model to detect injected inputs (cot-*-detection); results are detection scores with no undefended arm,Beyond the Benchmark: Innovative Defenses Against Prompt Injection Attacks
 arxiv:2512.20405,exclude,attack only,title_abstract,,,ChatGPT: Excellent Paper! Accept It. Editor: Imposter Found! Review Rejected
 arxiv:2512.20986,exclude,system level,title_abstract,,,AegisAgent: An Autonomous Defense Agent Against Prompt Injection Attacks in LLM-HARs
 arxiv:2512.21999,exclude,not about prompt injection,title_abstract,,,Look Closer! An Adversarial Parametric Editing Framework for Hallucination Mitigation in VLMs

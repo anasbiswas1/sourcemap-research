@@ -1,0 +1,538 @@
+report:
+  id: tab_arxiv2026
+  slug: '2605.12233'
+  title: 'No More, No Less: Task Alignment in Terminal Agents'
+  first_author: Sina Mavali
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2605.12233'
+  version_read: arXiv v1
+  first_date: '2026-05-12'
+  read: F
+  role: benchmark
+  extraction_scope: Table 10 rows Baseline, Spotlighting and RUP for MiniMax-M2.7, Qwen-3.6-35B and GPT-5.4 mini (task resolution and distractor execution); the abstract claim (SIC, PromptArmor, Firewall and Task Shield use
+    auxiliary LLM judges for sanitising, detection or alignment scoring and are left out; Table 1 tests no defence)
+defences:
+- id: spot_mm
+  name: Spotlighting, delimiting variant (security policy added to the instruction; tool output wrapped in random hex sentinel markers)
+  origin: other_report
+  base_checkpoint: MiniMax-M2.7
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 29
+  layout: Terminus 2 terminal agent; cue and distractor embedded in an environment artifact (README, code comment, data file or command output)
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: We implement the delimiting variant with random twelve-character hex markers
+- id: rup_mm
+  name: RUP (the user's instruction repeated after every tool output inside a short security note)
+  origin: other_report
+  base_checkpoint: MiniMax-M2.7
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 29
+  layout: Terminus 2 terminal agent; cue and distractor embedded in an environment artifact (README, code comment, data file or command output)
+  layout_compat: *id001
+  anchor: appends the user’s trusted instruction after every tool output
+- id: spot_qw
+  name: Spotlighting, delimiting variant (security policy added to the instruction; tool output wrapped in random hex sentinel markers)
+  origin: other_report
+  base_checkpoint: Qwen-3.6-35B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 29
+  layout: Terminus 2 terminal agent; cue and distractor embedded in an environment artifact (README, code comment, data file or command output)
+  layout_compat: *id001
+  anchor: We implement the delimiting variant with random twelve-character hex markers
+- id: rup_qw
+  name: RUP (the user's instruction repeated after every tool output inside a short security note)
+  origin: other_report
+  base_checkpoint: Qwen-3.6-35B
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 29
+  layout: Terminus 2 terminal agent; cue and distractor embedded in an environment artifact (README, code comment, data file or command output)
+  layout_compat: *id001
+  anchor: appends the user’s trusted instruction after every tool output
+- id: spot_g54
+  name: Spotlighting, delimiting variant (security policy added to the instruction; tool output wrapped in random hex sentinel markers)
+  origin: other_report
+  base_checkpoint: GPT-5.4 mini
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 29
+  layout: Terminus 2 terminal agent; cue and distractor embedded in an environment artifact (README, code comment, data file or command output)
+  layout_compat: *id001
+  anchor: We implement the delimiting variant with random twelve-character hex markers
+- id: rup_g54
+  name: RUP (the user's instruction repeated after every tool output inside a short security note)
+  origin: other_report
+  base_checkpoint: GPT-5.4 mini
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 29
+  layout: Terminus 2 terminal agent; cue and distractor embedded in an environment artifact (README, code comment, data file or command output)
+  layout_compat: *id001
+  anchor: appends the user’s trusted instruction after every tool output
+evaluations:
+- id: ev_mm_base
+  defence_id: none:MiniMax-M2.7
+  benchmark: TAB (89 underspecified Terminal-Bench 2.1 tasks, each with a needed cue and an irrelevant distractor)
+  attacker_type: static
+  attacker_access: black_box
+  judge: task verifier (resolution) and distractor artifact check (execution)
+  layout_same_as_defence: 'yes'
+  measured_by: tab_arxiv2026
+  page: 24
+  decoding: not reported
+  sample_size: 89 tasks x 3 runs
+  baseline_kind: off_the_shelf
+- id: ev_mm_spot
+  defence_id: spot_mm
+  benchmark: TAB (89 underspecified Terminal-Bench 2.1 tasks, each with a needed cue and an irrelevant distractor)
+  attacker_type: static
+  attacker_access: black_box
+  judge: task verifier (resolution) and distractor artifact check (execution)
+  layout_same_as_defence: 'yes'
+  measured_by: tab_arxiv2026
+  page: 24
+  decoding: not reported
+  sample_size: 89 tasks x 3 runs
+- id: ev_mm_rup
+  defence_id: rup_mm
+  benchmark: TAB (89 underspecified Terminal-Bench 2.1 tasks, each with a needed cue and an irrelevant distractor)
+  attacker_type: static
+  attacker_access: black_box
+  judge: task verifier (resolution) and distractor artifact check (execution)
+  layout_same_as_defence: 'yes'
+  measured_by: tab_arxiv2026
+  page: 24
+  decoding: not reported
+  sample_size: 89 tasks x 3 runs
+- id: ev_qw_base
+  defence_id: none:Qwen-3.6-35B
+  benchmark: TAB (89 underspecified Terminal-Bench 2.1 tasks, each with a needed cue and an irrelevant distractor)
+  attacker_type: static
+  attacker_access: black_box
+  judge: task verifier (resolution) and distractor artifact check (execution)
+  layout_same_as_defence: 'yes'
+  measured_by: tab_arxiv2026
+  page: 24
+  decoding: not reported
+  sample_size: 89 tasks x 3 runs
+  baseline_kind: off_the_shelf
+- id: ev_qw_spot
+  defence_id: spot_qw
+  benchmark: TAB (89 underspecified Terminal-Bench 2.1 tasks, each with a needed cue and an irrelevant distractor)
+  attacker_type: static
+  attacker_access: black_box
+  judge: task verifier (resolution) and distractor artifact check (execution)
+  layout_same_as_defence: 'yes'
+  measured_by: tab_arxiv2026
+  page: 24
+  decoding: not reported
+  sample_size: 89 tasks x 3 runs
+- id: ev_qw_rup
+  defence_id: rup_qw
+  benchmark: TAB (89 underspecified Terminal-Bench 2.1 tasks, each with a needed cue and an irrelevant distractor)
+  attacker_type: static
+  attacker_access: black_box
+  judge: task verifier (resolution) and distractor artifact check (execution)
+  layout_same_as_defence: 'yes'
+  measured_by: tab_arxiv2026
+  page: 24
+  decoding: not reported
+  sample_size: 89 tasks x 3 runs
+- id: ev_g54_base
+  defence_id: none:GPT-5.4 mini
+  benchmark: TAB (89 underspecified Terminal-Bench 2.1 tasks, each with a needed cue and an irrelevant distractor)
+  attacker_type: static
+  attacker_access: black_box
+  judge: task verifier (resolution) and distractor artifact check (execution)
+  layout_same_as_defence: 'yes'
+  measured_by: tab_arxiv2026
+  page: 24
+  decoding: not reported
+  sample_size: 89 tasks, one run for the defences
+  baseline_kind: off_the_shelf
+- id: ev_g54_spot
+  defence_id: spot_g54
+  benchmark: TAB (89 underspecified Terminal-Bench 2.1 tasks, each with a needed cue and an irrelevant distractor)
+  attacker_type: static
+  attacker_access: black_box
+  judge: task verifier (resolution) and distractor artifact check (execution)
+  layout_same_as_defence: 'yes'
+  measured_by: tab_arxiv2026
+  page: 24
+  decoding: not reported
+  sample_size: 89 tasks, one run for the defences
+- id: ev_g54_rup
+  defence_id: rup_g54
+  benchmark: TAB (89 underspecified Terminal-Bench 2.1 tasks, each with a needed cue and an irrelevant distractor)
+  attacker_type: static
+  attacker_access: black_box
+  judge: task verifier (resolution) and distractor artifact check (execution)
+  layout_same_as_defence: 'yes'
+  measured_by: tab_arxiv2026
+  page: 24
+  decoding: not reported
+  sample_size: 89 tasks, one run for the defences
+results:
+- id: r_mm_base_dexec
+  evaluation_id: ev_mm_base
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: distractor execution rate Pr(Dexec)
+  value: '42.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_mm_base_res
+  evaluation_id: ev_mm_base
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: task resolution rate R_TAB
+  value: '36.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_mm_spot_dexec
+  evaluation_id: ev_mm_spot
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: distractor execution rate Pr(Dexec)
+  value: '27.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_mm_spot_res
+  evaluation_id: ev_mm_spot
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: task resolution rate R_TAB
+  value: '33.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_mm_rup_dexec
+  evaluation_id: ev_mm_rup
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: distractor execution rate Pr(Dexec)
+  value: '20.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_mm_rup_res
+  evaluation_id: ev_mm_rup
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: task resolution rate R_TAB
+  value: '31.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_qw_base_dexec
+  evaluation_id: ev_qw_base
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: distractor execution rate Pr(Dexec)
+  value: '40.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_qw_base_res
+  evaluation_id: ev_qw_base
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: task resolution rate R_TAB
+  value: '26.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_qw_spot_dexec
+  evaluation_id: ev_qw_spot
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: distractor execution rate Pr(Dexec)
+  value: '24.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_qw_spot_res
+  evaluation_id: ev_qw_spot
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: task resolution rate R_TAB
+  value: '22.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_qw_rup_dexec
+  evaluation_id: ev_qw_rup
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: distractor execution rate Pr(Dexec)
+  value: '18.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_qw_rup_res
+  evaluation_id: ev_qw_rup
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: task resolution rate R_TAB
+  value: '18.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_g54_base_dexec
+  evaluation_id: ev_g54_base
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: distractor execution rate Pr(Dexec)
+  value: '64.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_g54_base_res
+  evaluation_id: ev_g54_base
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: task resolution rate R_TAB
+  value: '35.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_g54_spot_dexec
+  evaluation_id: ev_g54_spot
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: distractor execution rate Pr(Dexec)
+  value: '28.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_g54_spot_res
+  evaluation_id: ev_g54_spot
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: task resolution rate R_TAB
+  value: '34.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_g54_rup_dexec
+  evaluation_id: ev_g54_rup
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: distractor execution rate Pr(Dexec)
+  value: '15.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+- id: r_g54_rup_res
+  evaluation_id: ev_g54_rup
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: task resolution rate R_TAB
+  value: '30.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 24
+  location: Table 10
+comparisons:
+- id: c_mm_spot
+  left: ev_mm_spot
+  right: ev_mm_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 24
+- id: c_mm_rup
+  left: ev_mm_rup
+  right: ev_mm_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 24
+- id: c_qw_spot
+  left: ev_qw_spot
+  right: ev_qw_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 24
+- id: c_qw_rup
+  left: ev_qw_rup
+  right: ev_qw_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 24
+- id: c_g54_spot
+  left: ev_g54_spot
+  right: ev_g54_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 24
+- id: c_g54_rup
+  left: ev_g54_rup
+  right: ev_g54_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 24
+claims:
+- id: k1
+  text: suppressing distractor execution with prompt-injection defences also suppresses the cues needed for task completion
+  location: abstract
+  anchor: suppressing distractor execution also suppresses the cues required for task completion
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_mm_spot
+  - c_mm_rup
+  - c_qw_spot
+  - c_qw_rup
+  - c_g54_spot
+  - c_g54_rup
+  page: 1
+coverage:
+  R1: proxy
+  R2clean: not_reported
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 10 distractor execution (irrelevant, not malicious, injected instructions)
+    R2attack: Table 10 task resolution
+    R2clean: not reported
+schema_gaps:
+- where: report
+  note: distractors are plausible irrelevant instructions rather than attacks, so distractor execution is coded as a proxy for injection success; the GPT-5.4 mini defence rows are single runs

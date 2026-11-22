@@ -1,0 +1,408 @@
+report:
+  id: loginject_arxiv2026
+  slug: '2607.14493'
+  title: 'Context Contamination in LLM Analysis of Network Security Logs: Poison with Passive Prompt Injection and Mitigation Evaluation'
+  first_author: Rabimba Karanjai
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2607.14493'
+  version_read: arXiv v1
+  first_date: '2026-07-16'
+  read: F
+  role: mixed
+  extraction_scope: Table 9 rows Baseline and Spotlight on GPT-4o (four objectives, overall attack success and benign accuracy); the Section 7.5 claim on spotlighting (input filtering, output validation and every combination
+    containing them are left out as filter, detector and system level; Tables 6 to 8 test no defence)
+defences:
+- id: spot
+  name: Spotlighting (log data in XML untrusted-data tags, trust-boundary instruction in the system prompt, fixed output format)
+  origin: other_report
+  base_checkpoint: GPT-4o
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 11
+  layout: SOC analyst system prompt; log batch (50 entries) or alert with 10 related entries in the user message; payloads in log fields
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: which combines three techniques below
+evaluations:
+- id: ev_conc_none
+  defence_id: none:GPT-4o
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), activity concealment
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+  baseline_kind: off_the_shelf
+- id: ev_conc_spot
+  defence_id: spot
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), activity concealment
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+- id: ev_fab_none
+  defence_id: none:GPT-4o
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), false alert fabrication
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+  baseline_kind: off_the_shelf
+- id: ev_fab_spot
+  defence_id: spot
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), false alert fabrication
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+- id: ev_exfil_none
+  defence_id: none:GPT-4o
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), system-prompt secret exfiltration
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+  baseline_kind: off_the_shelf
+- id: ev_exfil_spot
+  defence_id: spot
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), system-prompt secret exfiltration
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+- id: ev_inst_none
+  defence_id: none:GPT-4o
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), output hijacking
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+  baseline_kind: off_the_shelf
+- id: ev_inst_spot
+  defence_id: spot
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), output hijacking
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+- id: ev_all_none
+  defence_id: none:GPT-4o
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), all objectives
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+  baseline_kind: off_the_shelf
+- id: ev_all_spot
+  defence_id: spot
+  benchmark: LogInject-1.0, 2,569 adversarial log samples (atomic, fragmented and obfuscated payloads), all objectives
+  attacker_type: static
+  attacker_access: black_box
+  judge: exact match on the objective's token plus a GPT-4o judge, with human review of flagged cases
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+- id: ev_ben_none
+  defence_id: none:GPT-4o
+  benchmark: LogInject-1.0 benign log batches
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign batch correctly summarised or classified
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+  baseline_kind: off_the_shelf
+- id: ev_ben_spot
+  defence_id: spot
+  benchmark: LogInject-1.0 benign log batches
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign batch correctly summarised or classified
+  layout_same_as_defence: 'yes'
+  measured_by: loginject_arxiv2026
+  page: 15
+  decoding: temperature 0.0, max 1,024 tokens, 5 trials per configuration
+results:
+- id: r_conc_none
+  evaluation_id: ev_conc_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, activity concealment
+  value: '92.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_conc_spot
+  evaluation_id: ev_conc_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, activity concealment
+  value: '58.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_fab_none
+  evaluation_id: ev_fab_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, false alert fabrication
+  value: '88.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_fab_spot
+  evaluation_id: ev_fab_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, false alert fabrication
+  value: '52.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_exfil_none
+  evaluation_id: ev_exfil_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, system-prompt secret exfiltration
+  value: '82.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_exfil_spot
+  evaluation_id: ev_exfil_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, system-prompt secret exfiltration
+  value: '45.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_inst_none
+  evaluation_id: ev_inst_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, output hijacking
+  value: '86.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_inst_spot
+  evaluation_id: ev_inst_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, output hijacking
+  value: '49.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_all_none
+  evaluation_id: ev_all_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, all objectives
+  value: '87.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_all_spot
+  evaluation_id: ev_all_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, all objectives
+  value: '51.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_ben_none
+  evaluation_id: ev_ben_none
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign accuracy
+  value: '94.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+- id: r_ben_spot
+  evaluation_id: ev_ben_spot
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign accuracy
+  value: '93.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 9
+comparisons:
+- id: c_conc
+  left: ev_conc_spot
+  right: ev_conc_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_fab
+  left: ev_fab_spot
+  right: ev_fab_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_exfil
+  left: ev_exfil_spot
+  right: ev_exfil_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_inst
+  left: ev_inst_spot
+  right: ev_inst_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_all
+  left: ev_all_spot
+  right: ev_all_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_ben
+  left: ev_ben_spot
+  right: ev_ben_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+claims:
+- id: k1
+  text: spotlighting alone roughly halves attack success on log analysis
+  location: Section 7.5
+  anchor: XML delimiters with explicit trust instructions reduce ASR by approximately 45 percentage points
+  jobs:
+  - R1
+  supported_by:
+  - c_conc
+  - c_fab
+  - c_exfil
+  - c_inst
+  - c_all
+  page: 15
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 9
+    R2clean: Table 9 (benign accuracy)
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: defences are measured on GPT-4o only; Figure 2 shows spotlighting's attack success rising with context length (about 32% at 1K tokens to 72% at 16K) without an undefended curve, so it is not coded

@@ -89,3 +89,12 @@ batch,report,slug,coded,status
 04h,transfact_zenodo2026,doi_10_5281_zenodo_21120124,2026-11-22,checked
 04h,whosaidthis_zenodo2026,doi_10_5281_zenodo_23758886,2026-11-22,checked
 04h,whosewords_zenodo2026,doi_10_5281_zenodo_23758884,2026-11-22,checked
+04i,codt_arxiv2025,2504.20769,2026-11-22,checked
+04i,gptred_arxiv2026,2607.26115,2026-11-22,checked
+04i,intentguard_arxiv2025,2512.00966,2026-11-22,checked
+04i,jatmohouyi_arxiv2025,2512.01326,2026-11-22,checked
+04i,loginject_arxiv2026,2607.14493,2026-11-22,checked
+04i,pidefthesis_upv2026,title_defensescontrapromptinjectionenagentsllmavaluacisistemticaia,2026-11-22,checked
+04i,safereview_arxiv2026,2604.26506,2026-11-22,checked
+04i,securecai_arxiv2026,2601.07835,2026-11-22,checked
+04i,tab_arxiv2026,2605.12233,2026-11-22,checked

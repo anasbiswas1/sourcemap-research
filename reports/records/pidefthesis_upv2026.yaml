@@ -1,0 +1,2927 @@
+report:
+  id: pidefthesis_upv2026
+  slug: title_defensescontrapromptinjectionenagentsllmavaluacisistemticaia
+  title: 'Defenses against prompt injection in LLM agents: systematic evaluation and mechanistic analysis of failure modes'
+  first_author: Daniel Poncelas Vargas
+  venue: Master's thesis, Universitat Politècnica de València (RiuNet)
+  peer_reviewed: 'no'
+  version_read: RiuNet deposit (academic year 2025/2026)
+  first_date: '2026-10-14'
+  read: F
+  role: re_measures
+  extraction_scope: 'Tables 4.1 and 4.2 (AgentDojo subset: baseline, sandwich, spotlighting and reminder for seven models, plus SecAlign-8b against Llama 3.1 8B) and Table 5.1 (InjecAgent enhanced: the same prompt defences
+    on five open models); the abstract claim (paraphrase rewrites tool outputs with a separate model call and PromptGuard is a classifier, both left out; SecAlign combined with prompt defences and the mechanistic chapter are
+    not coded)'
+defences:
+- id: sand_nano
+  name: sandwich (the user instruction restated as a new message after the tool output)
+  origin: other_report
+  base_checkpoint: gpt-4.1-nano
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: The sandwich, also called repeating the user prompt
+- id: spot_nano
+  name: spotlighting (tool outputs wrapped in explicit delimiters with a clause not to obey text between them)
+  origin: other_report
+  base_checkpoint: gpt-4.1-nano
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: Spotlighting marks the untrusted content by wrapping every tool output
+- id: rem_nano
+  name: 'reminder (system-message clause: tool content is data, follow only system and user)'
+  origin: other_report
+  base_checkpoint: gpt-4.1-nano
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The reminder appends a clause to the system message
+- id: sand_gem
+  name: sandwich (the user instruction restated as a new message after the tool output)
+  origin: other_report
+  base_checkpoint: gemini-2.5-flash
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The sandwich, also called repeating the user prompt
+- id: spot_gem
+  name: spotlighting (tool outputs wrapped in explicit delimiters with a clause not to obey text between them)
+  origin: other_report
+  base_checkpoint: gemini-2.5-flash
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: Spotlighting marks the untrusted content by wrapping every tool output
+- id: rem_gem
+  name: 'reminder (system-message clause: tool content is data, follow only system and user)'
+  origin: other_report
+  base_checkpoint: gemini-2.5-flash
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The reminder appends a clause to the system message
+- id: sand_q7
+  name: sandwich (the user instruction restated as a new message after the tool output)
+  origin: other_report
+  base_checkpoint: qwen-2.5-7b
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The sandwich, also called repeating the user prompt
+- id: spot_q7
+  name: spotlighting (tool outputs wrapped in explicit delimiters with a clause not to obey text between them)
+  origin: other_report
+  base_checkpoint: qwen-2.5-7b
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: Spotlighting marks the untrusted content by wrapping every tool output
+- id: rem_q7
+  name: 'reminder (system-message clause: tool content is data, follow only system and user)'
+  origin: other_report
+  base_checkpoint: qwen-2.5-7b
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The reminder appends a clause to the system message
+- id: sand_q32
+  name: sandwich (the user instruction restated as a new message after the tool output)
+  origin: other_report
+  base_checkpoint: qwen-2.5-32b
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The sandwich, also called repeating the user prompt
+- id: spot_q32
+  name: spotlighting (tool outputs wrapped in explicit delimiters with a clause not to obey text between them)
+  origin: other_report
+  base_checkpoint: qwen-2.5-32b
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: Spotlighting marks the untrusted content by wrapping every tool output
+- id: rem_q32
+  name: 'reminder (system-message clause: tool content is data, follow only system and user)'
+  origin: other_report
+  base_checkpoint: qwen-2.5-32b
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The reminder appends a clause to the system message
+- id: sand_l3
+  name: sandwich (the user instruction restated as a new message after the tool output)
+  origin: other_report
+  base_checkpoint: llama-3.2-3b
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The sandwich, also called repeating the user prompt
+- id: spot_l3
+  name: spotlighting (tool outputs wrapped in explicit delimiters with a clause not to obey text between them)
+  origin: other_report
+  base_checkpoint: llama-3.2-3b
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: Spotlighting marks the untrusted content by wrapping every tool output
+- id: rem_l3
+  name: 'reminder (system-message clause: tool content is data, follow only system and user)'
+  origin: other_report
+  base_checkpoint: llama-3.2-3b
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The reminder appends a clause to the system message
+- id: sand_l8
+  name: sandwich (the user instruction restated as a new message after the tool output)
+  origin: other_report
+  base_checkpoint: llama-3.1-8b
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The sandwich, also called repeating the user prompt
+- id: spot_l8
+  name: spotlighting (tool outputs wrapped in explicit delimiters with a clause not to obey text between them)
+  origin: other_report
+  base_checkpoint: llama-3.1-8b
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: Spotlighting marks the untrusted content by wrapping every tool output
+- id: rem_l8
+  name: 'reminder (system-message clause: tool content is data, follow only system and user)'
+  origin: other_report
+  base_checkpoint: llama-3.1-8b
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The reminder appends a clause to the system message
+- id: sand_l70
+  name: sandwich (the user instruction restated as a new message after the tool output)
+  origin: other_report
+  base_checkpoint: llama-3.3-70b
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The sandwich, also called repeating the user prompt
+- id: spot_l70
+  name: spotlighting (tool outputs wrapped in explicit delimiters with a clause not to obey text between them)
+  origin: other_report
+  base_checkpoint: llama-3.3-70b
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: Spotlighting marks the untrusted content by wrapping every tool output
+- id: rem_l70
+  name: 'reminder (system-message clause: tool content is data, follow only system and user)'
+  origin: other_report
+  base_checkpoint: llama-3.3-70b
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 28
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: The reminder appends a clause to the system message
+- id: secalign
+  name: SecAlign-8b (preference-optimised LoRA adapter served on Llama 3.1 8B; cited as SecAlign)
+  origin: other_report
+  base_checkpoint: llama-3.1-8b
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 27
+  layout: AgentDojo or InjecAgent tool-calling agent; the defence is applied to the system message, the conversation order or the tool outputs
+  layout_compat: *id001
+  anchor: SecAlign was evaluated, a defense based on fine tuning
+evaluations:
+- id: ev_adj_nano_base
+  defence_id: none:gpt-4.1-nano
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+  baseline_kind: off_the_shelf
+- id: ev_adjc_nano_base
+  defence_id: none:gpt-4.1-nano
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  baseline_kind: off_the_shelf
+- id: ev_adj_nano_sand
+  defence_id: sand_nano
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_nano_sand
+  defence_id: sand_nano
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_nano_spot
+  defence_id: spot_nano
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_nano_spot
+  defence_id: spot_nano
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_nano_rem
+  defence_id: rem_nano
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_nano_rem
+  defence_id: rem_nano
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_gem_base
+  defence_id: none:gemini-2.5-flash
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 1 repetition
+  baseline_kind: off_the_shelf
+- id: ev_adjc_gem_base
+  defence_id: none:gemini-2.5-flash
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  baseline_kind: off_the_shelf
+- id: ev_adj_gem_sand
+  defence_id: sand_gem
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 1 repetition
+- id: ev_adjc_gem_sand
+  defence_id: sand_gem
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_gem_spot
+  defence_id: spot_gem
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 1 repetition
+- id: ev_adjc_gem_spot
+  defence_id: spot_gem
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_gem_rem
+  defence_id: rem_gem
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 1 repetition
+- id: ev_adjc_gem_rem
+  defence_id: rem_gem
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_q7_base
+  defence_id: none:qwen-2.5-7b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+  baseline_kind: off_the_shelf
+- id: ev_adjc_q7_base
+  defence_id: none:qwen-2.5-7b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  baseline_kind: off_the_shelf
+- id: ev_adj_q7_sand
+  defence_id: sand_q7
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_q7_sand
+  defence_id: sand_q7
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_q7_spot
+  defence_id: spot_q7
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_q7_spot
+  defence_id: spot_q7
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_q7_rem
+  defence_id: rem_q7
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_q7_rem
+  defence_id: rem_q7
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_q32_base
+  defence_id: none:qwen-2.5-32b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+  baseline_kind: off_the_shelf
+- id: ev_adjc_q32_base
+  defence_id: none:qwen-2.5-32b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  baseline_kind: off_the_shelf
+- id: ev_adj_q32_sand
+  defence_id: sand_q32
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_q32_sand
+  defence_id: sand_q32
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_q32_spot
+  defence_id: spot_q32
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_q32_spot
+  defence_id: spot_q32
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_q32_rem
+  defence_id: rem_q32
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_q32_rem
+  defence_id: rem_q32
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_l3_base
+  defence_id: none:llama-3.2-3b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+  baseline_kind: off_the_shelf
+- id: ev_adjc_l3_base
+  defence_id: none:llama-3.2-3b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  baseline_kind: off_the_shelf
+- id: ev_adj_l3_sand
+  defence_id: sand_l3
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_l3_sand
+  defence_id: sand_l3
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_l3_spot
+  defence_id: spot_l3
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_l3_spot
+  defence_id: spot_l3
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_l3_rem
+  defence_id: rem_l3
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_l3_rem
+  defence_id: rem_l3
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_l8_base
+  defence_id: none:llama-3.1-8b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+  baseline_kind: off_the_shelf
+- id: ev_adjc_l8_base
+  defence_id: none:llama-3.1-8b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  baseline_kind: off_the_shelf
+- id: ev_adj_l8_sand
+  defence_id: sand_l8
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_l8_sand
+  defence_id: sand_l8
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_l8_spot
+  defence_id: spot_l8
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_l8_spot
+  defence_id: spot_l8
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_l8_rem
+  defence_id: rem_l8
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_l8_rem
+  defence_id: rem_l8
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_l70_base
+  defence_id: none:llama-3.3-70b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+  baseline_kind: off_the_shelf
+- id: ev_adjc_l70_base
+  defence_id: none:llama-3.3-70b
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  baseline_kind: off_the_shelf
+- id: ev_adj_l70_sand
+  defence_id: sand_l70
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_l70_sand
+  defence_id: sand_l70
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_l70_spot
+  defence_id: spot_l70
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_l70_spot
+  defence_id: spot_l70
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_l70_rem
+  defence_id: rem_l70
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_l70_rem
+  defence_id: rem_l70
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_adj_secalign
+  defence_id: secalign
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), benchmark injections
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+  sample_size: 306 attacked cases x 3 repetitions
+- id: ev_adjc_secalign
+  defence_id: secalign
+  benchmark: AgentDojo stratified subset (47 user tasks, 306 attacked cases per repetition), cases without injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 34
+  decoding: deterministic
+- id: ev_ia_q7_base
+  defence_id: none:qwen-2.5-7b
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+  baseline_kind: off_the_shelf
+- id: ev_ia_q7_sand
+  defence_id: sand_q7
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_q7_spot
+  defence_id: spot_q7
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_q7_rem
+  defence_id: rem_q7
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_q32_base
+  defence_id: none:qwen-2.5-32b
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+  baseline_kind: off_the_shelf
+- id: ev_ia_q32_sand
+  defence_id: sand_q32
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_q32_spot
+  defence_id: spot_q32
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_q32_rem
+  defence_id: rem_q32
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_l3_base
+  defence_id: none:llama-3.2-3b
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+  baseline_kind: off_the_shelf
+- id: ev_ia_l3_sand
+  defence_id: sand_l3
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_l3_spot
+  defence_id: spot_l3
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_l3_rem
+  defence_id: rem_l3
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_l8_base
+  defence_id: none:llama-3.1-8b
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+  baseline_kind: off_the_shelf
+- id: ev_ia_l8_sand
+  defence_id: sand_l8
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_l8_spot
+  defence_id: spot_l8
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_l8_rem
+  defence_id: rem_l8
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_l70_base
+  defence_id: none:llama-3.3-70b
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+  baseline_kind: off_the_shelf
+- id: ev_ia_l70_sand
+  defence_id: sand_l70
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_l70_spot
+  defence_id: spot_l70
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+- id: ev_ia_l70_rem
+  defence_id: rem_l70
+  benchmark: 'InjecAgent, enhanced setting (1,054 cases: direct harm and data stealing)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent rules
+  layout_same_as_defence: 'yes'
+  measured_by: pidefthesis_upv2026
+  page: 46
+  decoding: deterministic
+  sample_size: '1054'
+results:
+- id: r_adj_nano_base_asr
+  evaluation_id: ev_adj_nano_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.351'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_nano_base_uwa
+  evaluation_id: ev_adjc_nano_base
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.397'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_nano_sand_asr
+  evaluation_id: ev_adj_nano_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.098'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_nano_sand_uwa
+  evaluation_id: ev_adjc_nano_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.390'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_nano_spot_asr
+  evaluation_id: ev_adj_nano_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.325'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_nano_spot_uwa
+  evaluation_id: ev_adjc_nano_spot
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.319'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_nano_rem_asr
+  evaluation_id: ev_adj_nano_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.324'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_nano_rem_uwa
+  evaluation_id: ev_adjc_nano_rem
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.355'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_gem_base_asr
+  evaluation_id: ev_adj_gem_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.516'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_gem_base_uwa
+  evaluation_id: ev_adjc_gem_base
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.553'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_gem_sand_asr
+  evaluation_id: ev_adj_gem_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.484'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_gem_sand_uwa
+  evaluation_id: ev_adjc_gem_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.638'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_gem_spot_asr
+  evaluation_id: ev_adj_gem_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.523'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_gem_spot_uwa
+  evaluation_id: ev_adjc_gem_spot
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.511'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_gem_rem_asr
+  evaluation_id: ev_adj_gem_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.474'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_gem_rem_uwa
+  evaluation_id: ev_adjc_gem_rem
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.553'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_q7_base_asr
+  evaluation_id: ev_adj_q7_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.199'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_q7_base_uwa
+  evaluation_id: ev_adjc_q7_base
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.404'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_q7_sand_asr
+  evaluation_id: ev_adj_q7_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.160'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_q7_sand_uwa
+  evaluation_id: ev_adjc_q7_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.340'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_q7_spot_asr
+  evaluation_id: ev_adj_q7_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.195'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_q7_spot_uwa
+  evaluation_id: ev_adjc_q7_spot
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.383'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_q7_rem_asr
+  evaluation_id: ev_adj_q7_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.205'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_q7_rem_uwa
+  evaluation_id: ev_adjc_q7_rem
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.447'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_q32_base_asr
+  evaluation_id: ev_adj_q32_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.428'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_q32_base_uwa
+  evaluation_id: ev_adjc_q32_base
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.511'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_q32_sand_asr
+  evaluation_id: ev_adj_q32_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.329'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_q32_sand_uwa
+  evaluation_id: ev_adjc_q32_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.567'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_q32_spot_asr
+  evaluation_id: ev_adj_q32_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.402'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_q32_spot_uwa
+  evaluation_id: ev_adjc_q32_spot
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.461'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_q32_rem_asr
+  evaluation_id: ev_adj_q32_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.370'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_q32_rem_uwa
+  evaluation_id: ev_adjc_q32_rem
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.539'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l3_base_asr
+  evaluation_id: ev_adj_l3_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.023'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l3_base_uwa
+  evaluation_id: ev_adjc_l3_base
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.078'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l3_sand_asr
+  evaluation_id: ev_adj_l3_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.024'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l3_sand_uwa
+  evaluation_id: ev_adjc_l3_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.085'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l3_spot_asr
+  evaluation_id: ev_adj_l3_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.037'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l3_spot_uwa
+  evaluation_id: ev_adjc_l3_spot
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.064'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l3_rem_asr
+  evaluation_id: ev_adj_l3_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.023'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l3_rem_uwa
+  evaluation_id: ev_adjc_l3_rem
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.085'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l8_base_asr
+  evaluation_id: ev_adj_l8_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.075'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l8_base_uwa
+  evaluation_id: ev_adjc_l8_base
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.149'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l8_sand_asr
+  evaluation_id: ev_adj_l8_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.048'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l8_sand_uwa
+  evaluation_id: ev_adjc_l8_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.109'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l8_spot_asr
+  evaluation_id: ev_adj_l8_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.068'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l8_spot_uwa
+  evaluation_id: ev_adjc_l8_spot
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.184'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l8_rem_asr
+  evaluation_id: ev_adj_l8_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.077'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l8_rem_uwa
+  evaluation_id: ev_adjc_l8_rem
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.192'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l70_base_asr
+  evaluation_id: ev_adj_l70_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.357'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l70_base_uwa
+  evaluation_id: ev_adjc_l70_base
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.326'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l70_sand_asr
+  evaluation_id: ev_adj_l70_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.282'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l70_sand_uwa
+  evaluation_id: ev_adjc_l70_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.355'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l70_spot_asr
+  evaluation_id: ev_adj_l70_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.374'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l70_spot_uwa
+  evaluation_id: ev_adjc_l70_spot
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.312'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_l70_rem_asr
+  evaluation_id: ev_adj_l70_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.370'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_l70_rem_uwa
+  evaluation_id: ev_adjc_l70_rem
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.347'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_adj_secalign_asr
+  evaluation_id: ev_adj_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.051'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.1
+- id: r_adj_secalign_uwa
+  evaluation_id: ev_adjc_secalign
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility without attack (UWA)
+  value: '0.071'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 34
+  location: Table 4.2
+- id: r_ia_q7_base
+  evaluation_id: ev_ia_q7_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.260'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_q7_sand
+  evaluation_id: ev_ia_q7_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.098'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_q7_spot
+  evaluation_id: ev_ia_q7_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.207'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_q7_rem
+  evaluation_id: ev_ia_q7_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.291'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_q32_base
+  evaluation_id: ev_ia_q32_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.227'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_q32_sand
+  evaluation_id: ev_ia_q32_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.074'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_q32_spot
+  evaluation_id: ev_ia_q32_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.138'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_q32_rem
+  evaluation_id: ev_ia_q32_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.061'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l3_base
+  evaluation_id: ev_ia_l3_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.366'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l3_sand
+  evaluation_id: ev_ia_l3_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.001'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l3_spot
+  evaluation_id: ev_ia_l3_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.278'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l3_rem
+  evaluation_id: ev_ia_l3_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.254'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l8_base
+  evaluation_id: ev_ia_l8_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.862'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l8_sand
+  evaluation_id: ev_ia_l8_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.005'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l8_spot
+  evaluation_id: ev_ia_l8_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.922'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l8_rem
+  evaluation_id: ev_ia_l8_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.823'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l70_base
+  evaluation_id: ev_ia_l70_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.661'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l70_sand
+  evaluation_id: ev_ia_l70_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.001'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l70_spot
+  evaluation_id: ev_ia_l70_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.862'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+- id: r_ia_l70_rem
+  evaluation_id: ev_ia_l70_rem
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.691'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 46
+  location: Table 5.1
+comparisons:
+- id: c_adj_nano_sand
+  left: ev_adj_nano_sand
+  right: ev_adj_nano_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_nano_sand
+  left: ev_adjc_nano_sand
+  right: ev_adjc_nano_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_nano_spot
+  left: ev_adj_nano_spot
+  right: ev_adj_nano_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_nano_spot
+  left: ev_adjc_nano_spot
+  right: ev_adjc_nano_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_nano_rem
+  left: ev_adj_nano_rem
+  right: ev_adj_nano_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_nano_rem
+  left: ev_adjc_nano_rem
+  right: ev_adjc_nano_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_gem_sand
+  left: ev_adj_gem_sand
+  right: ev_adj_gem_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_gem_sand
+  left: ev_adjc_gem_sand
+  right: ev_adjc_gem_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_gem_spot
+  left: ev_adj_gem_spot
+  right: ev_adj_gem_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_gem_spot
+  left: ev_adjc_gem_spot
+  right: ev_adjc_gem_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_gem_rem
+  left: ev_adj_gem_rem
+  right: ev_adj_gem_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_gem_rem
+  left: ev_adjc_gem_rem
+  right: ev_adjc_gem_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_q7_sand
+  left: ev_adj_q7_sand
+  right: ev_adj_q7_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_q7_sand
+  left: ev_adjc_q7_sand
+  right: ev_adjc_q7_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_q7_spot
+  left: ev_adj_q7_spot
+  right: ev_adj_q7_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_q7_spot
+  left: ev_adjc_q7_spot
+  right: ev_adjc_q7_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_q7_rem
+  left: ev_adj_q7_rem
+  right: ev_adj_q7_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_q7_rem
+  left: ev_adjc_q7_rem
+  right: ev_adjc_q7_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_q32_sand
+  left: ev_adj_q32_sand
+  right: ev_adj_q32_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_q32_sand
+  left: ev_adjc_q32_sand
+  right: ev_adjc_q32_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_q32_spot
+  left: ev_adj_q32_spot
+  right: ev_adj_q32_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_q32_spot
+  left: ev_adjc_q32_spot
+  right: ev_adjc_q32_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_q32_rem
+  left: ev_adj_q32_rem
+  right: ev_adj_q32_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_q32_rem
+  left: ev_adjc_q32_rem
+  right: ev_adjc_q32_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_l3_sand
+  left: ev_adj_l3_sand
+  right: ev_adj_l3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_l3_sand
+  left: ev_adjc_l3_sand
+  right: ev_adjc_l3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_l3_spot
+  left: ev_adj_l3_spot
+  right: ev_adj_l3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_l3_spot
+  left: ev_adjc_l3_spot
+  right: ev_adjc_l3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_l3_rem
+  left: ev_adj_l3_rem
+  right: ev_adj_l3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_l3_rem
+  left: ev_adjc_l3_rem
+  right: ev_adjc_l3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_l8_sand
+  left: ev_adj_l8_sand
+  right: ev_adj_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_l8_sand
+  left: ev_adjc_l8_sand
+  right: ev_adjc_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_l8_spot
+  left: ev_adj_l8_spot
+  right: ev_adj_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_l8_spot
+  left: ev_adjc_l8_spot
+  right: ev_adjc_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_l8_rem
+  left: ev_adj_l8_rem
+  right: ev_adj_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_l8_rem
+  left: ev_adjc_l8_rem
+  right: ev_adjc_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_l70_sand
+  left: ev_adj_l70_sand
+  right: ev_adj_l70_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_l70_sand
+  left: ev_adjc_l70_sand
+  right: ev_adjc_l70_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_l70_spot
+  left: ev_adj_l70_spot
+  right: ev_adj_l70_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_l70_spot
+  left: ev_adjc_l70_spot
+  right: ev_adjc_l70_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_l70_rem
+  left: ev_adj_l70_rem
+  right: ev_adj_l70_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_l70_rem
+  left: ev_adjc_l70_rem
+  right: ev_adjc_l70_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adj_secalign
+  left: ev_adj_secalign
+  right: ev_adj_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_adjc_secalign
+  left: ev_adjc_secalign
+  right: ev_adjc_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 34
+- id: c_ia_q7_sand
+  left: ev_ia_q7_sand
+  right: ev_ia_q7_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_q7_spot
+  left: ev_ia_q7_spot
+  right: ev_ia_q7_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_q7_rem
+  left: ev_ia_q7_rem
+  right: ev_ia_q7_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_q32_sand
+  left: ev_ia_q32_sand
+  right: ev_ia_q32_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_q32_spot
+  left: ev_ia_q32_spot
+  right: ev_ia_q32_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_q32_rem
+  left: ev_ia_q32_rem
+  right: ev_ia_q32_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_l3_sand
+  left: ev_ia_l3_sand
+  right: ev_ia_l3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_l3_spot
+  left: ev_ia_l3_spot
+  right: ev_ia_l3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_l3_rem
+  left: ev_ia_l3_rem
+  right: ev_ia_l3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_l8_sand
+  left: ev_ia_l8_sand
+  right: ev_ia_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_l8_spot
+  left: ev_ia_l8_spot
+  right: ev_ia_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_l8_rem
+  left: ev_ia_l8_rem
+  right: ev_ia_l8_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_l70_sand
+  left: ev_ia_l70_sand
+  right: ev_ia_l70_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_l70_spot
+  left: ev_ia_l70_spot
+  right: ev_ia_l70_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+- id: c_ia_l70_rem
+  left: ev_ia_l70_rem
+  right: ev_ia_l70_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 46
+claims:
+- id: k1
+  text: no defence is strong everywhere and the ranking of defences changes between AgentDojo and InjecAgent
+  location: abstract
+  anchor: the ranking of defenses changes from one benchmark to the other
+  jobs:
+  - R1
+  supported_by:
+  - c_adj_nano_sand
+  - c_adj_nano_spot
+  - c_adj_nano_rem
+  - c_adj_gem_sand
+  - c_adj_gem_spot
+  - c_adj_gem_rem
+  - c_adj_q7_sand
+  - c_adj_q7_spot
+  - c_adj_q7_rem
+  - c_adj_q32_sand
+  - c_adj_q32_spot
+  - c_adj_q32_rem
+  - c_adj_l3_sand
+  - c_adj_l3_spot
+  - c_adj_l3_rem
+  - c_adj_l8_sand
+  - c_adj_l8_spot
+  - c_adj_l8_rem
+  - c_adj_l70_sand
+  - c_adj_l70_spot
+  - c_adj_l70_rem
+  - c_ia_q7_sand
+  - c_ia_q7_spot
+  - c_ia_q7_rem
+  - c_ia_q32_sand
+  - c_ia_q32_spot
+  - c_ia_q32_rem
+  - c_ia_l3_sand
+  - c_ia_l3_spot
+  - c_ia_l3_rem
+  - c_ia_l8_sand
+  - c_ia_l8_spot
+  - c_ia_l8_rem
+  - c_ia_l70_sand
+  - c_ia_l70_spot
+  - c_ia_l70_rem
+  page: 3
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 4.1 and 5.1
+    R2clean: Table 4.2
+    R2attack: not reported in a table
+schema_gaps:
+- where: defence secalign
+  note: the thesis cites SecAlign and serves it as a LoRA adapter on Llama 3.1 8B; which released adapter was used is not stated
+- where: report
+  note: Gemini was run once per case, the other models three times; quantised weights for the 32B and 70B models; spotlighting raises InjecAgent attack success on Llama 3.1 8B (0.862 to 0.922)

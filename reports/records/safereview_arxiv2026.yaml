@@ -1,0 +1,810 @@
+report:
+  id: safereview_arxiv2026
+  slug: '2604.26506'
+  title: 'SafeReview: Defending LLM-based Review Systems Against Adversarial Hidden Prompts'
+  first_author: Yuan Xin
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2604.26506'
+  version_read: arXiv v2 (28 May 2026)
+  first_date: '2026-04-29'
+  read: F
+  role: proposes
+  extraction_scope: 'Table 2 (DeepReview, Static DPO and SafeReview under three GRPO attackers: FPR, average rating, Spearman), Table 4 (benign test set) and the System Defense and SecAlign values stated with Figure 4; the
+    abstract claim (Table 1 and Table 3 test no defence; PromptGuard 2 is a detector and is left out)'
+defences:
+- id: safereview
+  name: SafeReview (DPO on clean-review-preferred pairs, iterated in co-evolution with a GRPO-trained injection generator)
+  origin: this_report
+  base_checkpoint: DeepReviewer-14B
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  - adversarial_rl
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  layout: full paper text with 8 to 12 injected instruction-style sentences; four reviews per paper, ratings averaged
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: SafeReview jointly trains a Generator model to create
+- id: staticdpo
+  name: Static DPO (one round of DPO on pairs from the first GRPO attacker, no iteration)
+  origin: this_report
+  base_checkpoint: DeepReviewer-14B
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  layout: full paper text with 8 to 12 injected instruction-style sentences; four reviews per paper, ratings averaged
+  layout_compat: *id001
+  anchor: a Static DPO variant
+- id: sysdef
+  name: System Defense (anti-injection instruction prepended to the system prompt)
+  origin: other_report
+  base_checkpoint: DeepReviewer-14B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: full paper text with 8 to 12 injected instruction-style sentences; four reviews per paper, ratings averaged
+  layout_compat: *id001
+  anchor: prepends an anti-injection instruction to the system prompt
+- id: secalign
+  name: SecAlign (secure preference optimisation; base and training data not stated)
+  origin: other_report
+  base_checkpoint: not stated
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  layout: full paper text with 8 to 12 injected instruction-style sentences; four reviews per paper, ratings averaged
+  anchor: a secure preference optimization approach
+evaluations:
+- id: ev_q4_dr
+  defence_id: none:DeepReviewer-14B
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Qwen3-4B GRPO attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 6
+  attacker_budget: Qwen3-4B GRPO, trained offline with the undefended reviewer as reward model; one injection per paper
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q4_staticdpo
+  defence_id: staticdpo
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Qwen3-4B GRPO attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 6
+  attacker_budget: Qwen3-4B GRPO, trained offline with the undefended reviewer as reward model; one injection per paper
+  decoding: not reported
+- id: ev_q4_safereview
+  defence_id: safereview
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Qwen3-4B GRPO attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 6
+  attacker_budget: Qwen3-4B GRPO, trained offline with the undefended reviewer as reward model; one injection per paper
+  decoding: not reported
+- id: ev_q8_dr
+  defence_id: none:DeepReviewer-14B
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Qwen3-8B GRPO attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 6
+  attacker_budget: Qwen3-8B GRPO, trained offline with the undefended reviewer as reward model; one injection per paper
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_q8_staticdpo
+  defence_id: staticdpo
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Qwen3-8B GRPO attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 6
+  attacker_budget: Qwen3-8B GRPO, trained offline with the undefended reviewer as reward model; one injection per paper
+  decoding: not reported
+- id: ev_q8_safereview
+  defence_id: safereview
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Qwen3-8B GRPO attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 6
+  attacker_budget: Qwen3-8B GRPO, trained offline with the undefended reviewer as reward model; one injection per paper
+  decoding: not reported
+- id: ev_l3_dr
+  defence_id: none:DeepReviewer-14B
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Llama-3.2-3B GRPO attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 6
+  attacker_budget: Llama-3.2-3B GRPO, trained offline with the undefended reviewer as reward model; one injection per paper
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l3_staticdpo
+  defence_id: staticdpo
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Llama-3.2-3B GRPO attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 6
+  attacker_budget: Llama-3.2-3B GRPO, trained offline with the undefended reviewer as reward model; one injection per paper
+  decoding: not reported
+- id: ev_l3_safereview
+  defence_id: safereview
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Llama-3.2-3B GRPO attacker
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 6
+  attacker_budget: Llama-3.2-3B GRPO, trained offline with the undefended reviewer as reward model; one injection per paper
+  decoding: not reported
+- id: ev_f4_sysdef
+  defence_id: sysdef
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Figure 4 attacker (described as the strongest)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 7
+  attacker_budget: GRPO attacker of Figure 4
+  decoding: not reported
+- id: ev_f4_secalign
+  defence_id: secalign
+  benchmark: DeepReview test set (ICLR 2024 papers), injections from the Figure 4 attacker (described as the strongest)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 8
+  attacker_budget: GRPO attacker of Figure 4
+  decoding: not reported
+- id: ev_ben_dr
+  defence_id: none:DeepReviewer-14B
+  benchmark: DeepReview-13k benign test set
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ben_safereview
+  defence_id: safereview
+  benchmark: DeepReview-13k benign test set
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: rating extracted from each review; accept/reject threshold calibrated per condition to the true acceptance rate
+  layout_same_as_defence: 'yes'
+  measured_by: safereview_arxiv2026
+  page: 8
+  decoding: not reported
+results:
+- id: r_q4_dr_fpr
+  evaluation_id: ev_q4_dr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '48.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q4_dr_rating
+  evaluation_id: ev_q4_dr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: average rating (score inflation)
+  value: '5.60'
+  unit: score
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q4_dr_sp
+  evaluation_id: ev_q4_dr
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.354'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q4_staticdpo_fpr
+  evaluation_id: ev_q4_staticdpo
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '40.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q4_staticdpo_rating
+  evaluation_id: ev_q4_staticdpo
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: average rating (score inflation)
+  value: '5.52'
+  unit: score
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q4_staticdpo_sp
+  evaluation_id: ev_q4_staticdpo
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.343'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q4_safereview_fpr
+  evaluation_id: ev_q4_safereview
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '38.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q4_safereview_rating
+  evaluation_id: ev_q4_safereview
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: average rating (score inflation)
+  value: '5.47'
+  unit: score
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q4_safereview_sp
+  evaluation_id: ev_q4_safereview
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.409'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q8_dr_fpr
+  evaluation_id: ev_q8_dr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '56.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q8_dr_rating
+  evaluation_id: ev_q8_dr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: average rating (score inflation)
+  value: '5.91'
+  unit: score
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q8_dr_sp
+  evaluation_id: ev_q8_dr
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.339'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q8_staticdpo_fpr
+  evaluation_id: ev_q8_staticdpo
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '46.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q8_staticdpo_rating
+  evaluation_id: ev_q8_staticdpo
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: average rating (score inflation)
+  value: '5.21'
+  unit: score
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q8_staticdpo_sp
+  evaluation_id: ev_q8_staticdpo
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.349'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q8_safereview_fpr
+  evaluation_id: ev_q8_safereview
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '45.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q8_safereview_rating
+  evaluation_id: ev_q8_safereview
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: average rating (score inflation)
+  value: '5.69'
+  unit: score
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q8_safereview_sp
+  evaluation_id: ev_q8_safereview
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.396'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_dr_fpr
+  evaluation_id: ev_l3_dr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '42.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_dr_rating
+  evaluation_id: ev_l3_dr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: average rating (score inflation)
+  value: '5.56'
+  unit: score
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_dr_sp
+  evaluation_id: ev_l3_dr
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.359'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_staticdpo_fpr
+  evaluation_id: ev_l3_staticdpo
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '40.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_staticdpo_rating
+  evaluation_id: ev_l3_staticdpo
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: average rating (score inflation)
+  value: '5.85'
+  unit: score
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_staticdpo_sp
+  evaluation_id: ev_l3_staticdpo
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.343'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_safereview_fpr
+  evaluation_id: ev_l3_safereview
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '37.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_safereview_rating
+  evaluation_id: ev_l3_safereview
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: average rating (score inflation)
+  value: '5.69'
+  unit: score
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l3_safereview_sp
+  evaluation_id: ev_l3_safereview
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.392'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_f4_sysdef_fpr
+  evaluation_id: ev_f4_sysdef
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '43.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 4.4 (Figure 4)
+- id: r_f4_sysdef_sp
+  evaluation_id: ev_f4_sysdef
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.365'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 7
+  location: Section 4.4 (Figure 4)
+- id: r_f4_secalign_fpr
+  evaluation_id: ev_f4_secalign
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: FPR (reject-worthy papers rated acceptable)
+  value: '40.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: text
+  page: 8
+  location: Section 4.4 (Figure 4)
+- id: r_f4_secalign_sp
+  evaluation_id: ev_f4_secalign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores under attack
+  value: '0.343'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: text
+  page: 8
+  location: Section 4.4 (Figure 4)
+- id: r_ben_dr_sp
+  evaluation_id: ev_ben_dr
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores, clean papers
+  value: '0.365'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_ben_safereview_sp
+  evaluation_id: ev_ben_safereview
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Spearman correlation with true scores, clean papers
+  value: '0.391'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+comparisons:
+- id: c_q4_staticdpo
+  left: ev_q4_staticdpo
+  right: ev_q4_dr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q4_safereview
+  left: ev_q4_safereview
+  right: ev_q4_dr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q4_coevo
+  left: ev_q4_safereview
+  right: ev_q4_staticdpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: co-evolutionary iteration against one round of DPO on the same reviewer
+  page: 6
+- id: c_q8_staticdpo
+  left: ev_q8_staticdpo
+  right: ev_q8_dr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q8_safereview
+  left: ev_q8_safereview
+  right: ev_q8_dr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q8_coevo
+  left: ev_q8_safereview
+  right: ev_q8_staticdpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: co-evolutionary iteration against one round of DPO on the same reviewer
+  page: 6
+- id: c_l3_staticdpo
+  left: ev_l3_staticdpo
+  right: ev_l3_dr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_safereview
+  left: ev_l3_safereview
+  right: ev_l3_dr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l3_coevo
+  left: ev_l3_safereview
+  right: ev_l3_staticdpo
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: co-evolutionary iteration against one round of DPO on the same reviewer
+  page: 6
+- id: c_f4_sysdef
+  left: ev_q4_safereview
+  right: ev_f4_sysdef
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SafeReview against System Defense
+  page: 7
+- id: c_f4_secalign
+  left: ev_q4_safereview
+  right: ev_f4_secalign
+  purpose: M
+  c1_base: unreported
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched_unstated
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SafeReview against SecAlign
+  page: 8
+- id: c_ben_safereview
+  left: ev_ben_safereview
+  right: ev_ben_dr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: SafeReview improves robustness against adaptive prompt injection and better preserves paper ranking under attack than static defenses
+  location: abstract
+  anchor: better preserves paper ranking under attack
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_q4_safereview
+  - c_q8_safereview
+  - c_l3_safereview
+  - c_q4_coevo
+  - c_q8_coevo
+  - c_l3_coevo
+  - c_f4_sysdef
+  - c_f4_secalign
+  page: 1
+  contradicted_by:
+  - r_q8_safereview_rating
+  - r_l3_safereview_rating
+coverage:
+  R1: proxy
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2 FPR and average rating (proxies for score manipulation)
+    R2clean: Table 4
+    R2attack: Table 2 Spearman
+schema_gaps:
+- where: comparisons c_f4_*
+  note: Figure 4 is said to use the strongest attacker, but SafeReview's values there equal its Qwen3-4B row in Table 2, so the comparison uses that evaluation with the attacker marked matched_unstated; SecAlign's base and
+    training data are not stated
+- where: report
+  note: 'attack success is not measured directly: FPR depends on a threshold calibrated per condition and the average rating mixes defence effect with review calibration; the GRPO attackers were trained against the undefended
+    reviewer'

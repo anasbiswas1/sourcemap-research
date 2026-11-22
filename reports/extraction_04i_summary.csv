@@ -1,0 +1,10 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,values_third_extraction,chart_values_third_extraction,residual_notes,problems
+04i,pidefthesis_upv2026,title_defensescontrapromptinjectionenagentsllmavaluacisistemticaia,re_measures,22,78,78,78,0,23,59,59,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,2,0
+04i,codt_arxiv2025,2504.20769,proposes,18,144,216,216,0,19,72,72,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,1,0
+04i,intentguard_arxiv2025,2512.00966,proposes,4,60,108,108,0,5,60,60,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,2,0
+04i,jatmohouyi_arxiv2025,2512.01326,re_measures,3,12,12,12,0,4,9,0,9,0,0,1,direct,not_reported,direct,not_reported,not_reported,not_reported,0,0,1,0
+04i,securecai_arxiv2026,2601.07835,proposes,3,15,15,15,0,4,10,10,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,2,0
+04i,safereview_arxiv2026,2604.26506,proposes,4,13,33,33,0,5,12,11,0,0,1,1,proxy,direct,direct,not_reported,not_reported,not_reported,0,0,2,0
+04i,tab_arxiv2026,2605.12233,benchmark,6,9,18,18,0,7,6,6,0,0,0,1,proxy,not_reported,direct,not_reported,not_reported,not_reported,0,0,1,0
+04i,loginject_arxiv2026,2607.14493,mixed,1,12,12,12,0,2,6,6,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04i,gptred_arxiv2026,2607.26115,proposes,2,6,6,1,3,3,1,0,1,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,2,0
