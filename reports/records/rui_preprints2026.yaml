@@ -1,0 +1,6169 @@
+report:
+  id: rui_preprints2026
+  slug: doi_10_20944_preprints202603_1023_v1
+  title: 'Real User Instruction: Black-Box Instruction Authentication Middleware Against Indirect Prompt Injection'
+  first_author: Jingtang Luo
+  venue: Preprints.org preprint
+  peer_reviewed: 'no'
+  doi: 10.20944/preprints202603.1023.v1
+  version_read: v1 (13 March 2026)
+  first_date: '2026-03-13'
+  read: F
+  role: proposes
+  code_release: https://github.com/lambblue/rui
+  extraction_scope: 'Tables 2 to 5: no defence, static delimiter, randomized delimiter and RUI on five task scenarios (ASR and benign performance preservation), the split/encoded, spoofing and five-turn spoofing attacks, the
+    cross-model table and the two mechanism ablations; the abstract claim (the user-mode ablation rows are not coded)'
+defences:
+- id: stat_gfm
+  name: Static data delimiter (negative spotlighting)
+  origin: other_report
+  base_checkpoint: Gemini 3 Flash (medium thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Static Data Delimiters and Randomized
+- id: rand_gfm
+  name: Randomized (dynamic) data delimiter
+  origin: other_report
+  base_checkpoint: Gemini 3 Flash (medium thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: Static Data Delimiters and Randomized
+- id: rui_gfm
+  name: RUI (user instruction wrapped in a session-key JSON schema, mandatory detect-and-deny preamble, key rotation every turn)
+  origin: this_report
+  base_checkpoint: Gemini 3 Flash (medium thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: 'The Privileged Channel: A cryptographic-style encapsulation schema'
+- id: stat_gfl
+  name: Static data delimiter (negative spotlighting)
+  origin: other_report
+  base_checkpoint: Gemini 3 Flash (low thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: Static Data Delimiters and Randomized
+- id: rand_gfl
+  name: Randomized (dynamic) data delimiter
+  origin: other_report
+  base_checkpoint: Gemini 3 Flash (low thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: Static Data Delimiters and Randomized
+- id: rui_gfl
+  name: RUI (user instruction wrapped in a session-key JSON schema, mandatory detect-and-deny preamble, key rotation every turn)
+  origin: this_report
+  base_checkpoint: Gemini 3 Flash (low thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: 'The Privileged Channel: A cryptographic-style encapsulation schema'
+- id: stat_gp
+  name: Static data delimiter (negative spotlighting)
+  origin: other_report
+  base_checkpoint: Gemini 3.1 Pro (high thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: Static Data Delimiters and Randomized
+- id: rand_gp
+  name: Randomized (dynamic) data delimiter
+  origin: other_report
+  base_checkpoint: Gemini 3.1 Pro (high thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: Static Data Delimiters and Randomized
+- id: rui_gp
+  name: RUI (user instruction wrapped in a session-key JSON schema, mandatory detect-and-deny preamble, key rotation every turn)
+  origin: this_report
+  base_checkpoint: Gemini 3.1 Pro (high thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: 'The Privileged Channel: A cryptographic-style encapsulation schema'
+- id: stat_glm
+  name: Static data delimiter (negative spotlighting)
+  origin: other_report
+  base_checkpoint: GLM-5 (high thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: Static Data Delimiters and Randomized
+- id: rand_glm
+  name: Randomized (dynamic) data delimiter
+  origin: other_report
+  base_checkpoint: GLM-5 (high thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: Static Data Delimiters and Randomized
+- id: rui_glm
+  name: RUI (user instruction wrapped in a session-key JSON schema, mandatory detect-and-deny preamble, key rotation every turn)
+  origin: this_report
+  base_checkpoint: GLM-5 (high thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: 'The Privileged Channel: A cryptographic-style encapsulation schema'
+- id: stat_g54
+  name: Static data delimiter (negative spotlighting)
+  origin: other_report
+  base_checkpoint: GPT-5.4 (high thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: Static Data Delimiters and Randomized
+- id: rand_g54
+  name: Randomized (dynamic) data delimiter
+  origin: other_report
+  base_checkpoint: GPT-5.4 (high thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: Static Data Delimiters and Randomized
+- id: rui_g54
+  name: RUI (user instruction wrapped in a session-key JSON schema, mandatory detect-and-deny preamble, key rotation every turn)
+  origin: this_report
+  base_checkpoint: GPT-5.4 (high thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 9
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: 'The Privileged Channel: A cryptographic-style encapsulation schema'
+- id: nopc_gfm
+  name: RUI without the privileged channel (data wrapped instead of the instruction)
+  origin: this_report
+  base_checkpoint: Gemini 3 Flash (medium thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 21
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: We consider 3 mechanisms to evaluate
+- id: noeai_gfm
+  name: RUI without explicit adversarial identification (no listing of unauthorized instructions)
+  origin: this_report
+  base_checkpoint: Gemini 3 Flash (medium thinking)
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 21
+  layout: system prompt and user prompt rewritten by the middleware; external data in the user prompt
+  layout_compat: *id001
+  anchor: We consider 3 mechanisms to evaluate
+evaluations:
+- id: ev_dir_gfm_none_abstract
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_dir_gfm_none_code
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_dir_gfm_none_email
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_dir_gfm_none_report
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_dir_gfm_none_table
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_dir_gfm_stat_abstract
+  defence_id: stat_gfm
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_stat_code
+  defence_id: stat_gfm
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_stat_email
+  defence_id: stat_gfm
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_stat_report
+  defence_id: stat_gfm
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_stat_table
+  defence_id: stat_gfm
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rand_abstract
+  defence_id: rand_gfm
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rand_code
+  defence_id: rand_gfm
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rand_email
+  defence_id: rand_gfm
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rand_report
+  defence_id: rand_gfm
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rand_table
+  defence_id: rand_gfm
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rui_abstract
+  defence_id: rui_gfm
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rui_code
+  defence_id: rui_gfm
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rui_email
+  defence_id: rui_gfm
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rui_report
+  defence_id: rui_gfm
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_dir_gfm_rui_table
+  defence_id: rui_gfm
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_stat_abstract
+  defence_id: stat_gfm
+  benchmark: RUI test set, abstract scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_stat_code
+  defence_id: stat_gfm
+  benchmark: RUI test set, code scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_stat_email
+  defence_id: stat_gfm
+  benchmark: RUI test set, email scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_stat_report
+  defence_id: stat_gfm
+  benchmark: RUI test set, report scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_stat_table
+  defence_id: stat_gfm
+  benchmark: RUI test set, table scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rand_abstract
+  defence_id: rand_gfm
+  benchmark: RUI test set, abstract scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rand_code
+  defence_id: rand_gfm
+  benchmark: RUI test set, code scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rand_email
+  defence_id: rand_gfm
+  benchmark: RUI test set, email scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rand_report
+  defence_id: rand_gfm
+  benchmark: RUI test set, report scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rand_table
+  defence_id: rand_gfm
+  benchmark: RUI test set, table scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rui_abstract
+  defence_id: rui_gfm
+  benchmark: RUI test set, abstract scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rui_code
+  defence_id: rui_gfm
+  benchmark: RUI test set, code scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rui_email
+  defence_id: rui_gfm
+  benchmark: RUI test set, email scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rui_report
+  defence_id: rui_gfm
+  benchmark: RUI test set, report scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_bpp_rui_table
+  defence_id: rui_gfm
+  benchmark: RUI test set, table scenario
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'Gemini-3.1-Pro judge: user command fulfilled as well as by the undefended model'
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 16
+  decoding: not reported
+- id: ev_split_gfm_none_abstract
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, abstract scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_split_gfm_none_code
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, code scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_split_gfm_none_email
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, email scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_split_gfm_none_report
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, report scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_split_gfm_none_table
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, table scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_split_gfm_stat_abstract
+  defence_id: stat_gfm
+  benchmark: RUI test set, abstract scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_stat_code
+  defence_id: stat_gfm
+  benchmark: RUI test set, code scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_stat_email
+  defence_id: stat_gfm
+  benchmark: RUI test set, email scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_stat_report
+  defence_id: stat_gfm
+  benchmark: RUI test set, report scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_stat_table
+  defence_id: stat_gfm
+  benchmark: RUI test set, table scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rand_abstract
+  defence_id: rand_gfm
+  benchmark: RUI test set, abstract scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rand_code
+  defence_id: rand_gfm
+  benchmark: RUI test set, code scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rand_email
+  defence_id: rand_gfm
+  benchmark: RUI test set, email scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rand_report
+  defence_id: rand_gfm
+  benchmark: RUI test set, report scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rand_table
+  defence_id: rand_gfm
+  benchmark: RUI test set, table scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rui_abstract
+  defence_id: rui_gfm
+  benchmark: RUI test set, abstract scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rui_code
+  defence_id: rui_gfm
+  benchmark: RUI test set, code scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rui_email
+  defence_id: rui_gfm
+  benchmark: RUI test set, email scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rui_report
+  defence_id: rui_gfm
+  benchmark: RUI test set, report scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_split_gfm_rui_table
+  defence_id: rui_gfm
+  benchmark: RUI test set, table scenario, split or encoded injection
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_none_abstract
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, abstract scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_spoof_gfm_none_code
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, code scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_spoof_gfm_none_email
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, email scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_spoof_gfm_none_report
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, report scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_spoof_gfm_none_table
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, table scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_spoof_gfm_stat_abstract
+  defence_id: stat_gfm
+  benchmark: RUI test set, abstract scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_stat_code
+  defence_id: stat_gfm
+  benchmark: RUI test set, code scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_stat_email
+  defence_id: stat_gfm
+  benchmark: RUI test set, email scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_stat_report
+  defence_id: stat_gfm
+  benchmark: RUI test set, report scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_stat_table
+  defence_id: stat_gfm
+  benchmark: RUI test set, table scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rand_abstract
+  defence_id: rand_gfm
+  benchmark: RUI test set, abstract scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rand_code
+  defence_id: rand_gfm
+  benchmark: RUI test set, code scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rand_email
+  defence_id: rand_gfm
+  benchmark: RUI test set, email scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rand_report
+  defence_id: rand_gfm
+  benchmark: RUI test set, report scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rand_table
+  defence_id: rand_gfm
+  benchmark: RUI test set, table scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rui_abstract
+  defence_id: rui_gfm
+  benchmark: RUI test set, abstract scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rui_code
+  defence_id: rui_gfm
+  benchmark: RUI test set, code scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rui_email
+  defence_id: rui_gfm
+  benchmark: RUI test set, email scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rui_report
+  defence_id: rui_gfm
+  benchmark: RUI test set, report scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof_gfm_rui_table
+  defence_id: rui_gfm
+  benchmark: RUI test set, table scenario, delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+- id: ev_spoof5_gfm_none_abstract
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, abstract scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+  baseline_kind: off_the_shelf
+- id: ev_spoof5_gfm_none_code
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, code scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+  baseline_kind: off_the_shelf
+- id: ev_spoof5_gfm_none_email
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, email scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+  baseline_kind: off_the_shelf
+- id: ev_spoof5_gfm_none_report
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, report scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+  baseline_kind: off_the_shelf
+- id: ev_spoof5_gfm_none_table
+  defence_id: none:Gemini 3 Flash (medium thinking)
+  benchmark: RUI test set, table scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+  baseline_kind: off_the_shelf
+- id: ev_spoof5_gfm_stat_abstract
+  defence_id: stat_gfm
+  benchmark: RUI test set, abstract scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_stat_code
+  defence_id: stat_gfm
+  benchmark: RUI test set, code scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_stat_email
+  defence_id: stat_gfm
+  benchmark: RUI test set, email scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_stat_report
+  defence_id: stat_gfm
+  benchmark: RUI test set, report scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_stat_table
+  defence_id: stat_gfm
+  benchmark: RUI test set, table scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rand_abstract
+  defence_id: rand_gfm
+  benchmark: RUI test set, abstract scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rand_code
+  defence_id: rand_gfm
+  benchmark: RUI test set, code scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rand_email
+  defence_id: rand_gfm
+  benchmark: RUI test set, email scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rand_report
+  defence_id: rand_gfm
+  benchmark: RUI test set, report scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rand_table
+  defence_id: rand_gfm
+  benchmark: RUI test set, table scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rui_abstract
+  defence_id: rui_gfm
+  benchmark: RUI test set, abstract scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rui_code
+  defence_id: rui_gfm
+  benchmark: RUI test set, code scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rui_email
+  defence_id: rui_gfm
+  benchmark: RUI test set, email scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rui_report
+  defence_id: rui_gfm
+  benchmark: RUI test set, report scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_spoof5_gfm_rui_table
+  defence_id: rui_gfm
+  benchmark: RUI test set, table scenario, five-turn delimitation spoofing
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 18
+  decoding: not reported
+  attacker_budget: attacker sees the full history; success if any of five turns is compromised
+- id: ev_x_gfl_none_abstract
+  defence_id: none:Gemini 3 Flash (low thinking)
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gfl_none_code
+  defence_id: none:Gemini 3 Flash (low thinking)
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gfl_none_email
+  defence_id: none:Gemini 3 Flash (low thinking)
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gfl_none_report
+  defence_id: none:Gemini 3 Flash (low thinking)
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gfl_none_table
+  defence_id: none:Gemini 3 Flash (low thinking)
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gfl_stat_abstract
+  defence_id: stat_gfl
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_stat_code
+  defence_id: stat_gfl
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_stat_email
+  defence_id: stat_gfl
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_stat_report
+  defence_id: stat_gfl
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_stat_table
+  defence_id: stat_gfl
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rand_abstract
+  defence_id: rand_gfl
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rand_code
+  defence_id: rand_gfl
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rand_email
+  defence_id: rand_gfl
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rand_report
+  defence_id: rand_gfl
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rand_table
+  defence_id: rand_gfl
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rui_abstract
+  defence_id: rui_gfl
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rui_code
+  defence_id: rui_gfl
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rui_email
+  defence_id: rui_gfl
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rui_report
+  defence_id: rui_gfl
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gfl_rui_table
+  defence_id: rui_gfl
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_none_abstract
+  defence_id: none:Gemini 3.1 Pro (high thinking)
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gp_none_code
+  defence_id: none:Gemini 3.1 Pro (high thinking)
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gp_none_email
+  defence_id: none:Gemini 3.1 Pro (high thinking)
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gp_none_report
+  defence_id: none:Gemini 3.1 Pro (high thinking)
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gp_none_table
+  defence_id: none:Gemini 3.1 Pro (high thinking)
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_gp_stat_abstract
+  defence_id: stat_gp
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_stat_code
+  defence_id: stat_gp
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_stat_email
+  defence_id: stat_gp
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_stat_report
+  defence_id: stat_gp
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_stat_table
+  defence_id: stat_gp
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rand_abstract
+  defence_id: rand_gp
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rand_code
+  defence_id: rand_gp
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rand_email
+  defence_id: rand_gp
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rand_report
+  defence_id: rand_gp
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rand_table
+  defence_id: rand_gp
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rui_abstract
+  defence_id: rui_gp
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rui_code
+  defence_id: rui_gp
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rui_email
+  defence_id: rui_gp
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rui_report
+  defence_id: rui_gp
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_gp_rui_table
+  defence_id: rui_gp
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_none_abstract
+  defence_id: none:GLM-5 (high thinking)
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_glm_none_code
+  defence_id: none:GLM-5 (high thinking)
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_glm_none_email
+  defence_id: none:GLM-5 (high thinking)
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_glm_none_report
+  defence_id: none:GLM-5 (high thinking)
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_glm_none_table
+  defence_id: none:GLM-5 (high thinking)
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_glm_stat_abstract
+  defence_id: stat_glm
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_stat_code
+  defence_id: stat_glm
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_stat_email
+  defence_id: stat_glm
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_stat_report
+  defence_id: stat_glm
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_stat_table
+  defence_id: stat_glm
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rand_abstract
+  defence_id: rand_glm
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rand_code
+  defence_id: rand_glm
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rand_email
+  defence_id: rand_glm
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rand_report
+  defence_id: rand_glm
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rand_table
+  defence_id: rand_glm
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rui_abstract
+  defence_id: rui_glm
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rui_code
+  defence_id: rui_glm
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rui_email
+  defence_id: rui_glm
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rui_report
+  defence_id: rui_glm
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_glm_rui_table
+  defence_id: rui_glm
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_none_abstract
+  defence_id: none:GPT-5.4 (high thinking)
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_g54_none_code
+  defence_id: none:GPT-5.4 (high thinking)
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_g54_none_email
+  defence_id: none:GPT-5.4 (high thinking)
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_g54_none_report
+  defence_id: none:GPT-5.4 (high thinking)
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_g54_none_table
+  defence_id: none:GPT-5.4 (high thinking)
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_x_g54_stat_abstract
+  defence_id: stat_g54
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_stat_code
+  defence_id: stat_g54
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_stat_email
+  defence_id: stat_g54
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_stat_report
+  defence_id: stat_g54
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_stat_table
+  defence_id: stat_g54
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rand_abstract
+  defence_id: rand_g54
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rand_code
+  defence_id: rand_g54
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rand_email
+  defence_id: rand_g54
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rand_report
+  defence_id: rand_g54
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rand_table
+  defence_id: rand_g54
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rui_abstract
+  defence_id: rui_g54
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rui_code
+  defence_id: rui_g54
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rui_email
+  defence_id: rui_g54
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rui_report
+  defence_id: rui_g54
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_x_g54_rui_table
+  defence_id: rui_g54
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 21
+  decoding: not reported
+- id: ev_abl_nopc_abstract
+  defence_id: nopc_gfm
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+- id: ev_abl_nopc_code
+  defence_id: nopc_gfm
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+- id: ev_abl_nopc_email
+  defence_id: nopc_gfm
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+- id: ev_abl_nopc_report
+  defence_id: nopc_gfm
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+- id: ev_abl_nopc_table
+  defence_id: nopc_gfm
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+- id: ev_abl_noeai_abstract
+  defence_id: noeai_gfm
+  benchmark: RUI test set, abstract scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+- id: ev_abl_noeai_code
+  defence_id: noeai_gfm
+  benchmark: RUI test set, code scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+- id: ev_abl_noeai_email
+  defence_id: noeai_gfm
+  benchmark: RUI test set, email scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+- id: ev_abl_noeai_report
+  defence_id: noeai_gfm
+  benchmark: RUI test set, report scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+- id: ev_abl_noeai_table
+  defence_id: noeai_gfm
+  benchmark: RUI test set, table scenario, direct context-aware injection (written with knowledge of the task context)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: attack goal achieved in the response
+  layout_same_as_defence: 'yes'
+  measured_by: rui_preprints2026
+  page: 22
+  decoding: not reported
+results:
+- id: r_dir_gfm_none_abstract
+  evaluation_id: ev_dir_gfm_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_none_code
+  evaluation_id: ev_dir_gfm_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_none_email
+  evaluation_id: ev_dir_gfm_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_none_report
+  evaluation_id: ev_dir_gfm_none_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_none_table
+  evaluation_id: ev_dir_gfm_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_stat_abstract
+  evaluation_id: ev_dir_gfm_stat_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '71.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_stat_code
+  evaluation_id: ev_dir_gfm_stat_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '33.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_stat_email
+  evaluation_id: ev_dir_gfm_stat_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '27.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_stat_report
+  evaluation_id: ev_dir_gfm_stat_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '86.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_stat_table
+  evaluation_id: ev_dir_gfm_stat_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '82.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rand_abstract
+  evaluation_id: ev_dir_gfm_rand_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '62.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rand_code
+  evaluation_id: ev_dir_gfm_rand_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '32.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rand_email
+  evaluation_id: ev_dir_gfm_rand_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '23.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rand_report
+  evaluation_id: ev_dir_gfm_rand_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '79.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rand_table
+  evaluation_id: ev_dir_gfm_rand_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '67.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rui_abstract
+  evaluation_id: ev_dir_gfm_rui_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rui_code
+  evaluation_id: ev_dir_gfm_rui_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rui_email
+  evaluation_id: ev_dir_gfm_rui_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rui_report
+  evaluation_id: ev_dir_gfm_rui_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_dir_gfm_rui_table
+  evaluation_id: ev_dir_gfm_rui_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+- id: r_bpp_stat_abstract
+  evaluation_id: ev_bpp_stat_abstract
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '86.9'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_stat_code
+  evaluation_id: ev_bpp_stat_code
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '39.5'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_stat_email
+  evaluation_id: ev_bpp_stat_email
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '71.8'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_stat_report
+  evaluation_id: ev_bpp_stat_report
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '97.1'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_stat_table
+  evaluation_id: ev_bpp_stat_table
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '64.9'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rand_abstract
+  evaluation_id: ev_bpp_rand_abstract
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '89.6'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rand_code
+  evaluation_id: ev_bpp_rand_code
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '68.9'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rand_email
+  evaluation_id: ev_bpp_rand_email
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '58.9'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rand_report
+  evaluation_id: ev_bpp_rand_report
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '79.2'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rand_table
+  evaluation_id: ev_bpp_rand_table
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '49.1'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rui_abstract
+  evaluation_id: ev_bpp_rui_abstract
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '98.9'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rui_code
+  evaluation_id: ev_bpp_rui_code
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '88.8'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rui_email
+  evaluation_id: ev_bpp_rui_email
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '93.1'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rui_report
+  evaluation_id: ev_bpp_rui_report
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '99.4'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_bpp_rui_table
+  evaluation_id: ev_bpp_rui_table
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign performance preservation (BPP)
+  value: '99.0'
+  unit: percent_of_reference
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 2
+  reference: the undefended model's response
+- id: r_split_gfm_none_abstract
+  evaluation_id: ev_split_gfm_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_none_code
+  evaluation_id: ev_split_gfm_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_none_email
+  evaluation_id: ev_split_gfm_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_none_report
+  evaluation_id: ev_split_gfm_none_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_none_table
+  evaluation_id: ev_split_gfm_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_stat_abstract
+  evaluation_id: ev_split_gfm_stat_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '12.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_stat_code
+  evaluation_id: ev_split_gfm_stat_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_stat_email
+  evaluation_id: ev_split_gfm_stat_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_stat_report
+  evaluation_id: ev_split_gfm_stat_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '29.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_stat_table
+  evaluation_id: ev_split_gfm_stat_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rand_abstract
+  evaluation_id: ev_split_gfm_rand_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rand_code
+  evaluation_id: ev_split_gfm_rand_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rand_email
+  evaluation_id: ev_split_gfm_rand_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rand_report
+  evaluation_id: ev_split_gfm_rand_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '28.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rand_table
+  evaluation_id: ev_split_gfm_rand_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rui_abstract
+  evaluation_id: ev_split_gfm_rui_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rui_code
+  evaluation_id: ev_split_gfm_rui_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rui_email
+  evaluation_id: ev_split_gfm_rui_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rui_report
+  evaluation_id: ev_split_gfm_rui_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_split_gfm_rui_table
+  evaluation_id: ev_split_gfm_rui_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, split or encoded injection
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_none_abstract
+  evaluation_id: ev_spoof_gfm_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_none_code
+  evaluation_id: ev_spoof_gfm_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_none_email
+  evaluation_id: ev_spoof_gfm_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_none_report
+  evaluation_id: ev_spoof_gfm_none_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_none_table
+  evaluation_id: ev_spoof_gfm_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_stat_abstract
+  evaluation_id: ev_spoof_gfm_stat_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_stat_code
+  evaluation_id: ev_spoof_gfm_stat_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_stat_email
+  evaluation_id: ev_spoof_gfm_stat_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_stat_report
+  evaluation_id: ev_spoof_gfm_stat_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_stat_table
+  evaluation_id: ev_spoof_gfm_stat_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rand_abstract
+  evaluation_id: ev_spoof_gfm_rand_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rand_code
+  evaluation_id: ev_spoof_gfm_rand_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rand_email
+  evaluation_id: ev_spoof_gfm_rand_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rand_report
+  evaluation_id: ev_spoof_gfm_rand_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rand_table
+  evaluation_id: ev_spoof_gfm_rand_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rui_abstract
+  evaluation_id: ev_spoof_gfm_rui_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rui_code
+  evaluation_id: ev_spoof_gfm_rui_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rui_email
+  evaluation_id: ev_spoof_gfm_rui_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rui_report
+  evaluation_id: ev_spoof_gfm_rui_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof_gfm_rui_table
+  evaluation_id: ev_spoof_gfm_rui_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_none_abstract
+  evaluation_id: ev_spoof5_gfm_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_none_code
+  evaluation_id: ev_spoof5_gfm_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_none_email
+  evaluation_id: ev_spoof5_gfm_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_none_report
+  evaluation_id: ev_spoof5_gfm_none_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_none_table
+  evaluation_id: ev_spoof5_gfm_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_stat_abstract
+  evaluation_id: ev_spoof5_gfm_stat_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_stat_code
+  evaluation_id: ev_spoof5_gfm_stat_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_stat_email
+  evaluation_id: ev_spoof5_gfm_stat_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_stat_report
+  evaluation_id: ev_spoof5_gfm_stat_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_stat_table
+  evaluation_id: ev_spoof5_gfm_stat_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rand_abstract
+  evaluation_id: ev_spoof5_gfm_rand_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '1.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rand_code
+  evaluation_id: ev_spoof5_gfm_rand_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '1.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rand_email
+  evaluation_id: ev_spoof5_gfm_rand_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rand_report
+  evaluation_id: ev_spoof5_gfm_rand_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '3.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rand_table
+  evaluation_id: ev_spoof5_gfm_rand_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '2.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rui_abstract
+  evaluation_id: ev_spoof5_gfm_rui_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rui_code
+  evaluation_id: ev_spoof5_gfm_rui_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rui_email
+  evaluation_id: ev_spoof5_gfm_rui_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rui_report
+  evaluation_id: ev_spoof5_gfm_rui_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_spoof5_gfm_rui_table
+  evaluation_id: ev_spoof5_gfm_rui_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, five-turn delimitation spoofing
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 3
+- id: r_x_gfl_none_abstract
+  evaluation_id: ev_x_gfl_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_none_code
+  evaluation_id: ev_x_gfl_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_none_email
+  evaluation_id: ev_x_gfl_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_none_report
+  evaluation_id: ev_x_gfl_none_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_none_table
+  evaluation_id: ev_x_gfl_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_stat_abstract
+  evaluation_id: ev_x_gfl_stat_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '73.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_stat_code
+  evaluation_id: ev_x_gfl_stat_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '50.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_stat_email
+  evaluation_id: ev_x_gfl_stat_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '28.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_stat_report
+  evaluation_id: ev_x_gfl_stat_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '94.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_stat_table
+  evaluation_id: ev_x_gfl_stat_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '84.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rand_abstract
+  evaluation_id: ev_x_gfl_rand_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '67.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rand_code
+  evaluation_id: ev_x_gfl_rand_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '50.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rand_email
+  evaluation_id: ev_x_gfl_rand_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '40.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rand_report
+  evaluation_id: ev_x_gfl_rand_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '86.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rand_table
+  evaluation_id: ev_x_gfl_rand_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '75.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rui_abstract
+  evaluation_id: ev_x_gfl_rui_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '5.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rui_code
+  evaluation_id: ev_x_gfl_rui_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rui_email
+  evaluation_id: ev_x_gfl_rui_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '1.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rui_report
+  evaluation_id: ev_x_gfl_rui_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '8.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gfl_rui_table
+  evaluation_id: ev_x_gfl_rui_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_none_abstract
+  evaluation_id: ev_x_gp_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_none_code
+  evaluation_id: ev_x_gp_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_none_email
+  evaluation_id: ev_x_gp_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_none_report
+  evaluation_id: ev_x_gp_none_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_none_table
+  evaluation_id: ev_x_gp_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_stat_abstract
+  evaluation_id: ev_x_gp_stat_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_stat_code
+  evaluation_id: ev_x_gp_stat_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_stat_email
+  evaluation_id: ev_x_gp_stat_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '6.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_stat_report
+  evaluation_id: ev_x_gp_stat_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '23.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_stat_table
+  evaluation_id: ev_x_gp_stat_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '13.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rand_abstract
+  evaluation_id: ev_x_gp_rand_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rand_code
+  evaluation_id: ev_x_gp_rand_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rand_email
+  evaluation_id: ev_x_gp_rand_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '1.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rand_report
+  evaluation_id: ev_x_gp_rand_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '18.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rand_table
+  evaluation_id: ev_x_gp_rand_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rui_abstract
+  evaluation_id: ev_x_gp_rui_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rui_code
+  evaluation_id: ev_x_gp_rui_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rui_email
+  evaluation_id: ev_x_gp_rui_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rui_report
+  evaluation_id: ev_x_gp_rui_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_gp_rui_table
+  evaluation_id: ev_x_gp_rui_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_none_abstract
+  evaluation_id: ev_x_glm_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_none_code
+  evaluation_id: ev_x_glm_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_none_email
+  evaluation_id: ev_x_glm_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_none_report
+  evaluation_id: ev_x_glm_none_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_none_table
+  evaluation_id: ev_x_glm_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_stat_abstract
+  evaluation_id: ev_x_glm_stat_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '23.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_stat_code
+  evaluation_id: ev_x_glm_stat_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_stat_email
+  evaluation_id: ev_x_glm_stat_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '23.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_stat_report
+  evaluation_id: ev_x_glm_stat_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '72.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_stat_table
+  evaluation_id: ev_x_glm_stat_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '9.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rand_abstract
+  evaluation_id: ev_x_glm_rand_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '11.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rand_code
+  evaluation_id: ev_x_glm_rand_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rand_email
+  evaluation_id: ev_x_glm_rand_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '5.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rand_report
+  evaluation_id: ev_x_glm_rand_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '33.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rand_table
+  evaluation_id: ev_x_glm_rand_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rui_abstract
+  evaluation_id: ev_x_glm_rui_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rui_code
+  evaluation_id: ev_x_glm_rui_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rui_email
+  evaluation_id: ev_x_glm_rui_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rui_report
+  evaluation_id: ev_x_glm_rui_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_glm_rui_table
+  evaluation_id: ev_x_glm_rui_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_none_abstract
+  evaluation_id: ev_x_g54_none_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_none_code
+  evaluation_id: ev_x_g54_none_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_none_email
+  evaluation_id: ev_x_g54_none_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_none_report
+  evaluation_id: ev_x_g54_none_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_none_table
+  evaluation_id: ev_x_g54_none_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_stat_abstract
+  evaluation_id: ev_x_g54_stat_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_stat_code
+  evaluation_id: ev_x_g54_stat_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_stat_email
+  evaluation_id: ev_x_g54_stat_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '4.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_stat_report
+  evaluation_id: ev_x_g54_stat_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '19.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_stat_table
+  evaluation_id: ev_x_g54_stat_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '11.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rand_abstract
+  evaluation_id: ev_x_g54_rand_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rand_code
+  evaluation_id: ev_x_g54_rand_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rand_email
+  evaluation_id: ev_x_g54_rand_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rand_report
+  evaluation_id: ev_x_g54_rand_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '12.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rand_table
+  evaluation_id: ev_x_g54_rand_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rui_abstract
+  evaluation_id: ev_x_g54_rui_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rui_code
+  evaluation_id: ev_x_g54_rui_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rui_email
+  evaluation_id: ev_x_g54_rui_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rui_report
+  evaluation_id: ev_x_g54_rui_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_x_g54_rui_table
+  evaluation_id: ev_x_g54_rui_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, direct context-aware injection (written with knowledge of the task context)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 21
+  location: Table 4
+- id: r_abl_nopc_abstract
+  evaluation_id: ev_abl_nopc_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '10.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+- id: r_abl_nopc_code
+  evaluation_id: ev_abl_nopc_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+- id: r_abl_nopc_email
+  evaluation_id: ev_abl_nopc_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '8.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+- id: r_abl_nopc_report
+  evaluation_id: ev_abl_nopc_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '14.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+- id: r_abl_nopc_table
+  evaluation_id: ev_abl_nopc_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '3.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+- id: r_abl_noeai_abstract
+  evaluation_id: ev_abl_noeai_abstract
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '34.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+- id: r_abl_noeai_code
+  evaluation_id: ev_abl_noeai_code
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '3.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+- id: r_abl_noeai_email
+  evaluation_id: ev_abl_noeai_email
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '28.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+- id: r_abl_noeai_report
+  evaluation_id: ev_abl_noeai_report
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '65.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+- id: r_abl_noeai_table
+  evaluation_id: ev_abl_noeai_table
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '50.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 22
+  location: Table 5
+comparisons:
+- id: c_dir_gfm_stat_abstract
+  left: ev_dir_gfm_stat_abstract
+  right: ev_dir_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_stat_code
+  left: ev_dir_gfm_stat_code
+  right: ev_dir_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_stat_email
+  left: ev_dir_gfm_stat_email
+  right: ev_dir_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_stat_report
+  left: ev_dir_gfm_stat_report
+  right: ev_dir_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_stat_table
+  left: ev_dir_gfm_stat_table
+  right: ev_dir_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rand_abstract
+  left: ev_dir_gfm_rand_abstract
+  right: ev_dir_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rand_code
+  left: ev_dir_gfm_rand_code
+  right: ev_dir_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rand_email
+  left: ev_dir_gfm_rand_email
+  right: ev_dir_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rand_report
+  left: ev_dir_gfm_rand_report
+  right: ev_dir_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rand_table
+  left: ev_dir_gfm_rand_table
+  right: ev_dir_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rui_abstract
+  left: ev_dir_gfm_rui_abstract
+  right: ev_dir_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rui_code
+  left: ev_dir_gfm_rui_code
+  right: ev_dir_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rui_email
+  left: ev_dir_gfm_rui_email
+  right: ev_dir_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rui_report
+  left: ev_dir_gfm_rui_report
+  right: ev_dir_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_dir_gfm_rui_table
+  left: ev_dir_gfm_rui_table
+  right: ev_dir_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_bpp_rui_vs_stat_abstract
+  left: ev_bpp_rui_abstract
+  right: ev_bpp_stat_abstract
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the stat delimiter
+  page: 16
+- id: c_bpp_rui_vs_stat_code
+  left: ev_bpp_rui_code
+  right: ev_bpp_stat_code
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the stat delimiter
+  page: 16
+- id: c_bpp_rui_vs_stat_email
+  left: ev_bpp_rui_email
+  right: ev_bpp_stat_email
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the stat delimiter
+  page: 16
+- id: c_bpp_rui_vs_stat_report
+  left: ev_bpp_rui_report
+  right: ev_bpp_stat_report
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the stat delimiter
+  page: 16
+- id: c_bpp_rui_vs_stat_table
+  left: ev_bpp_rui_table
+  right: ev_bpp_stat_table
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the stat delimiter
+  page: 16
+- id: c_bpp_rui_vs_rand_abstract
+  left: ev_bpp_rui_abstract
+  right: ev_bpp_rand_abstract
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the rand delimiter
+  page: 16
+- id: c_bpp_rui_vs_rand_code
+  left: ev_bpp_rui_code
+  right: ev_bpp_rand_code
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the rand delimiter
+  page: 16
+- id: c_bpp_rui_vs_rand_email
+  left: ev_bpp_rui_email
+  right: ev_bpp_rand_email
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the rand delimiter
+  page: 16
+- id: c_bpp_rui_vs_rand_report
+  left: ev_bpp_rui_report
+  right: ev_bpp_rand_report
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the rand delimiter
+  page: 16
+- id: c_bpp_rui_vs_rand_table
+  left: ev_bpp_rui_table
+  right: ev_bpp_rand_table
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: RUI against the rand delimiter
+  page: 16
+- id: c_split_gfm_stat_abstract
+  left: ev_split_gfm_stat_abstract
+  right: ev_split_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_stat_code
+  left: ev_split_gfm_stat_code
+  right: ev_split_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_stat_email
+  left: ev_split_gfm_stat_email
+  right: ev_split_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_stat_report
+  left: ev_split_gfm_stat_report
+  right: ev_split_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_stat_table
+  left: ev_split_gfm_stat_table
+  right: ev_split_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rand_abstract
+  left: ev_split_gfm_rand_abstract
+  right: ev_split_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rand_code
+  left: ev_split_gfm_rand_code
+  right: ev_split_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rand_email
+  left: ev_split_gfm_rand_email
+  right: ev_split_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rand_report
+  left: ev_split_gfm_rand_report
+  right: ev_split_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rand_table
+  left: ev_split_gfm_rand_table
+  right: ev_split_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rui_abstract
+  left: ev_split_gfm_rui_abstract
+  right: ev_split_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rui_code
+  left: ev_split_gfm_rui_code
+  right: ev_split_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rui_email
+  left: ev_split_gfm_rui_email
+  right: ev_split_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rui_report
+  left: ev_split_gfm_rui_report
+  right: ev_split_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_split_gfm_rui_table
+  left: ev_split_gfm_rui_table
+  right: ev_split_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_stat_abstract
+  left: ev_spoof_gfm_stat_abstract
+  right: ev_spoof_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_stat_code
+  left: ev_spoof_gfm_stat_code
+  right: ev_spoof_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_stat_email
+  left: ev_spoof_gfm_stat_email
+  right: ev_spoof_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_stat_report
+  left: ev_spoof_gfm_stat_report
+  right: ev_spoof_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_stat_table
+  left: ev_spoof_gfm_stat_table
+  right: ev_spoof_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rand_abstract
+  left: ev_spoof_gfm_rand_abstract
+  right: ev_spoof_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rand_code
+  left: ev_spoof_gfm_rand_code
+  right: ev_spoof_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rand_email
+  left: ev_spoof_gfm_rand_email
+  right: ev_spoof_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rand_report
+  left: ev_spoof_gfm_rand_report
+  right: ev_spoof_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rand_table
+  left: ev_spoof_gfm_rand_table
+  right: ev_spoof_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rui_abstract
+  left: ev_spoof_gfm_rui_abstract
+  right: ev_spoof_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rui_code
+  left: ev_spoof_gfm_rui_code
+  right: ev_spoof_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rui_email
+  left: ev_spoof_gfm_rui_email
+  right: ev_spoof_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rui_report
+  left: ev_spoof_gfm_rui_report
+  right: ev_spoof_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof_gfm_rui_table
+  left: ev_spoof_gfm_rui_table
+  right: ev_spoof_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_stat_abstract
+  left: ev_spoof5_gfm_stat_abstract
+  right: ev_spoof5_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_stat_code
+  left: ev_spoof5_gfm_stat_code
+  right: ev_spoof5_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_stat_email
+  left: ev_spoof5_gfm_stat_email
+  right: ev_spoof5_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_stat_report
+  left: ev_spoof5_gfm_stat_report
+  right: ev_spoof5_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_stat_table
+  left: ev_spoof5_gfm_stat_table
+  right: ev_spoof5_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rand_abstract
+  left: ev_spoof5_gfm_rand_abstract
+  right: ev_spoof5_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rand_code
+  left: ev_spoof5_gfm_rand_code
+  right: ev_spoof5_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rand_email
+  left: ev_spoof5_gfm_rand_email
+  right: ev_spoof5_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rand_report
+  left: ev_spoof5_gfm_rand_report
+  right: ev_spoof5_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rand_table
+  left: ev_spoof5_gfm_rand_table
+  right: ev_spoof5_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rui_abstract
+  left: ev_spoof5_gfm_rui_abstract
+  right: ev_spoof5_gfm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rui_code
+  left: ev_spoof5_gfm_rui_code
+  right: ev_spoof5_gfm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rui_email
+  left: ev_spoof5_gfm_rui_email
+  right: ev_spoof5_gfm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rui_report
+  left: ev_spoof5_gfm_rui_report
+  right: ev_spoof5_gfm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_spoof5_gfm_rui_table
+  left: ev_spoof5_gfm_rui_table
+  right: ev_spoof5_gfm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_x_gfl_stat_abstract
+  left: ev_x_gfl_stat_abstract
+  right: ev_x_gfl_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_stat_code
+  left: ev_x_gfl_stat_code
+  right: ev_x_gfl_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_stat_email
+  left: ev_x_gfl_stat_email
+  right: ev_x_gfl_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_stat_report
+  left: ev_x_gfl_stat_report
+  right: ev_x_gfl_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_stat_table
+  left: ev_x_gfl_stat_table
+  right: ev_x_gfl_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rand_abstract
+  left: ev_x_gfl_rand_abstract
+  right: ev_x_gfl_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rand_code
+  left: ev_x_gfl_rand_code
+  right: ev_x_gfl_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rand_email
+  left: ev_x_gfl_rand_email
+  right: ev_x_gfl_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rand_report
+  left: ev_x_gfl_rand_report
+  right: ev_x_gfl_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rand_table
+  left: ev_x_gfl_rand_table
+  right: ev_x_gfl_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rui_abstract
+  left: ev_x_gfl_rui_abstract
+  right: ev_x_gfl_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rui_code
+  left: ev_x_gfl_rui_code
+  right: ev_x_gfl_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rui_email
+  left: ev_x_gfl_rui_email
+  right: ev_x_gfl_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rui_report
+  left: ev_x_gfl_rui_report
+  right: ev_x_gfl_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gfl_rui_table
+  left: ev_x_gfl_rui_table
+  right: ev_x_gfl_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_stat_abstract
+  left: ev_x_gp_stat_abstract
+  right: ev_x_gp_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_stat_code
+  left: ev_x_gp_stat_code
+  right: ev_x_gp_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_stat_email
+  left: ev_x_gp_stat_email
+  right: ev_x_gp_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_stat_report
+  left: ev_x_gp_stat_report
+  right: ev_x_gp_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_stat_table
+  left: ev_x_gp_stat_table
+  right: ev_x_gp_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rand_abstract
+  left: ev_x_gp_rand_abstract
+  right: ev_x_gp_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rand_code
+  left: ev_x_gp_rand_code
+  right: ev_x_gp_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rand_email
+  left: ev_x_gp_rand_email
+  right: ev_x_gp_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rand_report
+  left: ev_x_gp_rand_report
+  right: ev_x_gp_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rand_table
+  left: ev_x_gp_rand_table
+  right: ev_x_gp_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rui_abstract
+  left: ev_x_gp_rui_abstract
+  right: ev_x_gp_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rui_code
+  left: ev_x_gp_rui_code
+  right: ev_x_gp_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rui_email
+  left: ev_x_gp_rui_email
+  right: ev_x_gp_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rui_report
+  left: ev_x_gp_rui_report
+  right: ev_x_gp_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_gp_rui_table
+  left: ev_x_gp_rui_table
+  right: ev_x_gp_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_stat_abstract
+  left: ev_x_glm_stat_abstract
+  right: ev_x_glm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_stat_code
+  left: ev_x_glm_stat_code
+  right: ev_x_glm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_stat_email
+  left: ev_x_glm_stat_email
+  right: ev_x_glm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_stat_report
+  left: ev_x_glm_stat_report
+  right: ev_x_glm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_stat_table
+  left: ev_x_glm_stat_table
+  right: ev_x_glm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rand_abstract
+  left: ev_x_glm_rand_abstract
+  right: ev_x_glm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rand_code
+  left: ev_x_glm_rand_code
+  right: ev_x_glm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rand_email
+  left: ev_x_glm_rand_email
+  right: ev_x_glm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rand_report
+  left: ev_x_glm_rand_report
+  right: ev_x_glm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rand_table
+  left: ev_x_glm_rand_table
+  right: ev_x_glm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rui_abstract
+  left: ev_x_glm_rui_abstract
+  right: ev_x_glm_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rui_code
+  left: ev_x_glm_rui_code
+  right: ev_x_glm_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rui_email
+  left: ev_x_glm_rui_email
+  right: ev_x_glm_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rui_report
+  left: ev_x_glm_rui_report
+  right: ev_x_glm_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_glm_rui_table
+  left: ev_x_glm_rui_table
+  right: ev_x_glm_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_stat_abstract
+  left: ev_x_g54_stat_abstract
+  right: ev_x_g54_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_stat_code
+  left: ev_x_g54_stat_code
+  right: ev_x_g54_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_stat_email
+  left: ev_x_g54_stat_email
+  right: ev_x_g54_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_stat_report
+  left: ev_x_g54_stat_report
+  right: ev_x_g54_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_stat_table
+  left: ev_x_g54_stat_table
+  right: ev_x_g54_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rand_abstract
+  left: ev_x_g54_rand_abstract
+  right: ev_x_g54_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rand_code
+  left: ev_x_g54_rand_code
+  right: ev_x_g54_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rand_email
+  left: ev_x_g54_rand_email
+  right: ev_x_g54_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rand_report
+  left: ev_x_g54_rand_report
+  right: ev_x_g54_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rand_table
+  left: ev_x_g54_rand_table
+  right: ev_x_g54_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rui_abstract
+  left: ev_x_g54_rui_abstract
+  right: ev_x_g54_none_abstract
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rui_code
+  left: ev_x_g54_rui_code
+  right: ev_x_g54_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rui_email
+  left: ev_x_g54_rui_email
+  right: ev_x_g54_none_email
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rui_report
+  left: ev_x_g54_rui_report
+  right: ev_x_g54_none_report
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_x_g54_rui_table
+  left: ev_x_g54_rui_table
+  right: ev_x_g54_none_table
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 21
+- id: c_abl_nopc_abstract
+  left: ev_dir_gfm_rui_abstract
+  right: ev_abl_nopc_abstract
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+- id: c_abl_nopc_code
+  left: ev_dir_gfm_rui_code
+  right: ev_abl_nopc_code
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+- id: c_abl_nopc_email
+  left: ev_dir_gfm_rui_email
+  right: ev_abl_nopc_email
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+- id: c_abl_nopc_report
+  left: ev_dir_gfm_rui_report
+  right: ev_abl_nopc_report
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+- id: c_abl_nopc_table
+  left: ev_dir_gfm_rui_table
+  right: ev_abl_nopc_table
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+- id: c_abl_noeai_abstract
+  left: ev_dir_gfm_rui_abstract
+  right: ev_abl_noeai_abstract
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+- id: c_abl_noeai_code
+  left: ev_dir_gfm_rui_code
+  right: ev_abl_noeai_code
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+- id: c_abl_noeai_email
+  left: ev_dir_gfm_rui_email
+  right: ev_abl_noeai_email
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+- id: c_abl_noeai_report
+  left: ev_dir_gfm_rui_report
+  right: ev_abl_noeai_report
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+- id: c_abl_noeai_table
+  left: ev_dir_gfm_rui_table
+  right: ev_abl_noeai_table
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: full RUI against the ablated variant
+  page: 22
+claims:
+- id: k1
+  text: RUI lowers attack success from 100% to under 8.1% against adaptive attacks while keeping benign performance above 88.8%
+  location: abstract
+  anchor: reduces the Attack Success Rate (ASR) from 100%
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_dir_gfm_rui_abstract
+  - c_dir_gfm_rui_code
+  - c_dir_gfm_rui_email
+  - c_dir_gfm_rui_report
+  - c_dir_gfm_rui_table
+  - c_x_gfl_rui_abstract
+  - c_x_gfl_rui_code
+  - c_x_gfl_rui_email
+  - c_x_gfl_rui_report
+  - c_x_gfl_rui_table
+  - c_x_gp_rui_abstract
+  - c_x_gp_rui_code
+  - c_x_gp_rui_email
+  - c_x_gp_rui_report
+  - c_x_gp_rui_table
+  - c_x_glm_rui_abstract
+  - c_x_glm_rui_code
+  - c_x_glm_rui_email
+  - c_x_glm_rui_report
+  - c_x_glm_rui_table
+  - c_x_g54_rui_abstract
+  - c_x_g54_rui_code
+  - c_x_g54_rui_email
+  - c_x_g54_rui_report
+  - c_x_g54_rui_table
+  page: 2
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: proxy
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 2 to 5
+    R2attack: Table 2 (BPP, judged against the undefended model's output)
+    R2clean: not reported
+schema_gaps:
+- where: report
+  note: every undefended configuration is attacked successfully in 100% of cases because the injections were written to succeed; BPP is judged by another LLM relative to the undefended model's output

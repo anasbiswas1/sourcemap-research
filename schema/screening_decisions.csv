@@ -807,7 +807,7 @@ arxiv:2609.18411,exclude,system level,title_abstract,,,The Verifiable Action Car
 arxiv:2609.18674,exclude,system level,title_abstract,,,CaMeLoT: CaMeL orchestrated with Temporal logic for static verification and liveness
 arxiv:2609.19399,exclude,not about prompt injection,title_abstract,,,Efficient Nash Equilibrium Computation for Cybersecurity Games
 arxiv:2609.19587,exclude,detector only,title_abstract,,,Red-Teaming Auto Mode: Improving Blocking Classifiers Against Malign Coding Agents
-arxiv:2609.20188,include,,full_text,,"full text: ResumeShield: fenced data channel declared inert by the trusted instructions, measured alone in the ablation",ResumeShield: Channel Separation and an Open Benchmark for Indirect Prompt Injection in AI Resume Sc
+arxiv:2609.20188,exclude,"survey, position or other",full_text,,full text: ResumeShield: every result comes from a rule-based simulated screener that by construction obeys directives only outside the fence; no language model is evaluated (live evaluation is left to future work),ResumeShield: Channel Separation and an Open Benchmark for Indirect Prompt Injection in AI Resume Sc
 arxiv:2609.20722,exclude,not about prompt injection,title_abstract,,,Deep Noir: Autonomous Steering Discovery via Architectural Chronometry in Transformer Models
 arxiv:2609.21088,include,,title_abstract,,provenance-aware transformers,Origin Is All You Need: Provenance-Aware Transformers for Structural Trust-Boundary Separation
 arxiv:2609.22510,include,,full_text,,full text: role: re-measurement; SecAlign re-tested against dormant conditional (explosive) prompts; own defence is a detector,Defusing Explosive Prompts: Understanding and Preventing Trigger-Based Prompt Injections in LLM Agen
@@ -865,7 +865,7 @@ arxiv:2610.11634,include,,title_abstract,,LTBD learnable trust-boundary delimite
 arxiv:2610.12292,exclude,attack only,title_abstract,,,One Word Opens the Gate: The Option-Channel Attack on Typed Decision Models as Agent Guardrails
 arxiv:2610.12524,exclude,attack only,title_abstract,,,An Exploration of Attacks on AI Agent Systems
 arxiv:2610.14488,exclude,system level,title_abstract,,,Names Are Not Objects: Object-Bound Confinement for Compromised AI Coding Agents
-arxiv:2610.15177,include,,full_text,,full text: CoDA: task policies enforced inside the denoising of diffusion language models,Only What You've Signed up For: Secure Workflows with Constrained Diffusion Agents
+arxiv:2610.15177,exclude,system level,full_text,,"full text: CoDA enforces a task policy of authorised tools, arguments and URLs, written by an oracle or a separate LLM policy selector, as constraints during decoding; this is policy enforcement like a tool allowlist",Only What You've Signed up For: Secure Workflows with Constrained Diffusion Agents
 arxiv:2610.16015,exclude,not about prompt injection,title_abstract,,,Computational Reflective Equilibrium for Agentic AI: A Rawlsian Alignment Scaffold for Governance
 arxiv:2610.16814,exclude,detector only,title_abstract,,judge defence framework,StableJudge: A Lightweight Adversarial Defense Framework for LLM-as-a-Judge
 arxiv:2610.17301,exclude,detector only,title_abstract,,,"The Agent Knew: Internal States Forecast Unauthorized Actions and Stop Them, and the Lies That Follo"

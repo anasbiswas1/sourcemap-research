@@ -1,0 +1,11 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,values_third_extraction,chart_values_third_extraction,residual_notes,problems
+04j,longpibench_arxiv2026,2608.28411,benchmark,5,66,66,66,0,6,55,55,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04j,univdef_arxiv2026,2609.16098,proposes,6,12,24,24,0,7,6,6,0,0,0,1,direct,not_reported,proxy,not_reported,not_reported,not_reported,0,0,1,0
+04j,explosive_arxiv2026,2609.22510,mixed,2,6,10,10,0,3,3,3,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04j,readable_arxiv2026,2610.05295,mixed,12,17,21,17,4,13,12,12,0,0,0,1,direct,not_reported,proxy,not_reported,not_reported,not_reported,0,0,1,0
+04j,trustmi_arxiv2026,2610.06064,mixed,12,36,54,54,0,13,24,24,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,1,0
+04j,pvst_arxiv2026,2610.19372,proposes,8,14,42,42,0,9,13,13,0,0,0,1,direct,not_reported,direct,not_reported,not_reported,not_reported,0,0,1,0
+04j,medmas_arxiv2026,2610.22594,mixed,17,66,66,66,0,18,45,45,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,1,0
+04j,pipette_arxiv2026,2611.24362,proposes,10,52,90,90,0,11,37,37,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,1,0
+04j,cbc_emnlp2026,doi_10_18653_2026_emnlp_main_2303,proposes,14,119,119,119,0,15,98,98,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,1,0
+04j,rui_preprints2026,doi_10_20944_preprints202603_1023_v1,proposes,17,185,185,185,0,18,140,140,0,0,0,1,direct,not_reported,proxy,not_reported,not_reported,not_reported,0,0,1,0

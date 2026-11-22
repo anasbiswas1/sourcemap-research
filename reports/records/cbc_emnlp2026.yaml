@@ -1,0 +1,4144 @@
+report:
+  id: cbc_emnlp2026
+  slug: doi_10_18653_2026_emnlp_main_2303
+  title: 'Staying on Task: Defending Against Prompt Injection via Task Consistency Checking'
+  first_author: Feiyue Xu
+  venue: EMNLP 2026 (main conference)
+  peer_reviewed: 'yes'
+  doi: 10.18653/2026.emnlp-main.2303
+  version_read: published version
+  first_date: '2026-01-01'
+  read: F
+  role: proposes
+  extraction_scope: Table 1 indirect-injection columns (SEP, OpenPrompt, InjecAgent, GCG, Fuzz) and Table 2 average utility, clean and under attack, for Base, Sandwich, StruQ, SecAlign, VerIH and CBC on three models; the abstract
+    claim (PromptArmor is an LLM detector and is left out; the direct-injection columns are left out)
+defences:
+- id: sand_q25
+  name: Sandwich (prompt engineering)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we use their released
+- id: struq_q25
+  name: StruQ (trained by the authors with the released data)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: secalign_q25
+  name: SecAlign (trained by the authors with the released data)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: verih_q25
+  name: VerIH (instruction-hierarchy RL, trained by the authors with the released data)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: cbc_q25
+  name: CBC (SFT on teacher-written task-consistency reasoning, then GRPO with a failure-first reward)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: GRPO optimization. We adopt online
+- id: sand_l31
+  name: Sandwich (prompt engineering)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: struq_l31
+  name: StruQ (trained by the authors with the released data)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: secalign_l31
+  name: SecAlign (trained by the authors with the released data)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: verih_l31
+  name: VerIH (instruction-hierarchy RL, trained by the authors with the released data)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: cbc_l31
+  name: CBC (SFT on teacher-written task-consistency reasoning, then GRPO with a failure-first reward)
+  origin: this_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: GRPO optimization. We adopt online
+- id: sand_q3
+  name: Sandwich (prompt engineering)
+  origin: other_report
+  base_checkpoint: Qwen3-14B
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: secalign_q3
+  name: SecAlign (trained by the authors with the released data)
+  origin: other_report
+  base_checkpoint: Qwen3-14B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: verih_q3
+  name: VerIH (instruction-hierarchy RL, trained by the authors with the released data)
+  origin: other_report
+  base_checkpoint: Qwen3-14B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 16
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: we use their released
+- id: cbc_q3
+  name: CBC (SFT on teacher-written task-consistency reasoning, then GRPO with a failure-first reward)
+  origin: this_report
+  base_checkpoint: Qwen3-14B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - distillation
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  layout: system prompt, user request and external content; injected instruction inside the content
+  layout_compat: *id001
+  anchor: GRPO optimization. We adopt online
+evaluations:
+- id: ev_sep_q25_none
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_opi_q25_none
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ia_q25_none
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gcg_q25_none
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+  baseline_kind: off_the_shelf
+- id: ev_fuzz_q25_none
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+  baseline_kind: off_the_shelf
+- id: ev_uc_q25_none
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ua_q25_none
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_sep_q25_sand
+  defence_id: sand_q25
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_q25_sand
+  defence_id: sand_q25
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_q25_sand
+  defence_id: sand_q25
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_q25_sand
+  defence_id: sand_q25
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_q25_sand
+  defence_id: sand_q25
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_q25_sand
+  defence_id: sand_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_q25_sand
+  defence_id: sand_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_q25_struq
+  defence_id: struq_q25
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_q25_struq
+  defence_id: struq_q25
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_q25_struq
+  defence_id: struq_q25
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_q25_struq
+  defence_id: struq_q25
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_q25_struq
+  defence_id: struq_q25
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_q25_struq
+  defence_id: struq_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_q25_struq
+  defence_id: struq_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_q25_secalign
+  defence_id: secalign_q25
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_q25_secalign
+  defence_id: secalign_q25
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_q25_secalign
+  defence_id: secalign_q25
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_q25_secalign
+  defence_id: secalign_q25
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_q25_secalign
+  defence_id: secalign_q25
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_q25_secalign
+  defence_id: secalign_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_q25_secalign
+  defence_id: secalign_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_q25_verih
+  defence_id: verih_q25
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_q25_verih
+  defence_id: verih_q25
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_q25_verih
+  defence_id: verih_q25
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_q25_verih
+  defence_id: verih_q25
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_q25_verih
+  defence_id: verih_q25
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_q25_verih
+  defence_id: verih_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_q25_verih
+  defence_id: verih_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_q25_cbc
+  defence_id: cbc_q25
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_q25_cbc
+  defence_id: cbc_q25
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_q25_cbc
+  defence_id: cbc_q25
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_q25_cbc
+  defence_id: cbc_q25
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_q25_cbc
+  defence_id: cbc_q25
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_q25_cbc
+  defence_id: cbc_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_q25_cbc
+  defence_id: cbc_q25
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_l31_none
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_opi_l31_none
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ia_l31_none
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gcg_l31_none
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+  baseline_kind: off_the_shelf
+- id: ev_fuzz_l31_none
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+  baseline_kind: off_the_shelf
+- id: ev_uc_l31_none
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ua_l31_none
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_sep_l31_sand
+  defence_id: sand_l31
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_l31_sand
+  defence_id: sand_l31
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_l31_sand
+  defence_id: sand_l31
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_l31_sand
+  defence_id: sand_l31
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_l31_sand
+  defence_id: sand_l31
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_l31_sand
+  defence_id: sand_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_l31_sand
+  defence_id: sand_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_l31_struq
+  defence_id: struq_l31
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_l31_struq
+  defence_id: struq_l31
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_l31_struq
+  defence_id: struq_l31
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_l31_struq
+  defence_id: struq_l31
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_l31_struq
+  defence_id: struq_l31
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_l31_struq
+  defence_id: struq_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_l31_struq
+  defence_id: struq_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_l31_secalign
+  defence_id: secalign_l31
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_l31_secalign
+  defence_id: secalign_l31
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_l31_secalign
+  defence_id: secalign_l31
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_l31_secalign
+  defence_id: secalign_l31
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_l31_secalign
+  defence_id: secalign_l31
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_l31_secalign
+  defence_id: secalign_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_l31_secalign
+  defence_id: secalign_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_l31_verih
+  defence_id: verih_l31
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_l31_verih
+  defence_id: verih_l31
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_l31_verih
+  defence_id: verih_l31
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_l31_verih
+  defence_id: verih_l31
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_l31_verih
+  defence_id: verih_l31
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_l31_verih
+  defence_id: verih_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_l31_verih
+  defence_id: verih_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_l31_cbc
+  defence_id: cbc_l31
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_l31_cbc
+  defence_id: cbc_l31
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_l31_cbc
+  defence_id: cbc_l31
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_l31_cbc
+  defence_id: cbc_l31
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_l31_cbc
+  defence_id: cbc_l31
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_l31_cbc
+  defence_id: cbc_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_l31_cbc
+  defence_id: cbc_l31
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_q3_none
+  defence_id: none:Qwen3-14B
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_opi_q3_none
+  defence_id: none:Qwen3-14B
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ia_q3_none
+  defence_id: none:Qwen3-14B
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gcg_q3_none
+  defence_id: none:Qwen3-14B
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+  baseline_kind: off_the_shelf
+- id: ev_fuzz_q3_none
+  defence_id: none:Qwen3-14B
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+  baseline_kind: off_the_shelf
+- id: ev_uc_q3_none
+  defence_id: none:Qwen3-14B
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_ua_q3_none
+  defence_id: none:Qwen3-14B
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_sep_q3_sand
+  defence_id: sand_q3
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_q3_sand
+  defence_id: sand_q3
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_q3_sand
+  defence_id: sand_q3
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_q3_sand
+  defence_id: sand_q3
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_q3_sand
+  defence_id: sand_q3
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_q3_sand
+  defence_id: sand_q3
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_q3_sand
+  defence_id: sand_q3
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_q3_secalign
+  defence_id: secalign_q3
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_q3_secalign
+  defence_id: secalign_q3
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_q3_secalign
+  defence_id: secalign_q3
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_q3_secalign
+  defence_id: secalign_q3
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_q3_secalign
+  defence_id: secalign_q3
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_q3_secalign
+  defence_id: secalign_q3
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_q3_secalign
+  defence_id: secalign_q3
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_q3_verih
+  defence_id: verih_q3
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_q3_verih
+  defence_id: verih_q3
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_q3_verih
+  defence_id: verih_q3
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_q3_verih
+  defence_id: verih_q3
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_q3_verih
+  defence_id: verih_q3
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_q3_verih
+  defence_id: verih_q3
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_q3_verih
+  defence_id: verih_q3
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_sep_q3_cbc
+  defence_id: cbc_q3
+  benchmark: SEP (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_opi_q3_cbc
+  defence_id: cbc_q3
+  benchmark: OpenPrompt (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_ia_q3_cbc
+  defence_id: cbc_q3
+  benchmark: InjecAgent (indirect prompt injection)
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+- id: ev_gcg_q3_cbc
+  defence_id: cbc_q3
+  benchmark: GCG on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: white_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: GCG optimised on each evaluated model
+- id: ev_fuzz_q3_cbc
+  defence_id: cbc_q3
+  benchmark: fuzzing on indirect injection (indirect prompt injection)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark rule; defence success when the injected goal is not achieved
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 6
+  decoding: not reported
+  attacker_budget: fuzzing attack run against each evaluated model
+- id: ev_uc_q3_cbc
+  defence_id: cbc_q3
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval, clean inputs, average
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_ua_q3_cbc
+  defence_id: cbc_q3
+  benchmark: MMLU, ARC, BBQ, GSM8K and AlpacaEval with a combined injection attack, average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark scoring
+  layout_same_as_defence: 'yes'
+  measured_by: cbc_emnlp2026
+  page: 7
+  decoding: not reported
+results:
+- id: r_sep_q25_none
+  evaluation_id: ev_sep_q25_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '27.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q25_none
+  evaluation_id: ev_opi_q25_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '42.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q25_none
+  evaluation_id: ev_ia_q25_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '64.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q25_none
+  evaluation_id: ev_gcg_q25_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '0.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q25_none
+  evaluation_id: ev_fuzz_q25_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '0.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q25_none
+  evaluation_id: ev_uc_q25_none
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '71.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q25_none
+  evaluation_id: ev_ua_q25_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '1.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q25_sand
+  evaluation_id: ev_sep_q25_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '36.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q25_sand
+  evaluation_id: ev_opi_q25_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '68.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q25_sand
+  evaluation_id: ev_ia_q25_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '64.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q25_sand
+  evaluation_id: ev_gcg_q25_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '2.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q25_sand
+  evaluation_id: ev_fuzz_q25_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '0.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q25_sand
+  evaluation_id: ev_uc_q25_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '70.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q25_sand
+  evaluation_id: ev_ua_q25_sand
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '50.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q25_struq
+  evaluation_id: ev_sep_q25_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '95.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q25_struq
+  evaluation_id: ev_opi_q25_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q25_struq
+  evaluation_id: ev_ia_q25_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '99.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q25_struq
+  evaluation_id: ev_gcg_q25_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '63.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q25_struq
+  evaluation_id: ev_fuzz_q25_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '93.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q25_struq
+  evaluation_id: ev_uc_q25_struq
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '64.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q25_struq
+  evaluation_id: ev_ua_q25_struq
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '61.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q25_secalign
+  evaluation_id: ev_sep_q25_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '95.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q25_secalign
+  evaluation_id: ev_opi_q25_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '98.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q25_secalign
+  evaluation_id: ev_ia_q25_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '86.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q25_secalign
+  evaluation_id: ev_gcg_q25_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '69.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q25_secalign
+  evaluation_id: ev_fuzz_q25_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '93.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q25_secalign
+  evaluation_id: ev_uc_q25_secalign
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '71.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q25_secalign
+  evaluation_id: ev_ua_q25_secalign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '65.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q25_verih
+  evaluation_id: ev_sep_q25_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '56.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q25_verih
+  evaluation_id: ev_opi_q25_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '76.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q25_verih
+  evaluation_id: ev_ia_q25_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '56.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q25_verih
+  evaluation_id: ev_gcg_q25_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '4.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q25_verih
+  evaluation_id: ev_fuzz_q25_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '10.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q25_verih
+  evaluation_id: ev_uc_q25_verih
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '68.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q25_verih
+  evaluation_id: ev_ua_q25_verih
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '34.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q25_cbc
+  evaluation_id: ev_sep_q25_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '96.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q25_cbc
+  evaluation_id: ev_opi_q25_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '98.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q25_cbc
+  evaluation_id: ev_ia_q25_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q25_cbc
+  evaluation_id: ev_gcg_q25_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '94.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q25_cbc
+  evaluation_id: ev_fuzz_q25_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '97.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q25_cbc
+  evaluation_id: ev_uc_q25_cbc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '74.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q25_cbc
+  evaluation_id: ev_ua_q25_cbc
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '71.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_l31_none
+  evaluation_id: ev_sep_l31_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '35.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_l31_none
+  evaluation_id: ev_opi_l31_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '56.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_l31_none
+  evaluation_id: ev_ia_l31_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '54.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_l31_none
+  evaluation_id: ev_gcg_l31_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '9.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_l31_none
+  evaluation_id: ev_fuzz_l31_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '0.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_l31_none
+  evaluation_id: ev_uc_l31_none
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '59.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_l31_none
+  evaluation_id: ev_ua_l31_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '0.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_l31_sand
+  evaluation_id: ev_sep_l31_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '49.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_l31_sand
+  evaluation_id: ev_opi_l31_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '79.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_l31_sand
+  evaluation_id: ev_ia_l31_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '64.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_l31_sand
+  evaluation_id: ev_gcg_l31_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '15.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_l31_sand
+  evaluation_id: ev_fuzz_l31_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '0.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_l31_sand
+  evaluation_id: ev_uc_l31_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '59.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_l31_sand
+  evaluation_id: ev_ua_l31_sand
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '13.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_l31_struq
+  evaluation_id: ev_sep_l31_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '93.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_l31_struq
+  evaluation_id: ev_opi_l31_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '99.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_l31_struq
+  evaluation_id: ev_ia_l31_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '99.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_l31_struq
+  evaluation_id: ev_gcg_l31_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '95.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_l31_struq
+  evaluation_id: ev_fuzz_l31_struq
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '91.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_l31_struq
+  evaluation_id: ev_uc_l31_struq
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '55.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_l31_struq
+  evaluation_id: ev_ua_l31_struq
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '53.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_l31_secalign
+  evaluation_id: ev_sep_l31_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '95.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_l31_secalign
+  evaluation_id: ev_opi_l31_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '99.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_l31_secalign
+  evaluation_id: ev_ia_l31_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '99.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_l31_secalign
+  evaluation_id: ev_gcg_l31_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '82.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_l31_secalign
+  evaluation_id: ev_fuzz_l31_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_l31_secalign
+  evaluation_id: ev_uc_l31_secalign
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '59.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_l31_secalign
+  evaluation_id: ev_ua_l31_secalign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '53.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_l31_verih
+  evaluation_id: ev_sep_l31_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '51.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_l31_verih
+  evaluation_id: ev_opi_l31_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '91.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_l31_verih
+  evaluation_id: ev_ia_l31_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '91.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_l31_verih
+  evaluation_id: ev_gcg_l31_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '67.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_l31_verih
+  evaluation_id: ev_fuzz_l31_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '74.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_l31_verih
+  evaluation_id: ev_uc_l31_verih
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '56.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_l31_verih
+  evaluation_id: ev_ua_l31_verih
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '25.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_l31_cbc
+  evaluation_id: ev_sep_l31_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '97.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_l31_cbc
+  evaluation_id: ev_opi_l31_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '94.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_l31_cbc
+  evaluation_id: ev_ia_l31_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '100.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_l31_cbc
+  evaluation_id: ev_gcg_l31_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '91.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_l31_cbc
+  evaluation_id: ev_fuzz_l31_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '94.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_l31_cbc
+  evaluation_id: ev_uc_l31_cbc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '72.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_l31_cbc
+  evaluation_id: ev_ua_l31_cbc
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '63.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q3_none
+  evaluation_id: ev_sep_q3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '26.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q3_none
+  evaluation_id: ev_opi_q3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '53.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q3_none
+  evaluation_id: ev_ia_q3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '92.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q3_none
+  evaluation_id: ev_gcg_q3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '9.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q3_none
+  evaluation_id: ev_fuzz_q3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '4.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q3_none
+  evaluation_id: ev_uc_q3_none
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '87.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q3_none
+  evaluation_id: ev_ua_q3_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '54.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q3_sand
+  evaluation_id: ev_sep_q3_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '35.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q3_sand
+  evaluation_id: ev_opi_q3_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '84.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q3_sand
+  evaluation_id: ev_ia_q3_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '88.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q3_sand
+  evaluation_id: ev_gcg_q3_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '15.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q3_sand
+  evaluation_id: ev_fuzz_q3_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '18.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q3_sand
+  evaluation_id: ev_uc_q3_sand
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '87.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q3_sand
+  evaluation_id: ev_ua_q3_sand
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '67.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q3_secalign
+  evaluation_id: ev_sep_q3_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '42.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q3_secalign
+  evaluation_id: ev_opi_q3_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '93.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q3_secalign
+  evaluation_id: ev_ia_q3_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '93.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q3_secalign
+  evaluation_id: ev_gcg_q3_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '89.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q3_secalign
+  evaluation_id: ev_fuzz_q3_secalign
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '93.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q3_secalign
+  evaluation_id: ev_uc_q3_secalign
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '87.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q3_secalign
+  evaluation_id: ev_ua_q3_secalign
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '71.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q3_verih
+  evaluation_id: ev_sep_q3_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '28.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q3_verih
+  evaluation_id: ev_opi_q3_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '61.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q3_verih
+  evaluation_id: ev_ia_q3_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '92.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q3_verih
+  evaluation_id: ev_gcg_q3_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '14.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q3_verih
+  evaluation_id: ev_fuzz_q3_verih
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '26.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q3_verih
+  evaluation_id: ev_uc_q3_verih
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '87.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q3_verih
+  evaluation_id: ev_ua_q3_verih
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '58.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_sep_q3_cbc
+  evaluation_id: ev_sep_q3_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '99.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_opi_q3_cbc
+  evaluation_id: ev_opi_q3_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '98.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_ia_q3_cbc
+  evaluation_id: ev_ia_q3_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '99.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_gcg_q3_cbc
+  evaluation_id: ev_gcg_q3_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '91.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_fuzz_q3_cbc
+  evaluation_id: ev_fuzz_q3_cbc
+  quantity: R1
+  coverage: direct
+  metric_as_printed: defence success rate (DSR)
+  value: '97.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_uc_q3_cbc
+  evaluation_id: ev_uc_q3_cbc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: average utility, clean
+  value: '84.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_ua_q3_cbc
+  evaluation_id: ev_ua_q3_cbc
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: average utility under the combined attack
+  value: '81.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+comparisons:
+- id: c_sep_q25_sand
+  left: ev_sep_q25_sand
+  right: ev_sep_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_q25_sand
+  left: ev_opi_q25_sand
+  right: ev_opi_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_q25_sand
+  left: ev_ia_q25_sand
+  right: ev_ia_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_q25_sand
+  left: ev_gcg_q25_sand
+  right: ev_gcg_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_q25_sand
+  left: ev_fuzz_q25_sand
+  right: ev_fuzz_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_q25_sand
+  left: ev_uc_q25_sand
+  right: ev_uc_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_q25_sand
+  left: ev_ua_q25_sand
+  right: ev_ua_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_q25_struq
+  left: ev_sep_q25_struq
+  right: ev_sep_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_q25_struq
+  left: ev_opi_q25_struq
+  right: ev_opi_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_q25_struq
+  left: ev_ia_q25_struq
+  right: ev_ia_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_q25_struq
+  left: ev_gcg_q25_struq
+  right: ev_gcg_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_q25_struq
+  left: ev_fuzz_q25_struq
+  right: ev_fuzz_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_q25_struq
+  left: ev_uc_q25_struq
+  right: ev_uc_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_q25_struq
+  left: ev_ua_q25_struq
+  right: ev_ua_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_q25_secalign
+  left: ev_sep_q25_secalign
+  right: ev_sep_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_q25_secalign
+  left: ev_opi_q25_secalign
+  right: ev_opi_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_q25_secalign
+  left: ev_ia_q25_secalign
+  right: ev_ia_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_q25_secalign
+  left: ev_gcg_q25_secalign
+  right: ev_gcg_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_q25_secalign
+  left: ev_fuzz_q25_secalign
+  right: ev_fuzz_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_q25_secalign
+  left: ev_uc_q25_secalign
+  right: ev_uc_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_q25_secalign
+  left: ev_ua_q25_secalign
+  right: ev_ua_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_q25_verih
+  left: ev_sep_q25_verih
+  right: ev_sep_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_q25_verih
+  left: ev_opi_q25_verih
+  right: ev_opi_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_q25_verih
+  left: ev_ia_q25_verih
+  right: ev_ia_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_q25_verih
+  left: ev_gcg_q25_verih
+  right: ev_gcg_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_q25_verih
+  left: ev_fuzz_q25_verih
+  right: ev_fuzz_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_q25_verih
+  left: ev_uc_q25_verih
+  right: ev_uc_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_q25_verih
+  left: ev_ua_q25_verih
+  right: ev_ua_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_q25_cbc
+  left: ev_sep_q25_cbc
+  right: ev_sep_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_q25_cbc
+  left: ev_opi_q25_cbc
+  right: ev_opi_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_q25_cbc
+  left: ev_ia_q25_cbc
+  right: ev_ia_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_q25_cbc
+  left: ev_gcg_q25_cbc
+  right: ev_gcg_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_q25_cbc
+  left: ev_fuzz_q25_cbc
+  right: ev_fuzz_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_q25_cbc
+  left: ev_uc_q25_cbc
+  right: ev_uc_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_q25_cbc
+  left: ev_ua_q25_cbc
+  right: ev_ua_q25_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_l31_sand
+  left: ev_sep_l31_sand
+  right: ev_sep_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_l31_sand
+  left: ev_opi_l31_sand
+  right: ev_opi_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_l31_sand
+  left: ev_ia_l31_sand
+  right: ev_ia_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_l31_sand
+  left: ev_gcg_l31_sand
+  right: ev_gcg_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_l31_sand
+  left: ev_fuzz_l31_sand
+  right: ev_fuzz_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_l31_sand
+  left: ev_uc_l31_sand
+  right: ev_uc_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_l31_sand
+  left: ev_ua_l31_sand
+  right: ev_ua_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_l31_struq
+  left: ev_sep_l31_struq
+  right: ev_sep_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_l31_struq
+  left: ev_opi_l31_struq
+  right: ev_opi_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_l31_struq
+  left: ev_ia_l31_struq
+  right: ev_ia_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_l31_struq
+  left: ev_gcg_l31_struq
+  right: ev_gcg_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_l31_struq
+  left: ev_fuzz_l31_struq
+  right: ev_fuzz_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_l31_struq
+  left: ev_uc_l31_struq
+  right: ev_uc_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_l31_struq
+  left: ev_ua_l31_struq
+  right: ev_ua_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_l31_secalign
+  left: ev_sep_l31_secalign
+  right: ev_sep_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_l31_secalign
+  left: ev_opi_l31_secalign
+  right: ev_opi_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_l31_secalign
+  left: ev_ia_l31_secalign
+  right: ev_ia_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_l31_secalign
+  left: ev_gcg_l31_secalign
+  right: ev_gcg_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_l31_secalign
+  left: ev_fuzz_l31_secalign
+  right: ev_fuzz_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_l31_secalign
+  left: ev_uc_l31_secalign
+  right: ev_uc_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_l31_secalign
+  left: ev_ua_l31_secalign
+  right: ev_ua_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_l31_verih
+  left: ev_sep_l31_verih
+  right: ev_sep_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_l31_verih
+  left: ev_opi_l31_verih
+  right: ev_opi_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_l31_verih
+  left: ev_ia_l31_verih
+  right: ev_ia_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_l31_verih
+  left: ev_gcg_l31_verih
+  right: ev_gcg_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_l31_verih
+  left: ev_fuzz_l31_verih
+  right: ev_fuzz_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_l31_verih
+  left: ev_uc_l31_verih
+  right: ev_uc_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_l31_verih
+  left: ev_ua_l31_verih
+  right: ev_ua_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_l31_cbc
+  left: ev_sep_l31_cbc
+  right: ev_sep_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_l31_cbc
+  left: ev_opi_l31_cbc
+  right: ev_opi_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_l31_cbc
+  left: ev_ia_l31_cbc
+  right: ev_ia_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_l31_cbc
+  left: ev_gcg_l31_cbc
+  right: ev_gcg_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_l31_cbc
+  left: ev_fuzz_l31_cbc
+  right: ev_fuzz_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_l31_cbc
+  left: ev_uc_l31_cbc
+  right: ev_uc_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_l31_cbc
+  left: ev_ua_l31_cbc
+  right: ev_ua_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_q3_sand
+  left: ev_sep_q3_sand
+  right: ev_sep_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_q3_sand
+  left: ev_opi_q3_sand
+  right: ev_opi_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_q3_sand
+  left: ev_ia_q3_sand
+  right: ev_ia_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_q3_sand
+  left: ev_gcg_q3_sand
+  right: ev_gcg_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_q3_sand
+  left: ev_fuzz_q3_sand
+  right: ev_fuzz_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_q3_sand
+  left: ev_uc_q3_sand
+  right: ev_uc_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_q3_sand
+  left: ev_ua_q3_sand
+  right: ev_ua_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_q3_secalign
+  left: ev_sep_q3_secalign
+  right: ev_sep_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_q3_secalign
+  left: ev_opi_q3_secalign
+  right: ev_opi_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_q3_secalign
+  left: ev_ia_q3_secalign
+  right: ev_ia_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_q3_secalign
+  left: ev_gcg_q3_secalign
+  right: ev_gcg_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_q3_secalign
+  left: ev_fuzz_q3_secalign
+  right: ev_fuzz_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_q3_secalign
+  left: ev_uc_q3_secalign
+  right: ev_uc_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_q3_secalign
+  left: ev_ua_q3_secalign
+  right: ev_ua_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_q3_verih
+  left: ev_sep_q3_verih
+  right: ev_sep_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_q3_verih
+  left: ev_opi_q3_verih
+  right: ev_opi_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_q3_verih
+  left: ev_ia_q3_verih
+  right: ev_ia_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_q3_verih
+  left: ev_gcg_q3_verih
+  right: ev_gcg_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_q3_verih
+  left: ev_fuzz_q3_verih
+  right: ev_fuzz_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_q3_verih
+  left: ev_uc_q3_verih
+  right: ev_uc_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_q3_verih
+  left: ev_ua_q3_verih
+  right: ev_ua_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_sep_q3_cbc
+  left: ev_sep_q3_cbc
+  right: ev_sep_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_opi_q3_cbc
+  left: ev_opi_q3_cbc
+  right: ev_opi_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_ia_q3_cbc
+  left: ev_ia_q3_cbc
+  right: ev_ia_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_gcg_q3_cbc
+  left: ev_gcg_q3_cbc
+  right: ev_gcg_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_fuzz_q3_cbc
+  left: ev_fuzz_q3_cbc
+  right: ev_fuzz_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_uc_q3_cbc
+  left: ev_uc_q3_cbc
+  right: ev_uc_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ua_q3_cbc
+  left: ev_ua_q3_cbc
+  right: ev_ua_q3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+claims:
+- id: k1
+  text: CBC gives strong and consistent robustness across indirect and direct attacks while preserving utility
+  location: Section 4.2
+  anchor: CBC achieves strong and consistent robustness across both settings
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_sep_q25_cbc
+  - c_opi_q25_cbc
+  - c_ia_q25_cbc
+  - c_gcg_q25_cbc
+  - c_fuzz_q25_cbc
+  - c_sep_l31_cbc
+  - c_opi_l31_cbc
+  - c_ia_l31_cbc
+  - c_gcg_l31_cbc
+  - c_fuzz_l31_cbc
+  - c_sep_q3_cbc
+  - c_opi_q3_cbc
+  - c_ia_q3_cbc
+  - c_gcg_q3_cbc
+  - c_fuzz_q3_cbc
+  - c_ua_q25_cbc
+  - c_ua_l31_cbc
+  - c_ua_q3_cbc
+  page: 6
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1 (defence success rate, indirect columns)
+    R2clean: Table 2 (clean average)
+    R2attack: Table 2 (attack average)
+schema_gaps:
+- where: report
+  note: results are defence success rates (higher is better) averaged over three runs; StruQ is omitted on Qwen3-14B because its released data do not fit the thinking format; the first date is the proceedings year as recorded
+    at screening

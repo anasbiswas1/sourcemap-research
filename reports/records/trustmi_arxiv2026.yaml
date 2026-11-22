@@ -1,0 +1,1595 @@
+report:
+  id: trustmi_arxiv2026
+  slug: '2610.06064'
+  title: 'TrustMI: Causally controlling how assistants trust their users'
+  first_author: Théo Lasnier
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2610.06064'
+  version_read: arXiv v1
+  first_date: '2026-10-05'
+  read: F
+  role: mixed
+  extraction_scope: Table 7 (AgentDojo with and without injections) for the six models at steering strengths -1 and -2 against the unsteered model (0); the Section 4 remark on protecting agents (positive strengths raise trust
+    and are not a defence; AgentHarm, Agentic Misalignment and the capability tables are not prompt injection)
+defences:
+- id: steerm1_q9
+  name: trust steering at strength -1 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm2_q9
+  name: trust steering at strength -2 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm1_q27
+  name: trust steering at strength -1 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Qwen3.5-27B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm2_q27
+  name: trust steering at strength -2 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Qwen3.5-27B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm1_l8
+  name: trust steering at strength -1 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm2_l8
+  name: trust steering at strength -2 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm1_l70
+  name: trust steering at strength -1 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Llama-3.1-70B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm2_l70
+  name: trust steering at strength -2 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Llama-3.1-70B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm1_o7
+  name: trust steering at strength -1 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Olmo-3-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm2_o7
+  name: trust steering at strength -2 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Olmo-3-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm1_o32
+  name: trust steering at strength -1 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Olmo-3.1-32B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+- id: steerm2_o32
+  name: trust steering at strength -2 (distrust; steering matrices learned with BiPO on 2,000 contrastive trust conversations, model frozen)
+  origin: this_report
+  base_checkpoint: Olmo-3.1-32B
+  axis1:
+  - internal_intervention
+  axis2:
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  layout: AgentDojo agent; trust steering matrix applied to the activations of user turns and tool outputs
+  layout_compat: *id001
+  anchor: learn steering matrices using Bi-directional Preference Optimization
+evaluations:
+- id: ev_q9_none
+  defence_id: none:Qwen3.5-9B
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+  baseline_kind: off_the_shelf
+- id: ev_q9_none_ben
+  defence_id: none:Qwen3.5-9B
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+  baseline_kind: off_the_shelf
+- id: ev_q9_m1
+  defence_id: steerm1_q9
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_q9_m1_ben
+  defence_id: steerm1_q9
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_q9_m2
+  defence_id: steerm2_q9
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_q9_m2_ben
+  defence_id: steerm2_q9
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_q27_none
+  defence_id: none:Qwen3.5-27B
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+  baseline_kind: off_the_shelf
+- id: ev_q27_none_ben
+  defence_id: none:Qwen3.5-27B
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+  baseline_kind: off_the_shelf
+- id: ev_q27_m1
+  defence_id: steerm1_q27
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_q27_m1_ben
+  defence_id: steerm1_q27
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_q27_m2
+  defence_id: steerm2_q27
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_q27_m2_ben
+  defence_id: steerm2_q27
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_l8_none
+  defence_id: none:Llama-3.1-8B
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+  baseline_kind: off_the_shelf
+- id: ev_l8_none_ben
+  defence_id: none:Llama-3.1-8B
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+  baseline_kind: off_the_shelf
+- id: ev_l8_m1
+  defence_id: steerm1_l8
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_l8_m1_ben
+  defence_id: steerm1_l8
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_l8_m2
+  defence_id: steerm2_l8
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_l8_m2_ben
+  defence_id: steerm2_l8
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_l70_none
+  defence_id: none:Llama-3.1-70B
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+  baseline_kind: off_the_shelf
+- id: ev_l70_none_ben
+  defence_id: none:Llama-3.1-70B
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+  baseline_kind: off_the_shelf
+- id: ev_l70_m1
+  defence_id: steerm1_l70
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_l70_m1_ben
+  defence_id: steerm1_l70
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_l70_m2
+  defence_id: steerm2_l70
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_l70_m2_ben
+  defence_id: steerm2_l70
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_o7_none
+  defence_id: none:Olmo-3-7B
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+  baseline_kind: off_the_shelf
+- id: ev_o7_none_ben
+  defence_id: none:Olmo-3-7B
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+  baseline_kind: off_the_shelf
+- id: ev_o7_m1
+  defence_id: steerm1_o7
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_o7_m1_ben
+  defence_id: steerm1_o7
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_o7_m2
+  defence_id: steerm2_o7
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_o7_m2_ben
+  defence_id: steerm2_o7
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_o32_none
+  defence_id: none:Olmo-3.1-32B
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+  baseline_kind: off_the_shelf
+- id: ev_o32_none_ben
+  defence_id: none:Olmo-3.1-32B
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+  baseline_kind: off_the_shelf
+- id: ev_o32_m1
+  defence_id: steerm1_o32
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_o32_m1_ben
+  defence_id: steerm1_o32
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+- id: ev_o32_m2
+  defence_id: steerm2_o32
+  benchmark: AgentDojo with injections (944 cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '944'
+- id: ev_o32_m2_ben
+  defence_id: steerm2_o32
+  benchmark: AgentDojo without injections (96 tasks)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checks
+  layout_same_as_defence: 'yes'
+  measured_by: trustmi_arxiv2026
+  page: 25
+  decoding: not reported
+  sample_size: '96'
+results:
+- id: r_q9_none_asr
+  evaluation_id: ev_q9_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '14.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q9_none_ui
+  evaluation_id: ev_q9_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '57.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q9_none_ub
+  evaluation_id: ev_q9_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '67.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q9_m1_asr
+  evaluation_id: ev_q9_m1
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '7.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q9_m1_ui
+  evaluation_id: ev_q9_m1
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '60.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q9_m1_ub
+  evaluation_id: ev_q9_m1_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '67.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q9_m2_asr
+  evaluation_id: ev_q9_m2
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '1.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q9_m2_ui
+  evaluation_id: ev_q9_m2
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '52.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q9_m2_ub
+  evaluation_id: ev_q9_m2_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '58.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q27_none_asr
+  evaluation_id: ev_q27_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '33.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q27_none_ui
+  evaluation_id: ev_q27_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '56.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q27_none_ub
+  evaluation_id: ev_q27_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '76.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q27_m1_asr
+  evaluation_id: ev_q27_m1
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '20.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q27_m1_ui
+  evaluation_id: ev_q27_m1
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '66.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q27_m1_ub
+  evaluation_id: ev_q27_m1_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '75.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q27_m2_asr
+  evaluation_id: ev_q27_m2
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '7.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q27_m2_ui
+  evaluation_id: ev_q27_m2
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '66.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_q27_m2_ub
+  evaluation_id: ev_q27_m2_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '73.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l8_none_asr
+  evaluation_id: ev_l8_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '2.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l8_none_ui
+  evaluation_id: ev_l8_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '15.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l8_none_ub
+  evaluation_id: ev_l8_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '16.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l8_m1_asr
+  evaluation_id: ev_l8_m1
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l8_m1_ui
+  evaluation_id: ev_l8_m1
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '13.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l8_m1_ub
+  evaluation_id: ev_l8_m1_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '14.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l8_m2_asr
+  evaluation_id: ev_l8_m2
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l8_m2_ui
+  evaluation_id: ev_l8_m2
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '11.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l8_m2_ub
+  evaluation_id: ev_l8_m2_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '14.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l70_none_asr
+  evaluation_id: ev_l70_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '6.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l70_none_ui
+  evaluation_id: ev_l70_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '24.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l70_none_ub
+  evaluation_id: ev_l70_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '28.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l70_m1_asr
+  evaluation_id: ev_l70_m1
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '4.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l70_m1_ui
+  evaluation_id: ev_l70_m1
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '22.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l70_m1_ub
+  evaluation_id: ev_l70_m1_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '25.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l70_m2_asr
+  evaluation_id: ev_l70_m2
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '1.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l70_m2_ui
+  evaluation_id: ev_l70_m2
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '17.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_l70_m2_ub
+  evaluation_id: ev_l70_m2_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '20.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o7_none_asr
+  evaluation_id: ev_o7_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '0.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o7_none_ui
+  evaluation_id: ev_o7_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '7.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o7_none_ub
+  evaluation_id: ev_o7_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '8.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o7_m1_asr
+  evaluation_id: ev_o7_m1
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o7_m1_ui
+  evaluation_id: ev_o7_m1
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '6.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o7_m1_ub
+  evaluation_id: ev_o7_m1_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '7.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o7_m2_asr
+  evaluation_id: ev_o7_m2
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o7_m2_ui
+  evaluation_id: ev_o7_m2
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '5.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o7_m2_ub
+  evaluation_id: ev_o7_m2_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '6.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o32_none_asr
+  evaluation_id: ev_o32_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '11.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o32_none_ui
+  evaluation_id: ev_o32_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '25.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o32_none_ub
+  evaluation_id: ev_o32_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '32.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o32_m1_asr
+  evaluation_id: ev_o32_m1
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '7.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o32_m1_ui
+  evaluation_id: ev_o32_m1
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '22.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o32_m1_ub
+  evaluation_id: ev_o32_m1_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '32.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o32_m2_asr
+  evaluation_id: ev_o32_m2
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success
+  value: '2.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o32_m2_ui
+  evaluation_id: ev_o32_m2
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility, injected
+  value: '17.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+- id: r_o32_m2_ub
+  evaluation_id: ev_o32_m2_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: utility, benign
+  value: '21.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 25
+  location: Table 7
+comparisons:
+- id: c_q9_m1
+  left: ev_q9_m1
+  right: ev_q9_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_q9_m1_ben
+  left: ev_q9_m1_ben
+  right: ev_q9_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_q9_m2
+  left: ev_q9_m2
+  right: ev_q9_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_q9_m2_ben
+  left: ev_q9_m2_ben
+  right: ev_q9_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_q27_m1
+  left: ev_q27_m1
+  right: ev_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_q27_m1_ben
+  left: ev_q27_m1_ben
+  right: ev_q27_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_q27_m2
+  left: ev_q27_m2
+  right: ev_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_q27_m2_ben
+  left: ev_q27_m2_ben
+  right: ev_q27_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_l8_m1
+  left: ev_l8_m1
+  right: ev_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_l8_m1_ben
+  left: ev_l8_m1_ben
+  right: ev_l8_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_l8_m2
+  left: ev_l8_m2
+  right: ev_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_l8_m2_ben
+  left: ev_l8_m2_ben
+  right: ev_l8_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_l70_m1
+  left: ev_l70_m1
+  right: ev_l70_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_l70_m1_ben
+  left: ev_l70_m1_ben
+  right: ev_l70_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_l70_m2
+  left: ev_l70_m2
+  right: ev_l70_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_l70_m2_ben
+  left: ev_l70_m2_ben
+  right: ev_l70_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_o7_m1
+  left: ev_o7_m1
+  right: ev_o7_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_o7_m1_ben
+  left: ev_o7_m1_ben
+  right: ev_o7_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_o7_m2
+  left: ev_o7_m2
+  right: ev_o7_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_o7_m2_ben
+  left: ev_o7_m2_ben
+  right: ev_o7_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_o32_m1
+  left: ev_o32_m1
+  right: ev_o32_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_o32_m1_ben
+  left: ev_o32_m1_ben
+  right: ev_o32_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_o32_m2
+  left: ev_o32_m2
+  right: ev_o32_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+- id: c_o32_m2_ben
+  left: ev_o32_m2_ben
+  right: ev_o32_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 25
+claims:
+- id: k1
+  text: moderate negative trust steering could help protect agents against prompt injections without much loss of benign performance
+  location: Section 4
+  anchor: Moderate negative steering could therefore help protect agents against prompt injections
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_q9_m1
+  - c_q27_m1
+  - c_l8_m1
+  - c_l70_m1
+  - c_o7_m1
+  - c_o32_m1
+  - c_q9_m1_ben
+  - c_q27_m1_ben
+  - c_l8_m1_ben
+  - c_l70_m1_ben
+  - c_o7_m1_ben
+  - c_o32_m1_ben
+  page: 7
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 7
+    R2clean: Table 7 (benign)
+    R2attack: Table 7 (utility, injected)
+schema_gaps:
+- where: report
+  note: the steering matrices are trained on trust conversations without injections and applied to both user turns and tool outputs; steering only the user turns raises attack success for both Qwen models (Appendix D.7), so
+    the effect comes from the tool-output positions

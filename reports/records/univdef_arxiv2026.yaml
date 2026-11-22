@@ -1,0 +1,655 @@
+report:
+  id: univdef_arxiv2026
+  slug: '2609.16098'
+  title: Universal Defenses for Tool-Integrated LLM Agents Against Adversarial Attacks
+  first_author: Xiaoyan Li
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2609.16098'
+  version_read: arXiv v1
+  first_date: '2026-09-14'
+  read: F
+  role: proposes
+  extraction_scope: 'Table 2 (indirect prompt injection, averaged over injection types): No Defense and Delimiters (ASB) for six models, ASR and OTSR; the Section 4.3 remark on the delimiter defence (the paper''s ATF and NTR
+    combinations filter or restore the toolset and are left out as filter and system level; CoT, paraphrasing and reflection are measured alone only under direct injection, Figure 2; memory poisoning and backdoor tables are
+    not prompt injection in tool data)'
+defences:
+- id: delim_gem
+  name: Delimiters (ASB implementation)
+  origin: other_report
+  base_checkpoint: Gemma2-9B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: ASB agent framework; injected instructions returned in tool responses
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we compare our defense methods with no defense and the delimiters approach in ASB
+- id: delim_qw
+  name: Delimiters (ASB implementation)
+  origin: other_report
+  base_checkpoint: Qwen2-7B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: ASB agent framework; injected instructions returned in tool responses
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we compare our defense methods with no defense and the delimiters approach in ASB
+- id: delim_l3
+  name: Delimiters (ASB implementation)
+  origin: other_report
+  base_checkpoint: LLaMA3-8B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: ASB agent framework; injected instructions returned in tool responses
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we compare our defense methods with no defense and the delimiters approach in ASB
+- id: delim_l31
+  name: Delimiters (ASB implementation)
+  origin: other_report
+  base_checkpoint: LLaMA3.1-8B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: ASB agent framework; injected instructions returned in tool responses
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we compare our defense methods with no defense and the delimiters approach in ASB
+- id: delim_g35
+  name: Delimiters (ASB implementation)
+  origin: other_report
+  base_checkpoint: GPT-3.5
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: ASB agent framework; injected instructions returned in tool responses
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we compare our defense methods with no defense and the delimiters approach in ASB
+- id: delim_g4
+  name: Delimiters (ASB implementation)
+  origin: other_report
+  base_checkpoint: GPT-4
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: ASB agent framework; injected instructions returned in tool responses
+  layout_compat:
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we compare our defense methods with no defense and the delimiters approach in ASB
+evaluations:
+- id: ev_gem_none
+  defence_id: none:Gemma2-9B
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_gem_delim
+  defence_id: delim_gem
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_qw_none
+  defence_id: none:Qwen2-7B
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_qw_delim
+  defence_id: delim_qw
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_l3_none
+  defence_id: none:LLaMA3-8B
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l3_delim
+  defence_id: delim_l3
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_l31_none
+  defence_id: none:LLaMA3.1-8B
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l31_delim
+  defence_id: delim_l31
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_g35_none
+  defence_id: none:GPT-3.5
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_g35_delim
+  defence_id: delim_g35
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_g4_none
+  defence_id: none:GPT-4
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_g4_delim
+  defence_id: delim_g4
+  benchmark: ASB, indirect prompt injection, averaged over injection types
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB checks (attacker tool used; original task completed)
+  layout_same_as_defence: 'yes'
+  measured_by: univdef_arxiv2026
+  page: 7
+  decoding: not reported
+results:
+- id: r_gem_none_asr
+  evaluation_id: ev_gem_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0894'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gem_none_otsr
+  evaluation_id: ev_gem_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.165'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gem_delim_asr
+  evaluation_id: ev_gem_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0719'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_gem_delim_otsr
+  evaluation_id: ev_gem_delim
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.1269'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_qw_none_asr
+  evaluation_id: ev_qw_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0606'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_qw_none_otsr
+  evaluation_id: ev_qw_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.115'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_qw_delim_asr
+  evaluation_id: ev_qw_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0431'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_qw_delim_otsr
+  evaluation_id: ev_qw_delim
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.0738'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l3_none_asr
+  evaluation_id: ev_l3_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.02'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l3_none_otsr
+  evaluation_id: ev_l3_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.0275'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l3_delim_asr
+  evaluation_id: ev_l3_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0256'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l3_delim_otsr
+  evaluation_id: ev_l3_delim
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.03'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_none_asr
+  evaluation_id: ev_l31_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0756'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_none_otsr
+  evaluation_id: ev_l31_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.0819'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_delim_asr
+  evaluation_id: ev_l31_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.0519'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_l31_delim_otsr
+  evaluation_id: ev_l31_delim
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.0369'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_g35_none_asr
+  evaluation_id: ev_g35_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.5137'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_g35_none_otsr
+  evaluation_id: ev_g35_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.2231'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_g35_delim_asr
+  evaluation_id: ev_g35_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.2406'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_g35_delim_otsr
+  evaluation_id: ev_g35_delim
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.0938'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_g4_none_asr
+  evaluation_id: ev_g4_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.4456'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_g4_none_otsr
+  evaluation_id: ev_g4_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.3775'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_g4_delim_asr
+  evaluation_id: ev_g4_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.5619'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_g4_delim_otsr
+  evaluation_id: ev_g4_delim
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: OTSR (original task success)
+  value: '0.32'
+  unit: fraction
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+comparisons:
+- id: c_gem
+  left: ev_gem_delim
+  right: ev_gem_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_qw
+  left: ev_qw_delim
+  right: ev_qw_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l3
+  left: ev_l3_delim
+  right: ev_l3_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_l31
+  left: ev_l31_delim
+  right: ev_l31_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_g35
+  left: ev_g35_delim
+  right: ev_g35_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_g4
+  left: ev_g4_delim
+  right: ev_g4_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+claims:
+- id: k1
+  text: the delimiter-based defence lowers original task success in some settings
+  location: Section 4.3
+  anchor: which is also observed with the delimiter-based defense
+  jobs:
+  - R2
+  supported_by:
+  - c_gem
+  - c_qw
+  - c_l3
+  - c_l31
+  - c_g35
+  - c_g4
+  page: 6
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: proxy
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 2
+    R2attack: Table 2 OTSR (whether it is measured in attacked runs is not stated)
+    R2clean: not reported
+schema_gaps:
+- where: report
+  note: the paper's own defences always include tool filtering (ATF) or toolset restoration (NTR); the only in-scope comparison is ASB's delimiter defence against no defence; GPT-4's attack success rises under delimiters (0.4456
+    to 0.5619)

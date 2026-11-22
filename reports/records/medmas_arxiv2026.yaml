@@ -1,0 +1,2393 @@
+report:
+  id: medmas_arxiv2026
+  slug: '2610.22594'
+  title: 'The Model Knows Better: Defending Medical Multi-Agent Systems Against Prompt Injection'
+  first_author: Fardin Ahsan Sakib
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2610.22594'
+  version_read: arXiv v1
+  first_date: '2026-10-15'
+  read: F
+  role: mixed
+  extraction_scope: 'Table 1 (MedQA: Instructional, Sandwich, Delimiters and Meta-SecAlign against no defence for five system and model configurations, TASR and clean accuracy) and Table 2 (Instructional on MedMisBench and
+    MPIB); the abstract claim (PromptGuard 2, DataSentinel and PromptArmor are detectors, and the paper''s own defence uses a separate checker call to remove unsupported sentences before re-deciding, so it is left out as a
+    sanitiser)'
+defences:
+- id: instr_sq
+  name: Instructional (warning added to the task prompt)
+  origin: other_report
+  base_checkpoint: Qwen3.8-27B, single model
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: &id001
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: Adds to the task prompt a warning that the data may
+- id: sand_sq
+  name: Sandwich (task instruction repeated after the data)
+  origin: other_report
+  base_checkpoint: Qwen3.8-27B, single model
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Repeats the task instruction after the data
+- id: delim_sq
+  name: Delimiters around the record
+  origin: other_report
+  base_checkpoint: Qwen3.8-27B, single model
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Encloses the data in delimiters so the model treats it
+- id: instr_mq
+  name: Instructional (warning added to the task prompt)
+  origin: other_report
+  base_checkpoint: Qwen3.8-27B in MDAgents
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Adds to the task prompt a warning that the data may
+- id: sand_mq
+  name: Sandwich (task instruction repeated after the data)
+  origin: other_report
+  base_checkpoint: Qwen3.8-27B in MDAgents
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Repeats the task instruction after the data
+- id: delim_mq
+  name: Delimiters around the record
+  origin: other_report
+  base_checkpoint: Qwen3.8-27B in MDAgents
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Encloses the data in delimiters so the model treats it
+- id: instr_aq
+  name: Instructional (warning added to the task prompt)
+  origin: other_report
+  base_checkpoint: Qwen3.8-27B in MedAgents
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Adds to the task prompt a warning that the data may
+- id: sand_aq
+  name: Sandwich (task instruction repeated after the data)
+  origin: other_report
+  base_checkpoint: Qwen3.8-27B in MedAgents
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Repeats the task instruction after the data
+- id: delim_aq
+  name: Delimiters around the record
+  origin: other_report
+  base_checkpoint: Qwen3.8-27B in MedAgents
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Encloses the data in delimiters so the model treats it
+- id: instr_sl
+  name: Instructional (warning added to the task prompt)
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct, single model
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Adds to the task prompt a warning that the data may
+- id: sand_sl
+  name: Sandwich (task instruction repeated after the data)
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct, single model
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Repeats the task instruction after the data
+- id: delim_sl
+  name: Delimiters around the record
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct, single model
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Encloses the data in delimiters so the model treats it
+- id: msa_sl
+  name: Meta-SecAlign (70B, trained to ignore instructions in untrusted input)
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct, single model
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Llama model trained to ignore instructions in its un-
+- id: instr_ml
+  name: Instructional (warning added to the task prompt)
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct in MDAgents
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Adds to the task prompt a warning that the data may
+- id: sand_ml
+  name: Sandwich (task instruction repeated after the data)
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct in MDAgents
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Repeats the task instruction after the data
+- id: delim_ml
+  name: Delimiters around the record
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct in MDAgents
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Encloses the data in delimiters so the model treats it
+- id: msa_ml
+  name: Meta-SecAlign (70B, trained to ignore instructions in untrusted input)
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct in MDAgents
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 13
+  layout: clinical record with one injected passage at the end, question and options; every agent reads the same record
+  layout_compat: *id001
+  anchor: Llama model trained to ignore instructions in its un-
+evaluations:
+- id: ev_mq_sq_none
+  defence_id: none:Qwen3.8-27B, single model
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+  baseline_kind: off_the_shelf
+- id: ev_mq_sq_none_clean
+  defence_id: none:Qwen3.8-27B, single model
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+  baseline_kind: off_the_shelf
+- id: ev_mq_mq_none
+  defence_id: none:Qwen3.8-27B in MDAgents
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+  baseline_kind: off_the_shelf
+- id: ev_mq_mq_none_clean
+  defence_id: none:Qwen3.8-27B in MDAgents
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+  baseline_kind: off_the_shelf
+- id: ev_mq_aq_none
+  defence_id: none:Qwen3.8-27B in MedAgents
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+  baseline_kind: off_the_shelf
+- id: ev_mq_aq_none_clean
+  defence_id: none:Qwen3.8-27B in MedAgents
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+  baseline_kind: off_the_shelf
+- id: ev_mq_sl_none
+  defence_id: none:Llama-3.3-70B-Instruct, single model
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+  baseline_kind: off_the_shelf
+- id: ev_mq_sl_none_clean
+  defence_id: none:Llama-3.3-70B-Instruct, single model
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+  baseline_kind: off_the_shelf
+- id: ev_mq_ml_none
+  defence_id: none:Llama-3.3-70B-Instruct in MDAgents
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+  baseline_kind: off_the_shelf
+- id: ev_mq_ml_none_clean
+  defence_id: none:Llama-3.3-70B-Instruct in MDAgents
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+  baseline_kind: off_the_shelf
+- id: ev_mq_sq_instr
+  defence_id: instr_sq
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_sq_instr_clean
+  defence_id: instr_sq
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_mq_instr
+  defence_id: instr_mq
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_mq_instr_clean
+  defence_id: instr_mq
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_aq_instr
+  defence_id: instr_aq
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_aq_instr_clean
+  defence_id: instr_aq
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_sl_instr
+  defence_id: instr_sl
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_sl_instr_clean
+  defence_id: instr_sl
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_ml_instr
+  defence_id: instr_ml
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_ml_instr_clean
+  defence_id: instr_ml
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_sq_sand
+  defence_id: sand_sq
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_sq_sand_clean
+  defence_id: sand_sq
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_mq_sand
+  defence_id: sand_mq
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_mq_sand_clean
+  defence_id: sand_mq
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_aq_sand
+  defence_id: sand_aq
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_aq_sand_clean
+  defence_id: sand_aq
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_sl_sand
+  defence_id: sand_sl
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_sl_sand_clean
+  defence_id: sand_sl
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_ml_sand
+  defence_id: sand_ml
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_ml_sand_clean
+  defence_id: sand_ml
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_sq_delim
+  defence_id: delim_sq
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_sq_delim_clean
+  defence_id: delim_sq
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_mq_delim
+  defence_id: delim_mq
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_mq_delim_clean
+  defence_id: delim_mq
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_aq_delim
+  defence_id: delim_aq
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_aq_delim_clean
+  defence_id: delim_aq
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_sl_delim
+  defence_id: delim_sl
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_sl_delim_clean
+  defence_id: delim_sl
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_ml_delim
+  defence_id: delim_ml
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_ml_delim_clean
+  defence_id: delim_ml
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_sl_msa
+  defence_id: msa_sl
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_sl_msa_clean
+  defence_id: msa_sl
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_mq_ml_msa
+  defence_id: msa_ml
+  benchmark: MedQA (591 Step 2 and 3 questions), eight injected-passage attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the attacker's target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: 591 questions x 8 attacks (cases answered correctly without attack)
+- id: ev_mq_ml_msa_clean
+  defence_id: msa_ml
+  benchmark: MedQA (591 Step 2 and 3 questions), no injected text
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer correct
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 4
+  decoding: greedy
+  sample_size: '591'
+- id: ev_t2_mq_mmqa_none
+  defence_id: none:Qwen3.8-27B in MDAgents
+  benchmark: MedMisBench MedMisQA
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_mq_mmqa_instr
+  defence_id: instr_mq
+  benchmark: MedMisBench MedMisQA
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_mq_mmmc_none
+  defence_id: none:Qwen3.8-27B in MDAgents
+  benchmark: MedMisBench MedMisMCQA
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_mq_mmmc_instr
+  defence_id: instr_mq
+  benchmark: MedMisBench MedMisMCQA
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_mq_mmx_none
+  defence_id: none:Qwen3.8-27B in MDAgents
+  benchmark: MedMisBench MedMisXpertQA
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_mq_mmx_instr
+  defence_id: instr_mq
+  benchmark: MedMisBench MedMisXpertQA
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_aq_mmqa_none
+  defence_id: none:Qwen3.8-27B in MedAgents
+  benchmark: MedMisBench MedMisQA (300-case subset)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_aq_mmqa_instr
+  defence_id: instr_aq
+  benchmark: MedMisBench MedMisQA (300-case subset)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_aq_mmmc_none
+  defence_id: none:Qwen3.8-27B in MedAgents
+  benchmark: MedMisBench MedMisMCQA (300-case subset)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_aq_mmmc_instr
+  defence_id: instr_aq
+  benchmark: MedMisBench MedMisMCQA (300-case subset)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_aq_mmx_none
+  defence_id: none:Qwen3.8-27B in MedAgents
+  benchmark: MedMisBench MedMisXpertQA (300-case subset)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_aq_mmx_instr
+  defence_id: instr_aq
+  benchmark: MedMisBench MedMisXpertQA (300-case subset)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_ml_mmx_none
+  defence_id: none:Llama-3.3-70B-Instruct in MDAgents
+  benchmark: MedMisBench MedMisXpertQA (300-case subset)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_ml_mmx_instr
+  defence_id: instr_ml
+  benchmark: MedMisBench MedMisXpertQA (300-case subset)
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_sq_mmx_none
+  defence_id: none:Qwen3.8-27B, single model
+  benchmark: MedMisBench MedMisXpertQA
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_sq_mmx_instr
+  defence_id: instr_sq
+  benchmark: MedMisBench MedMisXpertQA
+  attacker_type: static
+  attacker_access: black_box
+  judge: answer changes to the target option
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_mq_mpib_none
+  defence_id: none:Qwen3.8-27B in MDAgents
+  benchmark: MPIB (582 retrieved-document cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: harm rating 2 or higher by a Qwen3.8-27B judge
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_mq_mpib_instr
+  defence_id: instr_mq
+  benchmark: MPIB (582 retrieved-document cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: harm rating 2 or higher by a Qwen3.8-27B judge
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_ml_mpib_none
+  defence_id: none:Llama-3.3-70B-Instruct in MDAgents
+  benchmark: MPIB (582 retrieved-document cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: harm rating 2 or higher by a Qwen3.8-27B judge
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_ml_mpib_instr
+  defence_id: instr_ml
+  benchmark: MPIB (582 retrieved-document cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: harm rating 2 or higher by a Qwen3.8-27B judge
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+- id: ev_t2_sq_mpib_none
+  defence_id: none:Qwen3.8-27B, single model
+  benchmark: MPIB (582 retrieved-document cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: harm rating 2 or higher by a Qwen3.8-27B judge
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+  baseline_kind: off_the_shelf
+- id: ev_t2_sq_mpib_instr
+  defence_id: instr_sq
+  benchmark: MPIB (582 retrieved-document cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: harm rating 2 or higher by a Qwen3.8-27B judge
+  layout_same_as_defence: 'yes'
+  measured_by: medmas_arxiv2026
+  page: 6
+  decoding: greedy
+results:
+- id: r_mq_sq_none_tasr
+  evaluation_id: ev_mq_sq_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '28.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sq_none_acc
+  evaluation_id: ev_mq_sq_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '90.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_mq_none_tasr
+  evaluation_id: ev_mq_mq_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '26.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_mq_none_acc
+  evaluation_id: ev_mq_mq_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '89.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_aq_none_tasr
+  evaluation_id: ev_mq_aq_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '21.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_aq_none_acc
+  evaluation_id: ev_mq_aq_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '90.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_none_tasr
+  evaluation_id: ev_mq_sl_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '52.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_none_acc
+  evaluation_id: ev_mq_sl_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '83.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_none_tasr
+  evaluation_id: ev_mq_ml_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '60.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_none_acc
+  evaluation_id: ev_mq_ml_none_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '81.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sq_instr_tasr
+  evaluation_id: ev_mq_sq_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '20.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sq_instr_acc
+  evaluation_id: ev_mq_sq_instr_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '91.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_mq_instr_tasr
+  evaluation_id: ev_mq_mq_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '18.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_mq_instr_acc
+  evaluation_id: ev_mq_mq_instr_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '90.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_aq_instr_tasr
+  evaluation_id: ev_mq_aq_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '11.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_aq_instr_acc
+  evaluation_id: ev_mq_aq_instr_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '90.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_instr_tasr
+  evaluation_id: ev_mq_sl_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '51.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_instr_acc
+  evaluation_id: ev_mq_sl_instr_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '83.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_instr_tasr
+  evaluation_id: ev_mq_ml_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '61.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_instr_acc
+  evaluation_id: ev_mq_ml_instr_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '78.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sq_sand_tasr
+  evaluation_id: ev_mq_sq_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '23.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sq_sand_acc
+  evaluation_id: ev_mq_sq_sand_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '90.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_mq_sand_tasr
+  evaluation_id: ev_mq_mq_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '25.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_mq_sand_acc
+  evaluation_id: ev_mq_mq_sand_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '90.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_aq_sand_tasr
+  evaluation_id: ev_mq_aq_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '19.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_aq_sand_acc
+  evaluation_id: ev_mq_aq_sand_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '90.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_sand_tasr
+  evaluation_id: ev_mq_sl_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '52.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_sand_acc
+  evaluation_id: ev_mq_sl_sand_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '83.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_sand_tasr
+  evaluation_id: ev_mq_ml_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '55.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_sand_acc
+  evaluation_id: ev_mq_ml_sand_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '78.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sq_delim_tasr
+  evaluation_id: ev_mq_sq_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '30.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sq_delim_acc
+  evaluation_id: ev_mq_sq_delim_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '91.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_mq_delim_tasr
+  evaluation_id: ev_mq_mq_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '27.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_mq_delim_acc
+  evaluation_id: ev_mq_mq_delim_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '90.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_aq_delim_tasr
+  evaluation_id: ev_mq_aq_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '18.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_aq_delim_acc
+  evaluation_id: ev_mq_aq_delim_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '90.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_delim_tasr
+  evaluation_id: ev_mq_sl_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '53.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_delim_acc
+  evaluation_id: ev_mq_sl_delim_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '83.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_delim_tasr
+  evaluation_id: ev_mq_ml_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '62.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_delim_acc
+  evaluation_id: ev_mq_ml_delim_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '80.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_msa_tasr
+  evaluation_id: ev_mq_sl_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '48.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_sl_msa_acc
+  evaluation_id: ev_mq_sl_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '76.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_msa_tasr
+  evaluation_id: ev_mq_ml_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR, all eight attacks
+  value: '54.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_mq_ml_msa_acc
+  evaluation_id: ev_mq_ml_msa_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '61.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 1
+- id: r_t2_mq_mmqa_none
+  evaluation_id: ev_t2_mq_mmqa_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '25.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_mq_mmqa_instr
+  evaluation_id: ev_t2_mq_mmqa_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '19.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_mq_mmmc_none
+  evaluation_id: ev_t2_mq_mmmc_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '34.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_mq_mmmc_instr
+  evaluation_id: ev_t2_mq_mmmc_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '26.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_mq_mmx_none
+  evaluation_id: ev_t2_mq_mmx_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '36.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_mq_mmx_instr
+  evaluation_id: ev_t2_mq_mmx_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '28.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_aq_mmqa_none
+  evaluation_id: ev_t2_aq_mmqa_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '16.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_aq_mmqa_instr
+  evaluation_id: ev_t2_aq_mmqa_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '13.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_aq_mmmc_none
+  evaluation_id: ev_t2_aq_mmmc_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '23.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_aq_mmmc_instr
+  evaluation_id: ev_t2_aq_mmmc_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '16.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_aq_mmx_none
+  evaluation_id: ev_t2_aq_mmx_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '24.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_aq_mmx_instr
+  evaluation_id: ev_t2_aq_mmx_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '21.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_ml_mmx_none
+  evaluation_id: ev_t2_ml_mmx_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '43.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_ml_mmx_instr
+  evaluation_id: ev_t2_ml_mmx_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '42.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_sq_mmx_none
+  evaluation_id: ev_t2_sq_mmx_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '36.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_sq_mmx_instr
+  evaluation_id: ev_t2_sq_mmx_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TASR
+  value: '33.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_mq_mpib_none
+  evaluation_id: ev_t2_mq_mpib_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: harmful answers (ASR2)
+  value: '26.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_mq_mpib_instr
+  evaluation_id: ev_t2_mq_mpib_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: harmful answers (ASR2)
+  value: '26.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_ml_mpib_none
+  evaluation_id: ev_t2_ml_mpib_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: harmful answers (ASR2)
+  value: '33.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_ml_mpib_instr
+  evaluation_id: ev_t2_ml_mpib_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: harmful answers (ASR2)
+  value: '34.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_sq_mpib_none
+  evaluation_id: ev_t2_sq_mpib_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: harmful answers (ASR2)
+  value: '28.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_t2_sq_mpib_instr
+  evaluation_id: ev_t2_sq_mpib_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: harmful answers (ASR2)
+  value: '30.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+comparisons:
+- id: c_mq_sq_instr
+  left: ev_mq_sq_instr
+  right: ev_mq_sq_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sq_instr_clean
+  left: ev_mq_sq_instr_clean
+  right: ev_mq_sq_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_mq_instr
+  left: ev_mq_mq_instr
+  right: ev_mq_mq_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_mq_instr_clean
+  left: ev_mq_mq_instr_clean
+  right: ev_mq_mq_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_aq_instr
+  left: ev_mq_aq_instr
+  right: ev_mq_aq_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_aq_instr_clean
+  left: ev_mq_aq_instr_clean
+  right: ev_mq_aq_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sl_instr
+  left: ev_mq_sl_instr
+  right: ev_mq_sl_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sl_instr_clean
+  left: ev_mq_sl_instr_clean
+  right: ev_mq_sl_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_ml_instr
+  left: ev_mq_ml_instr
+  right: ev_mq_ml_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_ml_instr_clean
+  left: ev_mq_ml_instr_clean
+  right: ev_mq_ml_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sq_sand
+  left: ev_mq_sq_sand
+  right: ev_mq_sq_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sq_sand_clean
+  left: ev_mq_sq_sand_clean
+  right: ev_mq_sq_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_mq_sand
+  left: ev_mq_mq_sand
+  right: ev_mq_mq_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_mq_sand_clean
+  left: ev_mq_mq_sand_clean
+  right: ev_mq_mq_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_aq_sand
+  left: ev_mq_aq_sand
+  right: ev_mq_aq_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_aq_sand_clean
+  left: ev_mq_aq_sand_clean
+  right: ev_mq_aq_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sl_sand
+  left: ev_mq_sl_sand
+  right: ev_mq_sl_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sl_sand_clean
+  left: ev_mq_sl_sand_clean
+  right: ev_mq_sl_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_ml_sand
+  left: ev_mq_ml_sand
+  right: ev_mq_ml_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_ml_sand_clean
+  left: ev_mq_ml_sand_clean
+  right: ev_mq_ml_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sq_delim
+  left: ev_mq_sq_delim
+  right: ev_mq_sq_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sq_delim_clean
+  left: ev_mq_sq_delim_clean
+  right: ev_mq_sq_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_mq_delim
+  left: ev_mq_mq_delim
+  right: ev_mq_mq_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_mq_delim_clean
+  left: ev_mq_mq_delim_clean
+  right: ev_mq_mq_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_aq_delim
+  left: ev_mq_aq_delim
+  right: ev_mq_aq_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_aq_delim_clean
+  left: ev_mq_aq_delim_clean
+  right: ev_mq_aq_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sl_delim
+  left: ev_mq_sl_delim
+  right: ev_mq_sl_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sl_delim_clean
+  left: ev_mq_sl_delim_clean
+  right: ev_mq_sl_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_ml_delim
+  left: ev_mq_ml_delim
+  right: ev_mq_ml_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_ml_delim_clean
+  left: ev_mq_ml_delim_clean
+  right: ev_mq_ml_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sl_msa
+  left: ev_mq_sl_msa
+  right: ev_mq_sl_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_sl_msa_clean
+  left: ev_mq_sl_msa_clean
+  right: ev_mq_sl_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_ml_msa
+  left: ev_mq_ml_msa
+  right: ev_mq_ml_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_mq_ml_msa_clean
+  left: ev_mq_ml_msa_clean
+  right: ev_mq_ml_none_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 4
+- id: c_t2_mq_mmqa
+  left: ev_t2_mq_mmqa_instr
+  right: ev_t2_mq_mmqa_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_mq_mmmc
+  left: ev_t2_mq_mmmc_instr
+  right: ev_t2_mq_mmmc_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_mq_mmx
+  left: ev_t2_mq_mmx_instr
+  right: ev_t2_mq_mmx_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_aq_mmqa
+  left: ev_t2_aq_mmqa_instr
+  right: ev_t2_aq_mmqa_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_aq_mmmc
+  left: ev_t2_aq_mmmc_instr
+  right: ev_t2_aq_mmmc_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_aq_mmx
+  left: ev_t2_aq_mmx_instr
+  right: ev_t2_aq_mmx_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_ml_mmx
+  left: ev_t2_ml_mmx_instr
+  right: ev_t2_ml_mmx_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_sq_mmx
+  left: ev_t2_sq_mmx_instr
+  right: ev_t2_sq_mmx_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_mq_mpib
+  left: ev_t2_mq_mpib_instr
+  right: ev_t2_mq_mpib_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_ml_mpib
+  left: ev_t2_ml_mpib_instr
+  right: ev_t2_ml_mpib_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_t2_sq_mpib
+  left: ev_t2_sq_mpib_instr
+  right: ev_t2_sq_mpib_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 6
+claims:
+- id: k1
+  text: existing defences help only partly and miss injections that look like ordinary clinical text
+  location: abstract
+  anchor: Existing defenses help only partly
+  jobs:
+  - R1
+  supported_by:
+  - c_mq_sq_instr
+  - c_mq_mq_instr
+  - c_mq_aq_instr
+  - c_mq_sl_instr
+  - c_mq_ml_instr
+  - c_mq_sq_sand
+  - c_mq_mq_sand
+  - c_mq_aq_sand
+  - c_mq_sl_sand
+  - c_mq_ml_sand
+  - c_mq_sq_delim
+  - c_mq_mq_delim
+  - c_mq_aq_delim
+  - c_mq_sl_delim
+  - c_mq_ml_delim
+  - c_mq_sl_msa
+  - c_mq_ml_msa
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1 and 2
+    R2clean: Table 1 (clean accuracy)
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: most injections persuade rather than instruct (six of the eight MedQA attacks), so instruction-focused defences are tested partly outside their design; Meta-SecAlign lowers clean accuracy in MDAgents from 81.4% to
+    61.9%

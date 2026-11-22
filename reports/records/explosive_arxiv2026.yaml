@@ -1,0 +1,305 @@
+report:
+  id: explosive_arxiv2026
+  slug: '2609.22510'
+  title: 'Defusing Explosive Prompts: Understanding and Preventing Trigger-Based Prompt Injections in LLM Agents'
+  first_author: Justin Szczepaniak
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2609.22510'
+  version_read: arXiv v1
+  first_date: '2026-09-18'
+  read: F
+  role: mixed
+  extraction_scope: 'Appendix A.4.7: Table 24 (undefended Llama-3.3-70B-Instruct and released Meta-SecAlign-70B on 2,002 paired AgentDojo episodes, imperative and explosive prompts) and Table 25 (the authors'' EP-DPO continuation,
+    best step); the A.4.7 claim (Prompt Guard 2, PIGuard, PIShield and DeFuse are detectors and are left out; Table 5''s SecAlign cell uses a different denominator from its baseline, so Table 24 is coded instead)'
+defences:
+- id: msa70
+  name: Meta-SecAlign-70B (released LoRA adapter, served merged)
+  origin: other_report
+  base_checkpoint: Llama-3.3-70B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 23
+  layout: AgentDojo agent; payload in a tool result, trigger arriving later as an ordinary user message
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: Released Meta-SecAlign-70B fully closes
+- id: epdpo
+  name: Meta-SecAlign-70B + EP-DPO (QLoRA DPO continuation on 1,200 two-turn dormant-payload preference pairs; step 50)
+  origin: this_report
+  base_checkpoint: Llama-3.3-70B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 23
+  layout: AgentDojo agent; payload in a tool result, trigger arriving later as an ordinary user message
+  layout_compat: *id001
+  anchor: We continue the released Meta-SecAlign-70B LoRA adapter
+evaluations:
+- id: ev_none_ipi
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: AgentDojo, 2,002 paired episodes with real tool execution, immediate imperative injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: state-changing tool call executed
+  layout_same_as_defence: 'yes'
+  measured_by: explosive_arxiv2026
+  page: 23
+  decoding: not reported
+  sample_size: '2002'
+  baseline_kind: off_the_shelf
+- id: ev_none_ep
+  defence_id: none:Llama-3.3-70B-Instruct
+  benchmark: AgentDojo, 2,002 paired episodes with real tool execution, explosive (trigger-conditioned) prompts
+  attacker_type: static
+  attacker_access: black_box
+  judge: state-changing tool call executed
+  layout_same_as_defence: 'yes'
+  measured_by: explosive_arxiv2026
+  page: 23
+  decoding: not reported
+  sample_size: '2002'
+  baseline_kind: off_the_shelf
+- id: ev_msa70_ipi
+  defence_id: msa70
+  benchmark: AgentDojo, 2,002 paired episodes with real tool execution, immediate imperative injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: state-changing tool call executed
+  layout_same_as_defence: 'yes'
+  measured_by: explosive_arxiv2026
+  page: 23
+  decoding: not reported
+  sample_size: '2002'
+- id: ev_msa70_ep
+  defence_id: msa70
+  benchmark: AgentDojo, 2,002 paired episodes with real tool execution, explosive (trigger-conditioned) prompts
+  attacker_type: static
+  attacker_access: black_box
+  judge: state-changing tool call executed
+  layout_same_as_defence: 'yes'
+  measured_by: explosive_arxiv2026
+  page: 23
+  decoding: not reported
+  sample_size: '2002'
+- id: ev_t25_rel
+  defence_id: msa70
+  benchmark: AgentDojo, 2,002 paired episodes with real tool execution, explosive prompts
+  attacker_type: static
+  attacker_access: black_box
+  judge: state-changing tool call executed
+  layout_same_as_defence: 'yes'
+  measured_by: explosive_arxiv2026
+  page: 23
+  decoding: not reported
+  sample_size: '2002'
+- id: ev_t25_dpo
+  defence_id: epdpo
+  benchmark: AgentDojo, 2,002 paired episodes with real tool execution, explosive prompts
+  attacker_type: static
+  attacker_access: black_box
+  judge: state-changing tool call executed
+  layout_same_as_defence: 'yes'
+  measured_by: explosive_arxiv2026
+  page: 23
+  decoding: not reported
+  sample_size: '2002'
+results:
+- id: r_none_ipi
+  evaluation_id: ev_none_ipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, imperative injection
+  value: '18.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 24
+- id: r_none_ep_turn1
+  evaluation_id: ev_none_ep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, explosive prompt (injection turn)
+  value: '12.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 24
+- id: r_none_ep_turn2
+  evaluation_id: ev_none_ep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, explosive prompt (trigger turn)
+  value: '17.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 24
+- id: r_none_ep_any
+  evaluation_id: ev_none_ep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, explosive prompt (any turn)
+  value: '27.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 24
+- id: r_msa70_ipi
+  evaluation_id: ev_msa70_ipi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, imperative injection
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 24
+- id: r_msa70_ep_turn1
+  evaluation_id: ev_msa70_ep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, explosive prompt (injection turn)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 24
+- id: r_msa70_ep_turn2
+  evaluation_id: ev_msa70_ep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, explosive prompt (trigger turn)
+  value: '11.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 24
+- id: r_msa70_ep_any
+  evaluation_id: ev_msa70_ep
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, explosive prompt (any turn)
+  value: '11.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 24
+- id: r_t25_rel
+  evaluation_id: ev_t25_rel
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, explosive prompt (any turn)
+  value: '11.84'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 25
+- id: r_t25_dpo
+  evaluation_id: ev_t25_dpo
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attack success, explosive prompt (any turn)
+  value: '9.59'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 23
+  location: Table 25
+comparisons:
+- id: c_ipi
+  left: ev_msa70_ipi
+  right: ev_none_ipi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_ep
+  left: ev_msa70_ep
+  right: ev_none_ep
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 23
+- id: c_epdpo
+  left: ev_t25_dpo
+  right: ev_t25_rel
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: EP-DPO continuation against the released adapter it starts from
+  page: 23
+claims:
+- id: k1
+  text: Meta-SecAlign closes immediate imperative injection, but its remaining explosive-prompt failures all fire at the later trigger turn
+  location: Appendix A.4.7
+  anchor: Single-turn SecAlign training does not cover this shape
+  jobs:
+  - R1
+  supported_by:
+  - c_ipi
+  - c_ep
+  - c_epdpo
+  page: 23
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 24 and 25
+    R2clean: not reported
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: the main-text comparison of Table 5 places SecAlign's all-pairs rate (base 27.3%) beside a drop-free baseline (34.3%), which the authors flag as biased in SecAlign's favour; Table 24 uses one denominator for both arms;
+    the EP-DPO checkpoint was chosen as the best of three steps

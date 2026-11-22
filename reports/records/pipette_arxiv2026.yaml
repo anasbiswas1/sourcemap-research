@@ -1,0 +1,2347 @@
+report:
+  id: pipette_arxiv2026
+  slug: '2611.24362'
+  title: 'PIPETTE: Prompt Injection Purple-Teaming for Robust LLM Agents'
+  first_author: Lipeng He
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2611.24362'
+  version_read: arXiv v1
+  first_date: '2026-11-18'
+  read: F
+  role: proposes
+  extraction_scope: 'Table 6 (AgentDojo static, average over five attacks, and benign utility: None, Spotlighting, Sandwiching and PIPETTE on Qwen3-4B and Llama-3.1-8B), Tables 9 and 10 (averages: Meta-SecAlign, SecOPD and
+    PIPETTE against None on AgentDojo and ASB) and Table 5 (TAP and GENETIC adaptive search); the Section 5.4 claim (PromptGuard, PIGuard, DataSentinel, MELON and CaMeL are detectors, masked re-execution and system-level isolation
+    and are left out; the red-teaming tables test attackers)'
+defences:
+- id: pip_q4
+  name: PIPETTE (adversarial training on PIPETTE-Red attacks with outcome RL and on-policy self-distillation toward a safe-prefix target)
+  origin: this_report
+  base_checkpoint: Qwen3-4B-Instruct-2507
+  axis1:
+  - chat_roles
+  axis2:
+  - adversarial_rl
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: we introduce P IPETTE, a unified prompt
+- id: pip_l8
+  name: PIPETTE (adversarial training on PIPETTE-Red attacks with outcome RL and on-policy self-distillation toward a safe-prefix target)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - adversarial_rl
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: *id001
+  anchor: we introduce P IPETTE, a unified prompt
+- id: pip_q27
+  name: PIPETTE (adversarial training on PIPETTE-Red attacks with outcome RL and on-policy self-distillation toward a safe-prefix target)
+  origin: this_report
+  base_checkpoint: Qwen3.6-27B
+  axis1:
+  - chat_roles
+  axis2:
+  - adversarial_rl
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: *id001
+  anchor: we introduce P IPETTE, a unified prompt
+- id: pip_oss
+  name: PIPETTE (adversarial training on PIPETTE-Red attacks with outcome RL and on-policy self-distillation toward a safe-prefix target)
+  origin: this_report
+  base_checkpoint: GPT-OSS-20B (native instruction hierarchy)
+  axis1:
+  - chat_roles
+  axis2:
+  - adversarial_rl
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: *id001
+  anchor: we introduce P IPETTE, a unified prompt
+- id: spot_q4
+  name: Spotlighting (observations wrapped in delimiters)
+  origin: other_report
+  base_checkpoint: Qwen3-4B-Instruct-2507
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 11
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: *id001
+  anchor: wrap observations in delimiters or repeat
+- id: sand_q4
+  name: Sandwiching (user task repeated after each observation)
+  origin: other_report
+  base_checkpoint: Qwen3-4B-Instruct-2507
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 11
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: *id001
+  anchor: wrap observations in delimiters or repeat
+- id: spot_l8
+  name: Spotlighting (observations wrapped in delimiters)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 11
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: *id001
+  anchor: wrap observations in delimiters or repeat
+- id: sand_l8
+  name: Sandwiching (user task repeated after each observation)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 11
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: *id001
+  anchor: wrap observations in delimiters or repeat
+- id: msa_l8
+  name: Meta-SecAlign (authors' released checkpoint)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: *id001
+  anchor: Meta-SecAlign [15] use pref-
+- id: secopd_q27
+  name: SecOPD (authors' released checkpoint)
+  origin: other_report
+  base_checkpoint: Qwen3.6-27B
+  axis1:
+  - chat_roles
+  axis2:
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: AgentDojo or ASB tool-calling agent; injections in tool outputs
+  layout_compat: *id001
+  anchor: SecOPD [21] uses on-policy distillation
+evaluations:
+- id: ev_adj_q4_none
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+  baseline_kind: off_the_shelf
+- id: ev_adj_q4_none_bu
+  defence_id: none:Qwen3-4B-Instruct-2507
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: '97'
+  baseline_kind: off_the_shelf
+- id: ev_adj_q4_spot
+  defence_id: spot_q4
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_q4_spot_bu
+  defence_id: spot_q4
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_adj_q4_sand
+  defence_id: sand_q4
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_q4_sand_bu
+  defence_id: sand_q4
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_adj_q4_pip
+  defence_id: pip_q4
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_q4_pip_bu
+  defence_id: pip_q4
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_adj_l8_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+  baseline_kind: off_the_shelf
+- id: ev_adj_l8_none_bu
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: '97'
+  baseline_kind: off_the_shelf
+- id: ev_adj_l8_spot
+  defence_id: spot_l8
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_l8_spot_bu
+  defence_id: spot_l8
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_adj_l8_sand
+  defence_id: sand_l8
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_l8_sand_bu
+  defence_id: sand_l8
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_adj_l8_pip
+  defence_id: pip_l8
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_l8_pip_bu
+  defence_id: pip_l8
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 12
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_adj_l8_msa
+  defence_id: msa_l8
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_l8_msa_bu
+  defence_id: msa_l8
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_adj_q27_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+  baseline_kind: off_the_shelf
+- id: ev_adj_q27_none_bu
+  defence_id: none:Qwen3.6-27B
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: '97'
+  baseline_kind: off_the_shelf
+- id: ev_adj_q27_secopd
+  defence_id: secopd_q27
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_q27_secopd_bu
+  defence_id: secopd_q27
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_adj_q27_pip
+  defence_id: pip_q27
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_q27_pip_bu
+  defence_id: pip_q27
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_adj_oss_none
+  defence_id: none:GPT-OSS-20B (native instruction hierarchy)
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+  baseline_kind: off_the_shelf
+- id: ev_adj_oss_none_bu
+  defence_id: none:GPT-OSS-20B (native instruction hierarchy)
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: '97'
+  baseline_kind: off_the_shelf
+- id: ev_adj_oss_pip
+  defence_id: pip_oss
+  benchmark: AgentDojo, five unseen static attacks (IgnorePrev, InjecAgent, ImportantMsgs, ToolKnow, ChatInject), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 420 task pairs per attack
+- id: ev_adj_oss_pip_bu
+  defence_id: pip_oss
+  benchmark: AgentDojo, 97 clean tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: '97'
+- id: ev_asb_l8_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: ASB, five static attacks (Naive, Escape, Ignore, Completion, Combined), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 400 cases per attack
+  baseline_kind: off_the_shelf
+- id: ev_asb_l8_msa
+  defence_id: msa_l8
+  benchmark: ASB, five static attacks (Naive, Escape, Ignore, Completion, Combined), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 400 cases per attack
+- id: ev_asb_l8_pip
+  defence_id: pip_l8
+  benchmark: ASB, five static attacks (Naive, Escape, Ignore, Completion, Combined), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 400 cases per attack
+- id: ev_asb_q27_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: ASB, five static attacks (Naive, Escape, Ignore, Completion, Combined), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 400 cases per attack
+  baseline_kind: off_the_shelf
+- id: ev_asb_q27_secopd
+  defence_id: secopd_q27
+  benchmark: ASB, five static attacks (Naive, Escape, Ignore, Completion, Combined), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 400 cases per attack
+- id: ev_asb_q27_pip
+  defence_id: pip_q27
+  benchmark: ASB, five static attacks (Naive, Escape, Ignore, Completion, Combined), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 400 cases per attack
+- id: ev_asb_oss_none
+  defence_id: none:GPT-OSS-20B (native instruction hierarchy)
+  benchmark: ASB, five static attacks (Naive, Escape, Ignore, Completion, Combined), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 400 cases per attack
+  baseline_kind: off_the_shelf
+- id: ev_asb_oss_pip
+  defence_id: pip_oss
+  benchmark: ASB, five static attacks (Naive, Escape, Ignore, Completion, Combined), average
+  attacker_type: static
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 16
+  decoding: greedy, temperature 0
+  sample_size: 400 cases per attack
+- id: ev_adtap_l8_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo, 40 task pairs, TAP iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+  baseline_kind: off_the_shelf
+- id: ev_adgen_l8_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo, 40 task pairs, GENETIC iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+  baseline_kind: off_the_shelf
+- id: ev_adtap_l8_msa
+  defence_id: msa_l8
+  benchmark: AgentDojo, 40 task pairs, TAP iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+- id: ev_adgen_l8_msa
+  defence_id: msa_l8
+  benchmark: AgentDojo, 40 task pairs, GENETIC iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+- id: ev_adtap_l8_pip
+  defence_id: pip_l8
+  benchmark: AgentDojo, 40 task pairs, TAP iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+- id: ev_adgen_l8_pip
+  defence_id: pip_l8
+  benchmark: AgentDojo, 40 task pairs, GENETIC iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+- id: ev_adtap_q27_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: AgentDojo, 40 task pairs, TAP iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+  baseline_kind: off_the_shelf
+- id: ev_adgen_q27_none
+  defence_id: none:Qwen3.6-27B
+  benchmark: AgentDojo, 40 task pairs, GENETIC iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+  baseline_kind: off_the_shelf
+- id: ev_adtap_q27_secopd
+  defence_id: secopd_q27
+  benchmark: AgentDojo, 40 task pairs, TAP iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+- id: ev_adgen_q27_secopd
+  defence_id: secopd_q27
+  benchmark: AgentDojo, 40 task pairs, GENETIC iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+- id: ev_adtap_q27_pip
+  defence_id: pip_q27
+  benchmark: AgentDojo, 40 task pairs, TAP iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+- id: ev_adgen_q27_pip
+  defence_id: pip_q27
+  benchmark: AgentDojo, 40 task pairs, GENETIC iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+- id: ev_adtap_oss_none
+  defence_id: none:GPT-OSS-20B (native instruction hierarchy)
+  benchmark: AgentDojo, 40 task pairs, TAP iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+  baseline_kind: off_the_shelf
+- id: ev_adgen_oss_none
+  defence_id: none:GPT-OSS-20B (native instruction hierarchy)
+  benchmark: AgentDojo, 40 task pairs, GENETIC iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+  baseline_kind: off_the_shelf
+- id: ev_adtap_oss_pip
+  defence_id: pip_oss
+  benchmark: AgentDojo, 40 task pairs, TAP iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+- id: ev_adgen_oss_pip
+  defence_id: pip_oss
+  benchmark: AgentDojo, 40 task pairs, GENETIC iterative search against each evaluated policy
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: benchmark injection-task and user-task checks
+  layout_same_as_defence: 'yes'
+  measured_by: pipette_arxiv2026
+  page: 11
+  decoding: greedy, temperature 0
+  sample_size: 40 task pairs
+  attacker_budget: attacker and judge LLMs of 4B; stops at first success
+results:
+- id: r_adj_q4_none_asr
+  evaluation_id: ev_adj_q4_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '33.29'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_none_ua
+  evaluation_id: ev_adj_q4_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '44.48'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_none_bu
+  evaluation_id: ev_adj_q4_none_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '61.86'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_spot_asr
+  evaluation_id: ev_adj_q4_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '29.14'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_spot_ua
+  evaluation_id: ev_adj_q4_spot
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '43.33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_spot_bu
+  evaluation_id: ev_adj_q4_spot_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '57.73'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_sand_asr
+  evaluation_id: ev_adj_q4_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '17.10'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_sand_ua
+  evaluation_id: ev_adj_q4_sand
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '49.14'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_sand_bu
+  evaluation_id: ev_adj_q4_sand_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '60.82'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_pip_asr
+  evaluation_id: ev_adj_q4_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_pip_ua
+  evaluation_id: ev_adj_q4_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '57.86'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_q4_pip_bu
+  evaluation_id: ev_adj_q4_pip_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '64.95'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_none_asr
+  evaluation_id: ev_adj_l8_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '13.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_none_ua
+  evaluation_id: ev_adj_l8_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '33.05'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_none_bu
+  evaluation_id: ev_adj_l8_none_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '40.21'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_spot_asr
+  evaluation_id: ev_adj_l8_spot
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '11.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_spot_ua
+  evaluation_id: ev_adj_l8_spot
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '28.86'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_spot_bu
+  evaluation_id: ev_adj_l8_spot_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '34.02'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_sand_asr
+  evaluation_id: ev_adj_l8_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '6.57'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_sand_ua
+  evaluation_id: ev_adj_l8_sand
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '34.57'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_sand_bu
+  evaluation_id: ev_adj_l8_sand_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '36.08'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_pip_asr
+  evaluation_id: ev_adj_l8_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.43'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_pip_ua
+  evaluation_id: ev_adj_l8_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '39.05'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_pip_bu
+  evaluation_id: ev_adj_l8_pip_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '41.24'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 12
+  location: Table 6
+- id: r_adj_l8_msa_asr
+  evaluation_id: ev_adj_l8_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.81'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_l8_msa_ua
+  evaluation_id: ev_adj_l8_msa
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '32.57'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_l8_msa_bu
+  evaluation_id: ev_adj_l8_msa_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '29.90'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_q27_none_asr
+  evaluation_id: ev_adj_q27_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '17.71'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_q27_none_ua
+  evaluation_id: ev_adj_q27_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '78.95'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_q27_none_bu
+  evaluation_id: ev_adj_q27_none_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '93.81'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_q27_secopd_asr
+  evaluation_id: ev_adj_q27_secopd
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.52'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_q27_secopd_ua
+  evaluation_id: ev_adj_q27_secopd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '77.05'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_q27_secopd_bu
+  evaluation_id: ev_adj_q27_secopd_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '84.54'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_q27_pip_asr
+  evaluation_id: ev_adj_q27_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_q27_pip_ua
+  evaluation_id: ev_adj_q27_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '81.19'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_q27_pip_bu
+  evaluation_id: ev_adj_q27_pip_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '92.78'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_oss_none_asr
+  evaluation_id: ev_adj_oss_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '47.29'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_oss_none_ua
+  evaluation_id: ev_adj_oss_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '25.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_oss_none_bu
+  evaluation_id: ev_adj_oss_none_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '50.52'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_oss_pip_asr
+  evaluation_id: ev_adj_oss_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.24'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_oss_pip_ua
+  evaluation_id: ev_adj_oss_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '24.19'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_adj_oss_pip_bu
+  evaluation_id: ev_adj_oss_pip_bu
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign utility (BU)
+  value: '49.48'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 9
+- id: r_asb_l8_none_asr
+  evaluation_id: ev_asb_l8_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '6.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_l8_none_ua
+  evaluation_id: ev_asb_l8_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '48.25'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_l8_msa_asr
+  evaluation_id: ev_asb_l8_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_l8_msa_ua
+  evaluation_id: ev_asb_l8_msa
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '48.30'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_l8_pip_asr
+  evaluation_id: ev_asb_l8_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_l8_pip_ua
+  evaluation_id: ev_asb_l8_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '51.75'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_q27_none_asr
+  evaluation_id: ev_asb_q27_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '21.35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_q27_none_ua
+  evaluation_id: ev_asb_q27_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '68.25'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_q27_secopd_asr
+  evaluation_id: ev_asb_q27_secopd
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.60'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_q27_secopd_ua
+  evaluation_id: ev_asb_q27_secopd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '87.80'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_q27_pip_asr
+  evaluation_id: ev_asb_q27_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_q27_pip_ua
+  evaluation_id: ev_asb_q27_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '87.45'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_oss_none_asr
+  evaluation_id: ev_asb_oss_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '22.30'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_oss_none_ua
+  evaluation_id: ev_asb_oss_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '52.25'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_oss_pip_asr
+  evaluation_id: ev_asb_oss_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_asb_oss_pip_ua
+  evaluation_id: ev_asb_oss_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '51.80'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 10
+- id: r_adtap_l8_none_asr
+  evaluation_id: ev_adtap_l8_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '7.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_l8_none_ua
+  evaluation_id: ev_adtap_l8_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '12.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_l8_none_asr
+  evaluation_id: ev_adgen_l8_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '17.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_l8_none_ua
+  evaluation_id: ev_adgen_l8_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '32.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_l8_msa_asr
+  evaluation_id: ev_adtap_l8_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_l8_msa_ua
+  evaluation_id: ev_adtap_l8_msa
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '15.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_l8_msa_asr
+  evaluation_id: ev_adgen_l8_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '12.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_l8_msa_ua
+  evaluation_id: ev_adgen_l8_msa
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '17.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_l8_pip_asr
+  evaluation_id: ev_adtap_l8_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_l8_pip_ua
+  evaluation_id: ev_adtap_l8_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '25.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_l8_pip_asr
+  evaluation_id: ev_adgen_l8_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_l8_pip_ua
+  evaluation_id: ev_adgen_l8_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '30.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_q27_none_asr
+  evaluation_id: ev_adtap_q27_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '40.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_q27_none_ua
+  evaluation_id: ev_adtap_q27_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '97.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_q27_none_asr
+  evaluation_id: ev_adgen_q27_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '70.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_q27_none_ua
+  evaluation_id: ev_adgen_q27_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '97.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_q27_secopd_asr
+  evaluation_id: ev_adtap_q27_secopd
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '15.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_q27_secopd_ua
+  evaluation_id: ev_adtap_q27_secopd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '95.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_q27_secopd_asr
+  evaluation_id: ev_adgen_q27_secopd
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '30.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_q27_secopd_ua
+  evaluation_id: ev_adgen_q27_secopd
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '92.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_q27_pip_asr
+  evaluation_id: ev_adtap_q27_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '2.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_q27_pip_ua
+  evaluation_id: ev_adtap_q27_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '87.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_q27_pip_asr
+  evaluation_id: ev_adgen_q27_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '5.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_q27_pip_ua
+  evaluation_id: ev_adgen_q27_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '90.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_oss_none_asr
+  evaluation_id: ev_adtap_oss_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '50.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_oss_none_ua
+  evaluation_id: ev_adtap_oss_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '87.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_oss_none_asr
+  evaluation_id: ev_adgen_oss_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '92.50'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_oss_none_ua
+  evaluation_id: ev_adgen_oss_none
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '85.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_oss_pip_asr
+  evaluation_id: ev_adtap_oss_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '5.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adtap_oss_pip_ua
+  evaluation_id: ev_adtap_oss_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '85.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_oss_pip_asr
+  evaluation_id: ev_adgen_oss_pip
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '10.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+- id: r_adgen_oss_pip_ua
+  evaluation_id: ev_adgen_oss_pip
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: utility under attack (UA)
+  value: '82.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 11
+  location: Table 5
+comparisons:
+- id: c_adj_q4_spot
+  left: ev_adj_q4_spot
+  right: ev_adj_q4_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_q4_spot_bu
+  left: ev_adj_q4_spot_bu
+  right: ev_adj_q4_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_q4_sand
+  left: ev_adj_q4_sand
+  right: ev_adj_q4_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_q4_sand_bu
+  left: ev_adj_q4_sand_bu
+  right: ev_adj_q4_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_q4_pip
+  left: ev_adj_q4_pip
+  right: ev_adj_q4_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_q4_pip_bu
+  left: ev_adj_q4_pip_bu
+  right: ev_adj_q4_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_l8_spot
+  left: ev_adj_l8_spot
+  right: ev_adj_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_l8_spot_bu
+  left: ev_adj_l8_spot_bu
+  right: ev_adj_l8_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_l8_sand
+  left: ev_adj_l8_sand
+  right: ev_adj_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_l8_sand_bu
+  left: ev_adj_l8_sand_bu
+  right: ev_adj_l8_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_l8_pip
+  left: ev_adj_l8_pip
+  right: ev_adj_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_l8_pip_bu
+  left: ev_adj_l8_pip_bu
+  right: ev_adj_l8_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_l8_msa
+  left: ev_adj_l8_msa
+  right: ev_adj_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_l8_msa_bu
+  left: ev_adj_l8_msa_bu
+  right: ev_adj_l8_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_q27_secopd
+  left: ev_adj_q27_secopd
+  right: ev_adj_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_q27_secopd_bu
+  left: ev_adj_q27_secopd_bu
+  right: ev_adj_q27_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_q27_pip
+  left: ev_adj_q27_pip
+  right: ev_adj_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_q27_pip_bu
+  left: ev_adj_q27_pip_bu
+  right: ev_adj_q27_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_oss_pip
+  left: ev_adj_oss_pip
+  right: ev_adj_oss_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_oss_pip_bu
+  left: ev_adj_oss_pip_bu
+  right: ev_adj_oss_none_bu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 12
+- id: c_adj_l8_pip_vs_msa
+  left: ev_adj_l8_pip
+  right: ev_adj_l8_msa
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: PIPETTE against Meta-SecAlign on the same base
+  page: 16
+- id: c_adj_q27_pip_vs_secopd
+  left: ev_adj_q27_pip
+  right: ev_adj_q27_secopd
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: PIPETTE against SecOPD on the same base
+  page: 16
+- id: c_asb_l8_msa
+  left: ev_asb_l8_msa
+  right: ev_asb_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_asb_l8_pip
+  left: ev_asb_l8_pip
+  right: ev_asb_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_asb_q27_secopd
+  left: ev_asb_q27_secopd
+  right: ev_asb_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_asb_q27_pip
+  left: ev_asb_q27_pip
+  right: ev_asb_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_asb_oss_pip
+  left: ev_asb_oss_pip
+  right: ev_asb_oss_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_adtap_l8_msa
+  left: ev_adtap_l8_msa
+  right: ev_adtap_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_adgen_l8_msa
+  left: ev_adgen_l8_msa
+  right: ev_adgen_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_adtap_l8_pip
+  left: ev_adtap_l8_pip
+  right: ev_adtap_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_adgen_l8_pip
+  left: ev_adgen_l8_pip
+  right: ev_adgen_l8_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_adtap_q27_secopd
+  left: ev_adtap_q27_secopd
+  right: ev_adtap_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_adgen_q27_secopd
+  left: ev_adgen_q27_secopd
+  right: ev_adgen_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_adtap_q27_pip
+  left: ev_adtap_q27_pip
+  right: ev_adtap_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_adgen_q27_pip
+  left: ev_adgen_q27_pip
+  right: ev_adgen_q27_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_adtap_oss_pip
+  left: ev_adtap_oss_pip
+  right: ev_adtap_oss_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+- id: c_adgen_oss_pip
+  left: ev_adgen_oss_pip
+  right: ev_adgen_oss_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 11
+claims:
+- id: k1
+  text: PIPETTE has the lowest average attack success among the compared defences under static attacks on AgentDojo and ASB
+  location: Section 5.4
+  anchor: the lowest average ASR among the defenses compared under static attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_adj_q4_pip
+  - c_adj_l8_pip
+  - c_adj_l8_pip_vs_msa
+  - c_adj_q27_pip_vs_secopd
+  - c_asb_l8_pip
+  - c_asb_q27_pip
+  - c_asb_oss_pip
+  page: 11
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 5, 6, 9 and 10
+    R2clean: Tables 6 and 9 (BU)
+    R2attack: Tables 5, 6, 9 and 10 (UA)
+schema_gaps:
+- where: report
+  note: PIPETTE is trained on AgentDyn and evaluated on AgentDojo and ASB; the static results are averages over five attack templates; Meta-SecAlign and SecOPD are evaluated only on the bases their authors released, so PIPETTE
+    is compared with each on that base

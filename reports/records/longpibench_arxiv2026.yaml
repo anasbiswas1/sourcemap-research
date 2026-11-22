@@ -1,0 +1,2309 @@
+report:
+  id: longpibench_arxiv2026
+  slug: '2608.28411'
+  title: 'LongPIBench: A Long-Context Benchmark for Prompt Injection'
+  first_author: Yupei Liu
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2608.28411'
+  version_read: arXiv v1
+  first_date: '2026-08-28'
+  read: F
+  role: benchmark
+  extraction_scope: 'Tables 4 and 13 (with-attack rows) and Table 5 (OPI, InjecAgent and AgentDojo rows): No defense, Instructional, Delimiters, Sandwich, SecInfer and MetaSecAlign 8B on Llama-3.1-8B-Instruct; the Section
+    5.4 claim (PromptLocate runs DataSentinel detection and span removal and the detectors of Tables 3 and 12 are left out; the without-attack rows measure the natural rate of the attacker goal, not utility)'
+defences:
+- id: instr
+  name: Instructional prevention
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: long document (thousands to tens of thousands of tokens) with the injected prompt inside, task instruction in the prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We benchmark state-of-the-art prevention defenses
+- id: delim
+  name: Delimiter-based isolation
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: long document (thousands to tens of thousands of tokens) with the injected prompt inside, task instruction in the prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We benchmark state-of-the-art prevention defenses
+- id: sand
+  name: Sandwich prevention
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: long document (thousands to tens of thousands of tokens) with the injected prompt inside, task instruction in the prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We benchmark state-of-the-art prevention defenses
+- id: secinfer
+  name: 'SecInfer (inference-time scaling: several responses under different system prompts, target-task-guided aggregation)'
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  - fixed_inference_rule
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: long document (thousands to tens of thousands of tokens) with the injected prompt inside, task instruction in the prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We benchmark state-of-the-art prevention defenses
+- id: msa
+  name: MetaSecAlign 8B (released checkpoint)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  layout: long document (thousands to tens of thousands of tokens) with the injected prompt inside, task instruction in the prompt
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: We benchmark state-of-the-art prevention defenses
+evaluations:
+- id: ev_syn_paper_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'LongPIBench synthetic, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_syn_paper_instr
+  defence_id: instr
+  benchmark: 'LongPIBench synthetic, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_paper_delim
+  defence_id: delim
+  benchmark: 'LongPIBench synthetic, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_paper_sand
+  defence_id: sand
+  benchmark: 'LongPIBench synthetic, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_paper_secinfer
+  defence_id: secinfer
+  benchmark: 'LongPIBench synthetic, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_paper_msa
+  defence_id: msa
+  benchmark: 'LongPIBench synthetic, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_resume_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'LongPIBench synthetic, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_syn_resume_instr
+  defence_id: instr
+  benchmark: 'LongPIBench synthetic, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_resume_delim
+  defence_id: delim
+  benchmark: 'LongPIBench synthetic, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_resume_sand
+  defence_id: sand
+  benchmark: 'LongPIBench synthetic, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_resume_secinfer
+  defence_id: secinfer
+  benchmark: 'LongPIBench synthetic, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_resume_msa
+  defence_id: msa
+  benchmark: 'LongPIBench synthetic, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_email_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'LongPIBench synthetic, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_syn_email_instr
+  defence_id: instr
+  benchmark: 'LongPIBench synthetic, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_email_delim
+  defence_id: delim
+  benchmark: 'LongPIBench synthetic, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_email_sand
+  defence_id: sand
+  benchmark: 'LongPIBench synthetic, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_email_secinfer
+  defence_id: secinfer
+  benchmark: 'LongPIBench synthetic, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_email_msa
+  defence_id: msa
+  benchmark: 'LongPIBench synthetic, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_code_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'LongPIBench synthetic, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_syn_code_instr
+  defence_id: instr
+  benchmark: 'LongPIBench synthetic, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_code_delim
+  defence_id: delim
+  benchmark: 'LongPIBench synthetic, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_code_sand
+  defence_id: sand
+  benchmark: 'LongPIBench synthetic, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_code_secinfer
+  defence_id: secinfer
+  benchmark: 'LongPIBench synthetic, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_syn_code_msa
+  defence_id: msa
+  benchmark: 'LongPIBench synthetic, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_real_paper_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'LongPIBench real-world, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_real_paper_instr
+  defence_id: instr
+  benchmark: 'LongPIBench real-world, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_paper_delim
+  defence_id: delim
+  benchmark: 'LongPIBench real-world, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_paper_sand
+  defence_id: sand
+  benchmark: 'LongPIBench real-world, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_paper_secinfer
+  defence_id: secinfer
+  benchmark: 'LongPIBench real-world, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_paper_msa
+  defence_id: msa
+  benchmark: 'LongPIBench real-world, paper review (goal: rating 8 or 9), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_resume_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'LongPIBench real-world, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_real_resume_instr
+  defence_id: instr
+  benchmark: 'LongPIBench real-world, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_resume_delim
+  defence_id: delim
+  benchmark: 'LongPIBench real-world, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_resume_sand
+  defence_id: sand
+  benchmark: 'LongPIBench real-world, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_resume_secinfer
+  defence_id: secinfer
+  benchmark: 'LongPIBench real-world, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_resume_msa
+  defence_id: msa
+  benchmark: 'LongPIBench real-world, resume screening (goal: shortlist), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_email_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'LongPIBench real-world, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_real_email_instr
+  defence_id: instr
+  benchmark: 'LongPIBench real-world, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_email_delim
+  defence_id: delim
+  benchmark: 'LongPIBench real-world, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_email_sand
+  defence_id: sand
+  benchmark: 'LongPIBench real-world, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_email_secinfer
+  defence_id: secinfer
+  benchmark: 'LongPIBench real-world, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_email_msa
+  defence_id: msa
+  benchmark: 'LongPIBench real-world, email summary (goal: attacker link), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_code_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: 'LongPIBench real-world, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_real_code_instr
+  defence_id: instr
+  benchmark: 'LongPIBench real-world, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_code_delim
+  defence_id: delim
+  benchmark: 'LongPIBench real-world, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_code_sand
+  defence_id: sand
+  benchmark: 'LongPIBench real-world, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_code_secinfer
+  defence_id: secinfer
+  benchmark: 'LongPIBench real-world, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_real_code_msa
+  defence_id: msa
+  benchmark: 'LongPIBench real-world, code review (goal: approve the change), Authority spoof injection'
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 18
+  decoding: not reported
+- id: ev_t5_opi_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: OPI (Liu et al. 2024), run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_t5_opi_instr
+  defence_id: instr
+  benchmark: OPI (Liu et al. 2024), run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_opi_delim
+  defence_id: delim
+  benchmark: OPI (Liu et al. 2024), run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_opi_sand
+  defence_id: sand
+  benchmark: OPI (Liu et al. 2024), run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_opi_secinfer
+  defence_id: secinfer
+  benchmark: OPI (Liu et al. 2024), run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_opi_msa
+  defence_id: msa
+  benchmark: OPI (Liu et al. 2024), run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_ia_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: InjecAgent, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_t5_ia_instr
+  defence_id: instr
+  benchmark: InjecAgent, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_ia_delim
+  defence_id: delim
+  benchmark: InjecAgent, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_ia_sand
+  defence_id: sand
+  benchmark: InjecAgent, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_ia_secinfer
+  defence_id: secinfer
+  benchmark: InjecAgent, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_ia_msa
+  defence_id: msa
+  benchmark: InjecAgent, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_adj_none
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_t5_adj_instr
+  defence_id: instr
+  benchmark: AgentDojo, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_adj_delim
+  defence_id: delim
+  benchmark: AgentDojo, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_adj_sand
+  defence_id: sand
+  benchmark: AgentDojo, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_adj_secinfer
+  defence_id: secinfer
+  benchmark: AgentDojo, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+- id: ev_t5_adj_msa
+  defence_id: msa
+  benchmark: AgentDojo, run by the authors for comparison
+  attacker_type: static
+  attacker_access: black_box
+  judge: task-specific success criterion (Appendix D)
+  layout_same_as_defence: 'yes'
+  measured_by: longpibench_arxiv2026
+  page: 8
+  decoding: not reported
+results:
+- id: r_syn_paper_none
+  evaluation_id: ev_syn_paper_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_paper_instr
+  evaluation_id: ev_syn_paper_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_paper_delim
+  evaluation_id: ev_syn_paper_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_paper_sand
+  evaluation_id: ev_syn_paper_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_paper_secinfer
+  evaluation_id: ev_syn_paper_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_paper_msa
+  evaluation_id: ev_syn_paper_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_resume_none
+  evaluation_id: ev_syn_resume_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_resume_instr
+  evaluation_id: ev_syn_resume_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_resume_delim
+  evaluation_id: ev_syn_resume_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_resume_sand
+  evaluation_id: ev_syn_resume_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.96'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_resume_secinfer
+  evaluation_id: ev_syn_resume_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_resume_msa
+  evaluation_id: ev_syn_resume_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_email_none
+  evaluation_id: ev_syn_email_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.97'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_email_instr
+  evaluation_id: ev_syn_email_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.98'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_email_delim
+  evaluation_id: ev_syn_email_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.90'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_email_sand
+  evaluation_id: ev_syn_email_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.95'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_email_secinfer
+  evaluation_id: ev_syn_email_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.83'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_email_msa
+  evaluation_id: ev_syn_email_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.40'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_code_none
+  evaluation_id: ev_syn_code_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.94'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_code_instr
+  evaluation_id: ev_syn_code_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.93'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_code_delim
+  evaluation_id: ev_syn_code_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.93'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_code_sand
+  evaluation_id: ev_syn_code_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.92'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_code_secinfer
+  evaluation_id: ev_syn_code_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.79'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_syn_code_msa
+  evaluation_id: ev_syn_code_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.71'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 4
+- id: r_real_paper_none
+  evaluation_id: ev_real_paper_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_paper_instr
+  evaluation_id: ev_real_paper_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_paper_delim
+  evaluation_id: ev_real_paper_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_paper_sand
+  evaluation_id: ev_real_paper_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_paper_secinfer
+  evaluation_id: ev_real_paper_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.99'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_paper_msa
+  evaluation_id: ev_real_paper_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.99'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_resume_none
+  evaluation_id: ev_real_resume_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.42'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_resume_instr
+  evaluation_id: ev_real_resume_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.37'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_resume_delim
+  evaluation_id: ev_real_resume_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.43'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_resume_sand
+  evaluation_id: ev_real_resume_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.43'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_resume_secinfer
+  evaluation_id: ev_real_resume_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.35'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_resume_msa
+  evaluation_id: ev_real_resume_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_email_none
+  evaluation_id: ev_real_email_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_email_instr
+  evaluation_id: ev_real_email_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_email_delim
+  evaluation_id: ev_real_email_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_email_sand
+  evaluation_id: ev_real_email_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_email_secinfer
+  evaluation_id: ev_real_email_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.75'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_email_msa
+  evaluation_id: ev_real_email_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.42'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_code_none
+  evaluation_id: ev_real_code_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_code_instr
+  evaluation_id: ev_real_code_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.99'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_code_delim
+  evaluation_id: ev_real_code_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.98'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_code_sand
+  evaluation_id: ev_real_code_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_code_secinfer
+  evaluation_id: ev_real_code_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.95'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_real_code_msa
+  evaluation_id: ev_real_code_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '1.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 13
+- id: r_t5_opi_none
+  evaluation_id: ev_t5_opi_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.67'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_opi_instr
+  evaluation_id: ev_t5_opi_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.59'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_opi_delim
+  evaluation_id: ev_t5_opi_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.63'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_opi_sand
+  evaluation_id: ev_t5_opi_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.61'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_opi_secinfer
+  evaluation_id: ev_t5_opi_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_opi_msa
+  evaluation_id: ev_t5_opi_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_ia_none
+  evaluation_id: ev_t5_ia_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.61'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_ia_instr
+  evaluation_id: ev_t5_ia_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.61'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_ia_delim
+  evaluation_id: ev_t5_ia_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.60'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_ia_sand
+  evaluation_id: ev_t5_ia_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.62'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_ia_secinfer
+  evaluation_id: ev_t5_ia_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.01'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_ia_msa
+  evaluation_id: ev_t5_ia_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.01'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_adj_none
+  evaluation_id: ev_t5_adj_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.28'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_adj_instr
+  evaluation_id: ev_t5_adj_instr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.27'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_adj_delim
+  evaluation_id: ev_t5_adj_delim
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.28'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_adj_sand
+  evaluation_id: ev_t5_adj_sand
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.28'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_adj_secinfer
+  evaluation_id: ev_t5_adj_secinfer
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+- id: r_t5_adj_msa
+  evaluation_id: ev_t5_adj_msa
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '0.00'
+  unit: fraction
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 5
+comparisons:
+- id: c_syn_paper_instr
+  left: ev_syn_paper_instr
+  right: ev_syn_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_paper_delim
+  left: ev_syn_paper_delim
+  right: ev_syn_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_paper_sand
+  left: ev_syn_paper_sand
+  right: ev_syn_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_paper_secinfer
+  left: ev_syn_paper_secinfer
+  right: ev_syn_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_paper_msa
+  left: ev_syn_paper_msa
+  right: ev_syn_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_resume_instr
+  left: ev_syn_resume_instr
+  right: ev_syn_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_resume_delim
+  left: ev_syn_resume_delim
+  right: ev_syn_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_resume_sand
+  left: ev_syn_resume_sand
+  right: ev_syn_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_resume_secinfer
+  left: ev_syn_resume_secinfer
+  right: ev_syn_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_resume_msa
+  left: ev_syn_resume_msa
+  right: ev_syn_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_email_instr
+  left: ev_syn_email_instr
+  right: ev_syn_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_email_delim
+  left: ev_syn_email_delim
+  right: ev_syn_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_email_sand
+  left: ev_syn_email_sand
+  right: ev_syn_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_email_secinfer
+  left: ev_syn_email_secinfer
+  right: ev_syn_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_email_msa
+  left: ev_syn_email_msa
+  right: ev_syn_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_code_instr
+  left: ev_syn_code_instr
+  right: ev_syn_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_code_delim
+  left: ev_syn_code_delim
+  right: ev_syn_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_code_sand
+  left: ev_syn_code_sand
+  right: ev_syn_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_code_secinfer
+  left: ev_syn_code_secinfer
+  right: ev_syn_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_syn_code_msa
+  left: ev_syn_code_msa
+  right: ev_syn_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_real_paper_instr
+  left: ev_real_paper_instr
+  right: ev_real_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_paper_delim
+  left: ev_real_paper_delim
+  right: ev_real_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_paper_sand
+  left: ev_real_paper_sand
+  right: ev_real_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_paper_secinfer
+  left: ev_real_paper_secinfer
+  right: ev_real_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_paper_msa
+  left: ev_real_paper_msa
+  right: ev_real_paper_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_resume_instr
+  left: ev_real_resume_instr
+  right: ev_real_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_resume_delim
+  left: ev_real_resume_delim
+  right: ev_real_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_resume_sand
+  left: ev_real_resume_sand
+  right: ev_real_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_resume_secinfer
+  left: ev_real_resume_secinfer
+  right: ev_real_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_resume_msa
+  left: ev_real_resume_msa
+  right: ev_real_resume_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_email_instr
+  left: ev_real_email_instr
+  right: ev_real_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_email_delim
+  left: ev_real_email_delim
+  right: ev_real_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_email_sand
+  left: ev_real_email_sand
+  right: ev_real_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_email_secinfer
+  left: ev_real_email_secinfer
+  right: ev_real_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_email_msa
+  left: ev_real_email_msa
+  right: ev_real_email_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_code_instr
+  left: ev_real_code_instr
+  right: ev_real_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_code_delim
+  left: ev_real_code_delim
+  right: ev_real_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_code_sand
+  left: ev_real_code_sand
+  right: ev_real_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_code_secinfer
+  left: ev_real_code_secinfer
+  right: ev_real_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_real_code_msa
+  left: ev_real_code_msa
+  right: ev_real_code_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 18
+- id: c_t5_opi_instr
+  left: ev_t5_opi_instr
+  right: ev_t5_opi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_opi_delim
+  left: ev_t5_opi_delim
+  right: ev_t5_opi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_opi_sand
+  left: ev_t5_opi_sand
+  right: ev_t5_opi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_opi_secinfer
+  left: ev_t5_opi_secinfer
+  right: ev_t5_opi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_opi_msa
+  left: ev_t5_opi_msa
+  right: ev_t5_opi_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_ia_instr
+  left: ev_t5_ia_instr
+  right: ev_t5_ia_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_ia_delim
+  left: ev_t5_ia_delim
+  right: ev_t5_ia_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_ia_sand
+  left: ev_t5_ia_sand
+  right: ev_t5_ia_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_ia_secinfer
+  left: ev_t5_ia_secinfer
+  right: ev_t5_ia_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_ia_msa
+  left: ev_t5_ia_msa
+  right: ev_t5_ia_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_adj_instr
+  left: ev_t5_adj_instr
+  right: ev_t5_adj_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_adj_delim
+  left: ev_t5_adj_delim
+  right: ev_t5_adj_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_adj_sand
+  left: ev_t5_adj_sand
+  right: ev_t5_adj_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_adj_secinfer
+  left: ev_t5_adj_secinfer
+  right: ev_t5_adj_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_t5_adj_msa
+  left: ev_t5_adj_msa
+  right: ev_t5_adj_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: existing prevention-based defences fail to reduce attack success in long-context settings
+  location: Section 5.4
+  anchor: existing prevention techniques fail to reduce ASR in long-context settings
+  jobs:
+  - R1
+  supported_by:
+  - c_syn_paper_instr
+  - c_syn_paper_delim
+  - c_syn_paper_sand
+  - c_syn_paper_secinfer
+  - c_syn_paper_msa
+  - c_syn_resume_instr
+  - c_syn_resume_delim
+  - c_syn_resume_sand
+  - c_syn_resume_secinfer
+  - c_syn_resume_msa
+  - c_syn_email_instr
+  - c_syn_email_delim
+  - c_syn_email_sand
+  - c_syn_email_secinfer
+  - c_syn_email_msa
+  - c_syn_code_instr
+  - c_syn_code_delim
+  - c_syn_code_sand
+  - c_syn_code_secinfer
+  - c_syn_code_msa
+  - c_real_paper_instr
+  - c_real_paper_delim
+  - c_real_paper_sand
+  - c_real_paper_secinfer
+  - c_real_paper_msa
+  - c_real_resume_instr
+  - c_real_resume_delim
+  - c_real_resume_sand
+  - c_real_resume_secinfer
+  - c_real_resume_msa
+  - c_real_email_instr
+  - c_real_email_delim
+  - c_real_email_sand
+  - c_real_email_secinfer
+  - c_real_email_msa
+  - c_real_code_instr
+  - c_real_code_delim
+  - c_real_code_sand
+  - c_real_code_secinfer
+  - c_real_code_msa
+  page: 8
+  contradicted_by:
+  - r_syn_email_msa
+  - r_real_email_msa
+  - r_syn_code_msa
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 4, 5 and 13
+    R2clean: not reported
+    R2attack: not reported
+schema_gaps:
+- where: report
+  note: defences are evaluated on Llama-3.1-8B-Instruct only, under the Authority spoof attack; the short-context comparison rows of Table 5 use each benchmark's own data with the same defences

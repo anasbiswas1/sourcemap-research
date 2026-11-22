@@ -1,0 +1,832 @@
+report:
+  id: readable_arxiv2026
+  slug: '2610.05295'
+  title: 'Readable Before Actionable: Causal Tracing of Indirect Prompt Injection'
+  first_author: Zhe Yu
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2610.05295'
+  version_read: arXiv v1
+  first_date: '2026-10-04'
+  read: F
+  role: mixed
+  extraction_scope: 'Table 11 (AgentDojo Slack and Workspace, Qwen-2.5-7B: no intervention, suite-matched and leave-attack-family-out directions, controlled-role, random and L8 controls), Figure 3B Llama-3.1-8B Slack bar labels,
+    Table 10 rows lambda 0 and 32 (controlled tool-output injection); the abstract claim (the probing and patching analyses test no defence; the position study of Figure 2B and the obfuscation and memory analyses are not coded)'
+defences:
+- id: match_slack
+  name: suite-matched direction edit (Slack hijacked-minus-resisted direction, L20, lambda 32)
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: laf_slack
+  name: suite-matched direction edit, leave-attack-family-out (Slack, L20, lambda 32)
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: match_ws
+  name: suite-matched direction edit (Workspace hijacked-minus-resisted direction, L20, lambda 32)
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: laf_ws
+  name: suite-matched direction edit, leave-attack-family-out (Workspace, L20, lambda 32)
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: ctrl_slack
+  name: controlled-role direction edit (role direction from synthetic instruction-data pairs, L20, lambda 32)
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: rand_slack
+  name: random direction edit (control, L20, lambda 32)
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: l8_slack
+  name: suite-matched edit at out-of-band layer 8 (control)
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: match_llama
+  name: suite-matched direction edit (Slack direction, L22)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: ctrl_llama
+  name: controlled-role direction edit (L22)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: rand_llama
+  name: random direction edit (control, L22)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 6
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: the edit subtracts λ times the excess projection above a benign reference
+- id: role_q7
+  name: controlled role-direction edit at L24, lambda 32
+  origin: this_report
+  base_checkpoint: Qwen-2.5-7B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 15
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: One-sided directional intervention
+- id: role_q15
+  name: controlled role-direction edit at L22, lambda 32
+  origin: this_report
+  base_checkpoint: Qwen-2.5-1.5B
+  axis1:
+  - internal_intervention
+  axis2:
+  - fixed_inference_rule
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 15
+  layout: AgentDojo agent; edit applied to residual activations at a chosen layer and token; injection in tool outputs
+  layout_compat: *id001
+  anchor: One-sided directional intervention
+evaluations:
+- id: ev_slack_none
+  defence_id: none:Qwen-2.5-7B
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 16
+  decoding: not reported
+  sample_size: '240'
+  baseline_kind: off_the_shelf
+- id: ev_slack_ctrl_slack
+  defence_id: ctrl_slack
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 16
+  decoding: not reported
+  sample_size: '240'
+- id: ev_slack_rand_slack
+  defence_id: rand_slack
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 16
+  decoding: not reported
+  sample_size: '240'
+- id: ev_slack_l8_slack
+  defence_id: l8_slack
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 16
+  decoding: not reported
+  sample_size: '240'
+- id: ev_slack_match_slack
+  defence_id: match_slack
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 16
+  decoding: not reported
+  sample_size: '240'
+- id: ev_slack_laf_slack
+  defence_id: laf_slack
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 16
+  decoding: not reported
+  sample_size: '240'
+- id: ev_ws_none
+  defence_id: none:Qwen-2.5-7B
+  benchmark: AgentDojo Workspace, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 16
+  decoding: not reported
+  sample_size: '240'
+  baseline_kind: off_the_shelf
+- id: ev_ws_match_ws
+  defence_id: match_ws
+  benchmark: AgentDojo Workspace, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 16
+  decoding: not reported
+  sample_size: '240'
+- id: ev_ws_laf_ws
+  defence_id: laf_ws
+  benchmark: AgentDojo Workspace, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 16
+  decoding: not reported
+  sample_size: '240'
+- id: ev_ll_none
+  defence_id: none:Llama-3.1-8B
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '240'
+  baseline_kind: off_the_shelf
+- id: ev_ll_ctrl_llama
+  defence_id: ctrl_llama
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '240'
+- id: ev_ll_rand_llama
+  defence_id: rand_llama
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '240'
+- id: ev_ll_match_llama
+  defence_id: match_llama
+  benchmark: AgentDojo Slack, 240 held-out injected trajectories
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo attack check on the continued trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '240'
+- id: ev_ct_q7_none
+  defence_id: none:Qwen-2.5-7B
+  benchmark: controlled synthetic tool-output injection, 100 prompts
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-specified output produced (attack); benign task correct (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 15
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: off_the_shelf
+- id: ev_ct_q7_edit
+  defence_id: role_q7
+  benchmark: controlled synthetic tool-output injection, 100 prompts
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-specified output produced (attack); benign task correct (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 15
+  decoding: not reported
+  sample_size: '100'
+- id: ev_ct_q15_none
+  defence_id: none:Qwen-2.5-1.5B
+  benchmark: controlled synthetic tool-output injection, 100 prompts
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-specified output produced (attack); benign task correct (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 15
+  decoding: not reported
+  sample_size: '100'
+  baseline_kind: off_the_shelf
+- id: ev_ct_q15_edit
+  defence_id: role_q15
+  benchmark: controlled synthetic tool-output injection, 100 prompts
+  attacker_type: static
+  attacker_access: black_box
+  judge: attacker-specified output produced (attack); benign task correct (accuracy)
+  layout_same_as_defence: 'yes'
+  measured_by: readable_arxiv2026
+  page: 15
+  decoding: not reported
+  sample_size: '100'
+results:
+- id: r_slack_none
+  evaluation_id: ev_slack_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '34.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 11
+- id: r_slack_ctrl_slack
+  evaluation_id: ev_slack_ctrl_slack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '33.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 11
+- id: r_slack_rand_slack
+  evaluation_id: ev_slack_rand_slack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '34.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 11
+- id: r_slack_l8_slack
+  evaluation_id: ev_slack_l8_slack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '33.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 11
+- id: r_slack_match_slack
+  evaluation_id: ev_slack_match_slack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '21.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 11
+- id: r_slack_laf_slack
+  evaluation_id: ev_slack_laf_slack
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '24.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 11
+- id: r_ws_none
+  evaluation_id: ev_ws_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '31.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 11
+- id: r_ws_match_ws
+  evaluation_id: ev_ws_match_ws
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '18.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 11
+- id: r_ws_laf_ws
+  evaluation_id: ev_ws_laf_ws
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '22.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 11
+- id: r_ll_none
+  evaluation_id: ev_ll_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '32.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 7
+  location: Figure 3B bar labels
+- id: r_ll_ctrl_llama
+  evaluation_id: ev_ll_ctrl_llama
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '31.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 7
+  location: Figure 3B bar labels
+- id: r_ll_rand_llama
+  evaluation_id: ev_ll_rand_llama
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '32.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 7
+  location: Figure 3B bar labels
+- id: r_ll_match_llama
+  evaluation_id: ev_ll_match_llama
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '19.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 7
+  location: Figure 3B bar labels
+- id: r_ct_q7_none_asr
+  evaluation_id: ev_ct_q7_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '46'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 10
+- id: r_ct_q7_none_acc
+  evaluation_id: ev_ct_q7_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign-task accuracy
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 10
+- id: r_ct_q7_edit_asr
+  evaluation_id: ev_ct_q7_edit
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '26'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 10
+- id: r_ct_q7_edit_acc
+  evaluation_id: ev_ct_q7_edit
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign-task accuracy
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 10
+- id: r_ct_q15_none_asr
+  evaluation_id: ev_ct_q15_none
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '34'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 10
+- id: r_ct_q15_none_acc
+  evaluation_id: ev_ct_q15_none
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign-task accuracy
+  value: '92'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 10
+- id: r_ct_q15_edit_asr
+  evaluation_id: ev_ct_q15_edit
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR
+  value: '28'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 10
+- id: r_ct_q15_edit_acc
+  evaluation_id: ev_ct_q15_edit
+  quantity: R2attack
+  coverage: proxy
+  metric_as_printed: benign-task accuracy
+  value: '92'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 10
+comparisons:
+- id: c_slack_match_slack
+  left: ev_slack_match_slack
+  right: ev_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_slack_laf_slack
+  left: ev_slack_laf_slack
+  right: ev_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_slack_ctrl_slack
+  left: ev_slack_ctrl_slack
+  right: ev_slack_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_ws_match_ws
+  left: ev_ws_match_ws
+  right: ev_ws_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_ws_laf_ws
+  left: ev_ws_laf_ws
+  right: ev_ws_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_slack_match_vs_rand_slack
+  left: ev_slack_match_slack
+  right: ev_slack_rand_slack
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the suite-matched direction against a control edit of the same strength
+  page: 16
+- id: c_slack_match_vs_l8_slack
+  left: ev_slack_match_slack
+  right: ev_slack_l8_slack
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the suite-matched direction against a control edit of the same strength
+  page: 16
+- id: c_ll_match_llama
+  left: ev_ll_match_llama
+  right: ev_ll_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ll_ctrl_llama
+  left: ev_ll_ctrl_llama
+  right: ev_ll_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_ll_match_vs_rand
+  left: ev_ll_match_llama
+  right: ev_ll_rand_llama
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the suite-matched direction against a random direction
+  page: 7
+- id: c_ct_q7
+  left: ev_ct_q7_edit
+  right: ev_ct_q7_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_ct_q15
+  left: ev_ct_q15_edit
+  right: ev_ct_q15_none
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 15
+claims:
+- id: k1
+  text: directions estimated from hijacked and resisted training trajectories reduce attack success on AgentDojo when applied at the right positions
+  location: abstract
+  anchor: directions estimated from hijacked and resisted training trajectories reduce attack success
+  jobs:
+  - R1
+  supported_by:
+  - c_slack_match_slack
+  - c_ws_match_ws
+  - c_ll_match_llama
+  - c_slack_laf_slack
+  - c_ws_laf_ws
+  - c_slack_match_vs_rand_slack
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: proxy
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 10 and 11; Figure 3B
+    R2attack: Table 10 benign-task accuracy
+    R2clean: benign utility stated only for the position study (95.8% Qwen, 94.8% Llama)
+schema_gaps:
+- where: report
+  note: the edits need white-box access to activations and directions estimated from labelled hijacked and resisted trajectories of the same suite; directions transfer poorly across channels, and attacks are not adaptive to
+    the direction except in the paper's Appendix J

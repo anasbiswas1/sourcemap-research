@@ -98,3 +98,13 @@ batch,report,slug,coded,status
 04i,safereview_arxiv2026,2604.26506,2026-11-22,checked
 04i,securecai_arxiv2026,2601.07835,2026-11-22,checked
 04i,tab_arxiv2026,2605.12233,2026-11-22,checked
+04j,cbc_emnlp2026,doi_10_18653_2026_emnlp_main_2303,2026-11-22,checked
+04j,explosive_arxiv2026,2609.22510,2026-11-22,checked
+04j,longpibench_arxiv2026,2608.28411,2026-11-22,checked
+04j,medmas_arxiv2026,2610.22594,2026-11-22,checked
+04j,pipette_arxiv2026,2611.24362,2026-11-22,checked
+04j,pvst_arxiv2026,2610.19372,2026-11-22,checked
+04j,readable_arxiv2026,2610.05295,2026-11-22,checked
+04j,rui_preprints2026,doi_10_20944_preprints202603_1023_v1,2026-11-22,checked
+04j,trustmi_arxiv2026,2610.06064,2026-11-22,checked
+04j,univdef_arxiv2026,2609.16098,2026-11-22,checked
