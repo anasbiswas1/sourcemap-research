@@ -1,0 +1,2066 @@
+report:
+  id: tracer_emnlp2026
+  slug: '2610.19133'
+  title: 'TRACER: Trace-Regularized Training Against Indirect Prompt Injection'
+  first_author: Kshitij Mishra
+  venue: Findings of EMNLP 2026
+  peer_reviewed: 'yes'
+  doi: 10.18653/2026.findings-emnlp.2124
+  arxiv: '2610.19133'
+  version_read: arXiv v1
+  first_date: '2026-10-13'
+  read: F
+  role: proposes
+  code_release: https://github.com/Mishrakshitij/TRACER.git (linked in the abstract)
+  extraction_scope: 'Sections 5 and appendices A, D to F: Table 8 rows for the 3B base, RAG, final tool, multi-framing and agent models and the 7B base, epoch-1 and final RAG models; Table 1 (a) and (b); Table 5 (follow-up-trained
+    snapshots); Table 6; Table 9 clean accuracy (base and final); Table 11; the abstract claims (Table 7 diagnostics, Tables 9, 10 and 12 intermediate checkpoints and Figures 3 to 12 not coded)'
+defences:
+- id: rag3
+  name: TRACER, RAG specialist (3B, final checkpoint)
+  origin: this_report
+  base_checkpoint: Qwen2.5-3B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: measured_other_checkpoint
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  signal_dependence_detail: 'Table 11: RAG wrapper and RAG system prompt removed one at a time and together; the full condition reads 5.5% against the 6.1% of the main checkpoint and the text does not say whether the variants
+    were retrained'
+  components: &id001
+  - 'channel-sampled three-turn game: clean answer, the same payload rendered as a follow-up, RAG document, tool output or agent message, then the post-attack answer'
+  - GRPO on a composite post-attack reward (answer, process, anchor retention, evidence-gated corrigibility, length)
+  - 'ATRC: KL and token loss pulling the attacked reasoning towards committed spans of the clean trace when the injected evidence is invalid'
+  - 4-bit QLoRA, 2,000 GSM8K training tasks, 15% benign episodes
+  layout: RAG document wrapper with a RAG-specific system prompt
+  layout_compat: &id002
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: The optimizer itself is standard GRPO
+  pages:
+    components: 4
+    isolation: 8
+- id: tool3
+  name: TRACER, tool-output specialist (3B, final checkpoint)
+  origin: this_report
+  base_checkpoint: Qwen2.5-3B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components: *id001
+  layout: tool-response wrapper with provenance metadata
+  layout_compat: *id002
+  anchor: The optimizer itself is standard GRPO
+  pages:
+    components: 4
+    isolation: 8
+- id: multi3
+  name: TRACER, joint RAG and tool training (3B, final checkpoint)
+  origin: this_report
+  base_checkpoint: Qwen2.5-3B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components: *id001
+  layout: RAG and tool wrappers alternated
+  layout_compat: *id002
+  anchor: The optimizer itself is standard GRPO
+  pages:
+    components: 4
+    isolation: 8
+- id: agent3
+  name: TRACER, agent-message specialist (3B, final checkpoint)
+  origin: this_report
+  base_checkpoint: Qwen2.5-3B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components: *id001
+  layout: agent-message wrapper
+  layout_compat: *id002
+  anchor: The optimizer itself is standard GRPO
+  pages:
+    components: 4
+    isolation: 8
+- id: rag7e1
+  name: TRACER, RAG specialist (7B, after one epoch)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components: *id001
+  layout: RAG document wrapper with a RAG-specific system prompt
+  layout_compat: *id002
+  anchor: The optimizer itself is standard GRPO
+  pages:
+    components: 4
+    isolation: 8
+- id: rag7
+  name: TRACER, RAG specialist (7B, final checkpoint)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  components: *id001
+  layout: RAG document wrapper with a RAG-specific system prompt
+  layout_compat: *id002
+  anchor: The optimizer itself is standard GRPO
+  pages:
+    components: 4
+    isolation: 8
+- id: fu3
+  name: TRACER trained on follow-up attacks only (six intermediate 3B snapshots, pooled)
+  origin: this_report
+  base_checkpoint: Qwen2.5-3B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  layout: follow-up user message
+  anchor: six intermediate model snapshots trained only against follow-up-style attacks
+- id: abl_ans
+  name: channel exposure with an answer-only reward (3B, RAG)
+  origin: this_report
+  base_checkpoint: Qwen2.5-3B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: answer-only training reaches 21.3% ASR
+- id: abl_comp
+  name: channel exposure with the composite reward, no ATRC (3B, RAG)
+  origin: this_report
+  base_checkpoint: Qwen2.5-3B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: the composite reward lowers this to 13.8%
+- id: t6
+  name: TRACER (checkpoint used for the mixed-evidence test not named)
+  origin: this_report
+  base_checkpoint: Qwen2.5-3B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 13
+  anchor: Table 6 shows that TRACER retains high clean/evidence accuracy
+- id: t11
+  name: TRACER RAG specialist, Table 11 runs
+  origin: this_report
+  base_checkpoint: Qwen2.5-3B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 18
+  anchor: Both the RAG wrapper and the RAG-specific system prompt matter
+evaluations:
+- id: ev_base3_fu
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a follow-up user message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+  baseline_kind: off_the_shelf
+- id: ev_base3_rag
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+  baseline_kind: off_the_shelf
+- id: ev_base3_tool
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+  baseline_kind: off_the_shelf
+- id: ev_base3_agent
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+  baseline_kind: off_the_shelf
+- id: ev_rag3_fu
+  defence_id: rag3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a follow-up user message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag3_rag
+  defence_id: rag3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag3_tool
+  defence_id: rag3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag3_agent
+  defence_id: rag3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_tool3_fu
+  defence_id: tool3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a follow-up user message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_tool3_rag
+  defence_id: tool3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_tool3_tool
+  defence_id: tool3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_tool3_agent
+  defence_id: tool3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_multi3_fu
+  defence_id: multi3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a follow-up user message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_multi3_rag
+  defence_id: multi3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_multi3_tool
+  defence_id: multi3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_multi3_agent
+  defence_id: multi3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_agent3_fu
+  defence_id: agent3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a follow-up user message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_agent3_rag
+  defence_id: agent3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_agent3_tool
+  defence_id: agent3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_agent3_agent
+  defence_id: agent3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_base7_fu
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a follow-up user message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+  baseline_kind: off_the_shelf
+- id: ev_base7_rag
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+  baseline_kind: off_the_shelf
+- id: ev_base7_tool
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+  baseline_kind: off_the_shelf
+- id: ev_base7_agent
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+  baseline_kind: off_the_shelf
+- id: ev_rag7e1_fu
+  defence_id: rag7e1
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a follow-up user message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag7e1_rag
+  defence_id: rag7e1
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag7e1_tool
+  defence_id: rag7e1
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag7e1_agent
+  defence_id: rag7e1
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag7_fu
+  defence_id: rag7
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a follow-up user message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag7_rag
+  defence_id: rag7
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag7_tool
+  defence_id: rag7
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_rag7_agent
+  defence_id: rag7
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 17
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: '200'
+- id: ev_fu3_fu
+  defence_id: fu3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a follow-up user message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 16
+  denominator: clean-solved examples pooled over six snapshots (960)
+  decoding: not reported
+- id: ev_fu3_rag
+  defence_id: fu3
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 16
+  denominator: clean-solved examples pooled over six snapshots (960)
+  decoding: not reported
+- id: ev_base3_para
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K, RAG wrapper, held-out paraphrases of the RAG templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 8
+  denominator: clean-solved examples
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_rag3_para
+  defence_id: rag3
+  benchmark: GSM8K, RAG wrapper, held-out paraphrases of the RAG templates
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 8
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: 160 clean-solved (TRACER)
+- id: ev_base3_chan
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K, RAG wrapper, channel-aware escalation (stronger wrapper provenance cues)
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 8
+  denominator: clean-solved examples
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_rag3_chan
+  defence_id: rag3
+  benchmark: GSM8K, RAG wrapper, channel-aware escalation (stronger wrapper provenance cues)
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 8
+  denominator: clean-solved examples
+  decoding: not reported
+- id: ev_base3_defaware
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K, RAG wrapper, defence-aware suite that references the defence's expected behaviour
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 8
+  attacker_budget: fixed templates written against the trained behaviour
+  denominator: clean-solved examples
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_rag3_defaware
+  defence_id: rag3
+  benchmark: GSM8K, RAG wrapper, defence-aware suite that references the defence's expected behaviour
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 8
+  attacker_budget: fixed templates written against the trained behaviour
+  denominator: clean-solved examples
+  decoding: not reported
+  sample_size: 160 clean-solved (TRACER)
+- id: ev_abl_ans
+  defence_id: abl_ans
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 8
+  denominator: clean-solved examples
+  decoding: not reported
+- id: ev_abl_comp
+  defence_id: abl_comp
+  benchmark: GSM8K, 200 evaluation tasks; reasoning-rewrite, preemptive-answer and prompt-injection payloads (disjoint tasks) rendered as a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 8
+  denominator: clean-solved examples
+  decoding: not reported
+- id: ev_t6base_rag
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K with valid task evidence and an embedded injection in a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 16
+  denominator: correct clean-evidence responses
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_t6_rag
+  defence_id: t6
+  benchmark: GSM8K with valid task evidence and an embedded injection in a retrieved document
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 16
+  denominator: correct clean-evidence responses
+  decoding: not reported
+- id: ev_t6base_tool
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K with valid task evidence and an embedded injection in a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 16
+  denominator: correct clean-evidence responses
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_t6_tool
+  defence_id: t6
+  benchmark: GSM8K with valid task evidence and an embedded injection in a tool output
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 16
+  denominator: correct clean-evidence responses
+  decoding: not reported
+- id: ev_t6base_agent
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K with valid task evidence and an embedded injection in an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 16
+  denominator: correct clean-evidence responses
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_t6_agent
+  defence_id: t6
+  benchmark: GSM8K with valid task evidence and an embedded injection in an agent message
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 16
+  denominator: correct clean-evidence responses
+  decoding: not reported
+- id: ev_base3_clean
+  defence_id: none:Qwen2.5-3B-Instruct
+  benchmark: GSM8K, 200 evaluation tasks, no payload
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: final answer against the gold answer
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 17
+  decoding: not reported
+  sample_size: '200'
+  baseline_kind: off_the_shelf
+- id: ev_tool3_clean
+  defence_id: tool3
+  benchmark: GSM8K, 200 evaluation tasks, no payload
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: final answer against the gold answer
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 17
+  decoding: not reported
+  sample_size: '200'
+- id: ev_t11_full
+  defence_id: t11
+  benchmark: GSM8K, RAG evaluation, RAG system prompt and RAG wrapper
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'yes'
+  measured_by: tracer_emnlp2026
+  page: 18
+  denominator: clean-solved examples
+  decoding: not reported
+- id: ev_t11_wrap
+  defence_id: t11
+  benchmark: GSM8K, RAG evaluation, default system prompt, RAG wrapper
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 18
+  denominator: clean-solved examples
+  decoding: not reported
+- id: ev_t11_prompt
+  defence_id: t11
+  benchmark: GSM8K, RAG evaluation, RAG system prompt, no wrapper
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 18
+  denominator: clean-solved examples
+  decoding: not reported
+- id: ev_t11_neither
+  defence_id: t11
+  benchmark: GSM8K, RAG evaluation, default system prompt, no wrapper
+  attacker_type: static
+  attacker_access: black_box
+  judge: final answer against the gold answer; an attack succeeds when a correct clean answer turns wrong after the payload
+  layout_same_as_defence: 'no'
+  measured_by: tracer_emnlp2026
+  page: 18
+  denominator: clean-solved examples
+  decoding: not reported
+results:
+- id: r_base3_fu
+  evaluation_id: ev_base3_fu
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a follow-up user message
+  value: '41.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_base3_rag
+  evaluation_id: ev_base3_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a retrieved document
+  value: '65.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_base3_tool
+  evaluation_id: ev_base3_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a tool output
+  value: '59.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_base3_agent
+  evaluation_id: ev_base3_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, an agent message
+  value: '46.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag3_fu
+  evaluation_id: ev_rag3_fu
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a follow-up user message
+  value: '14.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag3_rag
+  evaluation_id: ev_rag3_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a retrieved document
+  value: '6.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag3_tool
+  evaluation_id: ev_rag3_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a tool output
+  value: '25.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag3_agent
+  evaluation_id: ev_rag3_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, an agent message
+  value: '26.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_tool3_fu
+  evaluation_id: ev_tool3_fu
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a follow-up user message
+  value: '20.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_tool3_rag
+  evaluation_id: ev_tool3_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a retrieved document
+  value: '20.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_tool3_tool
+  evaluation_id: ev_tool3_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a tool output
+  value: '15.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_tool3_agent
+  evaluation_id: ev_tool3_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, an agent message
+  value: '15.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_multi3_fu
+  evaluation_id: ev_multi3_fu
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a follow-up user message
+  value: '11.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_multi3_rag
+  evaluation_id: ev_multi3_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a retrieved document
+  value: '5.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_multi3_tool
+  evaluation_id: ev_multi3_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a tool output
+  value: '21.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_multi3_agent
+  evaluation_id: ev_multi3_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, an agent message
+  value: '17.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_agent3_fu
+  evaluation_id: ev_agent3_fu
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a follow-up user message
+  value: '19.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_agent3_rag
+  evaluation_id: ev_agent3_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a retrieved document
+  value: '15.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_agent3_tool
+  evaluation_id: ev_agent3_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a tool output
+  value: '26.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_agent3_agent
+  evaluation_id: ev_agent3_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, an agent message
+  value: '18.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_base7_fu
+  evaluation_id: ev_base7_fu
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a follow-up user message
+  value: '9.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_base7_rag
+  evaluation_id: ev_base7_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a retrieved document
+  value: '34.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_base7_tool
+  evaluation_id: ev_base7_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a tool output
+  value: '36.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_base7_agent
+  evaluation_id: ev_base7_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, an agent message
+  value: '16.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag7e1_fu
+  evaluation_id: ev_rag7e1_fu
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a follow-up user message
+  value: '5.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag7e1_rag
+  evaluation_id: ev_rag7e1_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a retrieved document
+  value: '10.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag7e1_tool
+  evaluation_id: ev_rag7e1_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a tool output
+  value: '13.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag7e1_agent
+  evaluation_id: ev_rag7e1_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, an agent message
+  value: '8.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag7_fu
+  evaluation_id: ev_rag7_fu
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a follow-up user message
+  value: '5.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag7_rag
+  evaluation_id: ev_rag7_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a retrieved document
+  value: '13.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag7_tool
+  evaluation_id: ev_rag7_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, a tool output
+  value: '18.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_rag7_agent
+  evaluation_id: ev_rag7_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, an agent message
+  value: '6.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 8
+- id: r_fu3_fu
+  evaluation_id: ev_fu3_fu
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, follow-up (average over six snapshots)
+  value: '18.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+  spread: Wilson 95% CI [15.7, 20.6]
+- id: r_fu3_rag
+  evaluation_id: ev_fu3_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, RAG document (average over six snapshots)
+  value: '53.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 5
+  spread: Wilson 95% CI [49.9, 56.2]
+- id: r_base3_para
+  evaluation_id: ev_base3_para
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, held-out paraphrases of the RAG templates
+  value: '62.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1 (a)
+- id: r_rag3_para
+  evaluation_id: ev_rag3_para
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, held-out paraphrases of the RAG templates
+  value: '10.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1 (a)
+- id: r_base3_chan
+  evaluation_id: ev_base3_chan
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, channel-aware escalation (stronger wrapper provenance cues)
+  value: '68.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1 (a)
+- id: r_rag3_chan
+  evaluation_id: ev_rag3_chan
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, channel-aware escalation (stronger wrapper provenance cues)
+  value: '18.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1 (a)
+- id: r_base3_defaware
+  evaluation_id: ev_base3_defaware
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, defence-aware suite that references the defence's expected behaviour
+  value: '70.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1 (a)
+- id: r_rag3_defaware
+  evaluation_id: ev_rag3_defaware
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, defence-aware suite that references the defence's expected behaviour
+  value: '23.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1 (a)
+- id: r_abl_ans
+  evaluation_id: ev_abl_ans
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, retrieved document
+  value: '21.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1 (b)
+- id: r_abl_comp
+  evaluation_id: ev_abl_comp
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, retrieved document
+  value: '13.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1 (b)
+- id: r_t6base_rag
+  evaluation_id: ev_t6base_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: flip rate
+  value: '58.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_t6_rag
+  evaluation_id: ev_t6_rag
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: flip rate
+  value: '13.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_t6_rag_acc
+  evaluation_id: ev_t6_rag
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: evidence accuracy (valid evidence plus injection)
+  value: '83.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_t6base_tool
+  evaluation_id: ev_t6base_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: flip rate
+  value: '52.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_t6_tool
+  evaluation_id: ev_t6_tool
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: flip rate
+  value: '17.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_t6_tool_acc
+  evaluation_id: ev_t6_tool
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: evidence accuracy (valid evidence plus injection)
+  value: '82.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_t6base_agent
+  evaluation_id: ev_t6base_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: flip rate
+  value: '46.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_t6_agent
+  evaluation_id: ev_t6_agent
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: flip rate
+  value: '16.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_t6_agent_acc
+  evaluation_id: ev_t6_agent
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: evidence accuracy (valid evidence plus injection)
+  value: '81.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 6
+- id: r_base3_clean
+  evaluation_id: ev_base3_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '64.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 9
+- id: r_tool3_clean
+  evaluation_id: ev_tool3_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: clean accuracy
+  value: '77.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 17
+  location: Table 9
+- id: r_t11_full
+  evaluation_id: ev_t11_full
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, RAG system prompt and RAG wrapper
+  value: '5.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 11
+- id: r_t11_wrap
+  evaluation_id: ev_t11_wrap
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, default system prompt, RAG wrapper
+  value: '10.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 11
+- id: r_t11_prompt
+  evaluation_id: ev_t11_prompt
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, RAG system prompt, no wrapper
+  value: '11.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 11
+- id: r_t11_neither
+  evaluation_id: ev_t11_neither
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: conditional ASR, default system prompt, no wrapper
+  value: '60.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 18
+  location: Table 11
+comparisons:
+- id: c_rag3_fu
+  left: ev_rag3_fu
+  right: ev_base3_fu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag3_rag
+  left: ev_rag3_rag
+  right: ev_base3_rag
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag3_tool
+  left: ev_rag3_tool
+  right: ev_base3_tool
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag3_agent
+  left: ev_rag3_agent
+  right: ev_base3_agent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_tool3_fu
+  left: ev_tool3_fu
+  right: ev_base3_fu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_tool3_rag
+  left: ev_tool3_rag
+  right: ev_base3_rag
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_tool3_tool
+  left: ev_tool3_tool
+  right: ev_base3_tool
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_tool3_agent
+  left: ev_tool3_agent
+  right: ev_base3_agent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_multi3_fu
+  left: ev_multi3_fu
+  right: ev_base3_fu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_multi3_rag
+  left: ev_multi3_rag
+  right: ev_base3_rag
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_multi3_tool
+  left: ev_multi3_tool
+  right: ev_base3_tool
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_multi3_agent
+  left: ev_multi3_agent
+  right: ev_base3_agent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_agent3_fu
+  left: ev_agent3_fu
+  right: ev_base3_fu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_agent3_rag
+  left: ev_agent3_rag
+  right: ev_base3_rag
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_agent3_tool
+  left: ev_agent3_tool
+  right: ev_base3_tool
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_agent3_agent
+  left: ev_agent3_agent
+  right: ev_base3_agent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag7e1_fu
+  left: ev_rag7e1_fu
+  right: ev_base7_fu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag7e1_rag
+  left: ev_rag7e1_rag
+  right: ev_base7_rag
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag7e1_tool
+  left: ev_rag7e1_tool
+  right: ev_base7_tool
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag7e1_agent
+  left: ev_rag7e1_agent
+  right: ev_base7_agent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag7_fu
+  left: ev_rag7_fu
+  right: ev_base7_fu
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag7_rag
+  left: ev_rag7_rag
+  right: ev_base7_rag
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag7_tool
+  left: ev_rag7_tool
+  right: ev_base7_tool
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_rag7_agent
+  left: ev_rag7_agent
+  right: ev_base7_agent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_fu3_frame
+  left: ev_fu3_rag
+  right: ev_fu3_fu
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the channel: the same payloads rendered as a retrieved document instead of a follow-up message'
+  page: 16
+- id: c_rag3_para
+  left: ev_rag3_para
+  right: ev_base3_para
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_rag3_chan
+  left: ev_rag3_chan
+  right: ev_base3_chan
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_rag3_defaware
+  left: ev_rag3_defaware
+  right: ev_base3_defaware
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_abl_reward
+  left: ev_abl_comp
+  right: ev_abl_ans
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the composite reward in place of the answer-only reward
+  page: 8
+- id: c_abl_atrc
+  left: ev_rag3_rag
+  right: ev_abl_comp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: ATRC added to the composite reward
+  page: 8
+- id: c_t6_rag
+  left: ev_t6_rag
+  right: ev_t6base_rag
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_t6_tool
+  left: ev_t6_tool
+  right: ev_t6base_tool
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_t6_agent
+  left: ev_t6_agent
+  right: ev_t6base_agent
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_tool3_clean
+  left: ev_tool3_clean
+  right: ev_base3_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 17
+- id: c_t11_wrap
+  left: ev_t11_wrap
+  right: ev_t11_full
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the signal: default system prompt, RAG wrapper instead of both'
+  page: 18
+- id: c_t11_prompt
+  left: ev_t11_prompt
+  right: ev_t11_full
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the signal: RAG system prompt, no wrapper instead of both'
+  page: 18
+- id: c_t11_neither
+  left: ev_t11_neither
+  right: ev_t11_full
+  purpose: M
+  c1_base: matched
+  c2_layout: manipulated
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the signal: default system prompt, no wrapper instead of both'
+  page: 18
+claims:
+- id: k1
+  text: the same attack succeeds 18% of the time as a follow-up message but 53% in retrieved context
+  location: abstract
+  anchor: the same attack succeeds 18% of the time as a follow-up
+  jobs:
+  - R1
+  supported_by:
+  - c_fu3_frame
+  page: 1
+- id: k2
+  text: TRACER reduces RAG-framed ASR from 65.5% to 6.1% on GSM8K with Qwen2.5-3B-Instruct while keeping 78 to 82% clean accuracy
+  location: abstract
+  anchor: TRACER reduces RAG-framed ASR from 65.5% to 6.1%
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_rag3_rag
+  - c_rag3_para
+  page: 1
+- id: k3
+  text: joint RAG and tool training reaches 13.9% average ASR across framings at 3B; one epoch at 7B reaches 9.4%
+  location: abstract
+  anchor: Joint RAG+tool training achieves 13.9% average ASR across framings
+  jobs:
+  - R1
+  supported_by:
+  - c_multi3_fu
+  - c_multi3_rag
+  - c_multi3_tool
+  - c_multi3_agent
+  - c_rag7e1_fu
+  - c_rag7e1_rag
+  - c_rag7e1_tool
+  - c_rag7e1_agent
+  page: 1
+coverage:
+  R1: proxy
+  R2clean: direct
+  R2attack: proxy
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: conditional answer flip (correct clean answer turned wrong), Tables 1, 5, 6, 8 and 11
+    R2clean: Table 9 (tool training only; RAG clean accuracy is a 78 to 82% range in the text and Figure 4)
+    R2attack: Table 6 evidence accuracy
+schema_gaps:
+- where: results r_* (R1)
+  note: ASR is a conditional answer flip on GSM8K pooled over three payload families (reasoning rewrite, false verified answer, explicit instruction); it does not check that an injected instruction was carried out, so R1 is
+    coded as a proxy
+- where: evaluations ev_base3_rag, ev_rag3_rag
+  note: the base RAG ASR is 65.5 in Tables 1, 3, 7 and 8 but 65.6 (99/151) in Table 5, whose caption notes reporting-granularity differences; the TRACER RAG denominator is 164 in Table 5 and 160 for the held-out and defence-aware
+    runs
+- where: claims k2
+  note: the 78 to 82% clean accuracy is a range read from Figure 4 and the text; no exact clean accuracy is given for the RAG checkpoint
+- where: claims k3
+  note: the 13.9% 3B average appears only in the text; it equals the mean of the four Table 8 values for the multi-framing model; the 7B 9.4% is the epoch-1 checkpoint, the final 7B checkpoint averages 10.8%
+- where: defences t6
+  note: the paper does not say which TRACER checkpoint was used for the mixed-evidence test (Table 6), and gives no base evidence accuracy

@@ -1,0 +1,597 @@
+report:
+  id: advsim2real_arxiv2026
+  slug: '2610.08773'
+  title: 'AdvSim2Real: Training Web Agents Against Adaptive Prompt Injection in a Web World Model'
+  first_author: Sarim Hashmi
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2610.08773'
+  version_read: arXiv v1
+  first_date: '2026-10-06'
+  read: F
+  role: proposes
+  code_release: stated as released in the abstract; not checked
+  extraction_scope: 'Section 5: Table 1 rows Base, Capability iter 3 and Robust iter 3 (clean and Adv v1 to v3) and Table 3 rows Base and Robust iter 3 (Kimi-K3 adversary); the abstract claim (the other checkpoints, the hosted
+    9B reference, Table 2 browser runs, which test capability only, and the ablations not coded)'
+defences:
+- id: robust3
+  name: 'AdvSim2Real (Robust iter 3: curriculum, then adversary-executor co-evolution)'
+  origin: this_report
+  base_checkpoint: Qwen3.5-4B
+  axis1:
+  - no_signal
+  axis2:
+  - adversarial_rl
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - 'Stage 1: a curriculum model proposes tasks the agent solves about half the time; the agent trains on fresh rollouts in the world model'
+  - 'Stage 2: an adversary is rewarded only for success flips (a judged success turned into a failure by one timed injection); the agent trains on new and earlier attacks plus clean tasks'
+  - LoRA per role, group-normalised advantages
+  layout: web agent acting on pages predicted by a frozen web world model (WebWorld-14B); injections appear in the page
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: co-evolves a task curriculum, an injection adversary, and the agent
+  pages:
+    components: 6
+- id: cap3
+  name: AdvSim2Real Stage 1 only (Capability iter 3, no injections in training)
+  origin: this_report
+  base_checkpoint: Qwen3.5-4B
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  layout: web agent acting on pages predicted by a frozen web world model (WebWorld-14B); injections appear in the page
+  layout_compat: *id001
+  anchor: Capability iter t is the executor E after t Stage-1 rounds
+evaluations:
+- id: ev_base_clean
+  defence_id: none:Qwen3.5-4B
+  benchmark: 150 web tasks in WebWorld-14B, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '150'
+  baseline_kind: off_the_shelf
+- id: ev_base_v1
+  defence_id: none:Qwen3.5-4B
+  benchmark: 150 web tasks in WebWorld-14B, one reactive page injection from learned adversary Adv v1
+  attacker_type: rl
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  attacker_budget: one timed injection per episode; adversary trained during Stage 2 against the Robust lineage
+  decoding: not reported
+  sample_size: '150'
+  baseline_kind: off_the_shelf
+- id: ev_base_v2
+  defence_id: none:Qwen3.5-4B
+  benchmark: 150 web tasks in WebWorld-14B, one reactive page injection from learned adversary Adv v2
+  attacker_type: rl
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  attacker_budget: one timed injection per episode; adversary trained during Stage 2 against the Robust lineage
+  decoding: not reported
+  sample_size: '150'
+  baseline_kind: off_the_shelf
+- id: ev_base_v3
+  defence_id: none:Qwen3.5-4B
+  benchmark: 150 web tasks in WebWorld-14B, one reactive page injection from learned adversary Adv v3
+  attacker_type: rl
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  attacker_budget: one timed injection per episode; adversary trained during Stage 2 against the Robust lineage
+  decoding: not reported
+  sample_size: '150'
+  baseline_kind: off_the_shelf
+- id: ev_cap3_clean
+  defence_id: cap3
+  benchmark: 150 web tasks in WebWorld-14B, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '150'
+- id: ev_cap3_v1
+  defence_id: cap3
+  benchmark: 150 web tasks in WebWorld-14B, one reactive page injection from learned adversary Adv v1
+  attacker_type: rl
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  attacker_budget: one timed injection per episode; adversary trained during Stage 2 against the Robust lineage
+  decoding: not reported
+  sample_size: '150'
+- id: ev_cap3_v2
+  defence_id: cap3
+  benchmark: 150 web tasks in WebWorld-14B, one reactive page injection from learned adversary Adv v2
+  attacker_type: rl
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  attacker_budget: one timed injection per episode; adversary trained during Stage 2 against the Robust lineage
+  decoding: not reported
+  sample_size: '150'
+- id: ev_cap3_v3
+  defence_id: cap3
+  benchmark: 150 web tasks in WebWorld-14B, one reactive page injection from learned adversary Adv v3
+  attacker_type: rl
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  attacker_budget: one timed injection per episode; adversary trained during Stage 2 against the Robust lineage
+  decoding: not reported
+  sample_size: '150'
+- id: ev_robust3_clean
+  defence_id: robust3
+  benchmark: 150 web tasks in WebWorld-14B, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  decoding: not reported
+  sample_size: '150'
+- id: ev_robust3_v1
+  defence_id: robust3
+  benchmark: 150 web tasks in WebWorld-14B, one reactive page injection from learned adversary Adv v1
+  attacker_type: rl
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  attacker_budget: one timed injection per episode; adversary trained during Stage 2 against the Robust lineage
+  decoding: not reported
+  sample_size: '150'
+- id: ev_robust3_v2
+  defence_id: robust3
+  benchmark: 150 web tasks in WebWorld-14B, one reactive page injection from learned adversary Adv v2
+  attacker_type: rl
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  attacker_budget: one timed injection per episode; adversary trained during Stage 2 against the Robust lineage
+  decoding: not reported
+  sample_size: '150'
+- id: ev_robust3_v3
+  defence_id: robust3
+  benchmark: 150 web tasks in WebWorld-14B, one reactive page injection from learned adversary Adv v3
+  attacker_type: rl
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 7
+  attacker_budget: one timed injection per episode; adversary trained during Stage 2 against the Robust lineage
+  decoding: not reported
+  sample_size: '150'
+- id: ev_base_kimi
+  defence_id: none:Qwen3.5-4B
+  benchmark: 150 web tasks in WebWorld-14B, one injection written by the Kimi-K3 adversary (never seen in training)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 8
+  attacker_budget: one injection per episode, same prompt and observation as the learned adversary
+  decoding: not reported
+  sample_size: '150'
+  baseline_kind: off_the_shelf
+- id: ev_robust3_kimi
+  defence_id: robust3
+  benchmark: 150 web tasks in WebWorld-14B, one injection written by the Kimi-K3 adversary (never seen in training)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: frozen LLM judge over the world-model trajectory
+  layout_same_as_defence: 'yes'
+  measured_by: advsim2real_arxiv2026
+  page: 8
+  attacker_budget: one injection per episode, same prompt and observation as the learned adversary
+  decoding: not reported
+  sample_size: '150'
+results:
+- id: r_base_clean
+  evaluation_id: ev_base_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean judged completion
+  value: '74.89'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 1.39 over three rollout seeds
+- id: r_base_v1
+  evaluation_id: ev_base_v1
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Adv v1
+  value: '51.11'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 2.34 over three rollout seeds
+- id: r_base_v2
+  evaluation_id: ev_base_v2
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Adv v2
+  value: '48.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 4.16 over three rollout seeds
+- id: r_base_v3
+  evaluation_id: ev_base_v3
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Adv v3
+  value: '45.11'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 1.54 over three rollout seeds
+- id: r_cap3_clean
+  evaluation_id: ev_cap3_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean judged completion
+  value: '79.33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 1.76 over three rollout seeds
+- id: r_cap3_v1
+  evaluation_id: ev_cap3_v1
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Adv v1
+  value: '57.11'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 1.39 over three rollout seeds
+- id: r_cap3_v2
+  evaluation_id: ev_cap3_v2
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Adv v2
+  value: '52.35'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 4.12 over three rollout seeds
+- id: r_cap3_v3
+  evaluation_id: ev_cap3_v3
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Adv v3
+  value: '53.56'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 3.67 over three rollout seeds
+- id: r_robust3_clean
+  evaluation_id: ev_robust3_clean
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: Clean judged completion
+  value: '81.33'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 2.31 over three rollout seeds
+- id: r_robust3_v1
+  evaluation_id: ev_robust3_v1
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Adv v1
+  value: '62.89'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 4.73 over three rollout seeds
+- id: r_robust3_v2
+  evaluation_id: ev_robust3_v2
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Adv v2
+  value: '54.89'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 3.91 over three rollout seeds
+- id: r_robust3_v3
+  evaluation_id: ev_robust3_v3
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Adv v3
+  value: '54.67'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+  spread: sample SD 3.53 over three rollout seeds
+- id: r_base_kimi
+  evaluation_id: ev_base_kimi
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Kimi-K3
+  value: '23.00'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+  spread: sample SD 3.30 over three rollout seeds
+- id: r_robust3_kimi
+  evaluation_id: ev_robust3_kimi
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: Judged completion under Kimi-K3
+  value: '30.72'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 3
+  spread: sample SD 3.04 over three rollout seeds
+comparisons:
+- id: c_cap3_clean
+  left: ev_cap3_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_cap3_v1
+  left: ev_cap3_v1
+  right: ev_base_v1
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_cap3_v2
+  left: ev_cap3_v2
+  right: ev_base_v2
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_cap3_v3
+  left: ev_cap3_v3
+  right: ev_base_v3
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_robust3_clean
+  left: ev_robust3_clean
+  right: ev_base_clean
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_robust3_v1
+  left: ev_robust3_v1
+  right: ev_base_v1
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_robust3_v2
+  left: ev_robust3_v2
+  right: ev_base_v2
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_robust3_v3
+  left: ev_robust3_v3
+  right: ev_base_v3
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_stage2_clean
+  left: ev_robust3_clean
+  right: ev_cap3_clean
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: Stage 2 adversarial co-evolution added after Stage 1
+  page: 7
+- id: c_stage2_v1
+  left: ev_robust3_v1
+  right: ev_cap3_v1
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: Stage 2 adversarial co-evolution added after Stage 1
+  page: 7
+- id: c_stage2_v2
+  left: ev_robust3_v2
+  right: ev_cap3_v2
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: Stage 2 adversarial co-evolution added after Stage 1
+  page: 7
+- id: c_stage2_v3
+  left: ev_robust3_v3
+  right: ev_cap3_v3
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: Stage 2 adversarial co-evolution added after Stage 1
+  page: 7
+- id: c_robust3_kimi
+  left: ev_robust3_kimi
+  right: ev_base_kimi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: AdvSim2Real raises completion under an unseen frontier-model adversary by 33.6% relative to the base agent
+  location: abstract
+  anchor: raises com- pletion under this unseen adversary by 33.6% relative
+  jobs:
+  - R2
+  supported_by:
+  - c_robust3_kimi
+  - c_robust3_v1
+  - c_robust3_clean
+  page: 1
+coverage:
+  R1: not_reported
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: attack success is not reported; the adversary's success flips are a training reward
+    R2clean: Table 1 (clean)
+    R2attack: Tables 1 and 3 (completion under injection)
+schema_gaps:
+- where: evaluations ev_*
+  note: all coded results are measured inside a frozen web world model with an LLM judge, not in a real browser; the browser runs of Table 2 cover clean capability only (p. 8)
+- where: evaluations ev_*_v1, ev_*_v2, ev_*_v3
+  note: Adv v1 to v3 were trained against the Robust lineage, so they are adaptive for Robust iter 3 and transferred for Base and Capability iter 3

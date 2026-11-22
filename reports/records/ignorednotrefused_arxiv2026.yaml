@@ -1,0 +1,1441 @@
+report:
+  id: ignorednotrefused_arxiv2026
+  slug: '2610.23254'
+  title: 'Ignored, Not Refused: What Low Prompt-Injection Success Rates Hide in Small Tool-Using Agents'
+  first_author: Farhan Zarif
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2610.23254'
+  version_read: arXiv v1
+  first_date: '2026-10-16'
+  read: F
+  role: benchmark
+  code_release: anonymous repository linked on p. 1 (labelled corpus, judge prompt and analysis code)
+  extraction_scope: 'Section 4.2: InjecAgent ASR per agent at FP16 for the baseline prompt (Table 3) and the Interdict and source-boundary guardrail prompts (Figure 2 labels); the abstract claim on system prompts (the behavioural
+    audit, precision runs, the Authorize prompt, AgentDojo, ATOM and Kimi K3 runs measure no defence and are not coded)'
+defences:
+- id: inter_qwen9
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: supported
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: guard_qwen9
+  name: source-boundary guardrail prompt (tool outputs are data; original task only; verify each tool call)
+  origin: this_report
+  base_checkpoint: Qwen3.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: Source-boundary guardrail (InjecAgent, 9
+- id: inter_gemma4
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: Gemma-4-E4B-it
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: guard_gemma4
+  name: source-boundary guardrail prompt (tool outputs are data; original task only; verify each tool call)
+  origin: this_report
+  base_checkpoint: Gemma-4-E4B-it
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: Source-boundary guardrail (InjecAgent, 9
+- id: inter_spark4
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: Spark-X2.5-4B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: inter_ornith9
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: Ornith-1.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: guard_ornith9
+  name: source-boundary guardrail prompt (tool outputs are data; original task only; verify each tool call)
+  origin: this_report
+  base_checkpoint: Ornith-1.5-9B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: Source-boundary guardrail (InjecAgent, 9
+- id: inter_qwen4
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: Qwen3.5-4B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: guard_qwen4
+  name: source-boundary guardrail prompt (tool outputs are data; original task only; verify each tool call)
+  origin: this_report
+  base_checkpoint: Qwen3.5-4B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: Source-boundary guardrail (InjecAgent, 9
+- id: inter_gemma12
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: Gemma-4-12B-it
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: guard_gemma12
+  name: source-boundary guardrail prompt (tool outputs are data; original task only; verify each tool call)
+  origin: this_report
+  base_checkpoint: Gemma-4-12B-it
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: Source-boundary guardrail (InjecAgent, 9
+- id: inter_nemo4
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: Nemotron-3-Nano-4B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: guard_nemo4
+  name: source-boundary guardrail prompt (tool outputs are data; original task only; verify each tool call)
+  origin: this_report
+  base_checkpoint: Nemotron-3-Nano-4B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: Source-boundary guardrail (InjecAgent, 9
+- id: inter_nanb3
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: Nanbeige-4.2-3B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: guard_nanb3
+  name: source-boundary guardrail prompt (tool outputs are data; original task only; verify each tool call)
+  origin: this_report
+  base_checkpoint: Nanbeige-4.2-3B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: Source-boundary guardrail (InjecAgent, 9
+- id: inter_minicpm2
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: MiniCPM5-2B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: inter_minis14
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: Ministral-3-14B-Reasoning
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: guard_minis14
+  name: source-boundary guardrail prompt (tool outputs are data; original task only; verify each tool call)
+  origin: this_report
+  base_checkpoint: Ministral-3-14B-Reasoning
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: Source-boundary guardrail (InjecAgent, 9
+- id: inter_lfm26
+  name: Interdict prompt (tool-output instructions are anomalies to flag and report, never execute)
+  origin: this_report
+  base_checkpoint: LFM-2.5-2.6B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: They instruct agents that tool-output directives are either threats to report
+- id: guard_lfm26
+  name: source-boundary guardrail prompt (tool outputs are data; original task only; verify each tool call)
+  origin: this_report
+  base_checkpoint: LFM-2.5-2.6B
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 5
+  layout: InjecAgent ReAct agent; the injection sits in a tool output (Observation); the defence block is appended to the system prompt
+  layout_compat: *id001
+  anchor: Source-boundary guardrail (InjecAgent, 9
+evaluations:
+- id: ev_qwen9_base
+  defence_id: none:Qwen3.5-9B
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_qwen9_inter
+  defence_id: inter_qwen9
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_qwen9_guard
+  defence_id: guard_qwen9
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 9,458 cases over nine agents
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_gemma4_base
+  defence_id: none:Gemma-4-E4B-it
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_gemma4_inter
+  defence_id: inter_gemma4
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_gemma4_guard
+  defence_id: guard_gemma4
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 9,458 cases over nine agents
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_spark4_base
+  defence_id: none:Spark-X2.5-4B
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_spark4_inter
+  defence_id: inter_spark4
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_ornith9_base
+  defence_id: none:Ornith-1.5-9B
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_ornith9_inter
+  defence_id: inter_ornith9
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_ornith9_guard
+  defence_id: guard_ornith9
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 9,458 cases over nine agents
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_qwen4_base
+  defence_id: none:Qwen3.5-4B
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_qwen4_inter
+  defence_id: inter_qwen4
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_qwen4_guard
+  defence_id: guard_qwen4
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 9,458 cases over nine agents
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_gemma12_base
+  defence_id: none:Gemma-4-12B-it
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_gemma12_inter
+  defence_id: inter_gemma12
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_gemma12_guard
+  defence_id: guard_gemma12
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 9,458 cases over nine agents
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_nemo4_base
+  defence_id: none:Nemotron-3-Nano-4B
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_nemo4_inter
+  defence_id: inter_nemo4
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_nemo4_guard
+  defence_id: guard_nemo4
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 9,458 cases over nine agents
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_nanb3_base
+  defence_id: none:Nanbeige-4.2-3B
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_nanb3_inter
+  defence_id: inter_nanb3
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_nanb3_guard
+  defence_id: guard_nanb3
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 9,458 cases over nine agents
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_minicpm2_base
+  defence_id: none:MiniCPM5-2B
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_minicpm2_inter
+  defence_id: inter_minicpm2
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_minis14_base
+  defence_id: none:Ministral-3-14B-Reasoning
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_minis14_inter
+  defence_id: inter_minis14
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_minis14_guard
+  defence_id: guard_minis14
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 9,458 cases over nine agents
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_lfm26_base
+  defence_id: none:LFM-2.5-2.6B
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 1,054
+  pages:
+    decoding: 14
+    benchmark: 12
+  baseline_kind: off_the_shelf
+- id: ev_lfm26_inter
+  defence_id: inter_lfm26
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: cases run under both Interdict and Authorize (10,698 over 11 agents)
+  pages:
+    decoding: 14
+    benchmark: 12
+- id: ev_lfm26_guard
+  defence_id: guard_lfm26
+  benchmark: InjecAgent base setting (510 Direct Harm and 544 Data Stealing cases), official ReAct prompt and parser
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent official output parser; invalid outputs count as failed attacks
+  layout_same_as_defence: 'yes'
+  measured_by: ignorednotrefused_arxiv2026
+  page: 6
+  decoding: greedy (temperature 0, top-p 1)
+  sample_size: 9,458 cases over nine agents
+  pages:
+    decoding: 14
+    benchmark: 12
+results:
+- id: r_qwen9_base
+  evaluation_id: ev_qwen9_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '25.14'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_qwen9_inter
+  evaluation_id: ev_qwen9_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '1.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_qwen9_guard
+  evaluation_id: ev_qwen9_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, guardrail prompt, FP16
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_gemma4_base
+  evaluation_id: ev_gemma4_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '7.02'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_gemma4_inter
+  evaluation_id: ev_gemma4_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_gemma4_guard
+  evaluation_id: ev_gemma4_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, guardrail prompt, FP16
+  value: '1.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_spark4_base
+  evaluation_id: ev_spark4_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '0.95'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_spark4_inter
+  evaluation_id: ev_spark4_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_ornith9_base
+  evaluation_id: ev_ornith9_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '27.42'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_ornith9_inter
+  evaluation_id: ev_ornith9_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_ornith9_guard
+  evaluation_id: ev_ornith9_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, guardrail prompt, FP16
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_qwen4_base
+  evaluation_id: ev_qwen4_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '18.79'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_qwen4_inter
+  evaluation_id: ev_qwen4_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_qwen4_guard
+  evaluation_id: ev_qwen4_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, guardrail prompt, FP16
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_gemma12_base
+  evaluation_id: ev_gemma12_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '3.51'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_gemma12_inter
+  evaluation_id: ev_gemma12_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_gemma12_guard
+  evaluation_id: ev_gemma12_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, guardrail prompt, FP16
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_nemo4_base
+  evaluation_id: ev_nemo4_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '2.56'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_nemo4_inter
+  evaluation_id: ev_nemo4_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_nemo4_guard
+  evaluation_id: ev_nemo4_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, guardrail prompt, FP16
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_nanb3_base
+  evaluation_id: ev_nanb3_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '2.47'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_nanb3_inter
+  evaluation_id: ev_nanb3_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_nanb3_guard
+  evaluation_id: ev_nanb3_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, guardrail prompt, FP16
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_minicpm2_base
+  evaluation_id: ev_minicpm2_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '0.85'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_minicpm2_inter
+  evaluation_id: ev_minicpm2_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_minis14_base
+  evaluation_id: ev_minis14_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '0.28'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_minis14_inter
+  evaluation_id: ev_minis14_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_minis14_guard
+  evaluation_id: ev_minis14_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, guardrail prompt, FP16
+  value: '4.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_lfm26_base
+  evaluation_id: ev_lfm26_base
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, baseline prompt, FP16
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 3
+- id: r_lfm26_inter
+  evaluation_id: ev_lfm26_inter
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, Interdict prompt, FP16
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+- id: r_lfm26_guard
+  evaluation_id: ev_lfm26_guard
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR, guardrail prompt, FP16
+  value: '0.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: figure_only
+  page: 6
+  location: Figure 2
+comparisons:
+- id: c_qwen9_inter
+  left: ev_qwen9_inter
+  right: ev_qwen9_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_qwen9_guard
+  left: ev_qwen9_guard
+  right: ev_qwen9_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: guardrail block added to the system prompt'
+  page: 6
+- id: c_gemma4_inter
+  left: ev_gemma4_inter
+  right: ev_gemma4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_gemma4_guard
+  left: ev_gemma4_guard
+  right: ev_gemma4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: guardrail block added to the system prompt'
+  page: 6
+- id: c_spark4_inter
+  left: ev_spark4_inter
+  right: ev_spark4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_ornith9_inter
+  left: ev_ornith9_inter
+  right: ev_ornith9_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_ornith9_guard
+  left: ev_ornith9_guard
+  right: ev_ornith9_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: guardrail block added to the system prompt'
+  page: 6
+- id: c_qwen4_inter
+  left: ev_qwen4_inter
+  right: ev_qwen4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_qwen4_guard
+  left: ev_qwen4_guard
+  right: ev_qwen4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: guardrail block added to the system prompt'
+  page: 6
+- id: c_gemma12_inter
+  left: ev_gemma12_inter
+  right: ev_gemma12_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_gemma12_guard
+  left: ev_gemma12_guard
+  right: ev_gemma12_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: guardrail block added to the system prompt'
+  page: 6
+- id: c_nemo4_inter
+  left: ev_nemo4_inter
+  right: ev_nemo4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_nemo4_guard
+  left: ev_nemo4_guard
+  right: ev_nemo4_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: guardrail block added to the system prompt'
+  page: 6
+- id: c_nanb3_inter
+  left: ev_nanb3_inter
+  right: ev_nanb3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_nanb3_guard
+  left: ev_nanb3_guard
+  right: ev_nanb3_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: guardrail block added to the system prompt'
+  page: 6
+- id: c_minicpm2_inter
+  left: ev_minicpm2_inter
+  right: ev_minicpm2_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_minis14_inter
+  left: ev_minis14_inter
+  right: ev_minis14_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_minis14_guard
+  left: ev_minis14_guard
+  right: ev_minis14_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: guardrail block added to the system prompt'
+  page: 6
+- id: c_lfm26_inter
+  left: ev_lfm26_inter
+  right: ev_lfm26_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: Interdict block added to the system prompt'
+  page: 6
+- id: c_lfm26_guard
+  left: ev_lfm26_guard
+  right: ev_lfm26_base
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: unmatched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: guardrail block added to the system prompt'
+  page: 6
+claims:
+- id: k1
+  text: changing only the system prompt shifts InjecAgent ASR from 0.2% to 43% with the same weights
+  location: abstract
+  anchor: changing only the system prompt shifts InjecAgent ASR from 0.2% to 43%
+  jobs:
+  - R1
+  supported_by:
+  - c_qwen9_inter
+  - c_gemma4_inter
+  - c_spark4_inter
+  - c_ornith9_inter
+  - c_qwen4_inter
+  - c_gemma12_inter
+  - c_nemo4_inter
+  - c_nanb3_inter
+  - c_minicpm2_inter
+  - c_minis14_inter
+  - c_lfm26_inter
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 3 and Figure 2 (InjecAgent)
+    R2clean: InjecAgent has no utility measure; AgentDojo runs test no defence
+    R2attack: not reported for the defence prompts
+schema_gaps:
+- where: results r_*_inter, r_*_guard
+  note: per-agent Interdict and guardrail ASR are text-extractable heat-map labels in Figure 2 at one decimal; the pooled values (0.22% over eleven agents, 0.95% over nine) are in the text only
+- where: comparisons c_*_inter, c_*_guard
+  note: the defence prompts were run on subsets (10,698 and 9,458 cases) while the Table 3 baseline uses all 1,054 cases per agent; the text compares paired cases but per-agent paired baselines are not given, so c3 is unmatched
+- where: claims k1
+  note: the 43% end of the claim is the Authorize prompt, which tells the agent to carry out tool-output instructions; it is not a defence and is not coded; LFM-2.6B's 0.00% baseline comes with 735 invalid outputs out of 1,054
+    (Table 3)
+- where: report
+  note: 'an evaluation study: the defences are two prompt blocks written by the authors; the headline finding is about what failed attacks consist of (76 to 80% ignored, 17 to 18% refused), which the schema has no field for'

@@ -901,7 +901,7 @@ arxiv:2610.30193,exclude,"survey, position or other",title_abstract,,,Protection
 arxiv:2610.30202,exclude,detector only,title_abstract,,,MPIDetector: Detecting Multi-modal Prompt Injection via LLM-based Reasoning
 arxiv:2610.31974,exclude,system level,full_text,,full text: HMAC-signed provenance labels in the MCP layer against instructions decoded from images,Agentic AI Defense: Decode-Time Provenance Binding for MCP
 arxiv:2610.33198,exclude,system level,title_abstract,,,"Deletion, Substitution, Repair and Transplant: Component Attribution in BARBICAN, a Layered Prompt-I"
-arxiv:2610.33201,include,,title_abstract,,"role: measurement of signal dependence; position, role and label separated","Position, Role or Label? A Controlled Study of Instruction Conflicts in LLM Agents"
+arxiv:2610.33201,exclude,benchmark only,full_text,,"full text: WhoWins benchmark of instruction conflicts across operator, configuration, user, tool-result and memory seats on 14 off-the-shelf models; no defence is added, trained or compared, and the role-against-label tests concern the operator line, a system-against-user conflict","Position, Role or Label? A Controlled Study of Instruction Conflicts in LLM Agents"
 arxiv:2610.34535,exclude,benchmark only,title_abstract,,,SentryBench: A Cost-Sensitive Benchmark for Adversarial Robustness of Tool-Using LLM Agents in Publi
 arxiv:2610.34777,exclude,attack only,title_abstract,,,Scope-Gap Injection: Exploiting Evaluator Channel Blind Spots in the OpenClaw Agent Security Competi
 arxiv:2610.35451,exclude,attack only,title_abstract,,,"Then there is prompt injection, a malicious email, ...: The Wild Wide West of OpenClaw Agentic Syste"

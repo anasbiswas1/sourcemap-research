@@ -1,0 +1,12 @@
+batch,report,slug,role,defences,evaluations,results,values_checked,chart_values_checked,anchors_checked,comparisons,grade_A,grade_B,grade_C,grade_U,claims,cov_R1,cov_R2clean,cov_R2attack,cov_R3ns,cov_R3cp,cov_R3safe,values_third_extraction,chart_values_third_extraction,residual_notes,problems
+04f,raised_arxiv2026,2610.06401,proposes,8,60,80,80,0,9,60,60,0,0,0,1,direct,direct,direct,not_reported,not_reported,not_reported,0,0,1,0
+04f,advsim2real_arxiv2026,2610.08773,proposes,2,14,14,14,0,3,13,13,0,0,0,1,not_reported,direct,direct,not_reported,not_reported,not_reported,0,0,2,0
+04f,ltbd_arxiv2026,2610.11634,proposes,20,140,140,140,0,24,112,64,0,0,48,4,direct,proxy,not_reported,not_reported,not_reported,not_reported,0,0,4,0
+04f,tracer_emnlp2026,2610.19133,proposes,11,54,57,57,0,14,37,37,0,0,0,3,proxy,direct,proxy,not_reported,not_reported,not_reported,0,0,5,0
+04f,agentsafeevo_arxiv2026,2610.19422,proposes,6,40,40,40,0,7,44,44,0,0,0,1,direct,not_reported,direct,not_reported,not_reported,not_reported,0,0,4,0
+04f,edic_emnlp2026,2610.22874,proposes,14,120,120,120,0,15,154,154,0,0,0,1,direct,not_reported,direct,not_reported,not_reported,not_reported,0,0,4,0
+04f,ignorednotrefused_arxiv2026,2610.23254,benchmark,20,31,31,11,20,21,20,0,20,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,4,0
+04f,hos_arxiv2026,2610.37657,proposes,13,218,222,222,0,16,189,189,0,0,0,3,direct,direct,direct,not_reported,not_reported,not_reported,0,0,5,0
+04f,llmon_arxiv2026,2610.38120,proposes,2,40,40,40,0,3,20,20,0,0,0,1,direct,not_reported,not_reported,not_reported,not_reported,not_reported,0,0,3,0
+04f,secpo_arxiv2026,2610.41998,proposes,7,109,109,109,0,11,131,131,0,0,0,4,direct,direct,direct,not_reported,not_reported,not_reported,0,0,4,0
+04f,untrustedcomponent_arxiv2026,2611.11571,re_measures,5,24,36,36,0,6,18,18,0,0,0,1,direct,direct,not_reported,not_reported,not_reported,not_reported,0,0,3,0

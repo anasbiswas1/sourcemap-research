@@ -1,0 +1,1116 @@
+report:
+  id: untrustedcomponent_arxiv2026
+  slug: '2611.11571'
+  title: 'Treating the Model as an Untrusted Component: Deterministic Policy Enforcement, Human Approval and Taint Tracking Against Prompt Injection in Tool-Using Agents, with Validation on Open-Weights Models'
+  first_author: Mustafa S. Aljumaily
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2611.11571'
+  version_read: arXiv v1
+  first_date: '2026-11-08'
+  read: F
+  role: re_measures
+  code_release: code, data, oracle audit and notebook provided (Section 9)
+  extraction_scope: 'Sections 6.10 and 6.11: the D0, D1 and D2 rows of Tables 15 and 16 (real Qwen2.5 models) and Table 13; the abstract claim on guardrails (the deterministic monitors D4 to D8, human approval and taint tracking,
+    which are system-level, the detector stack D3, the simulation results of Sections 6.1 to 6.9 and Table 14, and the composed persistence results of Tables 17 and 18 not coded)'
+defences:
+- id: d1_15
+  name: in-prompt guardrail (D1)
+  origin: this_report
+  base_checkpoint: Qwen2.5-1.5B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: JSON tool-calling agent over realistic tool outputs; the injection arrives in a read step's output
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: supported
+    agent_tool_result: supported
+  anchor: D1 In-prompt guardrail no
+- id: d2_15
+  name: in-prompt guardrail with spotlighting by datamarking (D2)
+  origin: this_report
+  base_checkpoint: Qwen2.5-1.5B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: JSON tool-calling agent over realistic tool outputs; the injection arrives in a read step's output; tool outputs datamarked
+  layout_compat: *id001
+  anchor: D2 Guardrail + spotlighting no
+  signal_dependence_detail: D1 is the same guardrail without datamarking, run on the same episodes and models (Tables 15 and 16)
+  pages:
+    components: 14
+- id: d1_7
+  name: in-prompt guardrail (D1)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: JSON tool-calling agent over realistic tool outputs; the injection arrives in a read step's output
+  layout_compat: *id001
+  anchor: D1 In-prompt guardrail no
+- id: d2_7
+  name: in-prompt guardrail with spotlighting by datamarking (D2)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: ablation_present
+  signal_dependence: measured
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 4
+  layout: JSON tool-calling agent over realistic tool outputs; the injection arrives in a read step's output; tool outputs datamarked
+  layout_compat: *id001
+  anchor: D2 Guardrail + spotlighting no
+  signal_dependence_detail: D1 is the same guardrail without datamarking, run on the same episodes and models (Tables 15 and 16)
+  pages:
+    components: 14
+- id: g1_15
+  name: in-prompt guardrail G1 (calibration run)
+  origin: this_report
+  base_checkpoint: Qwen2.5-1.5B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 13
+  layout: single summarisation call with an injected inert tool call
+  anchor: with and without an in-prompt guardrail (174 prompts, two samples each
+evaluations:
+- id: ev_15_none_att
+  defence_id: none:Qwen2.5-1.5B-Instruct
+  benchmark: 'authors'' executable harness: 13 tasks, 12 tools, injection carried by a read step, static attack families pooled (156 attack episodes per defence and model)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: effect-based oracle on canonicalised calls, independent of the defence (two-rater audit)
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 15
+  decoding: temperature 0.7, up to six turns
+  sample_size: '156'
+  pages:
+    benchmark: 14
+    decoding: 14
+  baseline_kind: off_the_shelf
+- id: ev_15_none_ben
+  defence_id: none:Qwen2.5-1.5B-Instruct
+  benchmark: 'authors'' executable harness: 13 tasks, benign episodes (78 per defence and model)'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task-completion check by the same oracle
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 15
+  decoding: temperature 0.7, up to six turns
+  sample_size: '78'
+  pages:
+    benchmark: 14
+    decoding: 14
+  baseline_kind: off_the_shelf
+- id: ev_15_d1_att
+  defence_id: d1_15
+  benchmark: 'authors'' executable harness: 13 tasks, 12 tools, injection carried by a read step, static attack families pooled (156 attack episodes per defence and model)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: effect-based oracle on canonicalised calls, independent of the defence (two-rater audit)
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 15
+  decoding: temperature 0.7, up to six turns
+  sample_size: '156'
+  pages:
+    benchmark: 14
+    decoding: 14
+- id: ev_15_d1_ben
+  defence_id: d1_15
+  benchmark: 'authors'' executable harness: 13 tasks, benign episodes (78 per defence and model)'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task-completion check by the same oracle
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 15
+  decoding: temperature 0.7, up to six turns
+  sample_size: '78'
+  pages:
+    benchmark: 14
+    decoding: 14
+- id: ev_15_d2_att
+  defence_id: d2_15
+  benchmark: 'authors'' executable harness: 13 tasks, 12 tools, injection carried by a read step, static attack families pooled (156 attack episodes per defence and model)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: effect-based oracle on canonicalised calls, independent of the defence (two-rater audit)
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 15
+  decoding: temperature 0.7, up to six turns
+  sample_size: '156'
+  pages:
+    benchmark: 14
+    decoding: 14
+- id: ev_15_d2_ben
+  defence_id: d2_15
+  benchmark: 'authors'' executable harness: 13 tasks, benign episodes (78 per defence and model)'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task-completion check by the same oracle
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 15
+  decoding: temperature 0.7, up to six turns
+  sample_size: '78'
+  pages:
+    benchmark: 14
+    decoding: 14
+- id: ev_7_none_att
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: 'authors'' executable harness: 13 tasks, 12 tools, injection carried by a read step, static attack families pooled (156 attack episodes per defence and model)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: effect-based oracle on canonicalised calls, independent of the defence (two-rater audit)
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 16
+  decoding: temperature 0.7, up to six turns
+  sample_size: '156'
+  pages:
+    benchmark: 14
+    decoding: 14
+  baseline_kind: off_the_shelf
+- id: ev_7_none_ben
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: 'authors'' executable harness: 13 tasks, benign episodes (78 per defence and model)'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task-completion check by the same oracle
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 16
+  decoding: temperature 0.7, up to six turns
+  sample_size: '78'
+  pages:
+    benchmark: 14
+    decoding: 14
+  baseline_kind: off_the_shelf
+- id: ev_7_d1_att
+  defence_id: d1_7
+  benchmark: 'authors'' executable harness: 13 tasks, 12 tools, injection carried by a read step, static attack families pooled (156 attack episodes per defence and model)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: effect-based oracle on canonicalised calls, independent of the defence (two-rater audit)
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 16
+  decoding: temperature 0.7, up to six turns
+  sample_size: '156'
+  pages:
+    benchmark: 14
+    decoding: 14
+- id: ev_7_d1_ben
+  defence_id: d1_7
+  benchmark: 'authors'' executable harness: 13 tasks, benign episodes (78 per defence and model)'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task-completion check by the same oracle
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 16
+  decoding: temperature 0.7, up to six turns
+  sample_size: '78'
+  pages:
+    benchmark: 14
+    decoding: 14
+- id: ev_7_d2_att
+  defence_id: d2_7
+  benchmark: 'authors'' executable harness: 13 tasks, 12 tools, injection carried by a read step, static attack families pooled (156 attack episodes per defence and model)'
+  attacker_type: static
+  attacker_access: black_box
+  judge: effect-based oracle on canonicalised calls, independent of the defence (two-rater audit)
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 16
+  decoding: temperature 0.7, up to six turns
+  sample_size: '156'
+  pages:
+    benchmark: 14
+    decoding: 14
+- id: ev_7_d2_ben
+  defence_id: d2_7
+  benchmark: 'authors'' executable harness: 13 tasks, benign episodes (78 per defence and model)'
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: task-completion check by the same oracle
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 16
+  decoding: temperature 0.7, up to six turns
+  sample_size: '78'
+  pages:
+    benchmark: 14
+    decoding: 14
+- id: ev_15_none_lvl0
+  defence_id: none:Qwen2.5-1.5B-Instruct
+  benchmark: summarisation task with an injected inert tool call, attack level 0 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_15_none_lvl1
+  defence_id: none:Qwen2.5-1.5B-Instruct
+  benchmark: summarisation task with an injected inert tool call, attack level 1 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_15_none_lvl2
+  defence_id: none:Qwen2.5-1.5B-Instruct
+  benchmark: summarisation task with an injected inert tool call, attack level 2 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_15_none_lvl3
+  defence_id: none:Qwen2.5-1.5B-Instruct
+  benchmark: summarisation task with an injected inert tool call, attack level 3 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_15_none_lvl4
+  defence_id: none:Qwen2.5-1.5B-Instruct
+  benchmark: summarisation task with an injected inert tool call, attack level 4 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_15_none_lvl5
+  defence_id: none:Qwen2.5-1.5B-Instruct
+  benchmark: summarisation task with an injected inert tool call, attack level 5 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_15_g1_lvl0
+  defence_id: g1_15
+  benchmark: summarisation task with an injected inert tool call, attack level 0 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+- id: ev_15_g1_lvl1
+  defence_id: g1_15
+  benchmark: summarisation task with an injected inert tool call, attack level 1 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+- id: ev_15_g1_lvl2
+  defence_id: g1_15
+  benchmark: summarisation task with an injected inert tool call, attack level 2 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+- id: ev_15_g1_lvl3
+  defence_id: g1_15
+  benchmark: summarisation task with an injected inert tool call, attack level 3 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+- id: ev_15_g1_lvl4
+  defence_id: g1_15
+  benchmark: summarisation task with an injected inert tool call, attack level 4 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+- id: ev_15_g1_lvl5
+  defence_id: g1_15
+  benchmark: summarisation task with an injected inert tool call, attack level 5 (a distinct phrasing family)
+  attacker_type: static
+  attacker_access: black_box
+  judge: the model emits the injected tool call with the attacker string in its arguments
+  layout_same_as_defence: 'yes'
+  measured_by: untrustedcomponent_arxiv2026
+  page: 13
+  sample_size: '24'
+  decoding: not reported
+results:
+- id: r_15_none_prop
+  evaluation_id: ev_15_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: model proposes the attacker's call
+  value: '67'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+  spread: 95% Wilson 59-74
+- id: r_15_none_exec
+  evaluation_id: ev_15_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attacker's goal executed
+  value: '66'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+  spread: 95% Wilson 58-73
+- id: r_15_none_comp
+  evaluation_id: ev_15_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign completion
+  value: '50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+  spread: 95% Wilson 39-61
+- id: r_15_none_viol
+  evaluation_id: ev_15_none_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign spontaneous violations
+  value: '40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+- id: r_15_d1_prop
+  evaluation_id: ev_15_d1_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: model proposes the attacker's call
+  value: '65'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+  spread: 95% Wilson 58-72
+- id: r_15_d1_exec
+  evaluation_id: ev_15_d1_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attacker's goal executed
+  value: '65'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+  spread: 95% Wilson 57-72
+- id: r_15_d1_comp
+  evaluation_id: ev_15_d1_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign completion
+  value: '59'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+  spread: 95% Wilson 48-69
+- id: r_15_d1_viol
+  evaluation_id: ev_15_d1_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign spontaneous violations
+  value: '35'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+- id: r_15_d2_prop
+  evaluation_id: ev_15_d2_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: model proposes the attacker's call
+  value: '47'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+  spread: 95% Wilson 39-55
+- id: r_15_d2_exec
+  evaluation_id: ev_15_d2_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attacker's goal executed
+  value: '42'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+  spread: 95% Wilson 35-50
+- id: r_15_d2_comp
+  evaluation_id: ev_15_d2_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign completion
+  value: '54'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+  spread: 95% Wilson 43-64
+- id: r_15_d2_viol
+  evaluation_id: ev_15_d2_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign spontaneous violations
+  value: '37'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 15
+  location: Table 15
+- id: r_7_none_prop
+  evaluation_id: ev_7_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: model proposes the attacker's call
+  value: '86'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+  spread: 95% Wilson 80-90
+- id: r_7_none_exec
+  evaluation_id: ev_7_none_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attacker's goal executed
+  value: '86'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+  spread: 95% Wilson 80-90
+- id: r_7_none_comp
+  evaluation_id: ev_7_none_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign completion
+  value: '99'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+  spread: 95% Wilson 93-100
+- id: r_7_none_viol
+  evaluation_id: ev_7_none_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign spontaneous violations
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+- id: r_7_d1_prop
+  evaluation_id: ev_7_d1_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: model proposes the attacker's call
+  value: '55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+  spread: 95% Wilson 47-63
+- id: r_7_d1_exec
+  evaluation_id: ev_7_d1_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attacker's goal executed
+  value: '55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+  spread: 95% Wilson 47-63
+- id: r_7_d1_comp
+  evaluation_id: ev_7_d1_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign completion
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+  spread: 95% Wilson 95-100
+- id: r_7_d1_viol
+  evaluation_id: ev_7_d1_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign spontaneous violations
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+- id: r_7_d2_prop
+  evaluation_id: ev_7_d2_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: model proposes the attacker's call
+  value: '42'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+  spread: 95% Wilson 35-50
+- id: r_7_d2_exec
+  evaluation_id: ev_7_d2_att
+  quantity: R1
+  coverage: direct
+  metric_as_printed: attacker's goal executed
+  value: '40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+  spread: 95% Wilson 33-48
+- id: r_7_d2_comp
+  evaluation_id: ev_7_d2_ben
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: benign completion
+  value: '100'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+  spread: 95% Wilson 95-100
+- id: r_7_d2_viol
+  evaluation_id: ev_7_d2_ben
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign spontaneous violations
+  value: '0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 16
+  location: Table 16
+- id: r_15_none_lvl0
+  evaluation_id: ev_15_none_lvl0
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 0
+  value: '4.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_none_lvl1
+  evaluation_id: ev_15_none_lvl1
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 1
+  value: '20.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_none_lvl2
+  evaluation_id: ev_15_none_lvl2
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 2
+  value: '50.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_none_lvl3
+  evaluation_id: ev_15_none_lvl3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 3
+  value: '4.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_none_lvl4
+  evaluation_id: ev_15_none_lvl4
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 4
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_none_lvl5
+  evaluation_id: ev_15_none_lvl5
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 5
+  value: '4.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_g1_lvl0
+  evaluation_id: ev_15_g1_lvl0
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 0
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_g1_lvl1
+  evaluation_id: ev_15_g1_lvl1
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 1
+  value: '16.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_g1_lvl2
+  evaluation_id: ev_15_g1_lvl2
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 2
+  value: '45.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_g1_lvl3
+  evaluation_id: ev_15_g1_lvl3
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 3
+  value: '4.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_g1_lvl4
+  evaluation_id: ev_15_g1_lvl4
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 4
+  value: '8.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+- id: r_15_g1_lvl5
+  evaluation_id: ev_15_g1_lvl5
+  quantity: R1
+  coverage: direct
+  metric_as_printed: obedience, attack level 5
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 13
+  location: Table 13
+comparisons:
+- id: c_15_d1_att
+  left: ev_15_d1_att
+  right: ev_15_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_15_d1_ben
+  left: ev_15_d1_ben
+  right: ev_15_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_15_d2_att
+  left: ev_15_d2_att
+  right: ev_15_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_15_d2_ben
+  left: ev_15_d2_ben
+  right: ev_15_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 15
+- id: c_15_spot_att
+  left: ev_15_d2_att
+  right: ev_15_d1_att
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: datamarking added to the in-prompt guardrail
+  page: 15
+- id: c_15_spot_ben
+  left: ev_15_d2_ben
+  right: ev_15_d1_ben
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: datamarking added to the in-prompt guardrail
+  page: 15
+- id: c_7_d1_att
+  left: ev_7_d1_att
+  right: ev_7_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_7_d1_ben
+  left: ev_7_d1_ben
+  right: ev_7_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_7_d2_att
+  left: ev_7_d2_att
+  right: ev_7_none_att
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_7_d2_ben
+  left: ev_7_d2_ben
+  right: ev_7_none_ben
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 16
+- id: c_7_spot_att
+  left: ev_7_d2_att
+  right: ev_7_d1_att
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: datamarking added to the in-prompt guardrail
+  page: 16
+- id: c_7_spot_ben
+  left: ev_7_d2_ben
+  right: ev_7_d1_ben
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: datamarking added to the in-prompt guardrail
+  page: 16
+- id: c_15_g1_lvl0
+  left: ev_15_g1_lvl0
+  right: ev_15_none_lvl0
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_15_g1_lvl1
+  left: ev_15_g1_lvl1
+  right: ev_15_none_lvl1
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_15_g1_lvl2
+  left: ev_15_g1_lvl2
+  right: ev_15_none_lvl2
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_15_g1_lvl3
+  left: ev_15_g1_lvl3
+  right: ev_15_none_lvl3
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_15_g1_lvl4
+  left: ev_15_g1_lvl4
+  right: ev_15_none_lvl4
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 13
+- id: c_15_g1_lvl5
+  left: ev_15_g1_lvl5
+  right: ev_15_none_lvl5
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 13
+claims:
+- id: k1
+  text: 'guardrail effects depended on the model: the prompt guardrail moved obedience from 67% to 65% on the 1.5B model and from 86% to 55% on the 7B model'
+  location: abstract
+  anchor: guardrail effects depended on the model
+  jobs:
+  - R1
+  supported_by:
+  - c_15_d1_att
+  - c_7_d1_att
+  - c_15_d2_att
+  - c_7_d2_att
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 13, 15 and 16
+    R2clean: Tables 15 and 16 (benign completion)
+    R2attack: not reported for the attack episodes
+schema_gaps:
+- where: report
+  note: the paper's main subject (deterministic monitors, human approval, taint tracking) is system-level and the D3 stack contains an LLM detector; both are left out under the review's scope rules, and most of the paper's
+    results come from a simulation with an assumed model
+- where: evaluations ev_15_*_lvl*
+  note: Table 13 counts were reconstructed from printed rates; the raw sample log was not kept (p. 13); at levels 4 and 5 only half the outputs parse as tool calls
+- where: evaluations ev_*_att
+  note: attack episodes pool the static attack families; the paper's persistence figures (Tables 17 and 18) compose per-task rates over k attempts rather than running repeated attacks

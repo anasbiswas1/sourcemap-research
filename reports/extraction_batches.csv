@@ -58,3 +58,14 @@ batch,report,slug,coded,status
 04e,reta_arxiv2026,2606.15441,2026-11-22,checked
 04e,secopd_emnlp2026,2608.21500,2026-11-22,checked
 04e,srft_arxiv2026,2610.04269,2026-11-22,checked
+04f,advsim2real_arxiv2026,2610.08773,2026-11-22,checked
+04f,agentsafeevo_arxiv2026,2610.19422,2026-11-22,checked
+04f,edic_emnlp2026,2610.22874,2026-11-22,checked
+04f,hos_arxiv2026,2610.37657,2026-11-22,checked
+04f,ignorednotrefused_arxiv2026,2610.23254,2026-11-22,checked
+04f,llmon_arxiv2026,2610.38120,2026-11-22,checked
+04f,ltbd_arxiv2026,2610.11634,2026-11-22,checked
+04f,raised_arxiv2026,2610.06401,2026-11-22,checked
+04f,secpo_arxiv2026,2610.41998,2026-11-22,checked
+04f,tracer_emnlp2026,2610.19133,2026-11-22,checked
+04f,untrustedcomponent_arxiv2026,2611.11571,2026-11-22,checked

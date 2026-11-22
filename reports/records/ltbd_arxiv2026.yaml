@@ -1,0 +1,5232 @@
+report:
+  id: ltbd_arxiv2026
+  slug: '2610.11634'
+  title: 'LTBD: Learnable Trust-Boundary Delimiters for Prompt Injection Defense'
+  first_author: Luman Zhao
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2610.11634'
+  version_read: arXiv v1
+  first_date: '2026-10-08'
+  read: F
+  role: proposes
+  code_release: not stated
+  extraction_scope: 'Section 3: Table 1 rows No Defense, DefensiveToken, LTBD, StruQ-Full and SecAlign-LoRA for all four models and all six columns; Table 2 (ablation); Table 3 (Delimiter-Spoof); the abstract and introduction
+    claims (TextGrad, Reminder, Sandwich and StruQ-LoRA rows not coded)'
+defences:
+- id: ltbd_l3
+  name: LTBD (learnable trust-boundary delimiters)
+  origin: this_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - soft_tokens_frozen
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: measured_other_checkpoint
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  signal_dependence_detail: 'Table 2: Prefix + CE trains the same four tokens as a prefix instead of at the region boundaries (a separately trained checkpoint)'
+  components:
+  - four new delimiter tokens [INST-START], [INST-END], [DATA-START], [DATA-END]; only their embeddings are trained, the LLM is frozen
+  - 'loss: cross-entropy towards the frozen model''s own response on the clean input, plus a DPO-style term against its response on the attacked input (lambda 0.3, beta 0.1)'
+  - 'training data: Cleaned Alpaca, half the samples injected with Ignore, Completion or Delimiter-Spoof'
+  layout: four learned delimiter tokens wrap the trusted instruction and the untrusted data in one input sequence; chat template use not stated
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: untested
+  anchor: we introduce two pairs of special delimiter tokens
+  pages:
+    components: 2
+    isolation: 3
+- id: dt_l3
+  name: DefensiveToken (run by the authors)
+  origin: other_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report; not restated here
+  anchor: DefensiveToken [16] learns lightweight defensive token embeddings
+- id: struq_l3
+  name: StruQ-Full (row matching the DefensiveTokens report, Table 3)
+  origin: other_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report
+  anchor: We also compare against stronger training-based methods
+- id: sec_l3
+  name: SecAlign-LoRA (row matching the DefensiveTokens report, Table 3)
+  origin: other_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report
+  anchor: We also compare against stronger training-based methods
+- id: pre_l3
+  name: LTBD tokens as a prefix, cross-entropy only (Prefix + CE)
+  origin: this_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: four learned tokens placed before the input
+  anchor: Ablation study on trust boundary placement and loss type
+- id: bce_l3
+  name: LTBD at the boundaries, cross-entropy only (Boundary + CE)
+  origin: this_report
+  base_checkpoint: Llama3-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: four learned delimiter tokens wrap the trusted instruction and the untrusted data in one input sequence; chat template use not stated
+  anchor: Ablation study on trust boundary placement and loss type
+- id: ltbd_l31
+  name: LTBD (learnable trust-boundary delimiters)
+  origin: this_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - soft_tokens_frozen
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: measured_other_checkpoint
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  signal_dependence_detail: 'Table 2: Prefix + CE trains the same four tokens as a prefix instead of at the region boundaries (a separately trained checkpoint)'
+  components:
+  - four new delimiter tokens [INST-START], [INST-END], [DATA-START], [DATA-END]; only their embeddings are trained, the LLM is frozen
+  - 'loss: cross-entropy towards the frozen model''s own response on the clean input, plus a DPO-style term against its response on the attacked input (lambda 0.3, beta 0.1)'
+  - 'training data: Cleaned Alpaca, half the samples injected with Ignore, Completion or Delimiter-Spoof'
+  layout: four learned delimiter tokens wrap the trusted instruction and the untrusted data in one input sequence; chat template use not stated
+  layout_compat: *id001
+  anchor: we introduce two pairs of special delimiter tokens
+  pages:
+    components: 2
+    isolation: 3
+- id: dt_l31
+  name: DefensiveToken (run by the authors)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report; not restated here
+  anchor: DefensiveToken [16] learns lightweight defensive token embeddings
+- id: struq_l31
+  name: StruQ-Full (row matching the DefensiveTokens report, Table 3)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report
+  anchor: We also compare against stronger training-based methods
+- id: sec_l31
+  name: SecAlign-LoRA (row matching the DefensiveTokens report, Table 3)
+  origin: other_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report
+  anchor: We also compare against stronger training-based methods
+- id: pre_l31
+  name: LTBD tokens as a prefix, cross-entropy only (Prefix + CE)
+  origin: this_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: four learned tokens placed before the input
+  anchor: Ablation study on trust boundary placement and loss type
+- id: bce_l31
+  name: LTBD at the boundaries, cross-entropy only (Boundary + CE)
+  origin: this_report
+  base_checkpoint: Llama3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: four learned delimiter tokens wrap the trusted instruction and the untrusted data in one input sequence; chat template use not stated
+  anchor: Ablation study on trust boundary placement and loss type
+- id: ltbd_f3
+  name: LTBD (learnable trust-boundary delimiters)
+  origin: this_report
+  base_checkpoint: Falcon3-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - soft_tokens_frozen
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: measured_other_checkpoint
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  signal_dependence_detail: 'Table 2: Prefix + CE trains the same four tokens as a prefix instead of at the region boundaries (a separately trained checkpoint)'
+  components:
+  - four new delimiter tokens [INST-START], [INST-END], [DATA-START], [DATA-END]; only their embeddings are trained, the LLM is frozen
+  - 'loss: cross-entropy towards the frozen model''s own response on the clean input, plus a DPO-style term against its response on the attacked input (lambda 0.3, beta 0.1)'
+  - 'training data: Cleaned Alpaca, half the samples injected with Ignore, Completion or Delimiter-Spoof'
+  layout: four learned delimiter tokens wrap the trusted instruction and the untrusted data in one input sequence; chat template use not stated
+  layout_compat: *id001
+  anchor: we introduce two pairs of special delimiter tokens
+  pages:
+    components: 2
+    isolation: 3
+- id: dt_f3
+  name: DefensiveToken (run by the authors)
+  origin: other_report
+  base_checkpoint: Falcon3-7B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report; not restated here
+  anchor: DefensiveToken [16] learns lightweight defensive token embeddings
+- id: struq_f3
+  name: StruQ-Full (row matching the DefensiveTokens report, Table 3)
+  origin: other_report
+  base_checkpoint: Falcon3-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report
+  anchor: We also compare against stronger training-based methods
+- id: sec_f3
+  name: SecAlign-LoRA (row matching the DefensiveTokens report, Table 3)
+  origin: other_report
+  base_checkpoint: Falcon3-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report
+  anchor: We also compare against stronger training-based methods
+- id: ltbd_q25
+  name: LTBD (learnable trust-boundary delimiters)
+  origin: this_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - soft_tokens_frozen
+  - preference_optimisation
+  isolation: ablation_present
+  signal_dependence: measured_other_checkpoint
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  signal_dependence_detail: 'Table 2: Prefix + CE trains the same four tokens as a prefix instead of at the region boundaries (a separately trained checkpoint)'
+  components:
+  - four new delimiter tokens [INST-START], [INST-END], [DATA-START], [DATA-END]; only their embeddings are trained, the LLM is frozen
+  - 'loss: cross-entropy towards the frozen model''s own response on the clean input, plus a DPO-style term against its response on the attacked input (lambda 0.3, beta 0.1)'
+  - 'training data: Cleaned Alpaca, half the samples injected with Ignore, Completion or Delimiter-Spoof'
+  layout: four learned delimiter tokens wrap the trusted instruction and the untrusted data in one input sequence; chat template use not stated
+  layout_compat: *id001
+  anchor: we introduce two pairs of special delimiter tokens
+  pages:
+    components: 2
+    isolation: 3
+- id: dt_q25
+  name: DefensiveToken (run by the authors)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - soft_tokens_frozen
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report; not restated here
+  anchor: DefensiveToken [16] learns lightweight defensive token embeddings
+- id: struq_q25
+  name: StruQ-Full (row matching the DefensiveTokens report, Table 3)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report
+  anchor: We also compare against stronger training-based methods
+- id: sec_q25
+  name: SecAlign-LoRA (row matching the DefensiveTokens report, Table 3)
+  origin: other_report
+  base_checkpoint: Qwen2.5-7B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 3
+  layout: as described in its own report
+  anchor: We also compare against stronger training-based methods
+evaluations:
+- id: ev_l3_none_alp_win
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_alp_asr
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_sep_win
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_sep_asr
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_tt_asr
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l3_none_cse_asr
+  defence_id: none:Llama3-8B-Instruct
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l3_dt_alp_win
+  defence_id: dt_l3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_dt_alp_asr
+  defence_id: dt_l3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l3_dt_sep_win
+  defence_id: dt_l3
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_dt_sep_asr
+  defence_id: dt_l3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_dt_tt_asr
+  defence_id: dt_l3
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_dt_cse_asr
+  defence_id: dt_l3
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_ltbd_alp_win
+  defence_id: ltbd_l3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_ltbd_alp_asr
+  defence_id: ltbd_l3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l3_ltbd_sep_win
+  defence_id: ltbd_l3
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_ltbd_sep_asr
+  defence_id: ltbd_l3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_ltbd_tt_asr
+  defence_id: ltbd_l3
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_ltbd_cse_asr
+  defence_id: ltbd_l3
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_struq_alp_win
+  defence_id: struq_l3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_struq_alp_asr
+  defence_id: struq_l3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l3_struq_sep_win
+  defence_id: struq_l3
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_struq_sep_asr
+  defence_id: struq_l3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_struq_tt_asr
+  defence_id: struq_l3
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_struq_cse_asr
+  defence_id: struq_l3
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_sec_alp_win
+  defence_id: sec_l3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_sec_alp_asr
+  defence_id: sec_l3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l3_sec_sep_win
+  defence_id: sec_l3
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_sec_sep_asr
+  defence_id: sec_l3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_sec_tt_asr
+  defence_id: sec_l3
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_sec_cse_asr
+  defence_id: sec_l3
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_none_alp_win
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_alp_asr
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_sep_win
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_sep_asr
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_tt_asr
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_cse_asr
+  defence_id: none:Llama3.1-8B-Instruct
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_l31_dt_alp_win
+  defence_id: dt_l31
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_dt_alp_asr
+  defence_id: dt_l31
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l31_dt_sep_win
+  defence_id: dt_l31
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_dt_sep_asr
+  defence_id: dt_l31
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_dt_tt_asr
+  defence_id: dt_l31
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_dt_cse_asr
+  defence_id: dt_l31
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_ltbd_alp_win
+  defence_id: ltbd_l31
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_ltbd_alp_asr
+  defence_id: ltbd_l31
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l31_ltbd_sep_win
+  defence_id: ltbd_l31
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_ltbd_sep_asr
+  defence_id: ltbd_l31
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_ltbd_tt_asr
+  defence_id: ltbd_l31
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_ltbd_cse_asr
+  defence_id: ltbd_l31
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_struq_alp_win
+  defence_id: struq_l31
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_struq_alp_asr
+  defence_id: struq_l31
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l31_struq_sep_win
+  defence_id: struq_l31
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_struq_sep_asr
+  defence_id: struq_l31
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_struq_tt_asr
+  defence_id: struq_l31
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_struq_cse_asr
+  defence_id: struq_l31
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_sec_alp_win
+  defence_id: sec_l31
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_sec_alp_asr
+  defence_id: sec_l31
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l31_sec_sep_win
+  defence_id: sec_l31
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_sec_sep_asr
+  defence_id: sec_l31
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_sec_tt_asr
+  defence_id: sec_l31
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_sec_cse_asr
+  defence_id: sec_l31
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_none_alp_win
+  defence_id: none:Falcon3-7B-Instruct
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_f3_none_alp_asr
+  defence_id: none:Falcon3-7B-Instruct
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+  baseline_kind: off_the_shelf
+- id: ev_f3_none_sep_win
+  defence_id: none:Falcon3-7B-Instruct
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_f3_none_sep_asr
+  defence_id: none:Falcon3-7B-Instruct
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_f3_none_tt_asr
+  defence_id: none:Falcon3-7B-Instruct
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_f3_none_cse_asr
+  defence_id: none:Falcon3-7B-Instruct
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_f3_dt_alp_win
+  defence_id: dt_f3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_dt_alp_asr
+  defence_id: dt_f3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_f3_dt_sep_win
+  defence_id: dt_f3
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_dt_sep_asr
+  defence_id: dt_f3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_dt_tt_asr
+  defence_id: dt_f3
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_dt_cse_asr
+  defence_id: dt_f3
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_ltbd_alp_win
+  defence_id: ltbd_f3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_ltbd_alp_asr
+  defence_id: ltbd_f3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_f3_ltbd_sep_win
+  defence_id: ltbd_f3
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_ltbd_sep_asr
+  defence_id: ltbd_f3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_ltbd_tt_asr
+  defence_id: ltbd_f3
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_ltbd_cse_asr
+  defence_id: ltbd_f3
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_struq_alp_win
+  defence_id: struq_f3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_struq_alp_asr
+  defence_id: struq_f3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_f3_struq_sep_win
+  defence_id: struq_f3
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_struq_sep_asr
+  defence_id: struq_f3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_struq_tt_asr
+  defence_id: struq_f3
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_struq_cse_asr
+  defence_id: struq_f3
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_sec_alp_win
+  defence_id: sec_f3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_sec_alp_asr
+  defence_id: sec_f3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_f3_sec_sep_win
+  defence_id: sec_f3
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_sec_sep_asr
+  defence_id: sec_f3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_sec_tt_asr
+  defence_id: sec_f3
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_f3_sec_cse_asr
+  defence_id: sec_f3
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_none_alp_win
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_q25_none_alp_asr
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+  baseline_kind: off_the_shelf
+- id: ev_q25_none_sep_win
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_q25_none_sep_asr
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_q25_none_tt_asr
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_q25_none_cse_asr
+  defence_id: none:Qwen2.5-7B-Instruct
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  baseline_kind: off_the_shelf
+- id: ev_q25_dt_alp_win
+  defence_id: dt_q25
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_dt_alp_asr
+  defence_id: dt_q25
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_q25_dt_sep_win
+  defence_id: dt_q25
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_dt_sep_asr
+  defence_id: dt_q25
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_dt_tt_asr
+  defence_id: dt_q25
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_dt_cse_asr
+  defence_id: dt_q25
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_ltbd_alp_win
+  defence_id: ltbd_q25
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_ltbd_alp_asr
+  defence_id: ltbd_q25
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_q25_ltbd_sep_win
+  defence_id: ltbd_q25
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_ltbd_sep_asr
+  defence_id: ltbd_q25
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_ltbd_tt_asr
+  defence_id: ltbd_q25
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_ltbd_cse_asr
+  defence_id: ltbd_q25
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_struq_alp_win
+  defence_id: struq_q25
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_struq_alp_asr
+  defence_id: struq_q25
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_q25_struq_sep_win
+  defence_id: struq_q25
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_struq_sep_asr
+  defence_id: struq_q25
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_struq_tt_asr
+  defence_id: struq_q25
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_struq_cse_asr
+  defence_id: struq_q25
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_sec_alp_win
+  defence_id: sec_q25
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_sec_alp_asr
+  defence_id: sec_q25
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_q25_sec_sep_win
+  defence_id: sec_q25
+  benchmark: SEP, AlpacaEval2 protocol, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_sec_sep_asr
+  defence_id: sec_q25
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_sec_tt_asr
+  defence_id: sec_q25
+  benchmark: TaskTracker, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_q25_sec_cse_asr
+  defence_id: sec_q25
+  benchmark: CyberSecEval2 prompt injection, benchmark-defined attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: defensivetokens_aisec2025
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_pre_alp_win
+  defence_id: pre_l3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_pre_alp_asr
+  defence_id: pre_l3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l3_pre_sep_asr
+  defence_id: pre_l3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_bce_alp_win
+  defence_id: bce_l3
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_bce_alp_asr
+  defence_id: bce_l3
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l3_bce_sep_asr
+  defence_id: bce_l3
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_pre_alp_win
+  defence_id: pre_l31
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_pre_alp_asr
+  defence_id: pre_l31
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l31_pre_sep_asr
+  defence_id: pre_l31
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_bce_alp_win
+  defence_id: bce_l31
+  benchmark: AlpacaEval2 on AlpacaFarm, no injection
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: GPT-4o win rate against GPT-4 Turbo references
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l31_bce_alp_asr
+  defence_id: bce_l31
+  benchmark: AlpacaFarm with Ignore, Completion and Ignore-Completion (StruQ protocol)
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+  attacker_budget: worst of Ignore, Completion and Ignore-Completion
+- id: ev_l31_bce_sep_asr
+  defence_id: bce_l31
+  benchmark: SEP with its instance-specific injected instructions
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 3
+  decoding: not reported
+  pages:
+    judge: 4
+- id: ev_l3_ltbd_plain
+  defence_id: ltbd_l3
+  benchmark: benchmark not stated; plain injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 4
+  decoding: not reported
+- id: ev_l3_ltbd_spoof
+  defence_id: ltbd_l3
+  benchmark: benchmark not stated; Delimiter-Spoof (five forged-delimiter templates around the injection)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 4
+  attacker_budget: five fixed templates written with knowledge of the delimiters; worst case of the five reported
+  decoding: not reported
+- id: ev_l31_ltbd_plain
+  defence_id: ltbd_l31
+  benchmark: benchmark not stated; plain injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 4
+  decoding: not reported
+- id: ev_l31_ltbd_spoof
+  defence_id: ltbd_l31
+  benchmark: benchmark not stated; Delimiter-Spoof (five forged-delimiter templates around the injection)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 4
+  attacker_budget: five fixed templates written with knowledge of the delimiters; worst case of the five reported
+  decoding: not reported
+- id: ev_f3_ltbd_plain
+  defence_id: ltbd_f3
+  benchmark: benchmark not stated; plain injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 4
+  decoding: not reported
+- id: ev_f3_ltbd_spoof
+  defence_id: ltbd_f3
+  benchmark: benchmark not stated; Delimiter-Spoof (five forged-delimiter templates around the injection)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 4
+  attacker_budget: five fixed templates written with knowledge of the delimiters; worst case of the five reported
+  decoding: not reported
+- id: ev_q25_ltbd_plain
+  defence_id: ltbd_q25
+  benchmark: benchmark not stated; plain injection
+  attacker_type: static
+  attacker_access: black_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 4
+  decoding: not reported
+- id: ev_q25_ltbd_spoof
+  defence_id: ltbd_q25
+  benchmark: benchmark not stated; Delimiter-Spoof (five forged-delimiter templates around the injection)
+  attacker_type: adaptive
+  attacker_access: grey_box
+  judge: 'attack success: the reply follows the injected instruction rather than the task; judge not named'
+  layout_same_as_defence: 'yes'
+  measured_by: ltbd_arxiv2026
+  page: 4
+  attacker_budget: five fixed templates written with knowledge of the delimiters; worst case of the five reported
+  decoding: not reported
+results:
+- id: r_l3_none_alp_win
+  evaluation_id: ev_l3_none_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '33.82'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_none_alp_asr
+  evaluation_id: ev_l3_none_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '55.29'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_none_sep_win
+  evaluation_id: ev_l3_none_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '59.72'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_none_sep_asr
+  evaluation_id: ev_l3_none_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '74.47'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_none_tt_asr
+  evaluation_id: ev_l3_none_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '16.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_none_cse_asr
+  evaluation_id: ev_l3_none_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '45.45'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_dt_alp_win
+  evaluation_id: ev_l3_dt_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '33.46'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_dt_alp_asr
+  evaluation_id: ev_l3_dt_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_dt_sep_win
+  evaluation_id: ev_l3_dt_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '58.60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_dt_sep_asr
+  evaluation_id: ev_l3_dt_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '3.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_dt_tt_asr
+  evaluation_id: ev_l3_dt_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.27'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_dt_cse_asr
+  evaluation_id: ev_l3_dt_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '3.64'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_ltbd_alp_win
+  evaluation_id: ev_l3_ltbd_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '35.73'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_ltbd_alp_asr
+  evaluation_id: ev_l3_ltbd_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_ltbd_sep_win
+  evaluation_id: ev_l3_ltbd_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '60.55'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_ltbd_sep_asr
+  evaluation_id: ev_l3_ltbd_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '2.04'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_ltbd_tt_asr
+  evaluation_id: ev_l3_ltbd_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.13'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_ltbd_cse_asr
+  evaluation_id: ev_l3_ltbd_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '7.27'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_struq_alp_win
+  evaluation_id: ev_l3_struq_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '27.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_struq_alp_asr
+  evaluation_id: ev_l3_struq_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_struq_sep_win
+  evaluation_id: ev_l3_struq_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '51.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_struq_sep_asr
+  evaluation_id: ev_l3_struq_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '0.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_struq_tt_asr
+  evaluation_id: ev_l3_struq_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.23'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_struq_cse_asr
+  evaluation_id: ev_l3_struq_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '10.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_sec_alp_win
+  evaluation_id: ev_l3_sec_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '27.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_sec_alp_asr
+  evaluation_id: ev_l3_sec_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_sec_sep_win
+  evaluation_id: ev_l3_sec_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '47.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_sec_sep_asr
+  evaluation_id: ev_l3_sec_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '3.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_sec_tt_asr
+  evaluation_id: ev_l3_sec_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_sec_cse_asr
+  evaluation_id: ev_l3_sec_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '18.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_none_alp_win
+  evaluation_id: ev_l31_none_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '31.37'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_none_alp_asr
+  evaluation_id: ev_l31_none_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '74.52'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_none_sep_win
+  evaluation_id: ev_l31_none_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '59.04'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_none_sep_asr
+  evaluation_id: ev_l31_none_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '75.04'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_none_tt_asr
+  evaluation_id: ev_l31_none_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '26.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_none_cse_asr
+  evaluation_id: ev_l31_none_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '38.18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_dt_alp_win
+  evaluation_id: ev_l31_dt_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '27.94'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_dt_alp_asr
+  evaluation_id: ev_l31_dt_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_dt_sep_win
+  evaluation_id: ev_l31_dt_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '57.90'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_dt_sep_asr
+  evaluation_id: ev_l31_dt_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '2.81'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_dt_tt_asr
+  evaluation_id: ev_l31_dt_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.19'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_dt_cse_asr
+  evaluation_id: ev_l31_dt_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '7.27'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_ltbd_alp_win
+  evaluation_id: ev_l31_ltbd_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '30.98'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_ltbd_alp_asr
+  evaluation_id: ev_l31_ltbd_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_ltbd_sep_win
+  evaluation_id: ev_l31_ltbd_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '54.92'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_ltbd_sep_asr
+  evaluation_id: ev_l31_ltbd_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '2.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_ltbd_tt_asr
+  evaluation_id: ev_l31_ltbd_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.19'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_ltbd_cse_asr
+  evaluation_id: ev_l31_ltbd_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '7.27'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_struq_alp_win
+  evaluation_id: ev_l31_struq_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '28.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_struq_alp_asr
+  evaluation_id: ev_l31_struq_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_struq_sep_win
+  evaluation_id: ev_l31_struq_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '52.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_struq_sep_asr
+  evaluation_id: ev_l31_struq_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_struq_tt_asr
+  evaluation_id: ev_l31_struq_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_struq_cse_asr
+  evaluation_id: ev_l31_struq_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '10.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_sec_alp_win
+  evaluation_id: ev_l31_sec_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '27.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_sec_alp_asr
+  evaluation_id: ev_l31_sec_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_sec_sep_win
+  evaluation_id: ev_l31_sec_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '50.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_sec_sep_asr
+  evaluation_id: ev_l31_sec_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '2.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_sec_tt_asr
+  evaluation_id: ev_l31_sec_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.19'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l31_sec_cse_asr
+  evaluation_id: ev_l31_sec_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '5.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_none_alp_win
+  evaluation_id: ev_f3_none_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '35.97'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_none_alp_asr
+  evaluation_id: ev_f3_none_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '89.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_none_sep_win
+  evaluation_id: ev_f3_none_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '55.74'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_none_sep_asr
+  evaluation_id: ev_f3_none_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '78.49'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_none_tt_asr
+  evaluation_id: ev_f3_none_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '27.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_none_cse_asr
+  evaluation_id: ev_f3_none_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '34.55'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_dt_alp_win
+  evaluation_id: ev_f3_dt_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '35.13'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_dt_alp_asr
+  evaluation_id: ev_f3_dt_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '4.81'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_dt_sep_win
+  evaluation_id: ev_f3_dt_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '56.60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_dt_sep_asr
+  evaluation_id: ev_f3_dt_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '6.70'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_dt_tt_asr
+  evaluation_id: ev_f3_dt_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.27'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_dt_cse_asr
+  evaluation_id: ev_f3_dt_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '12.73'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_ltbd_alp_win
+  evaluation_id: ev_f3_ltbd_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '36.42'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_ltbd_alp_asr
+  evaluation_id: ev_f3_ltbd_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_ltbd_sep_win
+  evaluation_id: ev_f3_ltbd_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '57.09'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_ltbd_sep_asr
+  evaluation_id: ev_f3_ltbd_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '1.57'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_ltbd_tt_asr
+  evaluation_id: ev_f3_ltbd_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.11'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_ltbd_cse_asr
+  evaluation_id: ev_f3_ltbd_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '1.82'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_struq_alp_win
+  evaluation_id: ev_f3_struq_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '25.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_struq_alp_asr
+  evaluation_id: ev_f3_struq_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_struq_sep_win
+  evaluation_id: ev_f3_struq_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '31.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_struq_sep_asr
+  evaluation_id: ev_f3_struq_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '2.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_struq_tt_asr
+  evaluation_id: ev_f3_struq_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_struq_cse_asr
+  evaluation_id: ev_f3_struq_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '7.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_sec_alp_win
+  evaluation_id: ev_f3_sec_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '27.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_sec_alp_asr
+  evaluation_id: ev_f3_sec_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_sec_sep_win
+  evaluation_id: ev_f3_sec_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '46.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_sec_sep_asr
+  evaluation_id: ev_f3_sec_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '35.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_sec_tt_asr
+  evaluation_id: ev_f3_sec_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '1.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_f3_sec_cse_asr
+  evaluation_id: ev_f3_sec_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '29.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_none_alp_win
+  evaluation_id: ev_q25_none_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '37.71'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_none_alp_asr
+  evaluation_id: ev_q25_none_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '93.75'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_none_sep_win
+  evaluation_id: ev_q25_none_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '62.86'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_none_sep_asr
+  evaluation_id: ev_q25_none_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '86.57'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_none_tt_asr
+  evaluation_id: ev_q25_none_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '37.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_none_cse_asr
+  evaluation_id: ev_q25_none_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '50.91'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_dt_alp_win
+  evaluation_id: ev_q25_dt_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '40.16'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_dt_alp_asr
+  evaluation_id: ev_q25_dt_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.96'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_dt_sep_win
+  evaluation_id: ev_q25_dt_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '59.63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_dt_sep_asr
+  evaluation_id: ev_q25_dt_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '4.40'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_dt_tt_asr
+  evaluation_id: ev_q25_dt_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_dt_cse_asr
+  evaluation_id: ev_q25_dt_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '20.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_ltbd_alp_win
+  evaluation_id: ev_q25_ltbd_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '41.71'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_ltbd_alp_asr
+  evaluation_id: ev_q25_ltbd_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_ltbd_sep_win
+  evaluation_id: ev_q25_ltbd_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '63.90'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_ltbd_sep_asr
+  evaluation_id: ev_q25_ltbd_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '1.86'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_ltbd_tt_asr
+  evaluation_id: ev_q25_ltbd_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.14'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_ltbd_cse_asr
+  evaluation_id: ev_q25_ltbd_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '12.73'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_struq_alp_win
+  evaluation_id: ev_q25_struq_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '31.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_struq_alp_asr
+  evaluation_id: ev_q25_struq_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_struq_sep_win
+  evaluation_id: ev_q25_struq_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '50.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_struq_sep_asr
+  evaluation_id: ev_q25_struq_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '2.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_struq_tt_asr
+  evaluation_id: ev_q25_struq_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_struq_cse_asr
+  evaluation_id: ev_q25_struq_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '3.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_sec_alp_win
+  evaluation_id: ev_q25_sec_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '32.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_sec_alp_asr
+  evaluation_id: ev_q25_sec_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '1.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_sec_sep_win
+  evaluation_id: ev_q25_sec_sep_win
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP WinRate
+  value: '50.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_sec_sep_asr
+  evaluation_id: ev_q25_sec_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '14.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_sec_tt_asr
+  evaluation_id: ev_q25_sec_tt_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: TaskTracker ASR
+  value: '0.57'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_q25_sec_cse_asr
+  evaluation_id: ev_q25_sec_cse_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval2 ASR
+  value: '20.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 1
+- id: r_l3_pre_alp_win
+  evaluation_id: ev_l3_pre_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '27.60'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l3_pre_alp_asr
+  evaluation_id: ev_l3_pre_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '6.73'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l3_pre_sep_asr
+  evaluation_id: ev_l3_pre_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '15.43'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l3_bce_alp_win
+  evaluation_id: ev_l3_bce_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '34.51'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l3_bce_alp_asr
+  evaluation_id: ev_l3_bce_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l3_bce_sep_asr
+  evaluation_id: ev_l3_bce_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '2.34'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l31_pre_alp_win
+  evaluation_id: ev_l31_pre_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '27.50'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l31_pre_alp_asr
+  evaluation_id: ev_l31_pre_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '23.08'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l31_pre_sep_asr
+  evaluation_id: ev_l31_pre_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '33.81'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l31_bce_alp_win
+  evaluation_id: ev_l31_bce_alp_win
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaFarm WinRate
+  value: '30.98'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l31_bce_alp_asr
+  evaluation_id: ev_l31_bce_alp_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AlpacaFarm ASR (worst case)
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l31_bce_sep_asr
+  evaluation_id: ev_l31_bce_sep_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '3.43'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 3
+  location: Table 2
+- id: r_l3_ltbd_plain
+  evaluation_id: ev_l3_ltbd_plain
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, plain injection
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_l3_ltbd_spoof
+  evaluation_id: ev_l3_ltbd_spoof
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Delimiter-Spoof (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_l31_ltbd_plain
+  evaluation_id: ev_l31_ltbd_plain
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, plain injection
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_l31_ltbd_spoof
+  evaluation_id: ev_l31_ltbd_spoof
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Delimiter-Spoof (worst case)
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_f3_ltbd_plain
+  evaluation_id: ev_f3_ltbd_plain
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, plain injection
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_f3_ltbd_spoof
+  evaluation_id: ev_f3_ltbd_spoof
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Delimiter-Spoof (worst case)
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_q25_ltbd_plain
+  evaluation_id: ev_q25_ltbd_plain
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, plain injection
+  value: '0.00'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+- id: r_q25_ltbd_spoof
+  evaluation_id: ev_q25_ltbd_spoof
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Delimiter-Spoof (worst case)
+  value: '0.48'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 4
+  location: Table 3
+comparisons:
+- id: c_l3_alp_win_ltbd_none
+  left: ev_l3_ltbd_alp_win
+  right: ev_l3_none_alp_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l3_alp_win_ltbd_dt
+  left: ev_l3_ltbd_alp_win
+  right: ev_l3_dt_alp_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l3_alp_win_ltbd_struq
+  left: ev_l3_ltbd_alp_win
+  right: ev_l3_struq_alp_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_alp_win_ltbd_sec
+  left: ev_l3_ltbd_alp_win
+  right: ev_l3_sec_alp_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_alp_asr_ltbd_none
+  left: ev_l3_ltbd_alp_asr
+  right: ev_l3_none_alp_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l3_alp_asr_ltbd_dt
+  left: ev_l3_ltbd_alp_asr
+  right: ev_l3_dt_alp_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l3_alp_asr_ltbd_struq
+  left: ev_l3_ltbd_alp_asr
+  right: ev_l3_struq_alp_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_alp_asr_ltbd_sec
+  left: ev_l3_ltbd_alp_asr
+  right: ev_l3_sec_alp_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_sep_win_ltbd_none
+  left: ev_l3_ltbd_sep_win
+  right: ev_l3_none_sep_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l3_sep_win_ltbd_dt
+  left: ev_l3_ltbd_sep_win
+  right: ev_l3_dt_sep_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l3_sep_win_ltbd_struq
+  left: ev_l3_ltbd_sep_win
+  right: ev_l3_struq_sep_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_sep_win_ltbd_sec
+  left: ev_l3_ltbd_sep_win
+  right: ev_l3_sec_sep_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_sep_asr_ltbd_none
+  left: ev_l3_ltbd_sep_asr
+  right: ev_l3_none_sep_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l3_sep_asr_ltbd_dt
+  left: ev_l3_ltbd_sep_asr
+  right: ev_l3_dt_sep_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l3_sep_asr_ltbd_struq
+  left: ev_l3_ltbd_sep_asr
+  right: ev_l3_struq_sep_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_sep_asr_ltbd_sec
+  left: ev_l3_ltbd_sep_asr
+  right: ev_l3_sec_sep_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_tt_asr_ltbd_none
+  left: ev_l3_ltbd_tt_asr
+  right: ev_l3_none_tt_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l3_tt_asr_ltbd_dt
+  left: ev_l3_ltbd_tt_asr
+  right: ev_l3_dt_tt_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l3_tt_asr_ltbd_struq
+  left: ev_l3_ltbd_tt_asr
+  right: ev_l3_struq_tt_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_tt_asr_ltbd_sec
+  left: ev_l3_ltbd_tt_asr
+  right: ev_l3_sec_tt_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_cse_asr_ltbd_none
+  left: ev_l3_ltbd_cse_asr
+  right: ev_l3_none_cse_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l3_cse_asr_ltbd_dt
+  left: ev_l3_ltbd_cse_asr
+  right: ev_l3_dt_cse_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l3_cse_asr_ltbd_struq
+  left: ev_l3_ltbd_cse_asr
+  right: ev_l3_struq_cse_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_cse_asr_ltbd_sec
+  left: ev_l3_ltbd_cse_asr
+  right: ev_l3_sec_cse_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_alp_win_ltbd_none
+  left: ev_l31_ltbd_alp_win
+  right: ev_l31_none_alp_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l31_alp_win_ltbd_dt
+  left: ev_l31_ltbd_alp_win
+  right: ev_l31_dt_alp_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l31_alp_win_ltbd_struq
+  left: ev_l31_ltbd_alp_win
+  right: ev_l31_struq_alp_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_alp_win_ltbd_sec
+  left: ev_l31_ltbd_alp_win
+  right: ev_l31_sec_alp_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_alp_asr_ltbd_none
+  left: ev_l31_ltbd_alp_asr
+  right: ev_l31_none_alp_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l31_alp_asr_ltbd_dt
+  left: ev_l31_ltbd_alp_asr
+  right: ev_l31_dt_alp_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l31_alp_asr_ltbd_struq
+  left: ev_l31_ltbd_alp_asr
+  right: ev_l31_struq_alp_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_alp_asr_ltbd_sec
+  left: ev_l31_ltbd_alp_asr
+  right: ev_l31_sec_alp_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_sep_win_ltbd_none
+  left: ev_l31_ltbd_sep_win
+  right: ev_l31_none_sep_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l31_sep_win_ltbd_dt
+  left: ev_l31_ltbd_sep_win
+  right: ev_l31_dt_sep_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l31_sep_win_ltbd_struq
+  left: ev_l31_ltbd_sep_win
+  right: ev_l31_struq_sep_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_sep_win_ltbd_sec
+  left: ev_l31_ltbd_sep_win
+  right: ev_l31_sec_sep_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_sep_asr_ltbd_none
+  left: ev_l31_ltbd_sep_asr
+  right: ev_l31_none_sep_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l31_sep_asr_ltbd_dt
+  left: ev_l31_ltbd_sep_asr
+  right: ev_l31_dt_sep_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l31_sep_asr_ltbd_struq
+  left: ev_l31_ltbd_sep_asr
+  right: ev_l31_struq_sep_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_sep_asr_ltbd_sec
+  left: ev_l31_ltbd_sep_asr
+  right: ev_l31_sec_sep_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_tt_asr_ltbd_none
+  left: ev_l31_ltbd_tt_asr
+  right: ev_l31_none_tt_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l31_tt_asr_ltbd_dt
+  left: ev_l31_ltbd_tt_asr
+  right: ev_l31_dt_tt_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l31_tt_asr_ltbd_struq
+  left: ev_l31_ltbd_tt_asr
+  right: ev_l31_struq_tt_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_tt_asr_ltbd_sec
+  left: ev_l31_ltbd_tt_asr
+  right: ev_l31_sec_tt_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_cse_asr_ltbd_none
+  left: ev_l31_ltbd_cse_asr
+  right: ev_l31_none_cse_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_l31_cse_asr_ltbd_dt
+  left: ev_l31_ltbd_cse_asr
+  right: ev_l31_dt_cse_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_l31_cse_asr_ltbd_struq
+  left: ev_l31_ltbd_cse_asr
+  right: ev_l31_struq_cse_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l31_cse_asr_ltbd_sec
+  left: ev_l31_ltbd_cse_asr
+  right: ev_l31_sec_cse_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_alp_win_ltbd_none
+  left: ev_f3_ltbd_alp_win
+  right: ev_f3_none_alp_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_f3_alp_win_ltbd_dt
+  left: ev_f3_ltbd_alp_win
+  right: ev_f3_dt_alp_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_f3_alp_win_ltbd_struq
+  left: ev_f3_ltbd_alp_win
+  right: ev_f3_struq_alp_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_alp_win_ltbd_sec
+  left: ev_f3_ltbd_alp_win
+  right: ev_f3_sec_alp_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_alp_asr_ltbd_none
+  left: ev_f3_ltbd_alp_asr
+  right: ev_f3_none_alp_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_f3_alp_asr_ltbd_dt
+  left: ev_f3_ltbd_alp_asr
+  right: ev_f3_dt_alp_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_f3_alp_asr_ltbd_struq
+  left: ev_f3_ltbd_alp_asr
+  right: ev_f3_struq_alp_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_alp_asr_ltbd_sec
+  left: ev_f3_ltbd_alp_asr
+  right: ev_f3_sec_alp_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_sep_win_ltbd_none
+  left: ev_f3_ltbd_sep_win
+  right: ev_f3_none_sep_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_f3_sep_win_ltbd_dt
+  left: ev_f3_ltbd_sep_win
+  right: ev_f3_dt_sep_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_f3_sep_win_ltbd_struq
+  left: ev_f3_ltbd_sep_win
+  right: ev_f3_struq_sep_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_sep_win_ltbd_sec
+  left: ev_f3_ltbd_sep_win
+  right: ev_f3_sec_sep_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_sep_asr_ltbd_none
+  left: ev_f3_ltbd_sep_asr
+  right: ev_f3_none_sep_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_f3_sep_asr_ltbd_dt
+  left: ev_f3_ltbd_sep_asr
+  right: ev_f3_dt_sep_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_f3_sep_asr_ltbd_struq
+  left: ev_f3_ltbd_sep_asr
+  right: ev_f3_struq_sep_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_sep_asr_ltbd_sec
+  left: ev_f3_ltbd_sep_asr
+  right: ev_f3_sec_sep_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_tt_asr_ltbd_none
+  left: ev_f3_ltbd_tt_asr
+  right: ev_f3_none_tt_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_f3_tt_asr_ltbd_dt
+  left: ev_f3_ltbd_tt_asr
+  right: ev_f3_dt_tt_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_f3_tt_asr_ltbd_struq
+  left: ev_f3_ltbd_tt_asr
+  right: ev_f3_struq_tt_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_tt_asr_ltbd_sec
+  left: ev_f3_ltbd_tt_asr
+  right: ev_f3_sec_tt_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_cse_asr_ltbd_none
+  left: ev_f3_ltbd_cse_asr
+  right: ev_f3_none_cse_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_f3_cse_asr_ltbd_dt
+  left: ev_f3_ltbd_cse_asr
+  right: ev_f3_dt_cse_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_f3_cse_asr_ltbd_struq
+  left: ev_f3_ltbd_cse_asr
+  right: ev_f3_struq_cse_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_f3_cse_asr_ltbd_sec
+  left: ev_f3_ltbd_cse_asr
+  right: ev_f3_sec_cse_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_alp_win_ltbd_none
+  left: ev_q25_ltbd_alp_win
+  right: ev_q25_none_alp_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_q25_alp_win_ltbd_dt
+  left: ev_q25_ltbd_alp_win
+  right: ev_q25_dt_alp_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_q25_alp_win_ltbd_struq
+  left: ev_q25_ltbd_alp_win
+  right: ev_q25_struq_alp_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_alp_win_ltbd_sec
+  left: ev_q25_ltbd_alp_win
+  right: ev_q25_sec_alp_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_alp_asr_ltbd_none
+  left: ev_q25_ltbd_alp_asr
+  right: ev_q25_none_alp_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_q25_alp_asr_ltbd_dt
+  left: ev_q25_ltbd_alp_asr
+  right: ev_q25_dt_alp_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_q25_alp_asr_ltbd_struq
+  left: ev_q25_ltbd_alp_asr
+  right: ev_q25_struq_alp_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_alp_asr_ltbd_sec
+  left: ev_q25_ltbd_alp_asr
+  right: ev_q25_sec_alp_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_sep_win_ltbd_none
+  left: ev_q25_ltbd_sep_win
+  right: ev_q25_none_sep_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_q25_sep_win_ltbd_dt
+  left: ev_q25_ltbd_sep_win
+  right: ev_q25_dt_sep_win
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_q25_sep_win_ltbd_struq
+  left: ev_q25_ltbd_sep_win
+  right: ev_q25_struq_sep_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_sep_win_ltbd_sec
+  left: ev_q25_ltbd_sep_win
+  right: ev_q25_sec_sep_win
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_sep_asr_ltbd_none
+  left: ev_q25_ltbd_sep_asr
+  right: ev_q25_none_sep_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_q25_sep_asr_ltbd_dt
+  left: ev_q25_ltbd_sep_asr
+  right: ev_q25_dt_sep_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_q25_sep_asr_ltbd_struq
+  left: ev_q25_ltbd_sep_asr
+  right: ev_q25_struq_sep_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_sep_asr_ltbd_sec
+  left: ev_q25_ltbd_sep_asr
+  right: ev_q25_sec_sep_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_tt_asr_ltbd_none
+  left: ev_q25_ltbd_tt_asr
+  right: ev_q25_none_tt_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_q25_tt_asr_ltbd_dt
+  left: ev_q25_ltbd_tt_asr
+  right: ev_q25_dt_tt_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_q25_tt_asr_ltbd_struq
+  left: ev_q25_ltbd_tt_asr
+  right: ev_q25_struq_tt_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_tt_asr_ltbd_sec
+  left: ev_q25_ltbd_tt_asr
+  right: ev_q25_sec_tt_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_cse_asr_ltbd_none
+  left: ev_q25_ltbd_cse_asr
+  right: ev_q25_none_cse_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 3
+- id: c_q25_cse_asr_ltbd_dt
+  left: ev_q25_ltbd_cse_asr
+  right: ev_q25_dt_cse_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the defence: LTBD against DefensiveToken on the same base, both run by the authors'
+  page: 3
+- id: c_q25_cse_asr_ltbd_struq
+  left: ev_q25_ltbd_cse_asr
+  right: ev_q25_struq_cse_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_q25_cse_asr_ltbd_sec
+  left: ev_q25_ltbd_cse_asr
+  right: ev_q25_sec_cse_asr
+  purpose: X
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: unreported
+  c6_decoding: unreported
+  varies: 'the defence: LTBD (this report) against a training-based row whose values match the DefensiveTokens report'
+  page: 3
+- id: c_l3_alp_win_place
+  left: ev_l3_bce_alp_win
+  right: ev_l3_pre_alp_win
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'where the four learned tokens sit: at the instruction and data boundaries against a prefix (both cross-entropy only)'
+  page: 3
+- id: c_l3_alp_win_pref
+  left: ev_l3_ltbd_alp_win
+  right: ev_l3_bce_alp_win
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the preference term added to the cross-entropy loss
+  page: 3
+- id: c_l3_alp_asr_place
+  left: ev_l3_bce_alp_asr
+  right: ev_l3_pre_alp_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'where the four learned tokens sit: at the instruction and data boundaries against a prefix (both cross-entropy only)'
+  page: 3
+- id: c_l3_alp_asr_pref
+  left: ev_l3_ltbd_alp_asr
+  right: ev_l3_bce_alp_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the preference term added to the cross-entropy loss
+  page: 3
+- id: c_l3_sep_asr_place
+  left: ev_l3_bce_sep_asr
+  right: ev_l3_pre_sep_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'where the four learned tokens sit: at the instruction and data boundaries against a prefix (both cross-entropy only)'
+  page: 3
+- id: c_l3_sep_asr_pref
+  left: ev_l3_ltbd_sep_asr
+  right: ev_l3_bce_sep_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the preference term added to the cross-entropy loss
+  page: 3
+- id: c_l31_alp_win_place
+  left: ev_l31_bce_alp_win
+  right: ev_l31_pre_alp_win
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'where the four learned tokens sit: at the instruction and data boundaries against a prefix (both cross-entropy only)'
+  page: 3
+- id: c_l31_alp_win_pref
+  left: ev_l31_ltbd_alp_win
+  right: ev_l31_bce_alp_win
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the preference term added to the cross-entropy loss
+  page: 3
+- id: c_l31_alp_asr_place
+  left: ev_l31_bce_alp_asr
+  right: ev_l31_pre_alp_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'where the four learned tokens sit: at the instruction and data boundaries against a prefix (both cross-entropy only)'
+  page: 3
+- id: c_l31_alp_asr_pref
+  left: ev_l31_ltbd_alp_asr
+  right: ev_l31_bce_alp_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the preference term added to the cross-entropy loss
+  page: 3
+- id: c_l31_sep_asr_place
+  left: ev_l31_bce_sep_asr
+  right: ev_l31_pre_sep_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'where the four learned tokens sit: at the instruction and data boundaries against a prefix (both cross-entropy only)'
+  page: 3
+- id: c_l31_sep_asr_pref
+  left: ev_l31_ltbd_sep_asr
+  right: ev_l31_bce_sep_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: the preference term added to the cross-entropy loss
+  page: 3
+- id: c_l3_spoof
+  left: ev_l3_ltbd_spoof
+  right: ev_l3_ltbd_plain
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: manipulated
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the attack: Delimiter-Spoof against plain injection'
+  page: 4
+- id: c_l31_spoof
+  left: ev_l31_ltbd_spoof
+  right: ev_l31_ltbd_plain
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: manipulated
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the attack: Delimiter-Spoof against plain injection'
+  page: 4
+- id: c_f3_spoof
+  left: ev_f3_ltbd_spoof
+  right: ev_f3_ltbd_plain
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: manipulated
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the attack: Delimiter-Spoof against plain injection'
+  page: 4
+- id: c_q25_spoof
+  left: ev_q25_ltbd_spoof
+  right: ev_q25_ltbd_plain
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: manipulated
+  c5_judge: matched_unstated
+  c6_decoding: matched_unstated
+  varies: 'the attack: Delimiter-Spoof against plain injection'
+  page: 4
+claims:
+- id: k1
+  text: LTBD reaches 0.00% ASR on AlpacaFarm and 0.11 to 0.19% on TaskTracker
+  location: abstract
+  anchor: LTBD achieves 0.00% ASR on AlpacaFarm
+  jobs:
+  - R1
+  supported_by:
+  - c_l3_alp_asr_ltbd_none
+  - c_l3_tt_asr_ltbd_none
+  - c_l31_alp_asr_ltbd_none
+  - c_l31_tt_asr_ltbd_none
+  - c_f3_alp_asr_ltbd_none
+  - c_f3_tt_asr_ltbd_none
+  - c_q25_alp_asr_ltbd_none
+  - c_q25_tt_asr_ltbd_none
+  page: 1
+- id: k2
+  text: LTBD substantially outperforms inference-time defences and remains competitive with training-based ones
+  location: introduction
+  anchor: LTBD substantially outperforms existing inference-time defenses and remains competitive with training-based approaches
+  jobs:
+  - R1
+  supported_by:
+  - c_l3_alp_asr_ltbd_dt
+  - c_l3_alp_asr_ltbd_struq
+  - c_l3_alp_asr_ltbd_sec
+  - c_l3_sep_asr_ltbd_dt
+  - c_l3_sep_asr_ltbd_struq
+  - c_l3_sep_asr_ltbd_sec
+  - c_l3_tt_asr_ltbd_dt
+  - c_l3_tt_asr_ltbd_struq
+  - c_l3_tt_asr_ltbd_sec
+  - c_l3_cse_asr_ltbd_dt
+  - c_l3_cse_asr_ltbd_struq
+  - c_l3_cse_asr_ltbd_sec
+  - c_l31_alp_asr_ltbd_dt
+  - c_l31_alp_asr_ltbd_struq
+  - c_l31_alp_asr_ltbd_sec
+  - c_l31_sep_asr_ltbd_dt
+  - c_l31_sep_asr_ltbd_struq
+  - c_l31_sep_asr_ltbd_sec
+  - c_l31_tt_asr_ltbd_dt
+  - c_l31_tt_asr_ltbd_struq
+  - c_l31_tt_asr_ltbd_sec
+  - c_l31_cse_asr_ltbd_dt
+  - c_l31_cse_asr_ltbd_struq
+  - c_l31_cse_asr_ltbd_sec
+  - c_f3_alp_asr_ltbd_dt
+  - c_f3_alp_asr_ltbd_struq
+  - c_f3_alp_asr_ltbd_sec
+  - c_f3_sep_asr_ltbd_dt
+  - c_f3_sep_asr_ltbd_struq
+  - c_f3_sep_asr_ltbd_sec
+  - c_f3_tt_asr_ltbd_dt
+  - c_f3_tt_asr_ltbd_struq
+  - c_f3_tt_asr_ltbd_sec
+  - c_f3_cse_asr_ltbd_dt
+  - c_f3_cse_asr_ltbd_struq
+  - c_f3_cse_asr_ltbd_sec
+  - c_q25_alp_asr_ltbd_dt
+  - c_q25_alp_asr_ltbd_struq
+  - c_q25_alp_asr_ltbd_sec
+  - c_q25_sep_asr_ltbd_dt
+  - c_q25_sep_asr_ltbd_struq
+  - c_q25_sep_asr_ltbd_sec
+  - c_q25_tt_asr_ltbd_dt
+  - c_q25_tt_asr_ltbd_struq
+  - c_q25_tt_asr_ltbd_sec
+  - c_q25_cse_asr_ltbd_dt
+  - c_q25_cse_asr_ltbd_struq
+  - c_q25_cse_asr_ltbd_sec
+  page: 1
+  contradicted_by:
+  - r_l3_ltbd_cse_asr
+- id: k3
+  text: LTBD preserves benign-task utility
+  location: abstract
+  anchor: while preserving benign- task utility
+  jobs:
+  - general_utility
+  - R2
+  supported_by:
+  - c_l3_alp_win_ltbd_none
+  - c_l3_sep_win_ltbd_none
+  - c_l31_alp_win_ltbd_none
+  - c_l31_sep_win_ltbd_none
+  - c_f3_alp_win_ltbd_none
+  - c_f3_sep_win_ltbd_none
+  - c_q25_alp_win_ltbd_none
+  - c_q25_sep_win_ltbd_none
+  page: 1
+  contradicted_by:
+  - r_l31_ltbd_sep_win
+- id: k4
+  text: LTBD remains effective under adaptive attacks by an attacker who knows the defence
+  location: abstract
+  anchor: LTBD also remains effective under adaptive attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_l3_spoof
+  - c_l31_spoof
+  - c_f3_spoof
+  - c_q25_spoof
+  page: 1
+coverage:
+  R1: direct
+  R2clean: proxy
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1 and 3
+    R2clean: Table 1 (SEP WinRate)
+    general_utility: Table 1 (AlpacaFarm WinRate)
+    R2attack: not reported
+schema_gaps:
+- where: evaluations ev_*_struq_*, ev_*_sec_*
+  note: the StruQ-Full and SecAlign-LoRA rows (and the uncoded TextGrad, Reminder, Sandwich and StruQ-LoRA rows) match the DefensiveTokens report's Table 3 value for value, at one decimal; the No Defense and DefensiveToken
+    rows are at two decimals and differ from that report (Llama3-8B No Defense WinRate 33.82 here against 26.5 there). The text says the comparison is under comparable conditions and does not say the rows are copied, so measured_by
+    is set to that report and the X comparisons carry unreported conditions
+- where: evaluations ev_*_ltbd_spoof
+  note: the Delimiter-Spoof templates are also used as training augmentations (pp. 3 and 4), so the adaptive test uses attacks the delimiters were trained on; no optimisation attack is run
+- where: evaluations ev_*_ltbd_plain
+  note: Table 3 does not name its benchmark; its Llama3.1-8B plain-injection ASR (0.48) differs from the Table 1 AlpacaFarm value (0.00)
+- where: defences ltbd_*
+  note: 'axis 2 lists both soft_tokens_frozen and preference_optimisation: only the four token embeddings are trained, with a DPO-style term in the loss'

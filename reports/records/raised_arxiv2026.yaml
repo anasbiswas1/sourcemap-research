@@ -1,0 +1,2674 @@
+report:
+  id: raised_arxiv2026
+  slug: '2610.06401'
+  title: 'RAISED: Self-Distillation for Robustness to Prompt Injection in LLM Agents'
+  first_author: Mohamed Dhouib
+  venue: arXiv preprint (under review)
+  peer_reviewed: 'no'
+  arxiv: '2610.06401'
+  version_read: arXiv v2
+  first_date: '2026-10-05'
+  read: F
+  role: proposes
+  code_release: not checked
+  extraction_scope: 'Sections 6 and 7: Table 1 rows Vanilla, Prompt Sandwiching, Spotlighting, SecAlign++ and RAISED on both models; the abstract claim (PromptGuard 2, a detector, is left out; benign agentic Table 2, general
+    Table 3, the Qwen appendix tables and the ablations not coded)'
+defences:
+- id: raised_gem
+  name: RAISED
+  origin: this_report
+  base_checkpoint: Gemma-4-12B-it
+  axis1:
+  - no_signal
+  axis2:
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: yes_exact_targets
+  page: 1
+  components:
+  - the model generates its own tool-use scenarios, stressing cases where finishing the task needs legitimate guidance from tool outputs
+  - student trained by token-level KL to match the frozen teacher's clean-context distribution on both clean and injected variants
+  layout: agent loop; tool responses carry the injection
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: a training framework that combines self-generation and self- distillation
+  pages:
+    components: 7
+- id: sand_gem
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: Gemma-4-12B-it
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: agent loop; tool responses carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching Learn Prompting
+- id: spot_gem
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Gemma-4-12B-it
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: agent loop; tool responses carry the injection
+  layout_compat: *id001
+  anchor: Spotlighting Hines et al.
+- id: sapp_gem
+  name: SecAlign++ (trained by the authors, three seeds)
+  origin: other_report
+  base_checkpoint: Gemma-4-12B-it
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  layout: agent loop; tool responses carry the injection
+  layout_compat: *id001
+  anchor: Trained defenses are run over three seeds
+- id: raised_nem
+  name: RAISED
+  origin: this_report
+  base_checkpoint: Nemotron-3-Nano-30B-A3B
+  axis1:
+  - no_signal
+  axis2:
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: yes_exact_targets
+  page: 1
+  components:
+  - the model generates its own tool-use scenarios, stressing cases where finishing the task needs legitimate guidance from tool outputs
+  - student trained by token-level KL to match the frozen teacher's clean-context distribution on both clean and injected variants
+  layout: agent loop; tool responses carry the injection
+  layout_compat: *id001
+  anchor: a training framework that combines self-generation and self- distillation
+  pages:
+    components: 7
+- id: sand_nem
+  name: Prompt Sandwiching
+  origin: other_report
+  base_checkpoint: Nemotron-3-Nano-30B-A3B
+  axis1:
+  - position
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: agent loop; tool responses carry the injection
+  layout_compat: *id001
+  anchor: we evaluate Prompt Sandwiching Learn Prompting
+- id: spot_nem
+  name: Spotlighting
+  origin: other_report
+  base_checkpoint: Nemotron-3-Nano-30B-A3B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: baseline_only
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: agent loop; tool responses carry the injection
+  layout_compat: *id001
+  anchor: Spotlighting Hines et al.
+- id: sapp_nem
+  name: SecAlign++ (trained by the authors, three seeds)
+  origin: other_report
+  base_checkpoint: Nemotron-3-Nano-30B-A3B
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  layout: agent loop; tool responses carry the injection
+  layout_compat: *id001
+  anchor: Trained defenses are run over three seeds
+evaluations:
+- id: ev_gem_van_iab
+  defence_id: none:Gemma-4-12B-it
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_gem_van_iae
+  defence_id: none:Gemma-4-12B-it
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_gem_van_adc
+  defence_id: none:Gemma-4-12B-it
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_gem_van_ada
+  defence_id: none:Gemma-4-12B-it
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_gem_van_dyc
+  defence_id: none:Gemma-4-12B-it
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_gem_van_dya
+  defence_id: none:Gemma-4-12B-it
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_gem_sand_iab
+  defence_id: sand_gem
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_gem_sand_iae
+  defence_id: sand_gem
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_gem_sand_adc
+  defence_id: sand_gem
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_sand_ada
+  defence_id: sand_gem
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_sand_dyc
+  defence_id: sand_gem
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_sand_dya
+  defence_id: sand_gem
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_spot_iab
+  defence_id: spot_gem
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_gem_spot_iae
+  defence_id: spot_gem
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_gem_spot_adc
+  defence_id: spot_gem
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_spot_ada
+  defence_id: spot_gem
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_spot_dyc
+  defence_id: spot_gem
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_spot_dya
+  defence_id: spot_gem
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_sapp_iab
+  defence_id: sapp_gem
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_gem_sapp_iae
+  defence_id: sapp_gem
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_gem_sapp_adc
+  defence_id: sapp_gem
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_sapp_ada
+  defence_id: sapp_gem
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_sapp_dyc
+  defence_id: sapp_gem
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_sapp_dya
+  defence_id: sapp_gem
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_raised_iab
+  defence_id: raised_gem
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_gem_raised_iae
+  defence_id: raised_gem
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_gem_raised_adc
+  defence_id: raised_gem
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_raised_ada
+  defence_id: raised_gem
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_raised_dyc
+  defence_id: raised_gem
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_gem_raised_dya
+  defence_id: raised_gem
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_van_iab
+  defence_id: none:Nemotron-3-Nano-30B-A3B
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_nem_van_iae
+  defence_id: none:Nemotron-3-Nano-30B-A3B
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_nem_van_adc
+  defence_id: none:Nemotron-3-Nano-30B-A3B
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_nem_van_ada
+  defence_id: none:Nemotron-3-Nano-30B-A3B
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_nem_van_dyc
+  defence_id: none:Nemotron-3-Nano-30B-A3B
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_nem_van_dya
+  defence_id: none:Nemotron-3-Nano-30B-A3B
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_nem_sand_iab
+  defence_id: sand_nem
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_nem_sand_iae
+  defence_id: sand_nem
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_nem_sand_adc
+  defence_id: sand_nem
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_sand_ada
+  defence_id: sand_nem
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_sand_dyc
+  defence_id: sand_nem
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_sand_dya
+  defence_id: sand_nem
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_spot_iab
+  defence_id: spot_nem
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_nem_spot_iae
+  defence_id: spot_nem
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_nem_spot_adc
+  defence_id: spot_nem
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_spot_ada
+  defence_id: spot_nem
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_spot_dyc
+  defence_id: spot_nem
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_spot_dya
+  defence_id: spot_nem
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_sapp_iab
+  defence_id: sapp_nem
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_nem_sapp_iae
+  defence_id: sapp_nem
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_nem_sapp_adc
+  defence_id: sapp_nem
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_sapp_ada
+  defence_id: sapp_nem
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_sapp_dyc
+  defence_id: sapp_nem
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_sapp_dya
+  defence_id: sapp_nem
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_raised_iab
+  defence_id: raised_nem
+  benchmark: InjecAgent, Base setting (Direct Harm and Data Stealing)
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_nem_raised_iae
+  defence_id: raised_nem
+  benchmark: InjecAgent, Enhanced setting
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent attack success
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  sample_size: 1,054
+  pages:
+    benchmark: 7
+- id: ev_nem_raised_adc
+  defence_id: raised_nem
+  benchmark: AgentDojo, four environments, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_raised_ada
+  defence_id: raised_nem
+  benchmark: AgentDojo, four environments, prompt-injection attacks
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_raised_dyc
+  defence_id: raised_nem
+  benchmark: AgentDyn, three suites, no attack
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_nem_raised_dya
+  defence_id: raised_nem
+  benchmark: AgentDyn, three suites, injections in third-party content
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn checkers
+  layout_same_as_defence: 'yes'
+  measured_by: raised_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+results:
+- id: r_gem_van_iab
+  evaluation_id: ev_gem_van_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_van_iae
+  evaluation_id: ev_gem_van_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '0.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_van_adu
+  evaluation_id: ev_gem_van_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '84.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_van_aduatk
+  evaluation_id: ev_gem_van_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '64.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_van_adasr
+  evaluation_id: ev_gem_van_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '39.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_van_dyu
+  evaluation_id: ev_gem_van_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '61.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_van_dyuatk
+  evaluation_id: ev_gem_van_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '55.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_van_dyasr
+  evaluation_id: ev_gem_van_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '53.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_sand_iab
+  evaluation_id: ev_gem_sand_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_sand_iae
+  evaluation_id: ev_gem_sand_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_sand_adu
+  evaluation_id: ev_gem_sand_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '83.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_sand_aduatk
+  evaluation_id: ev_gem_sand_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '64.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_sand_adasr
+  evaluation_id: ev_gem_sand_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '34.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_sand_dyu
+  evaluation_id: ev_gem_sand_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '60.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_sand_dyuatk
+  evaluation_id: ev_gem_sand_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '52.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_sand_dyasr
+  evaluation_id: ev_gem_sand_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '56.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_spot_iab
+  evaluation_id: ev_gem_spot_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '1.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_spot_iae
+  evaluation_id: ev_gem_spot_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_spot_adu
+  evaluation_id: ev_gem_spot_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '80.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_spot_aduatk
+  evaluation_id: ev_gem_spot_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '55.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_spot_adasr
+  evaluation_id: ev_gem_spot_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '43.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_spot_dyu
+  evaluation_id: ev_gem_spot_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '61.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_spot_dyuatk
+  evaluation_id: ev_gem_spot_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '55.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_spot_dyasr
+  evaluation_id: ev_gem_spot_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '54.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_gem_sapp_iab
+  evaluation_id: ev_gem_sapp_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.0 over three seeds
+- id: r_gem_sapp_iae
+  evaluation_id: ev_gem_sapp_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.0 over three seeds
+- id: r_gem_sapp_adu
+  evaluation_id: ev_gem_sapp_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '77.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 2.2 over three seeds
+- id: r_gem_sapp_aduatk
+  evaluation_id: ev_gem_sapp_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '74.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.7 over three seeds
+- id: r_gem_sapp_adasr
+  evaluation_id: ev_gem_sapp_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '1.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.2 over three seeds
+- id: r_gem_sapp_dyu
+  evaluation_id: ev_gem_sapp_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '45.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.8 over three seeds
+- id: r_gem_sapp_dyuatk
+  evaluation_id: ev_gem_sapp_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '46.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 1.4 over three seeds
+- id: r_gem_sapp_dyasr
+  evaluation_id: ev_gem_sapp_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.1 over three seeds
+- id: r_gem_raised_iab
+  evaluation_id: ev_gem_raised_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.0 over three seeds
+- id: r_gem_raised_iae
+  evaluation_id: ev_gem_raised_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.0 over three seeds
+- id: r_gem_raised_adu
+  evaluation_id: ev_gem_raised_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '83.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.8 over three seeds
+- id: r_gem_raised_aduatk
+  evaluation_id: ev_gem_raised_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '80.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.5 over three seeds
+- id: r_gem_raised_adasr
+  evaluation_id: ev_gem_raised_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.3 over three seeds
+- id: r_gem_raised_dyu
+  evaluation_id: ev_gem_raised_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '60.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 2.4 over three seeds
+- id: r_gem_raised_dyuatk
+  evaluation_id: ev_gem_raised_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '55.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.3 over three seeds
+- id: r_gem_raised_dyasr
+  evaluation_id: ev_gem_raised_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '1.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 1.8 over three seeds
+- id: r_nem_van_iab
+  evaluation_id: ev_nem_van_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '26.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_van_iae
+  evaluation_id: ev_nem_van_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '33.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_van_adu
+  evaluation_id: ev_nem_van_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '48.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_van_aduatk
+  evaluation_id: ev_nem_van_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '39.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_van_adasr
+  evaluation_id: ev_nem_van_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '11.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_van_dyu
+  evaluation_id: ev_nem_van_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '25.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_van_dyuatk
+  evaluation_id: ev_nem_van_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '19.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_van_dyasr
+  evaluation_id: ev_nem_van_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '17.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_sand_iab
+  evaluation_id: ev_nem_sand_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '7.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_sand_iae
+  evaluation_id: ev_nem_sand_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '8.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_sand_adu
+  evaluation_id: ev_nem_sand_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '44.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_sand_aduatk
+  evaluation_id: ev_nem_sand_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '39.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_sand_adasr
+  evaluation_id: ev_nem_sand_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '6.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_sand_dyu
+  evaluation_id: ev_nem_sand_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '25.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_sand_dyuatk
+  evaluation_id: ev_nem_sand_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '18.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_sand_dyasr
+  evaluation_id: ev_nem_sand_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '11.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_spot_iab
+  evaluation_id: ev_nem_spot_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '28.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_spot_iae
+  evaluation_id: ev_nem_spot_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '35.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_spot_adu
+  evaluation_id: ev_nem_spot_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '47.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_spot_aduatk
+  evaluation_id: ev_nem_spot_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '38.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_spot_adasr
+  evaluation_id: ev_nem_spot_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '11.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_spot_dyu
+  evaluation_id: ev_nem_spot_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '23.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_spot_dyuatk
+  evaluation_id: ev_nem_spot_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '20.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_spot_dyasr
+  evaluation_id: ev_nem_spot_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '17.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_nem_sapp_iab
+  evaluation_id: ev_nem_sapp_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '6.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.9 over three seeds
+- id: r_nem_sapp_iae
+  evaluation_id: ev_nem_sapp_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '8.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 1.4 over three seeds
+- id: r_nem_sapp_adu
+  evaluation_id: ev_nem_sapp_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '50.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 1.0 over three seeds
+- id: r_nem_sapp_aduatk
+  evaluation_id: ev_nem_sapp_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '47.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.7 over three seeds
+- id: r_nem_sapp_adasr
+  evaluation_id: ev_nem_sapp_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '4.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.7 over three seeds
+- id: r_nem_sapp_dyu
+  evaluation_id: ev_nem_sapp_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '22.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.8 over three seeds
+- id: r_nem_sapp_dyuatk
+  evaluation_id: ev_nem_sapp_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '20.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.5 over three seeds
+- id: r_nem_sapp_dyasr
+  evaluation_id: ev_nem_sapp_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '7.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.3 over three seeds
+- id: r_nem_raised_iab
+  evaluation_id: ev_nem_raised_iab
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Base)
+  value: '3.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.5 over three seeds
+- id: r_nem_raised_iae
+  evaluation_id: ev_nem_raised_iae
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR (Enhanced)
+  value: '1.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.6 over three seeds
+- id: r_nem_raised_adu
+  evaluation_id: ev_nem_raised_adc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo U
+  value: '50.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 1.3 over three seeds
+- id: r_nem_raised_aduatk
+  evaluation_id: ev_nem_raised_ada
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo Uatk
+  value: '46.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.6 over three seeds
+- id: r_nem_raised_adasr
+  evaluation_id: ev_nem_raised_ada
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.1 over three seeds
+- id: r_nem_raised_dyu
+  evaluation_id: ev_nem_raised_dyc
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn U
+  value: '25.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.0 over three seeds
+- id: r_nem_raised_dyuatk
+  evaluation_id: ev_nem_raised_dya
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDyn Uatk
+  value: '25.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 1.2 over three seeds
+- id: r_nem_raised_dyasr
+  evaluation_id: ev_nem_raised_dya
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '1.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: ± 0.6 over three seeds
+comparisons:
+- id: c_gem_sand_iab
+  left: ev_gem_sand_iab
+  right: ev_gem_van_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sand_iae
+  left: ev_gem_sand_iae
+  right: ev_gem_van_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sand_adc
+  left: ev_gem_sand_adc
+  right: ev_gem_van_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sand_ada
+  left: ev_gem_sand_ada
+  right: ev_gem_van_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sand_dyc
+  left: ev_gem_sand_dyc
+  right: ev_gem_van_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sand_dya
+  left: ev_gem_sand_dya
+  right: ev_gem_van_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_spot_iab
+  left: ev_gem_spot_iab
+  right: ev_gem_van_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_spot_iae
+  left: ev_gem_spot_iae
+  right: ev_gem_van_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_spot_adc
+  left: ev_gem_spot_adc
+  right: ev_gem_van_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_spot_ada
+  left: ev_gem_spot_ada
+  right: ev_gem_van_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_spot_dyc
+  left: ev_gem_spot_dyc
+  right: ev_gem_van_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_spot_dya
+  left: ev_gem_spot_dya
+  right: ev_gem_van_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sapp_iab
+  left: ev_gem_sapp_iab
+  right: ev_gem_van_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sapp_iae
+  left: ev_gem_sapp_iae
+  right: ev_gem_van_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sapp_adc
+  left: ev_gem_sapp_adc
+  right: ev_gem_van_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sapp_ada
+  left: ev_gem_sapp_ada
+  right: ev_gem_van_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sapp_dyc
+  left: ev_gem_sapp_dyc
+  right: ev_gem_van_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_sapp_dya
+  left: ev_gem_sapp_dya
+  right: ev_gem_van_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_iab
+  left: ev_gem_raised_iab
+  right: ev_gem_van_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_iae
+  left: ev_gem_raised_iae
+  right: ev_gem_van_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_adc
+  left: ev_gem_raised_adc
+  right: ev_gem_van_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_ada
+  left: ev_gem_raised_ada
+  right: ev_gem_van_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_dyc
+  left: ev_gem_raised_dyc
+  right: ev_gem_van_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_dya
+  left: ev_gem_raised_dya
+  right: ev_gem_van_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_sapp_iab
+  left: ev_gem_raised_iab
+  right: ev_gem_sapp_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_sapp_iae
+  left: ev_gem_raised_iae
+  right: ev_gem_sapp_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_sapp_adc
+  left: ev_gem_raised_adc
+  right: ev_gem_sapp_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_sapp_ada
+  left: ev_gem_raised_ada
+  right: ev_gem_sapp_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_sapp_dyc
+  left: ev_gem_raised_dyc
+  right: ev_gem_sapp_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_gem_raised_sapp_dya
+  left: ev_gem_raised_dya
+  right: ev_gem_sapp_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sand_iab
+  left: ev_nem_sand_iab
+  right: ev_nem_van_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sand_iae
+  left: ev_nem_sand_iae
+  right: ev_nem_van_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sand_adc
+  left: ev_nem_sand_adc
+  right: ev_nem_van_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sand_ada
+  left: ev_nem_sand_ada
+  right: ev_nem_van_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sand_dyc
+  left: ev_nem_sand_dyc
+  right: ev_nem_van_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sand_dya
+  left: ev_nem_sand_dya
+  right: ev_nem_van_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_spot_iab
+  left: ev_nem_spot_iab
+  right: ev_nem_van_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_spot_iae
+  left: ev_nem_spot_iae
+  right: ev_nem_van_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_spot_adc
+  left: ev_nem_spot_adc
+  right: ev_nem_van_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_spot_ada
+  left: ev_nem_spot_ada
+  right: ev_nem_van_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_spot_dyc
+  left: ev_nem_spot_dyc
+  right: ev_nem_van_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_spot_dya
+  left: ev_nem_spot_dya
+  right: ev_nem_van_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sapp_iab
+  left: ev_nem_sapp_iab
+  right: ev_nem_van_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sapp_iae
+  left: ev_nem_sapp_iae
+  right: ev_nem_van_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sapp_adc
+  left: ev_nem_sapp_adc
+  right: ev_nem_van_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sapp_ada
+  left: ev_nem_sapp_ada
+  right: ev_nem_van_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sapp_dyc
+  left: ev_nem_sapp_dyc
+  right: ev_nem_van_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_sapp_dya
+  left: ev_nem_sapp_dya
+  right: ev_nem_van_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_iab
+  left: ev_nem_raised_iab
+  right: ev_nem_van_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_iae
+  left: ev_nem_raised_iae
+  right: ev_nem_van_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_adc
+  left: ev_nem_raised_adc
+  right: ev_nem_van_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_ada
+  left: ev_nem_raised_ada
+  right: ev_nem_van_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_dyc
+  left: ev_nem_raised_dyc
+  right: ev_nem_van_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_dya
+  left: ev_nem_raised_dya
+  right: ev_nem_van_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_sapp_iab
+  left: ev_nem_raised_iab
+  right: ev_nem_sapp_iab
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_sapp_iae
+  left: ev_nem_raised_iae
+  right: ev_nem_sapp_iae
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_sapp_adc
+  left: ev_nem_raised_adc
+  right: ev_nem_sapp_adc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_sapp_ada
+  left: ev_nem_raised_ada
+  right: ev_nem_sapp_ada
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_sapp_dyc
+  left: ev_nem_raised_dyc
+  right: ev_nem_sapp_dyc
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_nem_raised_sapp_dya
+  left: ev_nem_raised_dya
+  right: ev_nem_sapp_dya
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: RAISED substantially reduces attack success while, unlike prior trained defences, preserving utility
+  location: abstract
+  anchor: substantially reduces the attack success rate of prompt in- jections in tool responses
+  jobs:
+  - R1
+  - R2
+  supported_by:
+  - c_gem_raised_iab
+  - c_gem_raised_iae
+  - c_gem_raised_adc
+  - c_gem_raised_ada
+  - c_gem_raised_dyc
+  - c_gem_raised_dya
+  - c_gem_raised_sapp_iab
+  - c_gem_raised_sapp_iae
+  - c_gem_raised_sapp_adc
+  - c_gem_raised_sapp_ada
+  - c_gem_raised_sapp_dyc
+  - c_gem_raised_sapp_dya
+  - c_nem_raised_iab
+  - c_nem_raised_iae
+  - c_nem_raised_adc
+  - c_nem_raised_ada
+  - c_nem_raised_dyc
+  - c_nem_raised_dya
+  - c_nem_raised_sapp_iab
+  - c_nem_raised_sapp_iae
+  - c_nem_raised_sapp_adc
+  - c_nem_raised_sapp_ada
+  - c_nem_raised_sapp_dyc
+  - c_nem_raised_sapp_dya
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1
+    R2clean: Table 1 (U)
+    R2attack: Table 1 (Uatk)
+schema_gaps:
+- where: defences raised_*
+  note: trains_carry_through is coded yes_exact_targets because the self-generated scenarios require acting on legitimate guidance in tool outputs and the targets are the frozen model's own clean-context predictions (pp. 1,
+    7)

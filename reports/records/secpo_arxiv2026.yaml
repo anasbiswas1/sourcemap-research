@@ -1,0 +1,4525 @@
+report:
+  id: secpo_arxiv2026
+  slug: '2610.41998'
+  title: 'SecPO: Principled Adversarial Training for Prompt Injection Security'
+  first_author: Sizhe Chen
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2610.41998'
+  version_read: arXiv v1
+  first_date: '2026-10-30'
+  read: F
+  role: proposes
+  code_release: code, training data and checkpoints released (Table 7)
+  extraction_scope: 'Section 4 and Appendix C.8: Tables 1 to 4 and Table 18; the abstract claims (Table 5, an image channel, Table 6, a re-run of SecOPD with this training set, Tables 8 and 17, Figure 1 and the DTaP subsets
+    of Section 4.3 not coded)'
+defences:
+- id: secpo_l
+  name: SecPO loss with online adversarial training (Llama-3.1-8B)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 2
+  components:
+  - 'SecPO loss: preferred response is the undefended model''s reply to the clean input, rejected is its reply to the injected instruction; the regulariser pulls the model on the injected input towards the undefended model
+    on the clean input'
+  - 'adversarial training: PAIR search (8 candidates, 30 rounds, best of 240) against the latest checkpoint for every training sample; attacker and judge are API models'
+  - 19,157 Cleaned-Alpaca preference pairs; LoRA (rank 64)
+  layout: 'Meta-SecAlign format: untrusted data in an added input role'
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: supported
+    system_context: untested
+    agent_tool_result: supported
+  anchor: We combine SecPO with adversarial training
+  pages:
+    components: 5
+    isolation: 10
+- id: secpo_q
+  name: SecPO loss with offline adversarial training (Qwen3.6-27B, reusing the injections optimised on Llama)
+  origin: this_report
+  base_checkpoint: Qwen3.6-27B (thinking off)
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  components:
+  - 'SecPO loss: preferred response is the undefended model''s reply to the clean input, rejected is its reply to the injected instruction; the regulariser pulls the model on the injected input towards the undefended model
+    on the clean input'
+  - 'offline AT: the optimised injections saved from the Llama run, no new search'
+  - 19,157 Cleaned-Alpaca preference pairs; LoRA (rank 64)
+  layout: 'Meta-SecAlign format: untrusted data in an added input role'
+  layout_compat: *id001
+  anchor: Following Meta-SecAlign [9], we build our security preference dataset
+  pages:
+    isolation: 10
+- id: msa_l
+  name: Meta-SecAlign recipe (DPO, no adversarial training) trained by the authors
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  layout: 'Meta-SecAlign format: untrusted data in an added input role'
+  anchor: We first fine-tune
+- id: atdpo_l
+  name: adversarial training with the DPO loss (ablation)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 10
+  layout: 'Meta-SecAlign format: untrusted data in an added input role'
+  anchor: SecPO loss and AT are both important
+- id: msa_q
+  name: Meta-SecAlign recipe (DPO, no adversarial training) trained by the authors
+  origin: other_report
+  base_checkpoint: Qwen3.6-27B (thinking off)
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 8
+  layout: 'Meta-SecAlign format: untrusted data in an added input role'
+  anchor: We first fine-tune
+- id: atdpo_q
+  name: adversarial training with the DPO loss (ablation)
+  origin: this_report
+  base_checkpoint: Qwen3.6-27B (thinking off)
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 10
+  layout: 'Meta-SecAlign format: untrusted data in an added input role'
+  anchor: SecPO loss and AT are both important
+- id: secponoat_l
+  name: SecPO loss with static simulated injections, no adversarial training (ablation)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 27
+  layout: 'Meta-SecAlign format: untrusted data in an added input role'
+  anchor: White-box attack success rates (ASR
+evaluations:
+- id: ev_l_none_mmlupro
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_none_gpqa
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_none_gsm8k
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_none_minerva
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: normalised answer checker
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_none_alpaca
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AlpacaEval2 (805 instructions, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (GPT-4o-2024-05-13 references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '805'
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_none_seputil
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: SEP (9,160 examples, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (Meta-Llama-3-8B-Instruct references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_none_sepasr
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: SEP, six static injection templates around the data (any success counts)
+  attacker_type: static
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_none_sepgen
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: SEP, Genetic search attack (island GA with MAP-Elites)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_none_septap
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: SEP, TAP search attack
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_none_seppis
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: SEP, PISmith RL attacker trained against each checkpoint on PIArena Dolly Closed-QA
+  attacker_type: rl
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: 10 sampled injections per example (pass@10)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_l_msa_mmlupro
+  defence_id: msa_l
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_msa_gpqa
+  defence_id: msa_l
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_msa_gsm8k
+  defence_id: msa_l
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_msa_minerva
+  defence_id: msa_l
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: normalised answer checker
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_msa_alpaca
+  defence_id: msa_l
+  benchmark: AlpacaEval2 (805 instructions, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (GPT-4o-2024-05-13 references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '805'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_msa_seputil
+  defence_id: msa_l
+  benchmark: SEP (9,160 examples, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (Meta-Llama-3-8B-Instruct references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_msa_sepasr
+  defence_id: msa_l
+  benchmark: SEP, six static injection templates around the data (any success counts)
+  attacker_type: static
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_msa_sepgen
+  defence_id: msa_l
+  benchmark: SEP, Genetic search attack (island GA with MAP-Elites)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_msa_septap
+  defence_id: msa_l
+  benchmark: SEP, TAP search attack
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_msa_seppis
+  defence_id: msa_l
+  benchmark: SEP, PISmith RL attacker trained against each checkpoint on PIArena Dolly Closed-QA
+  attacker_type: rl
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: 10 sampled injections per example (pass@10)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_mmlupro
+  defence_id: secpo_l
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_gpqa
+  defence_id: secpo_l
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_gsm8k
+  defence_id: secpo_l
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_minerva
+  defence_id: secpo_l
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: normalised answer checker
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_alpaca
+  defence_id: secpo_l
+  benchmark: AlpacaEval2 (805 instructions, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (GPT-4o-2024-05-13 references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '805'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_seputil
+  defence_id: secpo_l
+  benchmark: SEP (9,160 examples, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (Meta-Llama-3-8B-Instruct references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_sepasr
+  defence_id: secpo_l
+  benchmark: SEP, six static injection templates around the data (any success counts)
+  attacker_type: static
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_sepgen
+  defence_id: secpo_l
+  benchmark: SEP, Genetic search attack (island GA with MAP-Elites)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_septap
+  defence_id: secpo_l
+  benchmark: SEP, TAP search attack
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_secpo_seppis
+  defence_id: secpo_l
+  benchmark: SEP, PISmith RL attacker trained against each checkpoint on PIArena Dolly Closed-QA
+  attacker_type: rl
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: 10 sampled injections per example (pass@10)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_none_mmlupro
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_gpqa
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_gsm8k
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_minerva
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: normalised answer checker
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_alpaca
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: AlpacaEval2 (805 instructions, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (GPT-4o-2024-05-13 references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '805'
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_seputil
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: SEP (9,160 examples, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (Meta-Llama-3-8B-Instruct references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_adutil
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: AgentDojo, 97 user tasks, no injection (repeat-user-prompt defence on every arm)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '97'
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_dynutil
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: AgentDyn, 60 benign tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '60'
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_dtaputil
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: DTaP-Bench-Indirect, 1,838 samples (Qwen-Agent harness)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DTaP task check under attack
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 1,838
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_sepasr
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: SEP, six static injection templates around the data (any success counts)
+  attacker_type: static
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_sepgen
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: SEP, Genetic search attack (island GA with MAP-Elites)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_septap
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: SEP, TAP search attack
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_seppis
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: SEP, PISmith RL attacker trained against each checkpoint on PIArena Dolly Closed-QA
+  attacker_type: rl
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: 10 sampled injections per example (pass@10)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_adasr
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: AgentDojo, important_instructions, 949 pairs (repeat-user-prompt defence on every arm)
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '949'
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_adgen
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: AgentDojo, Genetic search attack (Attacker Moves Second protocol, Gemini-2.5-Pro attacker), 80-example subset
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 attempts per task (ASR@800)
+  sample_size: '80'
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_dynasr
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: AgentDyn, 560 static injected cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn security check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '560'
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_none_dtapasr
+  defence_id: none:Qwen3.6-27B (thinking off)
+  benchmark: DTaP-Bench-Indirect, 1,838 samples (Qwen-Agent harness)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DTaP attack check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 1,838
+  decoding: not reported
+  pages:
+    benchmark: 7
+  baseline_kind: off_the_shelf
+- id: ev_q_msa_mmlupro
+  defence_id: msa_q
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_gpqa
+  defence_id: msa_q
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_gsm8k
+  defence_id: msa_q
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_minerva
+  defence_id: msa_q
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: normalised answer checker
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_alpaca
+  defence_id: msa_q
+  benchmark: AlpacaEval2 (805 instructions, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (GPT-4o-2024-05-13 references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '805'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_seputil
+  defence_id: msa_q
+  benchmark: SEP (9,160 examples, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (Meta-Llama-3-8B-Instruct references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_msa_adutil
+  defence_id: msa_q
+  benchmark: AgentDojo, 97 user tasks, no injection (repeat-user-prompt defence on every arm)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '97'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_dynutil
+  defence_id: msa_q
+  benchmark: AgentDyn, 60 benign tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '60'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_dtaputil
+  defence_id: msa_q
+  benchmark: DTaP-Bench-Indirect, 1,838 samples (Qwen-Agent harness)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DTaP task check under attack
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 1,838
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_sepasr
+  defence_id: msa_q
+  benchmark: SEP, six static injection templates around the data (any success counts)
+  attacker_type: static
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_msa_sepgen
+  defence_id: msa_q
+  benchmark: SEP, Genetic search attack (island GA with MAP-Elites)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_msa_septap
+  defence_id: msa_q
+  benchmark: SEP, TAP search attack
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_msa_seppis
+  defence_id: msa_q
+  benchmark: SEP, PISmith RL attacker trained against each checkpoint on PIArena Dolly Closed-QA
+  attacker_type: rl
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: 10 sampled injections per example (pass@10)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_msa_adasr
+  defence_id: msa_q
+  benchmark: AgentDojo, important_instructions, 949 pairs (repeat-user-prompt defence on every arm)
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '949'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_adgen
+  defence_id: msa_q
+  benchmark: AgentDojo, Genetic search attack (Attacker Moves Second protocol, Gemini-2.5-Pro attacker), 80-example subset
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 attempts per task (ASR@800)
+  sample_size: '80'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_dynasr
+  defence_id: msa_q
+  benchmark: AgentDyn, 560 static injected cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn security check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '560'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_msa_dtapasr
+  defence_id: msa_q
+  benchmark: DTaP-Bench-Indirect, 1,838 samples (Qwen-Agent harness)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DTaP attack check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 1,838
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_mmlupro
+  defence_id: secpo_q
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_gpqa
+  defence_id: secpo_q
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_gsm8k
+  defence_id: secpo_q
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_minerva
+  defence_id: secpo_q
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: normalised answer checker
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_alpaca
+  defence_id: secpo_q
+  benchmark: AlpacaEval2 (805 instructions, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (GPT-4o-2024-05-13 references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '805'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_seputil
+  defence_id: secpo_q
+  benchmark: SEP (9,160 examples, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (Meta-Llama-3-8B-Instruct references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_adutil
+  defence_id: secpo_q
+  benchmark: AgentDojo, 97 user tasks, no injection (repeat-user-prompt defence on every arm)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDojo user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '97'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_dynutil
+  defence_id: secpo_q
+  benchmark: AgentDyn, 60 benign tasks
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: AgentDyn user-task check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '60'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_dtaputil
+  defence_id: secpo_q
+  benchmark: DTaP-Bench-Indirect, 1,838 samples (Qwen-Agent harness)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DTaP task check under attack
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 1,838
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_sepasr
+  defence_id: secpo_q
+  benchmark: SEP, six static injection templates around the data (any success counts)
+  attacker_type: static
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_sepgen
+  defence_id: secpo_q
+  benchmark: SEP, Genetic search attack (island GA with MAP-Elites)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_septap
+  defence_id: secpo_q
+  benchmark: SEP, TAP search attack
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_seppis
+  defence_id: secpo_q
+  benchmark: SEP, PISmith RL attacker trained against each checkpoint on PIArena Dolly Closed-QA
+  attacker_type: rl
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: 10 sampled injections per example (pass@10)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_adasr
+  defence_id: secpo_q
+  benchmark: AgentDojo, important_instructions, 949 pairs (repeat-user-prompt defence on every arm)
+  attacker_type: static
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '949'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_adgen
+  defence_id: secpo_q
+  benchmark: AgentDojo, Genetic search attack (Attacker Moves Second protocol, Gemini-2.5-Pro attacker), 80-example subset
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: malicious tool called
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  attacker_budget: up to 800 attempts per task (ASR@800)
+  sample_size: '80'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_dynasr
+  defence_id: secpo_q
+  benchmark: AgentDyn, 560 static injected cases
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDyn security check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: '560'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_secpo_dtapasr
+  defence_id: secpo_q
+  benchmark: DTaP-Bench-Indirect, 1,838 samples (Qwen-Agent harness)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DTaP attack check
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 8
+  sample_size: 1,838
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_atdpo_mmlupro
+  defence_id: atdpo_l
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_atdpo_gpqa
+  defence_id: atdpo_l
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_atdpo_gsm8k
+  defence_id: atdpo_l
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_atdpo_minerva
+  defence_id: atdpo_l
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: normalised answer checker
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_atdpo_alpaca
+  defence_id: atdpo_l
+  benchmark: AlpacaEval2 (805 instructions, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (GPT-4o-2024-05-13 references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  sample_size: '805'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_l_atdpo_seputil
+  defence_id: atdpo_l
+  benchmark: SEP (9,160 examples, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (Meta-Llama-3-8B-Instruct references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_atdpo_sepgen
+  defence_id: atdpo_l
+  benchmark: SEP, Genetic search attack (island GA with MAP-Elites)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_atdpo_septap
+  defence_id: atdpo_l
+  benchmark: SEP, TAP search attack
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_atdpo_seppis
+  defence_id: atdpo_l
+  benchmark: SEP, PISmith RL attacker trained against each checkpoint on PIArena Dolly Closed-QA
+  attacker_type: rl
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  attacker_budget: 10 sampled injections per example (pass@10)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_atdpo_mmlupro
+  defence_id: atdpo_q
+  benchmark: MMLU-Pro
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_atdpo_gpqa
+  defence_id: atdpo_q
+  benchmark: GPQA Diamond
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_atdpo_gsm8k
+  defence_id: atdpo_q
+  benchmark: GSM8K
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer checked against the reference
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_atdpo_minerva
+  defence_id: atdpo_q
+  benchmark: Minerva Math
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: normalised answer checker
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_atdpo_alpaca
+  defence_id: atdpo_q
+  benchmark: AlpacaEval2 (805 instructions, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (GPT-4o-2024-05-13 references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  sample_size: '805'
+  decoding: not reported
+  pages:
+    benchmark: 7
+- id: ev_q_atdpo_seputil
+  defence_id: atdpo_q
+  benchmark: SEP (9,160 examples, no injection)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: Claude-Opus-4.8 compares each response with a fixed reference (Meta-Llama-3-8B-Instruct references)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  sample_size: 9,160
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_atdpo_sepgen
+  defence_id: atdpo_q
+  benchmark: SEP, Genetic search attack (island GA with MAP-Elites)
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_atdpo_septap
+  defence_id: atdpo_q
+  benchmark: SEP, TAP search attack
+  attacker_type: adaptive
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  attacker_budget: up to 800 candidates per sample (Pass@800)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_q_atdpo_seppis
+  defence_id: atdpo_q
+  benchmark: SEP, PISmith RL attacker trained against each checkpoint on PIArena Dolly Closed-QA
+  attacker_type: rl
+  attacker_access: black_box
+  judge: nine verification calls to three LLM judges (Gemini-3.1-Flash-Lite-Preview, Gemini-3-Flash-Preview, GPT-5); success only if all nine confirm
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 10
+  attacker_budget: 10 sampled injections per example (pass@10)
+  sample_size: 1,024
+  decoding: greedy
+  pages:
+    benchmark: 7
+- id: ev_l_none_basic
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: Basic Adaptive white-box attack (delimiter-based, needs embedding access) (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l_msa_basic
+  defence_id: msa_l
+  benchmark: Basic Adaptive white-box attack (delimiter-based, needs embedding access) (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+- id: ev_l_secponoat_basic
+  defence_id: secponoat_l
+  benchmark: Basic Adaptive white-box attack (delimiter-based, needs embedding access) (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+- id: ev_l_atdpo_basic
+  defence_id: atdpo_l
+  benchmark: Basic Adaptive white-box attack (delimiter-based, needs embedding access) (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+- id: ev_l_secpo_basic
+  defence_id: secpo_l
+  benchmark: Basic Adaptive white-box attack (delimiter-based, needs embedding access) (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+- id: ev_l_none_gcg
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: GCG white-box suffix attack (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+  baseline_kind: off_the_shelf
+- id: ev_l_msa_gcg
+  defence_id: msa_l
+  benchmark: GCG white-box suffix attack (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+- id: ev_l_secponoat_gcg
+  defence_id: secponoat_l
+  benchmark: GCG white-box suffix attack (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+- id: ev_l_atdpo_gcg
+  defence_id: atdpo_l
+  benchmark: GCG white-box suffix attack (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+- id: ev_l_secpo_gcg
+  defence_id: secpo_l
+  benchmark: GCG white-box suffix attack (benchmark samples not stated)
+  attacker_type: optimisation
+  attacker_access: white_box
+  judge: attack success (judge not restated)
+  layout_same_as_defence: 'yes'
+  measured_by: secpo_arxiv2026
+  page: 27
+  decoding: not reported
+results:
+- id: r_l_none_mmlupro
+  evaluation_id: ev_l_none_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro accuracy
+  value: '46.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_none_gpqa
+  evaluation_id: ev_l_none_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond accuracy
+  value: '23.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_none_gsm8k
+  evaluation_id: ev_l_none_gsm8k
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K accuracy
+  value: '82.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_none_minerva
+  evaluation_id: ev_l_none_minerva
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math accuracy
+  value: '49.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_none_alpaca
+  evaluation_id: ev_l_none_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 accuracy
+  value: '23.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_none_seputil
+  evaluation_id: ev_l_none_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '55.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_none_sepasr
+  evaluation_id: ev_l_none_sepasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '98.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_none_sepgen
+  evaluation_id: ev_l_none_sepgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_none_septap
+  evaluation_id: ev_l_none_septap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_none_seppis
+  evaluation_id: ev_l_none_seppis
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '98.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_mmlupro
+  evaluation_id: ev_l_msa_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro accuracy
+  value: '46.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_gpqa
+  evaluation_id: ev_l_msa_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond accuracy
+  value: '24.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_gsm8k
+  evaluation_id: ev_l_msa_gsm8k
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K accuracy
+  value: '84.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_minerva
+  evaluation_id: ev_l_msa_minerva
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math accuracy
+  value: '48.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_alpaca
+  evaluation_id: ev_l_msa_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 accuracy
+  value: '24.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_seputil
+  evaluation_id: ev_l_msa_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '55.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_sepasr
+  evaluation_id: ev_l_msa_sepasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '1.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_sepgen
+  evaluation_id: ev_l_msa_sepgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '89.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_septap
+  evaluation_id: ev_l_msa_septap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '84.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_msa_seppis
+  evaluation_id: ev_l_msa_seppis
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '95.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_mmlupro
+  evaluation_id: ev_l_secpo_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro accuracy
+  value: '46.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_gpqa
+  evaluation_id: ev_l_secpo_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond accuracy
+  value: '24.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_gsm8k
+  evaluation_id: ev_l_secpo_gsm8k
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K accuracy
+  value: '81.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_minerva
+  evaluation_id: ev_l_secpo_minerva
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math accuracy
+  value: '50.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_alpaca
+  evaluation_id: ev_l_secpo_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 accuracy
+  value: '23.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_seputil
+  evaluation_id: ev_l_secpo_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '59.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_sepasr
+  evaluation_id: ev_l_secpo_sepasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '1.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_sepgen
+  evaluation_id: ev_l_secpo_sepgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '12.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_septap
+  evaluation_id: ev_l_secpo_septap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '12.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_l_secpo_seppis
+  evaluation_id: ev_l_secpo_seppis
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '7.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+- id: r_q_none_mmlupro
+  evaluation_id: ev_q_none_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro accuracy
+  value: '84.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_gpqa
+  evaluation_id: ev_q_none_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond accuracy
+  value: '81.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_gsm8k
+  evaluation_id: ev_q_none_gsm8k
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K accuracy
+  value: '97.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_minerva
+  evaluation_id: ev_q_none_minerva
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math accuracy
+  value: '96.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_alpaca
+  evaluation_id: ev_q_none_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 accuracy
+  value: '80.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_seputil
+  evaluation_id: ev_q_none_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '93.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_adutil
+  evaluation_id: ev_q_none_adutil
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo utility
+  value: '89.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_dynutil
+  evaluation_id: ev_q_none_dynutil
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn utility
+  value: '71.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_dtaputil
+  evaluation_id: ev_q_none_dtaputil
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: DTaP-Bench-Indirect utility
+  value: '65.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_sepasr
+  evaluation_id: ev_q_none_sepasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '98.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_sepgen
+  evaluation_id: ev_q_none_sepgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_septap
+  evaluation_id: ev_q_none_septap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_seppis
+  evaluation_id: ev_q_none_seppis
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '98.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_adasr
+  evaluation_id: ev_q_none_adasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '26.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_adgen
+  evaluation_id: ev_q_none_adgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '81.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_dynasr
+  evaluation_id: ev_q_none_dynasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '22.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_none_dtapasr
+  evaluation_id: ev_q_none_dtapasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: DTaP-Bench-Indirect ASR
+  value: '50.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_mmlupro
+  evaluation_id: ev_q_msa_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro accuracy
+  value: '83.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_gpqa
+  evaluation_id: ev_q_msa_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond accuracy
+  value: '79.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_gsm8k
+  evaluation_id: ev_q_msa_gsm8k
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K accuracy
+  value: '97.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_minerva
+  evaluation_id: ev_q_msa_minerva
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math accuracy
+  value: '94.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_alpaca
+  evaluation_id: ev_q_msa_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 accuracy
+  value: '81.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_seputil
+  evaluation_id: ev_q_msa_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '93.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_adutil
+  evaluation_id: ev_q_msa_adutil
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo utility
+  value: '87.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_dynutil
+  evaluation_id: ev_q_msa_dynutil
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn utility
+  value: '76.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_dtaputil
+  evaluation_id: ev_q_msa_dtaputil
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: DTaP-Bench-Indirect utility
+  value: '70.0'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_sepasr
+  evaluation_id: ev_q_msa_sepasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '2.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_sepgen
+  evaluation_id: ev_q_msa_sepgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '93.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_septap
+  evaluation_id: ev_q_msa_septap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '90.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_seppis
+  evaluation_id: ev_q_msa_seppis
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '94.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_adasr
+  evaluation_id: ev_q_msa_adasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '2.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_adgen
+  evaluation_id: ev_q_msa_adgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '78.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_dynasr
+  evaluation_id: ev_q_msa_dynasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '4.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_msa_dtapasr
+  evaluation_id: ev_q_msa_dtapasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: DTaP-Bench-Indirect ASR
+  value: '45.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_mmlupro
+  evaluation_id: ev_q_secpo_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro accuracy
+  value: '84.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_gpqa
+  evaluation_id: ev_q_secpo_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond accuracy
+  value: '80.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_gsm8k
+  evaluation_id: ev_q_secpo_gsm8k
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K accuracy
+  value: '96.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_minerva
+  evaluation_id: ev_q_secpo_minerva
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math accuracy
+  value: '95.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_alpaca
+  evaluation_id: ev_q_secpo_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 accuracy
+  value: '82.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_seputil
+  evaluation_id: ev_q_secpo_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '94.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_adutil
+  evaluation_id: ev_q_secpo_adutil
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDojo utility
+  value: '90.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_dynutil
+  evaluation_id: ev_q_secpo_dynutil
+  quantity: R2clean
+  coverage: direct
+  metric_as_printed: AgentDyn utility
+  value: '71.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_dtaputil
+  evaluation_id: ev_q_secpo_dtaputil
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: DTaP-Bench-Indirect utility
+  value: '74.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_sepasr
+  evaluation_id: ev_q_secpo_sepasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '1.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_sepgen
+  evaluation_id: ev_q_secpo_sepgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '13.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_septap
+  evaluation_id: ev_q_secpo_septap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '12.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_seppis
+  evaluation_id: ev_q_secpo_seppis
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '1.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_adasr
+  evaluation_id: ev_q_secpo_adasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_adgen
+  evaluation_id: ev_q_secpo_adgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '8.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_dynasr
+  evaluation_id: ev_q_secpo_dynasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDyn ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_q_secpo_dtapasr
+  evaluation_id: ev_q_secpo_dtapasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: DTaP-Bench-Indirect ASR
+  value: '7.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+- id: r_l_atdpo_mmlupro
+  evaluation_id: ev_l_atdpo_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro accuracy
+  value: '46.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_l_atdpo_gpqa
+  evaluation_id: ev_l_atdpo_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond accuracy
+  value: '27.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_l_atdpo_gsm8k
+  evaluation_id: ev_l_atdpo_gsm8k
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K accuracy
+  value: '82.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_l_atdpo_minerva
+  evaluation_id: ev_l_atdpo_minerva
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math accuracy
+  value: '50.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_l_atdpo_alpaca
+  evaluation_id: ev_l_atdpo_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 accuracy
+  value: '19.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_l_atdpo_seputil
+  evaluation_id: ev_l_atdpo_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '56.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_l_atdpo_sepgen
+  evaluation_id: ev_l_atdpo_sepgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '29.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_l_atdpo_septap
+  evaluation_id: ev_l_atdpo_septap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '31.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_l_atdpo_seppis
+  evaluation_id: ev_l_atdpo_seppis
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '23.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+- id: r_q_atdpo_mmlupro
+  evaluation_id: ev_q_atdpo_mmlupro
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MMLU-Pro accuracy
+  value: '84.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 4
+- id: r_q_atdpo_gpqa
+  evaluation_id: ev_q_atdpo_gpqa
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GPQA Diamond accuracy
+  value: '77.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 4
+- id: r_q_atdpo_gsm8k
+  evaluation_id: ev_q_atdpo_gsm8k
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: GSM8K accuracy
+  value: '96.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 4
+- id: r_q_atdpo_minerva
+  evaluation_id: ev_q_atdpo_minerva
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Minerva Math accuracy
+  value: '95.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 4
+- id: r_q_atdpo_alpaca
+  evaluation_id: ev_q_atdpo_alpaca
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: AlpacaEval2 accuracy
+  value: '81.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 4
+- id: r_q_atdpo_seputil
+  evaluation_id: ev_q_atdpo_seputil
+  quantity: R2clean
+  coverage: proxy
+  metric_as_printed: SEP utility
+  value: '94.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 4
+- id: r_q_atdpo_sepgen
+  evaluation_id: ev_q_atdpo_sepgen
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '60.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 4
+- id: r_q_atdpo_septap
+  evaluation_id: ev_q_atdpo_septap
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '46.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 4
+- id: r_q_atdpo_seppis
+  evaluation_id: ev_q_atdpo_seppis
+  quantity: R1
+  coverage: direct
+  metric_as_printed: SEP ASR
+  value: '6.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 4
+- id: r_l_none_basic
+  evaluation_id: ev_l_none_basic
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Basic Adaptive white-box attack (delimiter-based, needs embedding access)
+  value: '97.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+- id: r_l_msa_basic
+  evaluation_id: ev_l_msa_basic
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Basic Adaptive white-box attack (delimiter-based, needs embedding access)
+  value: '33.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+- id: r_l_secponoat_basic
+  evaluation_id: ev_l_secponoat_basic
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Basic Adaptive white-box attack (delimiter-based, needs embedding access)
+  value: '6.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+- id: r_l_atdpo_basic
+  evaluation_id: ev_l_atdpo_basic
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Basic Adaptive white-box attack (delimiter-based, needs embedding access)
+  value: '9.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+- id: r_l_secpo_basic
+  evaluation_id: ev_l_secpo_basic
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, Basic Adaptive white-box attack (delimiter-based, needs embedding access)
+  value: '10.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+- id: r_l_none_gcg
+  evaluation_id: ev_l_none_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG white-box suffix attack
+  value: '87.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+- id: r_l_msa_gcg
+  evaluation_id: ev_l_msa_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG white-box suffix attack
+  value: '20.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+- id: r_l_secponoat_gcg
+  evaluation_id: ev_l_secponoat_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG white-box suffix attack
+  value: '15.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+- id: r_l_atdpo_gcg
+  evaluation_id: ev_l_atdpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG white-box suffix attack
+  value: '8.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+- id: r_l_secpo_gcg
+  evaluation_id: ev_l_secpo_gcg
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASR, GCG white-box suffix attack
+  value: '5.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 27
+  location: Table 18
+comparisons:
+- id: c_l_mmlupro_secpo_none
+  left: ev_l_secpo_mmlupro
+  right: ev_l_none_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_mmlupro_msa_none
+  left: ev_l_msa_mmlupro
+  right: ev_l_none_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_mmlupro_secpo_msa
+  left: ev_l_secpo_mmlupro
+  right: ev_l_msa_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_gpqa_secpo_none
+  left: ev_l_secpo_gpqa
+  right: ev_l_none_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_gpqa_msa_none
+  left: ev_l_msa_gpqa
+  right: ev_l_none_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_gpqa_secpo_msa
+  left: ev_l_secpo_gpqa
+  right: ev_l_msa_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_gsm8k_secpo_none
+  left: ev_l_secpo_gsm8k
+  right: ev_l_none_gsm8k
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_gsm8k_msa_none
+  left: ev_l_msa_gsm8k
+  right: ev_l_none_gsm8k
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_gsm8k_secpo_msa
+  left: ev_l_secpo_gsm8k
+  right: ev_l_msa_gsm8k
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_minerva_secpo_none
+  left: ev_l_secpo_minerva
+  right: ev_l_none_minerva
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_minerva_msa_none
+  left: ev_l_msa_minerva
+  right: ev_l_none_minerva
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_minerva_secpo_msa
+  left: ev_l_secpo_minerva
+  right: ev_l_msa_minerva
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_alpaca_secpo_none
+  left: ev_l_secpo_alpaca
+  right: ev_l_none_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_alpaca_msa_none
+  left: ev_l_msa_alpaca
+  right: ev_l_none_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_alpaca_secpo_msa
+  left: ev_l_secpo_alpaca
+  right: ev_l_msa_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_seputil_secpo_none
+  left: ev_l_secpo_seputil
+  right: ev_l_none_seputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_seputil_msa_none
+  left: ev_l_msa_seputil
+  right: ev_l_none_seputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_seputil_secpo_msa
+  left: ev_l_secpo_seputil
+  right: ev_l_msa_seputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_sepasr_secpo_none
+  left: ev_l_secpo_sepasr
+  right: ev_l_none_sepasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_sepasr_msa_none
+  left: ev_l_msa_sepasr
+  right: ev_l_none_sepasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_sepasr_secpo_msa
+  left: ev_l_secpo_sepasr
+  right: ev_l_msa_sepasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_sepgen_secpo_none
+  left: ev_l_secpo_sepgen
+  right: ev_l_none_sepgen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_sepgen_msa_none
+  left: ev_l_msa_sepgen
+  right: ev_l_none_sepgen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_sepgen_secpo_msa
+  left: ev_l_secpo_sepgen
+  right: ev_l_msa_sepgen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_septap_secpo_none
+  left: ev_l_secpo_septap
+  right: ev_l_none_septap
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_septap_msa_none
+  left: ev_l_msa_septap
+  right: ev_l_none_septap
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_septap_secpo_msa
+  left: ev_l_secpo_septap
+  right: ev_l_msa_septap
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_seppis_secpo_none
+  left: ev_l_secpo_seppis
+  right: ev_l_none_seppis
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_seppis_msa_none
+  left: ev_l_msa_seppis
+  right: ev_l_none_seppis
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l_seppis_secpo_msa
+  left: ev_l_secpo_seppis
+  right: ev_l_msa_seppis
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_mmlupro_secpo_none
+  left: ev_q_secpo_mmlupro
+  right: ev_q_none_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_mmlupro_msa_none
+  left: ev_q_msa_mmlupro
+  right: ev_q_none_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_mmlupro_secpo_msa
+  left: ev_q_secpo_mmlupro
+  right: ev_q_msa_mmlupro
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_gpqa_secpo_none
+  left: ev_q_secpo_gpqa
+  right: ev_q_none_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_gpqa_msa_none
+  left: ev_q_msa_gpqa
+  right: ev_q_none_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_gpqa_secpo_msa
+  left: ev_q_secpo_gpqa
+  right: ev_q_msa_gpqa
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_gsm8k_secpo_none
+  left: ev_q_secpo_gsm8k
+  right: ev_q_none_gsm8k
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_gsm8k_msa_none
+  left: ev_q_msa_gsm8k
+  right: ev_q_none_gsm8k
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_gsm8k_secpo_msa
+  left: ev_q_secpo_gsm8k
+  right: ev_q_msa_gsm8k
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_minerva_secpo_none
+  left: ev_q_secpo_minerva
+  right: ev_q_none_minerva
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_minerva_msa_none
+  left: ev_q_msa_minerva
+  right: ev_q_none_minerva
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_minerva_secpo_msa
+  left: ev_q_secpo_minerva
+  right: ev_q_msa_minerva
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_alpaca_secpo_none
+  left: ev_q_secpo_alpaca
+  right: ev_q_none_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_alpaca_msa_none
+  left: ev_q_msa_alpaca
+  right: ev_q_none_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_alpaca_secpo_msa
+  left: ev_q_secpo_alpaca
+  right: ev_q_msa_alpaca
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_seputil_secpo_none
+  left: ev_q_secpo_seputil
+  right: ev_q_none_seputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_seputil_msa_none
+  left: ev_q_msa_seputil
+  right: ev_q_none_seputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_seputil_secpo_msa
+  left: ev_q_secpo_seputil
+  right: ev_q_msa_seputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_adutil_secpo_none
+  left: ev_q_secpo_adutil
+  right: ev_q_none_adutil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_adutil_msa_none
+  left: ev_q_msa_adutil
+  right: ev_q_none_adutil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_adutil_secpo_msa
+  left: ev_q_secpo_adutil
+  right: ev_q_msa_adutil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_dynutil_secpo_none
+  left: ev_q_secpo_dynutil
+  right: ev_q_none_dynutil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_dynutil_msa_none
+  left: ev_q_msa_dynutil
+  right: ev_q_none_dynutil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_dynutil_secpo_msa
+  left: ev_q_secpo_dynutil
+  right: ev_q_msa_dynutil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_dtaputil_secpo_none
+  left: ev_q_secpo_dtaputil
+  right: ev_q_none_dtaputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_dtaputil_msa_none
+  left: ev_q_msa_dtaputil
+  right: ev_q_none_dtaputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_dtaputil_secpo_msa
+  left: ev_q_secpo_dtaputil
+  right: ev_q_msa_dtaputil
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_sepasr_secpo_none
+  left: ev_q_secpo_sepasr
+  right: ev_q_none_sepasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_sepasr_msa_none
+  left: ev_q_msa_sepasr
+  right: ev_q_none_sepasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_sepasr_secpo_msa
+  left: ev_q_secpo_sepasr
+  right: ev_q_msa_sepasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_sepgen_secpo_none
+  left: ev_q_secpo_sepgen
+  right: ev_q_none_sepgen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_sepgen_msa_none
+  left: ev_q_msa_sepgen
+  right: ev_q_none_sepgen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_sepgen_secpo_msa
+  left: ev_q_secpo_sepgen
+  right: ev_q_msa_sepgen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_septap_secpo_none
+  left: ev_q_secpo_septap
+  right: ev_q_none_septap
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_septap_msa_none
+  left: ev_q_msa_septap
+  right: ev_q_none_septap
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_septap_secpo_msa
+  left: ev_q_secpo_septap
+  right: ev_q_msa_septap
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_seppis_secpo_none
+  left: ev_q_secpo_seppis
+  right: ev_q_none_seppis
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_seppis_msa_none
+  left: ev_q_msa_seppis
+  right: ev_q_none_seppis
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_seppis_secpo_msa
+  left: ev_q_secpo_seppis
+  right: ev_q_msa_seppis
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_adasr_secpo_none
+  left: ev_q_secpo_adasr
+  right: ev_q_none_adasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_adasr_msa_none
+  left: ev_q_msa_adasr
+  right: ev_q_none_adasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_adasr_secpo_msa
+  left: ev_q_secpo_adasr
+  right: ev_q_msa_adasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_adgen_secpo_none
+  left: ev_q_secpo_adgen
+  right: ev_q_none_adgen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_adgen_msa_none
+  left: ev_q_msa_adgen
+  right: ev_q_none_adgen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_adgen_secpo_msa
+  left: ev_q_secpo_adgen
+  right: ev_q_msa_adgen
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_dynasr_secpo_none
+  left: ev_q_secpo_dynasr
+  right: ev_q_none_dynasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_dynasr_msa_none
+  left: ev_q_msa_dynasr
+  right: ev_q_none_dynasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_dynasr_secpo_msa
+  left: ev_q_secpo_dynasr
+  right: ev_q_msa_dynasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_q_dtapasr_secpo_none
+  left: ev_q_secpo_dtapasr
+  right: ev_q_none_dtapasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_dtapasr_msa_none
+  left: ev_q_msa_dtapasr
+  right: ev_q_none_dtapasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q_dtapasr_secpo_msa
+  left: ev_q_secpo_dtapasr
+  right: ev_q_msa_dtapasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: SecPO with adversarial training against the Meta-SecAlign recipe on the same base'
+  page: 8
+- id: c_l_mmlupro_at
+  left: ev_l_atdpo_mmlupro
+  right: ev_l_msa_mmlupro
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_l_mmlupro_loss
+  left: ev_l_secpo_mmlupro
+  right: ev_l_atdpo_mmlupro
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_l_gpqa_at
+  left: ev_l_atdpo_gpqa
+  right: ev_l_msa_gpqa
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_l_gpqa_loss
+  left: ev_l_secpo_gpqa
+  right: ev_l_atdpo_gpqa
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_l_gsm8k_at
+  left: ev_l_atdpo_gsm8k
+  right: ev_l_msa_gsm8k
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_l_gsm8k_loss
+  left: ev_l_secpo_gsm8k
+  right: ev_l_atdpo_gsm8k
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_l_minerva_at
+  left: ev_l_atdpo_minerva
+  right: ev_l_msa_minerva
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_l_minerva_loss
+  left: ev_l_secpo_minerva
+  right: ev_l_atdpo_minerva
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_l_alpaca_at
+  left: ev_l_atdpo_alpaca
+  right: ev_l_msa_alpaca
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_l_alpaca_loss
+  left: ev_l_secpo_alpaca
+  right: ev_l_atdpo_alpaca
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_l_seputil_at
+  left: ev_l_atdpo_seputil
+  right: ev_l_msa_seputil
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_l_seputil_loss
+  left: ev_l_secpo_seputil
+  right: ev_l_atdpo_seputil
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_l_sepgen_at
+  left: ev_l_atdpo_sepgen
+  right: ev_l_msa_sepgen
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_l_sepgen_loss
+  left: ev_l_secpo_sepgen
+  right: ev_l_atdpo_sepgen
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_l_septap_at
+  left: ev_l_atdpo_septap
+  right: ev_l_msa_septap
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_l_septap_loss
+  left: ev_l_secpo_septap
+  right: ev_l_atdpo_septap
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_l_seppis_at
+  left: ev_l_atdpo_seppis
+  right: ev_l_msa_seppis
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_l_seppis_loss
+  left: ev_l_secpo_seppis
+  right: ev_l_atdpo_seppis
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_q_mmlupro_at
+  left: ev_q_atdpo_mmlupro
+  right: ev_q_msa_mmlupro
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_q_mmlupro_loss
+  left: ev_q_secpo_mmlupro
+  right: ev_q_atdpo_mmlupro
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_q_gpqa_at
+  left: ev_q_atdpo_gpqa
+  right: ev_q_msa_gpqa
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_q_gpqa_loss
+  left: ev_q_secpo_gpqa
+  right: ev_q_atdpo_gpqa
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_q_gsm8k_at
+  left: ev_q_atdpo_gsm8k
+  right: ev_q_msa_gsm8k
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_q_gsm8k_loss
+  left: ev_q_secpo_gsm8k
+  right: ev_q_atdpo_gsm8k
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_q_minerva_at
+  left: ev_q_atdpo_minerva
+  right: ev_q_msa_minerva
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_q_minerva_loss
+  left: ev_q_secpo_minerva
+  right: ev_q_atdpo_minerva
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_q_alpaca_at
+  left: ev_q_atdpo_alpaca
+  right: ev_q_msa_alpaca
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_q_alpaca_loss
+  left: ev_q_secpo_alpaca
+  right: ev_q_atdpo_alpaca
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_q_seputil_at
+  left: ev_q_atdpo_seputil
+  right: ev_q_msa_seputil
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_q_seputil_loss
+  left: ev_q_secpo_seputil
+  right: ev_q_atdpo_seputil
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_q_sepgen_at
+  left: ev_q_atdpo_sepgen
+  right: ev_q_msa_sepgen
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_q_sepgen_loss
+  left: ev_q_secpo_sepgen
+  right: ev_q_atdpo_sepgen
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_q_septap_at
+  left: ev_q_atdpo_septap
+  right: ev_q_msa_septap
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_q_septap_loss
+  left: ev_q_secpo_septap
+  right: ev_q_atdpo_septap
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_q_seppis_at
+  left: ev_q_atdpo_seppis
+  right: ev_q_msa_seppis
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: adversarial training added (DPO loss in both arms)
+  page: 10
+- id: c_q_seppis_loss
+  left: ev_q_secpo_seppis
+  right: ev_q_atdpo_seppis
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 10
+- id: c_l_basic_msa_none
+  left: ev_l_msa_basic
+  right: ev_l_none_basic
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 27
+- id: c_l_basic_secponoat_none
+  left: ev_l_secponoat_basic
+  right: ev_l_none_basic
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 27
+- id: c_l_basic_atdpo_none
+  left: ev_l_atdpo_basic
+  right: ev_l_none_basic
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 27
+- id: c_l_basic_secpo_none
+  left: ev_l_secpo_basic
+  right: ev_l_none_basic
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 27
+- id: c_l_basic_lossnoat
+  left: ev_l_secponoat_basic
+  right: ev_l_msa_basic
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: SecPO loss in place of DPO (no adversarial training)
+  page: 27
+- id: c_l_basic_at
+  left: ev_l_atdpo_basic
+  right: ev_l_msa_basic
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: adversarial training added (DPO loss in both arms)
+  page: 27
+- id: c_l_basic_loss
+  left: ev_l_secpo_basic
+  right: ev_l_atdpo_basic
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 27
+- id: c_l_gcg_msa_none
+  left: ev_l_msa_gcg
+  right: ev_l_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 27
+- id: c_l_gcg_secponoat_none
+  left: ev_l_secponoat_gcg
+  right: ev_l_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 27
+- id: c_l_gcg_atdpo_none
+  left: ev_l_atdpo_gcg
+  right: ev_l_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 27
+- id: c_l_gcg_secpo_none
+  left: ev_l_secpo_gcg
+  right: ev_l_none_gcg
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 27
+- id: c_l_gcg_lossnoat
+  left: ev_l_secponoat_gcg
+  right: ev_l_msa_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: SecPO loss in place of DPO (no adversarial training)
+  page: 27
+- id: c_l_gcg_at
+  left: ev_l_atdpo_gcg
+  right: ev_l_msa_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: adversarial training added (DPO loss in both arms)
+  page: 27
+- id: c_l_gcg_loss
+  left: ev_l_secpo_gcg
+  right: ev_l_atdpo_gcg
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched_unstated
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: SecPO loss in place of DPO (adversarial training in both arms)
+  page: 27
+claims:
+- id: k1
+  text: adversarial training cuts ASR by 1.5 to 14.5 times across three adaptive attacks compared with Meta-SecAlign
+  location: abstract
+  anchor: Our AT reduces ASRs by 1.5–14.5× across three SoTA adaptive attacks
+  jobs:
+  - R1
+  supported_by:
+  - c_l_sepgen_at
+  - c_l_septap_at
+  - c_l_seppis_at
+  - c_q_sepgen_at
+  - c_q_septap_at
+  - c_q_seppis_at
+  page: 1
+- id: k2
+  text: the SecPO loss cuts adaptive ASR by a further 2.4 to 4.6 times compared with the DPO loss
+  location: abstract
+  anchor: the SecPO loss reduces them by a further
+  jobs:
+  - R1
+  supported_by:
+  - c_l_sepgen_loss
+  - c_l_septap_loss
+  - c_l_seppis_loss
+  - c_q_sepgen_loss
+  - c_q_septap_loss
+  - c_q_seppis_loss
+  page: 1
+  contradicted_by:
+  - r_l_secpo_basic
+- id: k3
+  text: SecPO with adversarial training on Qwen3.6-27B reaches 8.8% against 78.8% for Meta-SecAlign on AgentDojo ASR@800
+  location: abstract
+  anchor: 8.8% vs. 78.8% AgentDojo ASR@800
+  jobs:
+  - R1
+  supported_by:
+  - c_q_adgen_secpo_msa
+  - c_q_adgen_secpo_none
+  page: 1
+- id: k4
+  text: the defended model shows no noticeable loss of benign utility on nine benchmarks
+  location: abstract
+  anchor: shows no noticeable reduction in benign utility in nine benchmarks
+  jobs:
+  - general_utility
+  - R2
+  supported_by:
+  - c_q_mmlupro_secpo_none
+  - c_q_gpqa_secpo_none
+  - c_q_gsm8k_secpo_none
+  - c_q_minerva_secpo_none
+  - c_q_alpaca_secpo_none
+  - c_q_seputil_secpo_none
+  - c_q_adutil_secpo_none
+  - c_q_dynutil_secpo_none
+  - c_q_dtaputil_secpo_none
+  - c_l_mmlupro_secpo_none
+  - c_l_gpqa_secpo_none
+  - c_l_gsm8k_secpo_none
+  - c_l_minerva_secpo_none
+  - c_l_alpaca_secpo_none
+  - c_l_seputil_secpo_none
+  page: 1
+coverage:
+  R1: direct
+  R2clean: direct
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 1 to 4 and 18
+    R2clean: Table 2 (AgentDojo and AgentDyn benign utility; SEP utility as a proxy)
+    R2attack: Table 2 (DTaP utility under attack)
+    general_utility: Tables 1 to 4
+schema_gaps:
+- where: defences secpo_*, atdpo_*
+  note: adversarial training is a per-step PAIR search against the current checkpoint, not a learned attacker; axis 2 has no value for search-based adversarial training, so it is recorded in the components
+- where: evaluations ev_q_*_adutil, ev_q_*_adasr
+  note: all AgentDojo numbers, including the undefended arm, are run with AgentDojo's repeat-user-prompt defence (following Meta-SecAlign)
+- where: claims k2
+  note: under the white-box Basic Adaptive attack (Table 18), SecPO with adversarial training (10.6%) is slightly above adversarial training with DPO (9.7%); white-box attacks are outside the paper's stated threat model
+- where: report
+  note: the utility judge for AlpacaEval2 and SEP is Claude-Opus-4.8 (Appendix B); the judge names are the paper's

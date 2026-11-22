@@ -1,0 +1,1689 @@
+report:
+  id: agentsafeevo_arxiv2026
+  slug: '2610.19422'
+  title: 'AgentSafeEvo: Adversarial Co-Evolution for LLM Agent Safety'
+  first_author: Chenxu Wang
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2610.19422'
+  version_read: arXiv v1
+  first_date: '2026-10-14'
+  read: F
+  role: proposes
+  code_release: https://github.com/lalalamdbf/AgentSafeEvo and Hugging Face collection (linked on p. 1)
+  extraction_scope: 'Section 4: Table 1 AgentDojo and MSB columns for Qwen3-8B, Spotlighting, Static-AT and AgentSafeEvo; Table 2; Table 3 MSB, ALFWorld and ToolHop columns; the abstract claim (Agent-SafetyBench and AgentHarm
+    columns, which pool direct, harmful-request and indirect risks, Prompt Guard 2, a detector, and Figure 3, whose generated tasks mix six attack categories including direct injection and jailbreaks, not coded)'
+defences:
+- id: ase
+  name: AgentSafeEvo (attacker-defender co-evolution with learnability weighting)
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - no_signal
+  axis2:
+  - adversarial_rl
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 1
+  components:
+  - 'attacker (Qwen3-8B, SFT-initialised on about 10,000 adversarial and 10,000 benign tasks) writes adversarial agent tasks: user query, tool definitions and environment'
+  - defender trained with GRPO on safety and utility rewards from a Qwen3.8-27B reward model; attacker rewarded when the defender's reward falls
+  - 'learnability-guided task weighting: tasks with more within-task spread in defender reward get larger weight in both updates'
+  layout: multi-turn tool-calling agent; attacks reach it through user queries, tool descriptions or environment observations
+  layout_compat: &id001
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: a co-evolutionary reinforcement learning framework for agent safety
+  pages:
+    components: 7
+    isolation: 10
+- id: static
+  name: Static-AT (fixed SFT attacker in the loop, defender trained with GRPO, no weighting)
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - no_signal
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  layout: multi-turn tool-calling agent; attacks reach it through user queries, tool descriptions or environment observations
+  layout_compat: *id001
+  anchor: Static Adversarial Training (Static-AT), which keeps the SFT attacker fixed
+- id: spot
+  name: Spotlighting, delimiting variant (tool outputs wrapped in « », system prompt marks them untrusted)
+  origin: other_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - prompting
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: not_applicable
+  trains_carry_through: not_applicable
+  page: 7
+  layout: multi-turn tool-calling agent; attacks reach it through user queries, tool descriptions or environment observations; tool outputs wrapped in delimiters
+  layout_compat: *id001
+  anchor: the prompt-based defense Spotlighting with Delimiting
+- id: nolw
+  name: co-evolution without learnability weighting
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - no_signal
+  axis2:
+  - adversarial_rl
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 10
+  layout: multi-turn tool-calling agent; attacks reach it through user queries, tool descriptions or environment observations
+  anchor: We compare AgentSafeEvo with four ablated variants
+- id: nodw
+  name: AgentSafeEvo without defender weighting (attacker weighted only)
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - no_signal
+  axis2:
+  - adversarial_rl
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 10
+  layout: multi-turn tool-calling agent; attacks reach it through user queries, tool descriptions or environment observations
+  anchor: We compare AgentSafeEvo with four ablated variants
+- id: noaw
+  name: AgentSafeEvo without attacker weighting (defender weighted only)
+  origin: this_report
+  base_checkpoint: Qwen3-8B
+  axis1:
+  - no_signal
+  axis2:
+  - adversarial_rl
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 10
+  layout: multi-turn tool-calling agent; attacks reach it through user queries, tool descriptions or environment observations
+  anchor: We compare AgentSafeEvo with four ablated variants
+evaluations:
+- id: ev_base_ad_asr
+  defence_id: none:Qwen3-8B
+  benchmark: AgentDojo (97 user tasks, 629 security cases; injection attack not named)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_base_ad_ua
+  defence_id: none:Qwen3-8B
+  benchmark: AgentDojo (97 user tasks, 629 security cases; injection attack not named)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo user-task check under attack
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_base_msb_asr
+  defence_id: none:Qwen3-8B
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB attack check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_base_msb_nrp
+  defence_id: none:Qwen3-8B
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB net resilient performance
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_spot_ad_asr
+  defence_id: spot
+  benchmark: AgentDojo (97 user tasks, 629 security cases; injection attack not named)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_spot_ad_ua
+  defence_id: spot
+  benchmark: AgentDojo (97 user tasks, 629 security cases; injection attack not named)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo user-task check under attack
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_spot_msb_asr
+  defence_id: spot
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB attack check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_spot_msb_nrp
+  defence_id: spot
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB net resilient performance
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_static_ad_asr
+  defence_id: static
+  benchmark: AgentDojo (97 user tasks, 629 security cases; injection attack not named)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_static_ad_ua
+  defence_id: static
+  benchmark: AgentDojo (97 user tasks, 629 security cases; injection attack not named)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo user-task check under attack
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_static_msb_asr
+  defence_id: static
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB attack check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_static_msb_nrp
+  defence_id: static
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB net resilient performance
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_ase_ad_asr
+  defence_id: ase
+  benchmark: AgentDojo (97 user tasks, 629 security cases; injection attack not named)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo injection-task check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_ase_ad_ua
+  defence_id: ase
+  benchmark: AgentDojo (97 user tasks, 629 security cases; injection attack not named)
+  attacker_type: static
+  attacker_access: black_box
+  judge: AgentDojo user-task check under attack
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_ase_msb_asr
+  defence_id: ase
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB attack check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_ase_msb_nrp
+  defence_id: ase
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB net resilient performance
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    benchmark: 25
+    decoding: 24
+- id: ev_base_bfcl
+  defence_id: none:Qwen3-8B
+  benchmark: BFCL-V3
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: function-call accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_base_alf
+  defence_id: none:Qwen3-8B
+  benchmark: ALFWorld (AgentBench-FC setting)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: goal completion
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_base_th
+  defence_id: none:Qwen3-8B
+  benchmark: ToolHop
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+  baseline_kind: off_the_shelf
+- id: ev_spot_bfcl
+  defence_id: spot
+  benchmark: BFCL-V3
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: function-call accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+- id: ev_spot_alf
+  defence_id: spot
+  benchmark: ALFWorld (AgentBench-FC setting)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: goal completion
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+- id: ev_spot_th
+  defence_id: spot
+  benchmark: ToolHop
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+- id: ev_static_bfcl
+  defence_id: static
+  benchmark: BFCL-V3
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: function-call accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+- id: ev_static_alf
+  defence_id: static
+  benchmark: ALFWorld (AgentBench-FC setting)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: goal completion
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+- id: ev_static_th
+  defence_id: static
+  benchmark: ToolHop
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+- id: ev_ase_bfcl
+  defence_id: ase
+  benchmark: BFCL-V3
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: function-call accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+- id: ev_ase_alf
+  defence_id: ase
+  benchmark: ALFWorld (AgentBench-FC setting)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: goal completion
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+- id: ev_ase_th
+  defence_id: ase
+  benchmark: ToolHop
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 8
+  decoding: temperature 0.6, top_p 0.95
+  pages:
+    decoding: 24
+- id: ev_nolw_msb_asr
+  defence_id: nolw
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB attack check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_nolw_msb_nrp
+  defence_id: nolw
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB net resilient performance
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_nolw_alf
+  defence_id: nolw
+  benchmark: ALFWorld (AgentBench-FC setting)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: goal completion
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_nolw_th
+  defence_id: nolw
+  benchmark: ToolHop
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_nodw_msb_asr
+  defence_id: nodw
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB attack check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_nodw_msb_nrp
+  defence_id: nodw
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB net resilient performance
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_nodw_alf
+  defence_id: nodw
+  benchmark: ALFWorld (AgentBench-FC setting)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: goal completion
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_nodw_th
+  defence_id: nodw
+  benchmark: ToolHop
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_noaw_msb_asr
+  defence_id: noaw
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB attack check
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_noaw_msb_nrp
+  defence_id: noaw
+  benchmark: MCP Security Bench (over 2,000 attacks, 12 types on tool signatures, parameters, responses and retrieval)
+  attacker_type: static
+  attacker_access: black_box
+  judge: MSB net resilient performance
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_noaw_alf
+  defence_id: noaw
+  benchmark: ALFWorld (AgentBench-FC setting)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: goal completion
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+- id: ev_noaw_th
+  defence_id: noaw
+  benchmark: ToolHop
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: answer accuracy
+  layout_same_as_defence: 'yes'
+  measured_by: agentsafeevo_arxiv2026
+  page: 10
+  decoding: temperature 0.6, top_p 0.95
+results:
+- id: r_base_ad_asr
+  evaluation_id: ev_base_ad_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '22.20'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.57'
+- id: r_base_ad_ua
+  evaluation_id: ev_base_ad_ua
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '53.64'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.90'
+- id: r_base_msb_asr
+  evaluation_id: ev_base_msb_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: MSB ASR
+  value: '60.43'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.97'
+- id: r_base_msb_nrp
+  evaluation_id: ev_base_msb_nrp
+  quantity: other
+  coverage: direct
+  metric_as_printed: MSB NRP
+  value: '28.12'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 1.30'
+- id: r_spot_ad_asr
+  evaluation_id: ev_spot_ad_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '19.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 1.04'
+- id: r_spot_ad_ua
+  evaluation_id: ev_spot_ad_ua
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '57.82'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 1.11'
+- id: r_spot_msb_asr
+  evaluation_id: ev_spot_msb_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: MSB ASR
+  value: '58.53'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.73'
+- id: r_spot_msb_nrp
+  evaluation_id: ev_spot_msb_nrp
+  quantity: other
+  coverage: direct
+  metric_as_printed: MSB NRP
+  value: '29.55'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.46'
+- id: r_static_ad_asr
+  evaluation_id: ev_static_ad_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '6.71'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.43'
+- id: r_static_ad_ua
+  evaluation_id: ev_static_ad_ua
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '61.43'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.15'
+- id: r_static_msb_asr
+  evaluation_id: ev_static_msb_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: MSB ASR
+  value: '38.64'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 2.24'
+- id: r_static_msb_nrp
+  evaluation_id: ev_static_msb_nrp
+  quantity: other
+  coverage: direct
+  metric_as_printed: MSB NRP
+  value: '40.64'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.93'
+- id: r_ase_ad_asr
+  evaluation_id: ev_ase_ad_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '6.18'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.18'
+- id: r_ase_ad_ua
+  evaluation_id: ev_ase_ad_ua
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '66.52'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 1.43'
+- id: r_ase_msb_asr
+  evaluation_id: ev_ase_msb_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: MSB ASR
+  value: '31.25'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 1.24'
+- id: r_ase_msb_nrp
+  evaluation_id: ev_ase_msb_nrp
+  quantity: other
+  coverage: direct
+  metric_as_printed: MSB NRP
+  value: '46.00'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 1
+  spread: 'SD over three independent runs: 0.54'
+- id: r_base_bfcl
+  evaluation_id: ev_base_bfcl
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BFCL-V3 accuracy
+  value: '66.13'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 0.22'
+- id: r_base_alf
+  evaluation_id: ev_base_alf
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ALFWorld (AgentBench-FC setting) accuracy
+  value: '30.28'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 4.59'
+- id: r_base_th
+  evaluation_id: ev_base_th
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ToolHop accuracy
+  value: '21.84'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 1.23'
+- id: r_spot_bfcl
+  evaluation_id: ev_spot_bfcl
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BFCL-V3 accuracy
+  value: '66.08'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 0.37'
+- id: r_spot_alf
+  evaluation_id: ev_spot_alf
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ALFWorld (AgentBench-FC setting) accuracy
+  value: '32.13'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 2.69'
+- id: r_spot_th
+  evaluation_id: ev_spot_th
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ToolHop accuracy
+  value: '25.76'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 0.15'
+- id: r_static_bfcl
+  evaluation_id: ev_static_bfcl
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BFCL-V3 accuracy
+  value: '66.73'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 0.50'
+- id: r_static_alf
+  evaluation_id: ev_static_alf
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ALFWorld (AgentBench-FC setting) accuracy
+  value: '30.89'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 0.43'
+- id: r_static_th
+  evaluation_id: ev_static_th
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ToolHop accuracy
+  value: '39.43'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 0.09'
+- id: r_ase_bfcl
+  evaluation_id: ev_ase_bfcl
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: BFCL-V3 accuracy
+  value: '65.98'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 0.14'
+- id: r_ase_alf
+  evaluation_id: ev_ase_alf
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ALFWorld (AgentBench-FC setting) accuracy
+  value: '43.72'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 3.03'
+- id: r_ase_th
+  evaluation_id: ev_ase_th
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ToolHop accuracy
+  value: '48.04'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 2
+  spread: 'SD over three independent runs: 1.40'
+- id: r_nolw_msb_asr
+  evaluation_id: ev_nolw_msb_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: MSB ASR
+  value: '32.89'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.66'
+- id: r_nolw_msb_nrp
+  evaluation_id: ev_nolw_msb_nrp
+  quantity: other
+  coverage: direct
+  metric_as_printed: MSB NRP
+  value: '41.48'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.21'
+- id: r_nolw_alf
+  evaluation_id: ev_nolw_alf
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ALFWorld (AgentBench-FC setting) accuracy
+  value: '36.70'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.75'
+- id: r_nolw_th
+  evaluation_id: ev_nolw_th
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ToolHop accuracy
+  value: '40.07'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.58'
+- id: r_nodw_msb_asr
+  evaluation_id: ev_nodw_msb_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: MSB ASR
+  value: '28.47'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 1.03'
+- id: r_nodw_msb_nrp
+  evaluation_id: ev_nodw_msb_nrp
+  quantity: other
+  coverage: direct
+  metric_as_printed: MSB NRP
+  value: '43.04'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.73'
+- id: r_nodw_alf
+  evaluation_id: ev_nodw_alf
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ALFWorld (AgentBench-FC setting) accuracy
+  value: '29.05'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.43'
+- id: r_nodw_th
+  evaluation_id: ev_nodw_th
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ToolHop accuracy
+  value: '40.80'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.22'
+- id: r_noaw_msb_asr
+  evaluation_id: ev_noaw_msb_asr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: MSB ASR
+  value: '34.92'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.89'
+- id: r_noaw_msb_nrp
+  evaluation_id: ev_noaw_msb_nrp
+  quantity: other
+  coverage: direct
+  metric_as_printed: MSB NRP
+  value: '41.87'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.33'
+- id: r_noaw_alf
+  evaluation_id: ev_noaw_alf
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ALFWorld (AgentBench-FC setting) accuracy
+  value: '34.25'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 1.89'
+- id: r_noaw_th
+  evaluation_id: ev_noaw_th
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: ToolHop accuracy
+  value: '40.63'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 10
+  location: Table 3
+  spread: 'SD over three independent runs: 0.29'
+comparisons:
+- id: c_ase_ad_asr
+  left: ev_ase_ad_asr
+  right: ev_base_ad_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ase_ad_ua
+  left: ev_ase_ad_ua
+  right: ev_base_ad_ua
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ase_msb_asr
+  left: ev_ase_msb_asr
+  right: ev_base_msb_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ase_msb_nrp
+  left: ev_ase_msb_nrp
+  right: ev_base_msb_nrp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ase_bfcl
+  left: ev_ase_bfcl
+  right: ev_base_bfcl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ase_alf
+  left: ev_ase_alf
+  right: ev_base_alf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ase_th
+  left: ev_ase_th
+  right: ev_base_th
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_static_ad_asr
+  left: ev_static_ad_asr
+  right: ev_base_ad_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_static_ad_ua
+  left: ev_static_ad_ua
+  right: ev_base_ad_ua
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_static_msb_asr
+  left: ev_static_msb_asr
+  right: ev_base_msb_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_static_msb_nrp
+  left: ev_static_msb_nrp
+  right: ev_base_msb_nrp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_static_bfcl
+  left: ev_static_bfcl
+  right: ev_base_bfcl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_static_alf
+  left: ev_static_alf
+  right: ev_base_alf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_static_th
+  left: ev_static_th
+  right: ev_base_th
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_spot_ad_asr
+  left: ev_spot_ad_asr
+  right: ev_base_ad_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_spot_ad_ua
+  left: ev_spot_ad_ua
+  right: ev_base_ad_ua
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_spot_msb_asr
+  left: ev_spot_msb_asr
+  right: ev_base_msb_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_spot_msb_nrp
+  left: ev_spot_msb_nrp
+  right: ev_base_msb_nrp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_spot_bfcl
+  left: ev_spot_bfcl
+  right: ev_base_bfcl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_spot_alf
+  left: ev_spot_alf
+  right: ev_base_alf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_spot_th
+  left: ev_spot_th
+  right: ev_base_th
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_ase_static_ad_asr
+  left: ev_ase_ad_asr
+  right: ev_static_ad_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: co-evolved attacker with weighting against a fixed attacker (Static-AT)'
+  page: 8
+- id: c_ase_static_ad_ua
+  left: ev_ase_ad_ua
+  right: ev_static_ad_ua
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: co-evolved attacker with weighting against a fixed attacker (Static-AT)'
+  page: 8
+- id: c_ase_static_msb_asr
+  left: ev_ase_msb_asr
+  right: ev_static_msb_asr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: co-evolved attacker with weighting against a fixed attacker (Static-AT)'
+  page: 8
+- id: c_ase_static_msb_nrp
+  left: ev_ase_msb_nrp
+  right: ev_static_msb_nrp
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: co-evolved attacker with weighting against a fixed attacker (Static-AT)'
+  page: 8
+- id: c_ase_static_bfcl
+  left: ev_ase_bfcl
+  right: ev_static_bfcl
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: co-evolved attacker with weighting against a fixed attacker (Static-AT)'
+  page: 8
+- id: c_ase_static_alf
+  left: ev_ase_alf
+  right: ev_static_alf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: co-evolved attacker with weighting against a fixed attacker (Static-AT)'
+  page: 8
+- id: c_ase_static_th
+  left: ev_ase_th
+  right: ev_static_th
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: 'the defence: co-evolved attacker with weighting against a fixed attacker (Static-AT)'
+  page: 8
+- id: c_coevo_msb_asr
+  left: ev_nolw_msb_asr
+  right: ev_static_msb_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: attacker updates (co-evolution) without task weighting, against a fixed attacker
+  page: 10
+- id: c_weight_msb_asr
+  left: ev_ase_msb_asr
+  right: ev_nolw_msb_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: learnability-guided task weighting on both policies
+  page: 10
+- id: c_dw_msb_asr
+  left: ev_ase_msb_asr
+  right: ev_nodw_msb_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: defender weighting added to attacker weighting
+  page: 10
+- id: c_aw_msb_asr
+  left: ev_ase_msb_asr
+  right: ev_noaw_msb_asr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: attacker weighting added to defender weighting
+  page: 10
+- id: c_coevo_msb_nrp
+  left: ev_nolw_msb_nrp
+  right: ev_static_msb_nrp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: attacker updates (co-evolution) without task weighting, against a fixed attacker
+  page: 10
+- id: c_weight_msb_nrp
+  left: ev_ase_msb_nrp
+  right: ev_nolw_msb_nrp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: learnability-guided task weighting on both policies
+  page: 10
+- id: c_dw_msb_nrp
+  left: ev_ase_msb_nrp
+  right: ev_nodw_msb_nrp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: defender weighting added to attacker weighting
+  page: 10
+- id: c_aw_msb_nrp
+  left: ev_ase_msb_nrp
+  right: ev_noaw_msb_nrp
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: attacker weighting added to defender weighting
+  page: 10
+- id: c_coevo_alf
+  left: ev_nolw_alf
+  right: ev_static_alf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: attacker updates (co-evolution) without task weighting, against a fixed attacker
+  page: 10
+- id: c_weight_alf
+  left: ev_ase_alf
+  right: ev_nolw_alf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: learnability-guided task weighting on both policies
+  page: 10
+- id: c_dw_alf
+  left: ev_ase_alf
+  right: ev_nodw_alf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: defender weighting added to attacker weighting
+  page: 10
+- id: c_aw_alf
+  left: ev_ase_alf
+  right: ev_noaw_alf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: attacker weighting added to defender weighting
+  page: 10
+- id: c_coevo_th
+  left: ev_nolw_th
+  right: ev_static_th
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: attacker updates (co-evolution) without task weighting, against a fixed attacker
+  page: 10
+- id: c_weight_th
+  left: ev_ase_th
+  right: ev_nolw_th
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: learnability-guided task weighting on both policies
+  page: 10
+- id: c_dw_th
+  left: ev_ase_th
+  right: ev_nodw_th
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: defender weighting added to attacker weighting
+  page: 10
+- id: c_aw_th
+  left: ev_ase_th
+  right: ev_noaw_th
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  varies: attacker weighting added to defender weighting
+  page: 10
+claims:
+- id: k1
+  text: AgentSafeEvo improves adversarial robustness while keeping general agent capabilities
+  location: abstract
+  anchor: our method improves adversarial robustness while maintaining general agent capabilities
+  jobs:
+  - R1
+  - R2
+  - general_utility
+  supported_by:
+  - c_ase_ad_asr
+  - c_ase_ad_ua
+  - c_ase_msb_asr
+  - c_ase_msb_nrp
+  - c_ase_bfcl
+  - c_ase_alf
+  - c_ase_th
+  page: 1
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1 (AgentDojo and MSB ASR)
+    R2attack: Table 1 (AgentDojo utility under attack)
+    general_utility: Tables 2 and 3
+    R2clean: AgentDojo clean utility not reported
+schema_gaps:
+- where: results r_*_msb_nrp
+  note: NRP combines task performance under attack with attack success in one score; coded as quantity other
+- where: evaluations ev_*_msb_*
+  note: MSB pools attacks on tool signatures, parameters, responses and retrieval results; tool-description attacks are counted with the rest
+- where: evaluations ev_*_ad_*
+  note: the AgentDojo injection attack and the AgentDojo version are not named
+- where: defences ase, static
+  note: training tasks are generated across six attack categories, including direct injection and jailbreaks; the reward model is Qwen3.8-27B

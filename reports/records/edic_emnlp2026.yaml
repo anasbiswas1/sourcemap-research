@@ -1,0 +1,5039 @@
+report:
+  id: edic_emnlp2026
+  slug: '2610.22874'
+  title: 'Identify, Classify, Act: Per-Instruction Controlled Compliance for LLMs over External Data'
+  first_author: Zesheng Shi
+  venue: EMNLP 2026 (main conference)
+  peer_reviewed: 'yes'
+  doi: 10.18653/2026.emnlp-main.1092
+  arxiv: '2610.22874'
+  version_read: arXiv v1
+  first_date: '2026-10-16'
+  read: F
+  role: proposes
+  code_release: https://github.com/yingyingxia666/EDIC (linked in the abstract)
+  extraction_scope: 'Sections 5 and 6: Table 1 (all rows and columns), Table 2 (trigger), Table 3 (data composition; H-R, B-F, DJ-U and DJ-ASR) and Table 6 (NotInject); the abstract claim (Table 4, Tables 5, 7 and 8 and Figures
+    3 to 6 not coded)'
+defences:
+- id: edic_q3
+  name: EDIC (judge-guided per-instruction compliance training, classification trigger on)
+  origin: this_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components: &id001
+  - policy SFT on chain-of-thought responses written by GPT-5.4 that identify each embedded instruction, label it beneficial or harmful, and act on the labels
+  - generative judge (SFT then GRPO) decides per instruction whether the output followed it
+  - 'policy GRPO on a decomposed reward: credit per beneficial instruction followed, penalty per harmful instruction followed, plus a structure bonus'
+  - training documents mix beneficial and harmful instructions in four scene families (email, API docs, medical guidance, knowledge evidence)
+  layout: user query with external data in the prompt; tool returns for AgentDojo and InjecAgent
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: The RL reward decomposes across instructions
+  pages:
+    components: 4
+    isolation: 6
+- id: notrig_q3
+  name: EDIC with the classification trigger off at inference (same checkpoint)
+  origin: this_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  anchor: This makes fine-grained classification an inference-time switch
+- id: secalign_q3
+  name: SecAlign (how it was obtained for this backbone is not stated)
+  origin: other_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: We compare EDIC against Base model and five prompt-injection defense
+- id: struq_q3
+  name: StruQ (how it was obtained for this backbone is not stated)
+  origin: other_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: We compare EDIC against Base model and five prompt-injection defense
+- id: reasalign_q3
+  name: ReasAlign (how it was obtained for this backbone is not stated)
+  origin: other_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - distillation
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: We compare EDIC against Base model and five prompt-injection defense
+- id: edic_l31
+  name: EDIC (judge-guided per-instruction compliance training, classification trigger on)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: ablation_present
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 4
+  components: *id001
+  layout: user query with external data in the prompt; tool returns for AgentDojo and InjecAgent
+  layout_compat:
+    user_turn: supported
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: The RL reward decomposes across instructions
+  pages:
+    components: 4
+    isolation: 6
+- id: notrig_l31
+  name: EDIC with the classification trigger off at inference (same checkpoint)
+  origin: this_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 6
+  anchor: This makes fine-grained classification an inference-time switch
+- id: secalign_l31
+  name: SecAlign (how it was obtained for this backbone is not stated)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: We compare EDIC against Base model and five prompt-injection defense
+- id: struq_l31
+  name: StruQ (how it was obtained for this backbone is not stated)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: We compare EDIC against Base model and five prompt-injection defense
+- id: reasalign_l31
+  name: ReasAlign (how it was obtained for this backbone is not stated)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - distillation
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: We compare EDIC against Base model and five prompt-injection defense
+- id: metasec_l31
+  name: Meta-SecAlign (checkpoint not named)
+  origin: other_report
+  base_checkpoint: Llama-3.1-8B-Instruct
+  axis1:
+  - chat_roles
+  axis2:
+  - preference_optimisation
+  isolation: not_applicable
+  signal_dependence: not_reported
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 5
+  anchor: We compare EDIC against Base model and five prompt-injection defense
+- id: honly_q3
+  name: EDIC trained on harmful-only documents
+  origin: this_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: Data composition ablation (Qwen3-4B, with
+- id: bonly_q3
+  name: EDIC trained on benign-only documents
+  origin: this_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: Data composition ablation (Qwen3-4B, with
+- id: sepctx_q3
+  name: EDIC trained with beneficial and harmful instructions in separate documents
+  origin: this_report
+  base_checkpoint: Qwen3-4B
+  axis1:
+  - no_signal
+  axis2:
+  - sft
+  - preference_optimisation
+  - distillation
+  isolation: not_applicable
+  signal_dependence: not_applicable
+  trains_instruction_pair: 'no'
+  trains_carry_through: 'no'
+  page: 7
+  anchor: Data composition ablation (Qwen3-4B, with
+evaluations:
+- id: ev_q3_none_arena
+  defence_id: none:Qwen3-4B
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_q3_none_mtb
+  defence_id: none:Qwen3-4B
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_q3_none_dju
+  defence_id: none:Qwen3-4B
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_q3_none_djasr
+  defence_id: none:Qwen3-4B
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_q3_none_cyb
+  defence_id: none:Qwen3-4B
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_q3_none_inj
+  defence_id: none:Qwen3-4B
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_q3_none_hr
+  defence_id: none:Qwen3-4B
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: off_the_shelf
+- id: ev_q3_none_bf
+  defence_id: none:Qwen3-4B
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: off_the_shelf
+- id: ev_q3_secalign_arena
+  defence_id: secalign_q3
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_q3_secalign_mtb
+  defence_id: secalign_q3
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_q3_secalign_dju
+  defence_id: secalign_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_secalign_djasr
+  defence_id: secalign_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_secalign_cyb
+  defence_id: secalign_q3
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_secalign_inj
+  defence_id: secalign_q3
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_secalign_hr
+  defence_id: secalign_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_secalign_bf
+  defence_id: secalign_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_struq_dju
+  defence_id: struq_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_struq_djasr
+  defence_id: struq_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_struq_cyb
+  defence_id: struq_q3
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_struq_inj
+  defence_id: struq_q3
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_struq_hr
+  defence_id: struq_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_struq_bf
+  defence_id: struq_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_reasalign_arena
+  defence_id: reasalign_q3
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_q3_reasalign_mtb
+  defence_id: reasalign_q3
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_q3_reasalign_dju
+  defence_id: reasalign_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_reasalign_djasr
+  defence_id: reasalign_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_reasalign_cyb
+  defence_id: reasalign_q3
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_reasalign_inj
+  defence_id: reasalign_q3
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_reasalign_hr
+  defence_id: reasalign_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_reasalign_bf
+  defence_id: reasalign_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_edic_arena
+  defence_id: edic_q3
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_q3_edic_mtb
+  defence_id: edic_q3
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_q3_edic_dju
+  defence_id: edic_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_edic_djasr
+  defence_id: edic_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_edic_cyb
+  defence_id: edic_q3
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_edic_inj
+  defence_id: edic_q3
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_edic_hr
+  defence_id: edic_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_edic_bf
+  defence_id: edic_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_notrig_arena
+  defence_id: notrig_q3
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_q3_notrig_mtb
+  defence_id: notrig_q3
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_q3_notrig_dju
+  defence_id: notrig_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_notrig_djasr
+  defence_id: notrig_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_notrig_cyb
+  defence_id: notrig_q3
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_notrig_inj
+  defence_id: notrig_q3
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_q3_notrig_hr
+  defence_id: notrig_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_notrig_bf
+  defence_id: notrig_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_none_arena
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_mtb
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_dju
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_djasr
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_cyb
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_inj
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_hr
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: off_the_shelf
+- id: ev_l31_none_bf
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: off_the_shelf
+- id: ev_l31_secalign_arena
+  defence_id: secalign_l31
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_secalign_mtb
+  defence_id: secalign_l31
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_secalign_dju
+  defence_id: secalign_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_secalign_djasr
+  defence_id: secalign_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_secalign_cyb
+  defence_id: secalign_l31
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_secalign_inj
+  defence_id: secalign_l31
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_secalign_hr
+  defence_id: secalign_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_secalign_bf
+  defence_id: secalign_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_struq_dju
+  defence_id: struq_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_struq_djasr
+  defence_id: struq_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_struq_cyb
+  defence_id: struq_l31
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_struq_inj
+  defence_id: struq_l31
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_struq_hr
+  defence_id: struq_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_struq_bf
+  defence_id: struq_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_metasec_arena
+  defence_id: metasec_l31
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_metasec_mtb
+  defence_id: metasec_l31
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_metasec_dju
+  defence_id: metasec_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_metasec_djasr
+  defence_id: metasec_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_metasec_cyb
+  defence_id: metasec_l31
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_metasec_inj
+  defence_id: metasec_l31
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_metasec_hr
+  defence_id: metasec_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_metasec_bf
+  defence_id: metasec_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_reasalign_arena
+  defence_id: reasalign_l31
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_reasalign_mtb
+  defence_id: reasalign_l31
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_reasalign_dju
+  defence_id: reasalign_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_reasalign_djasr
+  defence_id: reasalign_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_reasalign_cyb
+  defence_id: reasalign_l31
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_reasalign_inj
+  defence_id: reasalign_l31
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_reasalign_hr
+  defence_id: reasalign_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_reasalign_bf
+  defence_id: reasalign_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_edic_arena
+  defence_id: edic_l31
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_edic_mtb
+  defence_id: edic_l31
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_edic_dju
+  defence_id: edic_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_edic_djasr
+  defence_id: edic_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_edic_cyb
+  defence_id: edic_l31
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_edic_inj
+  defence_id: edic_l31
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_edic_hr
+  defence_id: edic_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_edic_bf
+  defence_id: edic_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_notrig_arena
+  defence_id: notrig_l31
+  benchmark: Arena-Hard-Auto (750 hard prompts)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat against GPT-4o-variant baselines
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_notrig_mtb
+  defence_id: notrig_l31
+  benchmark: MT-Bench (80 questions, FastChat)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: DeepSeek-Chat with GPT-4 reference answers
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+    judge: 13
+- id: ev_l31_notrig_dju
+  defence_id: notrig_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_notrig_djasr
+  defence_id: notrig_l31
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_notrig_cyb
+  defence_id: notrig_l31
+  benchmark: CyberSecEval 2 prompt injection (250 samples, inspect_evals)
+  attacker_type: static
+  attacker_access: black_box
+  judge: DeepSeek-Chat
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_notrig_inj
+  defence_id: notrig_l31
+  benchmark: InjecAgent, base and enhanced settings, 200 per DH and DS split
+  attacker_type: static
+  attacker_access: black_box
+  judge: InjecAgent output check
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 13
+- id: ev_l31_notrig_hr
+  defence_id: notrig_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_l31_notrig_bf
+  defence_id: notrig_l31
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 6
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_q3_honly_hr
+  defence_id: honly_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_honly_bf
+  defence_id: honly_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_honly_dju
+  defence_id: honly_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_honly_djasr
+  defence_id: honly_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_bonly_hr
+  defence_id: bonly_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_bonly_bf
+  defence_id: bonly_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_bonly_dju
+  defence_id: bonly_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_bonly_djasr
+  defence_id: bonly_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_sepctx_hr
+  defence_id: sepctx_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_sepctx_bf
+  defence_id: sepctx_q3
+  benchmark: held-out mixed-instruction data from the authors' four scenes (150 validation samples per scene)
+  attacker_type: static
+  attacker_access: black_box
+  judge: judge not named
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_sepctx_dju
+  defence_id: sepctx_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite user-task checker on the attacked pass
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_sepctx_djasr
+  defence_id: sepctx_q3
+  benchmark: AgentDojo v1, important_instructions, banking, slack, travel and workspace (629 attacked cases)
+  attacker_type: static
+  attacker_access: black_box
+  judge: suite attack-success checker
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 7
+  decoding: not reported
+- id: ev_q3_none_ni
+  defence_id: none:Qwen3-4B
+  benchmark: NotInject (339 benign prompts with one to three trigger words)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign accuracy (scorer not named)
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 8
+  decoding: not reported
+  sample_size: '339'
+  baseline_kind: off_the_shelf
+- id: ev_q3_secalign_ni
+  defence_id: secalign_q3
+  benchmark: NotInject (339 benign prompts with one to three trigger words)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign accuracy (scorer not named)
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 8
+  decoding: not reported
+  sample_size: '339'
+- id: ev_q3_reasalign_ni
+  defence_id: reasalign_q3
+  benchmark: NotInject (339 benign prompts with one to three trigger words)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign accuracy (scorer not named)
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 8
+  decoding: not reported
+  sample_size: '339'
+- id: ev_q3_edic_ni
+  defence_id: edic_q3
+  benchmark: NotInject (339 benign prompts with one to three trigger words)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign accuracy (scorer not named)
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 8
+  decoding: not reported
+  sample_size: '339'
+- id: ev_l31_none_ni
+  defence_id: none:Llama-3.1-8B-Instruct
+  benchmark: NotInject (339 benign prompts with one to three trigger words)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign accuracy (scorer not named)
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 8
+  decoding: not reported
+  sample_size: '339'
+  baseline_kind: off_the_shelf
+- id: ev_l31_secalign_ni
+  defence_id: secalign_l31
+  benchmark: NotInject (339 benign prompts with one to three trigger words)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign accuracy (scorer not named)
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 8
+  decoding: not reported
+  sample_size: '339'
+- id: ev_l31_reasalign_ni
+  defence_id: reasalign_l31
+  benchmark: NotInject (339 benign prompts with one to three trigger words)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign accuracy (scorer not named)
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 8
+  decoding: not reported
+  sample_size: '339'
+- id: ev_l31_edic_ni
+  defence_id: edic_l31
+  benchmark: NotInject (339 benign prompts with one to three trigger words)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: benign accuracy (scorer not named)
+  layout_same_as_defence: 'yes'
+  measured_by: edic_emnlp2026
+  page: 8
+  decoding: not reported
+  sample_size: '339'
+results:
+- id: r_q3_none_arena
+  evaluation_id: ev_q3_none_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '8.4'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_none_mtb
+  evaluation_id: ev_q3_none_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '6.64'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_none_dju
+  evaluation_id: ev_q3_none_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '42.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_none_djasr
+  evaluation_id: ev_q3_none_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '4.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_none_cyb
+  evaluation_id: ev_q3_none_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '54.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_none_inj
+  evaluation_id: ev_q3_none_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '1.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_none_hr
+  evaluation_id: ev_q3_none_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '67.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_none_bf
+  evaluation_id: ev_q3_none_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '72.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_secalign_arena
+  evaluation_id: ev_q3_secalign_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '10.2'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_secalign_mtb
+  evaluation_id: ev_q3_secalign_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '6.59'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_secalign_dju
+  evaluation_id: ev_q3_secalign_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '43.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_secalign_djasr
+  evaluation_id: ev_q3_secalign_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '3.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_secalign_cyb
+  evaluation_id: ev_q3_secalign_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '29.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_secalign_inj
+  evaluation_id: ev_q3_secalign_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_secalign_hr
+  evaluation_id: ev_q3_secalign_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '81.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_secalign_bf
+  evaluation_id: ev_q3_secalign_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '56.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_struq_dju
+  evaluation_id: ev_q3_struq_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '40.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_struq_djasr
+  evaluation_id: ev_q3_struq_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '4.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_struq_cyb
+  evaluation_id: ev_q3_struq_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '37.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_struq_inj
+  evaluation_id: ev_q3_struq_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '1.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_struq_hr
+  evaluation_id: ev_q3_struq_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '76.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_struq_bf
+  evaluation_id: ev_q3_struq_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '53.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_reasalign_arena
+  evaluation_id: ev_q3_reasalign_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '16.4'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_reasalign_mtb
+  evaluation_id: ev_q3_reasalign_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '7.28'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_reasalign_dju
+  evaluation_id: ev_q3_reasalign_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '44.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_reasalign_djasr
+  evaluation_id: ev_q3_reasalign_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '1.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_reasalign_cyb
+  evaluation_id: ev_q3_reasalign_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '19.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_reasalign_inj
+  evaluation_id: ev_q3_reasalign_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_reasalign_hr
+  evaluation_id: ev_q3_reasalign_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '83.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_reasalign_bf
+  evaluation_id: ev_q3_reasalign_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '77.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_edic_arena
+  evaluation_id: ev_q3_edic_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '28.9'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_edic_mtb
+  evaluation_id: ev_q3_edic_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '8.04'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_edic_dju
+  evaluation_id: ev_q3_edic_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '46.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_edic_djasr
+  evaluation_id: ev_q3_edic_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_edic_cyb
+  evaluation_id: ev_q3_edic_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '15.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_edic_inj
+  evaluation_id: ev_q3_edic_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_edic_hr
+  evaluation_id: ev_q3_edic_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '91.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_edic_bf
+  evaluation_id: ev_q3_edic_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '89.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_q3_notrig_arena
+  evaluation_id: ev_q3_notrig_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '30.1'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q3_notrig_mtb
+  evaluation_id: ev_q3_notrig_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '8.11'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q3_notrig_dju
+  evaluation_id: ev_q3_notrig_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '47.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q3_notrig_djasr
+  evaluation_id: ev_q3_notrig_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q3_notrig_cyb
+  evaluation_id: ev_q3_notrig_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '17.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q3_notrig_inj
+  evaluation_id: ev_q3_notrig_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q3_notrig_hr
+  evaluation_id: ev_q3_notrig_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '87.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q3_notrig_bf
+  evaluation_id: ev_q3_notrig_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '90.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_none_arena
+  evaluation_id: ev_l31_none_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '1.6'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_none_mtb
+  evaluation_id: ev_l31_none_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '6.38'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_none_dju
+  evaluation_id: ev_l31_none_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '6.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_none_djasr
+  evaluation_id: ev_l31_none_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_none_cyb
+  evaluation_id: ev_l31_none_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '28.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_none_inj
+  evaluation_id: ev_l31_none_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '14.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_none_hr
+  evaluation_id: ev_l31_none_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '74.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_none_bf
+  evaluation_id: ev_l31_none_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '85.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_secalign_arena
+  evaluation_id: ev_l31_secalign_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '3.2'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_secalign_mtb
+  evaluation_id: ev_l31_secalign_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '6.41'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_secalign_dju
+  evaluation_id: ev_l31_secalign_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '6.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_secalign_djasr
+  evaluation_id: ev_l31_secalign_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_secalign_cyb
+  evaluation_id: ev_l31_secalign_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '14.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_secalign_inj
+  evaluation_id: ev_l31_secalign_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '2.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_secalign_hr
+  evaluation_id: ev_l31_secalign_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '88.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_secalign_bf
+  evaluation_id: ev_l31_secalign_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '67.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_struq_dju
+  evaluation_id: ev_l31_struq_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '4.5'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_struq_djasr
+  evaluation_id: ev_l31_struq_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_struq_cyb
+  evaluation_id: ev_l31_struq_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '18.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_struq_inj
+  evaluation_id: ev_l31_struq_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '7.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_struq_hr
+  evaluation_id: ev_l31_struq_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '85.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_struq_bf
+  evaluation_id: ev_l31_struq_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '62.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_metasec_arena
+  evaluation_id: ev_l31_metasec_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '4.6'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_metasec_mtb
+  evaluation_id: ev_l31_metasec_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '6.68'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_metasec_dju
+  evaluation_id: ev_l31_metasec_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '6.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_metasec_djasr
+  evaluation_id: ev_l31_metasec_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_metasec_cyb
+  evaluation_id: ev_l31_metasec_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '7.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_metasec_inj
+  evaluation_id: ev_l31_metasec_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '1.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_metasec_hr
+  evaluation_id: ev_l31_metasec_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '91.9'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_metasec_bf
+  evaluation_id: ev_l31_metasec_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '68.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_reasalign_arena
+  evaluation_id: ev_l31_reasalign_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '7.8'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_reasalign_mtb
+  evaluation_id: ev_l31_reasalign_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '6.95'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_reasalign_dju
+  evaluation_id: ev_l31_reasalign_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '7.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_reasalign_djasr
+  evaluation_id: ev_l31_reasalign_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_reasalign_cyb
+  evaluation_id: ev_l31_reasalign_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '3.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_reasalign_inj
+  evaluation_id: ev_l31_reasalign_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '1.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_reasalign_hr
+  evaluation_id: ev_l31_reasalign_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '93.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_reasalign_bf
+  evaluation_id: ev_l31_reasalign_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '87.3'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_edic_arena
+  evaluation_id: ev_l31_edic_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '12.4'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_edic_mtb
+  evaluation_id: ev_l31_edic_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '7.33'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_edic_dju
+  evaluation_id: ev_l31_edic_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '15.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_edic_djasr
+  evaluation_id: ev_l31_edic_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_edic_cyb
+  evaluation_id: ev_l31_edic_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '2.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_edic_inj
+  evaluation_id: ev_l31_edic_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '0.7'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_edic_hr
+  evaluation_id: ev_l31_edic_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '92.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_edic_bf
+  evaluation_id: ev_l31_edic_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '91.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 1
+- id: r_l31_notrig_arena
+  evaluation_id: ev_l31_notrig_arena
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Arena-Hard-Auto win rate
+  value: '12.9'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_notrig_mtb
+  evaluation_id: ev_l31_notrig_mtb
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: MT-Bench score
+  value: '7.48'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_notrig_dju
+  evaluation_id: ev_l31_notrig_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '17.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_notrig_djasr
+  evaluation_id: ev_l31_notrig_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_notrig_cyb
+  evaluation_id: ev_l31_notrig_cyb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: CyberSecEval 2 ASR
+  value: '3.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_notrig_inj
+  evaluation_id: ev_l31_notrig_inj
+  quantity: R1
+  coverage: direct
+  metric_as_printed: InjecAgent ASR
+  value: '0.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_notrig_hr
+  evaluation_id: ev_l31_notrig_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '89.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_l31_notrig_bf
+  evaluation_id: ev_l31_notrig_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '94.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 6
+  location: Table 2
+- id: r_q3_honly_hr
+  evaluation_id: ev_q3_honly_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '92.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_honly_bf
+  evaluation_id: ev_q3_honly_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '74.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_honly_dju
+  evaluation_id: ev_q3_honly_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '40.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_honly_djasr
+  evaluation_id: ev_q3_honly_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.5'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_bonly_hr
+  evaluation_id: ev_q3_bonly_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '65.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_bonly_bf
+  evaluation_id: ev_q3_bonly_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '94.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_bonly_dju
+  evaluation_id: ev_q3_bonly_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '44.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_bonly_djasr
+  evaluation_id: ev_q3_bonly_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '4.9'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_sepctx_hr
+  evaluation_id: ev_q3_sepctx_hr
+  quantity: R1
+  coverage: proxy
+  metric_as_printed: harmful-reject rate
+  value: '82.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_sepctx_bf
+  evaluation_id: ev_q3_sepctx_bf
+  quantity: other
+  coverage: direct
+  metric_as_printed: benign-follow rate
+  value: '84.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_sepctx_dju
+  evaluation_id: ev_q3_sepctx_dju
+  quantity: R2attack
+  coverage: direct
+  metric_as_printed: AgentDojo utility under attack
+  value: '47.1'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_sepctx_djasr
+  evaluation_id: ev_q3_sepctx_djasr
+  quantity: R1
+  coverage: direct
+  metric_as_printed: AgentDojo ASR
+  value: '0.4'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_q3_none_ni
+  evaluation_id: ev_q3_none_ni
+  quantity: other
+  coverage: direct
+  metric_as_printed: NotInject benign accuracy (over-refusal)
+  value: '93.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 6
+- id: r_q3_secalign_ni
+  evaluation_id: ev_q3_secalign_ni
+  quantity: other
+  coverage: direct
+  metric_as_printed: NotInject benign accuracy (over-refusal)
+  value: '72.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 6
+- id: r_q3_reasalign_ni
+  evaluation_id: ev_q3_reasalign_ni
+  quantity: other
+  coverage: direct
+  metric_as_printed: NotInject benign accuracy (over-refusal)
+  value: '78.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 6
+- id: r_q3_edic_ni
+  evaluation_id: ev_q3_edic_ni
+  quantity: other
+  coverage: direct
+  metric_as_printed: NotInject benign accuracy (over-refusal)
+  value: '88.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 6
+- id: r_l31_none_ni
+  evaluation_id: ev_l31_none_ni
+  quantity: other
+  coverage: direct
+  metric_as_printed: NotInject benign accuracy (over-refusal)
+  value: '91.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 6
+- id: r_l31_secalign_ni
+  evaluation_id: ev_l31_secalign_ni
+  quantity: other
+  coverage: direct
+  metric_as_printed: NotInject benign accuracy (over-refusal)
+  value: '69.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 6
+- id: r_l31_reasalign_ni
+  evaluation_id: ev_l31_reasalign_ni
+  quantity: other
+  coverage: direct
+  metric_as_printed: NotInject benign accuracy (over-refusal)
+  value: '75.2'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 6
+- id: r_l31_edic_ni
+  evaluation_id: ev_l31_edic_ni
+  quantity: other
+  coverage: direct
+  metric_as_printed: NotInject benign accuracy (over-refusal)
+  value: '87.4'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 8
+  location: Table 6
+comparisons:
+- id: c_q3_secalign_arena
+  left: ev_q3_secalign_arena
+  right: ev_q3_none_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_secalign_arena
+  left: ev_q3_edic_arena
+  right: ev_q3_secalign_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_q3_secalign_mtb
+  left: ev_q3_secalign_mtb
+  right: ev_q3_none_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_secalign_mtb
+  left: ev_q3_edic_mtb
+  right: ev_q3_secalign_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_q3_secalign_dju
+  left: ev_q3_secalign_dju
+  right: ev_q3_none_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_secalign_dju
+  left: ev_q3_edic_dju
+  right: ev_q3_secalign_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_q3_secalign_djasr
+  left: ev_q3_secalign_djasr
+  right: ev_q3_none_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_secalign_djasr
+  left: ev_q3_edic_djasr
+  right: ev_q3_secalign_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_q3_secalign_cyb
+  left: ev_q3_secalign_cyb
+  right: ev_q3_none_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_secalign_cyb
+  left: ev_q3_edic_cyb
+  right: ev_q3_secalign_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_q3_secalign_inj
+  left: ev_q3_secalign_inj
+  right: ev_q3_none_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_secalign_inj
+  left: ev_q3_edic_inj
+  right: ev_q3_secalign_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_q3_secalign_hr
+  left: ev_q3_secalign_hr
+  right: ev_q3_none_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_secalign_hr
+  left: ev_q3_edic_hr
+  right: ev_q3_secalign_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_q3_secalign_bf
+  left: ev_q3_secalign_bf
+  right: ev_q3_none_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_secalign_bf
+  left: ev_q3_edic_bf
+  right: ev_q3_secalign_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_q3_struq_dju
+  left: ev_q3_struq_dju
+  right: ev_q3_none_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_struq_dju
+  left: ev_q3_edic_dju
+  right: ev_q3_struq_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_q3_struq_djasr
+  left: ev_q3_struq_djasr
+  right: ev_q3_none_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_struq_djasr
+  left: ev_q3_edic_djasr
+  right: ev_q3_struq_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_q3_struq_cyb
+  left: ev_q3_struq_cyb
+  right: ev_q3_none_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_struq_cyb
+  left: ev_q3_edic_cyb
+  right: ev_q3_struq_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_q3_struq_inj
+  left: ev_q3_struq_inj
+  right: ev_q3_none_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_struq_inj
+  left: ev_q3_edic_inj
+  right: ev_q3_struq_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_q3_struq_hr
+  left: ev_q3_struq_hr
+  right: ev_q3_none_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_struq_hr
+  left: ev_q3_edic_hr
+  right: ev_q3_struq_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_q3_struq_bf
+  left: ev_q3_struq_bf
+  right: ev_q3_none_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_struq_bf
+  left: ev_q3_edic_bf
+  right: ev_q3_struq_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_q3_reasalign_arena
+  left: ev_q3_reasalign_arena
+  right: ev_q3_none_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_reasalign_arena
+  left: ev_q3_edic_arena
+  right: ev_q3_reasalign_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_q3_reasalign_mtb
+  left: ev_q3_reasalign_mtb
+  right: ev_q3_none_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_reasalign_mtb
+  left: ev_q3_edic_mtb
+  right: ev_q3_reasalign_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_q3_reasalign_dju
+  left: ev_q3_reasalign_dju
+  right: ev_q3_none_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_reasalign_dju
+  left: ev_q3_edic_dju
+  right: ev_q3_reasalign_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_q3_reasalign_djasr
+  left: ev_q3_reasalign_djasr
+  right: ev_q3_none_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_reasalign_djasr
+  left: ev_q3_edic_djasr
+  right: ev_q3_reasalign_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_q3_reasalign_cyb
+  left: ev_q3_reasalign_cyb
+  right: ev_q3_none_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_reasalign_cyb
+  left: ev_q3_edic_cyb
+  right: ev_q3_reasalign_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_q3_reasalign_inj
+  left: ev_q3_reasalign_inj
+  right: ev_q3_none_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_reasalign_inj
+  left: ev_q3_edic_inj
+  right: ev_q3_reasalign_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_q3_reasalign_hr
+  left: ev_q3_reasalign_hr
+  right: ev_q3_none_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_reasalign_hr
+  left: ev_q3_edic_hr
+  right: ev_q3_reasalign_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_q3_reasalign_bf
+  left: ev_q3_reasalign_bf
+  right: ev_q3_none_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_reasalign_bf
+  left: ev_q3_edic_bf
+  right: ev_q3_reasalign_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_q3_edic_arena
+  left: ev_q3_edic_arena
+  right: ev_q3_none_arena
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_mtb
+  left: ev_q3_edic_mtb
+  right: ev_q3_none_mtb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_dju
+  left: ev_q3_edic_dju
+  right: ev_q3_none_dju
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_djasr
+  left: ev_q3_edic_djasr
+  right: ev_q3_none_djasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_cyb
+  left: ev_q3_edic_cyb
+  right: ev_q3_none_cyb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_inj
+  left: ev_q3_edic_inj
+  right: ev_q3_none_inj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_hr
+  left: ev_q3_edic_hr
+  right: ev_q3_none_hr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_edic_bf
+  left: ev_q3_edic_bf
+  right: ev_q3_none_bf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_q3_trig_arena
+  left: ev_q3_edic_arena
+  right: ev_q3_notrig_arena
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_q3_trig_mtb
+  left: ev_q3_edic_mtb
+  right: ev_q3_notrig_mtb
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_q3_trig_dju
+  left: ev_q3_edic_dju
+  right: ev_q3_notrig_dju
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_q3_trig_djasr
+  left: ev_q3_edic_djasr
+  right: ev_q3_notrig_djasr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_q3_trig_cyb
+  left: ev_q3_edic_cyb
+  right: ev_q3_notrig_cyb
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_q3_trig_inj
+  left: ev_q3_edic_inj
+  right: ev_q3_notrig_inj
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_q3_trig_hr
+  left: ev_q3_edic_hr
+  right: ev_q3_notrig_hr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_q3_trig_bf
+  left: ev_q3_edic_bf
+  right: ev_q3_notrig_bf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_l31_secalign_arena
+  left: ev_l31_secalign_arena
+  right: ev_l31_none_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_secalign_arena
+  left: ev_l31_edic_arena
+  right: ev_l31_secalign_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_l31_secalign_mtb
+  left: ev_l31_secalign_mtb
+  right: ev_l31_none_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_secalign_mtb
+  left: ev_l31_edic_mtb
+  right: ev_l31_secalign_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_l31_secalign_dju
+  left: ev_l31_secalign_dju
+  right: ev_l31_none_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_secalign_dju
+  left: ev_l31_edic_dju
+  right: ev_l31_secalign_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_l31_secalign_djasr
+  left: ev_l31_secalign_djasr
+  right: ev_l31_none_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_secalign_djasr
+  left: ev_l31_edic_djasr
+  right: ev_l31_secalign_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_l31_secalign_cyb
+  left: ev_l31_secalign_cyb
+  right: ev_l31_none_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_secalign_cyb
+  left: ev_l31_edic_cyb
+  right: ev_l31_secalign_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_l31_secalign_inj
+  left: ev_l31_secalign_inj
+  right: ev_l31_none_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_secalign_inj
+  left: ev_l31_edic_inj
+  right: ev_l31_secalign_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_l31_secalign_hr
+  left: ev_l31_secalign_hr
+  right: ev_l31_none_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_secalign_hr
+  left: ev_l31_edic_hr
+  right: ev_l31_secalign_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_l31_secalign_bf
+  left: ev_l31_secalign_bf
+  right: ev_l31_none_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_secalign_bf
+  left: ev_l31_edic_bf
+  right: ev_l31_secalign_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against secalign on the same backbone'
+  page: 6
+- id: c_l31_struq_dju
+  left: ev_l31_struq_dju
+  right: ev_l31_none_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_struq_dju
+  left: ev_l31_edic_dju
+  right: ev_l31_struq_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_l31_struq_djasr
+  left: ev_l31_struq_djasr
+  right: ev_l31_none_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_struq_djasr
+  left: ev_l31_edic_djasr
+  right: ev_l31_struq_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_l31_struq_cyb
+  left: ev_l31_struq_cyb
+  right: ev_l31_none_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_struq_cyb
+  left: ev_l31_edic_cyb
+  right: ev_l31_struq_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_l31_struq_inj
+  left: ev_l31_struq_inj
+  right: ev_l31_none_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_struq_inj
+  left: ev_l31_edic_inj
+  right: ev_l31_struq_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_l31_struq_hr
+  left: ev_l31_struq_hr
+  right: ev_l31_none_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_struq_hr
+  left: ev_l31_edic_hr
+  right: ev_l31_struq_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_l31_struq_bf
+  left: ev_l31_struq_bf
+  right: ev_l31_none_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_struq_bf
+  left: ev_l31_edic_bf
+  right: ev_l31_struq_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against struq on the same backbone'
+  page: 6
+- id: c_l31_metasec_arena
+  left: ev_l31_metasec_arena
+  right: ev_l31_none_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_metasec_arena
+  left: ev_l31_edic_arena
+  right: ev_l31_metasec_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against metasec on the same backbone'
+  page: 6
+- id: c_l31_metasec_mtb
+  left: ev_l31_metasec_mtb
+  right: ev_l31_none_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_metasec_mtb
+  left: ev_l31_edic_mtb
+  right: ev_l31_metasec_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against metasec on the same backbone'
+  page: 6
+- id: c_l31_metasec_dju
+  left: ev_l31_metasec_dju
+  right: ev_l31_none_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_metasec_dju
+  left: ev_l31_edic_dju
+  right: ev_l31_metasec_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against metasec on the same backbone'
+  page: 6
+- id: c_l31_metasec_djasr
+  left: ev_l31_metasec_djasr
+  right: ev_l31_none_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_metasec_djasr
+  left: ev_l31_edic_djasr
+  right: ev_l31_metasec_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against metasec on the same backbone'
+  page: 6
+- id: c_l31_metasec_cyb
+  left: ev_l31_metasec_cyb
+  right: ev_l31_none_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_metasec_cyb
+  left: ev_l31_edic_cyb
+  right: ev_l31_metasec_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against metasec on the same backbone'
+  page: 6
+- id: c_l31_metasec_inj
+  left: ev_l31_metasec_inj
+  right: ev_l31_none_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_metasec_inj
+  left: ev_l31_edic_inj
+  right: ev_l31_metasec_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against metasec on the same backbone'
+  page: 6
+- id: c_l31_metasec_hr
+  left: ev_l31_metasec_hr
+  right: ev_l31_none_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_metasec_hr
+  left: ev_l31_edic_hr
+  right: ev_l31_metasec_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against metasec on the same backbone'
+  page: 6
+- id: c_l31_metasec_bf
+  left: ev_l31_metasec_bf
+  right: ev_l31_none_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_metasec_bf
+  left: ev_l31_edic_bf
+  right: ev_l31_metasec_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against metasec on the same backbone'
+  page: 6
+- id: c_l31_reasalign_arena
+  left: ev_l31_reasalign_arena
+  right: ev_l31_none_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_reasalign_arena
+  left: ev_l31_edic_arena
+  right: ev_l31_reasalign_arena
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_l31_reasalign_mtb
+  left: ev_l31_reasalign_mtb
+  right: ev_l31_none_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_reasalign_mtb
+  left: ev_l31_edic_mtb
+  right: ev_l31_reasalign_mtb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_l31_reasalign_dju
+  left: ev_l31_reasalign_dju
+  right: ev_l31_none_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_reasalign_dju
+  left: ev_l31_edic_dju
+  right: ev_l31_reasalign_dju
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_l31_reasalign_djasr
+  left: ev_l31_reasalign_djasr
+  right: ev_l31_none_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_reasalign_djasr
+  left: ev_l31_edic_djasr
+  right: ev_l31_reasalign_djasr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_l31_reasalign_cyb
+  left: ev_l31_reasalign_cyb
+  right: ev_l31_none_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_reasalign_cyb
+  left: ev_l31_edic_cyb
+  right: ev_l31_reasalign_cyb
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_l31_reasalign_inj
+  left: ev_l31_reasalign_inj
+  right: ev_l31_none_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_reasalign_inj
+  left: ev_l31_edic_inj
+  right: ev_l31_reasalign_inj
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_l31_reasalign_hr
+  left: ev_l31_reasalign_hr
+  right: ev_l31_none_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_reasalign_hr
+  left: ev_l31_edic_hr
+  right: ev_l31_reasalign_hr
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_l31_reasalign_bf
+  left: ev_l31_reasalign_bf
+  right: ev_l31_none_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_reasalign_bf
+  left: ev_l31_edic_bf
+  right: ev_l31_reasalign_bf
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: 'the defence: EDIC against reasalign on the same backbone'
+  page: 6
+- id: c_l31_edic_arena
+  left: ev_l31_edic_arena
+  right: ev_l31_none_arena
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_mtb
+  left: ev_l31_edic_mtb
+  right: ev_l31_none_mtb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_dju
+  left: ev_l31_edic_dju
+  right: ev_l31_none_dju
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_djasr
+  left: ev_l31_edic_djasr
+  right: ev_l31_none_djasr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_cyb
+  left: ev_l31_edic_cyb
+  right: ev_l31_none_cyb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_inj
+  left: ev_l31_edic_inj
+  right: ev_l31_none_inj
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_hr
+  left: ev_l31_edic_hr
+  right: ev_l31_none_hr
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_edic_bf
+  left: ev_l31_edic_bf
+  right: ev_l31_none_bf
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 6
+- id: c_l31_trig_arena
+  left: ev_l31_edic_arena
+  right: ev_l31_notrig_arena
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_l31_trig_mtb
+  left: ev_l31_edic_mtb
+  right: ev_l31_notrig_mtb
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_l31_trig_dju
+  left: ev_l31_edic_dju
+  right: ev_l31_notrig_dju
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_l31_trig_djasr
+  left: ev_l31_edic_djasr
+  right: ev_l31_notrig_djasr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_l31_trig_cyb
+  left: ev_l31_edic_cyb
+  right: ev_l31_notrig_cyb
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_l31_trig_inj
+  left: ev_l31_edic_inj
+  right: ev_l31_notrig_inj
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_l31_trig_hr
+  left: ev_l31_edic_hr
+  right: ev_l31_notrig_hr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_l31_trig_bf
+  left: ev_l31_edic_bf
+  right: ev_l31_notrig_bf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the classification trigger switched on at inference
+  page: 6
+- id: c_q3_mixed_honly_hr
+  left: ev_q3_edic_hr
+  right: ev_q3_honly_hr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against on harmful-only documents
+  page: 7
+- id: c_q3_mixed_honly_bf
+  left: ev_q3_edic_bf
+  right: ev_q3_honly_bf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against on harmful-only documents
+  page: 7
+- id: c_q3_mixed_honly_dju
+  left: ev_q3_edic_dju
+  right: ev_q3_honly_dju
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against on harmful-only documents
+  page: 7
+- id: c_q3_mixed_honly_djasr
+  left: ev_q3_edic_djasr
+  right: ev_q3_honly_djasr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against on harmful-only documents
+  page: 7
+- id: c_q3_mixed_bonly_hr
+  left: ev_q3_edic_hr
+  right: ev_q3_bonly_hr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against on benign-only documents
+  page: 7
+- id: c_q3_mixed_bonly_bf
+  left: ev_q3_edic_bf
+  right: ev_q3_bonly_bf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against on benign-only documents
+  page: 7
+- id: c_q3_mixed_bonly_dju
+  left: ev_q3_edic_dju
+  right: ev_q3_bonly_dju
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against on benign-only documents
+  page: 7
+- id: c_q3_mixed_bonly_djasr
+  left: ev_q3_edic_djasr
+  right: ev_q3_bonly_djasr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against on benign-only documents
+  page: 7
+- id: c_q3_mixed_sepctx_hr
+  left: ev_q3_edic_hr
+  right: ev_q3_sepctx_hr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against with beneficial and harmful instructions in separate documents
+  page: 7
+- id: c_q3_mixed_sepctx_bf
+  left: ev_q3_edic_bf
+  right: ev_q3_sepctx_bf
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against with beneficial and harmful instructions in separate documents
+  page: 7
+- id: c_q3_mixed_sepctx_dju
+  left: ev_q3_edic_dju
+  right: ev_q3_sepctx_dju
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against with beneficial and harmful instructions in separate documents
+  page: 7
+- id: c_q3_mixed_sepctx_djasr
+  left: ev_q3_edic_djasr
+  right: ev_q3_sepctx_djasr
+  purpose: M
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: training documents that mix beneficial and harmful instructions, against with beneficial and harmful instructions in separate documents
+  page: 7
+- id: c_q3_secalign_ni
+  left: ev_q3_secalign_ni
+  right: ev_q3_none_ni
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q3_reasalign_ni
+  left: ev_q3_reasalign_ni
+  right: ev_q3_none_ni
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_q3_edic_ni
+  left: ev_q3_edic_ni
+  right: ev_q3_none_ni
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_secalign_ni
+  left: ev_l31_secalign_ni
+  right: ev_l31_none_ni
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_reasalign_ni
+  left: ev_l31_reasalign_ni
+  right: ev_l31_none_ni
+  purpose: W
+  c1_base: matched_unstated
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+- id: c_l31_edic_ni
+  left: ev_l31_edic_ni
+  right: ev_l31_none_ni
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 8
+claims:
+- id: k1
+  text: EDIC improves both safety and utility over the strongest prior defence, with up to 7.7 points more harmful rejection and 12.5 points more Arena-Hard-Auto on Qwen3-4B
+  location: abstract
+  anchor: EDIC improves both safety and utility over the strongest prior defense
+  jobs:
+  - R1
+  - general_utility
+  supported_by:
+  - c_q3_edic_reasalign_arena
+  - c_q3_edic_reasalign_mtb
+  - c_q3_edic_reasalign_djasr
+  - c_q3_edic_reasalign_cyb
+  - c_q3_edic_reasalign_inj
+  - c_q3_edic_reasalign_hr
+  - c_l31_edic_reasalign_arena
+  - c_l31_edic_reasalign_mtb
+  - c_l31_edic_reasalign_djasr
+  - c_l31_edic_reasalign_cyb
+  - c_l31_edic_reasalign_inj
+  - c_l31_edic_reasalign_hr
+  page: 1
+  contradicted_by:
+  - r_l31_edic_hr
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: direct
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Table 1 (AgentDojo, CyberSecEval 2 and InjecAgent ASR; harmful-reject rate on the authors' data as a proxy)
+    R2attack: Table 1 (AgentDojo utility under attack)
+    general_utility: Table 1 (Arena-Hard-Auto, MT-Bench)
+    R2clean: AgentDojo clean utility not reported
+schema_gaps:
+- where: defences secalign_*, struq_*, reasalign_*, metasec_l31
+  note: the paper does not say whether these baselines were re-trained on Qwen3-4B and Llama-3.1-8B or which checkpoints were used; Appendix A also lists PromptGuard and Instruction Hierarchy, which do not appear in any table
+- where: evaluations ev_*_hr, ev_*_bf
+  note: harmful-reject and benign-follow rates are on the authors' own held-out documents and the scorer is not named; harmful-reject is coded as an R1 proxy
+- where: evaluations ev_*_inj
+  note: InjecAgent was run in base and enhanced settings but Table 1 gives one number without saying how they were combined
+- where: claims k1
+  note: on Llama-3.1-8B, EDIC's harmful-reject rate (92.8) is below ReasAlign's (93.1) and its AgentDojo ASR (0.1) equals ReasAlign's and is above Meta-SecAlign's (0.0)

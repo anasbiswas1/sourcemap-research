@@ -1,0 +1,1286 @@
+report:
+  id: llmon_arxiv2026
+  slug: '2610.38120'
+  title: Post-Training Large Language Models with LLMON
+  first_author: Basel Shbita
+  venue: arXiv preprint
+  peer_reviewed: 'no'
+  arxiv: '2610.38120'
+  version_read: arXiv v1
+  first_date: '2026-10-28'
+  read: F
+  role: proposes
+  code_release: not stated
+  extraction_scope: 'Section 5: Table 2 (OPI and ASB), the Indirect column of Table 3 (ARES) and Table 1 (capability categories); the abstract claim (the Direct and Multi-turn columns of Table 3, which are direct or user-turn
+    attacks, and the attention metrics of Table 4 and Figures 2 to 6 not coded)'
+defences:
+- id: llmon_3b
+  name: LLMON post-training (SFT, GRPO, then DPO)
+  origin: this_report
+  base_checkpoint: Granite-4.1-3B-Base
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - preference_optimisation
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: partly
+  trains_carry_through: 'no'
+  page: 2
+  components: &id001
+  - six reserved delimiter tokens (remapped unused vocabulary slots) wrap every instruction, data, document, tool and system segment in a typed block with an identifier
+  - an exec block names which instruction to run on which data; content reached through exec input (data, documents, tool results) is read, never executed
+  - 'training: full SFT on a 4.6B-token LLMON corpus with distractor variants (one to three competing instructions from the pool, irrelevant data) and 130k planted-injection examples; five GRPO stages; a final DPO stage on
+    about 1k on-policy injection pairs'
+  layout: 'LLMON serialisation: the injected payload arrives inside a data block reached through exec input; tool results return as data blocks'
+  layout_compat: &id002
+    user_turn: untested
+    separate_role: untested
+    system_context: untested
+    agent_tool_result: supported
+  anchor: LLMON defines six special delimiter tokens
+  pages:
+    components: 3
+    training: 4
+- id: llmon_8b
+  name: LLMON post-training (SFT, GRPO, then DPO)
+  origin: this_report
+  base_checkpoint: Granite-4.1-8B-Base
+  axis1:
+  - delimiters_markers
+  axis2:
+  - sft
+  - preference_optimisation
+  isolation: no_ablation
+  signal_dependence: not_reported
+  trains_instruction_pair: partly
+  trains_carry_through: 'no'
+  page: 2
+  components: *id001
+  layout: 'LLMON serialisation: the injected payload arrives inside a data block reached through exec input; tool results return as data blocks'
+  layout_compat: *id002
+  anchor: LLMON defines six special delimiter tokens
+  pages:
+    components: 3
+    training: 4
+evaluations:
+- id: ev_3b_none_opi
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: 'OPI (open prompt injection): naive, escape, ignore, fake-completion and combine attacks on classic NLP task data'
+  attacker_type: static
+  attacker_access: black_box
+  judge: OPI attack-success metric
+  layout_same_as_defence: 'no'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: same_data_twin
+- id: ev_3b_none_asb
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: ASB, observation-injection arm (injection in agent tool observations)
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB attack-success check
+  layout_same_as_defence: 'no'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: same_data_twin
+- id: ev_3b_llmon_opi
+  defence_id: llmon_3b
+  benchmark: 'OPI (open prompt injection): naive, escape, ignore, fake-completion and combine attacks on classic NLP task data'
+  attacker_type: static
+  attacker_access: black_box
+  judge: OPI attack-success metric
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_3b_llmon_asb
+  defence_id: llmon_3b
+  benchmark: ASB, observation-injection arm (injection in agent tool observations)
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB attack-success check
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_8b_none_opi
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: 'OPI (open prompt injection): naive, escape, ignore, fake-completion and combine attacks on classic NLP task data'
+  attacker_type: static
+  attacker_access: black_box
+  judge: OPI attack-success metric
+  layout_same_as_defence: 'no'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: same_data_twin
+- id: ev_8b_none_asb
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: ASB, observation-injection arm (injection in agent tool observations)
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB attack-success check
+  layout_same_as_defence: 'no'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 5
+  baseline_kind: same_data_twin
+- id: ev_8b_llmon_opi
+  defence_id: llmon_8b
+  benchmark: 'OPI (open prompt injection): naive, escape, ignore, fake-completion and combine attacks on classic NLP task data'
+  attacker_type: static
+  attacker_access: black_box
+  judge: OPI attack-success metric
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_8b_llmon_asb
+  defence_id: llmon_8b
+  benchmark: ASB, observation-injection arm (injection in agent tool observations)
+  attacker_type: static
+  attacker_access: black_box
+  judge: ASB attack-success check
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  pages:
+    benchmark: 5
+- id: ev_3b_none_ares
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: 'ARES red-teaming, indirect arm: StruQ-style payloads planted in the input, seeds from Alpaca and a safety-policy set, mutated by eight attack strategies; ID and OOD splits averaged'
+  attacker_type: static
+  attacker_access: black_box
+  judge: ARES harness judgement
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  attacker_budget: eight mutation strategies from basic to advanced
+  pages:
+    benchmark: 5
+  baseline_kind: same_data_twin
+- id: ev_3b_llmon_ares
+  defence_id: llmon_3b
+  benchmark: 'ARES red-teaming, indirect arm: StruQ-style payloads planted in the input, seeds from Alpaca and a safety-policy set, mutated by eight attack strategies; ID and OOD splits averaged'
+  attacker_type: static
+  attacker_access: black_box
+  judge: ARES harness judgement
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  attacker_budget: eight mutation strategies from basic to advanced
+  pages:
+    benchmark: 5
+- id: ev_8b_none_ares
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: 'ARES red-teaming, indirect arm: StruQ-style payloads planted in the input, seeds from Alpaca and a safety-policy set, mutated by eight attack strategies; ID and OOD splits averaged'
+  attacker_type: static
+  attacker_access: black_box
+  judge: ARES harness judgement
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  attacker_budget: eight mutation strategies from basic to advanced
+  pages:
+    benchmark: 5
+  baseline_kind: same_data_twin
+- id: ev_8b_llmon_ares
+  defence_id: llmon_8b
+  benchmark: 'ARES red-teaming, indirect arm: StruQ-style payloads planted in the input, seeds from Alpaca and a safety-policy set, mutated by eight attack strategies; ID and OOD splits averaged'
+  attacker_type: static
+  attacker_access: black_box
+  judge: ARES harness judgement
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  attacker_budget: eight mutation strategies from basic to advanced
+  pages:
+    benchmark: 5
+- id: ev_3b_none_general
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: General category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_3b_none_alignment
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: Alignment category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_3b_none_math
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: Math category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_3b_none_code
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: Code category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_3b_none_tool-calling
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: Tool-Calling category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_3b_none_multilingual
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: Multilingual category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_3b_none_safety
+  defence_id: none:Granite-4.1-3B-Base
+  benchmark: Safety category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_3b_llmon_general
+  defence_id: llmon_3b
+  benchmark: General category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_3b_llmon_alignment
+  defence_id: llmon_3b
+  benchmark: Alignment category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_3b_llmon_math
+  defence_id: llmon_3b
+  benchmark: Math category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_3b_llmon_code
+  defence_id: llmon_3b
+  benchmark: Code category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_3b_llmon_tool-calling
+  defence_id: llmon_3b
+  benchmark: Tool-Calling category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_3b_llmon_multilingual
+  defence_id: llmon_3b
+  benchmark: Multilingual category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_3b_llmon_safety
+  defence_id: llmon_3b
+  benchmark: Safety category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_8b_none_general
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: General category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_8b_none_alignment
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: Alignment category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_8b_none_math
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: Math category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_8b_none_code
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: Code category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_8b_none_tool-calling
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: Tool-Calling category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_8b_none_multilingual
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: Multilingual category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_8b_none_safety
+  defence_id: none:Granite-4.1-8B-Base
+  benchmark: Safety category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+  baseline_kind: same_data_twin
+- id: ev_8b_llmon_general
+  defence_id: llmon_8b
+  benchmark: General category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_8b_llmon_alignment
+  defence_id: llmon_8b
+  benchmark: Alignment category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_8b_llmon_math
+  defence_id: llmon_8b
+  benchmark: Math category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_8b_llmon_code
+  defence_id: llmon_8b
+  benchmark: Code category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_8b_llmon_tool-calling
+  defence_id: llmon_8b
+  benchmark: Tool-Calling category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_8b_llmon_multilingual
+  defence_id: llmon_8b
+  benchmark: Multilingual category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+- id: ev_8b_llmon_safety
+  defence_id: llmon_8b
+  benchmark: Safety category, unweighted mean of its benchmarks (Section 4.3.1)
+  attacker_type: none
+  attacker_access: not_applicable
+  judge: each benchmark's own scorer
+  layout_same_as_defence: 'yes'
+  measured_by: llmon_arxiv2026
+  page: 7
+  decoding: not reported
+results:
+- id: r_3b_none_opi
+  evaluation_id: ev_3b_none_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: OPI ASR
+  value: '100.0'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_3b_none_asb
+  evaluation_id: ev_3b_none_asb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASB ASR
+  value: '99.2'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_3b_llmon_opi
+  evaluation_id: ev_3b_llmon_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: OPI ASR
+  value: '0.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_3b_llmon_asb
+  evaluation_id: ev_3b_llmon_asb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASB ASR
+  value: '5.6'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_8b_none_opi
+  evaluation_id: ev_8b_none_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: OPI ASR
+  value: '96.3'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_8b_none_asb
+  evaluation_id: ev_8b_none_asb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASB ASR
+  value: '52.8'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_8b_llmon_opi
+  evaluation_id: ev_8b_llmon_opi
+  quantity: R1
+  coverage: direct
+  metric_as_printed: OPI ASR
+  value: '0.02'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_8b_llmon_asb
+  evaluation_id: ev_8b_llmon_asb
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ASB ASR
+  value: '3.1'
+  unit: percent
+  direction: lower_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 2
+- id: r_3b_none_ares
+  evaluation_id: ev_3b_none_ares
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ARES indirect robustness (1 - ASR)
+  value: '2.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_3b_llmon_ares
+  evaluation_id: ev_3b_llmon_ares
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ARES indirect robustness (1 - ASR)
+  value: '84.6'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_8b_none_ares
+  evaluation_id: ev_8b_none_ares
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ARES indirect robustness (1 - ASR)
+  value: '0.7'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_8b_llmon_ares
+  evaluation_id: ev_8b_llmon_ares
+  quantity: R1
+  coverage: direct
+  metric_as_printed: ARES indirect robustness (1 - ASR)
+  value: '79.8'
+  unit: percent
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 3
+- id: r_3b_none_general
+  evaluation_id: ev_3b_none_general
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: General category mean
+  value: '57.91'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_none_alignment
+  evaluation_id: ev_3b_none_alignment
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Alignment category mean
+  value: '82.30'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_none_math
+  evaluation_id: ev_3b_none_math
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Math category mean
+  value: '75.19'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_none_code
+  evaluation_id: ev_3b_none_code
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Code category mean
+  value: '64.19'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_none_tool-calling
+  evaluation_id: ev_3b_none_tool-calling
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Tool-Calling category mean
+  value: '60.80'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_none_multilingual
+  evaluation_id: ev_3b_none_multilingual
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Multilingual category mean
+  value: '59.89'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_none_safety
+  evaluation_id: ev_3b_none_safety
+  quantity: other
+  coverage: direct
+  metric_as_printed: Safety category mean
+  value: '80.89'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_llmon_general
+  evaluation_id: ev_3b_llmon_general
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: General category mean
+  value: '57.16'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_llmon_alignment
+  evaluation_id: ev_3b_llmon_alignment
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Alignment category mean
+  value: '81.02'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_llmon_math
+  evaluation_id: ev_3b_llmon_math
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Math category mean
+  value: '73.25'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_llmon_code
+  evaluation_id: ev_3b_llmon_code
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Code category mean
+  value: '65.45'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_llmon_tool-calling
+  evaluation_id: ev_3b_llmon_tool-calling
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Tool-Calling category mean
+  value: '60.71'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_llmon_multilingual
+  evaluation_id: ev_3b_llmon_multilingual
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Multilingual category mean
+  value: '62.68'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_3b_llmon_safety
+  evaluation_id: ev_3b_llmon_safety
+  quantity: other
+  coverage: direct
+  metric_as_printed: Safety category mean
+  value: '89.64'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_none_general
+  evaluation_id: ev_8b_none_general
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: General category mean
+  value: '64.95'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_none_alignment
+  evaluation_id: ev_8b_none_alignment
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Alignment category mean
+  value: '87.06'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_none_math
+  evaluation_id: ev_8b_none_math
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Math category mean
+  value: '84.09'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_none_code
+  evaluation_id: ev_8b_none_code
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Code category mean
+  value: '72.38'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_none_tool-calling
+  evaluation_id: ev_8b_none_tool-calling
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Tool-Calling category mean
+  value: '68.27'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_none_multilingual
+  evaluation_id: ev_8b_none_multilingual
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Multilingual category mean
+  value: '68.68'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_none_safety
+  evaluation_id: ev_8b_none_safety
+  quantity: other
+  coverage: direct
+  metric_as_printed: Safety category mean
+  value: '84.19'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_llmon_general
+  evaluation_id: ev_8b_llmon_general
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: General category mean
+  value: '63.31'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_llmon_alignment
+  evaluation_id: ev_8b_llmon_alignment
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Alignment category mean
+  value: '86.69'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_llmon_math
+  evaluation_id: ev_8b_llmon_math
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Math category mean
+  value: '79.63'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_llmon_code
+  evaluation_id: ev_8b_llmon_code
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Code category mean
+  value: '71.01'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_llmon_tool-calling
+  evaluation_id: ev_8b_llmon_tool-calling
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Tool-Calling category mean
+  value: '67.93'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_llmon_multilingual
+  evaluation_id: ev_8b_llmon_multilingual
+  quantity: general_utility
+  coverage: direct
+  metric_as_printed: Multilingual category mean
+  value: '68.24'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+- id: r_8b_llmon_safety
+  evaluation_id: ev_8b_llmon_safety
+  quantity: other
+  coverage: direct
+  metric_as_printed: Safety category mean
+  value: '90.36'
+  unit: score
+  direction: higher_better
+  qualifier: exact
+  value_source: table
+  page: 7
+  location: Table 1
+comparisons:
+- id: c_3b_opi
+  left: ev_3b_llmon_opi
+  right: ev_3b_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_3b_asb
+  left: ev_3b_llmon_asb
+  right: ev_3b_none_asb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_opi
+  left: ev_8b_llmon_opi
+  right: ev_8b_none_opi
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_asb
+  left: ev_8b_llmon_asb
+  right: ev_8b_none_asb
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_3b_ares
+  left: ev_3b_llmon_ares
+  right: ev_3b_none_ares
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_ares
+  left: ev_8b_llmon_ares
+  right: ev_8b_none_ares
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_3b_general
+  left: ev_3b_llmon_general
+  right: ev_3b_none_general
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_3b_alignment
+  left: ev_3b_llmon_alignment
+  right: ev_3b_none_alignment
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_3b_math
+  left: ev_3b_llmon_math
+  right: ev_3b_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_3b_code
+  left: ev_3b_llmon_code
+  right: ev_3b_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_3b_tool-calling
+  left: ev_3b_llmon_tool-calling
+  right: ev_3b_none_tool-calling
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_3b_multilingual
+  left: ev_3b_llmon_multilingual
+  right: ev_3b_none_multilingual
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_3b_safety
+  left: ev_3b_llmon_safety
+  right: ev_3b_none_safety
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_general
+  left: ev_8b_llmon_general
+  right: ev_8b_none_general
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_alignment
+  left: ev_8b_llmon_alignment
+  right: ev_8b_none_alignment
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_math
+  left: ev_8b_llmon_math
+  right: ev_8b_none_math
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_code
+  left: ev_8b_llmon_code
+  right: ev_8b_none_code
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_tool-calling
+  left: ev_8b_llmon_tool-calling
+  right: ev_8b_none_tool-calling
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_multilingual
+  left: ev_8b_llmon_multilingual
+  right: ev_8b_none_multilingual
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+- id: c_8b_safety
+  left: ev_8b_llmon_safety
+  right: ev_8b_none_safety
+  purpose: W
+  c1_base: matched
+  c2_layout: matched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched_unstated
+  varies: the defence (defended against undefended arm)
+  page: 7
+claims:
+- id: k1
+  text: LLMON-structured supervision cuts ASR on indirect prompt-injection benchmarks from 53-100% to 0.02-5.6% while preserving general capabilities
+  location: abstract
+  anchor: attack success rates on indirect prompt-injection benchmarks from 53-100%
+  jobs:
+  - R1
+  - general_utility
+  supported_by:
+  - c_3b_opi
+  - c_3b_asb
+  - c_3b_ares
+  - c_3b_general
+  - c_3b_alignment
+  - c_3b_math
+  - c_3b_code
+  - c_3b_tool-calling
+  - c_3b_multilingual
+  - c_8b_opi
+  - c_8b_asb
+  - c_8b_ares
+  - c_8b_general
+  - c_8b_alignment
+  - c_8b_math
+  - c_8b_code
+  - c_8b_tool-calling
+  - c_8b_multilingual
+  page: 1
+  contradicted_by:
+  - r_8b_llmon_math
+coverage:
+  R1: direct
+  R2clean: not_reported
+  R2attack: not_reported
+  R3ns: not_reported
+  R3cp: not_reported
+  R3safe: not_reported
+  where:
+    R1: Tables 2 and 3
+    general_utility: Table 1 (category means)
+    R2clean: no task utility on the injection benchmarks
+    R2attack: not reported
+schema_gaps:
+- where: evaluations ev_*_none_*
+  note: the Instruct baselines are trained by the authors on the matched chat-template corpus; the paper does not say whether they also received the 130k planted-injection examples, the GRPO stages or the final DPO stage
+- where: results r_*_ares
+  note: Table 3 reports robustness (1 - ASR), the opposite direction to Table 2; ID and OOD values are given only for the LLMON models
+- where: claims k1
+  note: the 53% lower end is the 8B Instruct baseline on ASB; capability is a mean over six categories (unchanged at 3B, 1.4 points lower at 8B), with mathematics at 8B the largest drop (84.09 to 79.63)

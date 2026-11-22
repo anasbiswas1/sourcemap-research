@@ -1,0 +1,8 @@
+decision_04f: BATCH CHECKED
+this step: 2026-11-22
+reports: raised_arxiv2026, advsim2real_arxiv2026, ltbd_arxiv2026, tracer_emnlp2026, agentsafeevo_arxiv2026, edic_emnlp2026, ignorednotrefused_arxiv2026, hos_arxiv2026, llmon_arxiv2026, secpo_arxiv2026, untrustedcomponent_arxiv2026
+records: 108 defences, 850 evaluations, 889 results, 798 comparisons, 21 claims
+checked against the PDFs: 869 printed values (0 of them found only in the third extraction), 20 chart values (0 of them found only in the third extraction) and 129 anchors, each found on its page
+comparison grades: A 730, B 20, C 0, U 48
+residual notes: 39; full-text exclusions found while coding: 1
+next: batch 04g
