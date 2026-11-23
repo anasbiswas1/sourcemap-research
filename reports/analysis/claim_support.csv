@@ -1,0 +1,159 @@
+claim_uid,report,role,location,jobs,supporting_comparisons,grade_A,grade_B,grade_C,grade_U,purposes,best_grade,contradicted_by,utility_basis,quantities_in_support,text
+actconsistency_arxiv2026:k1,actconsistency_arxiv2026,proposes,abstract,R1;R3,25,25,0,0,0,W,A,1,,R1;R2clean;general_utility,ACT is competitive with other training-based prompt injection defences using only self-supervised pairs
+adaptiveipi_arxiv2025:k1,adaptiveipi_arxiv2025,re_measures,abstract,R1,1,1,0,0,0,W,A,1,,R1,"adaptive attacks bypass all eight defences, each above 50% attack success"
+advershield_jtsi2026:k1,advershield_jtsi2026,proposes,Section on the ablation study,R1,1,1,0,0,0,W,A,0,,R1,the generation-stage noise layer is needed against indirect prompt injection
+advft2022_arxiv2025:k1,advft2022_arxiv2025,proposes,abstract,R1,3,3,0,0,0,W,A,1,,R1,attack success falls from 31% to near zero for the smaller GPT-3 models
+advsim2real_arxiv2026:k1,advsim2real_arxiv2026,proposes,abstract,R2,3,3,0,0,0,W,A,0,R2 results,R2clean;R2attack,AdvSim2Real raises completion under an unseen frontier-model adversary by 33.6% relative to the base agent
+agentdojo_neurips2024:k1,agentdojo_neurips2024,benchmark,abstract,R1;R2,2,2,0,0,0,W,A,0,R2 results,R1;R2attack,existing attacks break some security properties but not all; state-of-the-art LLMs fail many tasks even without attacks
+agentdyn_arxiv2026:k1,agentdyn_arxiv2026,benchmark,abstract,R1;R2,18,18,0,0,0,W,A,0,R2 results,R1;R2clean;R2attack,almost all existing defences are either not secure enough or over-defend
+agentsafeevo_arxiv2026:k1,agentsafeevo_arxiv2026,proposes,abstract,R1;R2;general_utility,7,7,0,0,0,W,A,0,R2 results,R1;R2attack;general_utility;other,AgentSafeEvo improves adversarial robustness while keeping general agent capabilities
+air_arxiv2025:k1,air_arxiv2025,proposes,abstract,R1,12,12,0,0,0,M,A,0,,R1,"1.6x to 9.2x lower attack success on gradient-based attacks than state-of-the-art methods, without much loss of utility"
+alwaysfall_arxiv2026:k1,alwaysfall_arxiv2026,re_measures,abstract,R1;R2,3,3,0,0,0,W,A,0,R2 results,R1;R2attack;other,data-instruction separation fails on contextual manipulation and degrades contextually appropriate behaviour
+aort_etrij2026:k1,aort_etrij2026,proposes,abstract,R1,5,5,0,0,0,W,A,0,,R1,AORT reduces ASR from 13.6% to 2.1% on LLaMA 3.1 8B on BIPIA-text and achieves the lowest ASR in most settings
+arlas_arxiv2025:k1,arlas_arxiv2025,proposes,abstract,R1;R2,2,2,0,0,0,W,A,0,R2 results,R1;R2attack,ARLAS lowers attack success and raises task success
+asb_iclr2025:k1,asb_iclr2025,benchmark,abstract,R1,39,39,0,0,0,W,A,0,,R1,current defences show limited effectiveness
+aside_iclr2026:k1,aside_iclr2026,proposes,abstract,general_utility;R2,2,2,0,0,0,M,A,2,R2 results,R2clean;general_utility;other,instruction-tuning with ASIDE gives much higher instruction-data separation without performance loss
+aside_iclr2026:k2,aside_iclr2026,proposes,abstract,R1,3,3,0,0,0,M,A,0,,R1,ASIDE makes models more robust on prompt injection benchmarks without dedicated safety training
+astra_arxiv2025:k1,astra_arxiv2025,re_measures,abstract,R1,0,0,0,0,0,,none,0,,,architecture-aware attacks reach 85 to 95% success on unseen prompts against fine-tuning defences
+attackdefence_arxiv2024:k1,attackdefence_arxiv2024,proposes,abstract,R1,30,30,0,0,0,W,A,0,,R1,"the attack-derived defences outperform existing defences, state of the art"
+attackermovessecond_arxiv2025:k1,attackermovessecond_arxiv2025,re_measures,abstract,R1,9,9,0,0,0,W,A,0,,R1,adaptive attacks bypass 12 recent defences with attack success above 90% for most
+autodojo_arxiv2026:k1,autodojo_arxiv2026,benchmark,abstract,R1;R2,14,14,0,0,0,W,A,0,R2 results,R1;R2attack,"static benchmarks often overestimate defence efficacy, and most defences either lose utility or are insecure"
+autonomytax_arxiv2026:k1,autonomytax_arxiv2026,re_measures,abstract,R1;R2,6,6,0,0,0,W,A,2,R2 results,R1;R2clean;other,defence training destroys agent competence while failing to stop sophisticated attacks
+backfire_zenodo2026:k1,backfire_zenodo2026,re_measures,abstract,R1,40,40,0,0,0,W,A,0,,R1;R2attack,"the same defence sharply reduces attack success on one model and raises it on another (down 86.7 points, up 31.2 points under the same static attack)"
+benchvalid_rs2026:k1,benchvalid_rs2026,re_measures,abstract,R1,20,20,0,0,0,W,A,0,,R1,none of the examined prompt-based defences works universally across models
+bipia_kdd2025:k1,bipia_kdd2025,mixed,abstract,R1,8,8,0,0,0,W,A,8,,R1,the black-box defences give substantial mitigation
+bipia_kdd2025:k2,bipia_kdd2025,mixed,abstract,R1,6,0,6,0,0,W,B,1,,R1,the white-box defence brings attack success to near zero
+bipia_kdd2025:k3,bipia_kdd2025,mixed,abstract,R2;general_utility,20,14,6,0,0,W,A,3,R2 results,R2clean;general_utility,both defences preserve the output quality of the LLMs
+cacheprune_arxiv2025:k1,cacheprune_arxiv2025,proposes,abstract,R1,9,9,0,0,0,W,A,0,,R1;R2attack;R3cp,CachePrune significantly reduces attack success
+cacheprune_arxiv2025:k2,cacheprune_arxiv2025,proposes,abstract,R2,12,12,0,0,0,W,A,0,R2 results,R1;R2clean;R2attack,while keeping the model's ability to follow user instructions
+cbc_emnlp2026:k1,cbc_emnlp2026,proposes,Section 4.2,R1;R2,18,18,0,0,0,W,A,0,R2 results,R1;R2attack,CBC gives strong and consistent robustness across indirect and direct attacks while preserving utility
+civ_arxiv2025:k1,civ_arxiv2025,proposes,abstract,R1,2,2,0,0,0,W,A,0,,R1,"deterministic, cryptographically verifiable non-interference at inference time on frozen models"
+ckptgcg_haips2026:k1,ckptgcg_haips2026,re_measures,abstract,R1,6,6,0,0,0,M,A,0,,R1,checkpoint-based attacks raise attack success against state-of-the-art defences from near zero to as high as 96%
+codel_arxiv2026:k1,codel_arxiv2026,proposes,abstract,R1;R2;R3,12,12,0,0,0,W,A,1,R2 results,R1;R2clean;R3safe,CoDeL cuts ASR by 88.5% and clearly outperforms the other baselines
+codt_arxiv2025:k1,codt_arxiv2025,proposes,abstract,R1;R2,72,72,0,0,0,W,A,4,R2 results,R1;R2clean;R2attack,"a wide range of models gain robustness against prompt injection in references from chain-of-defensive-thought, without losing clean accuracy"
+coer_arxiv2026:k1,coer_arxiv2026,proposes,abstract,R1;R3,3,3,0,0,0,M;W,A,0,,R1;R2attack;R3safe,CoER cuts adaptive attack success from 41.3% to 0.2% and raises safe task completion from 39.6% to 76.2%
+constsanitlog_icssa2026:k1,constsanitlog_icssa2026,proposes,introduction,R1;R2,5,5,0,0,0,W,A,0,R2 results,R1;R2clean;other,"the defences reduce attack success in model-dependent ways, with residual attacks and benign blocking"
+copa_arxiv2026:k1,copa_arxiv2026,proposes,abstract,R1,4,4,0,0,0,W,A,0,,R1;other,COPA cuts attack success up to 6.3 times and 4.4 times on average against state-of-the-art defences
+countersteer_arxiv2026:k1,countersteer_arxiv2026,mixed,abstract,R1;R2,3,3,0,0,0,W,A,0,R2 results,R1;R2clean,AgentDojo compromise falls from 0.10-0.49 to 0.006-0.079 at 93-100% normalized benign utility across five models
+countersteer_arxiv2026:k2,countersteer_arxiv2026,mixed,abstract,R1,1,1,0,0,0,W,A,0,,R1,a benchmark-level adaptive attacker is held to about a quarter of its undefended success on the two most deeply evaluated models
+crossdt_sbseg2026:k1,crossdt_sbseg2026,re_measures,abstract,R1,15,15,0,0,0,W,A,0,,R1,DefensiveTokens trained only in Portuguese give a robust defence against prompt injection in other languages
+crosslingjudge_ubmk2026:k1,crosslingjudge_ubmk2026,proposes,abstract,R1,6,6,0,0,0,W,A,1,,R1,the reasoning guardrail reduced attack success on most models by an average of 23.0 points but backfired on the smallest model (5.5% to 55.3%)
+defensivetokens_aisec2025:k1,defensivetokens_aisec2025,proposes,abstract,R1,6,6,0,0,0,W,A,1,,R1,robustness comparable to training-time defences
+defensivetokens_aisec2025:k2,defensivetokens_aisec2025,proposes,abstract,R1;general_utility;R2,28,28,0,0,0,W,A,0,R2 results,R1;R2clean;general_utility,security with a minimal utility drop when DefensiveTokens are added
+drip_arxiv2025:k1,drip_arxiv2025,proposes,abstract,R1;R2,2,2,0,0,0,W,A,0,no utility result in its comparisons,other,role separation score improves by 12 to 49 points over prior defences
+drip_arxiv2025:k2,drip_arxiv2025,proposes,abstract,R1,4,4,0,0,0,W,A,0,,R1,attack success under adaptive attacks falls by over 66%
+drip_arxiv2025:k3,drip_arxiv2025,proposes,abstract,general_utility,4,4,0,0,0,W,A,0,general utility only,general_utility,utility on par with the undefended model
+dynppa_arxiv2026:k1,dynppa_arxiv2026,proposes,abstract,R1,1,1,0,0,0,M,A,1,,R1,dynamic separators cut M1 attack success from 0.88 to 0.38
+edic_emnlp2026:k1,edic_emnlp2026,proposes,abstract,R1;general_utility,12,12,0,0,0,W,A,1,general utility only,R1;general_utility,"EDIC improves both safety and utility over the strongest prior defence, with up to 7.7 points more harmful rejection and 12.5 points more Arena-Hard-Auto on Qwen3-4B"
+eroded_zenodo2026:k1,eroded_zenodo2026,re_measures,Figure E4 caption,R1,3,3,0,0,0,M,A,0,,R1,benign fine-tuning on ordinary instruction data removes weight-based prompt-injection defences
+explosive_arxiv2026:k1,explosive_arxiv2026,mixed,Appendix A.4.7,R1,3,3,0,0,0,M;W,A,0,,R1,"Meta-SecAlign closes immediate imperative injection, but its remaining explosive-prompt failures all fire at the later trigger turn"
+fath_arxiv2024:k1,fath_arxiv2024,proposes,abstract,R1,17,17,0,0,0,W,A,0,,R1,state-of-the-art defence against indirect prompt injection on Llama3 and GPT3.5 across attack methods
+gemini_arxiv2025:k1,gemini_arxiv2025,mixed,abstract,R1,7,0,7,0,0,W,B,1,,R1,ongoing adaptive evaluations directly help make Gemini more resilient
+glasswall_techrxiv2026:k1,glasswall_techrxiv2026,proposes,abstract,R1,3,2,1,0,0,M;W,A,0,,R1,the Glass Wall moves text injection from a 100% baseline failure rate to 0.00% ASR across all tested vectors
+gptred_arxiv2026:k1,gptred_arxiv2026,proposes,abstract,R1,1,0,1,0,0,M,B,0,,R1,adversarial training with GPT-Red makes GPT-5.6 the developer's most robust model to prompt injections to date
+guardrag_uwthesis2026:k1,guardrag_uwthesis2026,mixed,abstract,R1;R2,2,2,0,0,0,W,A,0,R2 results,R1;R2clean,"On an 8B model that follows about 45% of stealth injections under the security prompt, GuardRAG cuts behavioural attack success to 0.3% while keeping benign-query utility"
+guardrag_uwthesis2026:k2,guardrag_uwthesis2026,mixed,abstract,R1,3,3,0,0,0,M,A,0,,R1;other,The 8B model matches or exceeds the defence quality of a 70B model trained on the same compact data
+guardrag_uwthesis2026:k3,guardrag_uwthesis2026,mixed,Section 9.2.1,R1,1,1,0,0,0,W,A,0,,R1,"Placed in the native InjecAgent agent format, the trained defence does not help: SAGE-C's attack success rises above the base model's"
+gwdpo_arxiv2026:k1,gwdpo_arxiv2026,proposes,abstract,R1,4,4,0,0,0,M,A,0,,R1,GW-DPO with the bilateral schedule Pareto-improves over standard DPO and the linear schedule
+haaulc_rs2026:k1,haaulc_rs2026,proposes,Section 5.2.2,R1,2,2,0,0,0,W,A,0,,R1,the protocol raises defence success against indirect injection in knowledge-base documents to 76%
+hos_arxiv2026:k1,hos_arxiv2026,proposes,abstract,R1,6,6,0,0,0,W,A,0,,R1,the black-box RL-Hammer attack reaches 97% ASR against GPT-OSS-20B and 85% against SecAlign but only 10% against HoS
+hos_arxiv2026:k2,hos_arxiv2026,proposes,abstract,general_utility,40,40,0,0,0,W,A,0,general utility only,general_utility,"HoS preserves base-model utility across standard multiple-choice benchmarks and prompting setups, whereas SecAlign and ASIDE degrade in few-shot settings"
+hos_arxiv2026:k3,hos_arxiv2026,proposes,abstract,R1;R2,27,27,0,0,0,W,A,2,R2 results,R1;R2clean;R2attack,on agentic benchmarks with static attacks HoS and SecAlign perform similarly and improve the security-utility trade-off over the base model
+hybridrag_ijaiml2026:k1,hybridrag_ijaiml2026,proposes,abstract,R1;R2,6,6,0,0,0,W,A,0,R2 results,R1;R2clean,the hybrid defence never showed a severe accuracy drop in any model
+icon_arxiv2026:k1,icon_arxiv2026,proposes,abstract,R1;R2,9,9,0,0,0,W,A,0,R2 results,R1;R2attack,"ICON reaches 0.4% attack success, matching commercial detectors, with a large gain in task utility"
+ignorednotrefused_arxiv2026:k1,ignorednotrefused_arxiv2026,benchmark,abstract,R1,11,0,11,0,0,W,B,0,,R1,changing only the system prompt shifts InjecAgent ASR from 0.2% to 43% with the same weights
+ih_arxiv2024:k1,ih_arxiv2024,proposes,abstract,R1,2,2,0,0,0,W,A,0,,R1,"large gains in robustness, including attack types not seen in training"
+ih_arxiv2024:k2,ih_arxiv2024,proposes,abstract,general_utility,0,0,0,0,0,,none,0,no utility result in its comparisons,,minimal loss of standard capabilities
+ihchallenge_arxiv2026:k1,ihchallenge_arxiv2026,proposes,abstract,R1;general_utility,5,5,0,0,0,W,A,1,general utility only,R1;general_utility,training on IH-Challenge saturates an internal agentic prompt injection test with minimal capability loss
+ihdec_arxiv2026:k1,ihdec_arxiv2026,proposes,abstract,R1;general_utility,3,3,0,0,0,W,A,0,general utility only,R1;general_utility,IHDec strengthens safety against adversarial prompt injection while preserving general response quality
+instrucot_arxiv2026:k1,instrucot_arxiv2026,proposes,abstract,R1;general_utility,16,16,0,0,0,W,A,0,no utility result in its comparisons,R1,Across four LLMs InstruCoT significantly outperforms the baselines in every dimension while keeping utility without degradation
+instrucot_arxiv2026:k2,instrucot_arxiv2026,proposes,Section 5.2,R1,8,8,0,0,0,M,A,0,,R1,The instruction-aware chain of thought is what raises the defence rate over the same data trained without it (InSFT)
+intentguard_arxiv2025:k1,intentguard_arxiv2025,proposes,abstract,R1;R2,20,20,0,0,0,W,A,0,R2 results,R1;R2clean;R2attack,IntentGuard causes no utility loss in all but one setting and strongly lowers attack success against adaptive attacks
+ipidefrepl_computers2026:k1,ipidefrepl_computers2026,re_measures,abstract,R1;R2,12,12,0,0,0,W,A,0,R2 results,R1;R2clean;R2attack,"defence evaluation should report attack outcomes together with goal feasibility, legitimate-task utility, action availability and run-to-run variation"
+ise_iclr2025:k1,ise_iclr2025,proposes,abstract,R1,2,2,0,0,0,M,A,0,,R1,average robust accuracy rises by up to 15.75% (Structured Query) and 18.68% (Instruction Hierarchy)
+ise_iclr2025:k2,ise_iclr2025,proposes,abstract,general_utility,0,0,0,0,0,,none,0,no utility result in its comparisons,,instruction following on AlpacaEval improves by up to 4.1%
+jatmo_arxiv2023:k1,jatmo_arxiv2023,proposes,abstract,R1,20,0,20,0,0,W,B,1,,R1,"best attacks succeed in under 0.5% of cases against Jatmo models, against 87% on GPT-3.5-Turbo"
+jatmo_arxiv2023:k2,jatmo_arxiv2023,proposes,abstract,R2,0,0,0,0,0,,none,0,no utility result in its comparisons,,Jatmo models give similar output quality to standard LLMs on their task
+jatmohouyi_arxiv2025:k1,jatmohouyi_arxiv2025,re_measures,abstract,R1,6,0,6,0,0,W,B,0,,R1,Jatmo lowers attack success relative to an instruction-tuned model but does not fully prevent injections
+jia_critical_arxiv2025:k1,jia_critical_arxiv2025,re_measures,abstract,R1;R2;general_utility,3,3,0,0,0,M;W,A,0,R2 results,R1;R2clean,"existing defences are not as successful as previously reported when evaluated with diverse prompts, adaptive attacks and absolute utility"
+ldd_arxiv2025:k1,ldd_arxiv2025,proposes,abstract,R2;R1,9,9,0,0,0,M,A,0,R2 results,R1;R2attack,sentiment-associated labels beat other aliases everywhere but beat the native-label baseline in only three of nine configurations
+liu_benchmark_arxiv2023:k1,liu_benchmark_arxiv2023,re_measures,abstract,R1;R2,21,21,0,0,0,W,A,0,no utility result in its comparisons,R1,"systematic evaluation of 5 attacks and 10 defences with 10 LLMs and 7 tasks, a common benchmark"
+llmailinject_arxiv2025:k1,llmailinject_arxiv2025,re_measures,abstract,R1,0,0,0,0,0,,none,0,,,models under 5% ASR on existing benchmarks fail more here: Meta SecAlign still yields 32% ASR
+llmon_arxiv2026:k1,llmon_arxiv2026,proposes,abstract,R1;general_utility,18,18,0,0,0,W,A,1,general utility only,R1;general_utility,LLMON-structured supervision cuts ASR on indirect prompt-injection benchmarks from 53-100% to 0.02-5.6% while preserving general capabilities
+localalign_ccs2026:k1,localalign_ccs2026,proposes,abstract,R1,54,54,0,0,0,W,A,0,,R1,"LocalAlign is the first method to keep attack success below 10% in most settings, including stronger attacks"
+localalign_ccs2026:k2,localalign_ccs2026,proposes,abstract,general_utility,10,10,0,0,0,W,A,2,general utility only,general_utility,LocalAlign keeps utility comparable to the model before defence fine-tuning
+loginject_arxiv2026:k1,loginject_arxiv2026,benchmark,Section 7.5,R1,5,5,0,0,0,W,A,0,,R1,spotlighting alone roughly halves attack success on log analysis
+longpibench_arxiv2026:k1,longpibench_arxiv2026,benchmark,Section 5.4,R1,40,40,0,0,0,W,A,3,,R1,existing prevention-based defences fail to reduce attack success in long-context settings
+ltbd_arxiv2026:k1,ltbd_arxiv2026,proposes,abstract,R1,8,8,0,0,0,W,A,0,,R1,LTBD reaches 0.00% ASR on AlpacaFarm and 0.11 to 0.19% on TaskTracker
+ltbd_arxiv2026:k2,ltbd_arxiv2026,proposes,introduction,R1,48,16,0,0,32,W;X,A,1,,R1,LTBD substantially outperforms inference-time defences and remains competitive with training-based ones
+ltbd_arxiv2026:k3,ltbd_arxiv2026,proposes,abstract,general_utility;R2,8,8,0,0,0,W,A,1,R2 results,R2clean;general_utility,LTBD preserves benign-task utility
+ltbd_arxiv2026:k4,ltbd_arxiv2026,proposes,abstract,R1,4,4,0,0,0,M,A,0,,R1,LTBD remains effective under adaptive attacks by an attacker who knows the defence
+medmas_arxiv2026:k1,medmas_arxiv2026,mixed,abstract,R1,17,17,0,0,0,W,A,0,,R1,existing defences help only partly and miss injections that look like ordinary clinical text
+metasecalign_arxiv2025:k1,metasecalign_arxiv2025,proposes,abstract,general_utility;R2,5,5,0,0,0,W,A,0,R2 results,R1;R2clean;R2attack;general_utility,Meta-SecAlign keeps almost all of the undefended model's utility
+metasecalign_arxiv2025:k2,metasecalign_arxiv2025,proposes,abstract,R1,4,4,0,0,0,W,A,2,,R1,better overall security than SecAlign against static and GCG adaptive attacks
+moe_arxiv2025:k1,moe_arxiv2025,proposes,abstract,R1,8,8,0,0,0,W,A,0,,R1,one of the lowest attack success rates
+moe_arxiv2025:k2,moe_arxiv2025,proposes,abstract,general_utility;R2,8,8,0,0,0,M,A,2,R2 results,R2clean;general_utility,"high performance across all NLP tasks, better than other encoding defences"
+msacore_zenodo2026:k1,msacore_zenodo2026,re_measures,abstract,R1,3,3,0,0,0,M;W,A,1,,R1;R2attack,keeping only the MLPs of layers 8-15 kept 80.7% of the adapter's protection (16.3% attack success against 2.9% with the whole adapter)
+municipal_sauc2026:k1,municipal_sauc2026,re_measures,abstract,R1,12,12,0,0,0,W,A,0,,R1,"defences reduce attack success unevenly across objectives, barely affecting summary falsification"
+overlays_arxiv2026:k1,overlays_arxiv2026,proposes,abstract,R1;R2,4,4,0,0,0,W,A,0,R2 results,R1;R2clean;other,against attacks written without knowledge of the defence the overlay matches the best published defences on a frozen model
+peerrevcheck_osf2025:k1,peerrevcheck_osf2025,mixed,abstract,R1;R2,2,2,0,0,0,W,A,0,R2 results,R1;R2clean,"prompting the models to check for injections fully reverts the effect of the injection, at the cost of harsher reviews"
+pft_arxiv2025:k1,pft_arxiv2025,proposes,abstract,R1,8,8,0,0,0,M,A,1,,R1,manipulating position IDs gives clearer role distinctions and less reliance on shortcuts
+piarena_arxiv2026:k1,piarena_arxiv2026,benchmark,abstract,R1;R2,3,0,0,0,3,W,U,0,R2 results,R1;R2clean;R2attack,state-of-the-art defences generalise poorly across tasks and are vulnerable to adaptive attacks
+pictionary_arxiv2026:k1,pictionary_arxiv2026,proposes,abstract,R1;R2,32,32,0,0,0,W,A,3,R2 results,R1;R2clean;R2attack,"Pictionary consistently reduces attack success, even against the strongest adaptive attacks and human red teamers, while largely keeping utility"
+pidefthesis_upv2026:k1,pidefthesis_upv2026,re_measures,abstract,R1,36,36,0,0,0,W,A,0,,R1,no defence is strong everywhere and the ranking of defences changes between AgentDojo and InjecAgent
+pipette_arxiv2026:k1,pipette_arxiv2026,proposes,Section 5.4,R1,7,7,0,0,0,M;W,A,0,,R1;R2attack,PIPETTE has the lowest average attack success among the compared defences under static attacks on AgentDojo and ASB
+pismith_colm2026:k1,pismith_colm2026,re_measures,abstract,R1,4,4,0,0,0,W,A,0,,R1,state-of-the-art defences remain vulnerable to adaptive attacks
+poisonedtools_zenodo2026:k1,poisonedtools_zenodo2026,re_measures,abstract,R1;R2,4,4,0,0,0,W,A,0,R2 results,R1;R2clean,"none of the cheap training-free defences significantly reduces attack success, and the goal reminder costs nineteen points of benign utility"
+ppa_arxiv2025:k1,ppa_arxiv2025,proposes,abstract,R1;R2,0,0,0,0,0,,none,0,no utility result in its comparisons,,PPA improves security without loss of performance
+promptfencing_arxiv2025:k1,promptfencing_arxiv2025,proposes,abstract,R1,2,2,0,0,0,W,A,0,,R1,simulated fence awareness prevented all injections: 86.7% to 0% over 300 cases
+provtransformer_arxiv2026:k1,provtransformer_arxiv2026,proposes,abstract,R1;general_utility,34,34,0,0,0,M;W,A,1,general utility only,R1;general_utility,Provenance-Aware Transformers resist indirect prompt injection in and out of distribution while keeping utility close to the base model
+pvst_arxiv2026:k1,pvst_arxiv2026,proposes,abstract,R1;R2,4,4,0,0,0,M;W,A,0,R2 results,R1;R2attack,policy-verified preference training lowers violating trajectories and successful attacks at equal or higher pooled utility
+ragmitig_ccs2026:k1,ragmitig_ccs2026,re_measures,abstract,R1;R2,5,5,0,0,0,W,A,0,R2 results,R1;R2clean;other,"retrieval and prompt defences reduced instruction-following success, but no single stage gave broad protection without utility or scope trade-offs"
+raised_arxiv2026:k1,raised_arxiv2026,proposes,abstract,R1;R2,24,24,0,0,0,W,A,0,R2 results,R1;R2clean;R2attack,"RAISED substantially reduces attack success while, unlike prior trained defences, preserving utility"
+readable_arxiv2026:k1,readable_arxiv2026,mixed,abstract,R1,6,6,0,0,0,M;W,A,0,,R1,directions estimated from hijacked and resisted training trajectories reduce attack success on AgentDojo when applied at the right positions
+reasalign_arxiv2026:k1,reasalign_arxiv2026,proposes,abstract,R1;R2,3,3,0,0,0,W,A,0,R2 results,R1;R2attack,"on CySE ReasAlign keeps 94.6% utility at 3.6% attack success, far ahead of Meta SecAlign"
+reasalign_arxiv2026:k2,reasalign_arxiv2026,proposes,abstract,general_utility;R2,5,5,0,0,0,W,A,1,R2 results,R2clean;general_utility,ReasAlign keeps utility comparable to the undefended model
+redvisor_arxiv2026:k1,redvisor_arxiv2026,proposes,abstract,general_utility,1,1,0,0,0,W,A,0,general utility only,general_utility,RedVisor beats existing defences in detection accuracy and throughput with negligible utility loss
+redvisor_arxiv2026:k2,redvisor_arxiv2026,proposes,introduction,R1;general_utility,37,37,0,0,0,W,A,0,general utility only,R1;general_utility,RedVisor gives much lower attack success than existing methods while keeping utility
+reta_arxiv2026:k1,reta_arxiv2026,proposes,abstract,R1;R2,6,6,0,0,0,W,A,0,R2 results,R1;R2clean;R2attack,RETA keeps every per-attack adaptive ASR below 10% and averages 2.92% and 3.75% while preserving most utility
+rlhammer_arxiv2025:k1,rlhammer_arxiv2025,re_measures,abstract,R1,1,1,0,0,0,W,A,0,,R1,RL-Hammer reaches 98% ASR against GPT-4o and 72% against GPT-5 with the Instruction Hierarchy defence
+rui_preprints2026:k1,rui_preprints2026,proposes,abstract,R1;R2,25,25,0,0,0,W,A,0,no utility result in its comparisons,R1,RUI lowers attack success from 100% to under 8.1% against adaptive attacks while keeping benign performance above 88.8%
+rvr_arxiv2025:k1,rvr_arxiv2025,proposes,abstract,R1,30,30,0,0,0,W,A,0,,R1,"outperforms prompting baselines, comparable to fine-tuning, ASR near 0% in some scenarios"
+rvr_arxiv2025:k2,rvr_arxiv2025,proposes,abstract,R2,9,9,0,0,0,W,A,0,R2 results,R2clean,minimal impact on overall utility
+safereview_arxiv2026:k1,safereview_arxiv2026,proposes,abstract,R1;R2,8,7,0,0,1,M;W,A,2,R2 results,R1;R2attack,SafeReview improves robustness against adaptive prompt injection and better preserves paper ranking under attack than static defenses
+secalign_ccs2025:k1,secalign_ccs2025,proposes,abstract,R1,3,3,0,0,0,W,A,0,,R1,"first method that brings the success of various prompt injections below 10%, including attacks unseen in training"
+secalign_ccs2025:k2,secalign_ccs2025,proposes,abstract,general_utility,2,2,0,0,0,W,A,0,general utility only,general_utility,SecAlign models keep similar utility to the model before defensive training
+secfid_arxiv2026:k1,secfid_arxiv2026,mixed,abstract,R1;R3,3,3,0,0,0,W,A,0,,R1;R2attack;R3ns;R3cp,"defences resist injected instructions largely by suppressing untrusted text, and no model or defence achieves both security and fidelity"
+secfid_arxiv2026:k2,secfid_arxiv2026,mixed,Section 4.3,R1;R3,2,2,0,0,0,M,A,0,,R1;R2attack;R3ns;R3cp,fidelity-aware preference tuning raises processing while keeping security
+secinfer_arxiv2025:k1,secinfer_arxiv2025,proposes,abstract,R1,12,12,0,0,0,W,A,0,,R1;R2attack,SecInfer mitigates existing and adaptive attacks and outperforms state-of-the-art defences
+secopd_emnlp2026:k1,secopd_emnlp2026,proposes,abstract,R1,2,2,0,0,0,W,A,0,,R1,"SecOPD reaches 9.0% ASR against PISmith, against 94.0% for Meta-SecAlign"
+secopd_emnlp2026:k2,secopd_emnlp2026,proposes,abstract,R1,2,2,0,0,0,W,A,0,,R1,SecOPD's security generalises to unseen agentic tool calling (4.7% against 5.5% ASR)
+secpo_arxiv2026:k1,secpo_arxiv2026,proposes,abstract,R1,6,6,0,0,0,M,A,0,,R1,adversarial training cuts ASR by 1.5 to 14.5 times across three adaptive attacks compared with Meta-SecAlign
+secpo_arxiv2026:k2,secpo_arxiv2026,proposes,abstract,R1,6,6,0,0,0,M,A,1,,R1,the SecPO loss cuts adaptive ASR by a further 2.4 to 4.6 times compared with the DPO loss
+secpo_arxiv2026:k3,secpo_arxiv2026,proposes,abstract,R1,2,2,0,0,0,W,A,0,,R1,SecPO with adversarial training on Qwen3.6-27B reaches 8.8% against 78.8% for Meta-SecAlign on AgentDojo ASR@800
+secpo_arxiv2026:k4,secpo_arxiv2026,proposes,abstract,general_utility;R2,15,15,0,0,0,W,A,0,R2 results,R2clean;R2attack;general_utility,the defended model shows no noticeable loss of benign utility on nine benchmarks
+securecai_arxiv2026:k1,securecai_arxiv2026,proposes,abstract,R1;R2,2,2,0,0,0,W,A,0,R2 results,R1;R2clean,SecureCAI lowers attack success by 94.7% against the base model while keeping clean accuracy
+signedprompt_arxiv2024:k1,signedprompt_arxiv2024,proposes,abstract,R1,0,0,0,0,0,,none,0,,,substantial resistance to various types of prompt injection attacks
+smallagentsq_zenodo2026:k1,smallagentsq_zenodo2026,re_measures,abstract,R1,4,4,0,0,0,W,A,0,,R1,spotlighting with delimiters reduces attack success for one architecture while increasing it for another
+smalllocal_zenodo2026:k1,smalllocal_zenodo2026,mixed,abstract,R1,1,1,0,0,0,W,A,0,,R1,a safety rule in the system prompt had no measurable effect on this model
+smallsecure_asiaccs2026:k1,smallsecure_asiaccs2026,proposes,abstract,R1,9,6,3,0,0,M;W,A,2,,R1,on-policy RL distillation clearly beats standard distillation and matches the 8B SecAlign teacher
+socportab_zenodo2026:k1,socportab_zenodo2026,re_measures,abstract,R1,15,15,0,0,0,W,A,0,,R1,defences are not portable across model families: one that lowers AFCR on one model can leave another unchanged or make it substantially worse
+spotlighting_arxiv2024:k1,spotlighting_arxiv2024,proposes,abstract,R1,2,2,0,0,0,M,A,0,,R1,spotlighting cuts attack success from over 50% to under 2% with GPT-family models
+spotlighting_arxiv2024:k2,spotlighting_arxiv2024,proposes,abstract,R2,0,0,0,0,0,,none,0,no utility result in its comparisons,,minimal detrimental impact on underlying NLP tasks
+srft_arxiv2026:k1,srft_arxiv2026,proposes,abstract,R1;R2,6,6,0,0,0,W,A,2,R2 results,R1;R2clean;R2attack,SRFT substantially reduces attack success while preserving task performance and generalises under adaptive attacks
+struq_arxiv2024:k1,struq_arxiv2024,proposes,abstract,R1,8,8,0,0,0,W,A,2,,R1,structured queries significantly improve resistance to prompt injection
+struq_arxiv2024:k2,struq_arxiv2024,proposes,abstract,general_utility,2,2,0,0,0,W,A,0,general utility only,general_utility,little or no loss of utility
+surfaceheuristics_arxiv2026:k1,surfaceheuristics_arxiv2026,re_measures,abstract,general_utility,8,8,0,0,0,W,A,0,general utility only,general_utility;other,defence fine-tuning makes models reject benign content placed later in a prompt
+tab_arxiv2026:k1,tab_arxiv2026,benchmark,abstract,R1;R2,6,6,0,0,0,W,A,0,R2 results,R1;R2attack;R3cp,suppressing distractor execution with prompt-injection defences also suppresses the cues needed for task completion
+textpixels_arxiv2026:k1,textpixels_arxiv2026,re_measures,abstract,R1,18,18,0,0,0,W,A,1,,R1,"rendering reduces append and format execution for every model, yet Qwen3-VL-8B still executes image-borne replacement at 77.96%"
+textpixels_arxiv2026:k2,textpixels_arxiv2026,re_measures,abstract,R2,12,12,0,0,0,W,A,1,R2 results,R2clean,"utility ratios on original questions range from 93.31% to 101.61%, but Qwen falls to 61.99% on integration questions"
+tracer_emnlp2026:k1,tracer_emnlp2026,proposes,abstract,R1,1,1,0,0,0,M,A,0,,R1,the same attack succeeds 18% of the time as a follow-up message but 53% in retrieved context
+tracer_emnlp2026:k2,tracer_emnlp2026,proposes,abstract,R1;R2,2,2,0,0,0,W,A,0,no utility result in its comparisons,R1,TRACER reduces RAG-framed ASR from 65.5% to 6.1% on GSM8K with Qwen2.5-3B-Instruct while keeping 78 to 82% clean accuracy
+tracer_emnlp2026:k3,tracer_emnlp2026,proposes,abstract,R1,8,8,0,0,0,W,A,0,,R1,joint RAG and tool training reaches 13.9% average ASR across framings at 3B; one epoch at 7B reaches 9.4%
+transfact_zenodo2026:k1,transfact_zenodo2026,re_measures,abstract,R1,4,4,0,0,0,W,A,0,,R1,SRP cuts DeepSeek V3.2's ASR by 69.5 points on AgentDojo Banking while raising Llama 4 Scout's by 41.0 points
+transfact_zenodo2026:k2,transfact_zenodo2026,re_measures,abstract,R1,4,4,0,0,0,W,A,0,,R1,the same defence behaves differently on agentic and document benchmarks
+trustmi_arxiv2026:k1,trustmi_arxiv2026,mixed,Section 4,R1;R2,12,12,0,0,0,W,A,0,R2 results,R1;R2clean;R2attack,moderate negative trust steering could help protect agents against prompt injections without much loss of benign performance
+univdef_arxiv2026:k1,univdef_arxiv2026,proposes,Section 4.3,R2,6,6,0,0,0,W,A,0,R2 results,R1;R2attack,the delimiter-based defence lowers original task success in some settings
+untrustedcomponent_arxiv2026:k1,untrustedcomponent_arxiv2026,re_measures,abstract,R1,4,4,0,0,0,W,A,0,,R1,guardrail effects depended on the model: the prompt guardrail moved obedience from 67% to 65% on the 1.5B model and from 86% to 55% on the 7B model
+verih_arxiv2025:k1,verih_arxiv2025,proposes,abstract,R1,5,5,0,0,0,W,A,1,,R1,"more robust to jailbreak and prompt injection, absolute attack success down by up to 20%"
+whosaidthis_zenodo2026:k1,whosaidthis_zenodo2026,proposes,abstract,R1;R2,20,12,8,0,0,W,A,2,R2 results,R1;R2attack,a steering lever lowers obedience to instructions in tool output while the content stays usable; in Qwen3 it is strong but the sealed overall verdict is none
