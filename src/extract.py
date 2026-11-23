@@ -433,3 +433,69 @@ def rule_problems(rec: dict) -> list[str]:
             if best != cov.get(q):
                 out.append(f"coverage {q} is {cov.get(q)} but the best result coded for it is {best}")
     return out
+
+
+# ---------------------------------------------------------------- 04_full_extraction: decisive values and the map
+AXIS1 = ["chat_roles", "delimiters_markers", "encodings", "learned_token_features", "fixed_embedding_transform", "position",
+         "internal_intervention", "no_signal"]
+AXIS2 = ["prompting", "soft_tokens_frozen", "sft", "preference_optimisation", "distillation", "adversarial_rl", "fixed_inference_rule"]
+
+
+def value_count(value: str, page_text: str, norm) -> int:
+    """How many times a printed value stands on the page as a number of its own; norm is schema.norm_value."""
+    v = norm(value).replace(" ", "")
+    if not v:
+        return 0
+    core = re.escape(v[:-1] if v.endswith("%") else v)
+    return len(re.findall(rf"(?<![\d.]){core}(?![\d])", norm(page_text or "")))
+
+
+def decisive_results(rec: dict, grade) -> dict:
+    """Plan v2 A6: the printed values in a grade-A comparison. Returns {result id: set of reasons}; the reasons say
+    whether the comparison supports or the result contradicts a headline claim."""
+    by_eval = defaultdict(list)
+    for r in rec.get("results") or []:
+        by_eval[r["evaluation_id"]].append(r)
+    comps = {c["id"]: c for c in rec.get("comparisons") or []}
+    support = {cid for k in rec.get("claims") or [] for cid in k.get("supported_by") or []}
+    contra = {x for k in rec.get("claims") or [] for x in k.get("contradicted_by") or []}
+    out = defaultdict(set)
+    for cid, c in comps.items():
+        if grade(c) != "A":
+            continue
+        tag = "grade-A comparison behind a claim" if cid in support else "grade-A comparison"
+        for side in ("left", "right"):
+            for r in by_eval.get(c[side], []):
+                out[r["id"]].add(tag)
+                if cid in contra:
+                    out[r["id"]].add("contradicts a claim")
+    for r in rec.get("results") or []:
+        if r["id"] in contra and r["id"] in out:
+            out[r["id"]].add("contradicts a claim")
+    return {k: v for k, v in out.items()
+            if next(r for r in rec["results"] if r["id"] == k).get("value_source") != "figure_only"}
+
+
+def map_cells(records: dict) -> list[dict]:
+    """Defence records per cell of the map (axis 1 by axis 2), from reports read in full. A defence with two axis-1 or
+    two axis-2 values counts in every cell it occupies."""
+    cell = defaultdict(lambda: {"records_this_report": 0, "records_all": 0, "reports": set()})
+    for rid, rec in records.items():
+        if rec["report"].get("read") != "F":
+            continue
+        for d in rec.get("defences") or []:
+            for a in d["axis1"]:
+                for b in d["axis2"]:
+                    c = cell[(a, b)]
+                    c["records_all"] += 1
+                    if d["origin"] == "this_report":
+                        c["records_this_report"] += 1
+                        c["reports"].add(rid)
+    rows = []
+    for a in AXIS1:
+        for b in AXIS2:
+            c = cell.get((a, b), {"records_this_report": 0, "records_all": 0, "reports": set()})
+            rows.append({"axis1": a, "axis2": b, "defence_records_this_report": c["records_this_report"],
+                         "defence_records_all": c["records_all"], "reports_proposing": len(c["reports"]),
+                         "report_ids": ";".join(sorted(c["reports"]))})
+    return rows

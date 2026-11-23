@@ -1,0 +1,46 @@
+decision_04: FULL EXTRACTION CHECKED; GATE G3 PASSED
+this step: 2026-11-23
+corpus: 124 included studies, 124 records, every report read in full: True
+records: 843 defences, 5008 evaluations, 5950 results, 3646 comparisons, 158 claims
+checked against the PDFs in one run: 5856 printed values (0 found only in the third reading), 68 chart values (2 found only in the third reading), 992 anchors; every PDF matches its registered SHA-256; amended rules hold; 0 problems
+tables: reports/extraction/reports.csv (124), reports/extraction/defences.csv (843), reports/extraction/evaluations.csv (5008), reports/extraction/results.csv (5950), reports/extraction/comparisons.csv (3646), reports/extraction/claims.csv (158)
+comparison grades: A 3467, B 121, C 0, U 58; evaluations: later 1848, original 1760, undefended 1400
+decisive values (printed values in grade-A comparisons): 5395; behind or against a headline claim: 2994; one occurrence on the page 2906; more than one occurrence on the page: read the cell 2489
+decisive values still to read against the page: the values the findings of notebook 05 use, wherever the code could not pin the value to one place on its page
+map (full-text rows per cell, reports/extraction/map_cells_04.csv): 33 of 56 cells hold defence records, 32 hold a defence proposed or defined by its report; the empty cells are a finding of the map, not missing reading
+  chat_roles x prompting: 9 records (reports: 3; with other reports' defences: 9)
+  chat_roles x soft_tokens_frozen: 4 records (reports: 1; with other reports' defences: 10)
+  chat_roles x sft: 13 records (reports: 4; with other reports' defences: 17)
+  chat_roles x preference_optimisation: 29 records (reports: 11; with other reports' defences: 90)
+  chat_roles x distillation: 10 records (reports: 3; with other reports' defences: 17)
+  chat_roles x adversarial_rl: 3 records (reports: 2; with other reports' defences: 3)
+  chat_roles x fixed_inference_rule: 15 records (reports: 3; with other reports' defences: 15)
+  delimiters_markers x prompting: 40 records (reports: 15; with other reports' defences: 166)
+  delimiters_markers x soft_tokens_frozen: 6 records (reports: 1; with other reports' defences: 9)
+  delimiters_markers x sft: 33 records (reports: 11; with other reports' defences: 67)
+  delimiters_markers x preference_optimisation: 31 records (reports: 8; with other reports' defences: 63)
+  delimiters_markers x distillation: 25 records (reports: 6; with other reports' defences: 27)
+  delimiters_markers x fixed_inference_rule: 16 records (reports: 6; with other reports' defences: 18)
+  encodings x prompting: 12 records (reports: 3; with other reports' defences: 15)
+  encodings x fixed_inference_rule: 24 records (reports: 3; with other reports' defences: 30)
+  learned_token_features x sft: 24 records (reports: 6; with other reports' defences: 34)
+  learned_token_features x preference_optimisation: 9 records (reports: 3; with other reports' defences: 14)
+  learned_token_features x distillation: 16 records (reports: 3; with other reports' defences: 16)
+  fixed_embedding_transform x sft: 2 records (reports: 1; with other reports' defences: 3)
+  position x prompting: 7 records (reports: 2; with other reports' defences: 75)
+  position x sft: 2 records (reports: 1; with other reports' defences: 2)
+  internal_intervention x sft: 13 records (reports: 4; with other reports' defences: 13)
+  internal_intervention x preference_optimisation: 24 records (reports: 4; with other reports' defences: 26)
+  internal_intervention x distillation: 14 records (reports: 3; with other reports' defences: 14)
+  internal_intervention x fixed_inference_rule: 25 records (reports: 6; with other reports' defences: 25)
+  no_signal x prompting: 70 records (reports: 14; with other reports' defences: 144)
+  no_signal x soft_tokens_frozen: 2 records (reports: 1; with other reports' defences: 2)
+  no_signal x sft: 53 records (reports: 16; with other reports' defences: 63)
+  no_signal x preference_optimisation: 25 records (reports: 10; with other reports' defences: 28)
+  no_signal x distillation: 44 records (reports: 13; with other reports' defences: 47)
+  no_signal x adversarial_rl: 19 records (reports: 8; with other reports' defences: 19)
+  no_signal x fixed_inference_rule: 15 records (reports: 4; with other reports' defences: 16)
+G3 full-text rows: met (every populated cell has rows from reports read in full)
+G3 layouts stated: met (3521 of 3646 comparisons, 97%, state the layout condition)
+G3 agreement: below the threshold before resolution on coverage R1, coverage R3ns, coverage R3cp, coverage R3safe, defence isolation, signal dependence, axis 1; re-coded in full in notebook 04r (277b239), as the gate prescribes
+next: notebook 05_analysis (map counts, metric crosswalk, coverage by paper, by configuration and jointly, grades and claim support, stress-test coverage, signal dependence, layout compatibility, suppression cost from published pairs)

@@ -117,3 +117,16 @@ def test_rule_problems_follow_amendment_2():
     d["origin"] = "this_report"
     rec["coverage"]["R3cp"] = "proxy"
     assert any("coverage R3cp is proxy but no result" in p for p in extract.rule_problems(rec))
+
+
+def test_decisive_values_and_map_cells():
+    rec = _rec()
+    dec = extract.decisive_results(rec, schema_mod.grade)
+    assert set(dec) == {f"x{i}" for i in range(9)}                   # every printed value of both arms of the grade-A comparison
+    assert all("grade-A comparison behind a claim" in v for v in dec.values())
+    rec["comparisons"][0]["c4_attacker"] = "unmatched"                # grade B: nothing is decisive
+    assert extract.decisive_results(rec, schema_mod.grade) == {}
+    assert extract.value_count("1.5", "a 1.5 b 11.5 c 1.5%", schema_mod.norm_value) == 2
+    cells = {(r["axis1"], r["axis2"]): r for r in extract.map_cells({"r_a": _rec()})}
+    assert len(cells) == len(extract.AXIS1) * len(extract.AXIS2)
+    assert cells[("chat_roles", "sft")]["defence_records_this_report"] == 1 and cells[("no_signal", "sft")]["defence_records_all"] == 0
