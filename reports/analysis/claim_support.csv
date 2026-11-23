@@ -123,7 +123,7 @@ rvr_arxiv2025:k2,rvr_arxiv2025,proposes,abstract,R2,9,9,0,0,0,W,A,0,R2 results,R
 safereview_arxiv2026:k1,safereview_arxiv2026,proposes,abstract,R1;R2,8,7,0,0,1,M;W,A,2,R2 results,R1;R2attack,SafeReview improves robustness against adaptive prompt injection and better preserves paper ranking under attack than static defenses
 secalign_ccs2025:k1,secalign_ccs2025,proposes,abstract,R1,3,3,0,0,0,W,A,0,,R1,"first method that brings the success of various prompt injections below 10%, including attacks unseen in training"
 secalign_ccs2025:k2,secalign_ccs2025,proposes,abstract,general_utility,2,2,0,0,0,W,A,0,general utility only,general_utility,SecAlign models keep similar utility to the model before defensive training
-secfid_arxiv2026:k1,secfid_arxiv2026,mixed,abstract,R1;R3,3,3,0,0,0,W,A,0,,R1;R2attack;R3ns;R3cp,"defences resist injected instructions largely by suppressing untrusted text, and no model or defence achieves both security and fidelity"
+secfid_arxiv2026:k1,secfid_arxiv2026,mixed,abstract,R1;R3,4,4,0,0,0,W,A,0,,R1;R2attack;R3ns;R3cp,"defences resist injected instructions largely by suppressing untrusted text, and no model or defence achieves both security and fidelity"
 secfid_arxiv2026:k2,secfid_arxiv2026,mixed,Section 4.3,R1;R3,2,2,0,0,0,M,A,0,,R1;R2attack;R3ns;R3cp,fidelity-aware preference tuning raises processing while keeping security
 secinfer_arxiv2025:k1,secinfer_arxiv2025,proposes,abstract,R1,12,12,0,0,0,W,A,0,,R1;R2attack,SecInfer mitigates existing and adaptive attacks and outperforms state-of-the-art defences
 secopd_emnlp2026:k1,secopd_emnlp2026,proposes,abstract,R1,2,2,0,0,0,W,A,0,,R1,"SecOPD reaches 9.0% ASR against PISmith, against 94.0% for Meta-SecAlign"

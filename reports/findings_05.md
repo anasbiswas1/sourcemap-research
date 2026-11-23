@@ -1,6 +1,6 @@
 # Findings of notebook 05
 
-Built 2026-11-23 from the records committed with notebook 04 (3ba84f2). Every number names the file and the rows it was counted from.
+Built 2026-11-23 from the records committed with notebook 04 (3ba84f2) and later record patches. Every number names the file and the rows it was counted from.
 
 ## 1. The map (RQ1)
 
@@ -88,10 +88,10 @@ Built 2026-11-23 from the records committed with notebook 04 (3ba84f2). Every nu
 
 ## 8. Suppression cost per security point
 
-- Published pairs with security and non-suppression for a defended and the undefended configuration in one grade-A comparison: 3, all in secfid_arxiv2026 (analysis/scs.csv).
+- Published pairs with security and non-suppression for a defended and the undefended configuration in one grade-A comparison: 4, all in secfid_arxiv2026 (analysis/scs.csv).
 - ASIDE (re-measured by SecFid) on Llama 3.1 8B: SCS 0.39 (R3ns 92.3 to 75.3, R1 50.9 to 94.3; secfid_arxiv2026:r_aside_e;secfid_arxiv2026:r_base_e;secfid_arxiv2026:r_aside_i;secfid_arxiv2026:r_base_i).
+- ISE (re-measured by SecFid) on Llama 3.1 8B: SCS 0.36 (R3ns 92.3 to 79.7, R1 50.9 to 86.0; secfid_arxiv2026:r_ise_e;secfid_arxiv2026:r_base_e;secfid_arxiv2026:r_ise_i;secfid_arxiv2026:r_base_i).
 - Meta-SecAlign-8B (re-measured by SecFid) on Llama 3.1 8B: SCS 0.38 (R3ns 92.3 to 73.9, R1 50.9 to 99.3; secfid_arxiv2026:r_msa_e;secfid_arxiv2026:r_base_e;secfid_arxiv2026:r_msa_i;secfid_arxiv2026:r_base_i).
 - DefensiveTokens (re-measured by SecFid) on Llama 3.1 8B: SCS 0.97 (R3ns 92.3 to 46.3, R1 50.9 to 98.1; secfid_arxiv2026:r_dt_e;secfid_arxiv2026:r_base_e;secfid_arxiv2026:r_dt_i;secfid_arxiv2026:r_base_i).
-- The ISE row of the same table has no coded comparison in the SecFid record, so no SCS is computed for it.
-- The eight inputs were read by eye against their page (analysis/values_used_05.csv). SCS is computed only from published pairs and is not called a benchmark.
+- The 10 printed values behind these pairs were read by eye against their page (analysis/values_used_05.csv). SCS is computed only from published pairs and is not called a benchmark.
 

@@ -1,4 +1,5 @@
 comparison_uid,report,defence,base,R1_defended,R1_undefended,R3ns_defended,R3ns_undefended,SCS,result_uids
 secfid_arxiv2026:c_aside,secfid_arxiv2026,ASIDE (re-measured by SecFid),Llama 3.1 8B,94.3,50.9,75.3,92.3,0.39,secfid_arxiv2026:r_aside_e;secfid_arxiv2026:r_base_e;secfid_arxiv2026:r_aside_i;secfid_arxiv2026:r_base_i
+secfid_arxiv2026:c_ise,secfid_arxiv2026,ISE (re-measured by SecFid),Llama 3.1 8B,86.0,50.9,79.7,92.3,0.36,secfid_arxiv2026:r_ise_e;secfid_arxiv2026:r_base_e;secfid_arxiv2026:r_ise_i;secfid_arxiv2026:r_base_i
 secfid_arxiv2026:c_msa,secfid_arxiv2026,Meta-SecAlign-8B (re-measured by SecFid),Llama 3.1 8B,99.3,50.9,73.9,92.3,0.38,secfid_arxiv2026:r_msa_e;secfid_arxiv2026:r_base_e;secfid_arxiv2026:r_msa_i;secfid_arxiv2026:r_base_i
 secfid_arxiv2026:c_dt,secfid_arxiv2026,DefensiveTokens (re-measured by SecFid),Llama 3.1 8B,98.1,50.9,46.3,92.3,0.97,secfid_arxiv2026:r_dt_e;secfid_arxiv2026:r_base_e;secfid_arxiv2026:r_dt_i;secfid_arxiv2026:r_base_i

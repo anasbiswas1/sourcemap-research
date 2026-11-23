@@ -520,6 +520,18 @@ comparisons:
   c6_decoding: matched
   page: 6
   varies: the defence (defended against undefended arm)
+- id: c_ise
+  left: ev_ise
+  right: ev_base
+  purpose: W
+  c1_base: matched
+  c2_layout: unmatched
+  c3_benchmark: matched
+  c4_attacker: matched
+  c5_judge: matched
+  c6_decoding: matched
+  page: 6
+  varies: the defence (defended against undefended arm)
 - id: c_msa
   left: ev_msa
   right: ev_base
@@ -580,6 +592,7 @@ claims:
   - c_aside
   - c_msa
   - c_dt
+  - c_ise
   page: 1
 - id: k2
   text: fidelity-aware preference tuning raises processing while keeping security

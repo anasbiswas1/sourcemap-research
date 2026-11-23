@@ -404,3 +404,165 @@ def scs_pairs(records: dict, grade) -> list[dict]:
                          "SCS": round((r3u - r3d) / (r1d - r1u), 2),
                          "result_uids": ";".join(f"{rid}:{x['id']}" for x in (xr1d, xr1u, xr3d, xr3u))})
     return rows
+
+
+# ---------------------------------------------------------------- the outputs of notebook 05, regenerable from the records
+def pct(a, b):
+    if not b:
+        return f"{a} of 0"
+    share = 100 * a / b
+    return f"{a} of {b} ({'under 1' if 0 < share < 0.5 else round(share)} in 100)"
+
+
+def _ids(xs, n=12):
+    xs = sorted(xs)
+    return ", ".join(xs) if len(xs) <= n else f"{len(xs)} ids in the file"
+
+
+def run(records: dict, grade, conditions, c04: str, read: dict, decisive: dict, today: str) -> dict:
+    """Every table of reports/analysis/, the findings and the decision lines, from the records.
+    read: result uid -> the value read by eye against the page, for every printed value the findings use.
+    decisive: result uid -> the row of reports/extraction/decisive_values_04.csv (its code check is quoted).
+    Stops with a ValueError when a value the findings use was not read against its page or differs."""
+    T = {}
+    meths = methods(records)
+    T["methods"] = meths
+    mp = map_table(meths)
+    T["map"] = mp
+    by_a1 = Counter(a for m in meths for a in m["axis1"].split(";"))
+    by_a2 = Counter(b for m in meths for b in m["axis2"].split(";"))
+    filled = [r for r in mp if r["methods"]]
+    T["signal_dependence"] = [{k: m[k] for k in ("method_uid", "name", "axis1", "axis2", "trained", "signal_dependence",
+                                                 "signal_dependence_detail", "defence_uids")} for m in meths]
+    T["layout_compat"] = [{k: m[k] for k in ["method_uid", "name", "axis1", "axis2"] + [f"layout_{x}" for x in LAYOUTS] + ["defence_uids"]}
+                          for m in meths]
+    with_signal = [m for m in meths if m["axis1"] != "no_signal"]
+    sig_t = Counter(m["signal_dependence"] for m in with_signal if m["trained"] == "yes")
+    sig_p = Counter(m["signal_dependence"] for m in with_signal if m["trained"] == "no")
+    paper_rows = [{"report": rid, "role": r["report"]["role"], **{q: r["coverage"][q] for q in QUANTITIES},
+                   "where": "; ".join(f"{k}: {v}" for k, v in (r["coverage"].get("where") or {}).items())} for rid, r in sorted(records.items())]
+    T["coverage_by_paper"] = paper_rows
+    cfg = configuration_coverage(records)
+    T["coverage_by_configuration"] = cfg
+    fam = family_coverage(records, cfg, meths)
+    T["coverage_by_family"] = fam
+    cw = crosswalk(records)
+    T["crosswalk"] = cw
+    cs = claim_support(records, grade)
+    T["claim_support"] = cs
+    od = orderings(records, grade)
+    T["orderings"] = od
+    gap_rows = []
+    for c in conditions:
+        hit = [(rid, k) for rid, r in sorted(records.items()) for k in r.get("comparisons") or [] if k.get(c) == "unreported"]
+        gap_rows.append({"condition": c, "comparisons_unreported": len(hit), "reports": len({rid for rid, _ in hit}),
+                         "report_ids": ";".join(sorted({rid for rid, _ in hit})),
+                         "comparison_uids": ";".join(f"{rid}:{k['id']}" for rid, k in hit)})
+    T["reporting_gaps"] = gap_rows
+    st = stress_tests(records, meths)
+    T["stress_tests"] = st
+    scs = scs_pairs(records, grade)
+    T["scs"] = scs
+    used = []
+    for s in scs:
+        for u in s["result_uids"].split(";"):
+            rid, xid = u.split(":", 1)
+            r = next(x for x in records[rid]["results"] if x["id"] == xid)
+            d = decisive.get(u, {})
+            used.append({"result_uid": u, "used_in": "suppression cost " + s["comparison_uid"], "value": r["value"], "page": r["page"],
+                         "location": r.get("location", ""), "code_check_04": d.get("code_check", "not a decisive value"),
+                         "read_against_page": ("read by eye: matches" if read.get(u) == r["value"] else
+                                               "NOT READ" if u not in read else f"read by eye: page shows {read[u]}")})
+    T["values_used_05"] = used
+    bad = [u for u in used if u["read_against_page"] != "read by eye: matches"]
+    if bad:
+        raise ValueError(f"a value the findings use was not read against its page or differs: {bad}")
+    ids = _ids
+    F = ["# Findings of notebook 05", "",
+         f"Built {today} from the records committed with notebook 04 ({c04}) and later record patches. Every number names the file and the rows it was counted from.", ""]
+    F += ["## 1. The map (RQ1)", "",
+          f"- {len(meths)} methods in {len({m['report'] for m in meths})} reports: {sum(m['trained'] == 'yes' for m in meths)} trained, "
+          f"{sum(m['trained'] == 'no' for m in meths)} prompting or fixed rules (analysis/methods.csv).",
+          "- Methods per axis-1 value: " + "; ".join(f"{a} {by_a1[a]}" for a in AXIS1) + " (analysis/methods.csv, column axis1; a method with two values counts twice).",
+          "- Methods per axis-2 value: " + "; ".join(f"{b} {by_a2[b]}" for b in AXIS2) + " (column axis2).",
+          f"- {len(filled)} of {len(mp)} cells of the map hold at least one method; {len(mp) - len(filled)} are empty (analysis/map.csv, column methods).",
+          "- The fullest cells: " + "; ".join(f"{r['axis1']} x {r['axis2']} {r['methods']}" for r in sorted(filled, key=lambda r: -r["methods"])[:6]) + " (analysis/map.csv).",
+          f"- Methods with released weights: {sum(m['released_weights'] == 'yes' for m in meths)} (analysis/methods.csv, released_weights = yes: "
+          f"{ids(m['method_uid'] for m in meths if m['released_weights'] == 'yes')}).",
+          "- Methods per year of the report: " + "; ".join(f"{y} {n}" for y, n in sorted(Counter(m['year'] for m in meths).items())) + ".", ""]
+    F += ["## 2. Signal dependence and layout compatibility (RQ1)", "",
+          f"- {len(with_signal)} methods show a source signal at inference; {len(meths) - len(with_signal)} show none (axis 1 no_signal).",
+          "- Trained methods with a signal: " + "; ".join(f"{k} {v}" for k, v in sig_t.most_common()) + ".",
+          "- Prompting or fixed-rule methods with a signal: " + "; ".join(f"{k} {v}" for k, v in sig_p.most_common()) + ".",
+          "- Run with the signal removed or moved (measured or measured_other_checkpoint): "
+          + ids([m["method_uid"] for m in with_signal if m["signal_dependence"].startswith("measured")], 20)
+          + " (analysis/signal_dependence.csv, with what was found in signal_dependence_detail).",
+          *[f"- Layout {x}: " + "; ".join(f"{k} {v}" for k, v in Counter(m[f'layout_{x}'] for m in meths).most_common()) + " (analysis/layout_compat.csv)."
+            for x in LAYOUTS], ""]
+    F += ["## 3. Coverage of the three jobs (RQ2)", "",
+          *[f"- {q}: papers reporting it directly {sum(p[q] == 'direct' for p in paper_rows)}, by proxy {sum(p[q] == 'proxy' for p in paper_rows)}, "
+            f"only pooled {sum(p[q] == 'aggregate_only' for p in paper_rows)}; evaluated configurations covering it {sum(c[q] != 'none' for c in cfg)} of {len(cfg)} "
+            f"(analysis/coverage_by_paper.csv and coverage_by_configuration.csv)." for q in QUANTITIES],
+          f"- All three jobs scored on the same replies: {pct(sum(c['joint_all_three'] == 'yes' for c in cfg), len(cfg))} configurations, in "
+          f"{len({c['report'] for c in cfg if c['joint_all_three'] == 'yes'})} reports: {ids({c['report'] for c in cfg if c['joint_all_three'] == 'yes'})} "
+          "(coverage_by_configuration.csv, joint_all_three = yes).",
+          f"- R1 and R2attack on the same replies: {pct(sum(c['joint_R1_R2attack'] == 'yes' for c in cfg), len(cfg))} configurations.",
+          "- Own paper against anyone, for the named families proposed in the corpus (analysis/coverage_by_family.csv):",
+          *[f"  - {f['family_key']}: R3 measured by its own paper: {'yes' if any(f[q + '_original'] == 'yes' for q in ('R3ns', 'R3cp', 'R3safe')) else 'no'}; "
+            f"by anyone: {'yes' if any(f[q + '_anyone'] == 'yes' for q in ('R3ns', 'R3cp', 'R3safe')) else 'no'}; later reports: "
+            f"{len([x for x in f['reports_measuring_it_later'].split(';') if x])}" for f in fam], ""]
+    r1 = [r for r in cw if r["quantity"] == "R1"]
+    r1n = sum(r["results"] for r in r1)
+    F += ["## 4. What the metrics count (RQ2, the crosswalk)", "",
+          f"- {len(cw)} benchmark, quantity and judge-rule groups over {sum(r['results'] for r in cw)} results (analysis/crosswalk.csv).",
+          *[f"- R1 results whose judge rule is {j}: {pct(sum(r['results'] for r in r1 if r['judge_rule'] == j), r1n)}; it cannot see: "
+            f"{next(r['cannot_see'] for r in r1 if r['judge_rule'] == j)}." for j in sorted({r['judge_rule'] for r in r1})],
+          f"- Results on general-utility benchmarks (not the user's task on the document): {sum(r['results'] for r in cw if r['quantity'] == 'general_utility')}.", ""]
+    sec = [r for r in cs if "R1" in r["jobs"].split(";")]
+    utl = [r for r in cs if r["utility_basis"]]
+    xs = [r for r in od if r["purpose"] == "X"]
+    F += ["## 5. Support for headline claims (RQ3)", "",
+          f"- {len(cs)} headline claims in {len({r['report'] for r in cs})} reports; best grade of their supporting comparisons: "
+          + "; ".join(f"{g} {sum(r['best_grade'] == g for r in cs)}" for g in ["A", "B", "C", "U", "none"]) + " (analysis/claim_support.csv).",
+          f"- Claims about security (job R1) supported by at least one grade-A comparison: {pct(sum(r['best_grade'] == 'A' for r in sec), len(sec))}.",
+          f"- Claims about utility that rest on general-utility metrics only: {pct(sum(r['utility_basis'] == 'general utility only' for r in utl), len(utl))} "
+          f"({ids(r['claim_uid'] for r in utl if r['utility_basis'] == 'general utility only')}).",
+          f"- Claims with a result in the same report that cuts against them: {sum(r['contradicted_by'] > 0 for r in cs)} "
+          f"({ids(r['claim_uid'] for r in cs if r['contradicted_by'] > 0)}).",
+          f"- Cross-paper readings (purpose X): {len(xs)}, of which grade U: {sum(r['grade'] == 'U' for r in xs)} (analysis/orderings.csv, purpose = X). "
+          "An unreported condition on either side leaves the reading not assessable.",
+          "- Conditions left unreported in comparisons: " + "; ".join(f"{g['condition']} {g['comparisons_unreported']} (reports {g['reports']})" for g in gap_rows)
+          + " (analysis/reporting_gaps.csv); these are the lines the Injection Defence Card asks for.", ""]
+    wa = [r for r in od if r["grade"] == "A" and r["purpose"] in ("W", "M")]
+    F += ["## 6. Orderings", "",
+          f"- Grade-A comparisons between two defended arms inside one report: {len(wa)} ({sum(r['purpose'] == 'W' for r in wa)} whole-configuration, "
+          f"{sum(r['purpose'] == 'M' for r in wa)} mechanism) in {len({r['report'] for r in wa})} reports (analysis/orderings.csv, grade = A). "
+          "These are the only orderings the review states, each inside its own report.",
+          f"- No ordering across papers is supported: every cross-paper reading is grade {', '.join(sorted({r['grade'] for r in xs})) or 'none'}.", ""]
+    F += ["## 7. Stress tests (RQ4)", "",
+          f"- Methods that faced an adaptive, optimisation, RL or human attacker, in their own paper or a later one: {pct(sum(r['pushed_hard'] == 'yes' for r in st), len(st))} "
+          "(analysis/stress_tests.csv).",
+          f"- Faced one in their own paper: {sum(bool(r['own_stress_attackers']) for r in st)}; only in a later paper: "
+          f"{sum(bool(r['later_stress_attackers']) and not r['own_stress_attackers'] for r in st)}; white-box attack in their own paper: {sum(r['own_white_box'] > 0 for r in st)}.",
+          f"- Run with the signal removed or moved: {sum(r['signal_removal_run'] == 'yes' for r in st)}; re-measured by a later paper: "
+          f"{sum(bool(r['later_reports']) for r in st)}.",
+          "- Trained methods pushed by a stronger attacker: " + pct(sum(r['pushed_hard'] == 'yes' for r in st if r['trained'] == 'yes'), sum(r['trained'] == 'yes' for r in st))
+          + "; prompting or fixed-rule methods: " + pct(sum(r['pushed_hard'] == 'yes' for r in st if r['trained'] == 'no'), sum(r['trained'] == 'no' for r in st)) + ".", ""]
+    F += ["## 8. Suppression cost per security point", "",
+          f"- Published pairs with security and non-suppression for a defended and the undefended configuration in one grade-A comparison: {len(scs)}, "
+          f"all in {ids({s['report'] for s in scs})} (analysis/scs.csv).",
+          *[f"- {s['defence']} on {s['base']}: SCS {s['SCS']} (R3ns {s['R3ns_undefended']} to {s['R3ns_defended']}, R1 {s['R1_undefended']} to {s['R1_defended']}; "
+            f"{s['result_uids']})." for s in scs],
+          f"- The {len({u['result_uid'] for u in used})} printed values behind these pairs were read by eye against their page (analysis/values_used_05.csv). "
+          "SCS is computed only from published pairs and is not called a benchmark.", ""]
+    D = [f"decision_05: ANALYSIS DONE; GATE G4 PASSED", f"this step: {today}",
+         f"from the records of notebook 04 ({c04}) and later record patches; outputs in reports/analysis/ and reports/findings_05.md",
+         f"methods {len(meths)}; cells holding a method {len(filled)} of {len(mp)}; claims {len(cs)}; configurations {len(cfg)}",
+         f"supported orderings: {len(wa)} grade-A comparisons between two defended arms, each inside its own report ({len({r['report'] for r in wa})} reports), "
+         "listed in reports/analysis/orderings.csv",
+         f"not supported: any ordering across papers ({len(xs)} cross-paper readings, grade {', '.join(sorted({r['grade'] for r in xs})) or 'none'})",
+         f"printed values the findings use: {len({u['result_uid'] for u in used})}, every one read by eye against its page",
+         "next: notebook 06_figures (figures 1 to 10 at 600 dpi with paper names; dpi, size and label-overlap checks)"]
+    return {"tables": T, "findings": F, "decision": D,
+            "summary": {"methods": len(meths), "cells": len(filled), "claims": len(cs), "configurations": len(cfg), "orderings_A": len(wa),
+                        "cross_paper": len(xs), "scs": len(scs)}}

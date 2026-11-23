@@ -1,8 +1,8 @@
 decision_05: ANALYSIS DONE; GATE G4 PASSED
 this step: 2026-11-23
-from the records of notebook 04 (3ba84f2); outputs in reports/analysis/ and reports/findings_05.md
+from the records of notebook 04 (3ba84f2) and later record patches; outputs in reports/analysis/ and reports/findings_05.md
 methods 95; cells holding a method 31 of 56; claims 158; configurations 843
 supported orderings: 780 grade-A comparisons between two defended arms, each inside its own report (60 reports), listed in reports/analysis/orderings.csv
 not supported: any ordering across papers (48 cross-paper readings, grade U)
-printed values the findings use: 8, every one read by eye against its page
+printed values the findings use: 10, every one read by eye against its page
 next: notebook 06_figures (figures 1 to 10 at 600 dpi with paper names; dpi, size and label-overlap checks)

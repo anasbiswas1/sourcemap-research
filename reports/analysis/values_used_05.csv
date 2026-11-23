@@ -3,6 +3,10 @@ secfid_arxiv2026:r_aside_e,suppression cost secfid_arxiv2026:c_aside,5.7,6,Table
 secfid_arxiv2026:r_base_e,suppression cost secfid_arxiv2026:c_aside,49.1,6,Table 1,one occurrence on the page,read by eye: matches
 secfid_arxiv2026:r_aside_i,suppression cost secfid_arxiv2026:c_aside,24.7,6,Table 1,more than one occurrence on the page: read the cell,read by eye: matches
 secfid_arxiv2026:r_base_i,suppression cost secfid_arxiv2026:c_aside,7.7,6,Table 1,one occurrence on the page,read by eye: matches
+secfid_arxiv2026:r_ise_e,suppression cost secfid_arxiv2026:c_ise,14.0,6,Table 1,one occurrence on the page,read by eye: matches
+secfid_arxiv2026:r_base_e,suppression cost secfid_arxiv2026:c_ise,49.1,6,Table 1,one occurrence on the page,read by eye: matches
+secfid_arxiv2026:r_ise_i,suppression cost secfid_arxiv2026:c_ise,20.3,6,Table 1,one occurrence on the page,read by eye: matches
+secfid_arxiv2026:r_base_i,suppression cost secfid_arxiv2026:c_ise,7.7,6,Table 1,one occurrence on the page,read by eye: matches
 secfid_arxiv2026:r_msa_e,suppression cost secfid_arxiv2026:c_msa,0.7,6,Table 1,more than one occurrence on the page: read the cell,read by eye: matches
 secfid_arxiv2026:r_base_e,suppression cost secfid_arxiv2026:c_msa,49.1,6,Table 1,one occurrence on the page,read by eye: matches
 secfid_arxiv2026:r_msa_i,suppression cost secfid_arxiv2026:c_msa,26.1,6,Table 1,one occurrence on the page,read by eye: matches

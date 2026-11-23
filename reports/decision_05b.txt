@@ -1,0 +1,9 @@
+decision_05b: SECFID RECORD PATCHED (c_ise added); EXTRACTION AND ANALYSIS OUTPUTS REGENERATED
+this step: 2026-11-23
+patch: reports/records/secfid_arxiv2026.yaml, comparison c_ise (ev_ise against ev_base, purpose W, conditions as c_aside) and c_ise added to claim k1
+checks: schema, every value and anchor on its page, amended rules, corpus-wide; comparisons in the record 6, all grade A
+regenerated from the records: reports/extraction/*.csv (15730 rows; comparisons 3647), reports/extraction/decisive_values_04.csv (5398 rows), reports/analysis/*.csv, reports/findings_05.md, reports/decision_05.txt
+decision_04.txt is left as written; its counts predate this patch: comparisons 3646 -> 3647, decisive values 5395 -> 5398
+suppression cost pairs: 4: ASIDE 0.39; ISE 0.36; Meta-SecAlign-8B 0.38; DefensiveTokens 0.97
+printed values the findings use: 10, every one read by eye against its page
+next: notebook 06_figures

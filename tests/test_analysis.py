@@ -96,3 +96,16 @@ def test_crosswalk_claims_orderings_stress_and_scs():
     assert s["own_stress_attackers"] == "adaptive" and s["own_white_box"] == 1 and s["later_stress_attackers"] == "optimisation"
     sc = A.scs_pairs(recs, schema_mod.grade)
     assert len(sc) == 1 and sc[0]["SCS"] == 0.5                         # (90 - 70) / (90 - 50)
+
+
+def test_run_writes_every_table_and_checks_read_values():
+    recs = fixture()
+    import pytest
+    with pytest.raises(ValueError):
+        A.run(recs, schema_mod.grade, schema_mod.CONDITIONS, "abc1234", {}, {}, "2026-01-01")
+    read = {"a:r1": "10.0", "a:r0": "50.0", "a:i1": "30.0", "a:i0": "10.0"}
+    out = A.run(recs, schema_mod.grade, schema_mod.CONDITIONS, "abc1234", read, {}, "2026-01-01")
+    assert set(out["tables"]) == {"methods", "map", "signal_dependence", "layout_compat", "coverage_by_paper", "coverage_by_configuration",
+                                  "coverage_by_family", "crosswalk", "claim_support", "orderings", "reporting_gaps", "stress_tests", "scs", "values_used_05"}
+    assert out["summary"]["methods"] == 1 and out["summary"]["scs"] == 1
+    assert any("SCS 0.5" in line for line in out["findings"]) and out["decision"][0].startswith("decision_05")
