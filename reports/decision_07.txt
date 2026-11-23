@@ -1,0 +1,5 @@
+decision_07: 13 MANUSCRIPT TABLES WRITTEN WITH RECORD IDS; MANUSCRIPT CHECK PENDING (no draft yet)
+this step: 2026-11-23
+tables: tables/*.docx and tables/*.csv; trace: reports/trace_07.csv (598 cells), reports/trace_07.txt
+manuscript check: no .docx in data/manuscript/ yet; the check runs when a draft is placed there and this notebook is run again
+next: the Word draft of the manuscript, written from reports/findings_05.md, the figures and these tables; place it in data/manuscript/ and run this notebook again for the claim-to-result check (gate G5)

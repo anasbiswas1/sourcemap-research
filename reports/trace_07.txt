@@ -1,0 +1,16 @@
+trace_07: 13 tables, 598 numeric cells, every one with its record ids and rule (reports/trace_07.csv)
+this step: 2026-11-23; from the tables committed up to 32283de
+  t01_map: 8 rows, 47 numeric cells: The map: methods per cell, how the source is shown at inference (columns) against how the behaviour was built (rows)
+  t02_coverage: 6 rows, 37 numeric cells: Coverage of the three jobs: papers reporting each quantity, evaluated configurations covering it, and joint scoring
+  t03_family: 17 rows, 34 numeric cells: Named method families: which quantities the proposing paper measured and which any paper in the corpus measured
+  t04_crosswalk: 42 rows, 129 numeric cells: Metric crosswalk: what each kind of metric in the corpus counts and what it cannot see
+  t05_claims: 5 rows, 36 numeric cells: Support for headline claims: claims by job and by the best grade of their supporting comparisons
+  t06_claims_below_a: 7 rows, 17 numeric cells: Headline claims whose best supporting comparison is below grade A, with the condition at fault
+  t07_signal: 2 rows, 12 numeric cells: Signal dependence: whether a method with an inference-time signal was run with that signal removed or moved
+  t08_signal_measured: 10 rows, 18 numeric cells: Methods run with their signal removed or moved, and what the run showed
+  t09_stress: 3 rows, 21 numeric cells: Stress tests: methods that faced an attacker beyond fixed injections, white-box attacks, signal-removal runs and later re-measurement
+  t10_scs: 4 rows, 25 numeric cells: Suppression cost per security point, from published pairs in one re-measurement
+  t11_layout: 4 rows, 12 numeric cells: Layout compatibility: methods marked supported, unsupported or untested for each deployment layout
+  t12_gaps: 6 rows, 12 numeric cells: Conditions left unreported in the coded comparisons, the lines the Injection Defence Card asks for
+  ta1_methods: 95 rows, 198 numeric cells: Appendix: the methods in the corpus with their position on the map, signal dependence and released weights
+manuscript check: no .docx in data/manuscript/ yet; the check runs when a draft is placed there and this notebook is run again

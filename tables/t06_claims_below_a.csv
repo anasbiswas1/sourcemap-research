@@ -1,0 +1,8 @@
+Report,Claim,Jobs,Best grade,Condition unmatched or unreported,record_ids,rule
+bipia_kdd2025,the white-box defence brings attack success to near zero,R1,B,Decoding,bipia_kdd2025:k2,analysis/claim_support.csv
+gemini_arxiv2025,ongoing adaptive evaluations directly help make Gemini more resilient,R1,B,Base model,gemini_arxiv2025:k1,analysis/claim_support.csv
+gptred_arxiv2026,adversarial training with GPT-Red makes GPT-5.6 the developer's most robust model to prompt injections to date,R1,B,Base model,gptred_arxiv2026:k1,analysis/claim_support.csv
+ignorednotrefused_arxiv2026,changing only the system prompt shifts InjecAgent ASR from 0.2% to 43% with the same weights,R1,B,Benchmark and split,ignorednotrefused_arxiv2026:k1,analysis/claim_support.csv
+jatmo_arxiv2023,"best attacks succeed in under 0.5% of cases against Jatmo models, against 87% on GPT-3.5-Turbo",R1,B,Base model,jatmo_arxiv2023:k1,analysis/claim_support.csv
+jatmohouyi_arxiv2025,Jatmo lowers attack success relative to an instruction-tuned model but does not fully prevent injections,R1,B,Base model,jatmohouyi_arxiv2025:k1,analysis/claim_support.csv
+piarena_arxiv2026,state-of-the-art defences generalise poorly across tasks and are vulnerable to adaptive attacks,"R1, R2",U,Base model,piarena_arxiv2026:k1,analysis/claim_support.csv
