@@ -1,0 +1,8 @@
+decision_06: 10 FIGURES DRAWN AND CHECKED
+this step: 2026-11-23
+from the tables committed up to 8e0fddd; figures in figures/ (png at 600 dpi and pdf)
+checked by code: dpi 600 or more, width at that dpi within a double-column page (7.3 in), pdf present, no overlapping text labels, no record-schema code in any legend or axis (reports/figures_06.csv)
+checked by eye before delivery: label overlap and reading order on every vector version
+figures: fig01_map 7.2 x 6.9 in; fig02_outcomes 7.2 x 3.9 in; fig03_crosswalk 7.2 x 5.2 in; fig04_coverage 7.2 x 11.47 in; fig05_claims 7.2 x 5.0 in; fig06_stress 7.2 x 5.8 in; fig07_scs 4.6 x 3.6 in; fig08_layout 6.0 x 11.28 in; fig09_prisma 7.2 x 6.4 in; fig10_card 7.2 x 9.13 in
+card: template schema/injection_defence_card.yaml; worked example metasecalign_arxiv2025:meta_secalign in reports/cards/
+next: notebook 07_manuscript_tables (Word tables from the CSVs with a result-id column; the claim-to-result check against the manuscript)

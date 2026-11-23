@@ -1,0 +1,47 @@
+injection_defence_card:
+  version: 1
+  sections:
+  - section: Defence
+    fields:
+      name: ''
+      report: ''
+      base checkpoints: ''
+      weights released: ''
+  - section: Position on the map
+    fields:
+      'axis 1: source shown at inference': ''
+      'axis 2: how the behaviour was built': ''
+      components: ''
+  - section: Layout
+    fields:
+      layout per evaluated arm: ''
+      'signal dependence: test and result': ''
+      layout compatibility: ''
+  - section: Evaluations
+    fields:
+      benchmark and split: ''
+      attacker type, access and budget: ''
+      judge and denominator: ''
+      decoding: ''
+  - section: Three jobs
+    fields:
+      R1: ''
+      R2clean: ''
+      R2attack: ''
+      R3 (which reading): ''
+      all three on the same replies: ''
+  - section: Comparisons
+    fields:
+      purpose: ''
+      six conditions: ''
+      grade: ''
+  - section: Stress tests
+    fields:
+      adaptive or white-box attacks run: ''
+      signal-removal run: ''
+      later re-measurement: ''
+  - section: Release
+    fields:
+      code: ''
+      weights: ''
+      record id in this corpus: ''

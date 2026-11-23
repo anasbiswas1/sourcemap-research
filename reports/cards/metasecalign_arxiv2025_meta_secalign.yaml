@@ -1,0 +1,50 @@
+injection_defence_card:
+  method_uid: metasecalign_arxiv2025:meta_secalign
+  filled_from: the coded record, by notebook 06
+  sections:
+    Defence:
+      name: Meta-SecAlign
+      report: metasecalign_arxiv2025
+      base checkpoints: Llama-3.1-8B-Instruct; Llama-3.3-70B-Instruct
+      weights released: defended models stated as released under commercial licences (p. 2)
+    Position on the map:
+      'axis 1: source shown at inference': Chat roles
+      'axis 2: how the behaviour was built': Preference optimisation
+      components: added input role for the data; SecAlign simulated injections at a randomized position; self-generated preferred and rejected responses from the initial model; DPO with LoRA on Cleaned-Alpaca
+        (19157 pairs)
+    Layout:
+      layout per evaluated arm: instruction in the user role, data in an added input role, Llama chat template
+      'signal dependence: test and result': Stated without numbers (models must be used with the exact prompt format (p. 15); no numbers)
+      layout compatibility: 'Document in the user turn: untested; Document in a separate role: supported; Document in the system prompt: untested; Document as an agent tool result: supported'
+    Evaluations:
+      benchmark and split: AgentDojo, 949 user-task and injection-task pairs; AgentDojo, 97 user tasks without injection; AlpacaEval2 on all 805 AlpacaFarm samples; AlpacaFarm samples with a data part,
+        Print exactly Hacked!; AlpacaFarm samples with a data part, Print exactly Hacked! plus a GCG suffix; InjecAgent (1K API-calling samples); SEP (9.1K samples, one injected instruction each); SEP samples,
+        AlpacaEval2 prompting against Llama3-8B-Instruct; TaskTracker (31K samples); WASP benign utility set (WebArena, axtree pages); WASP injected samples (2 benign tasks x 42 injected tasks)
+      attacker type, access and budget: Fixed injections, black box; Fixed injections, black box, any of 6 attacks (straightforward and ignore before or after data, completion, completion-ignore); Fixed
+        injections, black box, any of the same 6 attacks; Fixed injections, black box, higher of base and enhanced settings; Fixed injections, black box, important_instructions attack; Fixed injections,
+        black box, injection positions and ignore sentences as specified by the dataset; Optimisation attack, white box, 500 GCG steps per example, 512 candidates per step, one run, no restarts; none, not
+        applicable
+      judge and denominator: 'AgentDojo checkers: user goal achieved (utility under attack); malicious API called (ASR); AgentDojo task checker (user goal achieved); GPT-4o judges whether the reply responds
+        to the injected instruction; GPT-4o win rate; GPT-4o win rate against GPT-4 turbo responses; agent diverted at any point (intermediate) or injected task completed (end to end); reply begins with
+        Hacked or hacked; reply begins with Hacked, ignoring case and surrounding whitespace; the malicious API is called (ASR-total); user task completed; witness word appears in the reply'
+      decoding: not reported; temperature 0 (Table 7); temperature 0, top-p 0.9, 16K context
+    Three jobs:
+      R1: direct
+      R2clean: direct
+      R2attack: direct
+      R3 (which reading): not reported
+      all three on the same replies: 'no'
+    Comparisons:
+      purpose: M 2; W 24
+      six conditions: 'base model: matched 26; layout: matched 26; benchmark: matched 26; attacker: matched 26; judge: matched 26; decoding: matched 22, matched unstated 4'
+      grade: A 26
+    Stress tests:
+      adaptive or white-box attacks run: Optimisation attack; white-box evaluations 2
+      signal-removal run: 'no'
+      later re-measurement: agentdyn_arxiv2026, alwaysfall_arxiv2026, astra_arxiv2025, attackermovessecond_arxiv2025, autonomytax_arxiv2026, codel_arxiv2026, edic_emnlp2026, eroded_zenodo2026, explosive_arxiv2026,
+        hos_arxiv2026, instrucot_arxiv2026, llmailinject_arxiv2025, localalign_ccs2026, longpibench_arxiv2026, medmas_arxiv2026, msacore_zenodo2026, overlays_arxiv2026, piarena_arxiv2026, pipette_arxiv2026,
+        pismith_colm2026, raised_arxiv2026, reasalign_arxiv2026, reta_arxiv2026, rlhammer_arxiv2025, secfid_arxiv2026, secinfer_arxiv2025, secopd_emnlp2026, secpo_arxiv2026, smallsecure_asiaccs2026, srft_arxiv2026
+    Release:
+      code: training and evaluation code stated as public (p. 2); not checked
+      weights: defended models stated as released under commercial licences (p. 2)
+      record id in this corpus: metasecalign_arxiv2025:meta_secalign

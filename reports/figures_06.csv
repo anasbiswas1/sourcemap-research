@@ -1,0 +1,11 @@
+figure,png,pdf,pixels,dpi,width_in,height_in,width_in_at_dpi,text_overlaps,schema_codes_in_text,status
+fig01_map,fig01_map.png,fig01_map.pdf,4357x4126,600,7.2,6.9,7.26,0,0,ok
+fig02_outcomes,fig02_outcomes.png,fig02_outcomes.pdf,4372x2376,600,7.2,3.9,7.29,0,0,ok
+fig03_crosswalk,fig03_crosswalk.png,fig03_crosswalk.pdf,4266x2872,600,7.2,5.2,7.11,0,0,ok
+fig04_coverage,fig04_coverage.png,fig04_coverage.pdf,4341x6536,600,7.2,11.47,7.24,0,0,ok
+fig05_claims,fig05_claims.png,fig05_claims.pdf,4314x2808,600,7.2,5.0,7.19,0,0,ok
+fig06_stress,fig06_stress.png,fig06_stress.pdf,3946x3284,600,7.2,5.8,6.58,0,0,ok
+fig07_scs,fig07_scs.png,fig07_scs.pdf,2430x2142,600,4.6,3.6,4.05,0,0,ok
+fig08_layout,fig08_layout.png,fig08_layout.pdf,3522x6432,600,6.0,11.28,5.87,0,0,ok
+fig09_prisma,fig09_prisma.png,fig09_prisma.pdf,4356x3876,600,7.2,6.4,7.26,0,0,ok
+fig10_card,fig10_card.png,fig10_card.pdf,4356x5516,600,7.2,9.13,7.26,0,0,ok
